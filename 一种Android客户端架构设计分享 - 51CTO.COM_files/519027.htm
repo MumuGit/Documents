@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="gb2312">
+<meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="di1DVXhtb1cxYgECPDIwBhVGJCUsBSwDRmE6DxsCMCYgHi1jExUNMQ==">
+<title>微信小程序：原生热布局终将改变世界 - 51CTO.COM</title>
+<meta name="description" content="微信小程序分为工程和页面两部分，工程由三个文件组成：app.js、app.json和app.wxss。其中app.js是JavaScript文件，用于编写全局的事件，如微信小程序启动时要执行的代码，有点像iOS工程中AppDelegate.m文件的作用。"/>
+<meta name="keywords" content="微信,原生热,Web"/>
+<base target="_blank" />
+<link rel="stylesheet" type="text/css" href="http://static4.51cto.com/51cto/cms/2016/css/article_head.css?v=0.1"/>
+<link rel="stylesheet" type="text/css" href="http://static1.51cto.com/51cto/cms/2016/css/article_layout.css?v=2.15"/>
+<link rel="stylesheet" type="text/css" href="http://static5.51cto.com/51cto/cms/zhuanlan/css/article_zhuanlan.css" />
+<script type="text/javascript" src="http://gc.kis.scr.kaspersky-labs.com/90FBA76A-2BFB-C140-8FCC-C790FBCED0F6/main.js" charset="UTF-8"></script><script src='http://images.51cto.com/images/home_2015/js/jquery.js'></script>
+<script type="text/javascript" src="http://static5.51cto.com/51cto/cms/zhuanlan/js/add.js"></script>
+<script type="text/javascript" src="http://images.51cto.com/images/home_2015/js/slide.js"></script>
+<script type="text/javascript" src="http://static3.51cto.com//51cto/cms/bdtj/zhuanlan.js"></script>
+</head>
+<body>
+<!-- top start -->
+<div class="home-top" id="topx">
+    <div class="w1001 cent">
+        <div class="pdr10 fl">中国领先的IT技术网站</div>
+        <div class="pdr10 fl">|</div>
+        <div class="pdr10 fl">
+            <div class="subweb"><span class="trans">51CTO旗下网站</span><i></i>
+                <!--旗下网站-->
+                <div class="subweb-list">
+                    <a href="http://www.51cto.com" target="_blank">51CTO.com</a>
+                    <a href="http://cio.51cto.com" target="_blank">CIOage.com</a>
+                    <a href="http://www.watchstor.com" target="_blank">WatchStor.com</a>
+                    <a href="http://www.hc3i.cn" target="_blank">HC3i.cn</a>
+                </div>
+                <!--旗下网站-->
+            </div>
+        </div>
+        <div class="pdr10 fl">|</div>
+        <div class="pdr10 fl"><a href="http://www.51cto.com/about/map.htm" target="_blank">地图</a></div>
+        <div class="top-r">
+        <div id="login_status" style="text-align:right;" class="login"> </div>
+        </div>
+    </div>
+</div>
+<!-- top end -->
+<div class="top-nav1">
+        <div class="w1001 m105" id="ad_14">
+		    <div class="wrap">
+			<div id="tonglanad" style="float:left;"></div>
+			<div id="list4" class="right">
+				<ul>
+					<li id="wordlinkad1"></li>
+					<li id="wordlinkad2"></li>
+					<li id="wordlinkad3"></li>
+					<li id="wordlinkad4"></li>
+				</ul>
+			</div>
+		</div>
+		</div>
+</div>
+<div class="top-nav">
+    <div class="w1001">
+        <div class="logo_left mt20"><a href="http://www.51cto.com" target="_blank"><img src="http://static3.51cto.com/51cto/cms/zhuanlan/images/logo.png"></a></div>
+        <div class="nav">
+            <h2>专栏</h2>
+            <ul>
+                <li><a href="/" target="_blank">首页</a></li>
+                <li><a href="/col/1700/" target="_blank">时评</a></li>
+                <li><a href="/col/1701/" target="_blank">云计算</a></li>
+                <li><a href="/col/1702/" target="_blank">大数据</a></li>
+                <li><a href="/col/1703/" target="_blank">软件</a></li>
+                <li><a href="/col/1704/" target="_blank">安全</a></li>
+                <li><a href="/col/1705/" target="_blank">开发</a></li>
+                <li><a href="/col/1706/" target="_blank">移动</a></li>
+                <li><a href="/col/1707/" target="_blank">企业计算</a></li>
+            </ul>
+        </div>
+        <a href="/submit/" class="cjzl" target="_blank">创建专栏</a>
+        <div class="nav-rsear">
+            <form method="get" action="http://other.51cto.com/php/search.php" name="searchform" target="_blank">
+                <input name="q" id="q" type="text" placeholder="输入您要搜索的内容" class="sear-1">
+                <input name="" type="submit" value="" class="sear-2">
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#list4').css('position', 'relative');
+    $('#list4').children().append('<div style="right: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png) repeat scroll 0% 0%; bottom: 2px;"></div>');
+</script>
+
+<div class="blank_div"></div>
+<!-- nav end -->
+<div class="main">
+	<div class="main_left">
+		<div class="wznr">
+			<h2>微信小程序：原生热布局终将改变世界</h2>
+			<p>微信小程序分为工程和页面两部分，工程由三个文件组成：app.js、app.json和app.wxss。其中app.js是JavaScript文件，用于编写全局的事件，如微信小程序启动时要执行的代码，有点像iOS工程中AppDelegate.m文件的作用。</p>
+			<dl>
+				<dt><span>作者：李宁</span>|<em>2016-10-31 13:12</em></dt>
+				<dd>
+                	<div class="left" style="padding-right: 10px">
+                		<a href="javascript:favorBox('open');" title="一键收藏，随时查看，分享好友！" target="_self" class="bds_more1">&nbsp;收藏</a>
+                	</div>
+				    <div class="bdsharebuttonbox left" data-tag="share_2">
+						<a href="javascript:;" class="bds_more" data-cmd="more">&nbsp;&nbsp;分享</a>
+					</div>
+                </dd>
+			</dl>
+			
+		</div>
+		<div class="zwnr">
+		    <h2><a href="#" target="_blank"></a></h2>
+            <p style="text-align: center;"><a href="http://s1.51cto.com/wyfs02/M01/89/0B/wKiom1gF3U-Ah4QCAALyAlDBN9o303.jpg-wh_651x-s_3013289558.jpg" target="_blank"><img   border="0" src="http://s1.51cto.com/wyfs02/M01/89/0B/wKiom1gF3U-Ah4QCAALyAlDBN9o303.jpg-wh_651x-s_3013289558.jpg" alt="" /></a></p>
+<p style="text-align: left;"><br />
+Hello！大家好，我是51CTO学院讲师李宁，在学院<a href="http://edu.51cto.com/activity/lists/id-37.html?jinrizhongdian">11.11（全民IT学习节）</a>到来之际，写了这篇技术文章，和大家分享一下。正文来啦~~~</p>
+<p>最近朋友圈已经被微信小程序刷屏了，这也难怪，腾讯的产品拥有广泛的影响力，随便推出个东西，都会有很多人认为会改变世界，这不，张小龙刚一发布微信小程序的消息，很多人(技术的和非技术的)就跟打了鸡血似的，估计现在已经鸡血告急了!</p>
+<p>我也看了网上的一些关于微信小程序的文章，估计那帮家伙连微信小程序是什么都没搞清楚，就在那里一本正经地胡说八道。好吧!我就通过本文让大家了解一些什么是微信小程序，以及微信小程序到底能为我们带来什么。</p>
+<p>关于微信小程序的误解和讨论已经太多了。这里就说一些主要的。</p>
+<p>1. 微信小程序与Web(B/S)的关系</p>
+<p>2. 小程序的性能可能不如原生App</p>
+<p>3. 腾讯要做一个AppStore，和苹果、Google对掐</p>
+<p>4. 由于微信小程序入口太深，对于高频应用不适合</p>
+<p>5. 微信小程序会逐渐取代原生App，原生App必将没落</p>
+<p><strong>1. 微信小程序与Web(B/S)的关系</strong></p>
+<p>由于之前有微信公众号，而公众号里面的程序其实就是将移动Web(主要是HTML5、CSS、JavaScript等技术)嵌入到微信中，当然，会调用一些微信提供的API。所以，很多人自然而然会想到，微信小程序用的也是HTML5。不过说实话，微信小程序和HTML5、甚至和Web，一毛钱关系都没用。因为Web就是性能低下的代名词，尤其对于那些追求完美、有强迫症的家伙，在手机上使用Web简直不能忍受。千万别说，等以后手机性能会和现在的PC一样牛叉就好了，哈哈，等到那时候，就会出现比手机更牛叉，更小巧，当然，性能也更差的设备，如果手机成为了PC，那么这些新出现的设备将会取代现在手机的位置。就像永远等待新产品降价再买，真的降价了，又会有更好的产品问世，既享受新产品，又享受低价的时候永远不会到来。</p>
+<p>既然说微信小程序和Web一点关系都没有，那么有什么证据呢?这一点从官方文档的描述就可以看出。感兴趣的读者可以通过下面的地址查看微信小程序官方文档。</p>
+<p><a href="https://mp.weixin.qq.com/wiki">https://mp.weixin.qq.com/wiki</a></p>
+<p>微信小程序分为工程和页面两部分，工程由三个文件组成：app.js、app.json和app.wxss。其中app.js是JavaScript文件，用于编写全局的事件，如微信小程序启动时要执行的代码，有点像iOS工程中AppDelegate.m文件的作用。app.json用于配置微信小程序，如由哪些页面组成，有点像Android工程中AndroidManifest.xml文件的作用。app.wxss是公共样式表，用于设置整个工程都可以使用的样式，有点像Android中theme或style资源，全局都可以使用。</p>
+<p>可能有人会问，微信小程序不是使用了JavaScript吗?难道和Web没有关系。谁告诉你JavaScript和Web有关系了，JavaScript只是一种语言，未必用在Web上，JavaScript同样可以用在服务端，如Node.js。</p>
+<p>微信小程序的页面部分由4个文件组成。这里的页面实际上就是窗口。假设页面名字为index，那么该页面由index.js、index.wxml、index.wxss和index.json组成。index.js用于编写页面的逻辑代码。index.wxml是腾讯自己设计的一种标记语言，可以称为微信标记语言，用于描述UI的。index.wxss是针对该页面的样式表，私有的。index.json是针对页面的配置文件。</p>
+<p>这里关键点是index.wxss。这东西似曾相识，用过React  Native的读者应该很熟悉JSX，一种描述UI的类XML语言。它的基本原理是通过XML文件描述UI，并动态创建原生的UI。例如，React  Native用View来描述顶层视图，用Text来描述文本输出控件，那么，我们可以使用下面的代码来模拟这一动态创建过程。</p>
+<p>Android：</p>
+<pre><ol class="dp-sql"><li class="alt"><span><span class="keyword">View</span><span>&nbsp;component&nbsp;=&nbsp;</span><span class="op">null</span><span>;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>if(tag&nbsp;==&nbsp;&ldquo;<span class="keyword">View</span><span>&rdquo;)&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>{&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>component&nbsp;=&nbsp;new&nbsp;ViewGroup(&hellip;);&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>}&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span><span class="keyword">else</span><span>&nbsp;if(tag&nbsp;==&nbsp;&ldquo;Text&rdquo;)&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>{&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>component&nbsp;=&nbsp;new&nbsp;TextView(&hellip;);&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>}&nbsp;</span></li></ol></pre>
+<p>iOS：</p>
+<pre><ol class="dp-sql"><li class="alt"><span><span>UIView&nbsp;*component;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>if(tag&nbsp;==&nbsp;&ldquo;<span class="keyword">View</span><span>&rdquo;)&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>{&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>component&nbsp;=&nbsp;[UIView&nbsp;new];&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>}&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span><span class="keyword">else</span><span>&nbsp;if(tag&nbsp;==&nbsp;&ldquo;Text&rdquo;)&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>{&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>component&nbsp;=&nbsp;[UILabel&nbsp;new];&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>}&nbsp;</span></li></ol></pre>
+<p>上面描述的是基本的动态创建组件的过程，当然，实际实现要比这个复杂的多，这里只做了原理上的描述。很显然，系统会根据不同平台，以及在JSX中的描述，生成不同的原生组件。</p>
+<p>微信小程序的原理类似，对于React  Native来说，使用的是JSX，而微信小程序用的是wxml(微信标记语言)，一种腾讯自己设计的类JSX的语言，下面是wxml的代码示例。</p>
+<pre><ol class="dp-sql"><li class="alt"><span><span>&lt;</span><span class="keyword">view</span><span>&nbsp;class=</span><span class="string">&quot;container&quot;</span><span>&gt;&nbsp;</span></span></li><li><span>&lt;<span class="keyword">view</span><span>&nbsp;bindtap=</span><span class="string">&quot;bindViewTap&quot;</span><span>&nbsp;class=</span><span class="string">&quot;userinfo&quot;</span><span>&gt;&nbsp;</span></span></li><li class="alt"><span>&lt;image&nbsp;class=<span class="string">&quot;userinfo-avatar&quot;</span><span>&nbsp;src=</span><span class="string">&quot;{{userInfo.avatarUrl}}&quot;</span><span>&nbsp;background-</span><span class="keyword">size</span><span>=</span><span class="string">&quot;cover&quot;</span><span>&gt;&lt;/image&gt;&nbsp;</span></span></li><li><span>&lt;text&nbsp;class=<span class="string">&quot;userinfo-nickname&quot;</span><span>&gt;{{userInfo.nickName}}&lt;/text&gt;&nbsp;</span></span></li><li class="alt"><span>&lt;/<span class="keyword">view</span><span>&gt;&nbsp;</span></span></li><li><span>&lt;<span class="keyword">view</span><span>&nbsp;class=</span><span class="string">&quot;usermotto&quot;</span><span>&gt;&nbsp;</span></span></li><li class="alt"><span>&lt;text&nbsp;class=<span class="string">&quot;user-motto&quot;</span><span>&gt;{{motto}}&lt;/text&gt;&nbsp;</span></span></li><li><span>&lt;/<span class="keyword">view</span><span>&gt;&nbsp;</span></span></li><li class="alt"><span>&lt;/<span class="keyword">view</span><span>&gt;&nbsp;</span></span></li></ol></pre>
+<p>下面则是JSX的代码示例。</p>
+<pre><ol class="dp-sql"><li class="alt"><span><span>&lt;</span><span class="keyword">View</span><span>&nbsp;style={{flex:1}}&gt;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>&lt;DrawerLayoutAndroid&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>ref={drawerLayoutAndroid&nbsp;=&gt;&nbsp;{&nbsp;this.drawerLayoutAndroid&nbsp;=&nbsp;drawerLayoutAndroid;&nbsp;}}drawerWidth={150}&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>drawerPosition={DrawerLayoutAndroid.positions.<span class="func">left</span><span>}&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>renderNavigationView={()&nbsp;=&gt;navigationView}&gt;&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>&lt;<span class="keyword">View</span><span>&nbsp;style={{flex:&nbsp;1,&nbsp;alignItems:</span><span class="string">'center'</span><span>}}&gt;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>&lt;Text&nbsp;style={{margin:&nbsp;10,&nbsp;fontSize:&nbsp;15,&nbsp;textAlign:&nbsp;<span class="string">'right'</span><span>}}&gt;我是主布局内容&lt;/Text&gt;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>&lt;/<span class="keyword">View</span><span>&gt;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>&lt;/DrawerLayoutAndroid&gt;&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>&lt;<span class="keyword">View</span><span>&nbsp;style={{flexDirection:</span><span class="string">'row'</span><span>}}&gt;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>&lt;Text&nbsp;style={{flex:1}}&nbsp;onPress={this.onPress.bind(this)}&gt;<span class="keyword">Open</span><span>&lt;/Text&gt;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>&lt;Text&nbsp;style={{flex:1}}&nbsp;</span><span>&nbsp;</span></li><li class="alt"><span>onPress={()=&gt;this.drawerLayoutAndroid.closeDrawer(0)}&gt;<span class="keyword">Close</span><span>&lt;/Text&gt;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>&lt;/<span class="keyword">View</span><span>&gt;&nbsp;</span></span><span>&nbsp;</span></li><li class="alt"><span>&lt;/<span class="keyword">View</span><span>&gt;&nbsp;</span></span></li></ol></pre>
+<p>从上面两段代码可以看出，JSX和wxml非常类似，只是具体的组件名称和命名风格不同，例如，JSX所有组件名称首字母都大写(如Text)，而wxml所有组件名称首字母都小写(如text)，其他的还有组件属性有一定的差异。</p>
+<p>不管JSX和wxml的代码风格是否一样，系统处理他们的原理都是一样的，就是根据这些代码自动生成原生的组件，就像前面描述的动态创建原生组件的过程一样。</p>
+<p><strong>原生和热布局混合开发</strong></p>
+<p>尽管本文的主标题是微信小程序，不过核心要点则是原生和热布局混合开发。这里只是用微信小程序做一个引子。由于目前移动平台主要有Android和iOS。这两个平台使用的开发技术完全不同(前者主要使用Java，后者主要使用OC或Swift)，所以就需要有一种可以同时开发两种平台的技术，这样理论上开发成本可以节省一半。</p>
+<p>以前比较流行的技术是混合开发(Hybird),这种技术很简单，就是HTML5+CSS+JavaScript的结合。它和木桶原理一样，木桶装多少水，是由最短那个模板决定的，而这三个组合，HTML5就成为那个短板，从而拖慢了Hybird的整体性能。</p>
+<p>其实对于Hybird技术，我们只需要其中的两个优势：跨平台和热更新。跨平台很好理解，各个平台都会有Web浏览器，而热更新主要是逻辑代码和UI布局的热更新。逻辑代码这个不用操心，热更新就用JavaScript好了，这里主要讨论UI布局的热更新。在Hybird时代，使用的是HTML5和CSS。这个组合的热更新没问题，但性能有问题，如果把HTML5组件和原生的组件放到同一个窗口，是可以感觉到他们的不同的。所以现在的主要焦点集中在UI布局既可以实现热更新，性能达到或接近原生组件。HTML5达到了前者的要求，但没有达到后者的要求。我们知道，Android布局使用了Layout，iOS布局使用了storyboard，不管是那种技术，都不支持热更新，都是固化到apk和ipa文件中的。不过，这两种技术都支持动态创建组件，所以React  Native率先推出了利用JSX描述组件的位置、尺寸以及其他属性，然后再根据这些属性动态创建本地组件的技术。其实JSX会生成一种中间状态，我们可以称为虚拟DOM(Virtual  DOM)，其实就是一种中间组件而已，然后系统会根据运行平台的不同(Android和iOS)，将其动态生成不同平台的原生组件，这样很容易实现热更新，因为JSX就是个普通的文本文件，谁都可以从网络上下载，这一点和HTML5相同。由于组件都是动态创建的原生程序，所以和在Layout、storyboard中定义的静态原生组件的性能相同，因此，很容易解决前面描述的问题。我们也可以把这种利用XML或其他格式描述UI布局，并实现动态生成原生组件的技术称为<strong>原生热布局</strong>。</p>
+<p>微信小程序借鉴了React Native的原理。所不同的是，React  Native是通用的，而且可以任意扩展。而微信小程序必须运行在微信提供的架构上，是一种寄生的原生热布局。</p>
+<p>其实，除了React  Native和微信小程序，还有阿里巴巴的Weex(<a href="http://alibaba.github.io/weex">http://alibaba.github.io/weex</a>),这是阿里巴巴前端团队发布的一个开源框架，有兴趣的读者可以到这个地址研究下这些框架。也是用了类似Virtual  DOM的技术，可以三位一体(Android/iOS/HTML5)，这一点，React  Native对应的React.js可以生产HTML5，微信小程序理论上也可以。希望以后能推出类似的技术，开发微信小程序的同时，也可以同时开发基于HTML5的微信公众号。</p>
+<p>通过原生热布局的应用，App的性能完全可以和原生媲美(其实就是动态生成的原生组件)，目前已经有很多类似的框架问世，相信以后会更多。相信这些原生热布局的方式以后会在很长一段时间成为跨平台开发的主流，因为她的颜值实在太高了!</p>
+<p><strong>组件与变量绑定</strong></p>
+<p>微信小程序有一个比较有意思的特性，就是可以将组件和变量进行绑定，当更新组件时(如text)，只需修改变量的值，组件就会做相应的更新，这一点区别于传统更新组件的方式：通过id或name引用组件，然后使用组件中相关方式或属性进行更新。例如，下面的代码：</p>
+<pre><ol class="dp-sql"><li class="alt"><span><span>&lt;text&nbsp;class=</span><span class="string">&quot;user-motto&quot;</span><span>&gt;{{motto}}&lt;/text&gt;&nbsp;&nbsp;</span></span></li></ol></pre>
+<p>其中motto是一个变量，在index.js文件中定义，代码如下：</p>
+
+<pre><ol class="dp-sql"><li class="alt"><span>var&nbsp;app&nbsp;=&nbsp;getApp()&nbsp;</span></li><li><span>Page({&nbsp;</span></li><li class="alt"><span>data:&nbsp;{&nbsp;</span></li><li><span>motto:&nbsp;<span class="string">'Hello&nbsp;World'</span><span>,&nbsp;</span></span></li><li class="alt"><span>userInfo:&nbsp;{}&nbsp;</span></li><li><span>},&nbsp;</span></li><li class="alt"><span>&hellip;&hellip;&nbsp;</span></li><li><span>})&nbsp;</span></li></ol></pre>
+<p>现在只需要修改data中的motto变量的值，text组件就会自动显示该变量的值。</p>
+<p>其实React Native也同样采用了这种方式，只不过React Native也可以采用直接引用组件的方式来更新组件。</p>
+<p><strong>2. 小程序的性能可能不如原生App</strong></p>
+<p>这个问题前面已经回答了，小程序采用了动态生成原生组件的方式。不管里面具体是如何做的，总之，要想让性能达到原生App的程度，除了使用原生组件外，没有其他方式。HTML5再怎么优化，也不可能有原生App的性能。就和汽车速度再快，也不可能超过飞机的速度，因为运动介子不同，也就决定了他的极限。</p>
+<p><strong>3. 腾讯要做一个AppStore，和苹果、Google对掐</strong></p>
+<p>好吧！持这种观点的同学应该比较富有想象力。当然，小程序需要运行在微信中，这是毫无疑问的，从表面上看，确实和AppStore比较像。不过腾讯可能只想做个小程序(你们想多了)，因为微信在国内的用户增长量已经到了极限，不可能有大的飞跃了。腾讯继续另一个东西来刺激增长，也许是来自投资人的压力，或来自盈利的压力，腾讯每隔一段时间必须做点什么，从QQ到微信，再从微信到小程序，就是这样，如果不出所料，在若干年后，如果腾讯还存在的话，可能会推出其他什么东西，估计到时应该会有很多人说，这东西必将取代微信小程序，_^_。</p>
+<p>当然，还有人说，腾讯是要做个OS，其实这就扯远了，腾讯是互联网公司，不是软件公司，做OS不是他的强项。再说，小程序和OS差着十万八千里呢!其实微信小程序就是借用了React  Native的原理(在RN出现的同时，腾讯一直在研究这种技术，估计是为微信小程序做技术上的储备)，将原始热布局嵌入到了微信，并提供了一些公开的接口的微信扩展。我觉得将微信小程序定义为微信扩展更合适。</p>
+<p><strong>4. 由于微信小程序入口太深，对于高频应用不适合</strong></p>
+<p>入口太深，弄浅就好了。Android和iOS很容易直接将App中的功能作为单独的App安装在系统上，作为第一层的图标，这只是技术问题而已，对于腾讯都不是问题。</p>
+<p><strong>5. 微信小程序会逐渐取代原生App，原生App必将没落</strong></p>
+<p>都说了，小程序是微信的扩展，而且由于其封闭性，无法让程序员自由扩展(微信是不可能开源的)，所以小程序不能像React  Native一样可以开发各种App，只是作为微信的一种补充而已。所以原生App在未来仍然将作为主流。当然，也会带来一些不同，可怜的技术哥又多了一个活，就是除了原生App、微信公众号外，还要开发微信小程序!好吧，祝技术哥好运！</p>
+<p><strong>微信小程序的开发</strong></p>
+<p>腾讯自己做了一款小程序开发工具，读者可以从下面的地址下载。</p>
+<p><a href="https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/devtools.html?t=1475052047016">https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/devtools.html?t=1475052047016</a></p>
+<p><strong>下面是截图</strong></p>
+<p style="text-align: center;"><a href="http://s1.51cto.com/wyfs02/M01/89/0B/wKiom1gF2-izQu9OAAB-naD4DeQ358.jpg" target="_blank"><img   border="0" src="http://s1.51cto.com/wyfs02/M01/89/0B/wKiom1gF2-izQu9OAAB-naD4DeQ358.jpg" alt="" /></a></p>
+<p>看样子还不错，不过必须要有App ID才能进行开发。目前小程序在内测阶段，只有受到邀请才能自己生产App  ID。不过大家可以看一下官方的文档，基本可以了解开发的过程。在该页面也包含了小程序中的API和组件列表，和React Native相当接近。</p>
+<p><strong>学习微信小程序的前导技术</strong></p>
+<p>小程序逻辑代码使用的JavaScript，所以要想编写小程序，必须学会JavaScript，除了JavaScript外，读者可以先研究一下React  Native技术，因为这种技术和小程序非常类似，基本上RN学会后，开发小程序就会变得非常轻松。为了让读者尽快进入微信小程序的世界，我特意开发了JavaScript和React  Native的视频课程套餐：<a href="http://edu.51cto.com/pack/view/id-714.html">http://edu.51cto.com/pack/view/id-714.html</a>通过该套餐，读者可以为学习小程序做充分的准备。</p>
+<p><strong>李宁老师简介：</strong></p>
+<p>东北大学计算机专业硕士，51CTO专家博主。曾任沈阳东软股份项目经理，从事软件研究和开发十余年。长久以来一直从事Java、Android(应用和底层)、C++、Objective-C以及跨平台游戏引擎(Cocos2d-x、Unity3D等)的开发和技术指导工作。对国内外相关领域的技术、理论和实践有很深的理解和研究。</p>
+<p>主要著作包括《Android开发权威指南(第二版)》、《Android开发完全讲义(第二版)》、《Android高新之路面试宝典》、《Android深度探索(卷1)：HAL与驱动开发》、《Android应用开发实战(第二版)》、《Java  Web开发技术大全：JSP+Servlet+Struts+Hibernate+Spring》等畅销书。</p>
+<p>【编辑推荐】</p>
+<div>
+<ol>
+    <li><a href="http://developer.51cto.com/art/201610/518596.htm" target="_blank">WebGL初探</a></li>
+    <li><a href="http://zhuanlan.51cto.com/art/201610/518608.htm" target="_blank">微信为什么不丢消息？</a></li>
+    <li><a href="http://mobile.51cto.com/web-518736.htm" target="_blank">微信小程序开发实战&mdash;&mdash;使用UUID、Base64、Chance等</a></li>
+    <li><a href="http://developer.51cto.com/art/201610/518747.htm" target="_blank">WebP支持：超乎你想象</a></li>
+    <li><a href="http://zhuanlan.51cto.com/art/201610/518960.htm" target="_blank">外媒速递：十项诀窍打造出&ldquo;摄人心魄&rdquo;的Web设计成果</a></li>
+</ol>
+</div>
+<div align="right">【责任编辑：<a class="ln" href="mailto:sunsj@51cto.com">武晓燕</a> TEL：（010）68476606】</div>
+<br>
+			<a href="###" class="dzdz zhan" target="_self">点赞 <span>0</span></a>
+		</div>
+		<div class="share5">
+			<ul>
+                <li><a href='http://www.51cto.com/php/search.php?keyword=%CE%A2%D0%C5' target='_blank' class='underline'>微信</a>&nbsp;&nbsp;<a href='http://www.51cto.com/php/search.php?keyword=%D4%AD%C9%FA%C8%C8' target='_blank' class='underline'>原生热</a>&nbsp;&nbsp;<a href='http://www.51cto.com/php/search.php?keyword=Web' target='_blank' class='underline'>Web</a></li>
+            </ul>
+			<dl>
+                <dt><em>分享:</em>
+<div class="bdsharebuttonbox" data-tag="share_1">
+    <a class="wb" data-cmd="tsina"></a>
+    <a class="wx" data-cmd="weixin"></a>
+    <a class="more" data-cmd="more"></a>
+</div>
+</dt>
+<script type="text/javascript">
+    window._bd_share_config = {
+        common : {
+            bdText : document.title
+        },
+        share : [{
+            "bdSize" : 16,
+        }]
+    }
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<!-- Baidu Button END -->
+            </dl>
+            
+		</div>
+		<div class="nrdp comment">
+            <div class='comment center'>
+	<div class='inner center' id="cmscmt_iframe"></div>
+</div>
+<script type="text/javascript" id="UYScript" src="http://comment.51cto.com/static/js/api_js/iframe_cmt.js" async=""></script>
+
+        </div>
+		<div class="dzk">
+			<dl><dt class="show">大家都在看</dt><dt>猜你喜欢</dt></dl>
+			<div>
+				<ul>
+					<li class="show">
+						<div class="djdzk" id="djdzk">
+						</div>
+					</li>
+					<li>
+						<div class="djdzk" id="cnxh">
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="wrap_right">
+    	<div><!-- intel广告位 -->
+
+<span class="mtgg" id="right1_ad" style="height:auto; width:300px;margin-bottom: 10px;">
+
+<script type="text/javascript">
+var s=window.location.toString();
+var s1=s.substr(7,s.length);
+var s2=s1.indexOf(".");
+s=s.substr(7,s2);
+if ( s == 'stor') {
+var str = '<div class="m30" style="position:relative;">';
+str += '<iframe src="http://stor.51cto.com/act/art/intel" scrolling="no" frameborder="0" sytle="" width="300" align="middle" height="360" target ="_parent"></iframe>';
+str +='<div style="left: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png)repeat scroll 0% 0%; bottom: 2px;"></div>';
+str	+= '</div>';
+$('#right1_ad').html(str);
+}else if (s == 'server'){
+var str = '<div class="m30" style="position:relative;">';
+    str += '<iframe src="http://server.51cto.com/act/art/intel" scrolling="no" frameborder="0" sytle="" width="300" align="middle" height="360" target ="_parent"></iframe>';
+    str +='<div style="left: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png)repeat scroll 0% 0%; bottom: 2px;"></div>';
+    str	+= '</div>';
+    $('#right1_ad').html(str);
+}else if(s == 'network'){
+    var str = '<div class="m30" style="position:relative;">';
+    str += '<iframe src="http://network.51cto.com/act/art/intel" scrolling="no" frameborder="0" sytle="" width="300" align="middle" height="360" target ="_parent"></iframe>';
+    str +='<div style="left: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png)repeat scroll 0% 0%; bottom: 2px;"></div>';
+    str	+= '</div>';
+    $('#right1_ad').html(str);
+}
+var timestamp = Date.parse(new Date());
+timestamp = timestamp / 1000;
+    if (s == 'cloud' && timestamp>=1496160000) {
+    var str = "<ins class='dcmads' style='display:inline-block;width:300px;height:360px' data-dcm-placement='N5751.51CTO/B11527656.153459357' data-dcm-rendering-mode='script' data-dcm-http-only data-dcm-app-id=''></ins>";
+
+        $('#right1_ad').html(str);
+//        var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg3.51cto.com/www/delivery/ajs.php');
+//        var m3_r = Math.floor(Math.random()*99999999999);
+//        if (!document.MAX_used) document.MAX_used = ',';
+//        document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+//        document.write ("?zoneid=969");
+//        document.write ('&amp;cb=' + m3_r);
+//        if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+//        document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+//        document.write ("&amp;loc=" + escape(window.location));
+//        if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+//        if (document.context) document.write ("&context=" + escape(document.context));
+//        if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+//        document.write ("'><\/scr"+"ipt>");
+    }
+    if (s == 'bigdata') {
+        var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg2.51cto.com/www/delivery/ajs.php');
+        var m3_r = Math.floor(Math.random()*99999999999);
+        if (!document.MAX_used) document.MAX_used = ',';
+        document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+        document.write ("?zoneid=970");
+        document.write ('&amp;cb=' + m3_r);
+        if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+        document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+        document.write ("&amp;loc=" + escape(window.location));
+        if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+        if (document.context) document.write ("&context=" + escape(document.context));
+        if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+        document.write ("'><\/scr"+"ipt>");
+    }
+</script>
+    <script src='http://www.googletagservices.com/dcm/dcmads.js'></script>
+    </span></div>
+    	<div class="Author_card_r">
+		
+            <dl class="clearfix">
+                <dt><a href="http://zhuanlan.51cto.com/columnlist/36/" target="_blank"><img src="http://s4.51cto.com/wyfs02/M01/89/08/wKioL1gF1ZeD2u-bAAB0SlTk01o276.jpg-wh_84x84-s_3092634455.jpg" width="84" height="84" /></a></dt>
+                <dd>
+                    <h5 class="name"><a href="http://zhuanlan.51cto.com/columnlist/36/" target="_blank">李宁</a></h5>
+                    <p class="intro">51CTO学院签约讲师</p>
+                    <div class="histext"><a href="http://zhuanlan.51cto.com/columnlist/36/" target="_blank">TA的专栏</a></div>
+                </dd>
+            </dl>
+            <div class="hatext">
+            	<span class="haarro"></span>
+                <div class="halist"><a href="http://zhuanlan.51cto.com/art/201610/519054.htm" target="_blank">在阿里云服务器（ECS）上从零开始搭建nginx服务器</a></div><div class="halist"><a href="http://zhuanlan.51cto.com/art/201610/519028.htm" target="_blank">据说有99%的人都会做错的面试题</a></div>
+			</div>
+		
+        </div>
+        <div></div>
+        <div>
+           <div class="news m30">
+                <dl><dt class="show">本周排行</dt><dt>本月排行</dt></dl>
+                <div>
+                    <ul>
+                        <li class="show">
+                        
+                            <a href="http://zhuanlan.51cto.com/art/201610/519433.htm">电商新趋势下的数据分析实践与思考</a>
+						
+                            <a href="http://zhuanlan.51cto.com/art/201610/519973.htm">【廉环话】漫谈信息安全设计与治理之运维支持和IT管理决策</a>
+						
+                            <a href="http://zhuanlan.51cto.com/art/201610/519027.htm">微信小程序：原生热布局终将改变世界</a>
+						
+                            <a href="http://zhuanlan.51cto.com/art/201610/519792.htm">明明是全闪存阵列，为何存储性能仍然不够快</a>
+						
+                            <a href="http://zhuanlan.51cto.com/art/201610/519974.htm">外媒速递：Web设计师必须关注的十大Web设计战略</a>
+						
+                        </li>
+                        <li>
+                        
+                            <a href="http://zhuanlan.51cto.com/art/201610/518980.htm">你知道为什么手机短信验证码需要限定时间么？</a>
+						
+                            <a href="http://zhuanlan.51cto.com/art/201610/519213.htm">当你想买电动车时，又多了一个选择：LeSEE Pro</a>
+						
+                            <a href="http://zhuanlan.51cto.com/art/201610/518347.htm">5个值得关注的最佳Linux安全发行版</a>
+						
+                            <a href="http://zhuanlan.51cto.com/art/201610/519286.htm">【CIO观点】刘帆：做活移动医疗市场不能一味只专注“成本”</a>
+						
+                            <a href="http://zhuanlan.51cto.com/art/201610/519229.htm">择业须知：十大IT安全高薪岗位</a>
+						
+                        </li>
+                       
+                    </ul>
+                </div>
+        	</div>
+        </div>
+		<div></div>
+		<div>
+			<div class="spkc m30">
+            <h2><span>视频课程</span><a href="http://edu.51cto.com/">+更多</a></h2>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-7504.html"><img src="http://s1.51cto.com/images/201610/33fae3412bc2929a671627438dcfd80a75638e.jpg" title="Excel散点气泡图的灵活应用视频课程" alt="Excel散点气泡图的灵活应用视频课程" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-7504.html" target="_blank" title="Excel散点气泡图的灵活应用视频课程">Excel散点气泡图的灵活应用视频课程</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-12087654.html" target="_blank">白永乾</a></em></span><span class="fr"><em>3</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-7502.html"><img src="http://s1.51cto.com/images/201610/2839f9e00f7d001c99794526a359a5562de0a3.JPG" title="VoLTE概述视频课程（由来+利弊+关键技术）" alt="VoLTE概述视频课程（由来+利弊+关键技术）" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-7502.html" target="_blank" title="VoLTE概述视频课程（由来+利弊+关键技术）">VoLTE概述视频课程（由来+利弊+关键技术）</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-4157106.html" target="_blank">孙宇彤</a></em></span><span class="fr"><em>6</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-7498.html"><img src="http://s1.51cto.com/images/201610/818105213e4753171eb1214fec54a9d53e9f92.png" title="JAVA-ACE-架构师系列视频课程- RocketMQ" alt="JAVA-ACE-架构师系列视频课程- RocketMQ" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-7498.html" target="_blank" title="JAVA-ACE-架构师系列视频课程- RocketMQ">JAVA-ACE-架构师系列视频课程- RocketMQ</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-4882415.html" target="_blank">白贺卓</a></em></span><span class="fr"><em>8</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+            </div>
+		</div>
+		<div><div class="areaAd mt5" id="ad_1"></div>
+<div style="display:none">
+<span id="ad1">
+
+<script type='text/javascript'><!--//<![CDATA[
+var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg3.51cto.com/www/delivery/ajs.php');
+var m3_r = Math.floor(Math.random()*99999999999);
+if (!document.MAX_used) document.MAX_used = ',';
+document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+document.write ("?zoneid=693");
+document.write ('&amp;cb=' + m3_r);
+if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+document.write ("&amp;loc=" + escape(window.location));
+if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+if (document.context) document.write ("&context=" + escape(document.context));
+if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='//gg2.51cto.com/www/delivery/ck.php?n=ae95ac07&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='//gg.51cto.com/www/delivery/avw.php?zoneid=693&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ae95ac07' border='0' alt='' /></a></noscript>
+</span>
+    </div>
+<script>
+    document.getElementById('ad_1').innerHTML = document.getElementById('ad1').innerHTML;
+</script></div>
+		<div>
+			<div class="rmzw m30">
+            <h2><span>热门职位</span><a href="http://gaozhao.51cto.com/">+更多</a></h2>
+            <div id="rmzw"></div>
+            </div>
+		</div>
+		<div></div>
+	</div>
+</div>
+<div class="footer_nav">
+   <div class="wrap">
+       <h2>51CTO旗下网站：</h2>
+       <a href="http://www.51cto.com">领先的IT技术网站 51CTO</a>|<a href="http://www.watchstor.com">领先的中文存储媒体 WatchStor</a>|
+       <a href="http://cio.51cto.com">中国首个CIO网站 CIOage </a>|<a href="http://www.hc3i.cn">中国首家数字医疗网站 HC3i</a>
+   </div>
+</div>
+<div id="ft"><div id="foot" align="center"><script src="http://images.51cto.com/images/copy_right/copy_right.js?v=0.1"></script></div></div>
+<div class="clk"><a class="ewm" href="###" target="_self"><img src="http://s4.51cto.com/wyfs02/M02/8F/F5/wKioL1juBMqxNUTrAABZU4J9bqU503.jpg" style="display: none;"></a><a class="yjk" href="#comment" target="_self"></a><a class="topx" href="#topx" target="_self"></a></div>
+<script>
+    $(function(){
+        var host = window.location.host;
+        document.getElementById('cnxh').style.display = '';
+    });
+    var $$ = function(func){
+        if (document.addEventListener) {
+            window.addEventListener("load", func, false);
+        }
+        else if (document.attachEvent) {
+            window.attachEvent("onload", func);
+        }
+    };
+
+    $$(function(){
+        show();
+    });
+    var show = function(){
+        var aa = $('#cmscmt_iframe dl').html();
+        setTimeout(function(){
+            $("[data-track]").live("click", function() {
+                if (aa.indexOf('uid') > -1) {
+                    var label = $(this).data("track") + '-login';
+                } else {
+                    var label = $(this).data("track") + '-not-login';
+                }console.log(label);
+                window._hmt && window._hmt.push(['_trackEvent', label, 'click']);
+
+            });
+        }, 3000);
+    }
+
+</script>
+<script src="http://logs.51cto.com/rizhi/count/count.js"></script>
+<!-- 悬浮广告 -->
+
+<!--end-->
+<!-- 学院广告位 -->
+
+<div id="edu_adver">
+    <div class="aderbox">
+        <span class="educlose">×</span>
+        <a href="http://edu.51cto.com/px/train/108?qizhi"><img src="https://s4.51cto.com/wyfs02/M02/96/DA/wKiom1kmQ-fgN0TKAACZGTYkbSg629.jpg" width="100" height="300" alt="大数据高端培训 仅限10人" title="大数据高端培训 仅限10人"></a>
+    </div>
+</div>
+<style type="text/css">
+    #edu_adver{position:fixed; top:240px; left:50%; margin-left:-623px; width:100px; height:300px; border:1px solid #c4c4c6;}
+    #edu_adver .aderbox{position:relative;}
+    #edu_adver  .educlose{position:absolute; right:6px; top:6px; background:#655c4d; color:#fff; font-size:12px;  display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; cursor:pointer;}
+</style>
+<script>
+    $('#edu_adver .educlose').click(function () {
+        $("#edu_adver").hide();
+    });
+    var s=window.location.toString();
+    var s1=s.substr(7,s.length);
+    var s2=s1.indexOf(".");
+    s=s.substr(7,s2);
+    if(s=="stor"||s=="server"||s=="network"){
+        $("#edu_adver").hide();
+    }
+</script>
+<script>
+$(function(){
+var str = '<div class="fl zxf_showBox" style="padding-right: 10px;position:relative;"> ' +
+        '<a href="###" title=" " target="_self" class="z_bds_more">&nbsp;移动端</a> <div class="navcodebox clearfix">'+
+        '<div class="ico"></div>'+
+        '<span> <img src="http://s4.51cto.com/wyfs02/M01/8F/F4/wKiom1jt98Lh9cl3AAAyECoiqoU042.jpg" width="105" height="107"> <p>51CTO技术博客</p> </span>'+
+        '<span> <img src="http://s5.51cto.com/wyfs02/M02/8E/33/wKioL1i40HrAObC6AAAcvPVCCV0975.jpg" width="105" height="107"> <p>51CTO微站服务号</p> </span>'+
+        '<span><img src="http://s3.51cto.com/wyfs02/M00/8E/33/wKioL1i40HrQZy_TAAAcDOkrRAE327.jpg" width="107" height="107"> <p>51CTO学院客户端</p> </span></div> </div>';
+    $(".wznr dd").prepend(str);
+    $('.zxf_showBox').hover(function(){
+        $(this).find('.navcodebox').show();
+    },function(){
+        $(this).find('.navcodebox').hide();
+    })
+});
+</script>
+<script src="http://home.51cto.com/iframe/iframe-member-adv?www"></script>
+<script type="text/javascript" src="http://static1.51cto.com/51cto/cms/zhuanlan/js/posfixed.js"></script>
+<script type="text/javascript">var artid = 519027</script>
+<script src='http://home.51cto.com/index.php?s=/Index/getLoginStatus2015/reback/http%253A%252F%252Fzhuanlan.51cto.com%252Fart%252F201610%252F519027.htm' charset="utf-8"></script>
+<script type="text/javascript" src="http://static4.51cto.com/51cto/cms/2016/js/article.js?v=1.0"></script>
+<script type="text/javascript" src="http://static5.51cto.com/51cto/cms/2016/js/article_ajax.js?v=2.1"></script>
+<script src="http://other.51cto.com/php/count.php?view=yes&artID=519027" type="text/javascript"></script>
+<script type="text/javascript" src="http://home.51cto.com/apps/favorite/Tpl/default/Public/js/favorbox.js"></script>
+<!--  一大波JS来袭 -->
+<div id="MyMoveAd" style="display:none">
+    <span id="pinglun"><script type="text/javascript" src="http://other.51cto.com/php/getArtCount.php?artid=519027&type=all"></script></span>
+	<span id="tonglan"><script type="text/javascript" src="http://image.51cto.com/ad/art/tonglan/ad.js"></script></span>
+	<span id="wordlink_1"><script src="http://image.51cto.com/ad/art/wordlink/wordlink1.js"></script></span>
+	<span id="wordlink_2"><script src="http://image.51cto.com/ad/art/wordlink/wordlink2.js"></script></span>
+	<span id="wordlink_3"><script src="http://image.51cto.com/ad/art/wordlink/wordlink3.js"></script></span>
+	<span id="wordlink_4"><script src="http://image.51cto.com/ad/art/wordlink/wordlink4.js"></script></span>
+	<span id="wordlink"><script  src="http://image.51cto.com/ad/art/wordlink/ad.js"></script></span>
+</div>
+<script type="text/javascript">
+var thistid=519027;
+//收藏按钮
+var favor_url = 'http://zhuanlan.51cto.com/art/201610/519027.htm';
+var favor_title = '微信小程序：原生热布局终将改变世界';  
+document.getElementById('tonglanad').innerHTML=document.getElementById('tonglan').innerHTML;
+</script>
+</body>
+</html>

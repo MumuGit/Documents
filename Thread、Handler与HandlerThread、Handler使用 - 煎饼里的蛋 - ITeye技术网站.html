@@ -1,0 +1,654 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://oma1989.iteye.com/blog/1991880 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站</title>
+    <meta name="description" content="  Handler会关联一个单独的线程和消息队列。Handler默认关联主线程，虽然要提供Runnable参数，但默认是直接调用Runnable中的run()方法。也就是默认下会在主线程执行，如果在这里面的操作会有阻塞，界面也会卡住。如果要在其他线程执行，可以使用HandlerThread。   HandlerThread继承于Thread，所以它本质就是个Thread。与普通Thread的差别就在 ...">
+    <meta name="keywords" content=" Thread、Handler与HandlerThread、Handler使用">
+    <link rel="shortcut icon" href="http://oma1989.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://oma1989.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://oma1989.iteye.com/rss" rel="alternate" title="煎饼里的蛋" type="application/rss+xml">
+    <link href="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/blue.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/oclm"></script><script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/ca-pub-8990951720398508.js.下载"></script><script type="text/javascript" async="" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/oclm(1)"></script><script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/hm.js.下载"></script><script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/application.js.下载" type="text/javascript"></script>    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e19a8b00cf63f716d774540875007664";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+      <link href="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/shCoreCommon.js.下载" type="text/javascript"></script>
+<script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/hotkey.js.下载" type="text/javascript"></script>
+  <script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/code_favorites.js.下载" type="text/javascript"></script>
+<script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/weiboshare.js.下载" type="text/javascript"></script>
+
+    
+  <style type="text/css">.dp-default .number { color: #C00000; }</style><style type="text/css">.dp-default .number { color: #C00000; }</style></head>
+  <body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div>
+    <div id="header">
+	      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://oma1989.iteye.com/blog/1991880#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">知识库</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+	      <div id="user_nav">
+      <a href="http://oma1989.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://oma1989.iteye.com/login">登录</a>
+    <a href="http://oma1989.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+	    
+    </div>
+
+    <div id="page">
+        <div id="branding" class="clearfix" style="overflow: hidden;background: none;padding:0 0 2px;">
+          <script type="text/javascript">
+            /*Iteye博客内页顶部通栏-960*90，创建于 2016-08-01*/
+            var cpro_id = "u2720131";
+          </script>
+          <script type="text/javascript" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/c.js.下载"></script><div id="BAIDU_SSP__wrapper_u2720131_0"><iframe id="iframeu2720131_0" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/oclm.html" width="960" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:960px;height:90px" allowtransparency="true"></iframe></div>
+        </div>
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://oma1989.iteye.com/">煎饼里的蛋</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://oma1989.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://oma1989.iteye.com/weibo">微博</a></li>
+            <li><a href="http://oma1989.iteye.com/album">相册</a></li>
+            <li><a href="http://oma1989.iteye.com/link">收藏</a></li>
+            <li><a href="http://oma1989.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://oma1989.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://oma1989.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://oma1989.iteye.com/" class="p-author" target="_blank">oma1989</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="http://oma1989.iteye.com/blog/1991880">Thread、Handler与HandlerThread、Handler使用</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://oma1989.iteye.com/category/215686">Android</a></li> </ul>
+        <div class="news_tag">&nbsp;</div>
+    	  
+    	
+    	
+  		
+      </div>
+
+  <div id="blog_content" class="blog_content">
+    <div style="font-size: 14px;" class="iteye-blog-content-contain">
+<p><span style="font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">Handler会关联一个单独的线程和消息队列。<span style="color: #ff0000;">Handler默认关联主线程，虽然要提供Runnable参数，但默认是直接调用Runnable中的run()方法。</span>也就是默认下会在主线程执行，如果在这里面的操作会有阻塞，界面也会卡住。<span style="color: #ff0000;">如果要在其他线程执行，可以使用HandlerThread<strong>。</strong> </span></span></p>
+<p><span style="color: #000000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">HandlerThread继承于Thread，所以它本质就是个Thread。与普通Thread的差别就在于，主要的作用是建立了一个线程，并且创立了消息队列，有来自己的looper,可以让我们在自己的线程中分发和处理消息。</span></p>
+<p>&nbsp;</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Thread、handler代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%3Cspan%20style%3D%22font-size%3A%2012px%3B%22%3Epackage%20com.goma.handlertwo%3B%0A%0Aimport%20android.os.Bundle%3B%0Aimport%20android.os.Handler%3B%0Aimport%20android.os.Message%3B%0Aimport%20android.app.Activity%3B%0Aimport%20android.view.Menu%3B%0Aimport%20android.view.View%3B%0Aimport%20android.widget.Button%3B%0Aimport%20android.widget.ProgressBar%3B%0A%0Apublic%20class%20HandlerActivity%20extends%20Activity%20%7B%0A%20%20%20%20private%20Handler%20handler%20%3D%20null%3B%0A%20%20%20%20private%20ProgressBar%20progressBar%20%3D%20null%3B%0A%20%20%20%20private%20int%20i%20%3D%200%3B%0A%09%40Override%0A%09protected%20void%20onCreate(Bundle%20savedInstanceState)%20%7B%0A%09%09super.onCreate(savedInstanceState)%3B%0A%09%09setContentView(R.layout.activity_handler)%3B%0A%09%09%0A%09%09progressBar%20%3D%20(ProgressBar)findViewById(R.id.pb_id)%3B%0A%09%09Button%20start%20%3D%20(Button)findViewById(R.id.start)%3B%0A%09%09Button%20stop%20%3D%20(Button)findViewById(R.id.stop)%3B%0A%09%09%0A%09%09System.out.println(%22HandlerActivity%3A%3A%3A%3A%3A%22%2BThread.currentThread().getId())%3B%0A%09%09%0A%09%09handler%20%3D%20new%20Handler(new%20Handler.Callback()%20%7B%0A%09%09%09%40Override%0A%09%09%09public%20boolean%20handleMessage(Message%20msg)%20%7B%0A%09%09%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09%09%09System.out.println(%22Handler.CallBack%3A%3A%3A%3A%22%20%2B%20Thread.currentThread().getId())%3B%0A%09%09%09%09progressBar.setProgress(msg.arg1)%3B%0A%09%09%09%09progressBar.setSecondaryProgress(msg.arg1%20%2B%205%20)%3B%0A%09%09%09%09return%20false%3B%0A%09%09%09%7D%0A%09%09%7D)%3B%0A%09%09%0A%09%09start.setOnClickListener(new%20View.OnClickListener()%20%7B%0A%09%09%09%40Override%0A%09%09%09public%20void%20onClick(View%20v)%20%7B%0A%09%09%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09%09%09handler.post(run)%3B%0A%09%09%09%7D%0A%09%09%7D)%3B%0A%09%09%0A%09%09stop.setOnClickListener(new%20View.OnClickListener()%20%7B%0A%09%09%09%40Override%0A%09%09%09public%20void%20onClick(View%20v)%20%7B%0A%09%09%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09%09%09handler.removeCallbacks(run)%3B%0A%09%09%09%7D%0A%09%09%7D)%3B%0A%09%7D%0A%0A%09%40Override%0A%09public%20boolean%20onCreateOptionsMenu(Menu%20menu)%20%7B%0A%09%09%2F%2F%20Inflate%20the%20menu%3B%20this%20adds%20items%20to%20the%20action%20bar%20if%20it%20is%20present.%0A%09%09getMenuInflater().inflate(R.menu.handler%2C%20menu)%3B%0A%09%09return%20true%3B%0A%09%7D%0A%09%0A%09Runnable%20run%20%3D%20new%20Runnable()%20%7B%0A%09%09%40Override%0A%09%09public%20void%20run()%20%7B%0A%09%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09%09System.out.println(%22%23%23%23%23%23%23%23%23%23%23%22%2BThread.currentThread().getId())%3B%0A%09%09%09handler.postDelayed(run%2C%202000)%3B%0A%09%09%09Message%20msg%20%3D%20handler.obtainMessage()%3B%0A%09%09%09msg.arg1%20%3D%20i%20*%2010%20%3B%0A%09%09%09i%2B%2B%3B%0A%09%09%09handler.sendMessage(msg)%3B%0A%09%09%7D%0A%09%7D%3B%0A%7D%0A%3C%2Fspan%3E" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-default"><li><span><span>&lt;span&nbsp;style=</span><span class="string">"font-size:&nbsp;12px;"</span><span>&gt;package&nbsp;com.goma.handlertwo;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.os.Bundle;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.os.Handler;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.os.Message;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.app.Activity;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.view.Menu;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.view.View;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.widget.Button;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.widget.ProgressBar;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>public&nbsp;class&nbsp;HandlerActivity&nbsp;extends&nbsp;Activity&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;Handler&nbsp;handler&nbsp;=&nbsp;null;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;ProgressBar&nbsp;progressBar&nbsp;=&nbsp;null;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;int&nbsp;i&nbsp;=&nbsp;<span class="number">0</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;void&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super.onCreate(savedInstanceState);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setContentView(R.layout.activity_handler);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progressBar&nbsp;=&nbsp;(ProgressBar)findViewById(R.id.pb_id);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button&nbsp;start&nbsp;=&nbsp;(Button)findViewById(R.id.start);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button&nbsp;stop&nbsp;=&nbsp;(Button)findViewById(R.id.stop);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"HandlerActivity:::::"</span><span>+Thread.currentThread().getId());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler&nbsp;=&nbsp;new&nbsp;Handler(new&nbsp;Handler.Callback()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;boolean&nbsp;handleMessage(Message&nbsp;msg)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"Handler.CallBack::::"</span><span>&nbsp;+&nbsp;Thread.currentThread().getId());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progressBar.setProgress(msg.arg1);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progressBar.setSecondaryProgress(msg.arg1&nbsp;+&nbsp;<span class="number">5</span><span>&nbsp;);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;false;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start.setOnClickListener(new&nbsp;View.OnClickListener()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;onClick(View&nbsp;v)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler.post(run);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop.setOnClickListener(new&nbsp;View.OnClickListener()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;onClick(View&nbsp;v)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler.removeCallbacks(run);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;boolean&nbsp;onCreateOptionsMenu(Menu&nbsp;menu)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Inflate&nbsp;the&nbsp;menu;&nbsp;this&nbsp;adds&nbsp;items&nbsp;to&nbsp;the&nbsp;action&nbsp;bar&nbsp;if&nbsp;it&nbsp;is&nbsp;present.&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getMenuInflater().inflate(R.menu.handler,&nbsp;menu);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;true;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Runnable&nbsp;run&nbsp;=&nbsp;new&nbsp;Runnable()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;run()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"##########"</span><span>+Thread.currentThread().getId());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler.postDelayed(run,&nbsp;<span class="number">2000</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Message&nbsp;msg&nbsp;=&nbsp;handler.obtainMessage();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg.arg1&nbsp;=&nbsp;i&nbsp;*&nbsp;<span class="number">10</span><span>&nbsp;;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i++;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler.sendMessage(msg);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li><li><span>&lt;/span&gt;&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="Thread、Handler" codeable_id="" codeable_type="BlogComment" source_url="http://oma1989.iteye.com/blog/1991880#" pre_index="0" title="Thread、Handler与HandlerThread、Handler使用" style="display: none;"><span style="font-size: 12px;">package com.goma.handlertwo;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+
+public class HandlerActivity extends Activity {
+    private Handler handler = null;
+    private ProgressBar progressBar = null;
+    private int i = 0;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_handler);
+		
+		progressBar = (ProgressBar)findViewById(R.id.pb_id);
+		Button start = (Button)findViewById(R.id.start);
+		Button stop = (Button)findViewById(R.id.stop);
+		
+		System.out.println("HandlerActivity:::::"+Thread.currentThread().getId());
+		
+		handler = new Handler(new Handler.Callback() {
+			@Override
+			public boolean handleMessage(Message msg) {
+				// TODO Auto-generated method stub
+				System.out.println("Handler.CallBack::::" + Thread.currentThread().getId());
+				progressBar.setProgress(msg.arg1);
+				progressBar.setSecondaryProgress(msg.arg1 + 5 );
+				return false;
+			}
+		});
+		
+		start.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				handler.post(run);
+			}
+		});
+		
+		stop.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				handler.removeCallbacks(run);
+			}
+		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.handler, menu);
+		return true;
+	}
+	
+	Runnable run = new Runnable() {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("##########"+Thread.currentThread().getId());
+			handler.postDelayed(run, 2000);
+			Message msg = handler.obtainMessage();
+			msg.arg1 = i * 10 ;
+			i++;
+			handler.sendMessage(msg);
+		}
+	};
+}
+</span></pre>
+<p><span style="font-size: 12px;">&nbsp;&nbsp;&nbsp; <span style="color: #ff0000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif;">上面代码System.out输出线程ID相同</span></span></p>
+<p>&nbsp;</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Handlerthread、handler代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%3Cspan%20style%3D%22font-size%3A%2012px%3B%22%3Epackage%20com.goma.handlerthreaddemo%3B%0A%0Aimport%20android.app.Activity%3B%0Aimport%20android.os.Bundle%3B%0Aimport%20android.os.Handler%3B%0Aimport%20android.os.HandlerThread%3B%0Aimport%20android.os.Message%3B%0Aimport%20android.view.Menu%3B%0Aimport%20android.view.View%3B%0Aimport%20android.widget.Button%3B%0A%0Apublic%20class%20HandlerThreadActivity%20extends%20Activity%20%7B%0A%09Handler%20handler%20%3D%20null%3B%0A%0A%09%40Override%0A%09protected%20void%20onCreate(Bundle%20savedInstanceState)%20%7B%0A%09%09super.onCreate(savedInstanceState)%3B%0A%09%09setContentView(R.layout.activity_handler_thread)%3B%0A%0A%09%09System.out.println(%22------------------%3E%22%20%2B%20Thread.currentThread().getId())%3B%0A%0A%09%09HandlerThread%20ht%20%3D%20new%20HandlerThread(%22MyThread%22)%3B%0A%09%09ht.start()%3B%0A%09%09handler%20%3D%20new%20Handler(ht.getLooper()%2C%20new%20Handler.Callback()%20%7B%0A%09%09%09%40Override%0A%09%09%09public%20boolean%20handleMessage(Message%20msg)%20%7B%0A%09%09%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09%09%09int%20tmp%20%3D%20msg.arg1%3B%0A%09%09%09%09System.out.println(Thread.currentThread().getId()%20%2B%20%22%3A%3A%3A%3A%3A%3A%3A%3A%3A%3A%3A%3A%22%20%2B%20tmp)%3B%0A%09%09%09%09return%20false%3B%0A%09%09%09%7D%0A%09%09%7D)%3B%0A%0A%09%09Button%20btn%20%3D%20(Button)%20findViewById(R.id.btn)%3B%0A%09%09btn.setOnClickListener(new%20View.OnClickListener()%20%7B%0A%0A%09%09%09%40Override%0A%09%09%09public%20void%20onClick(View%20v)%20%7B%0A%09%09%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09%09%09handler.post(run)%3B%0A%09%09%09%7D%0A%09%09%7D)%3B%0A%0A%09%09Button%20btn2%20%3D%20(Button)%20findViewById(R.id.btn2)%3B%0A%09%09btn2.setOnClickListener(new%20View.OnClickListener()%20%7B%0A%0A%09%09%09%40Override%0A%09%09%09public%20void%20onClick(View%20v)%20%7B%0A%09%09%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09%09%09handler.removeCallbacks(run)%3B%0A%09%09%09%7D%0A%09%09%7D)%3B%0A%09%7D%0A%0A%09%40Override%0A%09public%20boolean%20onCreateOptionsMenu(Menu%20menu)%20%7B%0A%09%09%2F%2F%20Inflate%20the%20menu%3B%20this%20adds%20items%20to%20the%20action%20bar%20if%20it%20is%20present.%0A%09%09getMenuInflater().inflate(R.menu.handler_thread%2C%20menu)%3B%0A%09%09return%20true%3B%0A%09%7D%0A%0A%09Runnable%20run%20%3D%20new%20Runnable()%20%7B%0A%0A%09%09%40Override%0A%09%09public%20void%20run()%20%7B%0A%09%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09%09handler.postDelayed(run%2C%205000)%3B%0A%09%09%09Message%20msg%20%3D%20handler.obtainMessage()%3B%0A%09%09%09msg.arg1%20%3D%201123%3B%0A%09%09%09handler.sendMessage(msg)%3B%0A%09%09%09System.out.println(%22%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%22%20%2B%20Thread.currentThread().getId())%3B%0A%09%09%7D%0A%09%7D%3B%0A%7D%3C%2Fspan%3E" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-default"><li><span><span>&lt;span&nbsp;style=</span><span class="string">"font-size:&nbsp;12px;"</span><span>&gt;package&nbsp;com.goma.handlerthreaddemo;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.app.Activity;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.os.Bundle;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.os.Handler;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.os.HandlerThread;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.os.Message;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.view.Menu;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.view.View;&nbsp;&nbsp;</span></li><li><span>import&nbsp;android.widget.Button;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>public&nbsp;class&nbsp;HandlerThreadActivity&nbsp;extends&nbsp;Activity&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Handler&nbsp;handler&nbsp;=&nbsp;null;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;void&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super.onCreate(savedInstanceState);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setContentView(R.layout.activity_handler_thread);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"------------------&gt;"</span><span>&nbsp;+&nbsp;Thread.currentThread().getId());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HandlerThread&nbsp;ht&nbsp;=&nbsp;new&nbsp;HandlerThread(<span class="string">"MyThread"</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ht.start();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler&nbsp;=&nbsp;new&nbsp;Handler(ht.getLooper(),&nbsp;new&nbsp;Handler.Callback()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;boolean&nbsp;handleMessage(Message&nbsp;msg)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;tmp&nbsp;=&nbsp;msg.arg1;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(Thread.currentThread().getId()&nbsp;+&nbsp;<span class="string">"::::::::::::"</span><span>&nbsp;+&nbsp;tmp);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;false;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button&nbsp;btn&nbsp;=&nbsp;(Button)&nbsp;findViewById(R.id.btn);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;btn.setOnClickListener(new&nbsp;View.OnClickListener()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;onClick(View&nbsp;v)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler.post(run);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button&nbsp;btn2&nbsp;=&nbsp;(Button)&nbsp;findViewById(R.id.btn2);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;btn2.setOnClickListener(new&nbsp;View.OnClickListener()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;onClick(View&nbsp;v)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler.removeCallbacks(run);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;boolean&nbsp;onCreateOptionsMenu(Menu&nbsp;menu)&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Inflate&nbsp;the&nbsp;menu;&nbsp;this&nbsp;adds&nbsp;items&nbsp;to&nbsp;the&nbsp;action&nbsp;bar&nbsp;if&nbsp;it&nbsp;is&nbsp;present.&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getMenuInflater().inflate(R.menu.handler_thread,&nbsp;menu);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;true;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Runnable&nbsp;run&nbsp;=&nbsp;new&nbsp;Runnable()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;run()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler.postDelayed(run,&nbsp;<span class="number">5000</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Message&nbsp;msg&nbsp;=&nbsp;handler.obtainMessage();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg.arg1&nbsp;=&nbsp;<span class="number">1123</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handler.sendMessage(msg);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"###################"</span><span>&nbsp;+&nbsp;Thread.currentThread().getId());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li><span>}&lt;/span&gt;&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="HandlerThread、Handler" codeable_id="" codeable_type="BlogComment" source_url="http://oma1989.iteye.com/blog/1991880#" pre_index="1" title="Thread、Handler与HandlerThread、Handler使用" style="display: none;"><span style="font-size: 12px;">package com.goma.handlerthreaddemo;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+
+public class HandlerThreadActivity extends Activity {
+	Handler handler = null;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_handler_thread);
+
+		System.out.println("------------------&gt;" + Thread.currentThread().getId());
+
+		HandlerThread ht = new HandlerThread("MyThread");
+		ht.start();
+		handler = new Handler(ht.getLooper(), new Handler.Callback() {
+			@Override
+			public boolean handleMessage(Message msg) {
+				// TODO Auto-generated method stub
+				int tmp = msg.arg1;
+				System.out.println(Thread.currentThread().getId() + "::::::::::::" + tmp);
+				return false;
+			}
+		});
+
+		Button btn = (Button) findViewById(R.id.btn);
+		btn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				handler.post(run);
+			}
+		});
+
+		Button btn2 = (Button) findViewById(R.id.btn2);
+		btn2.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				handler.removeCallbacks(run);
+			}
+		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.handler_thread, menu);
+		return true;
+	}
+
+	Runnable run = new Runnable() {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			handler.postDelayed(run, 5000);
+			Message msg = handler.obtainMessage();
+			msg.arg1 = 1123;
+			handler.sendMessage(msg);
+			System.out.println("###################" + Thread.currentThread().getId());
+		}
+	};
+}</span></pre>
+<p><span style="font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">&nbsp;&nbsp;&nbsp; <span style="color: #ff0000;">从上面代码看线程ID是不同的，有两个一个主线程、一个HandlerThread线程</span></span></p>
+<p>&nbsp;</p>
+<p><span style="color: #000000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">&nbsp;&nbsp;&nbsp; ==========================================================</span></p>
+<p><span style="color: #000000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">&nbsp;&nbsp;&nbsp; 另：我在学习HandlerThread、Thread时，我就向为什么不：</span></p>
+<p><span style="color: #000000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">&nbsp;&nbsp;&nbsp; Thread t = new Thread(Runnable);</span></p>
+<p><span style="color: #000000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">&nbsp;&nbsp;&nbsp; t.start();</span></p>
+<p><span style="color: #000000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">&nbsp;&nbsp;&nbsp; 后来弄明白了，其实Runnable是在Handler执行的，但是Handler默认绑定主线程，</span></p>
+<p><span style="color: #000000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">&nbsp;&nbsp;&nbsp; 所以采用这种方法，在Thread.start()确是新生成一个线程，但是在Handler.post(Runnable)后，</span></p>
+<p><span style="color: #000000; font-family: &#39;Microsoft YaHei&#39;,微软雅黑,SimHei,tahoma,arial,helvetica,sans-serif; font-size: 12px;">&nbsp;&nbsp;&nbsp; runnable方法又会被绑定到主线程中执行。</span></p>
+<p><span style="color: #000000; font-size: 12px;">&nbsp;&nbsp;&nbsp; ==========================================================================</span></p>
+<p>&nbsp;</p>
+<p><span style="color: #000000; font-size: 12px;">&nbsp;&nbsp;&nbsp; 另可参考：http://blog.sina.com.cn/s/blog_5da93c8f0101kio1.html</span></p>
+</div>
+  </div>
+
+  
+
+  
+      <script type="text/javascript"><!--
+      google_ad_client = "ca-pub-8990951720398508";
+      /* iteye博客内页Banner-728*90 */
+      google_ad_slot = "8267689356/1918544322";
+      google_ad_width = 728;
+      google_ad_height = 90;
+      //-->
+      </script>
+      <script type="text/javascript" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/show_ads.js.下载">
+      </script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:728px;height:90px;" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/saved_resource.html"></iframe></ins></ins>
+  
+
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://oma1989.iteye.com/blog/1741270" class="next" title="问答图片">问答图片</a>
+      |
+      <a href="http://oma1989.iteye.com/blog/1976366" class="pre" title="设置背景图的Panel">设置背景图的Panel</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2013-12-19 10:25</li>
+      <li>浏览 11479</li>
+      <li><a href="http://oma1989.iteye.com/blog/1991880#comments">评论(0)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/mobile">移动开发</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/1991880" target="_blank" class="more">相关推荐</a></li>
+    </ul>    
+  </div>
+  
+		    
+		
+<div class="boutique-curr-box blog_comment">
+	  <div class="boutique-curr clearfix">
+	    <h5 class="h3titles">参考知识库</h5>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/android"><img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/1455589744328_328.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/android" classs="title">Android知识库</a>
+              <span>
+                 <em>34561</em>&nbsp;&nbsp;关注 <i>|</i> <em>3045</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/react"><img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/1465887837340_340.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/react" classs="title">React知识库</a>
+              <span>
+                 <em>2611</em>&nbsp;&nbsp;关注 <i>|</i> <em>393</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/ai"><img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/1479972981201_201.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/ai" classs="title">人工智能基础知识库</a>
+              <span>
+                 <em>13525</em>&nbsp;&nbsp;关注 <i>|</i> <em>206</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/java"><img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/1453701371636_636.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/java" classs="title">Java 知识库</a>
+              <span>
+                 <em>27452</em>&nbsp;&nbsp;关注 <i>|</i> <em>3746</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	  </div>
+</div>
+ 		
+      
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://oma1989.iteye.com/login" style="background-color:white;"> <img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://oma1989.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1991880;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'Thread、Handler与HandlerThread、Handler使用');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'Thread、Handler与HandlerThread、Handler使用');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://oma1989.iteye.com/"><img alt="oma1989的博客" class="logo" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/aaf65075-51d8-32da-b08c-76b1f88b5d16.jpg" title="oma1989的博客: 煎饼里的蛋" width=""></a></div>
+  <div id="blog_owner_name">oma1989</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 192159 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 青岛</li>
+              <li><img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://oma1989.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://noendless.iteye.com/" target="_blank"><img alt="noendless的博客" class="logo" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/user-logo-thumb.gif" title="noendless的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://noendless.iteye.com/" target="_blank" title="noendless">noendless</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://g24317854.iteye.com/" target="_blank"><img alt="g24317854的博客" class="logo" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/user-logo-thumb.gif" title="g24317854的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://g24317854.iteye.com/" target="_blank" title="g24317854">g24317854</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://nanzui.iteye.com/" target="_blank"><img alt="nanzui的博客" class="logo" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/user-logo-thumb.gif" title="nanzui的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://nanzui.iteye.com/" target="_blank" title="nanzui">nanzui</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://misslhyc.iteye.com/" target="_blank"><img alt="misslhyc的博客" class="logo" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/user-logo-thumb.gif" title="misslhyc的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://misslhyc.iteye.com/" target="_blank" title="misslhyc">misslhyc</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://oma1989.iteye.com/">全部博客 (82)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/185657">java (17)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/185658">Oracle (13)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/186328">JavaEE (13)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/215686">Android (7)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/209290">WebService (5)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/229694">Web前端 (4)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/260019">负载均衡 (4)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/262128">FreeMarker (3)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/208534">JavaWeb (2)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/261890">JAVA加密 (2)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/245401">移动WEB (1)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/328933">CAS (1)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/330816">MySQL (1)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/331464">Maven (1)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/260822">优化 (3)</a></li>
+                
+                  <li><a href="http://oma1989.iteye.com/category/212582">日常开发 (3)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://oma1989.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://oma1989.iteye.com/blog/post">我的论坛</a> (10)
+                </li>
+                <li><a href="http://oma1989.iteye.com/blog/answered_problems">我的问答</a> (25)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://oma1989.iteye.com/blog/monthblog/2015-11">2015-11</a> (1)</li>
+                
+                  <li><a href="http://oma1989.iteye.com/blog/monthblog/2015-06">2015-06</a> (2)</li>
+                
+                  <li><a href="http://oma1989.iteye.com/blog/monthblog/2015-01">2015-01</a> (2)</li>
+                
+                <li><a href="http://oma1989.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://oma1989.iteye.com/" target="_blank" title="oma1989">oma1989</a>： 
+                  注：针对4.0后版本，上述配置并不能实现，登录一次其他系统无需 ...<br>
+                  <a href="http://oma1989.iteye.com/blog/2162452#bc2381569">CAS框架配置详解</a>
+                </li>
+                
+                <li>
+                  <a href="http://yctong189.iteye.com/" target="_blank" title="yctong189">yctong189</a>： 
+                  [list][*][img]引用[b][[flash=200, ...<br>
+                  <a href="http://oma1989.iteye.com/blog/1530917#bc2377917">如何判断Http请求是不是Ajax请求</a>
+                </li>
+                
+                <li>
+                  <a href="http://yuanyuneixin1.iteye.com/" target="_blank" title="yuanyuneixin1">yuanyuneixin1</a>： 
+                  不得行，楼主写博客一点不负责<br>
+                  <a href="http://oma1989.iteye.com/blog/1732982#bc2377821">CXF搭建WebService图解</a>
+                </li>
+                
+                <li>
+                  <a href="http://oma1989.iteye.com/" target="_blank" title="oma1989">oma1989</a>： 
+                  &lt;div class="quote_title ...<br>
+                  <a href="http://oma1989.iteye.com/blog/2162452#bc2375561">CAS框架配置详解</a>
+                </li>
+                
+                <li>
+                  <a href="http://shenchangzai.iteye.com/" target="_blank" title="scz123456">scz123456</a>： 
+                  我的邮箱 337542442@qq.com&nbsp;&nbsp; 请给点指导意见 ...<br>
+                  <a href="http://oma1989.iteye.com/blog/2162452#bc2375485">CAS框架配置详解</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+        <div style="margin-top: 10px;float: left;clear: left;">
+          <script type="text/javascript">
+            /*iteye博客内页左侧Button-200*200，创建于2016-08-01*/
+            var cpro_id = "u2720202";
+          </script>
+          <script type="text/javascript" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/c.js.下载"></script><div id="BAIDU_SSP__wrapper_u2720202_0"><iframe id="iframeu2720202_0" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/oclm(2).html" width="200" height="200" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:200px;height:200px" allowtransparency="true"></iframe></div>
+				</div>
+      </div>    
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2017 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+        <div style="position: fixed;bottom:0px;right:0px;line-height:0px;z-index:1000;">
+          <script type="text/javascript"><!--
+          google_ad_client = "ca-pub-8990951720398508";
+          /* iteye博客内页弹窗-300*250 */
+          google_ad_slot = "8267689356/5752063962";
+          google_ad_width = 300;
+          google_ad_height = 250;
+          //-->
+          </script>
+          <script type="text/javascript" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/show_ads.js.下载">
+          </script><ins id="aswift_1_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:300px;height:250px;" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/saved_resource(1).html"></iframe></ins></ins>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/saved_resource" width="0" height="0">
+
+<script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/tracking.js.下载" type="text/javascript"></script>
+
+    
+    
+    <script language="javascript" type="text/javascript" src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/async_new.js.下载"></script>
+<script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/jquery-1.11.1.min.js.下载" type="text/javascript"></script>
+<script type="text/javascript">var $csdn_iteye_jq = jQuery.noConflict();// 解决jq与prototype.js命名空间冲突的问题</script>
+<script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/tracking.js(1).下载" type="text/javascript"></script>
+    
+	    
+	    <script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/web-storage-cache.min.js.下载" type="text/javascript"></script>
+	    <script src="./Thread、Handler与HandlerThread、Handler使用 - 煎饼里的蛋 - ITeye技术网站_files/replace.min.js.下载" type="text/javascript"></script>
+    
+    
+  
+
+</body></html>

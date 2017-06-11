@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/14283d8d3a60 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<script type="text/javascript" src="./MVP google官方demo比较分析 - 简书_files/1255494d3a"></script><script src="./MVP google官方demo比较分析 - 简书_files/nr-1026.min.js.下载"></script><script src="./MVP google官方demo比较分析 - 简书_files/push.js.下载"></script><script src="./MVP google官方demo比较分析 - 简书_files/hm.js.下载"></script><script async="" src="./MVP google官方demo比较分析 - 简书_files/analytics.js.下载"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"1255494d3a","applicationID":"15702971","transactionName":"e1daR0JWVV9RER9ZWkxdRxxDUVZE","queueTime":9,"applicationTime":90,"agent":""}</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(2),u=e(3),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}finally{f.emit("fn-end",[c.now()],t)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],3:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],4:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=m(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){v[e]=m(e).concat(n)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(t)}function g(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var v={},y={},b={on:l,emit:t,get:w,listeners:m,context:n,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(2),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=h.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+h.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===d.readyState&&i()}function i(){f("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),f=e("handle"),c=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1026.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=n.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),f("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="15年年底本人公司新开的一个项目，用上了mvp模式开发，那个时候还没发现google出了mvp的demo。 首先什么是MVP： M-model，即javaBean 数据模型层； V-view，视图层，常用的即Activity Fragment,这里是定义一个接口IView,Activity去实现IView的写法； P-presenter，数据处理层，所有的数据逻辑，业务逻辑都在这里处理； 原...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/14283d8d3a60">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/4169529">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="MVP google官方demo比较分析" property="twitter:title">
+  <meta content="15年年底本人公司新开的一个项目，用上了mvp模式开发，那个时候还没发现google出了mvp的demo。 首先什么是MVP： M-model，即javaBean 数据模型层； V-view，视图层，常用的即Activity Fragment,这里是定义一个接口IView,Activity去实现IView的写法； P-presenter，数据处理层，所有的数据逻辑，业务逻辑都在这里处理； 原来我的写法 而当时我在写mvp时只是简单的写成了：以下几个类： UserInfoModel-model; IUserInfoView-IView; UserInfoActivity-Activity;..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/14283d8d3a60" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="MVP google官方demo比较分析">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/14283d8d3a60">
+  <meta property="og:description" content="15年年底本人公司新开的一个项目，用上了mvp模式开发，那个时候还没发现google出了mvp的demo。 首先什么是MVP： M-model，即javaBean 数据模型层； V-view，视...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/4169529">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/4169529">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>MVP google官方demo比较分析 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="rmYwKRFcCAdIDnNxXS8nYVYi7MW/O/+zGVWZGiHebnu574ePLeh5OfPz/25eQDDqN25TqxYd7OLTe1WGNNme0A==">
+
+  <link rel="stylesheet" media="all" href="./MVP google官方demo比较分析 - 简书_files/web-ccfab89c45e3755e9ded.css">
+  
+  <link rel="stylesheet" media="all" href="./MVP google官方demo比较分析 - 简书_files/entry-ccfab89c45e3755e9ded.css">
+
+  <link href="http://cdn2.jianshu.io/assets/favicons/favicon-783beb88ed621ceab614de960376ac0c.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/57-47624b2e2161e8eb144462c85db0a5ff.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/72-c00cde7cf98fc49e50cbb3ee1dcd5804.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/76-e8af0bdeaf1ba31e303b1fde8b5e66c4.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/114-f4c78569bbf1977e8382a5fd90c9237a.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/120-cf10c3711dba269522743729efe66bbc.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/152-7bd60457b5f3ecbf1343f0e6241be4f8.png" sizes="152x152">
+</head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="http://www.jianshu.com/"><img src="./MVP google官方demo比较分析 - 简书_files/logo-58fd04f6f0de908401aa561cda6a0688.png" alt="Logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="http://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="http://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="http://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="">
+              <a href="http://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="">
+              <a class="app-download-btn" href="http://www.jianshu.com/apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="http://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+              <!-- <div id="navbar-trending-search"></div> -->
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <div class="post">
+    <div class="article">
+        <h1 class="title">MVP google官方demo比较分析</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="http://www.jianshu.com/u/f756c0ccd094">
+            <img src="./MVP google官方demo比较分析 - 简书_files/de6c876bd86a.jpeg" alt="144">
+</a>          <div class="info">
+            <span class="tag">作者</span>
+            <span class="name"><a href="http://www.jianshu.com/u/f756c0ccd094">Android_小宝</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.01.01 19:18">2016.05.29 14:42*</span>
+              <span class="wordage">字数 807</span>
+            <span class="views-count">阅读 7295</span><span class="comments-count">评论 28</span><span class="likes-count">喜欢 57</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div class="show-content">
+          <p>15年年底本人公司新开的一个项目，用上了mvp模式开发，那个时候还没发现google出了mvp的demo。</p>
+<h2>首先什么是MVP：</h2>
+<ul>
+<li>M-model，即javaBean 数据模型层；</li>
+<li>V-view，视图层，常用的即Activity Fragment,这里是定义一个接口IView,Activity去实现IView的写法；</li>
+<li>P-presenter，数据处理层，所有的数据逻辑，业务逻辑都在这里处理；</li>
+</ul>
+<h2>原来我的写法</h2>
+<h5>而当时我在写mvp时只是简单的写成了：以下几个类：</h5>
+<ul>
+<li>UserInfoModel-model;</li>
+<li>IUserInfoView-IView;</li>
+<li>UserInfoActivity-Activity;</li>
+<li>UserInfoPresenter-Presenter;</li>
+</ul>
+<h6>接下来假设业务是这样的：网络请求用户信息接口，并将用户信息展现在UserInfoActivity中。</h6>
+<ul>
+<li>先看目录结构：<br><div class="image-package">
+<img src="./MVP google官方demo比较分析 - 简书_files/1874706-f55122b964c9bf0a.png" data-original-src="http://upload-images.jianshu.io/upload_images/1874706-f55122b964c9bf0a.png?imageMogr2/auto-orient/strip%7CimageView2/2" style="cursor: zoom-in;"><br><div class="image-caption">目录.png</div>
+</div>
+</li>
+</ul>
+<ul>
+<li>1：先看Model--UserInfoModel</li>
+</ul>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserInfoModel</span> </span>{
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;
+    <span class="hljs-keyword">private</span> String address;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UserInfoModel</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age, String address)</span> </span>{
+        <span class="hljs-keyword">this</span>.name = name;
+        <span class="hljs-keyword">this</span>.age = age;
+        <span class="hljs-keyword">this</span>.address = address;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> name;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>{
+        <span class="hljs-keyword">this</span>.name = name;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getAge</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> age;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> age)</span> </span>{
+        <span class="hljs-keyword">this</span>.age = age;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getAddress</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> address;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAddress</span><span class="hljs-params">(String address)</span> </span>{
+        <span class="hljs-keyword">this</span>.address = address;
+    }
+}</code></pre>
+<ul>
+<li>2：View--实现的IUserInfoView:</li>
+</ul>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IUserInfoView</span> </span>{   
+          <span class="hljs-function">String <span class="hljs-title">loadUserId</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//假设接口请求需要一个userId</span>
+          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showLoading</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//展示加载框</span>
+          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dismissLoading</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//取消加载框展示</span>
+          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showUserInfo</span><span class="hljs-params">(UserInfoModel userInfoModel)</span></span>;<span class="hljs-comment">//将网络请求得到的用户信息回调</span>
+}</code></pre>
+<p>网络接口请求用户信息之前 获得userId,然后展示loading,数据加载成功取消loading,最后将数据展示在Activity上</p>
+<ul>
+<li>3：Presetner--UserInfoPresenter：这里就实现一个模拟的接口请求</li>
+</ul>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserInfoPresenter</span> </span>{
+    <span class="hljs-keyword">private</span> IUserInfoView iUserInfoView;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UserInfoPresenter</span><span class="hljs-params">(IUserInfoView iUserInfoView)</span> </span>{
+        <span class="hljs-keyword">this</span>.iUserInfoView = iUserInfoView;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">loadUserInfo</span><span class="hljs-params">()</span> </span>{
+        String userId = iUserInfoView.loadUserId();
+        iUserInfoView.showLoading();<span class="hljs-comment">//接口请求前显示loading</span>
+        <span class="hljs-comment">//这里模拟接口请求回调-</span>
+        <span class="hljs-keyword">new</span> Handler().postDelayed(<span class="hljs-keyword">new</span> Runnable() {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{
+                <span class="hljs-comment">//模拟接口返回的json，并转换为javaBean</span>
+                UserInfoModel userInfoModel = <span class="hljs-keyword">new</span> UserInfoModel(<span class="hljs-string">"小宝"</span>, <span class="hljs-number">1</span>, <span class="hljs-string">"杭州"</span>);
+                iUserInfoView.showUserInfo(userInfoModel);
+                iUserInfoView.dismissloading();
+            }
+        }, <span class="hljs-number">3000</span>);
+    }
+}</code></pre>
+<ul>
+<li>4：View--UserInfoActivity实现IUserInfoView接口：</li>
+</ul>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserInfoActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IUserInfoView</span> </span>{
+    <span class="hljs-keyword">private</span> TextView tv_name;
+    <span class="hljs-keyword">private</span> TextView tv_age;
+    <span class="hljs-keyword">private</span> TextView tv_address;
+    <span class="hljs-keyword">private</span> UserInfoPresenter presenter;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>{
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_age = (TextView) findViewById(R.id.tv_age);
+        tv_address = (TextView) findViewById(R.id.tv_address);
+        presenter = <span class="hljs-keyword">new</span> UserInfoPresenter(<span class="hljs-keyword">this</span>);
+        presenter.loadUserInfo();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showLoading</span><span class="hljs-params">()</span> </span>{
+        Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">"正在加载"</span>, Toast.LENGTH_LONG).show();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dismissLoading</span><span class="hljs-params">()</span> </span>{
+        Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">"加载完成"</span>, Toast.LENGTH_LONG).show();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showUserInfo</span><span class="hljs-params">(UserInfoModel userInfoModel)</span> </span>{
+        <span class="hljs-keyword">if</span> (userInfoModel != <span class="hljs-keyword">null</span>) {
+            tv_name.setText(userInfoModel.getName());
+            tv_age.setText(String.valueOf(userInfoModel.getAge()));
+            tv_address.setText(userInfoModel.getAddress());
+        }
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">loadUserId</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"1000"</span>;<span class="hljs-comment">//假设需要查询的用户信息的userId是1000</span>
+    }
+}</code></pre>
+<h4>这样写并没有错，只是不能更直观的看到IView中的方法和Presenter中的方法的关联。</h4>
+<h2>Google demo写法有所不同：<a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp/" target="_blank">google官方mvp写法demo</a>
+</h2>
+<h6>下面用google官方demo的写法实现上面的模拟业务：</h6>
+<ul>
+<li>
+<h4>首先看下目录结构：</h4>
+<div class="image-package">
+<img src="./MVP google官方demo比较分析 - 简书_files/1874706-9df6251371f905e6.png" data-original-src="http://upload-images.jianshu.io/upload_images/1874706-9df6251371f905e6.png?imageMogr2/auto-orient/strip%7CimageView2/2" style="cursor: zoom-in;"><br><div class="image-caption">google demo mvp 目录.png</div>
+</div>
+</li>
+</ul>
+<p>这里多了一个contract包：里面放的是契约接口。更能直接明了的看到View和Presenter之间的方法。<br>还多了一个BaseView，BasePresenter：看代码</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BasePresenter</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span></span>;
+}</code></pre>
+<p>这里的start()方法就相当于约定了所有的Presenter的初始化操作都放在start()方法中；</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BaseView</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setPresenter</span><span class="hljs-params">(T presenter)</span></span>;
+}</code></pre>
+<ul>
+<li>再来看契约类：UserInfoContract</li>
+</ul>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UserInfoContract</span> </span>{
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">View</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseView</span>&lt;<span class="hljs-title">Presenter</span>&gt;</span>{
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showLoading</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//展示加载框</span>
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dismissLoading</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//取消加载框展示</span>
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showUserInfo</span><span class="hljs-params">(UserInfoModel userInfoModel)</span></span>;<span class="hljs-comment">//将网络请求得到的用户信息回调</span>
+        <span class="hljs-function">String <span class="hljs-title">loadUserId</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//假设接口请求需要一个userId</span>
+    }
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Presenter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BasePresenter</span> </span>{
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadUserInfo</span><span class="hljs-params">()</span></span>;
+    }
+}</code></pre>
+<p>契约内部有2个接口，分别继承了BaseView和BasePresenter，View和Presenter中实现的方法分别是UI操作，和数据业务逻辑操作，此时是不是看的异常的清晰。</p>
+<p>多了一个契约类，契约内部包含了2个接口，一个是Presenter一个是View，就相当于之前的写法中的接口IView和普通类Presenter，只不过现在都将这两个类所需要的业务和UI层的接口直接放在一起展现出来，变得很清晰。在契约接口中的Presenter是一个接口，需要我们去实现，代码如下:</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserInfoPresenter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UserInfoContract</span>.<span class="hljs-title">Presenter</span> </span>{
+    <span class="hljs-keyword">private</span> UserInfoContract.View view;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UserInfoPresenter</span><span class="hljs-params">(UserInfoContract.View view)</span> </span>{
+        <span class="hljs-keyword">this</span>.view = view;
+        view.setPresenter(<span class="hljs-keyword">this</span>);
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">loadUserInfo</span><span class="hljs-params">()</span> </span>{
+        String userId = view.loadUserId();
+        view.showLoading();<span class="hljs-comment">//接口请求前显示loading</span>
+        <span class="hljs-comment">//这里模拟接口请求回调-</span>
+        <span class="hljs-keyword">new</span> Handler().postDelayed(<span class="hljs-keyword">new</span> Runnable() {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{
+                <span class="hljs-comment">//模拟接口返回的json，并转换为javaBean</span>
+                UserInfoModel userInfoModel = <span class="hljs-keyword">new</span> UserInfoModel(<span class="hljs-string">"小宝"</span>, <span class="hljs-number">1</span>, <span class="hljs-string">"杭州"</span>);
+                view.showUserInfo(userInfoModel);
+                view.dismissLoading();
+            }
+        }, <span class="hljs-number">3000</span>);
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>{
+        loadUserInfo();
+    }
+}</code></pre>
+<p>1：UserInfoPresenter 构造函数中传入UserInfoContract.View，并且调用view的setPresenter()方法；<br>2：将所有的初始化操作都放在start()方法中（这里demo只有一个：网络请求获取用户信息），这样只要进入界面的时候调用start()方法就可以执行一系列初始化的操作，这就相当于一种约定好的开发。</p>
+<ul>
+<li>最后看UserInfoActivity如何进行调用</li>
+</ul>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserInfoActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UserInfoContract</span>.<span class="hljs-title">View</span> </span>{
+    <span class="hljs-keyword">private</span> TextView tv_name;
+    <span class="hljs-keyword">private</span> TextView tv_age;
+    <span class="hljs-keyword">private</span> TextView tv_address;
+
+    <span class="hljs-keyword">private</span> UserInfoContract.Presenter presenter;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>{
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_age = (TextView) findViewById(R.id.tv_age);
+        tv_address = (TextView) findViewById(R.id.tv_address);
+
+        <span class="hljs-keyword">new</span> UserInfoPresenter(<span class="hljs-keyword">this</span>);
+        presenter.start();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showLoading</span><span class="hljs-params">()</span> </span>{
+        Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">"正在加载"</span>, Toast.LENGTH_LONG).show();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dismissLoading</span><span class="hljs-params">()</span> </span>{
+        Toast.makeText(<span class="hljs-keyword">this</span>, <span class="hljs-string">"加载完成"</span>, Toast.LENGTH_LONG).show();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showUserInfo</span><span class="hljs-params">(UserInfoModel userInfoModel)</span> </span>{
+        <span class="hljs-keyword">if</span> (userInfoModel != <span class="hljs-keyword">null</span>) {
+            tv_name.setText(userInfoModel.getName());
+            tv_age.setText(String.valueOf(userInfoModel.getAge()));
+            tv_address.setText(userInfoModel.getAddress());
+        }
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">loadUserId</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"1000"</span>;<span class="hljs-comment">//假设需要查询的用户信息的userId是1000</span>
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setPresenter</span><span class="hljs-params">(UserInfoContract.Presenter presenter)</span> </span>{
+        <span class="hljs-keyword">this</span>.presenter = presenter;
+    }
+}</code></pre>
+<p>在onCreate()方法： </p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">new</span> UserInfoPresenter(<span class="hljs-keyword">this</span>);
+presenter.start();</code></pre>
+<p>而并没有写成</p>
+<pre class="hljs java"><code class="java">presenter=<span class="hljs-keyword">new</span> UserInfoPresenter(<span class="hljs-keyword">this</span>);</code></pre>
+<p>因为UserInfoActivity实现了UserInfoContract.View中的setPresenter()方法；而UserInfoPresenter 构造函数中已经调用了UserInfoContract.View中的setPresenter()方法；</p>
+<p>两者思想一样，只是写法不同。<br><a href="https://gitlab.com/yubaokang/mvpdemo_google" target="_blank">后者demo地址</a></p>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="http://www.jianshu.com/nb/4486815">
+            <i class="iconfont ic-search-notebook"></i> <span>Android</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="http://www.jianshu.com/u/f756c0ccd094">
+            <img src="./MVP google官方demo比较分析 - 简书_files/de6c876bd86a.jpeg" alt="144">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="http://www.jianshu.com/u/f756c0ccd094">Android_小宝</a>
+        <p>写了 7027 字，被 135 人关注，获得了 132 个喜欢</p></div>
+          <div class="signature">
+            <span>https://github.com/yubaokang</span>
+          </div>
+      </div>
+
+      <div class="support-author"><p>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p> <div class="btn btn-pay">赞赏支持</div> <div class="supporter"><ul class="support-list"><li><a target="_blank" href="http://www.jianshu.com/u/81e201da81b9" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/11-4d7c6ca89f439111aff57b23be1c73ba.jpg"></a></li></ul> <!----></div> <!----> <!----></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="http://www.jianshu.com/sign_in"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>57</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/4169529/weibo/image_054f4db53ab7.jpg&#39;, &#39;推荐 Android_小宝 的文章《MVP google官方demo比较分析》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/4169529/weibo/image_054f4db53ab7.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Android_小宝 的文章《MVP google官方demo比较分析》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Android_小宝 的文章《MVP google官方demo比较分析》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;MVP google官方demo比较分析&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+    <div><div id="comment-list" class="comment-list"><div><form class="new-comment"><a class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/avatar_default-78d4d1f68984cd6d4379508dd94b4210.png"></a> <div class="sign-container"><a href="http://www.jianshu.com/sign_in" class="btn btn-sign">登录</a> <span>后发表评论</span></div></form></div> <div id="normal-comment-list" class="normal-comment-list"><div><div><div class="top"><span>28条评论</span> <a class="author-only">只看作者</a> <a class="close-btn" style="display: none;">关闭评论</a> <div class="pull-right"><a class="active">按喜欢排序</a><a class="">按时间正序</a><a class="">按时间倒序</a></div></div></div> <!----> <!----> <div class="comments-placeholder" style="display: none;"><div class="author"><div class="avatar"></div> <div class="info"><div class="name"></div> <div class="meta"></div></div></div> <div class="text"></div> <div class="text animation-delay"></div> <div class="tool-group"><i class="iconfont ic-zan-active"></i><div class="zan"></div> <i class="iconfont ic-list-comments"></i><div class="zan"></div></div></div> <div id="comment-10581432" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/1a47e8afa34a" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/2486cac2650d.jpeg"></a> <div class="info"><a href="http://www.jianshu.com/u/1a47e8afa34a" target="_blank" class="name">吧主</a> <!----> <div class="meta"><span>15楼 · 2017.05.04 18:42</span></div></div></div> <div class="comment-wrap"><p>这篇文章，我给你在公众号原创发布可以吗？公众号：杨守乐</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>2人赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-10864551" class="sub-comment"><p><a href="http://www.jianshu.com/u/f756c0ccd094" target="_blank">Android_小宝</a>：
+          <span> <a href="http://www.jianshu.com/users/1a47e8afa34a" class="maleskine-author" target="_blank" data-user-slug="1a47e8afa34a">@吧主</a> 原创发布？</span></p> <div class="sub-tool-group"><span>2017.05.14 12:20</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-2606027" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/ce1dd2756b0f" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/538cf0f4ee72.jpeg"></a> <div class="info"><a href="http://www.jianshu.com/u/ce1dd2756b0f" target="_blank" class="name">skylineTan</a> <!----> <div class="meta"><span>4楼 · 2016.06.01 20:13</span></div></div></div> <div class="comment-wrap"><p>写的很好~赞 <img src="./MVP google官方demo比较分析 - 简书_files/relaxed.png" alt=":relaxed:" title=":relaxed:" class="emoji" width="20" height="20"> </p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-2607309" class="sub-comment"><p><a href="http://www.jianshu.com/u/f756c0ccd094" target="_blank">Android_小宝</a>：
+          <span><a href="http://www.jianshu.com/users/ce1dd2756b0f" class="maleskine-author" target="_blank" data-user-slug="ce1dd2756b0f">@skylineTan</a> 😊</span></p> <div class="sub-tool-group"><span>2016.06.01 22:26</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-2570240" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/51fb05163bd6" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/6-fd30f34c8641f6f32f5494df5d6b8f3c.jpg"></a> <div class="info"><a href="http://www.jianshu.com/u/51fb05163bd6" target="_blank" class="name">东风四幺</a> <!----> <div class="meta"><span>2楼 · 2016.05.29 17:18</span></div></div></div> <div class="comment-wrap"><p>不错😊</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-2570816" class="sub-comment"><p><a href="http://www.jianshu.com/u/f756c0ccd094" target="_blank">Android_小宝</a>：
+          <span><a href="http://www.jianshu.com/users/51fb05163bd6" class="maleskine-author" target="_blank" data-user-slug="51fb05163bd6">@东风四幺</a> 😄</span></p> <div class="sub-tool-group"><span>2016.05.29 18:25</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-2577208" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/2fd79b98973e" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/afc26ad38a2e.jpeg"></a> <div class="info"><a href="http://www.jianshu.com/u/2fd79b98973e" target="_blank" class="name">帅气小伙</a> <!----> <div class="meta"><span>3楼 · 2016.05.30 09:59</span></div></div></div> <div class="comment-wrap"><p>谷歌官方的东西要有一定水平才能理解，对小白不和谐</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-2577292" class="sub-comment"><p><a href="http://www.jianshu.com/u/f756c0ccd094" target="_blank">Android_小宝</a>：
+          <span><a href="http://www.jianshu.com/users/2fd79b98973e" class="maleskine-author" target="_blank" data-user-slug="2fd79b98973e">@帅气小伙</a> 哈哈，所以贴了两种代码，不过谁不是从小白过来的呢。</span></p> <div class="sub-tool-group"><span>2016.05.30 10:06</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-2607795" class="sub-comment"><p><a href="http://www.jianshu.com/u/f49cef042ed7" target="_blank">韩老板</a>：
+          <span><a href="http://www.jianshu.com/users/2fd79b98973e" class="maleskine-author" target="_blank" data-user-slug="2fd79b98973e">@帅气小伙</a> 我觉得架构理念都是通用，不仅仅是app web也是如此，不管是不是小白，理解其设计理念是很重要的，在其次是自己个人编程能力水平，我也没参与过实际的android项目开发。。。哈哈 有压力才有进步……<img src="./MVP google官方demo比较分析 - 简书_files/relieved.png" alt=":relieved:" title=":relieved:" class="emoji" width="20" height="20">我说的话都一套一套的……</span></p> <div class="sub-tool-group"><span>2016.06.01 23:04</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-2616110" class="sub-comment"><p><a href="http://www.jianshu.com/u/81e201da81b9" target="_blank">halii</a>：
+          <span><a href="http://www.jianshu.com/users/2fd79b98973e" class="maleskine-author" target="_blank" data-user-slug="2fd79b98973e">@帅气小伙</a> 建议还是从基础开始比较好。</span></p> <div class="sub-tool-group"><span>2016.06.02 17:38</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <span class="line-warp">
+          还有1条评论，
+          <a>展开查看</a></span> <!----> <!----></div> <!----></div></div><div id="comment-2607720" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/f49cef042ed7" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/2175e281ac69.jpg"></a> <div class="info"><a href="http://www.jianshu.com/u/f49cef042ed7" target="_blank" class="name">韩老板</a> <!----> <div class="meta"><span>5楼 · 2016.06.01 23:00</span></div></div></div> <div class="comment-wrap"><p>现在有各种对Google出示的MVP解说，但很少将以前项目与官方项目进行比对，或许你给的原来项目也是个demo，但已经很不错了，能更直观的区别官网与自己所想</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-2608175" class="sub-comment"><p><a href="http://www.jianshu.com/u/f756c0ccd094" target="_blank">Android_小宝</a>：
+          <span><a href="http://www.jianshu.com/users/f49cef042ed7" class="maleskine-author" target="_blank" data-user-slug="f49cef042ed7">@Magier</a> 两种写法都在实际项目中开发过。</span></p> <div class="sub-tool-group"><span>2016.06.01 23:30</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-2624118" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/4bd3b777695a" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/90be5d2d173f.jpg"></a> <div class="info"><a href="http://www.jianshu.com/u/4bd3b777695a" target="_blank" class="name">ibrucekong</a> <!----> <div class="meta"><span>6楼 · 2016.06.03 11:08</span></div></div></div> <div class="comment-wrap"><p>请问web和app在MVP上一样嘛，能不能发个web的MVP的demo！</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-2624248" class="sub-comment"><p><a href="http://www.jianshu.com/u/f756c0ccd094" target="_blank">Android_小宝</a>：
+          <span><a href="http://www.jianshu.com/users/4bd3b777695a" class="maleskine-author" target="_blank" data-user-slug="4bd3b777695a">@ibrucekong</a> sorry！😲</span></p> <div class="sub-tool-group"><span>2016.06.03 11:20</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-10870861" class="sub-comment"><p><a href="http://www.jianshu.com/u/b24c46a55541" target="_blank">姬94</a>：
+          <span>web 可以看大神，<a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" rel="nofollow" target="_blank">http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html</a> 阮一峰的网络日志 他的博客，他写web大神</span></p> <div class="sub-tool-group"><span>2017.05.14 17:19</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-3791390" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/44894290b3ed" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/58bdf135c249.png"></a> <div class="info"><a href="http://www.jianshu.com/u/44894290b3ed" target="_blank" class="name">男子汉大豆腐</a> <!----> <div class="meta"><span>7楼 · 2016.08.23 14:46</span></div></div></div> <div class="comment-wrap"><p>很赞，很清晰，还有比较，小白表示看懂了 <img src="./MVP google官方demo比较分析 - 简书_files/kissing_closed_eyes.png" alt=":kissing_closed_eyes:" title=":kissing_closed_eyes:" class="emoji" width="20" height="20"> </p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-4438619" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/b9981369527f" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/11-4d7c6ca89f439111aff57b23be1c73ba.jpg"></a> <div class="info"><a href="http://www.jianshu.com/u/b9981369527f" target="_blank" class="name">xyyou123</a> <!----> <div class="meta"><span>8楼 · 2016.09.27 00:12</span></div></div></div> <div class="comment-wrap"><p>请教 为什么要将presenter 里面的所有代码都封装在 start()方法里面?</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-4447562" class="sub-comment"><p><a href="http://www.jianshu.com/u/f756c0ccd094" target="_blank">Android_小宝</a>：
+          <span> <a href="http://www.jianshu.com/users/b9981369527f" class="maleskine-author" target="_blank" data-user-slug="b9981369527f">@xyyou123</a> 建议刚进入界面就需要初始化的一些操作在start方法中调用</span></p> <div class="sub-tool-group"><span>2016.09.27 13:54</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-10577421" class="sub-comment"><p><a href="http://www.jianshu.com/u/db1e9a213ac9" target="_blank">海晨_1de9</a>：
+          <span>我的理解是，初始化时，只需要一个初始化入口，这里start()方法只进行了一个loadUserInfo()初始化。如果还有其它的方法需要，也可以再在start() 中加入</span></p> <div class="sub-tool-group"><span>2017.05.04 16:06</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-5563466" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/6fd8b3a2dc58" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/61be8a8489e0.jpg"></a> <div class="info"><a href="http://www.jianshu.com/u/6fd8b3a2dc58" target="_blank" class="name">卜俊文</a> <!----> <div class="meta"><span>9楼 · 2016.11.11 14:41</span></div></div></div> <div class="comment-wrap"><p>看了很多的MVP的教程，要么就是太复杂，要么就是过时的感觉，一直没懂怎么个写法，看到你这一比较，确实清晰很多。3q~</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-7782868" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/2fbb610e81e5" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/d574af57d133.jpeg"></a> <div class="info"><a href="http://www.jianshu.com/u/2fbb610e81e5" target="_blank" class="name">菜鸟考官</a> <!----> <div class="meta"><span>10楼 · 2017.02.07 14:27</span></div></div></div> <div class="comment-wrap"><p>写的非常好。 很感谢。</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-8146976" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/d8184ca3c970" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/59f92744-b3a9-4569-b436-fd6670ea4cb3"></a> <div class="info"><a href="http://www.jianshu.com/u/d8184ca3c970" target="_blank" class="name">d8184ca3c970</a> <!----> <div class="meta"><span>11楼 · 2017.02.19 16:37</span></div></div></div> <div class="comment-wrap"><p>求教谷歌这个demo链接进去怎么下载</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-8640797" class="sub-comment"><p><a href="http://www.jianshu.com/u/5da2451bfc4f" target="_blank">四无小青年</a>：
+          <span>右边有个绿色的按钮，你点击试试</span></p> <div class="sub-tool-group"><span>2017.03.06 10:54</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-9541119" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/fbcde8a99e17" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/8-a356878e44b45ab268a3b0bbaaadeeb7.jpg"></a> <div class="info"><a href="http://www.jianshu.com/u/fbcde8a99e17" target="_blank" class="name">spy_dev</a> <!----> <div class="meta"><span>12楼 · 2017.03.30 11:49</span></div></div></div> <div class="comment-wrap"><p>确实更清晰了</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-10106421" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/ddc5b6a1cc87" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/6-fd30f34c8641f6f32f5494df5d6b8f3c.jpg"></a> <div class="info"><a href="http://www.jianshu.com/u/ddc5b6a1cc87" target="_blank" class="name">坐槐不乱</a> <!----> <div class="meta"><span>13楼 · 2017.04.17 17:29</span></div></div></div> <div class="comment-wrap"><p>谷歌为什么采用setPresenter()方法进行v与p的关联，有什么不一样吗</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-10870427" class="sub-comment"><p><a href="http://www.jianshu.com/u/b24c46a55541" target="_blank">姬94</a>：
+          <span>我感觉，，吧，，你应该看看名字，，setPresenter ，就是设置，，Presenter的名称，已经说的很明白了。我要处理业务逻辑了。关键，P的意思是业务逻辑，这一点你要明白，我感觉你想问的 是，为什么，是BaseView&lt;T&gt; 这个泛型吧，这个框架的根的意思，任何想实现，P最好都有一个统一的出发点，这不就是抽象、封装的意思吗？</span></p> <div class="sub-tool-group"><span>2017.05.14 17:00</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-10577611" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/db1e9a213ac9" target="_blank" class="avatar"><img src="./MVP google官方demo比较分析 - 简书_files/6cd38fbb-1856-41a7-a261-2a00dff2ac5f"></a> <div class="info"><a href="http://www.jianshu.com/u/db1e9a213ac9" target="_blank" class="name">海晨_1de9</a> <!----> <div class="meta"><span>14楼 · 2017.05.04 16:13</span></div></div></div> <div class="comment-wrap"><p>我来说下我的感觉吧，不知道对不对<br>View就专门做显示数据的，如果需要有逻辑处理，直接丢给UserInfoContract.View中的方法处理，我(代指View)不关心，处理完后，将结果（userInfoModel）告诉我（View），我来在界面上（各个控件）显示出来。<br><br></p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div></div></div> <!----> <!----></div></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部"><a href="http://www.jianshu.com/p/14283d8d3a60#" class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/4169529/weibo/image_054f4db53ab7.jpg&#39;, &#39;推荐 Android_小宝 的文章《MVP google官方demo比较分析》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://cwb.assets.jianshu.io/notes/images/4169529/weibo/image_054f4db53ab7.jpg&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-picture&quot;&gt;&lt;/i&gt;&lt;span&gt;下载长微博图片&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Android_小宝 的文章《MVP google官方demo比较分析》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Android_小宝 的文章《MVP google官方demo比较分析》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/14283d8d3a60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;MVP google官方demo比较分析&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li></ul></div>
+</div>
+<div class="note-bottom"><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="http://www.jianshu.com/c/8daa6b75ed94?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/android.graphics.Bitmap_5419f0d.jpeg"><div class="name">Android...</div></a><a href="http://www.jianshu.com/c/bDHhpK?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/首页投稿.png"><div class="name">首页投稿</div></a><a href="http://www.jianshu.com/c/58b4c20abf2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/android.graphics.Bitmap_1329dce8.jpeg"><div class="name">Android...</div></a><a href="http://www.jianshu.com/c/ebee5dc587f1?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/android.graphics.Bitmap_48f7457.jpeg"><div class="name">android...</div></a><a href="http://www.jianshu.com/c/0dc880a2c73c?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/ff55916a6a0c2db84ebb1ffdcef539dd.png"><div class="name">Android开发</div></a><a href="http://www.jianshu.com/c/905b0ec9c473?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/logo.png"><div class="name">Android...</div></a><a href="http://www.jianshu.com/c/2b91f4eeade5?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/2.png"><div class="name">玩转iOS &amp;...</div></a><a href="http://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a><a href="http://www.jianshu.com/c/9daf188641a8?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/新浪.jpg"><div class="name">Collection</div></a><a href="http://www.jianshu.com/c/899f653bc76b?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/1448434520.jpg"><div class="name">Android...</div></a><a href="http://www.jianshu.com/c/93e7dd145f0a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/android.graphics.Bitmap_35ec13c.jpeg"><div class="name">Android架构</div></a><a href="http://www.jianshu.com/c/ba7defc6f489?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/u_1789702542_2212905307_fm_21_gp_0.jpg"><div class="name">Android...</div></a><a href="http://www.jianshu.com/c/284738924f3a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/1475047590.jpg"><div class="name">Android</div></a><a href="http://www.jianshu.com/c/90a29d132d7a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg"><div class="name">android开发</div></a><a href="http://www.jianshu.com/c/a91556d96768?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./MVP google官方demo比较分析 - 简书_files/android.graphics.Bitmap_3dee6d40.jpeg"><div class="name">android...</div></a></div> <a class="load-more">阅读更多...</a></div> <!----> <!----></div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_author":false,"is_following_author":false,"is_liked_note":false,"uuid":"c41cb365-522d-4912-b747-74ddc1249b70"},"note":{"id":4169529,"slug":"14283d8d3a60","user_id":1874706,"notebook_id":4486815,"commentable":true,"likes_count":57,"views_count":7295,"public_wordage":807,"comments_count":28,"author":{"total_wordage":7027,"followers_count":135,"total_likes_count":132}}}</script>
+    
+    <script src="./MVP google官方demo比较分析 - 简书_files/babel-polyfill-ccfab89c45e3755e9ded.js.下载"></script>
+    <script src="./MVP google官方demo比较分析 - 简书_files/web-base-ccfab89c45e3755e9ded.js.下载"></script>
+<script src="./MVP google官方demo比较分析 - 简书_files/web-ccfab89c45e3755e9ded.js.下载"></script>
+    
+    <script src="./MVP google官方demo比较分析 - 简书_files/entry-ccfab89c45e3755e9ded.js.下载"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-35169517-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

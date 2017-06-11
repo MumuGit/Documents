@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://gank.io/post/560e15be2dca930e00da1083 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 给 Android 开发者的 RxJava 详解</title>
+    <link rel="stylesheet" href="./给 Android 开发者的 RxJava 详解_files/skeleton.css">
+    <link rel="stylesheet" href="./给 Android 开发者的 RxJava 详解_files/typo.css">
+    <link rel="stylesheet" href="./给 Android 开发者的 RxJava 详解_files/post.css">
+<script type="text/javascript" async="" src="./给 Android 开发者的 RxJava 详解_files/vds.js.下载"></script><script async="" src="./给 Android 开发者的 RxJava 详解_files/analytics.js.下载"></script><script src="./给 Android 开发者的 RxJava 详解_files/livescript.html" charset="utf-8"></script><script src="./给 Android 开发者的 RxJava 详解_files/livescript.html" charset="utf-8"></script><link rel="stylesheet" type="text/css" href="./给 Android 开发者的 RxJava 详解_files/prettify.css"><link rel="stylesheet" type="text/css" href="./给 Android 开发者的 RxJava 详解_files/yunsdk.Rl7sEOY0GRzw.1.css"><script src="./给 Android 开发者的 RxJava 详解_files/yunsdk.kjZisxGp5HBN.28.js.下载" charset="utf-8"></script><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><link rel="stylesheet" type="text/css" href="./给 Android 开发者的 RxJava 详解_files/red.1178673.css"></head>
+<body>
+<header class="clearfix"><a href="http://gank.io/post/" class="logo">
+    <div title="重新开始一次认真的技术写作" class="title">匠心写作<span class="beta">Beta</span></div>
+</a>
+    <nav>
+        <ul>
+            <li><a href="http://gank.io/post/published" target="_blank">已发表文章</a></li>
+            <li><a href="http://gank.io/post/about" target="_blank">投稿</a></li>
+            <li><a href="http://gank.io/post/sponsor" target="_blank">赞助</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    
+    <div class="post-content typo">
+        <div style="text-align:center">
+            <h1>给 Android 开发者的 RxJava 详解</h1>
+
+            <p>作者：<a href="https://github.com/rengwuxian" target="_blank">扔物线</a></p>
+        </div>
+        
+            <div class="ads copyright"><p class="typo-small">此文由以下厂商为作者提供 2000 元资金赞助：</p>
+                <a href="http://www.jobtong.com/jobs/0.0.30.0.0.0.0"><img title="最靠谱的开发者都在这里！" data-src="http://ww1.sinaimg.cn/large/610dc034gw1ewwdtf8l8ej20qo046myh.jpg" src="./给 Android 开发者的 RxJava 详解_files/610dc034gw1ewwdtf8l8ej20qo046myh.jpg"></a>
+                <a href="http://gank.io/post/560e15be2dca930e00da1083"><img title="" data-src=""></a>
+
+                <div class="join-sponsor"><a href="http://gank.io/post/sponsor" target="_blank" class="typo-small">成为赞助方</a> /<a href="http://gank.io/post/about" target="_blank" class="typo-small">开始写作</a></div>
+            </div>
+        
+        <div class="article-content">
+            <h3>前言</h3>
+
+<p>我从去年开始使用 RxJava ，到现在一年多了。今年加入了 Flipboard 后，看到 Flipboard 的 Android 项目也在使用 RxJava ，并且使用的场景越来越多 。而最近这几个月，我也发现国内越来越多的人开始提及 RxJava 。有人说『RxJava 真是太好用了』，有人说『RxJava 真是太难用了』，另外更多的人表示：我真的百度了也谷歌了，但我还是想问： RxJava 到底是什么？</p>
+
+<p>鉴于 RxJava 目前这种既火爆又神秘的现状，而我又在一年的使用过程中对 RxJava 有了一些理解，我决定写下这篇文章来对 RxJava 做一个相对详细的、针对 Android 开发者的介绍。</p>
+
+<p>这篇文章的目的有两个：
+1. 给对 RxJava 感兴趣的人一些入门的指引
+2. 给正在使用 RxJava 但仍然心存疑惑的人一些更深入的解析</p>
+
+<div class="toc"><ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_1">RxJava 到底是什么</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_2">RxJava 好在哪</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_3">API 介绍和原理简析</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_4">1. 概念：扩展的观察者模式</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_5">观察者模式</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_6">RxJava 的观察者模式</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_7">2. 基本实现</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_8">1) 创建 Observer</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_9">2) 创建 Observable</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_10">3) Subscribe (订阅)</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_11">4) 场景示例</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_12">a. 打印字符串数组</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_13">b. 由 id 取得图片并显示</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_14">3. 线程控制 —— Scheduler (一)</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_15">1) Scheduler 的 API (一)</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_16">2) Scheduler 的原理 (一)</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_17">4. 变换</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_18">1) API</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_19">2) 变换的原理：lift()</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_20">3) compose: 对 Observable 整体的变换</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_21">5. 线程控制：Scheduler (二)</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_22">1) Scheduler 的 API (二)</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_23">2) Scheduler 的原理（二）</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_24">3) 延伸：doOnSubscribe()</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_25">RxJava 的适用场景和使用方式</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_26">1. 与 Retrofit 的结合</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_27">2. RxBinding</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_28">3. 各种异步操作</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_29">4. RxBus</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_30">最后</a>
+<ul>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_31">关于作者：</a>
+</li>
+<li>
+<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_32">为什么写这个？</a>
+</li>
+</ul>
+</li></ul></div>
+
+<p>在正文开始之前的最后，放上 <code>GitHub</code> 链接和引入依赖的 <code>gradle</code> 代码： 
+Github： <br>
+https://github.com/ReactiveX/RxJava <br>
+https://github.com/ReactiveX/RxAndroid <br>
+引入依赖： <br>
+<code>compile 'io.reactivex:rxjava:1.0.14'</code> <br>
+<code>compile 'io.reactivex:rxandroid:1.0.1'</code> <br>
+（版本号是文章发布时的最新稳定版）</p>
+
+<p>另外，感谢 RxJava 核心成员<a href="http://weibo.com/wowwing" target="_blank">流火枫林</a>的技术支持和内测读者<a href="http://weibo.com/daimajia" target="_blank">代码家</a>、<a href="http://weibo.com/u/3224930551" target="_blank">鲍永章</a>、<a href="https://github.com/drakeet" target="_blank">drakeet</a>、<a href="https://github.com/androidmalin" target="_blank">马琳</a>、<a href="http://weibo.com/kevingracie" target="_blank">有时放纵</a>、<a href="http://weibo.com/u/2559577095" target="_blank">程序亦非猿</a>、<a href="http://weibo.com/brucefromsdu" target="_blank">大头鬼</a>、<a href="http://weibo.com/u/2662418685" target="_blank">XZoomEye</a>、<a href="http://weibo.com/shadev" target="_blank">席德雨</a>、<a href="http://weibo.com/tcahead" target="_blank">TCahead</a>、<a href="http://weibo.com/u/1963663403" target="_blank">Tiiime</a>、<a href="http://weibo.com/208087666" target="_blank">Ailurus</a>、<a href="http://weibo.com/seniorszhai" target="_blank">宅学长</a>、<a href="http://naotou.github.io/" target="_blank">妖孽</a>、<a href="http://weibo.com/u/3214362483" target="_blank">大大大大大臣哥</a>、<a href="https://github.com/rizhilee" target="_blank">NicodeLee</a>的帮助，以及<a href="http://jobtong.com/" target="_blank">周伯通招聘</a>的赞助。</p>
+
+<h3 id="toc_1">RxJava 到底是什么</h3>
+
+<p>一个词：<strong>异步</strong>。</p>
+
+<p>RxJava 在 GitHub 主页上的自我介绍是 "a library for composing asynchronous and event-based programs using observable sequences for the Java VM"（一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库）。这就是 RxJava ，概括得非常精准。</p>
+
+<p>然而，对于初学者来说，这太难看懂了。因为它是一个『总结』，而初学者更需要一个『引言』。</p>
+
+<p>其实， RxJava 的本质可以压缩为异步这一个词。说到根上，它就是一个实现异步操作的库，而别的定语都是基于这之上的。</p>
+
+<h3 id="toc_2">RxJava 好在哪</h3>
+
+<p>换句话说，『同样是做异步，为什么人们用它，而不用现成的 AsyncTask / Handler / XXX / ... ？』</p>
+
+<p>一个词：<strong>简洁</strong>。</p>
+
+<p>异步操作很关键的一点是程序的简洁性，因为在调度过程比较复杂的情况下，异步代码经常会既难写也难被读懂。 Android 创造的 <code>AsyncTask</code> 和<code>Handler</code> ，其实都是为了让异步代码更加简洁。RxJava 的优势也是简洁，但它的简洁的与众不同之处在于，<strong>随着程序逻辑变得越来越复杂，它依然能够保持简洁。</strong></p>
+
+<p><img alt="举个例子" data-src="http://ww4.sinaimg.cn/large/52eb2279jw1f2rx409pcnj2044048mx5.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx409pcnj2044048mx5.jpg"></p>
+
+<p>假设有这样一个需求：界面上有一个自定义的视图 <code>imageCollectorView</code> ，它的作用是显示多张图片，并能使用 <code>addImage(Bitmap)</code> 方法来任意增加显示的图片。现在需要程序将一个给出的目录数组 <code>File[] folders</code> 中每个目录下的 png 图片都加载出来并显示在 <code>imageCollectorView</code> 中。需要注意的是，由于读取图片的这一过程较为耗时，需要放在后台执行，而图片的显示则必须在 UI 线程执行。常用的实现方式有多种，我这里贴出其中一种： </p>
+
+<pre><code class="prettyprint prettyprinted"><span class="kwd">new</span><span class="pln"> </span><span class="typ">Thread</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> run</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">run</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="typ">File</span><span class="pln"> folder </span><span class="pun">:</span><span class="pln"> folders</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">File</span><span class="pun">[]</span><span class="pln"> files </span><span class="pun">=</span><span class="pln"> folder</span><span class="pun">.</span><span class="pln">listFiles</span><span class="pun">();</span><span class="pln">
+            </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="typ">File</span><span class="pln"> file </span><span class="pun">:</span><span class="pln"> files</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">file</span><span class="pun">.</span><span class="pln">getName</span><span class="pun">().</span><span class="pln">endsWith</span><span class="pun">(</span><span class="str">".png"</span><span class="pun">))</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                    final </span><span class="typ">Bitmap</span><span class="pln"> bitmap </span><span class="pun">=</span><span class="pln"> getBitmapFromFile</span><span class="pun">(</span><span class="pln">file</span><span class="pun">);</span><span class="pln">
+                    getActivity</span><span class="pun">().</span><span class="pln">runOnUiThread</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Runnable</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                        </span><span class="lit">@Override</span><span class="pln">
+                        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> run</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                            imageCollectorView</span><span class="pun">.</span><span class="pln">addImage</span><span class="pun">(</span><span class="pln">bitmap</span><span class="pun">);</span><span class="pln">
+                        </span><span class="pun">}</span><span class="pln">
+                    </span><span class="pun">});</span><span class="pln">
+                </span><span class="pun">}</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}.</span><span class="pln">start</span><span class="pun">();</span></code></pre>
+
+<p>而如果使用 RxJava ，实现方式是这样的：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">folders</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">flatMap</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Func1</span><span class="pun">&lt;</span><span class="typ">File</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">File</span><span class="pun">&gt;&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">File</span><span class="pun">&gt;</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">File</span><span class="pln"> file</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">file</span><span class="pun">.</span><span class="pln">listFiles</span><span class="pun">());</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">filter</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Func1</span><span class="pun">&lt;</span><span class="typ">File</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Boolean</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Boolean</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">File</span><span class="pln"> file</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> file</span><span class="pun">.</span><span class="pln">getName</span><span class="pun">().</span><span class="pln">endsWith</span><span class="pun">(</span><span class="str">".png"</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">map</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Func1</span><span class="pun">&lt;</span><span class="typ">File</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Bitmap</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Bitmap</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">File</span><span class="pln"> file</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> getBitmapFromFile</span><span class="pun">(</span><span class="pln">file</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribeOn</span><span class="pun">(</span><span class="typ">Schedulers</span><span class="pun">.</span><span class="pln">io</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">Bitmap</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Bitmap</span><span class="pln"> bitmap</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            imageCollectorView</span><span class="pun">.</span><span class="pln">addImage</span><span class="pun">(</span><span class="pln">bitmap</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<p>那位说话了：『你这代码明明变多了啊！简洁个毛啊！』大兄弟你消消气，我说的是逻辑的简洁，不是单纯的代码量少（逻辑简洁才是提升读写代码速度的必杀技对不？）。观察一下你会发现， RxJava 的这个实现，是一条从上到下的链式调用，没有任何嵌套，这在逻辑的简洁性上是具有优势的。当需求变得复杂时，这种优势将更加明显（试想如果还要求只选取前 10 张图片，常规方式要怎么办？如果有更多这样那样的要求呢？再试想，在这一大堆需求实现完两个月之后需要改功能，当你翻回这里看到自己当初写下的那一片迷之缩进，你能保证自己将迅速看懂，而不是对着代码重新捋一遍思路？）。</p>
+
+<p>另外，如果你的 IDE 是 Android Studio  ，其实每次打开某个 Java 文件的时候，你会看到被自动 Lambda 化的预览，这将让你更加清晰地看到程序逻辑：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">folders</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">flatMap</span><span class="pun">((</span><span class="typ">Func1</span><span class="pun">)</span><span class="pln"> </span><span class="pun">(</span><span class="pln">folder</span><span class="pun">)</span><span class="pln"> </span><span class="pun">-&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">file</span><span class="pun">.</span><span class="pln">listFiles</span><span class="pun">())</span><span class="pln"> </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">filter</span><span class="pun">((</span><span class="typ">Func1</span><span class="pun">)</span><span class="pln"> </span><span class="pun">(</span><span class="pln">file</span><span class="pun">)</span><span class="pln"> </span><span class="pun">-&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> file</span><span class="pun">.</span><span class="pln">getName</span><span class="pun">().</span><span class="pln">endsWith</span><span class="pun">(</span><span class="str">".png"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">map</span><span class="pun">((</span><span class="typ">Func1</span><span class="pun">)</span><span class="pln"> </span><span class="pun">(</span><span class="pln">file</span><span class="pun">)</span><span class="pln"> </span><span class="pun">-&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> getBitmapFromFile</span><span class="pun">(</span><span class="pln">file</span><span class="pun">)</span><span class="pln"> </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribeOn</span><span class="pun">(</span><span class="typ">Schedulers</span><span class="pun">.</span><span class="pln">io</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">((</span><span class="typ">Action1</span><span class="pun">)</span><span class="pln"> </span><span class="pun">(</span><span class="pln">bitmap</span><span class="pun">)</span><span class="pln"> </span><span class="pun">-&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> imageCollectorView</span><span class="pun">.</span><span class="pln">addImage</span><span class="pun">(</span><span class="pln">bitmap</span><span class="pun">)</span><span class="pln"> </span><span class="pun">});</span></code></pre>
+
+<blockquote>
+  <p>如果你习惯使用 Retrolambda ，你也可以直接把代码写成上面这种简洁的形式。而如果你看到这里还不知道什么是 Retrolambda ，我不建议你现在就去学习它。原因有两点：1. Lambda 是把双刃剑，它让你的代码简洁的同时，降低了代码的可读性，因此同时学习 RxJava 和 Retrolambda 可能会让你忽略 RxJava 的一些技术细节；2. Retrolambda 是 Java 6/7 对 Lambda 表达式的非官方兼容方案，它的向后兼容性和稳定性是无法保障的，因此对于企业项目，使用 Retrolambda 是有风险的。所以，与很多 RxJava 的推广者不同，我并不推荐在学习 RxJava 的同时一起学习 Retrolambda。事实上，我个人虽然很欣赏 Retrolambda，但我从来不用它。</p>
+</blockquote>
+
+<p>在Flipboard 的 Android 代码中，有一段逻辑非常复杂，包含了多次内存操作、本地文件操作和网络操作，对象分分合合，线程间相互配合相互等待，一会儿排成人字，一会儿排成一字。如果使用常规的方法来实现，肯定是要写得欲仙欲死，然而在使用 RxJava 的情况下，依然只是一条链式调用就完成了。它很长，但很清晰。</p>
+
+<p>所以， RxJava 好在哪？就好在简洁，好在那把什么复杂逻辑都能穿成一条线的简洁。</p>
+
+<h3 id="toc_3">API 介绍和原理简析</h3>
+
+<p>这个我就做不到一个词说明了……因为这一节的主要内容就是一步步地说明 RxJava 到底怎样做到了异步，怎样做到了简洁。</p>
+
+<h4 id="toc_4">1. 概念：扩展的观察者模式</h4>
+
+<p>RxJava 的异步实现，是通过一种扩展的观察者模式来实现的。</p>
+
+<h5 id="toc_5">观察者模式</h5>
+
+<p>先简述一下观察者模式，已经熟悉的可以跳过这一段。 </p>
+
+<p>观察者模式面向的需求是：A 对象（观察者）对 B 对象（被观察者）的某种变化高度敏感，需要在 B 变化的一瞬间做出反应。举个例子，新闻里喜闻乐见的警察抓小偷，警察需要在小偷伸手作案的时候实施抓捕。在这个例子里，警察是观察者，小偷是被观察者，警察需要时刻盯着小偷的一举一动，才能保证不会漏过任何瞬间。程序的观察者模式和这种真正的『观察』略有不同，观察者不需要时刻盯着被观察者（例如 A 不需要每过 2ms 就检查一次 B 的状态），而是采用<strong>注册</strong>(Register)<strong>或者称为</strong>订阅<strong>(Subscribe)</strong>的方式，告诉被观察者：我需要你的某某状态，你要在它变化的时候通知我。 Android 开发中一个比较典型的例子是点击监听器 <code>OnClickListener</code> 。对设置 <code>OnClickListener</code> 来说， <code>View</code> 是被观察者， <code>OnClickListener</code> 是观察者，二者通过 <code>setOnClickListener()</code> 方法达成订阅关系。订阅之后用户点击按钮的瞬间，Android Framework 就会将点击事件发送给已经注册的 <code>OnClickListener</code> 。采取这样被动的观察方式，既省去了反复检索状态的资源消耗，也能够得到最高的反馈速度。当然，这也得益于我们可以随意定制自己程序中的观察者和被观察者，而警察叔叔明显无法要求小偷『你在作案的时候务必通知我』。</p>
+
+<p>OnClickListener 的模式大致如下图：</p>
+
+<p><img alt="OnClickListener 观察者模式" data-src="http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rx42h1wgj20fz03rglt.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx42h1wgj20fz03rglt.jpg"></p>
+
+<p>如图所示，通过 <code>setOnClickListener()</code> 方法，<code>Button</code> 持有 <code>OnClickListener</code> 的引用（这一过程没有在图上画出）；当用户点击时，<code>Button</code> 自动调用 <code>OnClickListener</code> 的 <code>onClick()</code> 方法。另外，如果把这张图中的概念抽象出来（<code>Button</code> -&gt; 被观察者、<code>OnClickListener</code> -&gt; 观察者、<code>setOnClickListener()</code> -&gt; 订阅，<code>onClick()</code> -&gt; 事件），就由专用的观察者模式（例如只用于监听控件点击）转变成了通用的观察者模式。如下图：</p>
+
+<p><img alt="通用观察者模式" data-src="http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx4446ldj20ga03p74h.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx4446ldj20ga03p74h.jpg"></p>
+
+<p>而 RxJava 作为一个工具库，使用的就是通用形式的观察者模式。</p>
+
+<h5 id="toc_6">RxJava 的观察者模式</h5>
+
+<p>RxJava 有四个基本概念：<code>Observable</code> (可观察者，即被观察者)、 <code>Observer</code> (观察者)、 <code>subscribe</code> (订阅)、事件。<code>Observable</code> 和 <code>Observer</code> 通过 <code>subscribe()</code> 方法实现订阅关系，从而 <code>Observable</code> 可以在需要的时候发出事件来通知 <code>Observer</code>。</p>
+
+<p>与传统观察者模式不同， RxJava 的事件回调方法除了普通事件 <code>onNext()</code> （相当于 <code>onClick()</code> / <code>onEvent()</code>）之外，还定义了两个特殊的事件：<code>onCompleted()</code> 和 <code>onError()</code>。</p>
+
+<ul>
+<li><code>onCompleted()</code>: 事件队列完结。RxJava 不仅把每个事件单独处理，还会把它们看做一个队列。RxJava 规定，当不会再有新的 <code>onNext()</code> 发出时，需要触发 <code>onCompleted()</code> 方法作为标志。</li>
+<li><code>onError()</code>: 事件队列异常。在事件处理过程中出异常时，<code>onError()</code> 会被触发，同时队列自动终止，不允许再有事件发出。</li>
+<li>在一个正确运行的事件序列中, <code>onCompleted()</code> 和 <code>onError()</code> 有且只有一个，并且是事件序列中的最后一个。需要注意的是，<code>onCompleted()</code> 和 <code>onError()</code> 二者也是互斥的，即在队列中调用了其中一个，就不应该再调用另一个。</li>
+</ul>
+
+<p>RxJava 的观察者模式大致如下图：</p>
+
+<p><img alt="RxJava 的观察者模式" data-src="http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx46dspqj20gn04qaad.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx46dspqj20gn04qaad.jpg"></p>
+
+<h4 id="toc_7">2. 基本实现</h4>
+
+<p>基于以上的概念， RxJava 的基本实现主要有三点：</p>
+
+<h5 id="toc_8">1) 创建 Observer</h5>
+
+<p>Observer 即观察者，它决定事件触发的时候将有怎样的行为。 RxJava 中的 <code>Observer</code> 接口的实现方式：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observer</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> observer </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Observer</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> s</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Item: "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> s</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCompleted</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Completed!"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onError</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Error!"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span></code></pre>
+
+<p>除了 <code>Observer</code> 接口之外，RxJava 还内置了一个实现了 <code>Observer</code> 的抽象类：<code>Subscriber</code>。 <code>Subscriber</code> 对 <code>Observer</code> 接口进行了一些扩展，但他们的基本使用方式是完全一样的：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> subscriber </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> s</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Item: "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> s</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCompleted</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Completed!"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onError</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Error!"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span></code></pre>
+
+<p>不仅基本使用方式一样，实质上，在 RxJava 的 subscribe 过程中，<code>Observer</code> 也总是会先被转换成一个 <code>Subscriber</code> 再使用。所以如果你只想使用基本功能，选择 <code>Observer</code> 和 <code>Subscriber</code> 是完全一样的。它们的区别对于使用者来说主要有两点：</p>
+
+<ol>
+<li><code>onStart()</code>: 这是 <code>Subscriber</code> 增加的方法。它会在 subscribe 刚开始，而事件还未发送之前被调用，可以用于做一些准备工作，例如数据的清零或重置。这是一个可选方法，默认情况下它的实现为空。需要注意的是，如果对准备工作的线程有要求（例如弹出一个显示进度的对话框，这必须在主线程执行）， <code>onStart()</code> 就不适用了，因为它总是在 subscribe 所发生的线程被调用，而不能指定线程。要在指定的线程来做准备工作，可以使用 <code>doOnSubscribe()</code> 方法，具体可以在后面的文中看到。</li>
+<li><code>unsubscribe()</code>: 这是 <code>Subscriber</code> 所实现的另一个接口 <code>Subscription</code> 的方法，用于取消订阅。在这个方法被调用后，<code>Subscriber</code> 将不再接收事件。一般在这个方法调用前，可以使用 <code>isUnsubscribed()</code> 先判断一下状态。 <code>unsubscribe()</code> 这个方法很重要，因为在 <code>subscribe()</code> 之后， <code>Observable</code> 会持有 <code>Subscriber</code> 的引用，这个引用如果不能及时被释放，将有内存泄露的风险。所以最好保持一个原则：要在不再使用的时候尽快在合适的地方（例如 <code>onPause()</code> <code>onStop()</code> 等方法中）调用 <code>unsubscribe()</code> 来解除引用关系，以避免内存泄露的发生。</li>
+</ol>
+
+<h5 id="toc_9">2) 创建 Observable</h5>
+
+<p>Observable 即被观察者，它决定什么时候触发事件以及触发怎样的事件。 RxJava 使用 <code>create()</code> 方法来创建一个 Observable ，并为它定义事件触发规则：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observable</span><span class="pln"> observable </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="pln">create</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="typ">OnSubscribe</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Subscriber</span><span class="pun">&lt;?</span><span class="pln"> </span><span class="kwd">super</span><span class="pln"> </span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> subscriber</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        subscriber</span><span class="pun">.</span><span class="pln">onNext</span><span class="pun">(</span><span class="str">"Hello"</span><span class="pun">);</span><span class="pln">
+        subscriber</span><span class="pun">.</span><span class="pln">onNext</span><span class="pun">(</span><span class="str">"Hi"</span><span class="pun">);</span><span class="pln">
+        subscriber</span><span class="pun">.</span><span class="pln">onNext</span><span class="pun">(</span><span class="str">"Aloha"</span><span class="pun">);</span><span class="pln">
+        subscriber</span><span class="pun">.</span><span class="pln">onCompleted</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">});</span></code></pre>
+
+<p>可以看到，这里传入了一个 <code>OnSubscribe</code> 对象作为参数。<code>OnSubscribe</code> 会被存储在返回的 <code>Observable</code> 对象中，它的作用相当于一个计划表，当 <code>Observable</code> 被订阅的时候，<code>OnSubscribe</code> 的 <code>call()</code> 方法会自动被调用，事件序列就会依照设定依次触发（对于上面的代码，就是观察者<code>Subscriber</code> 将会被调用三次 <code>onNext()</code> 和一次 <code>onCompleted()</code>）。这样，由被观察者调用了观察者的回调方法，就实现了由被观察者向观察者的事件传递，即观察者模式。</p>
+
+<blockquote>
+  <p>这个例子很简单：事件的内容是字符串，而不是一些复杂的对象；事件的内容是已经定好了的，而不像有的观察者模式一样是待确定的（例如网络请求的结果在请求返回之前是未知的）；所有事件在一瞬间被全部发送出去，而不是夹杂一些确定或不确定的时间间隔或者经过某种触发器来触发的。总之，这个例子看起来毫无实用价值。但这是为了便于说明，实质上只要你想，各种各样的事件发送规则你都可以自己来写。至于具体怎么做，后面都会讲到，但现在不行。只有把基础原理先说明白了，上层的运用才能更容易说清楚。</p>
+</blockquote>
+
+<p><code>create()</code> 方法是 RxJava 最基本的创造事件序列的方法。基于这个方法， RxJava 还提供了一些方法用来快捷创建事件队列，例如：</p>
+
+<ul>
+<li><code>just(T...)</code>: 将传入的参数依次发送出来。</li>
+</ul>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observable</span><span class="pln"> observable </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="pln">just</span><span class="pun">(</span><span class="str">"Hello"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Hi"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Aloha"</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 将会依次调用：</span><span class="pln">
+</span><span class="com">// onNext("Hello");</span><span class="pln">
+</span><span class="com">// onNext("Hi");</span><span class="pln">
+</span><span class="com">// onNext("Aloha");</span><span class="pln">
+</span><span class="com">// onCompleted();</span></code></pre>
+
+<ul>
+<li><code>from(T[])</code> / <code>from(Iterable&lt;? extends T&gt;)</code> : 将传入的数组或 <code>Iterable</code> 拆分成具体对象后，依次发送出来。</li>
+</ul>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">String</span><span class="pun">[]</span><span class="pln"> words </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="str">"Hello"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Hi"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Aloha"</span><span class="pun">};</span><span class="pln">
+</span><span class="typ">Observable</span><span class="pln"> observable </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">words</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 将会依次调用：</span><span class="pln">
+</span><span class="com">// onNext("Hello");</span><span class="pln">
+</span><span class="com">// onNext("Hi");</span><span class="pln">
+</span><span class="com">// onNext("Aloha");</span><span class="pln">
+</span><span class="com">// onCompleted();</span></code></pre>
+
+<p>上面 <code>just(T...)</code> 的例子和 <code>from(T[])</code> 的例子，都和之前的 <code>create(OnSubscribe)</code> 的例子是等价的。</p>
+
+<h5 id="toc_10">3) Subscribe (订阅)</h5>
+
+<p>创建了 <code>Observable</code> 和 <code>Observer</code> 之后，再用 <code>subscribe()</code> 方法将它们联结起来，整条链子就可以工作了。代码形式很简单：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">observable</span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">observer</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 或者：</span><span class="pln">
+observable</span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber</span><span class="pun">);</span></code></pre>
+
+<blockquote>
+  <p>有人可能会注意到， <code>subscribe()</code> 这个方法有点怪：它看起来是『<code>observalbe</code> 订阅了 <code>observer</code> / <code>subscriber</code>』而不是『<code>observer</code> / <code>subscriber</code> 订阅了 <code>observalbe</code>』，这看起来就像『杂志订阅了读者』一样颠倒了对象关系。这让人读起来有点别扭，不过如果把 API 设计成 <code>observer.subscribe(observable)</code> / <code>subscriber.subscribe(observable)</code> ，虽然更加符合思维逻辑，但对流式 API 的设计就造成影响了，比较起来明显是得不偿失的。</p>
+</blockquote>
+
+<p><code>Observable.subscribe(Subscriber)</code> 的内部实现是这样的（仅核心代码）：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="com">// 注意：这不是 subscribe() 的源码，而是将源码中与性能、兼容性、扩展性有关的代码剔除后的核心代码。</span><span class="pln">
+</span><span class="com">// 如果需要看源码，可以去 RxJava 的 GitHub 仓库下载。</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Subscription</span><span class="pln"> subscribe</span><span class="pun">(</span><span class="typ">Subscriber</span><span class="pln"> subscriber</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    subscriber</span><span class="pun">.</span><span class="pln">onStart</span><span class="pun">();</span><span class="pln">
+    onSubscribe</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">subscriber</span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> subscriber</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<p>可以看到，<code>subscriber()</code> 做了3件事：</p>
+
+<ol>
+<li>调用 <code>Subscriber.onStart()</code> 。这个方法在前面已经介绍过，是一个可选的准备方法。</li>
+<li>调用 <code>Observable</code> 中的 <code>OnSubscribe.call(Subscriber)</code> 。在这里，事件发送的逻辑开始运行。从这也可以看出，在 RxJava 中， <code>Observable</code> 并不是在创建的时候就立即开始发送事件，而是在它被订阅的时候，即当 <code>subscribe()</code> 方法执行的时候。</li>
+<li>将传入的 <code>Subscriber</code> 作为 <code>Subscription</code> 返回。这是为了方便 <code>unsubscribe()</code>.</li>
+</ol>
+
+<p>整个过程中对象间的关系如下图：</p>
+
+<p><img alt="关系静图" data-src="http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rx489robj20lk0a8my2.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx489robj20lk0a8my2.jpg"></p>
+
+<p>或者可以看动图：</p>
+
+<p><img alt="关系静图" data-src="http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx4ay0hrg20ig08wk4q.gif" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx4ay0hrg20ig08wk4q.gif"></p>
+
+<p>除了 <code>subscribe(Observer)</code> 和 <code>subscribe(Subscriber)</code> ，<code>subscribe()</code> 还支持不完整定义的回调，RxJava 会自动根据定义创建出 <code>Subscriber</code> 。形式如下：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> onNextAction </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// onNext()</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> s</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> s</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+</span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">Throwable</span><span class="pun">&gt;</span><span class="pln"> onErrorAction </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">Throwable</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// onError()</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> throwable</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// Error handling</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+</span><span class="typ">Action0</span><span class="pln"> onCompletedAction </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action0</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// onCompleted()</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> </span><span class="str">"completed"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+
+</span><span class="com">// 自动创建 Subscriber ，并使用 onNextAction 来定义 onNext()</span><span class="pln">
+observable</span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">onNextAction</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来定义 onNext() 和 onError()</span><span class="pln">
+observable</span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">onNextAction</span><span class="pun">,</span><span class="pln"> onErrorAction</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()</span><span class="pln">
+observable</span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">onNextAction</span><span class="pun">,</span><span class="pln"> onErrorAction</span><span class="pun">,</span><span class="pln"> onCompletedAction</span><span class="pun">);</span></code></pre>
+
+<p>简单解释一下这段代码中出现的 <code>Action1</code> 和 <code>Action0</code>。 <code>Action0</code> 是 RxJava 的一个接口，它只有一个方法 <code>call()</code>，这个方法是无参无返回值的；由于 <code>onCompleted()</code> 方法也是无参无返回值的，因此 <code>Action0</code> 可以被当成一个包装对象，将 <code>onCompleted()</code> 的内容打包起来将自己作为一个参数传入 <code>subscribe()</code> 以实现不完整定义的回调。这样其实也可以看做将 <code>onCompleted()</code> 方法作为参数传进了 <code>subscribe()</code>，相当于其他某些语言中的『闭包』。 <code>Action1</code> 也是一个接口，它同样只有一个方法 <code>call(T param)</code>，这个方法也无返回值，但有一个参数；与 <code>Action0</code> 同理，由于 <code>onNext(T obj)</code> 和 <code>onError(Throwable error)</code> 也是单参数无返回值的，因此 <code>Action1</code> 可以将 <code>onNext(obj)</code> 和 <code>onError(error)</code> 打包起来传入 <code>subscribe()</code> 以实现不完整定义的回调。事实上，虽然 <code>Action0</code> 和 <code>Action1</code> 在 API 中使用最广泛，但 RxJava 是提供了多个 <code>ActionX</code> 形式的接口 (例如 <code>Action2</code>, <code>Action3</code>) 的，它们可以被用以包装不同的无返回值的方法。</p>
+
+<blockquote>
+  <p>注：正如前面所提到的，<code>Observer</code> 和 <code>Subscriber</code> 具有相同的角色，而且 <code>Observer</code> 在 <code>subscribe()</code> 过程中最终会被转换成 <code>Subscriber</code> 对象，因此，从这里开始，后面的描述我将用 <code>Subscriber</code> 来代替 <code>Observer</code> ，这样更加严谨。</p>
+</blockquote>
+
+<h5 id="toc_11">4) 场景示例</h5>
+
+<p>下面举两个例子：</p>
+
+<blockquote>
+  <p>为了把原理用更清晰的方式表述出来，本文中挑选的都是功能尽可能简单的例子，以至于有些示例代码看起来会有『画蛇添足』『明明不用 RxJava 可以更简便地解决问题』的感觉。当你看到这种情况，不要觉得是因为 RxJava 太啰嗦，而是因为在过早的时候举出真实场景的例子并不利于原理的解析，因此我刻意挑选了简单的情景。</p>
+</blockquote>
+
+<h6 id="toc_12">a. 打印字符串数组</h6>
+
+<p>将字符串数组 <code>names</code> 中的所有字符串依次打印出来：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">String</span><span class="pun">[]</span><span class="pln"> names </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">names</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> name</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> name</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<h6 id="toc_13">b. 由 id 取得图片并显示</h6>
+
+<p>由指定的一个 drawable 文件 id <code>drawableRes</code> 取得图片，并显示在 <code>ImageView</code> 中，并在出现异常的时候打印 Toast 报错：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="kwd">int</span><span class="pln"> drawableRes </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">ImageView</span><span class="pln"> imageView </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">Observable</span><span class="pun">.</span><span class="pln">create</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OnSubscribe</span><span class="pun">&lt;</span><span class="typ">Drawable</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Subscriber</span><span class="pun">&lt;?</span><span class="pln"> </span><span class="kwd">super</span><span class="pln"> </span><span class="typ">Drawable</span><span class="pun">&gt;</span><span class="pln"> subscriber</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Drawable</span><span class="pln"> drawable </span><span class="pun">=</span><span class="pln"> getTheme</span><span class="pun">().</span><span class="pln">getDrawable</span><span class="pun">(</span><span class="pln">drawableRes</span><span class="pun">));</span><span class="pln">
+        subscriber</span><span class="pun">.</span><span class="pln">onNext</span><span class="pun">(</span><span class="pln">drawable</span><span class="pun">);</span><span class="pln">
+        subscriber</span><span class="pun">.</span><span class="pln">onCompleted</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Observer</span><span class="pun">&lt;</span><span class="typ">Drawable</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">Drawable</span><span class="pln"> drawable</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        imageView</span><span class="pun">.</span><span class="pln">setImageDrawable</span><span class="pun">(</span><span class="pln">drawable</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCompleted</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onError</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Toast</span><span class="pun">.</span><span class="pln">makeText</span><span class="pun">(</span><span class="pln">activity</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Error!"</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Toast</span><span class="pun">.</span><span class="pln">LENGTH_SHORT</span><span class="pun">).</span><span class="pln">show</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">});</span></code></pre>
+
+<p>正如上面两个例子这样，创建出 <code>Observable</code> 和 <code>Subscriber</code> ，再用 <code>subscribe()</code> 将它们串起来，一次 RxJava 的基本使用就完成了。非常简单。</p>
+
+<p>然而，</p>
+
+<p><img alt="这并没有什么diao用" data-src="http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx4ddcncj2046053gll.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx4ddcncj2046053gll.jpg"></p>
+
+<p>在 RxJava 的默认规则中，事件的发出和消费都是在同一个线程的。也就是说，如果只用上面的方法，实现出来的只是一个同步的观察者模式。观察者模式本身的目的就是『后台处理，前台回调』的异步机制，因此异步对于 RxJava 是至关重要的。而要实现异步，则需要用到 RxJava 的另一个概念： <code>Scheduler</code> 。</p>
+
+<h4 id="toc_14">3. 线程控制 —— Scheduler (一)</h4>
+
+<p>在不指定线程的情况下， RxJava 遵循的是线程不变的原则，即：在哪个线程调用 <code>subscribe()</code>，就在哪个线程生产事件；在哪个线程生产事件，就在哪个线程消费事件。如果需要切换线程，就需要用到 <code>Scheduler</code> （调度器）。</p>
+
+<h5 id="toc_15">1) Scheduler 的 API (一)</h5>
+
+<p>在RxJava 中，<code>Scheduler</code> ——调度器，相当于线程控制器，RxJava 通过它来指定每一段代码应该运行在什么样的线程。RxJava 已经内置了几个 <code>Scheduler</code> ，它们已经适合大多数的使用场景：</p>
+
+<ul>
+<li><code>Schedulers.immediate()</code>: 直接在当前线程运行，相当于不指定线程。这是默认的 <code>Scheduler</code>。</li>
+<li><code>Schedulers.newThread()</code>: 总是启用新线程，并在新线程执行操作。</li>
+<li><code>Schedulers.io()</code>: I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 <code>Scheduler</code>。行为模式和 <code>newThread()</code> 差不多，区别在于 <code>io()</code> 的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 <code>io()</code> 比 <code>newThread()</code> 更有效率。不要把计算工作放在 <code>io()</code> 中，可以避免创建不必要的线程。</li>
+<li><code>Schedulers.computation()</code>: 计算所使用的 <code>Scheduler</code>。这个计算指的是 CPU 密集型计算，即不会被 I/O 等操作限制性能的操作，例如图形的计算。这个 <code>Scheduler</code> 使用的固定的线程池，大小为 CPU 核数。不要把 I/O 操作放在 <code>computation()</code> 中，否则 I/O 操作的等待时间会浪费 CPU。</li>
+<li>另外， Android 还有一个专用的 <code>AndroidSchedulers.mainThread()</code>，它指定的操作将在 Android 主线程运行。</li>
+</ul>
+
+<p>有了这几个 <code>Scheduler</code> ，就可以使用 <code>subscribeOn()</code> 和 <code>observeOn()</code> 两个方法来对线程进行控制了。
+* <code>subscribeOn()</code>: 指定 <code>subscribe()</code> 所发生的线程，即 <code>Observable.OnSubscribe</code> 被激活时所处的线程。或者叫做事件产生的线程。
+* <code>observeOn()</code>: 指定 <code>Subscriber</code> 所运行在的线程。或者叫做事件消费的线程。</p>
+
+<p>文字叙述总归难理解，上代码：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observable</span><span class="pun">.</span><span class="pln">just</span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln"> </span><span class="lit">3</span><span class="pun">,</span><span class="pln"> </span><span class="lit">4</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribeOn</span><span class="pun">(</span><span class="typ">Schedulers</span><span class="pun">.</span><span class="pln">io</span><span class="pun">())</span><span class="pln"> </span><span class="com">// 指定 subscribe() 发生在 IO 线程</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln"> </span><span class="com">// 指定 Subscriber 的回调发生在主线程</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">Integer</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Integer</span><span class="pln"> number</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> </span><span class="str">"number:"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> number</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<p>上面这段代码中，由于 <code>subscribeOn(Schedulers.io())</code> 的指定，被创建的事件的内容 <code>1</code>、<code>2</code>、<code>3</code>、<code>4</code> 将会在 IO 线程发出；而由于 <code>observeOn(AndroidScheculers.mainThread()</code>) 的指定，因此 <code>subscriber</code> 数字的打印将发生在主线程 。事实上，这种在 <code>subscribe()</code> 之前写上两句 <code>subscribeOn(Scheduler.io())</code> 和 <code>observeOn(AndroidSchedulers.mainThread())</code> 的使用方式非常常见，它适用于多数的 『后台线程取数据，主线程显示』的程序策略。</p>
+
+<p>而前面提到的由图片 id 取得图片并显示的例子，如果也加上这两句：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="kwd">int</span><span class="pln"> drawableRes </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">ImageView</span><span class="pln"> imageView </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">Observable</span><span class="pun">.</span><span class="pln">create</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OnSubscribe</span><span class="pun">&lt;</span><span class="typ">Drawable</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Subscriber</span><span class="pun">&lt;?</span><span class="pln"> </span><span class="kwd">super</span><span class="pln"> </span><span class="typ">Drawable</span><span class="pun">&gt;</span><span class="pln"> subscriber</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Drawable</span><span class="pln"> drawable </span><span class="pun">=</span><span class="pln"> getTheme</span><span class="pun">().</span><span class="pln">getDrawable</span><span class="pun">(</span><span class="pln">drawableRes</span><span class="pun">));</span><span class="pln">
+        subscriber</span><span class="pun">.</span><span class="pln">onNext</span><span class="pun">(</span><span class="pln">drawable</span><span class="pun">);</span><span class="pln">
+        subscriber</span><span class="pun">.</span><span class="pln">onCompleted</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+</span><span class="pun">.</span><span class="pln">subscribeOn</span><span class="pun">(</span><span class="typ">Schedulers</span><span class="pun">.</span><span class="pln">io</span><span class="pun">())</span><span class="pln"> </span><span class="com">// 指定 subscribe() 发生在 IO 线程</span><span class="pln">
+</span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln"> </span><span class="com">// 指定 Subscriber 的回调发生在主线程</span><span class="pln">
+</span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Observer</span><span class="pun">&lt;</span><span class="typ">Drawable</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">Drawable</span><span class="pln"> drawable</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        imageView</span><span class="pun">.</span><span class="pln">setImageDrawable</span><span class="pun">(</span><span class="pln">drawable</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCompleted</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onError</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Toast</span><span class="pun">.</span><span class="pln">makeText</span><span class="pun">(</span><span class="pln">activity</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Error!"</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Toast</span><span class="pun">.</span><span class="pln">LENGTH_SHORT</span><span class="pun">).</span><span class="pln">show</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">});</span></code></pre>
+
+<p>那么，加载图片将会发生在 IO 线程，而设置图片则被设定在了主线程。这就意味着，即使加载图片耗费了几十甚至几百毫秒的时间，也不会造成丝毫界面的卡顿。</p>
+
+<h5 id="toc_16">2) Scheduler 的原理 (一)</h5>
+
+<p>RxJava 的 Scheduler API 很方便，也很神奇（加了一句话就把线程切换了，怎么做到的？而且 <code>subscribe()</code> 不是最外层直接调用的方法吗，它竟然也能被指定线程？）。然而 Scheduler 的原理需要放在后面讲，因为它的原理是以下一节《变换》的原理作为基础的。</p>
+
+<p>好吧这一节其实我屁也没说，只是为了让你安心，让你知道我不是忘了讲原理，而是把它放在了更合适的地方。</p>
+
+<h4 id="toc_17">4. 变换</h4>
+
+<p>终于要到牛逼的地方了，不管你激动不激动，反正我是激动了。</p>
+
+<p>RxJava 提供了对事件序列进行变换的支持，这是它的核心功能之一，也是大多数人说『RxJava 真是太好用了』的最大原因。<strong>所谓变换，就是将事件序列中的对象或整个序列进行加工处理，转换成不同的事件或事件序列。</strong>概念说着总是模糊难懂的，来看 API。</p>
+
+<h5 id="toc_18">1) API</h5>
+
+<p>首先看一个 <code>map()</code> 的例子：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observable</span><span class="pun">.</span><span class="pln">just</span><span class="pun">(</span><span class="str">"images/logo.png"</span><span class="pun">)</span><span class="pln"> </span><span class="com">// 输入类型 String</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">map</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Func1</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Bitmap</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Bitmap</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> filePath</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="com">// 参数类型 String</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> getBitmapFromPath</span><span class="pun">(</span><span class="pln">filePath</span><span class="pun">);</span><span class="pln"> </span><span class="com">// 返回类型 Bitmap</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">Bitmap</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Bitmap</span><span class="pln"> bitmap</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="com">// 参数类型 Bitmap</span><span class="pln">
+            showBitmap</span><span class="pun">(</span><span class="pln">bitmap</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<p>这里出现了一个叫做 <code>Func1</code> 的类。它和 <code>Action1</code> 非常相似，也是 RxJava 的一个接口，用于包装含有一个参数的方法。 <code>Func1</code> 和 <code>Action</code> 的区别在于， <code>Func1</code> 包装的是有返回值的方法。另外，和 <code>ActionX</code> 一样， <code>FuncX</code> 也有多个，用于不同参数个数的方法。<code>FuncX</code> 和 <code>ActionX</code> 的区别在 <code>FuncX</code> 包装的是有返回值的方法。</p>
+
+<p>可以看到，<code>map()</code> 方法将参数中的 <code>String</code> 对象转换成一个 <code>Bitmap</code> 对象后返回，而在经过 <code>map()</code> 方法后，事件的参数类型也由 <code>String</code> 转为了 <code>Bitmap</code>。这种直接变换对象并返回的，是最常见的也最容易理解的变换。不过 RxJava 的变换远不止这样，它不仅可以针对事件对象，还可以针对整个事件队列，这使得 RxJava 变得非常灵活。我列举几个常用的变换：</p>
+
+<ul>
+<li><p><code>map()</code>: 事件对象的直接变换，具体功能上面已经介绍过。它是 RxJava 最常用的变换。
+<code>map()</code> 的示意图：
+<img alt="map() 示意图" data-src="http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rx4fitvfj20hw0ea0tg.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx4fitvfj20hw0ea0tg.jpg"></p></li>
+<li><p><code>flatMap()</code>: 这是一个很有用但<strong>非常难理解</strong>的变换，因此我决定花多些篇幅来介绍它。
+首先假设这么一种需求：假设有一个数据结构『学生』，现在需要打印出一组学生的名字。实现方式很简单：</p></li>
+</ul>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Student</span><span class="pun">[]</span><span class="pln"> students </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> subscriber </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> name</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> name</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">...</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+</span><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">students</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">map</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Func1</span><span class="pun">&lt;</span><span class="typ">Student</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Student</span><span class="pln"> student</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> student</span><span class="pun">.</span><span class="pln">getName</span><span class="pun">();</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber</span><span class="pun">);</span></code></pre>
+
+<p>很简单。那么再假设：如果要打印出每个学生所需要修的所有课程的名称呢？（需求的区别在于，每个学生只有一个名字，但却有多个课程。）首先可以这样实现：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Student</span><span class="pun">[]</span><span class="pln"> students </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">Student</span><span class="pun">&gt;</span><span class="pln"> subscriber </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">Student</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">Student</span><span class="pln"> student</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">Course</span><span class="pun">&gt;</span><span class="pln"> courses </span><span class="pun">=</span><span class="pln"> student</span><span class="pun">.</span><span class="pln">getCourses</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i </span><span class="pun">&lt;</span><span class="pln"> courses</span><span class="pun">.</span><span class="pln">size</span><span class="pun">();</span><span class="pln"> i</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">Course</span><span class="pln"> course </span><span class="pun">=</span><span class="pln"> courses</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="pln">i</span><span class="pun">);</span><span class="pln">
+            </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> course</span><span class="pun">.</span><span class="pln">getName</span><span class="pun">());</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">...</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+</span><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">students</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber</span><span class="pun">);</span></code></pre>
+
+<p>依然很简单。那么如果我不想在 <code>Subscriber</code> 中使用 for 循环，而是希望 <code>Subscriber</code> 中直接传入单个的 <code>Course</code> 对象呢（这对于代码复用很重要）？用 <code>map()</code> 显然是不行的，因为 <code>map()</code> 是一对一的转化，而我现在的要求是一对多的转化。那怎么才能把一个 Student 转化成多个 Course 呢？</p>
+
+<p>这个时候，就需要用 <code>flatMap()</code> 了：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Student</span><span class="pun">[]</span><span class="pln"> students </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">Course</span><span class="pun">&gt;</span><span class="pln"> subscriber </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">Course</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">Course</span><span class="pln"> course</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="pln">tag</span><span class="pun">,</span><span class="pln"> course</span><span class="pun">.</span><span class="pln">getName</span><span class="pun">());</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">...</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+</span><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">students</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">flatMap</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Func1</span><span class="pun">&lt;</span><span class="typ">Student</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">Course</span><span class="pun">&gt;&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">Course</span><span class="pun">&gt;</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Student</span><span class="pln"> student</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">student</span><span class="pun">.</span><span class="pln">getCourses</span><span class="pun">());</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber</span><span class="pun">);</span></code></pre>
+
+<p>从上面的代码可以看出， <code>flatMap()</code> 和 <code>map()</code> 有一个相同点：它也是把传入的参数转化之后返回另一个对象。但需要注意，和 <code>map()</code> 不同的是， <code>flatMap()</code> 中返回的是个 <code>Observable</code> 对象，并且这个 <code>Observable</code> 对象并不是被直接发送到了 <code>Subscriber</code> 的回调方法中。 <code>flatMap()</code> 的原理是这样的：1. 使用传入的事件对象创建一个 <code>Observable</code> 对象；2. 并不发送这个 <code>Observable</code>, 而是将它激活，于是它开始发送事件；3. 每一个创建出来的 <code>Observable</code> 发送的事件，都被汇入同一个 <code>Observable</code> ，而这个 <code>Observable</code> 负责将这些事件统一交给 <code>Subscriber</code> 的回调方法。这三个步骤，把事件拆成了两级，通过一组新创建的 <code>Observable</code> 将初始的对象『铺平』之后通过统一路径分发了下去。而这个『铺平』就是 <code>flatMap()</code> 所谓的 flat。</p>
+
+<p><code>flatMap()</code> 示意图：</p>
+
+<p><img alt="flatMap() 示意图" data-src="http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rx4i8da2j20hg0dydgx.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rx4i8da2j20hg0dydgx.jpg"></p>
+
+<p>扩展：由于可以在嵌套的 <code>Observable</code> 中添加异步代码， <code>flatMap()</code> 也常用于嵌套的异步操作，例如嵌套的网络请求。示例代码（Retrofit + RxJava）：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">networkClient</span><span class="pun">.</span><span class="pln">token</span><span class="pun">()</span><span class="pln"> </span><span class="com">// 返回 Observable&lt;String&gt;，在订阅时请求 token，并在响应后发送 token</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">flatMap</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Func1</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">Messages</span><span class="pun">&gt;&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">Messages</span><span class="pun">&gt;</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> token</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="com">// 返回 Observable&lt;Messages&gt;，在订阅时请求消息列表，并在响应后发送请求到的消息列表</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> networkClient</span><span class="pun">.</span><span class="pln">messages</span><span class="pun">();</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">Messages</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Messages</span><span class="pln"> messages</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="com">// 处理显示消息列表</span><span class="pln">
+            showMessages</span><span class="pun">(</span><span class="pln">messages</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<p>传统的嵌套请求需要使用嵌套的 Callback 来实现。而通过 <code>flatMap()</code> ，可以把嵌套的请求写在一条链中，从而保持程序逻辑的清晰。</p>
+
+<ul>
+<li><code>throttleFirst()</code>: 在每次事件触发后的一定时间间隔内丢弃新的事件。常用作去抖动过滤，例如按钮的点击监听器：
+<code>
+RxView.clickEvents(button) // RxBinding 代码，后面的文章有解释
+.throttleFirst(500, TimeUnit.MILLISECONDS) // 设置防抖间隔为 500ms
+.subscribe(subscriber);
+</code>
+妈妈再也不怕我的用户手抖点开两个重复的界面啦。</li>
+</ul>
+
+<p>此外， RxJava 还提供很多便捷的方法来实现事件序列的变换，这里就不一一举例了。</p>
+
+<h5 id="toc_19">2) 变换的原理：lift()</h5>
+
+<p>这些变换虽然功能各有不同，但实质上都是<strong>针对事件序列的处理和再发送</strong>。而在 RxJava 的内部，它们是基于同一个基础的变换方法： <code>lift(Operator)</code>。首先看一下 <code>lift()</code> 的内部实现（仅核心代码）：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="com">// 注意：这不是 lift() 的源码，而是将源码中与性能、兼容性、扩展性有关的代码剔除后的核心代码。</span><span class="pln">
+</span><span class="com">// 如果需要看源码，可以去 RxJava 的 GitHub 仓库下载。</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">R</span><span class="pun">&gt;</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="pln">R</span><span class="pun">&gt;</span><span class="pln"> lift</span><span class="pun">(</span><span class="typ">Operator</span><span class="pun">&lt;?</span><span class="pln"> extends R</span><span class="pun">,</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> </span><span class="kwd">super</span><span class="pln"> T</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">operator</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="pln">create</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OnSubscribe</span><span class="pun">&lt;</span><span class="pln">R</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Subscriber</span><span class="pln"> subscriber</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">Subscriber</span><span class="pln"> newSubscriber </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">operator</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">subscriber</span><span class="pun">);</span><span class="pln">
+            newSubscriber</span><span class="pun">.</span><span class="pln">onStart</span><span class="pun">();</span><span class="pln">
+            onSubscribe</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">newSubscriber</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<p>这段代码很有意思：它生成了一个新的 <code>Observable</code> 并返回，而且创建新 <code>Observable</code> 所用的参数 <code>OnSubscribe</code> 的回调方法 <code>call()</code> 中的实现竟然看起来和前面讲过的 <code>Observable.subscribe()</code> 一样！然而它们并不一样哟~不一样的地方关键就在于第二行 <code>onSubscribe.call(subscriber)</code> 中的 <strong><code>onSubscribe</code> 所指代的对象不同</strong>（高能预警：接下来的几句话可能会导致身体的严重不适）——</p>
+
+<ul>
+<li><code>subscribe()</code> 中这句话的 <code>onSubscribe</code> 指的是 <code>Observable</code> 中的 <code>onSubscribe</code> 对象，这个没有问题，但是 <code>lift()</code> 之后的情况就复杂了点。 </li>
+<li>当含有 <code>lift()</code> 时： <br>
+1.<code>lift()</code> 创建了一个 <code>Observable</code> 后，加上之前的原始 <code>Observable</code>，已经有两个 <code>Observable</code> 了； <br>
+2.而同样地，新 <code>Observable</code> 里的新 <code>OnSubscribe</code> 加上之前的原始 <code>Observable</code> 中的原始 <code>OnSubscribe</code>，也就有了两个 <code>OnSubscribe</code>； <br>
+3.当用户调用经过 <code>lift()</code> 后的 <code>Observable</code> 的 <code>subscribe()</code> 的时候，使用的是 <code>lift()</code> 所返回的新的 <code>Observable</code> ，于是它所触发的 <code>onSubscribe.call(subscriber)</code>，也是用的新 <code>Observable</code> 中的新 <code>OnSubscribe</code>，即在 <code>lift()</code> 中生成的那个 <code>OnSubscribe</code>； <br>
+4.而这个新 <code>OnSubscribe</code> 的 <code>call()</code> 方法中的 <code>onSubscribe</code> ，就是指的原始 <code>Observable</code> 中的原始 <code>OnSubscribe</code> ，在这个 <code>call()</code> 方法里，新 <code>OnSubscribe</code> 利用 <code>operator.call(subscriber)</code> 生成了一个新的 <code>Subscriber</code>（<code>Operator</code> 就是在这里，通过自己的 <code>call()</code> 方法将新 <code>Subscriber</code> 和原始 <code>Subscriber</code> 进行关联，并插入自己的『变换』代码以实现变换），然后利用这个新 <code>Subscriber</code> 向原始 <code>Observable</code> 进行订阅。 <br>
+这样就实现了 <code>lift()</code> 过程，有点<strong>像一种代理机制，通过事件拦截和处理实现事件序列的变换。</strong></li>
+</ul>
+
+<p>精简掉细节的话，也可以这么说：在 <code>Observable</code> 执行了 <code>lift(Operator)</code> 方法之后，会返回一个新的 <code>Observable</code>，这个新的 <code>Observable</code> 会像一个代理一样，负责接收原始的 <code>Observable</code> 发出的事件，并在处理后发送给 <code>Subscriber</code>。</p>
+
+<p>如果你更喜欢具象思维，可以看图：</p>
+
+<p><img alt="lift() 原理图" data-src="http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rxcrna27j20h40d1q4f.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rxcrna27j20h40d1q4f.jpg"></p>
+
+<p>或者可以看动图：</p>
+
+<p><img alt="lift 原理动图" data-src="http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rxcu9f46g20go0cz4qp.gif" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rxcu9f46g20go0cz4qp.gif"></p>
+
+<p>两次和多次的 <code>lift()</code> 同理，如下图：</p>
+
+<p><img alt="两次 lift" data-src="http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rxcvophmj20h30hl0v3.jpg" src="./给 Android 开发者的 RxJava 详解_files/52eb2279jw1f2rxcvophmj20h30hl0v3.jpg"></p>
+
+<p>举一个具体的 <code>Operator</code> 的实现。下面这是一个将事件中的 <code>Integer</code> 对象转换成 <code>String</code> 的例子，仅供参考：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">observable</span><span class="pun">.</span><span class="pln">lift</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">.</span><span class="typ">Operator</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Integer</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Subscriber</span><span class="pun">&lt;?</span><span class="pln"> </span><span class="kwd">super</span><span class="pln"> </span><span class="typ">Integer</span><span class="pun">&gt;</span><span class="pln"> call</span><span class="pun">(</span><span class="pln">final </span><span class="typ">Subscriber</span><span class="pun">&lt;?</span><span class="pln"> </span><span class="kwd">super</span><span class="pln"> </span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> subscriber</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// 将事件序列中的 Integer 对象转换为 String 对象</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Subscriber</span><span class="pun">&lt;</span><span class="typ">Integer</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="lit">@Override</span><span class="pln">
+            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">Integer</span><span class="pln"> integer</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                subscriber</span><span class="pun">.</span><span class="pln">onNext</span><span class="pun">(</span><span class="str">""</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> integer</span><span class="pun">);</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+
+            </span><span class="lit">@Override</span><span class="pln">
+            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCompleted</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                subscriber</span><span class="pun">.</span><span class="pln">onCompleted</span><span class="pun">();</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+
+            </span><span class="lit">@Override</span><span class="pln">
+            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onError</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                subscriber</span><span class="pun">.</span><span class="pln">onError</span><span class="pun">(</span><span class="pln">e</span><span class="pun">);</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">};</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">});</span></code></pre>
+
+<blockquote>
+  <p>讲述 <code>lift()</code> 的原理只是为了让你更好地了解 RxJava ，从而可以更好地使用它。然而不管你是否理解了 <code>lift()</code> 的原理，RxJava 都不建议开发者自定义 <code>Operator</code> 来直接使用 <code>lift()</code>，而是建议尽量使用已有的 <code>lift()</code> 包装方法（如 <code>map()</code> <code>flatMap()</code> 等）进行组合来实现需求，因为直接使用 lift() 非常容易发生一些难以发现的错误。</p>
+</blockquote>
+
+<h5 id="toc_20">3) compose: 对 Observable 整体的变换</h5>
+
+<p>除了 <code>lift()</code> 之外， <code>Observable</code> 还有一个变换方法叫做 <code>compose(Transformer)</code>。它和 <code>lift()</code> 的区别在于， <strong><code>lift()</code> 是针对事件项和事件序列的，而 <code>compose()</code> 是针对 <code>Observable</code> 自身进行变换。</strong>举个例子，假设在程序中有多个 <code>Observable</code> ，并且他们都需要应用一组相同的 <code>lift()</code> 变换。你可以这么写：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">observable1
+    </span><span class="pun">.</span><span class="pln">lift1</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift2</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift3</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift4</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber1</span><span class="pun">);</span><span class="pln">
+observable2
+    </span><span class="pun">.</span><span class="pln">lift1</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift2</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift3</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift4</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber2</span><span class="pun">);</span><span class="pln">
+observable3
+    </span><span class="pun">.</span><span class="pln">lift1</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift2</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift3</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift4</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber3</span><span class="pun">);</span><span class="pln">
+observable4
+    </span><span class="pun">.</span><span class="pln">lift1</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift2</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift3</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">lift4</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber1</span><span class="pun">);</span></code></pre>
+
+<p>你觉得这样太不软件工程了，于是你改成了这样：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="kwd">private</span><span class="pln"> </span><span class="typ">Observable</span><span class="pln"> liftAll</span><span class="pun">(</span><span class="typ">Observable</span><span class="pln"> observable</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> observable
+        </span><span class="pun">.</span><span class="pln">lift1</span><span class="pun">()</span><span class="pln">
+        </span><span class="pun">.</span><span class="pln">lift2</span><span class="pun">()</span><span class="pln">
+        </span><span class="pun">.</span><span class="pln">lift3</span><span class="pun">()</span><span class="pln">
+        </span><span class="pun">.</span><span class="pln">lift4</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">...</span><span class="pln">
+liftAll</span><span class="pun">(</span><span class="pln">observable1</span><span class="pun">).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber1</span><span class="pun">);</span><span class="pln">
+liftAll</span><span class="pun">(</span><span class="pln">observable2</span><span class="pun">).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber2</span><span class="pun">);</span><span class="pln">
+liftAll</span><span class="pun">(</span><span class="pln">observable3</span><span class="pun">).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber3</span><span class="pun">);</span><span class="pln">
+liftAll</span><span class="pun">(</span><span class="pln">observable4</span><span class="pun">).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber4</span><span class="pun">);</span></code></pre>
+
+<p>可读性、可维护性都提高了。可是 <code>Observable</code> 被一个方法包起来，这种方式对于 <code>Observale</code> 的灵活性似乎还是增添了那么点限制。怎么办？这个时候，就应该用 <code>compose()</code> 来解决了：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">LiftAllTransformer</span><span class="pln"> implements </span><span class="typ">Observable</span><span class="pun">.</span><span class="typ">Transformer</span><span class="pun">&lt;</span><span class="typ">Integer</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">Integer</span><span class="pun">&gt;</span><span class="pln"> observable</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> observable
+            </span><span class="pun">.</span><span class="pln">lift1</span><span class="pun">()</span><span class="pln">
+            </span><span class="pun">.</span><span class="pln">lift2</span><span class="pun">()</span><span class="pln">
+            </span><span class="pun">.</span><span class="pln">lift3</span><span class="pun">()</span><span class="pln">
+            </span><span class="pun">.</span><span class="pln">lift4</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">...</span><span class="pln">
+</span><span class="typ">Transformer</span><span class="pln"> liftAll </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">LiftAllTransformer</span><span class="pun">();</span><span class="pln">
+observable1</span><span class="pun">.</span><span class="pln">compose</span><span class="pun">(</span><span class="pln">liftAll</span><span class="pun">).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber1</span><span class="pun">);</span><span class="pln">
+observable2</span><span class="pun">.</span><span class="pln">compose</span><span class="pun">(</span><span class="pln">liftAll</span><span class="pun">).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber2</span><span class="pun">);</span><span class="pln">
+observable3</span><span class="pun">.</span><span class="pln">compose</span><span class="pun">(</span><span class="pln">liftAll</span><span class="pun">).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber3</span><span class="pun">);</span><span class="pln">
+observable4</span><span class="pun">.</span><span class="pln">compose</span><span class="pun">(</span><span class="pln">liftAll</span><span class="pun">).</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber4</span><span class="pun">);</span></code></pre>
+
+<p>像上面这样，使用 <code>compose()</code> 方法，<code>Observable</code> 可以利用传入的 <code>Transformer</code> 对象的 <code>call</code> 方法直接对自身进行处理，也就不必被包在方法的里面了。</p>
+
+<p><code>compose()</code> 的原理比较简单，不附图喽。</p>
+
+<h4 id="toc_21">5. 线程控制：Scheduler (二)</h4>
+
+<p>除了灵活的变换，RxJava 另一个牛逼的地方，就是线程的自由控制。</p>
+
+<h5 id="toc_22">1) Scheduler 的 API (二)</h5>
+
+<p>前面讲到了，可以利用 <code>subscribeOn()</code> 结合 <code>observeOn()</code> 来实现线程控制，让事件的产生和消费发生在不同的线程。可是在了解了 <code>map()</code> <code>flatMap()</code> 等变换方法后，有些好事的（其实就是当初刚接触 RxJava 时的我）就问了：能不能多切换几次线程？</p>
+
+<p>答案是：能。因为 <code>observeOn()</code> 指定的是 <code>Subscriber</code> 的线程，而这个 <code>Subscriber</code> 并不是（严格说应该为『不一定是』，但这里不妨理解为『不是』）<code>subscribe()</code> 参数中的 <code>Subscriber</code> ，而是 <code>observeOn()</code> 执行时的当前 <code>Observable</code> 所对应的 <code>Subscriber</code> ，即它的直接下级 <code>Subscriber</code> 。换句话说，<code>observeOn()</code> 指定的是它之后的操作所在的线程。因此如果有多次切换线程的需求，只要在每个想要切换线程的位置调用一次 <code>observeOn()</code> 即可。上代码：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observable</span><span class="pun">.</span><span class="pln">just</span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln"> </span><span class="lit">3</span><span class="pun">,</span><span class="pln"> </span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="com">// IO 线程，由 subscribeOn() 指定</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribeOn</span><span class="pun">(</span><span class="typ">Schedulers</span><span class="pun">.</span><span class="pln">io</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">Schedulers</span><span class="pun">.</span><span class="pln">newThread</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">map</span><span class="pun">(</span><span class="pln">mapOperator</span><span class="pun">)</span><span class="pln"> </span><span class="com">// 新线程，由 observeOn() 指定</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">Schedulers</span><span class="pun">.</span><span class="pln">io</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">map</span><span class="pun">(</span><span class="pln">mapOperator2</span><span class="pun">)</span><span class="pln"> </span><span class="com">// IO 线程，由 observeOn() 指定</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">)</span><span class="pln"> 
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber</span><span class="pun">);</span><span class="pln">  </span><span class="com">// Android 主线程，由 observeOn() 指定</span></code></pre>
+
+<p>如上，通过 <code>observeOn()</code> 的多次调用，程序实现了线程的多次切换。</p>
+
+<p>不过，不同于 <code>observeOn()</code> ， <code>subscribeOn()</code> 的位置放在哪里都可以，但它是只能调用一次的。</p>
+
+<p>又有好事的（其实还是当初的我）问了：如果我非要调用多次 <code>subscribeOn()</code> 呢？会有什么效果？</p>
+
+<p>这个问题先放着，我们还是从 RxJava 线程控制的原理说起吧。</p>
+
+<h5 id="toc_23">2) Scheduler 的原理（二）</h5>
+
+<p>其实， <code>subscribeOn()</code> 和 <code>observeOn()</code> 的内部实现，也是用的 <code>lift()</code>。具体看图（不同颜色的箭头表示不同的线程）：</p>
+
+<p><code>subscribeOn()</code> 原理图：</p>
+
+<p><img alt="subscribeOn() 原理" data-src="http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rxcynbsuj20ha0d7wg2.jpg"></p>
+
+<p><code>observeOn()</code> 原理图：</p>
+
+<p><img alt="observeOn() 原理" data-src="http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rxd05lttj20hj0cyabl.jpg"></p>
+
+<p>从图中可以看出，<code>subscribeOn()</code> 和 <code>observeOn()</code> 都做了线程切换的工作（图中的 "schedule..." 部位）。不同的是， <code>subscribeOn()</code> 的线程切换发生在 <code>OnSubscribe</code> 中，即在它通知上一级 <code>OnSubscribe</code> 时，这时事件还没有开始发送，因此 <code>subscribeOn()</code> 的线程控制可以从事件发出的开端就造成影响；而 <code>observeOn()</code> 的线程切换则发生在它内建的 <code>Subscriber</code> 中，即发生在它即将给下一级 <code>Subscriber</code> 发送事件时，因此 <code>observeOn()</code> 控制的是它后面的线程。</p>
+
+<p>最后，我用一张图来解释当多个 <code>subscribeOn()</code> 和 <code>observeOn()</code> 混合使用时，线程调度是怎么发生的（由于图中对象较多，相对于上面的图对结构做了一些简化调整）：</p>
+
+<p><img alt="线程控制综合调用" data-src="http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rxd1vl7xj20hd0hzq6e.jpg"></p>
+
+<p>图中共有 5 处含有对事件的操作。由图中可以看出，①和②两处受第一个 <code>subscribeOn()</code> 影响，运行在红色线程；③和④处受第一个 <code>observeOn()</code> 的影响，运行在绿色线程；⑤处受第二个 <code>onserveOn()</code> 影响，运行在紫色线程；而第二个 <code>subscribeOn()</code> ，由于在通知过程中线程就被第一个 <code>subscribeOn()</code> 截断，因此对整个流程并没有任何影响。这里也就回答了前面的问题：当使用了多个 <code>subscribeOn()</code> 的时候，只有第一个 <code>subscribeOn()</code> 起作用。</p>
+
+<h5 id="toc_24">3) 延伸：doOnSubscribe()</h5>
+
+<p>然而，虽然超过一个的 <code>subscribeOn()</code> 对事件处理的流程没有影响，但在流程之前却是可以利用的。</p>
+
+<p>在前面讲 <code>Subscriber</code> 的时候，提到过 <code>Subscriber</code> 的 <code>onStart()</code> 可以用作流程开始前的初始化。然而 <code>onStart()</code> 由于在 <code>subscribe()</code> 发生时就被调用了，因此不能指定线程，而是只能执行在 <code>subscribe()</code> 被调用时的线程。这就导致如果 <code>onStart()</code> 中含有对线程有要求的代码（例如在界面上显示一个 ProgressBar，这必须在主线程执行），将会有线程非法的风险，因为有时你无法预测 <code>subscribe()</code> 将会在什么线程执行。</p>
+
+<p>而与 <code>Subscriber.onStart()</code> 相对应的，有一个方法 <code>Observable.doOnSubscribe()</code> 。它和 <code>Subscriber.onStart()</code> 同样是在 <code>subscribe()</code> 调用后而且在事件发送前执行，但区别在于它可以指定线程。默认情况下， <code>doOnSubscribe()</code> 执行在 <code>subscribe()</code> 发生的线程；而如果在 <code>doOnSubscribe()</code> 之后有 <code>subscribeOn()</code> 的话，它将执行在离它最近的 <code>subscribeOn()</code> 所指定的线程。</p>
+
+<p>示例代码：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Observable</span><span class="pun">.</span><span class="pln">create</span><span class="pun">(</span><span class="pln">onSubscribe</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribeOn</span><span class="pun">(</span><span class="typ">Schedulers</span><span class="pun">.</span><span class="pln">io</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">doOnSubscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action0</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            progressBar</span><span class="pun">.</span><span class="pln">setVisibility</span><span class="pun">(</span><span class="typ">View</span><span class="pun">.</span><span class="pln">VISIBLE</span><span class="pun">);</span><span class="pln"> </span><span class="com">// 需要在主线程执行</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln"> </span><span class="com">// 指定主线程</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">subscriber</span><span class="pun">);</span></code></pre>
+
+<p>如上，在 <code>doOnSubscribe()</code>的后面跟一个 <code>subscribeOn()</code> ，就能指定准备工作的线程了。</p>
+
+<h3 id="toc_25">RxJava 的适用场景和使用方式</h3>
+
+<h4 id="toc_26">1. 与 Retrofit 的结合</h4>
+
+<blockquote>
+  <p>Retrofit 是 Square 的一个著名的网络请求库。没有用过 Retrofit 的可以选择跳过这一小节也没关系，我举的每种场景都只是个例子，而且例子之间并无前后关联，只是个抛砖引玉的作用，所以你跳过这里看别的场景也可以的。</p>
+</blockquote>
+
+<p>Retrofit 除了提供了传统的 <code>Callback</code> 形式的 API，还有 RxJava 版本的 <code>Observable</code> 形式 API。下面我用对比的方式来介绍 Retrofit 的 RxJava 版 API 和传统版本的区别。</p>
+
+<p>以获取一个 <code>User</code> 对象的接口作为例子。使用Retrofit 的传统 API，你可以用这样的方式来定义请求：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="lit">@GET</span><span class="pun">(</span><span class="str">"/user"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> getUser</span><span class="pun">(</span><span class="lit">@Query</span><span class="pun">(</span><span class="str">"userId"</span><span class="pun">)</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> userId</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Callback</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;</span><span class="pln"> callback</span><span class="pun">);</span></code></pre>
+
+<p>在程序的构建过程中， Retrofit 会把自动把方法实现并生成代码，然后开发者就可以利用下面的方法来获取特定用户并处理响应：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">getUser</span><span class="pun">(</span><span class="pln">userId</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Callback</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> success</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        userView</span><span class="pun">.</span><span class="pln">setUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> failure</span><span class="pun">(</span><span class="typ">RetrofitError</span><span class="pln"> error</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// Error handling</span><span class="pln">
+        </span><span class="pun">...</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span></code></pre>
+
+<p>而使用 RxJava 形式的 API，定义同样的请求是这样的：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="lit">@GET</span><span class="pun">(</span><span class="str">"/user"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;</span><span class="pln"> getUser</span><span class="pun">(</span><span class="lit">@Query</span><span class="pun">(</span><span class="str">"userId"</span><span class="pun">)</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> userId</span><span class="pun">);</span></code></pre>
+
+<p>使用的时候是这样的：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">getUser</span><span class="pun">(</span><span class="pln">userId</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Observer</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            userView</span><span class="pun">.</span><span class="pln">setUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCompleted</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onError</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> error</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="com">// Error handling</span><span class="pln">
+            </span><span class="pun">...</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<p>看到区别了吗？</p>
+
+<p>当 RxJava 形式的时候，Retrofit 把请求封装进 <code>Observable</code> ，在请求结束后调用 <code>onNext()</code> 或在请求失败后调用 <code>onError()</code>。</p>
+
+<p>对比来看， <code>Callback</code> 形式和 <code>Observable</code> 形式长得不太一样，但本质都差不多，而且在细节上 <code>Observable</code> 形式似乎还比 <code>Callback</code> 形式要差点。那 Retrofit 为什么还要提供 RxJava 的支持呢？</p>
+
+<p>因为它好用啊！从这个例子看不出来是因为这只是最简单的情况。而一旦情景复杂起来， <code>Callback</code> 形式马上就会开始让人头疼。比如：</p>
+
+<p>假设这么一种情况：你的程序取到的 <code>User</code> 并不应该直接显示，而是需要先与数据库中的数据进行比对和修正后再显示。使用 <code>Callback</code> 方式大概可以这么写：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">getUser</span><span class="pun">(</span><span class="pln">userId</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Callback</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> success</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        processUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln"> </span><span class="com">// 尝试修正 User 数据</span><span class="pln">
+        userView</span><span class="pun">.</span><span class="pln">setUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> failure</span><span class="pun">(</span><span class="typ">RetrofitError</span><span class="pln"> error</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// Error handling</span><span class="pln">
+        </span><span class="pun">...</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span></code></pre>
+
+<p>有问题吗？</p>
+
+<p>很简便，但不要这样做。为什么？因为这样做会影响性能。数据库的操作很重，一次读写操作花费 10~20ms 是很常见的，这样的耗时很容易造成界面的卡顿。所以通常情况下，如果可以的话一定要避免在主线程中处理数据库。所以为了提升性能，这段代码可以优化一下：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">getUser</span><span class="pun">(</span><span class="pln">userId</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Callback</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> success</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Thread</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="lit">@Override</span><span class="pln">
+            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> run</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                processUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln"> </span><span class="com">// 尝试修正 User 数据</span><span class="pln">
+                runOnUiThread</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Runnable</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="com">// 切回 UI 线程</span><span class="pln">
+                    </span><span class="lit">@Override</span><span class="pln">
+                    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> run</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                        userView</span><span class="pun">.</span><span class="pln">setUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln">
+                    </span><span class="pun">}</span><span class="pln">
+                </span><span class="pun">});</span><span class="pln">
+            </span><span class="pun">}).</span><span class="pln">start</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> failure</span><span class="pun">(</span><span class="typ">RetrofitError</span><span class="pln"> error</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// Error handling</span><span class="pln">
+        </span><span class="pun">...</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span></code></pre>
+
+<p>性能问题解决，但……这代码实在是太乱了，迷之缩进啊！杂乱的代码往往不仅仅是美观问题，因为代码越乱往往就越难读懂，而如果项目中充斥着杂乱的代码，无疑会降低代码的可读性，造成团队开发效率的降低和出错率的升高。</p>
+
+<p>这时候，如果用 RxJava 的形式，就好办多了。 RxJava 形式的代码是这样的：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="pln">getUser</span><span class="pun">(</span><span class="pln">userId</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">doOnNext</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            processUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Observer</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            userView</span><span class="pun">.</span><span class="pln">setUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCompleted</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onError</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> error</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="com">// Error handling</span><span class="pln">
+            </span><span class="pun">...</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<p>后台代码和前台代码全都写在一条链中，明显清晰了很多。</p>
+
+<p>再举一个例子：假设 <code>/user</code> 接口并不能直接访问，而需要填入一个在线获取的 <code>token</code> ，代码应该怎么写？</p>
+
+<p><code>Callback</code> 方式，可以使用嵌套的 <code>Callback</code>：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="lit">@GET</span><span class="pun">(</span><span class="str">"/token"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> getToken</span><span class="pun">(</span><span class="typ">Callback</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> callback</span><span class="pun">);</span><span class="pln">
+
+</span><span class="lit">@GET</span><span class="pun">(</span><span class="str">"/user"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> getUser</span><span class="pun">(</span><span class="lit">@Query</span><span class="pun">(</span><span class="str">"token"</span><span class="pun">)</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> token</span><span class="pun">,</span><span class="pln"> </span><span class="lit">@Query</span><span class="pun">(</span><span class="str">"userId"</span><span class="pun">)</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> userId</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Callback</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;</span><span class="pln"> callback</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">...</span><span class="pln">
+
+getToken</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Callback</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> success</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> token</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        getUser</span><span class="pun">(</span><span class="pln">token</span><span class="pun">,</span><span class="pln"> userId</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Callback</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="lit">@Override</span><span class="pln">
+            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> success</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                userView</span><span class="pun">.</span><span class="pln">setUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+
+            </span><span class="lit">@Override</span><span class="pln">
+            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> failure</span><span class="pun">(</span><span class="typ">RetrofitError</span><span class="pln"> error</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                </span><span class="com">// Error handling</span><span class="pln">
+                </span><span class="pun">...</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">};</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> failure</span><span class="pun">(</span><span class="typ">RetrofitError</span><span class="pln"> error</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// Error handling</span><span class="pln">
+        </span><span class="pun">...</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">});</span></code></pre>
+
+<p>倒是没有什么性能问题，可是迷之缩进毁一生，你懂我也懂，做过大项目的人应该更懂。</p>
+
+<p>而使用 RxJava 的话，代码是这样的：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="lit">@GET</span><span class="pun">(</span><span class="str">"/token"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> getToken</span><span class="pun">();</span><span class="pln">
+
+</span><span class="lit">@GET</span><span class="pun">(</span><span class="str">"/user"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;</span><span class="pln"> getUser</span><span class="pun">(</span><span class="lit">@Query</span><span class="pun">(</span><span class="str">"token"</span><span class="pun">)</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> token</span><span class="pun">,</span><span class="pln"> </span><span class="lit">@Query</span><span class="pun">(</span><span class="str">"userId"</span><span class="pun">)</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> userId</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">...</span><span class="pln">
+
+getToken</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">flatMap</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Func1</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Observable</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> token</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> getUser</span><span class="pun">(</span><span class="pln">token</span><span class="pun">,</span><span class="pln"> userId</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">})</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">observeOn</span><span class="pun">(</span><span class="typ">AndroidSchedulers</span><span class="pun">.</span><span class="pln">mainThread</span><span class="pun">())</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Observer</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onNext</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            userView</span><span class="pun">.</span><span class="pln">setUser</span><span class="pun">(</span><span class="pln">user</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCompleted</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onError</span><span class="pun">(</span><span class="typ">Throwable</span><span class="pln"> error</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="com">// Error handling</span><span class="pln">
+            </span><span class="pun">...</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<p>用一个 <code>flatMap()</code> 就搞定了逻辑，依然是一条链。看着就很爽，是吧？</p>
+
+<p>2016/03/31 更新，加上我写的一个 Sample 项目： <br>
+<a href="https://github.com/rengwuxian/RxJavaSamples">rengwuxian RxJava Samples</a></p>
+
+<p>好，Retrofit 部分就到这里。</p>
+
+<h4 id="toc_27">2. RxBinding</h4>
+
+<p><a href="https://github.com/JakeWharton/RxBinding">RxBinding</a> 是 Jake Wharton 的一个开源库，它提供了一套在 Android 平台上的基于 RxJava 的 Binding API。所谓 Binding，就是类似设置 <code>OnClickListener</code> 、设置 <code>TextWatcher</code> 这样的注册绑定对象的 API。</p>
+
+<p>举个设置点击监听的例子。使用 <code>RxBinding</code> ，可以把事件监听用这样的方法来设置：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">Button</span><span class="pln"> button </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...;</span><span class="pln">
+</span><span class="typ">RxView</span><span class="pun">.</span><span class="pln">clickEvents</span><span class="pun">(</span><span class="pln">button</span><span class="pun">)</span><span class="pln"> </span><span class="com">// 以 Observable 形式来反馈点击事件</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Action1</span><span class="pun">&lt;</span><span class="typ">ViewClickEvent</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Override</span><span class="pln">
+        </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> call</span><span class="pun">(</span><span class="typ">ViewClickEvent</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="com">// Click handling</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">});</span></code></pre>
+
+<p>看起来除了形式变了没什么区别，实质上也是这样。甚至如果你看一下它的源码，你会发现它连实现都没什么惊喜：它的内部是直接用一个包裹着的 <code>setOnClickListener()</code> 来实现的。然而，仅仅这一个形式的改变，却恰好就是 <code>RxBinding</code> 的目的：扩展性。通过 <code>RxBinding</code> 把点击监听转换成 <code>Observable</code> 之后，就有了对它进行扩展的可能。扩展的方式有很多，根据需求而定。一个例子是前面提到过的 <code>throttleFirst()</code> ，用于去抖动，也就是消除手抖导致的快速连环点击：</p>
+
+<pre><code class="prettyprint prettyprinted"><span class="typ">RxView</span><span class="pun">.</span><span class="pln">clickEvents</span><span class="pun">(</span><span class="pln">button</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">throttleFirst</span><span class="pun">(</span><span class="lit">500</span><span class="pun">,</span><span class="pln"> </span><span class="typ">TimeUnit</span><span class="pun">.</span><span class="pln">MILLISECONDS</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">.</span><span class="pln">subscribe</span><span class="pun">(</span><span class="pln">clickAction</span><span class="pun">);</span></code></pre>
+
+<p>如果想对 <code>RxBinding</code> 有更多了解，可以去它的 <a href="https://github.com/JakeWharton/RxBinding">GitHub 项目</a> 下面看看。</p>
+
+<h4 id="toc_28">3. 各种异步操作</h4>
+
+<p>前面举的 <code>Retrofit</code> 和 <code>RxBinding</code> 的例子，是两个可以提供现成的 <code>Observable</code> 的库。而如果你有某些异步操作无法用这些库来自动生成 <code>Observable</code>，也完全可以自己写。例如数据库的读写、大图片的载入、文件压缩/解压等各种需要放在后台工作的耗时操作，都可以用 RxJava 来实现，有了之前几章的例子，这里应该不用再举例了。</p>
+
+<h4 id="toc_29">4. RxBus</h4>
+
+<p>RxBus 名字看起来像一个库，但它并不是一个库，而是一种模式，它的思想是使用 RxJava 来实现了 EventBus ，而让你不再需要使用 <code>Otto</code> 或者 GreenRobot 的 <code>EventBus</code>。至于什么是 RxBus，可以看<a href="http://nerds.weddingpartyapp.com/tech/2014/12/24/implementing-an-event-bus-with-rxjava-rxbus/">这篇文章</a>。顺便说一句，Flipboard 已经用 RxBus 替换掉了 <code>Otto</code> ，目前为止没有不良反应。</p>
+
+<h3 id="toc_30">最后</h3>
+
+<p>对于 Android 开发者来说， RxJava 是一个很难上手的库，因为它对于 Android 开发者来说有太多陌生的概念了。可是它真的很牛逼。因此，我写了这篇《给 Android 开发者的 RxJava 详解》，希望能给始终搞不明白什么是 RxJava 的人一些入门的指引，或者能让正在使用 RxJava 但仍然心存疑惑的人看到一些更深入的解析。无论如何，只要能给各位同为 Android 工程师的你们提供一些帮助，这篇文章的目的就达到了。</p>
+
+<p>再次感谢对这篇文章的产出提供支持的各位： <br>
+技术支持：<a href="http://weibo.com/wowwing" target="_blank">流火枫林</a> <br>
+内测读者：<a href="http://weibo.com/daimajia" target="_blank">代码家</a>、<a href="http://weibo.com/u/3224930551" target="_blank">鲍永章</a>、<a href="https://github.com/drakeet" target="_blank">drakeet</a>、<a href="https://github.com/androidmalin" target="_blank">马琳</a>、<a href="http://weibo.com/kevingracie" target="_blank">有时放纵</a>、<a href="http://weibo.com/u/2559577095" target="_blank">程序亦非猿</a>、<a href="http://weibo.com/brucefromsdu" target="_blank">大头鬼</a>、<a href="http://weibo.com/u/2662418685" target="_blank">XZoomEye</a>、<a href="http://weibo.com/shadev" target="_blank">席德雨</a>、<a href="http://weibo.com/tcahead" target="_blank">TCahead</a>、<a href="http://weibo.com/u/1963663403" target="_blank">Tiiime</a>、<a href="http://weibo.com/208087666" target="_blank">Ailurus</a>、<a href="http://weibo.com/seniorszhai" target="_blank">宅学长</a>、<a href="http://naotou.github.io/" target="_blank">妖孽</a>、<a href="http://weibo.com/u/3214362483" target="_blank">大大大大大臣哥</a>、<a href="https://github.com/rizhilee" target="_blank">NicodeLee</a> <br>
+赞助方：<a href="http://jobtong.com/" target="_blank">周伯通招聘</a>
+是他们让我的文章能够以不那么丑陋的样子出现在大家面前。</p>
+
+<h4 id="toc_31">关于作者</h4> 
+
+<p>朱凯（扔物线），<a href="https://www.flipboard.cn/" target="_blank">Flipboard 北京</a> Android 工程师。 </p>
+
+<p>微博：<a href="http://weibo.com/rengwuxian" target="_blank">扔物线</a> </p>
+
+<p>GitHub：<a href="https://github.com/rengwuxian" target="_blank">rengwuxian</a> </p>
+
+<h4 id="toc_32">为什么写这个？</h4>
+
+<p>与两三年前的境况不同，中国现在已经不缺初级 Android 工程师，但中级和高级工程师严重供不应求。因此我决定从今天开始不定期地发布我的技术分享，只希望能够和大家共同提升，通过我们的成长来解决一点点国内互联网公司人才稀缺的困境，也提升各位技术党的收入。所以，不仅要写这篇，我还会写更多。至于内容的定位，我计划只定位真正的干货，一些边边角角的小技巧和炫酷的黑科技应该都不会写，总之希望每篇文章都能帮读者提升真正的实力。</p>
+
+<p>2016.04.10：听家家说有人在评论里留言要给本文赞赏，我赶紧机智地提上裤子跑来贴上支付宝和微信的二维码：</p>
+
+<p><img alt="payment_qrcode" data-src="http://ww2.sinaimg.cn/mw1024/52eb2279jw1f2rxyunlh1j20km0d1djg.jpg"></p>
+
+        </div>
+        <div class="copyright">
+            <ul>
+                <li>作者：<a href="https://github.com/rengwuxian" target="_blank">扔物线</a>
+                </li>
+                <li>发布时间：2015-10-02 05:27</li>
+                <li>更新时间：2016-08-01 09:52</li>
+                <li>版权声明：禁止任何形式的全文转载，如需合作，请<a href="mailto:daimajia@gmail.com">联络我</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"><div id="yun-tie-sdk-wrap"><div class="tie-title-bar"><span class="tie-title">炮友跟帖：</span><div class="active-wrap"><span class="tie-actCount">687</span><span class="tie-join-txt">人参与</span></div></div><div class="tie-input-bar"><div class="input-box" ne-id="tieBox" ne-tmpl="formTpl"><textarea rows="8" cols="80" class="tie-textarea" name="content" ne-focus="hideInputTip()" ne-blur="showInputTip()" ne-model="boxTie.content"></textarea><div class="input-tips" ne-click="hideInputTip()">喜欢妹子还是喜欢干货？</div><div class="tie-submit-row"><div class="user-bar" ne-id="userBar" ne-tmpl="userBar"><div class="tie-quick-login flt-lft"><span class="quick-txt">快速登录：</span><span class="icon i-mail" title="邮箱账号登录" ne-click="showLoginWin()" ne-stat="stat(type-163Login|area-2)"></span><span class="icon i-weibo" title="微博账号登录" ne-click="thirdOauth(https://reg.163.com/outerLogin/oauth2/connect.do?target=3&amp;product=gentie&amp;url=https://api.gentie.163.com/pc/refresh.html&amp;url2=https://api.gentie.163.com/pc/refresh.html)" ne-stat="stat(type-sinaLogin|area-2)"></span><span class="icon i-qq" title="QQ账号登录" ne-click="thirdOauth(https://reg.163.com/outerLogin/oauth2/connect.do?target=1&amp;product=gentie&amp;url=https://api.gentie.163.com/pc/refresh.html&amp;url2=https://api.gentie.163.com/pc/refresh.html)" ne-stat="stat(type-qqLogin|area-2)"></span></div></div><span class="tie-submit-btn" ne-click="submitTie()"><i class="icon"></i>发表跟贴</span><div ne-id="tipBox" ne-tmpl="tipTpl" ne-data=""></div></div></div></div><div class="tie-tab-bar"><ul><li class="z-fcs" ne-click="changeTab(xin)" ne-stat="stat(type-newList|area-2)"><span>新来的炮友</span></li><li class="" ne-click="changeTab(hot)" ne-stat="stat(type-hotList|area-2)"><span>被顶的炮友</span></li></ul><p class="promote-txt" ne-stat="stat(type-wordsLink|area-2)"></p></div><div class="tie-panel-bar"><div class="panel-new" style="display: block;"><div class="tie-list" style="display: block;"><div class="single-tie"><div class="photo" ne-click="showIwin(1)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/d8cce82adff24b3caa6c8b3a7f57ea9f20170413143526.jpg.39x39.100.jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(1)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">hanzhi911228</span><span class="name-desp">[干货集中营-四川省成都市网友]</span><span class="tie-time">5小时前</span></div><p class="tie-cnt">Scheduler(一)上方的一片代码中，注释有//指定 subscribe() 发生在 IO 线程 这句话应该是‘指定Subscriber发生在IO线程中’吧？</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="1"><div class="tool-bar "><div ne-click="upTie(1)" ne-id="upTie:1" ne-tmpl="upTieTpl" ne-data="1" class=""><span class="icon i-up"></span><span class="u-num">0</span></div><div ne-click="downTie(1)" ne-id="downTie:1" ne-tmpl="downTieTpl" ne-data="1" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(1)" ne-stat="stat(type-share|area-2|commentId-2662076690)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="1"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(1)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="1"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(3)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/100.39x39.100.jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(3)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">有态度网友06Ph0j</span><span class="name-desp">[干货集中营-上海市网友]</span><span class="tie-time">1天前</span></div><div class="floor-tie"><div class="floor-tie-self"><div class="tie-author"><span class="name-nick" ne-click="showIwin(2)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">有态度网友06Ph0j</span><span class="name-desp">[干货集中营-上海市网友]</span><span class="floor-NO">1</span></div><p class="tie-cnt">subscribe（）方法在API中的参数类型是Observer，但在在变换-flatmap的例子中Observable.from(students).subscribe(subscriber)的参数类型是Subscriber,这个是不是错啦？</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="2"><div class="tool-bar "><div ne-click="upTie(2)" ne-id="upTie:2" ne-tmpl="upTieTpl" ne-data="2" class=""><span class="icon i-up"></span><span class="u-num">0</span></div><div ne-click="downTie(2)" ne-id="downTie:2" ne-tmpl="downTieTpl" ne-data="2" class=""><span class="icon i-down"></span><span class="u-num">2</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(2)" ne-stat="stat(type-share|area-2|commentId-2662059693)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="2"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(2)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="2"></div></div></div></div><p class="tie-cnt">用的RxJava不一样，作者用的是rxjava1，我用的是rxjava2</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="3"><div class="tool-bar "><div ne-click="upTie(3)" ne-id="upTie:3" ne-tmpl="upTieTpl" ne-data="3" class=""><span class="icon i-up"></span><span class="u-num">0</span></div><div ne-click="downTie(3)" ne-id="downTie:3" ne-tmpl="downTieTpl" ne-data="3" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(3)" ne-stat="stat(type-share|area-2|commentId-2662073509)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="3"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(3)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="3"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(4)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/photo_default_62.png.39x39.100.jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(4)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">有态度网友06Pv7H</span><span class="name-desp">[干货集中营-北京市网友]</span><span class="tie-time">2天前</span></div><p class="tie-cnt">看完之后对RxJava有了一定的了解,我决定更加深入的学习RxJava和Retrofit的结合使用,希望您多写好文,不知道您有没有csdn的帐号啊,想多看看你的文章</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="4"><div class="tool-bar "><div ne-click="upTie(4)" ne-id="upTie:4" ne-tmpl="upTieTpl" ne-data="4" class=""><span class="icon i-up"></span><span class="u-num">1</span></div><div ne-click="downTie(4)" ne-id="downTie:4" ne-tmpl="downTieTpl" ne-data="4" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(4)" ne-stat="stat(type-share|area-2|commentId-2662069896)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="4"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(4)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="4"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(5)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/face_big.gif.39x39.100.jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(5)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">115142415</span><span class="name-desp">[干货集中营-北京市网友]</span><span class="tie-time">2017-05-25 17:33:33</span></div><p class="tie-cnt">写的很深刻，good</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="5"><div class="tool-bar "><div ne-click="upTie(5)" ne-id="upTie:5" ne-tmpl="upTieTpl" ne-data="5" class=""><span class="icon i-up"></span><span class="u-num">0</span></div><div ne-click="downTie(5)" ne-id="downTie:5" ne-tmpl="downTieTpl" ne-data="5" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(5)" ne-stat="stat(type-share|area-2|commentId-2662065569)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="5"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(5)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="5"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(6)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/photo_default_62.png.39x39.100.jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(6)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">有态度网友06OSxu</span><span class="name-desp">[干货集中营-安徽省滁州市网友]</span><span class="tie-time">2017-05-20 12:34:04</span></div><p class="tie-cnt">想了一夜才把lift原理弄懂</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="6"><div class="tool-bar "><div ne-click="upTie(6)" ne-id="upTie:6" ne-tmpl="upTieTpl" ne-data="6" class=""><span class="icon i-up"></span><span class="u-num">1</span></div><div ne-click="downTie(6)" ne-id="downTie:6" ne-tmpl="downTieTpl" ne-data="6" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(6)" ne-stat="stat(type-share|area-2|commentId-2662042492)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="6"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(6)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="6"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(8)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/100.39x39.100(1).jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(8)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">f6d9fcb0f1de268fed5e30d...</span><span class="name-desp">[干货集中营-河北省保定市网友]</span><span class="tie-time">2017-05-19 14:40:10</span></div><div class="floor-tie"><div class="floor-tie-self"><div class="tie-author"><span class="name-nick" ne-click="showIwin(7)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">f6d9fcb0f1de268fed5e30d...</span><span class="name-desp">[干货集中营-河北省保定市网友]</span><span class="floor-NO">1</span></div><p class="tie-cnt">“RxJava 遵循的是线程不变的原则，即：在哪个线程调用 subscribe()，就在哪个线程生产事件；在哪个线程生产事件，就在哪个线程消费事件”<br>你用自己的代码证明了，分号后面的表述是错误的：事件产生线程和事件消费线程通过指定，可以不在一个线程。</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="7"><div class="tool-bar "><div ne-click="upTie(7)" ne-id="upTie:7" ne-tmpl="upTieTpl" ne-data="7" class=""><span class="icon i-up"></span><span class="u-num">0</span></div><div ne-click="downTie(7)" ne-id="downTie:7" ne-tmpl="downTieTpl" ne-data="7" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(7)" ne-stat="stat(type-share|area-2|commentId-2662026864)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="7"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(7)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="7"></div></div></div></div><p class="tie-cnt">握草！！！忘了看限定“在不指定线程的情况下”，大哥，我错了。我这回复能都给我删了么......</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="8"><div class="tool-bar "><div ne-click="upTie(8)" ne-id="upTie:8" ne-tmpl="upTieTpl" ne-data="8" class=""><span class="icon i-up"></span><span class="u-num">4</span></div><div ne-click="downTie(8)" ne-id="downTie:8" ne-tmpl="downTieTpl" ne-data="8" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(8)" ne-stat="stat(type-share|area-2|commentId-2662027216)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="8"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(8)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="8"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(9)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/100.39x39.100(2).jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(9)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">丶彦九卿.</span><span class="name-desp">[干货集中营-陕西省西安市网友]</span><span class="tie-time">2017-05-18 15:52:55</span></div><p class="tie-cnt">可以说这篇文章可以说是RxJava相关的神作了</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="9"><div class="tool-bar "><div ne-click="upTie(9)" ne-id="upTie:9" ne-tmpl="upTieTpl" ne-data="9" class=""><span class="icon i-up"></span><span class="u-num">1</span></div><div ne-click="downTie(9)" ne-id="downTie:9" ne-tmpl="downTieTpl" ne-data="9" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(9)" ne-stat="stat(type-share|area-2|commentId-2662015256)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="9"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(9)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="9"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(10)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/e36505f0e8d840038cd73e8b5b437a7820170517222214.png.39x39.100.jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(10)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">冬有白夜行</span><span class="name-desp">[干货集中营-浙江省杭州市网友]</span><span class="tie-time">2017-05-17 22:22:23</span></div><p class="tie-cnt">感谢作者，之前看过两遍，迷迷糊糊的，自己下去练习了一段时间，再回来看一遍，很多之前不明白的地方豁然开朗。</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="10"><div class="tool-bar "><div ne-click="upTie(10)" ne-id="upTie:10" ne-tmpl="upTieTpl" ne-data="10" class=""><span class="icon i-up"></span><span class="u-num">0</span></div><div ne-click="downTie(10)" ne-id="downTie:10" ne-tmpl="downTieTpl" ne-data="10" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(10)" ne-stat="stat(type-share|area-2|commentId-2662007560)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="10"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(10)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="10"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(11)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/photo_default_62.png.39x39.100.jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(11)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">有态度网友06uxc3</span><span class="name-desp">[干货集中营-北京市网友]</span><span class="tie-time">2017-05-17 17:14:54</span></div><p class="tie-cnt">相当的不错 是我看过的最适合初学者最容易看懂的RxJava文章</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="11"><div class="tool-bar "><div ne-click="upTie(11)" ne-id="upTie:11" ne-tmpl="upTieTpl" ne-data="11" class=""><span class="icon i-up"></span><span class="u-num">0</span></div><div ne-click="downTie(11)" ne-id="downTie:11" ne-tmpl="downTieTpl" ne-data="11" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(11)" ne-stat="stat(type-share|area-2|commentId-2662005156)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="11"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(11)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="11"></div></div></div></div></div><div class="single-tie"><div class="photo" ne-click="showIwin(12)" ne-stat="stat(type-avatar|area-2|userId-|loginType-)"><img src="./给 Android 开发者的 RxJava 详解_files/100.39x39.100(3).jpg"></div><div class="tie-bdy"><div class="bdy-inner"><div class="tie-author"><span class="name-nick" ne-click="showIwin(12)" ne-stat="stat(type-nickname|area-2|userId-|loginType-)">新迪♫于江涛</span><span class="name-desp">[干货集中营-河北省沧州市网友]</span><span class="tie-time">2017-05-17 16:32:24</span></div><p class="tie-cnt">感谢author  两遍依然没有看懂  lift 边用边学吧</p><div ne-id="toolBar" ne-tmpl="operateTpl" ne-data="12"><div class="tool-bar "><div ne-click="upTie(12)" ne-id="upTie:12" ne-tmpl="upTieTpl" ne-data="12" class=""><span class="icon i-up"></span><span class="u-num">0</span></div><div ne-click="downTie(12)" ne-id="downTie:12" ne-tmpl="downTieTpl" ne-data="12" class=""><span class="icon i-down"></span><span class="u-num">0</span></div><span class="i-split">|</span><div class="ygt-share-btn" ne-click="shareWin(12)" ne-stat="stat(type-share|area-2|commentId-2662004595)" ne-id="shareBtn" ne-tmpl="shareTieTpl" ne-data="12"><span class="">分享</span></div><span class="i-split">|</span><div ne-click="buildReplyBox(12)" ne-stat="stat(type-replyClick|area-2)"><span class="">回复</span></div></div><div ne-id="replyBox" ne-tmpl="&gt;replyTpl" ne-data="12"></div></div></div></div></div></div><div class="tie-empty-tip" data-display="block" style="display: none;"><a href="https://gentie.163.com/" target="_blank">网易云跟贴，有你更精彩</a></div><div class="tie-load-more" ne-click="loadMore()" ne-stat="stat(type-load|area-2)" style="display: block;"><span class="load-sign">+</span><span class="load-txt">加载更多跟贴</span></div><div class="tie-page-wrapper"></div></div><div class="panel-hot" data-display="none" style="display: none;"><div class="tie-list"></div><div class="tie-empty-tip"><a href="https://gentie.163.com/" target="_blank">网易云跟贴，有你更精彩</a></div><div class="tie-load-more" ne-click="loadMore()" ne-stat="stat(type-load|area-2)"><span class="load-sign">+</span><span class="load-txt">加载更多跟贴</span></div><div class="tie-page-wrapper"></div></div></div><div class="tie-i-mask"></div><div class="tie-i-wrap"></div><iframe id="yun-tie-data-ifrm-923" src="./给 Android 开发者的 RxJava 详解_files/inner.html" style="width:0;height:0;visibility: hidden;"></iframe></div></div>
+<script src="./给 Android 开发者的 RxJava 详解_files/loader.js.下载"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href,
+  sourceId: "560e15be2dca930e00da1083",
+  productKey: "c40b61ab641e46f4a209496c1f700a18",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+        
+    </div>
+    <link rel="stylesheet" href="./给 Android 开发者的 RxJava 详解_files/obsidian.css">
+    <script type="application/javascript" src="./给 Android 开发者的 RxJava 详解_files/jquery.min.js.下载"></script>
+    <script type="application/javascript" src="./给 Android 开发者的 RxJava 详解_files/jquery.unveil.min.js.下载"></script>
+    <script type="text/javascript" src="./给 Android 开发者的 RxJava 详解_files/pretty.js.下载"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('img').each(function () {
+                $(this).attr('data-src', $(this).attr('src'));
+                $(this).removeAttr('src')
+            });
+            $("img").unveil();
+            $('pre code').addClass('prettyprint');
+        });
+    </script>
+
+</div>
+<script type="text/javascript">(function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+ga('create', 'UA-65153119-1', 'auto');
+ga('send', 'pageview');</script>
+
+
+<script type="text/javascript">
+    var _vds = _vds || [];
+    window._vds = _vds;
+    (function () {
+        _vds.push(['setAccountId', 'bf7d6f1c46d75c9b']);
+        (function () {
+            var vds = document.createElement('script');
+            vds.type = 'text/javascript';
+            vds.async = true;
+            vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(vds, s);
+        })();
+    })();
+</script>
+
+<div id="x-URS1495979741558.2644"></div></body></html>

@@ -1,0 +1,1380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0057)http://blog.csdn.net/hanchendong/article/details/61919273 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+
+            <link rel="canonical" href="http://blog.csdn.net/hanchendong/article/details/61919273"> 
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/hanchendong/article/details/61919273#">
+       
+    <title>浅谈一种Android客户端架构设计 - 流星火的博客
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="技术发展日新月异，业界各种Android客户端架构设计，五花八门，但我们不能简单地说哪种架构更好，因为脱离业务谈架构是没有任何意义的，适合业务的才是好架构。而架构也不是一成不变的，随着业务的发展，也许当初设计的架构已不足以支撑目前的业务，那么就需要改变之前的架构。接下来将分享下我们Android客户端的架构设计，在App的某个业务发展阶段或许有一些参考意义。分层化与模块化分层化与模">
+   
+    <script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/hm.js.下载"></script><script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/blog_static_head.min.js.下载" type="text/javascript"></script>
+
+    
+        <!--new top-->
+       
+        <link rel="stylesheet" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/index.css">
+        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/tracking.js.下载"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/hanchendong/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/default_big.css">
+ 
+
+     
+         <link rel="stylesheet" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/csdn_blog_detail.min.css">
+
+     <script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/fuckadblock.js.下载" type="text/javascript" charset="utf-8"></script>
+         <script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/block.js.下载" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/share.js.下载"></script><link rel="stylesheet" type="text/css" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/job_reco.css"><script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/wxLogin.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><link rel="stylesheet" type="text/css" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/style(1).css"><link type="text/css" rel="stylesheet" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/style(2).css"><script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/logger.js.下载"></script><link rel="stylesheet" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/share_style0_16.css"></head>
+
+
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><div id="MathJax_Message" style="display: none;"></div><iframe frameborder="0" style="display: none;" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/saved_resource.html"></iframe><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" id="toolbar_search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label"><span class="red_txt">*</span>标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group" style="display:none;">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">位置</label>                        <div class="col-sm-10">                          <div class="my_lib_box">                            个人主页&nbsp;-&nbsp;<a href="http://my.csdn.net/" target="_blank">我的知识</a>                          </div>                          <div class="checkbox">                            <div class="pull-left">                              <label>                                <input type="checkbox" name="share" class="save_lib_map" checked="checked">同时保存至：                              </label>                            </div>                            <div class="pull-left">                              <div class="dropdown">                                <button id="toolbar_sele_map" type="button">                                  选择知识图谱                                  <i class="fa fa-chevron-down"></i>                                </button>                                <div class="top_arr"></div>                                <div class="outside">                                  <ul class="dropdown-menu" id="toolbar_Design_knowledge"><li>选择知识图谱</li></ul>                                </div>                              </div>                            </div>                            <div class="pull-left new_txt">                              <a href="http://lib.csdn.net/my/create/structure" target="_blank">新建？</a>                            </div>                          </div>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left" style="display:none">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+       
+
+
+
+    <!-- 广告位开始 -->
+        
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/html.js.下载" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/hanchendong">流星火的博客</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/hanchendong?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/hanchendong?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/hanchendong/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "hanchendong";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/hanchendong";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/71710010" target="_blank">
+<font color="blue"><strong>【活动】2017 CSDN博客专栏评选</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/broadview2006/article/details/72677185" target="_blank">
+<font color="red"><strong>【评论送书】SQL优化、深度学习、数据科学家</strong></font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/72781071" target="_blank">
+<font color="blue"><strong>CSDN日报20170527 ——《人机大战，历史的见证》
+</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/72772638" target="_blank">
+<font color="red"><strong>CSDN 日报 | 4.19-5.19 上榜作者排行出炉</strong></font></a>
+
+
+</div>                        </div>
+                        
+
+
+
+  
+
+
+
+
+
+
+<script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/category.js.下载"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=%e6%b5%85%e8%b0%88%e4%b8%80%e7%a7%8dAndroid%e5%ae%a2%e6%88%b7%e7%ab%af%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1&u=http://blog.csdn.net/hanchendong/article/details/61919273"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/hanchendong/article/details/61919273">
+        浅谈一种Android客户端架构设计            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/android" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">android</a><a href="http://www.csdn.net/tag/%e5%bc%80%e5%8f%91%e7%bb%8f%e9%aa%8c" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">开发经验</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2017-03-13 15:53</span>
+            <span class="link_view" title="阅读次数">540人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/hanchendong/article/details/61919273#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(0)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;%e6%b5%85%e8%b0%88%e4%b8%80%e7%a7%8dAndroid%e5%ae%a2%e6%88%b7%e7%ab%af%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1&#39;,&#39;61919273&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/hanchendong/article/details/61919273#report" onclick="javascript:report(61919273,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody" style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;6210088&#39;,&#39;hanchendong&#39;,&#39;top&#39;,&#39;61919273&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Android<em>（46）</em></span>
+                      <img class="arrow-down" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/hanchendong/article/category/6210088" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_6210088">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+
+  
+
+  
+  
+     
+
+
+<div id="article_content" class="article_content tracking-ad" data-mod="popu_307" data-dsm="post">
+
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">技术发展日新月异，业界各种<a target="_blank" href="http://lib.csdn.net/base/android" class="replace_word" title="Android知识库" style="color:rgb(223,52,52); text-decoration:none">Android</a>客户端<a target="_blank" href="http://lib.csdn.net/base/architecture" class="replace_word" title="大型网站架构知识库" style="color:rgb(223,52,52); text-decoration:none">架构</a>设计，五花八门，但我们不能简单地说哪种<a href="http://lib.csdn.net/base/architecture" class="replace_word" title="大型网站架构知识库" target="_blank" style="color:#df3434; font-weight:bold;">架构</a>更好，因为脱离业务谈架构是没有任何意义的，适合业务的才是好架构。而架构也不是一成不变的，随着业务的发展，也许当初设计的架构已不足以支撑目前的业务，那么就需要改变之前的架构。接下来将分享下我们<a href="http://lib.csdn.net/base/android" class="replace_word" title="Android知识库" target="_blank" style="color:#df3434; font-weight:bold;">Android</a>客户端的架构设计，在App的某个业务发展阶段或许有一些参考意义。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>分层化与模块化</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">分层化与模块化应该是任何软件开发的共识。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>分层化</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">在Android应用开发中通常可以分为如下几层：</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/20170223185803296" alt="这里写图片描述" title="" style="border:none; max-width:100%"></span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei"><strong>SDK层</strong>：主要是Android SDK及第三方的SDK（可能基于Android SDK或为独立的SDK），这些SDK为上层框架提供核心功能的支持。</span></li><li style=""><span style="font-family:Microsoft YaHei"><strong>基础框架层</strong>：这里所谓的基础框架，指多数App都必需的基础功能，是具体业务逻辑实现的基础。主要有网络请求功能、图片加载与缓存功能、SQLite数据库管理功能、Log管理功能等，当然根据对业务逻辑支持的不同，基础框架层的功能支持也不一定相同，上述几个应该是大部分App都要支持的，当然Crash监控与常用工具类也可归为该层次。&nbsp;<br style="">
+具体到每个基础框架的实现则没有任何限制，如网络功能可以使用Volley、OkHttp或者自己封装实现网络请求逻辑；对于图片管理功能则可以使用Glide、Fresco、Picasso，亦或自己实现……总之每个基础框架都要遵循一定的实现原则，保持功能模块的独立性，与具体业务解耦并对外提供良好的交互接口。</span></li><li style=""><span style="font-family:Microsoft YaHei"><strong>业务逻辑层</strong>：如果把App架构比作高层建筑，那么上述两层就是地基。地基打好之后，就可以在上面任意发挥了，至于如何发挥，那就必须结合实际的业务需求，不同的应用往往有不同的业务功能模块。&nbsp;<br style="">
+另一方面，业务功能模块也并非完全是并列的级别，有一些业务逻辑也是可以抽象出来的，作为通用的功能模块，比如登录、分享、扫描、统计等，其他的业务模块可能会调用到这些功能。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">这里需要注意的是SDK层与基础框架层并不是一成不变的，但它们的变化周期往往是比较长的，一般来说当基础功能不能满足最上层的业务逻辑时，就需要对其做扩展。由于基础框架层的功能模块已经是功能级别的粒度划分，因此扩展往往是模块级别的扩展，通常是新增基础功能框架而不是修改原有基础功能框架，这也符合“开放-闭合”原则。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>模块化</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">至于模块化，对于分层化来说则是更细粒度的划分，即将每一层细分为不同的模块，各功能模块尽可能遵循“高内聚、低耦合”的原则，功能模块之间仅提供必要的交互接口。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">对于基础框架层，由上图可见，往往是根据功能来划分。这里的基础框架层细分为网络支持功能、图片库、日志系统、<a target="_blank" href="http://lib.csdn.net/base/mysql" class="replace_word" title="MySQL知识库" style="color:rgb(223,52,52); text-decoration:none">数据库</a>支持等模块，如果不足以支撑业务发展，可能会新增其他基础功能模块。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">而业务逻辑层则主要由业务需求来决定，如分为扫描功能、电商、快递查询等模块。业务逻辑层的模块化还有一种驱动因素，那就是通用功能的封装，这一点大家应该都有体会，随着App业务逻辑的增加，不同业务功能之间可能会用到相同的功能，如用户登录、分享功能等，我们不希望在每个需要的地方都复写一遍相关代码，于是就需要把通用功能抽取成独立于具体业务需求的模块，如登录模块、分享模块，在模块内部实现通用的业务逻辑，同时对外暴露调用接口，不同的业务只需调用通用模块即可。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>业务数据流程设计</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">由于业务逻辑、数据处理逻辑或网络框架的不同，相信各家应用都有自己的一套数据请求流程。最直接的就是从Activity或Fragment中调用网络请求的方法，然后通过回调将结果返回到Activity或Fragment中，虽然流程最清晰，但这种方式存在几个严重的问题：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">网络数据直接返回到Activity或Fragment中，后续需要对数据进行解析、过滤、转换、缓存等操作，这些工作将会大大加重Activity或Fragment的负担。</span></li><li style=""><span style="font-family:Microsoft YaHei">Activity或Fragment的代码量猛增，逻辑繁杂（不仅包含了View的逻辑还包含了数据处理的逻辑）</span></li><li style=""><span style="font-family:Microsoft YaHei">从整个应用的角度来看，每个页面甚至每个接口都需要重复上述相同的冗余工作，完全可以抽象出来。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">上述设计思路是需要摒弃的，结合自身业务及架构演化，我们没有跟风MVP、MVVM，而是设计了下面一套业务数据请求流程：</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/20170223185826749" alt="这里写图片描述" title="" style="border:none; max-width:100%"></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">首先，视图层通常表现为Activity或Fragment，并由视图层发起数据请求，与上述不同，视图层并不直接跟网络框架打交道，而是先将数据请求发送到数据代理层DataAgent。需要注意到是，视图层与数据代理层之间没有采用直接通信的方式，而是插入了一个消息调度器MessageScheduler中转。这样做的好处是将视图层与数据代理层解耦，视图层无需关注数据代理层的具体实现，有了MessageScheduler，视图层所要做的就是发出一个数据请求的消息而已，然后就可以静静等待一个回复消息，该回复消息会附带最终需要的数据对象，这样在视图层就免除了数据处理的逻辑，拿到结果直接展示到UI上即可。使用这种方式，一般来讲Activity或Fragment三五百行代码即可搞定，UI逻辑或接口逻辑（如一个页面有多个接口）比较复杂的代码量基本也能控制在1000行左右，逻辑非常清爽。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">消息调度器将视图层的请求消息转发到数据代理层后，DataAgent解析出数据请求类型DataType（该类型对应着具体数据对象模型）、必要参数（接口参数、是否需要缓存结果、分页页码等），然后再执行具体的操作：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">如果要取缓存的数据，则DataAgent直接向缓存模块发送请求。缓存的数据可以是初始JSON数据，也可以是解析处理后得到的数据对象Model，可根据具体需求配置。如果从缓存中取到的是JSON，则DataAgent先要解析处理得到对应Model；如果从缓存中取到的是Model，则不做处理，然后将Model封装发回到消息调度器，再由MessageScheduler分发给具体的请求者，如Activity或Fragment。</span></li><li style=""><span style="font-family:Microsoft YaHei">由于Android的数据来源有多种，如果数据来自持久化存储，如SQLite或File等，仍然统一由DataAgent来跟它们通信，获取数据并加工后通过MessageScheduler发回视图层。</span></li><li style=""><span style="font-family:Microsoft YaHei">最常见的是从服务器获取数据，此种场景下，DataAgent将与网络框架交互，将从MessageScheduler中获取的参数提供给网络框架构造请求url。至于网络框架使用Volley或OkHttp或者其他都没关系，网络框架负责向Server请求数据，数据通常以JSON格式返回。DataAgent收到返回的JSON数据后，根据DataType将JSON数据校验后抛给解析器，解析器会将JSON解析为视图层需要的Model。当然数据解析过程可能伴随数据的过滤、转换等逻辑。另外需要注意的是，还需要根据视图层需求对数据进行是否缓存的操作，可选择缓存JSON还是Model。经过一系列操作，得到最终Model后，DataAgent将其通过MessageScheduler发回视图层。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">当然，由于数据请求流程是耗时的，因此上述步骤都是走的线程池，这点上图中并未注明。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>数据代理层</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">DataAgent在上文中已简单提及，它的主要作用是对数据的一系列操作，包括实际的数据请求、数据解析处理、数据缓存等逻辑。下图为从服务端接口获取JSON数据并处理的流程：</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/20170223185851312" alt="这里写图片描述" title="" style="border:none; max-width:100%"></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">从上图可知，DataAgent的大致工作流程为：</span></p>
+<ol style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">DataAgent将真正的数据请求发送给各数据源，数据源可能为缓存、SQLite或文件，但通常是从服务端获取数据，因此DataAgent会将数据请求发到网络框架层，然后等待数据返回。</span></li><li style=""><span style="font-family:Microsoft YaHei">由于数据源不同，返回数据也可能不同，这里简化为两种：原始JSON或Model。</span></li><li style=""><span style="font-family:Microsoft YaHei">DataAgent拿到数据后，则开始数据处理流程。以从网络请求的JSON数据为例，先对返回的JSON进行数据校验，检查数据的有效性与正确性，如果数据校验通过，接下来根据需求来决定要不要写入缓存，然后再进行数据加工（如精度处理、数据拼接、数据裁剪等），最后进行数据解析得到视图层需要的Model。如果数据校验没有通过，则尝试从缓存中读取，从缓存中读取后也需要校验（检查数据的时效性、有效性、正确性），校验通过后同样进行数据处理、解析等流程。如果缓存中读取得到的就是Model，那么则可以省略数据处理和解析的流程。得到最终的Model后，DataAgent将其包装发送给MessageScheduler。另外DataAgent还要具有一定的容错功能，因为任何数据源都无法保证能够返回合法的数据，如果不对数据错误进行容错处理，那么就可能无法解析为对应的Model，从而导致视图层无数据甚至异常。如果接口及缓存都无法返回正确的数据，DataAgent需要做特殊处理，以保证视图层能给用户以反馈。</span></li></ol>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>业务视图逻辑</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">虽然不同的业务页面有不同的视图逻辑，这里以一个应用中最常见的页面为例来说明，假设该页面有一个列表。大家都知道ListView（此处为泛指，可能大家都在用RecyclerView了）的工作方式，它需要ViewHolder来填充视图，需要Adapter来填充数据，如果每个需要ListView的界面都维护各自的一套ViewHolder及Adapter，那么页面逻辑又将变得臃肿。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">我们在实践中是这样做的：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">封装一个Adapter公共处理类，提供多种构造函数，其中有一个type参数，用来标明需要使用哪个ViewHolder。</span></li><li style=""><span style="font-family:Microsoft YaHei">封装一个ViewHolder抽象类，定义数据设置的逻辑，并交由具体的ViewHolder实现。</span></li><li style=""><span style="font-family:Microsoft YaHei">构建一个叫做ViewHolderFactory的类，顾名思义该类主要作用是用来构建ViewHolder，它主要提供两个方法createViewHolder（）与createConvertView（），其中createConvertView（）是个中间方法，用于生成ViewHolder。</span></li><li style=""><span style="font-family:Microsoft YaHei">在Adapter的getView方法中，根据上述type参数，获取具体的ViewHolder实现，调用设置数据的逻辑。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">经过上述封装之后，视图层只需要向Adapter公共处理类传入一个type参数即可得到对应的Adapter；等数据返回到视图层后，再将数据传给Adapter公共处理类，其他什么都不用管，就可以展示列表数据了。原本需要很多代码实现的逻辑从视图层抽离之后，视图层只需要几行代码就能够完成一个列表展示了。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>Hybrid框架</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">自Android诞生以来，就有Native App与Web App之争，这两种开发方式虽然各有优缺点，但Native App一直占据上风。近一两年来，移动应用中的Web页面越来越多，而纯Native的应用则相对越来越少。但是纯Web App由于其渲染效率、性能问题、对硬件的调用限制导致其也并未广泛地应用。于是一种折中的方案成为主流，即Hybrid App。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">所谓Hybrid App，即混合开发方式，部分功能使用Native开发，部分功能使用H5开发。为了充分利用Web开发的优点并避开其缺点，并非所有业务功能都适合使用Web方式来开发。在我们的应用中，主要将H5用于以下方面：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">节日活动或游戏页、秒杀或团购页等具有时效性的页面。</span></li><li style=""><span style="font-family:Microsoft YaHei">使用说明、公告等偏展示、少交互的页面。</span></li><li style=""><span style="font-family:Microsoft YaHei">经常更新、交互较少且不涉及硬件调用的页面或模块，如电商商品首页展示、积分兑换模块。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">截止到目前，我们App中的Web页所占比重是上升的，大概占到所有功能的25%左右。使用Web开发的优势非常明显，可以支持多变的UI视图效果、节省开发人力（Android、<a target="_blank" href="http://lib.csdn.net/base/ios" class="replace_word" title="iOS知识库" style="color:rgb(223,52,52); text-decoration:none">iOS</a>共用）、Bug的在线修复而不用App发版等。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">为了满足App的Web页面需求，于是我们在基础框架层扩展了一个Hybrid功能模块。该框架主要是自行封装了Android原生的WebView控件，且分为不同层级的封装，可根据需要灵活使用，核心功能及特性如下：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">支持完整的Web页面，即整个页面的内容全部是H5实现，外部容器为Activity或Fragment。</span></li><li style=""><span style="font-family:Microsoft YaHei">支持局部的Web页面，即部分页面的内容是H5实现，可单独使用自定义的WebView或者嵌入Fragment使用。</span></li><li style=""><span style="font-family:Microsoft YaHei">定义了一套较为完整的交互协议，支持Native与JS的互相调用，典型的场景如H5页面点击跳转Native功能页面（支持传参）、JS唤起Native对话框或Toast等，同时Java也能调用JS函数。基于此套交互协议，基本能够满足日常App中Web开发需求。</span></li><li style=""><span style="font-family:Microsoft YaHei">避免了JS注入漏洞。</span></li><li style=""><span style="font-family:Microsoft YaHei">支持同一个Web页面中Http与Https混合的场景。</span></li><li style=""><span style="font-family:Microsoft YaHei">向业务逻辑层暴露接口，可根据需求定制WebViewClient与WebChromeClient。</span></li><li style=""><span style="font-family:Microsoft YaHei">对外提供接口，可根据需求控制缩放、Cookie管理、缓存管理、硬件加速等。</span></li><li style=""><span style="font-family:Microsoft YaHei">经过试验与摸索，兼容多种Android设备及版本。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">虽然后来出现了<a target="_blank" href="http://lib.csdn.net/base/reactnative" class="replace_word" title="React Native知识库" style="color:rgb(223,52,52); text-decoration:none">React Native</a>，但由于学习成本及其Android版本的局限性，结合我们自己团队的人力资源原因，我们尚未在应用中正式使用。目前仍然以Hybrid开发为主，且其在整个应用中的比重越来越大，因此Hybrid框架是我们架构中重要的一个组成部分。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>消息调度中心</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">前面业务数据流程的设计中，在视图层与数据代理层之间插入了一个消息调度器——MessageScheduler，MessageScheduler主要功能就是管理消息及消息调度。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">MessageScheduler核心原理是维护了一个哈希表，当收到视图层的数据请求时就使用唯一的key将发起者保存到哈希表中，以便稍后收到DataAgent的返回数据后，能够找到发起者。存储好消息发起者的信息后，即向DataAgent发送数据请求，多个数据请求是可以并行的，主要在于线程池的线程数控制机制。DataAgent返回数据之后，MessageScheduler根据唯一key找到初始的请求者，同样利用消息机制将请求结果返回给视图层，同时在哈希表中清除该元素。其示意图如下：</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/20170223185913542" alt="这里写图片描述" title="" style="border:none; max-width:100%"></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>消息分发器</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">既然有了消息调度机制，就需要消息分发器MessageDispatcher，来负责发送消息。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">MessageDispatcher本质上是利用了Android的消息机制来对业务需求进行封装和扩展。看过Android Framework层源码就会发现其实Android框架本身就有很多地方使用了消息机制来进行通信，Android消息机制可以在模块页面间、线程间通信，甚至可以在进程间使用Messenger通信（Messenger方式是利用了消息机制，当然还有其他进程间通信方式）。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">MessageDispatcher功能比较简单，支持两种方式：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">点对点的通信，如两个页面之间，通信目标唯一，如上文提到的从视图层发送数据请求消息到消息调度器。</span></li><li style=""><span style="font-family:Microsoft YaHei">点对面的通信，类似于广播，也有点像EventBus，一条消息发出，凡是注册（或叫订阅）过的页面都能收到通知；也可以进一步通过Tag控制达到一对一发送。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">其示意图如下：</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/20170223185927746" alt="这里写图片描述" title="" style="border:none; max-width:100%"></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>模块路由中心</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">一个完整的应用中，免不了模块之间、功能页面之间的跳转。当然在需要的地方通过Intent可以实现跳转，但这不是一个好的方案，很明显不同模块或页面之间的耦合度增加了。而我们的原则是模块和页面之间尽可能解耦，于是设计了一个模块路由（Module Routing）中心，App中所有的页面跳转均由其控制。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">模块路由的核心原理是给功能页面进行唯一编码，编码的逻辑可以跟随产品版本定义到应用中，并保证兼容之前版本。这样就可以在应用的任何地方只需要向模块路由中心发送对应模块页面的编码即可，由模块路由负责打开目标页面。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">以下几点需要注意：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">整个应用中的功能页编码都必须保证唯一</span></li><li style=""><span style="font-family:Microsoft YaHei">如打开某些功能页面除了具体编码外，还可能需要额外参数。如打开商品详情页，除了知道商品详情页的编码外，还需要商品ID，模块路由需要对附加参数提供支持。</span></li><li style=""><span style="font-family:Microsoft YaHei">模块路由支持打开Web页面，即Hybrid页面也支持上述特定编码，所以在Web页面上点击跳转Native页面使用的协议也是由模块路由支持的。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">使用模块路由的好处有：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">大量减少应用中的跳转Intent</span></li><li style=""><span style="font-family:Microsoft YaHei">模块之间、页面之间解耦</span></li><li style=""><span style="font-family:Microsoft YaHei">适配变化，统一管理，修改方便</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">其他</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>日志系统</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">在开发过程中，甚至运行过程中，日志都是很重要的一部分。当然Android提供了Log相关的API，但不建议这一行那一行地零星使用，否则如果想统一控制Tag或关闭Log时非常麻烦。建议对Log API进行简单封装或者使用现有第三方Log库，将Log功能独立出来，提供统一的调用接口、级别控制、开关控制，这样既方便调试也方便管理，同时也能为整个应用代码的清晰做出一点贡献。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>线上崩溃监控</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">对线上应用的Crash监控是提高应用稳定性、优化应用性能的一个重要方法。我们构建了一个小型的全局监控系统，主要由以下功能特性：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">对用户不可见，用户无感知</span></li><li style=""><span style="font-family:Microsoft YaHei">全局注册即可开启监控</span></li><li style=""><span style="font-family:Microsoft YaHei">捕捉线上崩溃，保存到本地文件</span></li><li style=""><span style="font-family:Microsoft YaHei">线上崩溃信息按一定策略上传服务器，上传后同时删除本地文件</span></li><li style=""><span style="font-family:Microsoft YaHei">崩溃信息主要包括Android设备信息（如手机型号、系统版本等）、App版本号、异常信息等</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">服务器收到上传的线上崩溃信息后，也按一定策略通过邮件方式通知到开发者，以便开发者及时修复异常。线上崩溃监测系统虽然小而简单，但作用非常重要，利用线上崩溃反馈可以有效地提高应用的稳定性，建议在应用设计中务必给它留出一个位置。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>统计系统</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">相信大部分应用都有统计分析后台，可以统计应用的日活、PV、UV或其他用户行为，也可能有一部分应用是使用的第三方统计功能，如友盟等。结合公司BI部门的统计需求，我们客户端自行设计了一套统计方案，用于Android与<a href="http://lib.csdn.net/base/ios" class="replace_word" title="iOS知识库" target="_blank" style="color:#df3434; font-weight:bold;">iOS</a>两个客户端。之所以不用第三方统计，主要是因为我们无法根据需求自由定制且数据不在自家服务器，另一方面也有些许数据泄露的风险。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">基于客户端的统计系统主要包括三个方面的功能：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">数据采集</span></li><li style=""><span style="font-family:Microsoft YaHei">数据存储</span></li><li style=""><span style="font-family:Microsoft YaHei">数据上传</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">对于数据采集，主要针对统计部门的需求，如采集设备信息、定位信息、App启动时间次数、PV、UV、甚至用户行为，如点击、切换Tab、页面流向跟踪等。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">为了避免每次采集完数据后就即时上传，因此需要数据存储，将采集的统计数据暂存到本地，一般使用SQLite。然后采用一定策略进行上传，如数据累积到50条或者应用切换到后台时进行上传。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">对于数据上传，除了上传时机的选择策略外，还要遵循一定的结构字段，该结构可以根据数据统计部门的需求来定义。数据上传的流程同样可以使用之前的数据请求框架，只不过返回值可能为一个成功提示而已。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">基于上述功能，我们自定义的统计功能模块提供了方便的调用接口，并支持灵活扩展，目前可以完美支持日常的统计需求，调用也非常简单，只需要在需要统计的地方插入一行代码即可。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>域名劫持应对策略</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">最近遇到域名劫持的问题，真是头疼，另一方面也说明我们的流量引起运营商注意了。目前主流的有几下几种方案：</span></p>
+<ul style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">向运营商投诉。此方法非常被动且效果不佳，完全掌控在运营商手中。</span></li><li style=""><span style="font-family:Microsoft YaHei">使用httpDNS。此方法使用http的方式直接获取最优IP，绕过localDNS的解析，可谓彻底解决了域名劫持。</span></li><li style=""><span style="font-family:Microsoft YaHei">先使用域名尝试，域名失败后再使用IP尝试。此方案属于容灾方案，并不能避免域名劫持。</span></li></ul>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">理论上讲第二种是最佳方案，但由于httpDNS为第三方服务，也无法保证效果，外加上付费及接入成本等因素，我们暂时采用了第三种容灾方案，主要实施逻辑如下：</span></p>
+<ol style="color:rgb(51,51,51); font-size:14px; line-height:26px">
+<li style=""><span style="font-family:Microsoft YaHei">应用预先内置IP。</span></li><li style=""><span style="font-family:Microsoft YaHei">每次启动应用时获取最新IP，并保存到应用本地。</span></li><li style=""><span style="font-family:Microsoft YaHei">请求数据时，先使用域名走正常的逻辑，一旦遇到疑似劫持的问题后，使用本地的IP进行直连尝试。</span></li></ol>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">上述步骤其实是有漏洞的，比如启动时获取最新IP的接口如果被劫持了，那么就无法获取最新IP，假如刚好同时服务器IP也改变了，因此预先内置的IP已经失效，此时就彻底没办法了。不过上述两个条件同时满足的概率比较小，因此可以使用该方案解决很大一部分域名劫持问题。另外从服务端获取的IP，如果有多个的话，还需要增加一些策略，即考虑到负载均衡、访问速度、稳定性、网络运营商等因素，如何确定客户端拿到的哪一个是最优IP，当然这点可以优化，但首先能保证用户看到页面数据或许更加重要。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">上述应对域名劫持的策略本身并不能独立成一个模块，我们把它集成为网络框架的扩展。</span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei"><strong>总结</strong></span></p>
+<p style="margin-top:0px; margin-bottom:1.1em; color:rgb(51,51,51); font-size:14px; line-height:26px">
+<span style="font-family:Microsoft YaHei">上文提到的是我们Android应用架构中的核心部分，可能你发现并没有什么花哨的、潮流的玩意儿，没有MVP，没有RxAndroid，没有插件化，也没有热修复……但就是这样它仍然支撑起了上亿的用户量。世上没有完美的架构，只有符合自身业务的架构，上述架构还有很多缺点，我们也在有选择、有步骤地重构，而随着业务需求的扩展，架构也会不断演化，最后希望本文能给大家带来一点参考意义（发现文章不错，很系统，很全面，望大家共勉之）。</span></p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1496046805670">
+<a href="http://blog.csdn.net/hanchendong/article/details/61919273#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/hanchendong/article/details/61919273#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/hanchendong/article/details/61919273#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/hanchendong/article/details/61919273#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/hanchendong/article/details/61919273#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/hanchendong/article/details/61919273#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   
+
+    
+<!--172.16.140.14-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/bds_s_v2.js.下载"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+<script type="text/javascript">
+    var fromjs = $("#fromjs");
+    if (fromjs.length > 0) {
+            $("#fromjs .markdown_views pre").addClass("prettyprint");
+            prettyPrint();
+
+            $('pre.prettyprint code').each(function () {
+                var lines = $(this).text().split('\n').length;
+                var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                $(this).addClass('has-numbering').parent().append($numbering);
+                for (i = 1; i <= lines; i++) {
+                    $numbering.append($('<li/>').text(i));
+                };
+                $numbering.fadeIn(1700);
+            });
+
+            $('.pre-numbering li').css("color", "#999");
+        }
+
+    
+    $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+    $(".toc a[target='_blank']").attr("target", "");
+
+
+
+</script>
+
+ 
+
+
+        <div id="digg" articleid="61919273">
+            <dl id="btnDigg" class="digg digg_disable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/hanchendong/article/details/52327393&#39;;">上一篇</span><a href="http://blog.csdn.net/hanchendong/article/details/52327393" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">HttpClient的使用</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/hanchendong/article/details/61919599&#39;;">下一篇</span><a href="http://blog.csdn.net/hanchendong/article/details/61919599" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">如何一步一步实现Android的MVP框架</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article">
+                    <h4></h4>
+                    <div class="similar_c" style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36" style="max-height:195px;">                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/Harrytsz/article/details/58247786" title="码农周刊分类整理" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">码农周刊分类整理</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/yk19851111/article/details/52610099" title="码农周刊分类整理" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">码农周刊分类整理</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/xuxu120/article/details/51254870" title="计算机科学精彩帖子收集" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">计算机科学精彩帖子收集</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/unix21/article/details/8492617" title="计算机科学精彩帖子收集" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">计算机科学精彩帖子收集</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/beitiandijun/article/details/41804057" title="计算机科学精彩帖子收集" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">计算机科学精彩帖子收集</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/chenaqiao/article/details/40588951" title="计算机科学经典文章" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">计算机科学经典文章</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/zhang_2017/article/details/54926625" title="计算机科学精彩帖子收集--JAVA和分布式专栏" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">计算机科学精彩帖子收集--JAVA和分布式专栏</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u014738140/article/details/56678126" title="一种Android客户端架构设计分享" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">一种Android客户端架构设计分享</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/wuxiaobingandbob/article/details/51002911" title="客户端GUI测试技术和自动化测试架构设计简谈" strategy="SearchAlgorithm" target="_blank" style="width: 290px;">客户端GUI测试技术和自动化测试架构设计简谈</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+      
+</div>
+
+     <div>
+           
+
+         <script type="text/javascript">
+             /*博客内容页下方Banner1-960*90，创建于2016-12-13*/
+             var cpro_id = "u2843955";
+        </script>
+        <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/c.js.下载"></script><div id="BAIDU_SSP__wrapper_u2843955_0"><iframe id="iframeu2843955_0" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ycqm.html" width="960" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:960px;height:90px" allowtransparency="true"></iframe></div>
+    </div>
+
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/hanchendong/svc/GetSuggestContent/61919273",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ 
+
+<div id="relate" data-mod="popu_218" class="tracking-ad" style="display: block;">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c"><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/android"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1455589744328_328.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/android">Android知识库</a></h4><p><label><span>34384</span><em>关注</em><i>|</i><span>3045</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/reactnative"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1473751990490_490.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/reactnative">React Native知识库</a></h4><p><label><span>5909</span><em>关注</em><i>|</i><span>1299</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/ios"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1472802208692_692.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/ios">iOS知识库</a></h4><p><label><span>4613</span><em>关注</em><i>|</i><span>1612</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/react"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1465887837340_340.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/react">React知识库</a></h4><p><label><span>2591</span><em>关注</em><i>|</i><span>393</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/javase"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1453169124297_297.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/javase">Java SE知识库</a></h4><p><label><span>26460</span><em>关注</em><i>|</i><span>578</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/mysql"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1454051093684_684.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/mysql">MySQL知识库</a></h4><p><label><span>22579</span><em>关注</em><i>|</i><span>1471</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/javaee"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1456818035722_722.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/javaee">Java EE知识库</a></h4><p><label><span>18592</span><em>关注</em><i>|</i><span>1399</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/java"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1453701371636_636.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/java">Java 知识库</a></h4><p><label><span>27202</span><em>关注</em><i>|</i><span>3424</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/swift"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1452496101906_906.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/swift">Swift知识库</a></h4><p><label><span>3956</span><em>关注</em><i>|</i><span>1246</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/architecture"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1458091865915_915.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/architecture">大型网站架构知识库</a></h4><p><label><span>8852</span><em>关注</em><i>|</i><span>732</span><em>收录</em></label></p></dd></dl></div>
+</div>
+ 
+
+<dl class="blog-ass-articl tracking-ad" id="res-relatived" data-mod="popu_84"> 
+    <div class="embody embody_b" id="libkeyparent" style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+    
+    <div id="adCollege"> 
+    <div><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/782" title="Python项目实训" strategy="v4:hot" target="_blank">Python项目实训</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1176" title="Python编程基础视频教程(第三季)" strategy="v4:hot" target="_blank">Python编程基础视频教程(第三季)</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1178" title="Python编程基础视频教程(第五季)" strategy="v4:hot" target="_blank">Python编程基础视频教程(第五季)</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/393" title="PHP网站搭建入门" strategy="v4:hot" target="_blank">PHP网站搭建入门</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/535" title="8小时学会HTML网页开发" strategy="v4:hot" target="_blank">8小时学会HTML网页开发</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/545" title="Android入门实战教程" strategy="v4:hot" target="_blank">Android入门实战教程</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/405" title="反编译Android应用" strategy="v4:hot" target="_blank">反编译Android应用</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/207" title="韦东山嵌入式Linux第一期视频" strategy="v4:hot" target="_blank">韦东山嵌入式Linux第一期视频</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1136" title="Swift视频教程(第三季)" strategy="v4:hot" target="_blank">Swift视频教程(第三季)</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/463" title="HTML 5视频教程系列之JavaScript学习篇" strategy="v4:hot" target="_blank">HTML 5视频教程系列之JavaScript学习篇</a></dd></div></div>  
+
+    
+
+     <script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/job_reco.js.下载" type="text/javascript"></script> 
+     <script type="text/javascript">
+         csdn.position.showEdu({
+             sourceType: "blog",
+             searchType: "detail",
+             searchKey: "61919273",
+                username: "",
+                recordcount: "10",
+                containerId: "adCollege" //容器DIV的id。 
+            });  
+        </script> 
+   
+</dl>
+
+
+
+
+
+    <div id="ad_cen">        
+                <div>
+                                    <div class="tracking-ad" data-view="true" data-mod="ad_popu_199" data-mtp="43" data-order="114" data-con="ad_content_1843" style="width: 960px; height: 90px;">
+                                             <script type="text/javascript">
+                                                 /*博客内容页下方Banner2-960*90，创建于,2016-11-28*/
+                                                 var cpro_id = "u2831143";
+                                            </script>
+                                            <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/c.js.下载"></script><div id="BAIDU_SSP__wrapper_u2831143_0"><iframe id="iframeu2831143_0" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ycqm(1).html" width="960" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:960px;height:90px" allowtransparency="true"></iframe></div>
+                                   </div>
+                    </div>
+    </div>  
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+<div class="tracking-ad" data-view="true" data-mod="ad_popu_72" data-mtp="62" data-order="40" data-con="ad_content_2072">
+                 <script id="popuLayer_js_q" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/popuLayer.js.下载" defer="defer" type="text/javascript"></script>
+            <div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px;">
+    	            <div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">关闭</div><!-- 广告占位容器 --><div id="cpro_u2895327"><iframe id="iframeu2895327_0" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ycqm(2).html" width="300" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:300px;height:250px" allowtransparency="true"></iframe></div></div>
+            <script>  document.getElementById("popuLayer_js_q").onload=function(){      var styObjd=styObj={width:"300px","height":parseInt(250)+28};window.CSDN.Layer.PopuLayer("#layerd",{storageName:"layerd",styleObj:styObjd,total:50,expoire:1000*60});  }</script><!-- 投放代码 --><script type="text/javascript">                /*服务器频道首页置顶Banner960*90，创建于2014-7-3*/    (window.cproArray = window.cproArray || []).push({        id: "u2895327"      });  </script>  <script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/c.js.下载" type="text/javascript"></script>
+     
+</div>
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><br>&nbsp;&nbsp;暂无评论<br><br><div class="clear"></div></div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:loginbox();">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fhanchendong%2Farticle%2Fdetails%2F61919273">[注册]</a></div></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '61919273';
+    var commentscount = 0;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="">
+
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/tag/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+
+</div>
+  <script type="text/javascript">     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/hanchendong/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='浅谈一种Android客户端架构设计';
+
+</script>
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/hanchendong" target="_blank">
+    <img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/1_hanchendong.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/hanchendong" class="user_name" target="_blank">hanchendong</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=hanchendong&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>33772次</span></li>
+    <li>积分：<span>944</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/blog3.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：944 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>59篇</span></li>
+    <li>转载：<span>25篇</span></li>
+    <li>译文：<span>1篇</span></li>
+    <li>评论：<span>4条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search csdn-tracking-statistics" target="_blank" data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/hanchendong/article/category/6210088" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android</a><span>(47)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/hanchendong/article/category/6230467" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android常用面试题汇总</a><span>(19)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/hanchendong/article/category/6210026" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">java</a><span>(17)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="http://blog.csdn.net/hanchendong/article/month/2017/03">2017年03月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/hanchendong/article/month/2016/08">2016年08月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/hanchendong/article/month/2016/06">2016年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/hanchendong/article/month/2016/05">2016年05月</a><span>(57)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420508" title="Eclipse快捷键大全">Eclipse快捷键大全</a><span>(4003)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51298096" title="Genymotion目前速度最快的Android模拟器+ova包">Genymotion目前速度最快的Android模拟器+ova包</a><span>(2956)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/52327347" title="关于环信即时通信的使用小结">关于环信即时通信的使用小结</a><span>(2387)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51569611" title="Android Studio 和 Eclipse 中获取SHA1详解">Android Studio 和 Eclipse 中获取SHA1详解</a><span>(2303)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51644639" title="Android Studio + NDK范例">Android Studio + NDK范例</a><span>(2274)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420460" title="页面上现有ProgressBar控件progressBar，请用书写线程以10秒的的时间完成其进度显示工作。">页面上现有ProgressBar控件progressBar，请用书写线程以10秒的的时间完成其进度显示工作。</a><span>(1655)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420536" title="Android中利用HttpURLConnection发送Post请求并添加参数的写法">Android中利用HttpURLConnection发送Post请求并添加参数的写法</a><span>(1569)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420170" title="你如何评价Android系统？优缺点。">你如何评价Android系统？优缺点。</a><span>(1432)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420309" title="注册广播有几种方式，这些方式有何优缺点？请谈谈Android引入广播机制的用意。">注册广播有几种方式，这些方式有何优缺点？请谈谈Android引入广播机制的用意。</a><span>(1211)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420260" title="请解释下在单线程模型中Message、Handler、MessageQueue、Looper之间的关系。">请解释下在单线程模型中Message、Handler、MessageQueue、Looper之间的关系。</a><span>(1172)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420508" title="Eclipse快捷键大全">Eclipse快捷键大全</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420309" title="注册广播有几种方式，这些方式有何优缺点？请谈谈Android引入广播机制的用意。">注册广播有几种方式，这些方式有何优缺点？请谈谈Android引入广播机制的用意。</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51420536" title="Android中利用HttpURLConnection发送Post请求并添加参数的写法">Android中利用HttpURLConnection发送Post请求并添加参数的写法</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51291840" title="反射 Reflect">反射 Reflect</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51291839" title="XML">XML</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/61920550" title="Android性能优化（四）之内存优化实战">Android性能优化（四）之内存优化实战</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51291817" title="JAVA _JDK5的特性">JAVA _JDK5的特性</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51291793" title="集合">集合</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51291780" title="常用API摘要">常用API摘要</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hanchendong/article/details/51291695" title="面向对象">面向对象</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/turingbooks/article/details/72416875" target="_blank">* 5月书讯：流畅的Python，终于等到你！</a></li>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/72526177" target="_blank">*【新收录】CSDN日报 —— Kotlin 专场</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/70483088" target="_blank">* Android中带你开发一款自动爆破签名校验工具kstools</a></li>
+<li><a href="http://blog.csdn.net/guolin_blog/article/details/54895665" target="_blank">* Android图片加载框架最全解析——深入探究Glide的缓存机制</a></li>
+<li><a href="http://blog.csdn.net/lmj623565791/article/details/72667669" target="_blank">* Android 热修复 Tinker Gradle Plugin解析</a></li>
+<li><a href="http://blog.csdn.net/puppet_master/article/details/72455945" target="_blank">* Unity Shader-死亡溶解效果</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/hanchendong/article/details/51420309#comments">注册广播有几种方式，这些方式有何优缺点？请谈谈Android引入广播机制的用意。</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/qq_35975416" class="user_name">键盘上的武者</a>:
+抄的还写原创，内容牛头不对马嘴
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/hanchendong/article/details/51420536#comments">Android中利用HttpURLConnection发送Post请求并添加参数的写法</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/qq_35561554" class="user_name">qq_35561554</a>:
+大哥你没写完啊
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/hanchendong/article/details/51420508#comments">Eclipse快捷键大全</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/mayfla" class="user_name">mayfla</a>:
+有用，多多练习使用，太基础了。。。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/hanchendong/article/details/51420508#comments">Eclipse快捷键大全</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/shakespeare001" class="user_name">山代王</a>:
+好东西
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+
+                   <!-- 广告位开始 -->                    <!-- 广告位结束 -->
+                   <div class="tracking-ad" data-view="true" data-mtp="63" data-order="40" data-con="ad_content_1260" style="width: 200px; height: 200px;">
+                         <div id="nav_show_top_stop" style="width: 200px; height: 200px; z-index: 1000; position: fixed; top: 0px;"><div id="cpro_u2734128"><iframe id="iframeu2734128_0" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ycqm(3).html" width="200" height="200" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:200px;height:200px" allowtransparency="true"></iframe></div></div>
+                   </div>
+    <script type="text/javascript">    
+        setTimeout(function () {
+            var naviga_offsetTop = 0;
+            function naviga_stay_top() { var scrollTop = jQuery(document).scrollTop(); if (scrollTop > naviga_offsetTop) { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": "0px" }); } else { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop - scrollTop + "px" }); } }
+            function onload_function() { naviga_offsetTop = jQuery("#nav_show_top_stop").position().top; jQuery(window).bind("scroll", naviga_stay_top); jQuery(window).bind("mousewheel", naviga_stay_top); jQuery(document).bind("scroll", naviga_stay_top); jQuery(document).bind("mousewheel", naviga_stay_top); } jQuery(document).ready(onload_function);
+               
+        }, 200);    
+    </script>
+<script type="text/javascript">(window.cproArray = window.cproArray || []).push({ id: "u2734128" });  </script> 
+                    <script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/c.js.下载" type="text/javascript"></script> 
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/cnick.js.下载"></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/login.js.下载"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+
+    <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/tracking.js(1).下载" charset="utf-8"></script>  
+
+   
+   
+     <!--new top-->
+   
+    <link href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ask_float_block.css" type="text/css" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/wmd.js.下载"></script>
+    <script language="JavaScript" type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/showdown.js.下载"></script>
+    
+    <script language="JavaScript" type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ask_float_block.js.下载"></script>
+   
+
+   
+
+
+        <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/async_new.js.下载"></script>
+       <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/MathJax.js.下载"></script>
+        <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/main.js.下载"></script>
+          <script type="text/javascript">
+              //$(function () {
+              //    setTimeout(function () {
+              //        var searchtitletags = articletitle + ',' + $("#tags").html();
+              //        searchService({
+              //            index: 'blog',
+              //            query: searchtitletags,
+              //            from: 5,
+              //            size: 5,
+              //            appendTo: '#res',
+              //            url: 'recommend',
+              //            his: 2,
+              //            client: "blog_cf_enhance",
+              //            tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+              //        });
+              //    }, 1000);
+              //});
+
+         </script>
+    <script src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/csdn_blog_detail.min.js.下载" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display:none; position:absolute; z-index:9990; width:170px">  <iframe src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/saved_resource(2).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/notify.js.下载"></script><input type="hidden" id="aa_g_data_ids">
+
+    <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+
+     <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/toolbar.js.下载"></script>
+    
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/52b5334.js.下载"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    
+    <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/saveToCode.js.下载"></script>
+      <script type="text/javascript" src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/main.js(1).下载"></script>
+        
+     
+
+    
+          
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/saved_resource(3).html" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+   
+ <div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="csdn-tracking-statistics" chg-blk="0"><a id="com-quick-reply" title="快速回复" style="top:420px"></a><a id="com-quick-collect" title="我要收藏" style="top:458px"></a><a id="com-d-top-a" style="top: 496px; display: inline;" title="返回顶部" onclick=""></a> </div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/hanchendong/article/details/61919273#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/hanchendong/article/details/61919273#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/hanchendong/article/details/61919273#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./浅谈一种Android客户端架构设计 - 流星火的博客 - 博客频道 - CSDN.NET_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/hanchendong/article/details/61919273#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/hanchendong/article/details/61919273#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="浅谈一种Android客户端架构设计" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder="浅谈一种Android客户端架构设计： http://blog.csdn.net/hanchendong/article/details/61919273"></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><span class="label blog_tag"><span>android</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>开发经验</span><a title="Removing tag" href="javascript:;">x</a></span><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value="android,开发经验,"><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div><div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder=""></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><span class="label blog_tag"><span>android</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>开发经验</span><a title="Removing tag" href="javascript:;">x</a></span><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value="android,开发经验,"><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div><div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true"></div></body></html>

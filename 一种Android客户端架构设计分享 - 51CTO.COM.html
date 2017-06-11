@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://mobile.51cto.com/android-535264.htm -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+    
+    <title>一种Android客户端架构设计分享 - 51CTO.COM</title>
+    <meta name="description" content="技术发展日新月异，业界各种Android客户端架构设计，五花八门，但我们不能简单地说哪种架构更好，因为脱离业务谈架构是没有任何意义的，适合业务的才是好架构。而架构也不是一成不变的，随着业务的发展，也许当初设计的架构已不足以支撑目前的业务，那么就需要改变之前的架构。">
+    <meta name="keywords" content="Android,客户端,架构设计">
+    <!--<base target="_blank">--><base href="." target="_blank">
+    <link rel="stylesheet" type="text/css" href="./一种Android客户端架构设计分享 - 51CTO.COM_files/article_head.css">
+    <link rel="stylesheet" type="text/css" href="./一种Android客户端架构设计分享 - 51CTO.COM_files/article_layout.css">
+    <script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/hm.js.下载"></script><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/hm.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/jquery.min.js.下载"></script>
+    <script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/mobile.js.下载"></script>
+<script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/share.js.下载"></script><link rel="stylesheet" href="./一种Android客户端架构设计分享 - 51CTO.COM_files/share_style0_16.css"><link rel="stylesheet" type="text/css" href="./一种Android客户端架构设计分享 - 51CTO.COM_files/layout_51cto.css"></head>
+<body>
+<!-- 导航 开始-->
+<!-- top start -->
+<div class="home-top" id="topx">
+    <div class="w1001 cent">
+        <div class="pdr10 fl">中国领先的IT技术网站</div>
+        <div class="pdr10 fl">|</div>
+        <div class="pdr10 fl">
+            <div class="subweb"><span class="trans">51CTO旗下网站</span><i></i>
+                <!--旗下网站-->
+                <div class="subweb-list">
+                    <a href="http://www.51cto.com/" target="_blank">51CTO.com</a>
+                    <a href="http://cio.51cto.com/" target="_blank">CIOage.com</a>
+                    <a href="http://www.watchstor.com/" target="_blank">WatchStor.com</a>
+                    <a href="http://www.hc3i.cn/" target="_blank">HC3i.cn</a>
+                </div>
+                <!--旗下网站-->
+            </div>
+        </div>
+        <div class="pdr10 fl">|</div>
+        <div class="pdr10 fl"><a href="http://www.51cto.com/about/map.htm" target="_blank">地图</a></div>
+        <div class="top-r">
+        <div id="login_status" style="text-align:right;" class="login"><i></i><a href="http://home.51cto.com/index?reback=http://mobile.51cto.com/android-535264.htm" target="_self">登录</a> <a href="http://home.51cto.com/user/register?reback=http://mobile.51cto.com/android-535264.htm" target="_self">注册</a><a href="http://home.51cto.com/members/in-fo?www" target="_blank"><span class="jsVipDrop" style="position: relative;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/vip_grey.png" style="float:right; width:15px; height:14px; border:none; margin-top:10px"><div id="vip_mes_top" style="display:none;position: absolute;right:-75px;top: 22px;width: 137px;z-index: 99;"><div style="background: #faf7e6 none repeat scroll 0 0;border: 1px solid #ecb7a5;color: #666;font-size: 12px;padding: 3px 5px;position: relative;"><span style="background: rgba(0, 0, 0, 0) url(https://static1.51cto.com/home/web/images/hidearro.png) no-repeat scroll center center;display: inline-block;height: 7px;position: absolute;right: 57px;top: -6px;width: 12px;"></span><div style="color:#f60; text-align:center;">一个会员，全站特权</div></div></div></span></a><span class="fl">|</span><a onclick="addFavorite(this.href, &#39;51CTO! 官方站&#39;);return false;" href="http://www.51cto.com/">收藏本站</a></div>
+        </div>
+    </div>
+</div>
+<!-- top end -->
+<!-- 导航 结束-->
+
+<!-- 频道导航 -->
+<div class="top_bg">
+	<div class="wrap">
+		<div id="tonglanad" class="left"><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ad.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ad.php"></script><iframe width="760" height="90" noresize="" scrolling="No" frameborder="0" marginheight="0" marginwidth="0" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/mobile.html" align="center"></iframe></div>
+		<div id="list4" class="right" style="position:relative;">
+			<ul>
+				<li id="wordlinkad1"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wordlink1.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs.php"></script><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3933__zoneid=270__cb=a27a84eb7e__oadest=http%3A%2F%2Fedu.51cto.com%2Fzt%2Fzt_id-1.html%3Fan" target="_blank"><font color="red">网络安全一个大写的反“作死”</font></a><div id="beacon_a27a84eb7e" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</li>
+				<li id="wordlinkad2"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wordlink2.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs(1).php"></script><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3546__zoneid=631__cb=701fe56fa0__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-44.html%3Fxiaoshou" target="_blank"><font color="red">助你4个月成为大数据工程师</font></a><div id="beacon_701fe56fa0" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg(1).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</li>
+				<li id="wordlinkad3"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wordlink3.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs(2).php"></script><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3717__zoneid=594__cb=7b22a16a47__oadest=http%3A%2F%2Fedu.51cto.com%2Fpx%2Ftrain%2F115%3Fwzl" target="_blank"><font color="red">Linux云计算与架构师进阶</font></a><div id="beacon_7b22a16a47" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg(2).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</li>
+				<li id="wordlinkad4"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wordlink4.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs(3).php"></script><a href="http://gg.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3549__zoneid=636__cb=0455a7627a__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-17.html%3Fxiaoshou" target="_blank"><font color="red">2016年备战软考-重难点解析</font></a><div id="beacon_0455a7627a" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg(3).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</li>
+			<div style="right: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png) repeat scroll 0% 0%; bottom: 2px;"></div></ul>
+			<div style="right: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(&#39;http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png&#39;) repeat scroll 0% 0%; bottom: 2px;"><div style="right: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png) repeat scroll 0% 0%; bottom: 2px;"></div></div>
+		</div>
+	</div>
+	<div class="nav">
+		<a href="http://www.51cto.com/" class="logo"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/nr_logo.png" alt=""></a>
+		<ul>
+			<li><a href="http://mobile.51cto.com/" class="active">移动开发</a></li>
+			<li><a href="http://mobile.51cto.com/">首页</a></li>
+			<li><a href="http://mobile.51cto.com/news/">业界资讯</a></li>
+			<li><a href="http://mobile.51cto.com/app-show/">移动应用</a></li>
+			<li><a href="http://mobile.51cto.com/dev">平台技术</a></li>
+			<li><a href="http://mobile.51cto.com/speclist/">专题</a></li>
+		</ul>
+		<div class="nav-rsear">
+			<form method="post" action="http://www.51cto.com/php/search.php" name="searchform" target="_blank">
+				<input name="keyword" id="q" type="text" placeholder="输入您要搜索的内容" class="sear-1">
+				<input name="" type="submit" value="" class="sear-2">
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- 频道导航结束 -->
+
+<div class="main">
+    <!-- 左侧内容 -->
+    <div class="main_left">
+        <div class="wznr">
+            <h2>一种Android客户端架构设计分享</h2>
+            <p>技术发展日新月异，业界各种Android客户端架构设计，五花八门，但我们不能简单地说哪种架构更好，因为脱离业务谈架构是没有任何意义的，适合业务的才是好架构。而架构也不是一成不变的，随着业务的发展，也许当初设计的架构已不足以支撑目前的业务，那么就需要改变之前的架构。</p>
+            <dl>
+                <dt><span>作者：aspook</span><span>来源：<a href="http://mp.weixin.qq.com/s/xr5ueO_dXY9564dv1gD4WA" target="_blank">Android开发中文站</a></span>|<em>2017-03-21 17:04</em></dt>
+                <dd><div class="fl zxf_showBox" style="padding-right: 10px;position:relative;"> <a href="http://mobile.51cto.com/android-535264.htm###" title=" " target="_self" class="z_bds_more">&nbsp;移动端</a> <div class="navcodebox clearfix"><div class="ico"></div><span> <img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1jt98Lh9cl3AAAyECoiqoU042.jpg" width="105" height="107"> <p>51CTO技术博客</p> </span><span> <img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1i40HrAObC6AAAcvPVCCV0975.jpg" width="105" height="107"> <p>51CTO微站服务号</p> </span><span><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1i40HrQZy_TAAAcDOkrRAE327.jpg" width="107" height="107"> <p>51CTO学院客户端</p> </span></div> </div>
+                	<div class="left" style="padding-right: 10px">
+                		<a href="javascript:favorBox(&#39;open&#39;);" title="一键收藏，随时查看，分享好友！" target="_self" class="bds_more1">&nbsp;收藏</a>
+                	</div>
+					<div class="bdsharebuttonbox left bdshare-button-style0-16" data-tag="share_2" data-bd-bind="1496046920854">
+						<a href="javascript:;" class="bds_more" data-cmd="more">&nbsp;&nbsp;分享</a>
+					</div>
+                </dd>
+            </dl>
+        </div>
+        <div class="zwnr">
+            <h2><a href="http://mobile.51cto.com/android-535264.htm#" target="_blank"></a></h2>
+            <p>前言：技术发展日新月异，业界各种Android客户端架构设计，五花八门，但我们不能简单地说哪种架构更好，因为脱离业务谈架构是没有任何意义的，适合业务的才是好架构。而架构也不是一成不变的，随着业务的发展，也许当初设计的架构已不足以支撑目前的业务，那么就需要改变之前的架构。接下来将分享下我们Android客户端的架构设计，在App的某个业务发展阶段或许有一些参考意义。</p>
+<p><strong>分层化与模块化</strong></p>
+<p>分层化与模块化应该是任何软件开发的共识。</p>
+<p><strong>分层化</strong></p>
+<p>在Android应用开发中通常可以分为如下几层：&nbsp;</p>
+<p style="text-align: center;"><a href="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1jQ6X-jv2GUAADhvaX9MFM107.jpg-wh_651x-s_1540719988.jpg" target="_blank"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1jQ6X-jv2GUAADhvaX9MFM107.jpg-wh_651x-s_1540719988.jpg" border="0" alt="" title=""></a></p>
+<ul>
+    <li>SDK层：主要是Android SDK及第三方的SDK(可能基于Android SDK或为独立的SDK)，这些SDK为上层框架提供核心功能的支持。</li>
+    <li>基础框架层：这里所谓的基础框架，指多数App都必需的基础功能，是具体业务逻辑实现的基础。主要有网络请求功能、图片加载与缓存功能、SQLite数据库管理功能、Log管理功能等，当然根据对业务逻辑支持的不同，基础框架层的功能支持也不一定相同，上述几个应该是大部分App都要支持的，当然Crash监控与常用工具类也可归为该层次。</li>
+</ul>
+<p style="margin-left: 40px;">具体到每个基础框架的实现则没有任何限制，如网络功能可以使用Volley、OkHttp或者自己封装实现网络请求逻辑;对于图片管理功能则可以使用Glide、Fresco、Picasso，亦或自己实现……总之每个基础框架都要遵循一定的实现原则，保持功能模块的独立性，与具体业务解耦并对外提供良好的交互接口。</p>
+<ul>
+    <li>业务逻辑层：如果把App架构比作高层建筑，那么上述两层就是地基。地基打好之后，就可以在上面任意发挥了，至于如何发挥，那就必须结合实际的业务需求，不同的应用往往有不同的业务功能模块。</li>
+</ul>
+<p style="margin-left: 40px;">另一方面，业务功能模块也并非完全是并列的级别，有一些业务逻辑也是可以抽象出来的，作为通用的功能模块，比如登录、分享、扫描、统计等，其他的业务模块可能会调用到这些功能。</p>
+<p>这里需要注意的是SDK层与基础框架层并不是一成不变的，但它们的变化周期往往是比较长的，一般来说当基础功能不能满足最上层的业务逻辑时，就需要对其做扩展。由于基础框架层的功能模块已经是功能级别的粒度划分，因此扩展往往是模块级别的扩展，通常是新增基础功能框架而不是修改原有基础功能框架，这也符合“开放-闭合”原则。</p>
+<p><strong>模块化</strong></p>
+<p>至于模块化，对于分层化来说则是更细粒度的划分，即将每一层细分为不同的模块，各功能模块尽可能遵循“高内聚、低耦合”的原则，功能模块之间仅提供必要的交互接口。</p>
+<p>对于基础框架层，由上图可见，往往是根据功能来划分。这里的基础框架层细分为网络支持功能、图片库、日志系统、数据库支持等模块，如果不足以支撑业务发展，可能会新增其他基础功能模块。</p>
+<p>而业务逻辑层则主要由业务需求来决定，如分为扫描功能、电商、快递查询等模块。业务逻辑层的模块化还有一种驱动因素，那就是通用功能的封装，这一点大家应该都有体会，随着App业务逻辑的增加，不同业务功能之间可能会用到相同的功能，如用户登录、分享功能等，我们不希望在每个需要的地方都复写一遍相关代码，于是就需要把通用功能抽取成独立于具体业务需求的模块，如登录模块、分享模块，在模块内部实现通用的业务逻辑，同时对外暴露调用接口，不同的业务只需调用通用模块即可。</p>
+<p><strong>业务数据流程设计</strong></p>
+<p>由于业务逻辑、数据处理逻辑或网络框架的不同，相信各家应用都有自己的一套数据请求流程。最直接的就是从Activity或Fragment中调用网络请求的方法，然后通过回调将结果返回到Activity或Fragment中，虽然流程最清晰，但这种方式存在几个严重的问题：</p>
+<ul>
+    <li>网络数据直接返回到Activity或Fragment中，后续需要对数据进行解析、过滤、转换、缓存等操作，这些工作将会大大加重Activity或Fragment的负担。</li>
+    <li>Activity或Fragment的代码量猛增，逻辑繁杂(不仅包含了View的逻辑还包含了数据处理的逻辑)</li>
+    <li>从整个应用的角度来看，每个页面甚至每个接口都需要重复上述相同的冗余工作，完全可以抽象出来。</li>
+</ul>
+<p>上述设计思路是需要摒弃的，结合自身业务及架构演化，我们没有跟风MVP、MVVM，而是设计了下面一套业务数据请求流程：</p>
+
+
+
+<p style="text-align: center;"><a href="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1jQ6bLi6mDbAACsAXsHzYA120.jpg" target="_blank"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1jQ6bLi6mDbAACsAXsHzYA120.jpg" border="0" alt="业务数据请求流程" title="业务数据请求流程"></a></p>
+<p>首先，视图层通常表现为Activity或Fragment，并由视图层发起数据请求，与上述不同，视图层并不直接跟网络框架打交道，而是先将数据请求发送到数据代理层DataAgent。需要注意到是，视图层与数据代理层之间没有采用直接通信的方式，而是插入了一个消息调度器MessageScheduler中转。这样做的好处是将视图层与数据代理层解耦，视图层无需关注数据代理层的具体实现，有了MessageScheduler，视图层所要做的就是发出一个数据请求的消息而已，然后就可以静静等待一个回复消息，该回复消息会附带最终需要的数据对象，这样在视图层就免除了数据处理的逻辑，拿到结果直接展示到UI上即可。使用这种方式，一般来讲Activity或Fragment三五百行代码即可搞定，UI逻辑或接口逻辑(如一个页面有多个接口)比较复杂的代码量基本也能控制在1000行左右，逻辑非常清爽。</p>
+<p>消息调度器将视图层的请求消息转发到数据代理层后，DataAgent解析出数据请求类型DataType(该类型对应着具体数据对象模型)、必要参数(接口参数、是否需要缓存结果、分页页码等)，然后再执行具体的操作：</p>
+<ul>
+    <li>如果要取缓存的数据，则DataAgent直接向缓存模块发送请求。缓存的数据可以是初始JSON数据，也可以是解析处理后得到的数据对象Model，可根据具体需求配置。如果从缓存中取到的是JSON，则DataAgent先要解析处理得到对应Model;如果从缓存中取到的是Model，则不做处理，然后将Model封装发回到消息调度器，再由MessageScheduler分发给具体的请求者，如Activity或Fragment。</li>
+    <li>由于Android的数据来源有多种，如果数据来自持久化存储，如SQLite或File等，仍然统一由DataAgent来跟它们通信，获取数据并加工后通过MessageScheduler发回视图层。</li>
+    <li>最常见的是从服务器获取数据，此种场景下，DataAgent将与网络框架交互，将从MessageScheduler中获取的参数提供给网络框架构造请求url。至于网络框架使用Volley或OkHttp或者其他都没关系，网络框架负责向Server请求数据，数据通常以JSON格式返回。DataAgent收到返回的JSON数据后，根据DataType将JSON数据校验后抛给解析器，解析器会将JSON解析为视图层需要的Model。当然数据解析过程可能伴随数据的过滤、转换等逻辑。另外需要注意的是，还需要根据视图层需求对数据进行是否缓存的操作，可选择缓存JSON还是Model。经过一系列操作，得到最终Model后，DataAgent将其通过MessageScheduler发回视图层。</li>
+</ul>
+<p>当然，由于数据请求流程是耗时的，因此上述步骤都是走的线程池，这点上图中并未注明。</p>
+<p><strong>数据代理层</strong></p>
+<p>DataAgent在上文中已简单提及，它的主要作用是对数据的一系列操作，包括实际的数据请求、数据解析处理、数据缓存等逻辑。下图为从服务端接口获取JSON数据并处理的流程：</p>
+
+
+
+<p style="text-align: center;"><a href="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1jQ6e2zDXbGAAD6kGDkSw4769.jpg" target="_blank"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1jQ6e2zDXbGAAD6kGDkSw4769.jpg" border="0" alt="从服务端接口获取JSON数据并处理的流程" title="从服务端接口获取JSON数据并处理的流程"></a></p>
+<p>从上图可知，DataAgent的大致工作流程为：</p>
+<ul>
+    <li>DataAgent将真正的数据请求发送给各数据源，数据源可能为缓存、SQLite或文件，但通常是从服务端获取数据，因此DataAgent会将数据请求发到网络框架层，然后等待数据返回。</li>
+    <li>由于数据源不同，返回数据也可能不同，这里简化为两种：原始JSON或Model。</li>
+    <li>DataAgent拿到数据后，则开始数据处理流程。以从网络请求的JSON数据为例，先对返回的JSON进行数据校验，检查数据的有效性与正确性，如果数据校验通过，接下来根据需求来决定要不要写入缓存，然后再进行数据加工(如精度处理、数据拼接、数据裁剪等)，最后进行数据解析得到视图层需要的Model。如果数据校验没有通过，则尝试从缓存中读取，从缓存中读取后也需要校验(检查数据的时效性、有效性、正确性)，校验通过后同样进行数据处理、解析等流程。如果缓存中读取得到的就是Model，那么则可以省略数据处理和解析的流程。得到最终的Model后，DataAgent将其包装发送给MessageScheduler。另外DataAgent还要具有一定的容错功能，因为任何数据源都无法保证能够返回合法的数据，如果不对数据错误进行容错处理，那么就可能无法解析为对应的Model，从而导致视图层无数据甚至异常。如果接口及缓存都无法返回正确的数据，DataAgent需要做特殊处理，以保证视图层能给用户以反馈。</li>
+</ul>
+<p><strong>业务视图逻辑</strong></p>
+<p>虽然不同的业务页面有不同的视图逻辑，这里以一个应用中最常见的页面为例来说明，假设该页面有一个列表。大家都知道ListView(此处为泛指，可能大家都在用RecyclerView了)的工作方式，它需要ViewHolder来填充视图，需要Adapter来填充数据，如果每个需要ListView的界面都维护各自的一套ViewHolder及Adapter，那么页面逻辑又将变得臃肿。</p>
+<p>我们在实践中是这样做的：</p>
+<ul>
+    <li>封装一个Adapter公共处理类，提供多种构造函数，其中有一个type参数，用来标明需要使用哪个ViewHolder。</li>
+    <li>封装一个ViewHolder抽象类，定义数据设置的逻辑，并交由具体的ViewHolder实现。</li>
+    <li>构建一个叫做ViewHolderFactory的类，顾名思义该类主要作用是用来构建ViewHolder，它主要提供两个方法createViewHolder()与createConvertView()，其中createConvertView()是个中间方法，用于生成ViewHolder。</li>
+    <li>在Adapter的getView方法中，根据上述type参数，获取具体的ViewHolder实现，调用设置数据的逻辑。</li>
+</ul>
+<p>经过上述封装之后，视图层只需要向Adapter公共处理类传入一个type参数即可得到对应的Adapter;等数据返回到视图层后，再将数据传给Adapter公共处理类，其他什么都不用管，就可以展示列表数据了。原本需要很多代码实现的逻辑从视图层抽离之后，视图层只需要几行代码就能够完成一个列表展示了。</p>
+<p><strong>Hybrid框架</strong></p>
+<p>自Android诞生以来，就有Native App与Web App之争，这两种开发方式虽然各有优缺点，但Native  App一直占据上风。近一两年来，移动应用中的Web页面越来越多，而纯Native的应用则相对越来越少。但是纯Web  App由于其渲染效率、性能问题、对硬件的调用限制导致其也并未广泛地应用。于是一种折中的方案成为主流，即Hybrid App。</p>
+<p>所谓Hybrid  App，即混合开发方式，部分功能使用Native开发，部分功能使用H5开发。为了充分利用Web开发的优点并避开其缺点，并非所有业务功能都适合使用Web方式来开发。在我们的应用中，主要将H5用于以下方面：</p>
+<ul>
+    <li>节日活动或游戏页、秒杀或团购页等具有时效性的页面。</li>
+    <li>使用说明、公告等偏展示、少交互的页面。</li>
+    <li>经常更新、交互较少且不涉及硬件调用的页面或模块，如电商商品首页展示、积分兑换模块。</li>
+</ul>
+<p>截止到目前，我们App中的Web页所占比重是上升的，大概占到所有功能的25%左右。使用Web开发的优势非常明显，可以支持多变的UI视图效果、节省开发人力(Android、iOS共用)、Bug的在线修复而不用App发版等。</p>
+<p>为了满足App的Web页面需求，于是我们在基础框架层扩展了一个Hybrid功能模块。该框架主要是自行封装了Android原生的WebView控件，且分为不同层级的封装，可根据需要灵活使用，核心功能及特性如下：</p>
+<ul>
+    <li>支持完整的Web页面，即整个页面的内容全部是H5实现，外部容器为Activity或Fragment。</li>
+    <li>支持局部的Web页面，即部分页面的内容是H5实现，可单独使用自定义的WebView或者嵌入Fragment使用。</li>
+    <li>定义了一套较为完整的交互协议，支持Native与JS的互相调用，典型的场景如H5页面点击跳转Native功能页面(支持传参)、JS唤起Native对话框或Toast等，同时Java也能调用JS函数。基于此套交互协议，基本能够满足日常App中Web开发需求。</li>
+    <li>避免了JS注入漏洞。</li>
+    <li>支持同一个Web页面中Http与Https混合的场景。</li>
+    <li>向业务逻辑层暴露接口，可根据需求定制WebViewClient与WebChromeClient。</li>
+    <li>对外提供接口，可根据需求控制缩放、Cookie管理、缓存管理、硬件加速等。</li>
+    <li>经过试验与摸索，兼容多种Android设备及版本。</li>
+</ul>
+<p>虽然后来出现了React  Native，但由于学习成本及其Android版本的局限性，结合我们自己团队的人力资源原因，我们尚未在应用中正式使用。目前仍然以Hybrid开发为主，且其在整个应用中的比重越来越大，因此Hybrid框架是我们架构中重要的一个组成部分。</p>
+<p><strong>消息调度中心</strong></p>
+<p>前面业务数据流程的设计中，在视图层与数据代理层之间插入了一个消息调度器——MessageScheduler，MessageScheduler主要功能就是管理消息及消息调度。</p>
+<p>MessageScheduler核心原理是维护了一个哈希表，当收到视图层的数据请求时就使用唯一的key将发起者保存到哈希表中，以便稍后收到DataAgent的返回数据后，能够找到发起者。存储好消息发起者的信息后，即向DataAgent发送数据请求，多个数据请求是可以并行的，主要在于线程池的线程数控制机制。DataAgent返回数据之后，MessageScheduler根据唯一key找到初始的请求者，同样利用消息机制将请求结果返回给视图层，同时在哈希表中清除该元素。其示意图如下：</p>
+
+
+
+<p style="text-align: center;"><a href="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1jQ6l7h8xB5AACysnT1TE0388.jpg" target="_blank"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1jQ6l7h8xB5AACysnT1TE0388.jpg" border="0" alt="" title=""></a></p>
+<p><strong>消息分发器</strong></p>
+<p>既然有了消息调度机制，就需要消息分发器MessageDispatcher，来负责发送消息。</p>
+<p>MessageDispatcher本质上是利用了Android的消息机制来对业务需求进行封装和扩展。看过Android  Framework层源码就会发现其实Android框架本身就有很多地方使用了消息机制来进行通信，Android消息机制可以在模块页面间、线程间通信，甚至可以在进程间使用Messenger通信(Messenger方式是利用了消息机制，当然还有其他进程间通信方式)。</p>
+<p>MessageDispatcher功能比较简单，支持两种方式：</p>
+<ul>
+    <li>点对点的通信，如两个页面之间，通信目标唯一，如上文提到的从视图层发送数据请求消息到消息调度器。</li>
+    <li>点对面的通信，类似于广播，也有点像EventBus，一条消息发出，凡是注册(或叫订阅)过的页面都能收到通知;也可以进一步通过Tag控制达到一对一发送。</li>
+</ul>
+<p>其示意图如下：</p>
+
+
+
+<p style="text-align: center;"><a href="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1jQ6nayvJbXAADMs21wqjE869.jpg" target="_blank"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1jQ6nayvJbXAADMs21wqjE869.jpg" border="0" alt="" title=""></a></p>
+<p><strong>模块路由中心</strong></p>
+<p>一个完整的应用中，免不了模块之间、功能页面之间的跳转。当然在需要的地方通过Intent可以实现跳转，但这不是一个好的方案，很明显不同模块或页面之间的耦合度增加了。而我们的原则是模块和页面之间尽可能解耦，于是设计了一个模块路由(Module  Routing)中心，App中所有的页面跳转均由其控制。</p>
+<p>模块路由的核心原理是给功能页面进行唯一编码，编码的逻辑可以跟随产品版本定义到应用中，并保证兼容之前版本。这样就可以在应用的任何地方只需要向模块路由中心发送对应模块页面的编码即可，由模块路由负责打开目标页面。</p>
+<p>以下几点需要注意：</p>
+<ul>
+    <li>整个应用中的功能页编码都必须保证唯一</li>
+    <li>如打开某些功能页面除了具体编码外，还可能需要额外参数。如打开商品详情页，除了知道商品详情页的编码外，还需要商品ID，模块路由需要对附加参数提供支持。</li>
+    <li>模块路由支持打开Web页面，即Hybrid页面也支持上述特定编码，所以在Web页面上点击跳转Native页面使用的协议也是由模块路由支持的。</li>
+</ul>
+<p>使用模块路由的好处有：</p>
+<ul>
+    <li>大量减少应用中的跳转Intent</li>
+    <li>模块之间、页面之间解耦</li>
+    <li>适配变化，统一管理，修改方便</li>
+</ul>
+<p><strong>其他</strong></p>
+<p><strong>日志系统</strong></p>
+<p>在开发过程中，甚至运行过程中，日志都是很重要的一部分。当然Android提供了Log相关的API，但不建议这一行那一行地零星使用，否则如果想统一控制Tag或关闭Log时非常麻烦。建议对Log  API进行简单封装或者使用现有第三方Log库，将Log功能独立出来，提供统一的调用接口、级别控制、开关控制，这样既方便调试也方便管理，同时也能为整个应用代码的清晰做出一点贡献。</p>
+<p><strong>线上崩溃监控</strong></p>
+<p>对线上应用的Crash监控是提高应用稳定性、优化应用性能的一个重要方法。我们构建了一个小型的全局监控系统，主要由以下功能特性：</p>
+<ul>
+    <li>对用户不可见，用户无感知</li>
+    <li>全局注册即可开启监控</li>
+    <li>捕捉线上崩溃，保存到本地文件</li>
+    <li>线上崩溃信息按一定策略上传服务器，上传后同时删除本地文件</li>
+    <li>崩溃信息主要包括Android设备信息(如手机型号、系统版本等)、App版本号、异常信息等</li>
+</ul>
+<p>服务器收到上传的线上崩溃信息后，也按一定策略通过邮件方式通知到开发者，以便开发者及时修复异常。线上崩溃监测系统虽然小而简单，但作用非常重要，利用线上崩溃反馈可以有效地提高应用的稳定性，建议在应用设计中务必给它留出一个位置。</p>
+<p><strong>统计系统</strong></p>
+<p>相信大部分应用都有统计分析后台，可以统计应用的日活、PV、UV或其他用户行为，也可能有一部分应用是使用的第三方统计功能，如友盟等。结合公司BI部门的统计需求，我们客户端自行设计了一套统计方案，用于Android与iOS两个客户端。之所以不用第三方统计，主要是因为我们无法根据需求自由定制且数据不在自家服务器，另一方面也有些许数据泄露的风险。</p>
+<p>基于客户端的统计系统主要包括三个方面的功能：</p>
+<ul>
+    <li>数据采集</li>
+    <li>数据存储</li>
+    <li>数据上传</li>
+</ul>
+<p>对于数据采集，主要针对统计部门的需求，如采集设备信息、定位信息、App启动时间次数、PV、UV、甚至用户行为，如点击、切换Tab、页面流向跟踪等。</p>
+<p>为了避免每次采集完数据后就即时上传，因此需要数据存储，将采集的统计数据暂存到本地，一般使用SQLite。然后采用一定策略进行上传，如数据累积到50条或者应用切换到后台时进行上传。</p>
+<p>对于数据上传，除了上传时机的选择策略外，还要遵循一定的结构字段，该结构可以根据数据统计部门的需求来定义。数据上传的流程同样可以使用之前的数据请求框架，只不过返回值可能为一个成功提示而已。</p>
+<p>基于上述功能，我们自定义的统计功能模块提供了方便的调用接口，并支持灵活扩展，目前可以完美支持日常的统计需求，调用也非常简单，只需要在需要统计的地方插入一行代码即可。</p>
+<p><strong>域名劫持应对策略</strong></p>
+<p>最近遇到域名劫持的问题，真是头疼，另一方面也说明我们的流量引起运营商注意了。目前主流的有几下几种方案：</p>
+<ul>
+    <li>向运营商投诉。此方法非常被动且效果不佳，完全掌控在运营商手中。</li>
+    <li>使用httpDNS。此方法使用http的方式直接获取最优IP，绕过localDNS的解析，可谓彻底解决了域名劫持。</li>
+    <li>先使用域名尝试，域名失败后再使用IP尝试。此方案属于容灾方案，并不能避免域名劫持。</li>
+</ul>
+<p>理论上讲第二种是最佳方案，但由于httpDNS为第三方服务，也无法保证效果，外加上付费及接入成本等因素，我们暂时采用了第三种容灾方案，主要实施逻辑如下：</p>
+<ul>
+    <li>应用预先内置IP。</li>
+    <li>每次启动应用时获取最新IP，并保存到应用本地。</li>
+    <li>请求数据时，先使用域名走正常的逻辑，一旦遇到疑似劫持的问题后，使用本地的IP进行直连尝试。</li>
+</ul>
+<p>上述步骤其实是有漏洞的，比如启动时获取最新IP的接口如果被劫持了，那么就无法获取最新IP，假如刚好同时服务器IP也改变了，因此预先内置的IP已经失效，此时就彻底没办法了。不过上述两个条件同时满足的概率比较小，因此可以使用该方案解决很大一部分域名劫持问题。另外从服务端获取的IP，如果有多个的话，还需要增加一些策略，即考虑到负载均衡、访问速度、稳定性、网络运营商等因素，如何确定客户端拿到的哪一个是最优IP，当然这点可以优化，但首先能保证用户看到页面数据或许更加重要。</p>
+<p>上述应对域名劫持的策略本身并不能独立成一个模块，我们把它集成为网络框架的扩展。</p>
+<p><strong>总结</strong></p>
+<p>上文提到的是我们Android应用架构中的核心部分，可能你发现并没有什么花哨的、潮流的玩意儿，没有MVP，没有RxAndroid，没有插件化，也没有热修复……但就是这样它仍然支撑起了上亿的用户量。世上没有完美的架构，只有符合自身业务的架构，上述架构还有很多缺点，我们也在有选择、有步骤地重构，而随着业务需求的扩展，架构也会不断演化，最后希望本文能给大家带来一点参考意义。</p><p>【编辑推荐】</p><div><ol><li><a href="http://mobile.51cto.com/android-535162.htm" target="_blank">Android将走入历史? Google要推全新操作系统</a></li><li><a href="http://mobile.51cto.com/android-535181.htm" target="_blank">Android退出应用最优雅的方式</a></li><li><a href="http://mobile.51cto.com/android-535194.htm" target="_blank">谈谈23种设计模式在Android项目中的应用</a></li><li><a href="http://mobile.51cto.com/android-535198.htm" target="_blank">闲谈Android中的@和？符号的引用区别</a></li><li><a href="http://mobile.51cto.com/android-535206.htm" target="_blank">大幅提高Android开发效率之TemplateBuilder</a></li></ol></div><div align="right">【责任编辑：<a class="ln" href="mailto:sunsj@51cto.com">枯木</a> TEL：（010）68476606】</div><br>
+            <a href="http://mobile.51cto.com/android-535264.htm###" class="dzdz zhan" target="_self">点赞 <span>4</span></a>
+        </div>
+        <div class="share5">
+            <ul>
+                <li><a href="http://www.51cto.com/php/search.php?keyword=Android" target="_blank" class="underline">Android</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=%BF%CD%BB%A7%B6%CB" target="_blank" class="underline">客户端</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=%BC%DC%B9%B9%C9%E8%BC%C6" target="_blank" class="underline">架构设计</a></li>
+            </ul>
+            <dl>
+                <dt><em>分享:</em>
+<div class="bdsharebuttonbox bdshare-button-style0-16" data-tag="share_1" data-bd-bind="1496046920854">
+    <a class="wb" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="wx" data-cmd="weixin" title="分享到微信"></a>
+    <a class="more" data-cmd="more"></a>
+</div>
+</dt>
+<script type="text/javascript">
+    window._bd_share_config = {
+        common : {
+            bdText : document.title
+        },
+        share : [{
+            "bdSize" : 16,
+        }]
+    }
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<!-- Baidu Button END -->
+            </dl>
+        </div>
+        <div class="nrdp comment">
+            <div class="comment center">
+	<div class="inner center" id="cmscmt_iframe"><div class="title"><span class="word">内容点评</span><p class="con">已有<span class="total" id="cmt_num">0</span>条评论,<span class="total" id="zan_num">0</span>次赞</p><p style="float:right; margin-top: 17px;">还可以输入<span id="uyan_tts">500</span>字</p></div><div class="frame center"><textarea value="" id="comment" onblur="window.CMSCMT.shoIntro(this);" onfocus="window.CMSCMT.hidIntro(this);" onkeydown="window.CMSCMT.checkTxt(this, 140);" onkeyup="window.CMSCMT.checkTxt(this, 140);" style="color:#7c7c7c; font-family:Microsoft Yahei;">请输入你的评论</textarea></div><div class="user"><a id="uyan_cmt_btn" onclick="window.CMSCMT.addCmt(this);" class="submit" data-track="submit">提交</a><dl><dt class="icon"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/duface.png" alt=""></dt><dd class="btn"><span>您还没有登录！</span><span class="note">请先</span>&nbsp;<a href="javascript:void(0)" style="color:red;" onclick="show_iframe_login(&#39;http://mobile.51cto.com/android-535264.htm&#39;);return false;">登录</a>&nbsp;<span class="note">或</span>&nbsp;<a href="http://home.51cto.com/user/register?reback=http%253A%252F%252Fmobile.51cto.com%252Fandroid-535264.htm" style="color:red;">注册</a>&nbsp;</dd></dl></div><ul class="list center first" id="uyan_cmt_list"><div style="margin-top: 10px; padding-top: 10px; font-size: 12px; color: #303030; text-align: center;" id="uyan_cmt_list_warn">还没有评论内容</div></ul><div class="ui-overlay-mask" style="display: none;position: fixed; text-align:center;left:0; top:0; height:100%; width:100%;z-index: 9999;background-color:rgba(0, 0, 0, 0.6);"><div id="login" style="left:0; top:0;z-index: 9999;background:#fff;margin:20px auto;position:relative;display: inline-block;top: 40%;transform: translateY(-50%);"><span class="offbtn" onclick="hide()" style="position: absolute; right:15px; top:20px; display:inline-block; width:15px; height:14px;background: url(http://static1.51cto.com/home/web/images/iframe_login/offbtn.png) no-repeat center center; z-index: 99; cursor:pointer;"></span></div></div></div>
+</div>
+<script type="text/javascript" id="UYScript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/iframe_cmt.js.下载" async=""></script>
+
+        </div>
+        <div class="dzk">
+            <dl><dt class="show">大家都在看</dt><dt>猜你喜欢</dt></dl>
+            <div>
+                <ul>
+                    <li class="show">
+                        <div class="djdzk" id="djdzk"><div class="m15"><a href="http://netsecurity.51cto.com/art/201705/539640.htm"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1kYcv6j3ZCqAACL22MDP5s330.jpg-wh_151x97-wm_-wmp_-s_2440858434.jpg" title="最新勒索软件WannaCrypt病毒感染前后应对措施"></a><a href="http://netsecurity.51cto.com/art/201705/539640.htm" title="最新勒索软件WannaCrypt病毒感染前后应对措施">最新勒索软件WannaCrypt病毒感染前后应对措施</a></div><div class="m15"><a href="http://developer.51cto.com/art/201705/538934.htm"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1kQAp-SBOviAAFk53cH3QY386.jpg-wh_151x97-wm_-wmp_-s_2168075612.jpg" title="2017年5月编程语言排行榜：Java与C语言优势正开始缩小"></a><a href="http://developer.51cto.com/art/201705/538934.htm" title="2017年5月编程语言排行榜：Java与C语言优势正开始缩小">2017年5月编程语言排行榜：Java与C语言优势正开始缩小</a></div><div class="m15"><a href="http://sme.51cto.com/art/201705/538683.htm"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1kJf5vwsiPSAACc8m4fOeM187.jpg-wh_151x97-wm_-wmp_-s_346959329.jpg" title="从传统架构到云上数据，发生了哪些转变"></a><a href="http://sme.51cto.com/art/201705/538683.htm" title="从传统架构到云上数据，发生了哪些转变">从传统架构到云上数据，发生了哪些转变</a></div><div><a href="http://netsecurity.51cto.com/art/201705/540568.htm"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1kjstLzy-5aAABgc5nD4Ps592.jpg-wh_151x97-wm_-wmp_-s_63293621.jpg" title="被WannaCry勒索蠕虫加密的文件是否能复原?"></a><a href="http://netsecurity.51cto.com/art/201705/540568.htm" title="被WannaCry勒索蠕虫加密的文件是否能复原?">被WannaCry勒索蠕虫加密的文件是否能复原?</a></div></div>
+                    </li>
+                    <li>
+                       <div class="djdzk" id="cnxh"><div class="m15"><a href="http://news.51cto.com/art/201705/539930.htm?pc"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1kbgr6zCudhAAAyCmpPP_4775.jpg-wh_151x97-wm_-wmp_-s_3296160126.jpg" title="谷歌I/O开发者大会2017前瞻 手机已"></a><a href="http://news.51cto.com/art/201705/539930.htm?pc" title="谷歌I/O开发者大会2017前瞻 手机已">谷歌I/O开发者大会2017前瞻 手机已</a></div><div class="m15"><a href="http://news.51cto.com/art/201705/539927.htm?pc"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1kbf1Ty2ageAAKD4JOHTxk552.png-wh_151x97-wm_-wmp_-s_2787768401.png" title="即将到来的I/0大会，Android将解"></a><a href="http://news.51cto.com/art/201705/539927.htm?pc" title="即将到来的I/0大会，Android将解">即将到来的I/0大会，Android将解</a></div><div class="m15"><a href="http://news.51cto.com/art/201705/539926.htm?pc"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1kbftDjytsgAAB2r5CsSjc64.jpeg-wh_151x97-wm_-wmp_-s_4063560536.jpeg" title="谷歌嫌Android开源问题太多，打算开"></a><a href="http://news.51cto.com/art/201705/539926.htm?pc" title="谷歌嫌Android开源问题太多，打算开">谷歌嫌Android开源问题太多，打算开</a></div><div><a href="http://os.51cto.com/art/201705/539799.htm?pc"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1kanZKhd82WAADD2Bk9XAI235.jpg-wh_151x97-wm_-wmp_-s_433710048.jpg" title="取代Android？聊聊谷歌的Fuchs"></a><a href="http://os.51cto.com/art/201705/539799.htm?pc" title="取代Android？聊聊谷歌的Fuchs">取代Android？聊聊谷歌的Fuchs</a></div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 文章左侧结束 -->
+    <!-- 文章右侧 -->
+    <div class="wrap_right">
+        <div><!-- intel广告位 -->
+
+<span class="mtgg" id="right1_ad" style="height:auto; width:300px;margin-bottom: 10px;">
+
+<script type="text/javascript">
+var s=window.location.toString();
+var s1=s.substr(7,s.length);
+var s2=s1.indexOf(".");
+s=s.substr(7,s2);
+if ( s == 'stor') {
+var str = '<div class="m30" style="position:relative;">';
+str += '<iframe src="http://stor.51cto.com/act/art/intel" scrolling="no" frameborder="0" sytle="" width="300" align="middle" height="360" target ="_parent"></iframe>';
+str +='<div style="left: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png)repeat scroll 0% 0%; bottom: 2px;"></div>';
+str	+= '</div>';
+$('#right1_ad').html(str);
+}else if (s == 'server'){
+var str = '<div class="m30" style="position:relative;">';
+    str += '<iframe src="http://server.51cto.com/act/art/intel" scrolling="no" frameborder="0" sytle="" width="300" align="middle" height="360" target ="_parent"></iframe>';
+    str +='<div style="left: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png)repeat scroll 0% 0%; bottom: 2px;"></div>';
+    str	+= '</div>';
+    $('#right1_ad').html(str);
+}else if(s == 'network'){
+    var str = '<div class="m30" style="position:relative;">';
+    str += '<iframe src="http://network.51cto.com/act/art/intel" scrolling="no" frameborder="0" sytle="" width="300" align="middle" height="360" target ="_parent"></iframe>';
+    str +='<div style="left: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png)repeat scroll 0% 0%; bottom: 2px;"></div>';
+    str	+= '</div>';
+    $('#right1_ad').html(str);
+}
+var timestamp = Date.parse(new Date());
+timestamp = timestamp / 1000;
+    if (s == 'cloud' && timestamp>=1496160000) {
+    var str = "<ins class='dcmads' style='display:inline-block;width:300px;height:360px' data-dcm-placement='N5751.51CTO/B11527656.153459357' data-dcm-rendering-mode='script' data-dcm-http-only data-dcm-app-id=''></ins>";
+
+        $('#right1_ad').html(str);
+//        var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg3.51cto.com/www/delivery/ajs.php');
+//        var m3_r = Math.floor(Math.random()*99999999999);
+//        if (!document.MAX_used) document.MAX_used = ',';
+//        document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+//        document.write ("?zoneid=969");
+//        document.write ('&amp;cb=' + m3_r);
+//        if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+//        document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+//        document.write ("&amp;loc=" + escape(window.location));
+//        if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+//        if (document.context) document.write ("&context=" + escape(document.context));
+//        if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+//        document.write ("'><\/scr"+"ipt>");
+    }
+    if (s == 'bigdata') {
+        var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg2.51cto.com/www/delivery/ajs.php');
+        var m3_r = Math.floor(Math.random()*99999999999);
+        if (!document.MAX_used) document.MAX_used = ',';
+        document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+        document.write ("?zoneid=970");
+        document.write ('&amp;cb=' + m3_r);
+        if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+        document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+        document.write ("&amp;loc=" + escape(window.location));
+        if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+        if (document.context) document.write ("&context=" + escape(document.context));
+        if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+        document.write ("'><\/scr"+"ipt>");
+    }
+</script>
+    <script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/dcmads.js.下载"></script><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/impl_v39.js.下载"></script>
+    </span></div>
+        <div class="mtgg m30"><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ad.js(1).下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ad(1).php"></script><iframe width="300" height="260" noresize="" scrolling="No" frameborder="0" marginheight="0" marginwidth="0" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/14.html" align="left"></iframe></div>
+        <div></div>
+        <div class="bjtj m30">
+            <h2><span>编辑推荐</span></h2>
+            <dl><dt>头条</dt><dd><a href="http://ai.51cto.com/art/201703/536061.htm" title="摆好正确姿势 看 Google 神级深度学习框架 TensorFlow 的实践思路">摆好正确姿势 看 Google 神级深度学习框架 TensorFlow 的实践思路</a></dd></dl><dl><dt>外电</dt><dd><a href="http://mobile.51cto.com/iphone-535106.htm" title="iOS与Android设备到底是如何被入侵的？">iOS与Android设备到底是如何被入侵的？</a></dd></dl><dl><dt>头条</dt><dd><a href="http://developer.51cto.com/art/201703/534563.htm" title="你所不了解的移动支付背后的技术支撑">你所不了解的移动支付背后的技术支撑</a></dd></dl><dl><dt>原创</dt><dd><a href="http://mdsa.51cto.com/art/201702/531587.htm" title="Google要逆天！Google Wear 2.0 最新离线AI技术解析">Google要逆天！Google Wear 2.0 最新离线AI技术解析</a></dd></dl><dl><dt>原创</dt><dd><a href="http://zhuanlan.51cto.com/art/201701/528372.htm" title="基于React与Vue后，移动开源项目Weex如何定义未来">基于React与Vue后，移动开源项目Weex如何定义未来</a></dd></dl>
+        </div>
+        <div></div>
+        <div class="news m30">
+            <dl><dt class="show">24H热文</dt><dt>一周话题</dt><dt>本月最赞</dt></dl>
+            <ul><li class="show"><a href="http://news.51cto.com/art/201705/540686.htm" title="让后端开发情何以堪？前端程序猿薪资大曝光">让后端开发情何以堪？前端程序猿薪资大曝光</a><a href="http://mobile.51cto.com/aprogram-442833.htm" title="Android开发中Handler的经典总结">Android开发中Handler的经典总结</a><a href="http://ai.51cto.com/art/201705/540154.htm" title="白话AI：看懂深度学习真的那么难吗？初中数学，就用10分钟">白话AI：看懂深度学习真的那么难吗？初中数学，就用10分钟</a><a href="http://mobile.51cto.com/hot-292923.htm" title="人人都是开发者：5款傻瓜式APP开发工具">人人都是开发者：5款傻瓜式APP开发工具</a><a href="http://mobile.51cto.com/news-450525.htm" title="未来两年你必须掌握的五种编程语言">未来两年你必须掌握的五种编程语言</a><a href="http://mobile.51cto.com/design-250037.htm" title="21个免费的UI界面设计工具、资源及网站">21个免费的UI界面设计工具、资源及网站</a><a href="http://mobile.51cto.com/abased-386212.htm" title="App工程结构搭建：几种常见Android代码架构分析">App工程结构搭建：几种常见Android代码架构分析</a><a href="http://mobile.51cto.com/aprogram-464015.htm" title="Android" 反编译="" -smali语法="">Android 反编译 -smali语法</a></li><li><a href="http://news.51cto.com/art/201705/540686.htm" title="让后端开发情何以堪？前端程序猿薪资大曝光">让后端开发情何以堪？前端程序猿薪资大曝光</a><a href="http://mobile.51cto.com/aprogram-442833.htm" title="Android开发中Handler的经典总结">Android开发中Handler的经典总结</a><a href="http://ai.51cto.com/art/201705/540154.htm" title="白话AI：看懂深度学习真的那么难吗？初中数学，就用10分钟">白话AI：看懂深度学习真的那么难吗？初中数学，就用10分钟</a><a href="http://mobile.51cto.com/web-463667.htm" title="开发移动应用程序的三种选择：原生、HTML5或混合">开发移动应用程序的三种选择：原生、HTML5或混合</a><a href="http://mobile.51cto.com/abased-386212.htm" title="App工程结构搭建：几种常见Android代码架构分析">App工程结构搭建：几种常见Android代码架构分析</a><a href="http://mobile.51cto.com/aprogram-464015.htm" title="Android" 反编译="" -smali语法="">Android 反编译 -smali语法</a><a href="http://mobile.51cto.com/aprogram-434525.htm" title="Android" ndk开发，没有你想象的那么难="">Android NDK开发，没有你想象的那么难</a><a href="http://mobile.51cto.com/android-386448.htm" title="将HTML5封装成android应用APK文件的几种方法">将HTML5封装成android应用APK文件的几种方法</a></li><li><a href="http://mobile.51cto.com/aprogram-442833.htm" title="Android开发中Handler的经典总结">Android开发中Handler的经典总结</a><a href="http://mobile.51cto.com/web-463667.htm" title="开发移动应用程序的三种选择：原生、HTML5或混合">开发移动应用程序的三种选择：原生、HTML5或混合</a><a href="http://mobile.51cto.com/abased-386212.htm" title="App工程结构搭建：几种常见Android代码架构分析">App工程结构搭建：几种常见Android代码架构分析</a><a href="http://news.51cto.com/art/201705/540686.htm" title="让后端开发情何以堪？前端程序猿薪资大曝光">让后端开发情何以堪？前端程序猿薪资大曝光</a><a href="http://mobile.51cto.com/aprogram-464015.htm" title="Android" 反编译="" -smali语法="">Android 反编译 -smali语法</a><a href="http://mobile.51cto.com/aprogram-434525.htm" title="Android" ndk开发，没有你想象的那么难="">Android NDK开发，没有你想象的那么难</a><a href="http://mobile.51cto.com/hot-292923.htm" title="人人都是开发者：5款傻瓜式APP开发工具">人人都是开发者：5款傻瓜式APP开发工具</a><a href="http://ai.51cto.com/art/201705/540154.htm" title="白话AI：看懂深度学习真的那么难吗？初中数学，就用10分钟">白话AI：看懂深度学习真的那么难吗？初中数学，就用10分钟</a></li></ul>
+        </div>
+        <div><div class="areaAd mt5" id="ad_1">
+
+<script type="text/javascript"><!--//<![CDATA[
+var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg3.51cto.com/www/delivery/ajs.php');
+var m3_r = Math.floor(Math.random()*99999999999);
+if (!document.MAX_used) document.MAX_used = ',';
+document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+document.write ("?zoneid=693");
+document.write ('&amp;cb=' + m3_r);
+if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+document.write ("&amp;loc=" + escape(window.location));
+if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+if (document.context) document.write ("&context=" + escape(document.context));
+if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+document.write ("'><\/scr"+"ipt>");
+//]]>--></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs(4).php"></script><div style="position:relative;display:inline-block;width:auto;"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=5687__zoneid=693__cb=39717e9bfc__oadest=http%3A%2F%2Fwot.51cto.com%2Fact%2F2017%2Finnovation%2F%3F51cto" target="_blank"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1kbtqahFQHhAABS8_6gYyQ434.jpg" width="300" height="90" alt="" title="" border="0"></a><div style="left: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(&quot;http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png&quot;) repeat scroll 0% 0%; bottom: 2px;"></div></div><div id="beacon_39717e9bfc" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg(4).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+<noscript>&amp;lt;a href='//gg2.51cto.com/www/delivery/ck.php?n=ae95ac07&amp;amp;amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'&amp;gt;&amp;lt;img src='//gg.51cto.com/www/delivery/avw.php?zoneid=693&amp;amp;amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;amp;amp;n=ae95ac07' border='0' alt='' /&amp;gt;&amp;lt;/a&amp;gt;</noscript>
+</div>
+<div style="display:none">
+<span id="ad1">
+
+<script type="text/javascript"><!--//<![CDATA[
+var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg3.51cto.com/www/delivery/ajs.php');
+var m3_r = Math.floor(Math.random()*99999999999);
+if (!document.MAX_used) document.MAX_used = ',';
+document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+document.write ("?zoneid=693");
+document.write ('&amp;cb=' + m3_r);
+if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+document.write ("&amp;loc=" + escape(window.location));
+if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+if (document.context) document.write ("&context=" + escape(document.context));
+if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+document.write ("'><\/scr"+"ipt>");
+//]]>--></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs(4).php"></script><div style="position:relative;display:inline-block;width:auto;"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=5687__zoneid=693__cb=39717e9bfc__oadest=http%3A%2F%2Fwot.51cto.com%2Fact%2F2017%2Finnovation%2F%3F51cto" target="_blank"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1kbtqahFQHhAABS8_6gYyQ434.jpg" width="300" height="90" alt="" title="" border="0"></a><div style="left: 0px; width: 24px; height: 14px; z-index: 12; position: absolute; background: transparent url(&quot;http://s5.51cto.com/wyfs02/M00/86/BB/wKiom1fI4nWStYqXAAAEoZQn6vs942.png&quot;) repeat scroll 0% 0%; bottom: 2px;"></div></div><div id="beacon_39717e9bfc" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg(4).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+<noscript>&lt;a href='//gg2.51cto.com/www/delivery/ck.php?n=ae95ac07&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'&gt;&lt;img src='//gg.51cto.com/www/delivery/avw.php?zoneid=693&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;amp;n=ae95ac07' border='0' alt='' /&gt;&lt;/a&gt;</noscript>
+</span>
+    </div>
+<script>
+    document.getElementById('ad_1').innerHTML = document.getElementById('ad1').innerHTML;
+</script></div>
+        <div class="spkc m30">
+            <h2><span>视频课程</span><a href="http://edu.51cto.com/">+更多</a></h2>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-8717.html"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/e93157a646a202e3a9b27138ee8b8e321514cb.jpg" title="八、自动化测试工程师微职位：python轻量化 Selenium自动化实践" alt="八、自动化测试工程师微职位：python轻量化 Selenium自动化实践" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-8717.html" target="_blank" title="八、自动化测试工程师微职位：python轻量化 Selenium自动化实践">八、自动化测试工程师微职位：python轻量化 S</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-968349.html" target="_blank">李晓鹏</a></em></span><span class="fr"><em>0</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-8716.html"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/51d397407a6d2e0fad2613feaa82ab95efbc35.jpg" title="七、自动化测试工程师微职位：自动化编程利器Python" alt="七、自动化测试工程师微职位：自动化编程利器Python" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-8716.html" target="_blank" title="七、自动化测试工程师微职位：自动化编程利器Python">七、自动化测试工程师微职位：自动化编程利器</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-968349.html" target="_blank">李晓鹏</a></em></span><span class="fr"><em>0</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-8715.html"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/61af763282eedc31c57164bc3611609d796548.jpg" title="六、自动化测试工程师微职位：Oracle/SQL" alt="六、自动化测试工程师微职位：Oracle/SQL" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-8715.html" target="_blank" title="六、自动化测试工程师微职位：Oracle/SQL">六、自动化测试工程师微职位：Oracle/SQL</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-968349.html" target="_blank">李晓鹏</a></em></span><span class="fr"><em>0</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+        </div>
+        <div></div>
+        <div class="rmzw m30">
+            <h2><span>热门职位</span><a href="http://gaozhao.51cto.com/">+更多</a></h2>
+            <div id="rmzw"><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-6189.html" target="_blank"> iOS高级开发工程师 </a></dt><dd><h3>全职/5-10年/本科</h3><span>25k-35k</span><a href="http://gaozhao.51cto.com/company/view/id-149.html" target="_blank">奇艺视频</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-5223.html" target="_blank"> Android专家工程师 </a></dt><dd><h3>全职/5-10年/本科</h3><span>30k-50k</span><a href="http://gaozhao.51cto.com/company/view/id-946.html" target="_blank">中网银科</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-6649.html" target="_blank"> unity3d开发工程师 </a></dt><dd><h3>全职/1-3年/本科</h3><span>10k-20k</span><a href="http://gaozhao.51cto.com/company/view/id-562.html" target="_blank">红云融通</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-4302.html" target="_blank"> U3D开发工程师 </a></dt><dd><h3>全职/1-3年/大专</h3><span>6k-12k</span><a href="http://gaozhao.51cto.com/company/view/id-491.html" target="_blank">智竹游戏</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-5205.html" target="_blank"> Andriod开发工程师 </a></dt><dd><h3>全职/应届生/本科</h3><span>3k-6k</span><a href="http://gaozhao.51cto.com/company/view/id-908.html" target="_blank">大管加</a></dd></dl></div>
+        </div>
+        <div></div>
+        <div class="zxzt m30">
+            <h2><span>最新专题</span><a href="http://mobile.51cto.com/col/1000/spec1.htm">+更多</a></h2>
+            <dl>
+                <dt><a href="http://mobile.51cto.com/mobile-533097.htm" title="不谈架构谈应用！开源时代你将如何“起飞”？"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1i1FIeTMfrpAADh7TDbdVA082.jpg-wh_100x70-s_4273819645.jpg" alt="不谈架构谈应用！开源时代你将如何“起飞”？" title="不谈架构谈应用！开源时代你将如何“起飞”？"></a></dt>
+                <dd>
+                    <a href="http://mobile.51cto.com/mobile-533097.htm" title="不谈架构谈应用！开源时代你将如何“起飞”？">不谈架构谈应用！开源时代你将如何“起飞”？</a>
+                    <h3><a href="http://www.51cto.com/php/search.php?keyword=%D2%C6%B6%AF">移动</a></h3>
+                </dd>
+            </dl><dl>
+                <dt><a href="http://mobile.51cto.com/anews-528454.htm" title="基于React与Vue后，移动开源项目Weex如何定义未来"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1h-AOOzMAFkAAANEa-Gu6w358.jpg-wh_100x70-s_2912020025.jpg" alt="基于React与Vue后，移动开源项目Weex如何定义未来" title="基于React与Vue后，移动开源项目Weex如何定义未来"></a></dt>
+                <dd>
+                    <a href="http://mobile.51cto.com/anews-528454.htm" title="基于React与Vue后，移动开源项目Weex如何定义未来">基于React与Vue后，移动开源项目Weex如何定义未来</a>
+                    <h3><a href="http://www.51cto.com/php/search.php?keyword=React">React</a></h3>
+                </dd>
+            </dl><dl>
+                <dt><a href="http://mobile.51cto.com/mobile-528316.htm" title="看看16年,移动开发都发生了什么"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1hvYonRGkr-AABUcRgjHeo923.jpg-wh_100x70-s_4121701693.jpg" alt="看看16年,移动开发都发生了什么" title="看看16年,移动开发都发生了什么"></a></dt>
+                <dd>
+                    <a href="http://mobile.51cto.com/mobile-528316.htm" title="看看16年,移动开发都发生了什么">看看16年,移动开发都发生了什么</a>
+                    <h3><a href="http://www.51cto.com/php/search.php?keyword=%D2%C6%B6%AF">移动</a></h3>
+                </dd>
+            </dl><dl>
+                <dt><a href="http://mobile.51cto.com/hot-520562.htm" title="微信小程序正式上线啦"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/519027.htm" alt="微信小程序正式上线啦" title="微信小程序正式上线啦"></a></dt>
+                <dd>
+                    <a href="http://mobile.51cto.com/hot-520562.htm" title="微信小程序正式上线啦">微信小程序正式上线啦</a>
+                    <h3><a href="http://www.51cto.com/php/search.php?keyword=%CE%A2%D0%C5">微信</a></h3>
+                </dd>
+            </dl>
+        </div>
+        <div></div>
+        <div id="jcpl"><div class="jcpl m30"><h2><span>精彩评论</span></h2><dl><dt><a href="http://home.51cto.com/index.php?s=/space/1128657"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/avatar.php" width="45px" height="45px"></a></dt><dd><a href="http://home.51cto.com/index.php?s=/space/1128657"></a><h3><a href="http://home.51cto.com/index.php?s=/space/1128657">ask0199</a>评论了：<a href="http://netsecurity.51cto.com/art/201705/539640.htm">最新勒索软件WannaCrypt病毒感染前后应对措施</a></h3><h4>哈哈哈哈，还是我公司牛逼，200多台电脑，没有关闭任何端口，没有打任何补丁，没有一台电脑中了，当然，在边界防火墙关闭135~445端口，搞定</h4></dd></dl><dl><dt><a href="http://home.51cto.com/index.php?s=/space/4703928"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/avatar(1).php" width="45px" height="45px"></a></dt><dd><a href="http://home.51cto.com/index.php?s=/space/4703928"></a><h3><a href="http://home.51cto.com/index.php?s=/space/4703928">huazai1105</a>评论了：<a href="http://www.51cto.com/art/201705/541090.htm">51CTO学院网站停服公告</a></h3><h4>网页播放视频的时候两个问题特别希望改进：1、进度条总是会隐藏，好像跟鼠标捉迷藏一样，这个问题希望优化一下。2、网页播放不支持速度调节，比如×1.25倍，×1.5倍。</h4></dd></dl><dl><dt><a href="http://home.51cto.com/index.php?s=/space/8899635"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/avatar(2).php" width="45px" height="45px"></a></dt><dd><a href="http://home.51cto.com/index.php?s=/space/8899635"></a><h3><a href="http://home.51cto.com/index.php?s=/space/8899635">51CTO学院</a>评论了：<a href="http://www.51cto.com/art/201705/541090.htm">51CTO学院网站停服公告</a></h3><h4>@wx58d0c95f18fa7:你还在为一天24小时学习，身体被掏空而烦恼吗？51CTO学院推出了，2.0版本升级活动，让你十点就睡觉，给自己一个放松的机会，给自己一个放松的理由，不用谢我啦，我叫雷锋  ^_^</h4></dd></dl><dl><dt><a href="http://home.51cto.com/index.php?s=/space/314318"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/avatar(3).php" width="45px" height="45px"></a></dt><dd><a href="http://home.51cto.com/index.php?s=/space/314318"></a><h3><a href="http://home.51cto.com/index.php?s=/space/314318">zsweiwei</a>评论了：<a href="http://netsecurity.51cto.com/art/201705/539640.htm">最新勒索软件WannaCrypt病毒感染前后应对措施</a></h3><h4>这就是网络安全的心酸啊。</h4></dd></dl></div></div>
+        <div></div>
+        <div class="news m30">
+            <dl><dt class="show">精选博文</dt><dt>论坛热帖</dt><dt>下载排行</dt></dl>
+            <div>
+                <ul>
+                    <li class="show">
+                        <a href="http://134739.blog.51cto.com/124739/753252/" target="_blank" title="Lync部署之Lync Phone Edtion的部署配置">Lync部署之Lync Phone Edtion的部署</a><a href="http://dawn0919.blog.51cto.com/2954252/753243/" target="_blank" title="倾听是谈话中最基本的技巧">倾听是谈话中最基本的技巧</a><a href="http://wangboyang.blog.51cto.com/4163251/753238/" target="_blank" title="设计模式系列-单例模式">设计模式系列-单例模式</a><a href="http://kerry.blog.51cto.com/172631/753232/" target="_blank" title="windows下利用cwRsync批量更新">windows下利用cwRsync批量更新</a><a href="http://dawn0919.blog.51cto.com/2954252/753184/" target="_blank" title="做为程序员你应该学习掌握哪些知识和技能？">做为程序员你应该学习掌握哪些知识和</a>
+                    </li>
+                    <li>
+                        <a href="http://bbs.51cto.com/thread-1435503-1.html" target="_blank" title="SQL Server找出缺失的时间点">SQL Server找出缺失的时间点</a><a href="http://bbs.51cto.com/thread-1448395-1.html" target="_blank" title="无线路由桥接问题">无线路由桥接问题</a><a href="http://bbs.51cto.com/thread-1448505-1.html" target="_blank" title="不吐不快！说一说作为程序员最烦的两件事儿！">不吐不快！说一说作为程序员最烦的两</a><a href="http://bbs.51cto.com/thread-1467889-1.html" target="_blank" title="Python会是下一个PHP吗？">Python会是下一个PHP吗？</a><a href="http://bbs.51cto.com/thread-1470474-1.html" target="_blank" title="致：论坛午饭的一封信">致：论坛午饭的一封信</a>
+                    </li>
+                    <li>
+                        <a href="http://down.51cto.com/data/497258/" target="_blank" title="MCITP 70-642 CertifyMe 最新题库20120830">MCITP 70-642 CertifyMe 最新题库201</a><a href="http://down.51cto.com/data/497257/" target="_blank" title="DVBBS 漏洞利用工具">DVBBS 漏洞利用工具</a><a href="http://down.51cto.com/data/497256/" target="_blank" title="LINUX查看硬件配置_命令">LINUX查看硬件配置_命令</a><a href="http://down.51cto.com/data/497255/" target="_blank" title="gocode &#160; GOIDE自动提示">gocode &nbsp; GOIDE自动提示</a><a href="http://down.51cto.com/data/497254/" target="_blank" title="Serv-u ftp密码破解软件">Serv-u ftp密码破解软件</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div></div>
+        <div class="ds m30">
+            <h2><span>读 书 </span><a href="http://book.51cto.com/">+更多</a></h2>
+            <dl>
+                
+                <dt><a href="http://book.51cto.com/art/200711/60215.htm" title="Grails权威指南"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/144534463.gif" width="98px" height="144px"></a></dt>
+                <dd><h3><a href="http://book.51cto.com/art/200711/60215.htm" title="Grails权威指南">Grails权威指南</a></h3>
+                    本书译自Grails项目负责人Graeme Keith Rocher所著的“The Definitive Guide to Grails”一书，着重介绍了如何在Grails框架下使用Groovy语...
+                </dd>
+                
+            </dl>
+        </div>
+        <div></div>
+        <div class="dydy">
+            <dl>
+                <dt><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/dydy.jpg" alt=""></dt>
+                <dd>
+                    <h3>订阅51CTO邮刊</h3>
+                    <h4><a href="http://news.51cto.com/col/1323/">点击这里查看样刊</a></h4>
+                    <a href="http://home.51cto.com/index.php?s=/Subscribe"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ljdy.jpg" alt="订阅51CTO邮刊"></a>
+                </dd>
+            </dl>
+        </div>
+        <div></div>
+    </div>
+    <!-- 文章右侧结束 -->
+    </div>
+<div class="footer_nav">
+   <div class="wrap">
+       <h2>51CTO旗下网站：</h2>
+       <a href="http://www.51cto.com/">领先的IT技术网站 51CTO</a>|<a href="http://www.watchstor.com/">领先的中文存储媒体 WatchStor</a>|
+       <a href="http://cio.51cto.com/">中国首个CIO网站 CIOage </a>|<a href="http://www.hc3i.cn/">中国首家数字医疗网站 HC3i</a>
+   </div>
+</div>
+<div id="ft"><div id="foot" align="center"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/copy_right.js.下载"></script>Copyright&#169;2005-2017 <a href="http://www.51cto.com/">51CTO.COM</a> 版权所有 未经许可 请勿转载<script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/111ef0d5dd0beb1ff4ebd70294eb2ea1" type="text/javascript"></script></div></div>
+<div class="clk"><a class="ewm" href="http://mobile.51cto.com/android-535264.htm###" target="_self"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKioL1juBMqxNUTrAABZU4J9bqU503.jpg" style="display: none;"></a><a class="yjk" href="http://mobile.51cto.com/android-535264.htm#comment" target="_self"></a><a class="topx" href="http://mobile.51cto.com/android-535264.htm#topx" target="_self"></a></div>
+<script>
+    $(function(){
+        var host = window.location.host;
+        document.getElementById('cnxh').style.display = '';
+    });
+    var $$ = function(func){
+        if (document.addEventListener) {
+            window.addEventListener("load", func, false);
+        }
+        else if (document.attachEvent) {
+            window.attachEvent("onload", func);
+        }
+    };
+
+    $$(function(){
+        show();
+    });
+    var show = function(){
+        var aa = $('#cmscmt_iframe dl').html();
+        setTimeout(function(){
+            $("[data-track]").live("click", function() {
+                if (aa.indexOf('uid') > -1) {
+                    var label = $(this).data("track") + '-login';
+                } else {
+                    var label = $(this).data("track") + '-not-login';
+                }console.log(label);
+                window._hmt && window._hmt.push(['_trackEvent', label, 'click']);
+
+            });
+        }, 3000);
+    }
+
+</script>
+<script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/count.js.下载"></script><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/count.php"></script>
+<!-- 悬浮广告 -->
+
+<!--end-->
+<!-- 学院广告位 -->
+
+<div id="edu_adver" style="display: none;">
+    <div class="aderbox">
+        <span class="educlose">×</span>
+        <a href="http://edu.51cto.com/px/train/108?qizhi"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wKiom1kmQ-fgN0TKAACZGTYkbSg629.jpg" width="100" height="300" alt="大数据高端培训 仅限10人" title="大数据高端培训 仅限10人"></a>
+    </div>
+</div>
+<style type="text/css">
+    #edu_adver{position:fixed; top:240px; left:50%; margin-left:-623px; width:100px; height:300px; border:1px solid #c4c4c6;}
+    #edu_adver .aderbox{position:relative;}
+    #edu_adver  .educlose{position:absolute; right:6px; top:6px; background:#655c4d; color:#fff; font-size:12px;  display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; cursor:pointer;}
+</style>
+<script>
+    $('#edu_adver .educlose').click(function () {
+        $("#edu_adver").hide();
+    });
+    var s=window.location.toString();
+    var s1=s.substr(7,s.length);
+    var s2=s1.indexOf(".");
+    s=s.substr(7,s2);
+    if(s=="stor"||s=="server"||s=="network"){
+        $("#edu_adver").hide();
+    }
+</script>
+<script>
+$(function(){
+var str = '<div class="fl zxf_showBox" style="padding-right: 10px;position:relative;"> ' +
+        '<a href="###" title=" " target="_self" class="z_bds_more">&nbsp;移动端</a> <div class="navcodebox clearfix">'+
+        '<div class="ico"></div>'+
+        '<span> <img src="http://s4.51cto.com/wyfs02/M01/8F/F4/wKiom1jt98Lh9cl3AAAyECoiqoU042.jpg" width="105" height="107"> <p>51CTO技术博客</p> </span>'+
+        '<span> <img src="http://s5.51cto.com/wyfs02/M02/8E/33/wKioL1i40HrAObC6AAAcvPVCCV0975.jpg" width="105" height="107"> <p>51CTO微站服务号</p> </span>'+
+        '<span><img src="http://s3.51cto.com/wyfs02/M00/8E/33/wKioL1i40HrQZy_TAAAcDOkrRAE327.jpg" width="107" height="107"> <p>51CTO学院客户端</p> </span></div> </div>';
+    $(".wznr dd").prepend(str);
+    $('.zxf_showBox').hover(function(){
+        $(this).find('.navcodebox').show();
+    },function(){
+        $(this).find('.navcodebox').hide();
+    })
+});
+</script>
+<script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/iframe-member-adv"></script>
+<script type="text/javascript">var artid = 535264</script>
+<script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/index.php" charset="utf-8"></script><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/vip_top.js.下载"></script>
+<script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/article.js.下载"></script>
+<script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/article_ajax.js.下载"></script>
+<script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/count(1).php" type="text/javascript"></script>
+<script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/favorbox.js.下载"></script>
+<!--  一大波JS来袭 -->
+<div id="MyMoveAd" style="display:none">
+    <span id="pinglun"><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/getArtCount.php"></script>0</span>
+	<span id="tonglan"><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ad.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ad.php"></script><iframe width="760" height="90" noresize="" scrolling="No" frameborder="0" marginheight="0" marginwidth="0" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/mobile(1).html" align="center"></iframe></span>
+	<span id="wordlink_1"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wordlink1.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs.php"></script><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3933__zoneid=270__cb=a27a84eb7e__oadest=http%3A%2F%2Fedu.51cto.com%2Fzt%2Fzt_id-1.html%3Fan" target="_blank"><font color="red">网络安全一个大写的反“作死”</font></a><div id="beacon_a27a84eb7e" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</span>
+	<span id="wordlink_2"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wordlink2.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs(1).php"></script><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3546__zoneid=631__cb=701fe56fa0__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-44.html%3Fxiaoshou" target="_blank"><font color="red">助你4个月成为大数据工程师</font></a><div id="beacon_701fe56fa0" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg(1).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</span>
+	<span id="wordlink_3"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wordlink3.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs(2).php"></script><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3717__zoneid=594__cb=7b22a16a47__oadest=http%3A%2F%2Fedu.51cto.com%2Fpx%2Ftrain%2F115%3Fwzl" target="_blank"><font color="red">Linux云计算与架构师进阶</font></a><div id="beacon_7b22a16a47" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg(2).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</span>
+	<span id="wordlink_4"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/wordlink4.js.下载"></script><script type="text/javascript" src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ajs(3).php"></script><a href="http://gg.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3549__zoneid=636__cb=0455a7627a__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-17.html%3Fxiaoshou" target="_blank"><font color="red">2016年备战软考-重难点解析</font></a><div id="beacon_0455a7627a" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./一种Android客户端架构设计分享 - 51CTO.COM_files/lg(3).php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</span>
+	<span id="wordlink"><script src="./一种Android客户端架构设计分享 - 51CTO.COM_files/ad.js(2).下载"></script></span>
+</div>
+<script type="text/javascript">
+var thistid=535264;
+//收藏按钮
+var favor_url = 'http://mobile.51cto.com/android-535264.htm';
+var favor_title = '一种Android客户端架构设计分享';  
+document.getElementById('tonglanad').innerHTML=document.getElementById('tonglan').innerHTML;
+</script>
+<!-- 结束 -->
+
+
+</body></html>

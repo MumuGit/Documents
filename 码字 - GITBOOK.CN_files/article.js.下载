@@ -1,0 +1,187 @@
+/**
+ * Created by wangyu on 16/1/10.
+ */
+
+var customerThumbImageUrl = null;
+
+var submitThumbForm,myArtAlert,configFun,bookMarkMenuBtnFun,isValidEmailAddress;
+
+jQuery(document).ready(function($){
+
+    $('[data-toggle="popover"]').popover();
+    bookMarkMenuBtnFun = function(customerId){
+        $.ajax ({
+            url: "/customer/check/" + customerId,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            success: function(data,status){
+                if(status == 'success' && data.code == 0){
+                    window.location.href = "/?sort=bookmark"
+                } else if(status == 'success' && data.code == -1){
+                    if(data.message == 'notLogin'){
+                        $('#hamburger').show();
+                        $('#loginInputDiv').show();
+                        $('#loginSubmittedDiv').hide();
+                        $('#mailAddressInvalidDiv').hide();
+                        fatNav.toggleNav();
+                    }
+                }
+            }
+        });
+    }
+    isValidEmailAddress = function(emailAddress) {
+        var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        return pattern.test(emailAddress);
+    };
+    configFun = function(){
+        $('#thumbClickMenuDIV').hide();
+    }
+    myArtAlert = function(){
+        $('#myArtsAlertModal').modal('show');
+    }
+    submitThumbForm =function() {
+        $('#thumbUploadingAlertDiv').show();
+        $('#thumbUploadForm').ajaxSubmit({
+
+            error: function (xhr) {
+                status('Error: ' + xhr.status);
+                $('#thumbUploadingAlertDiv').hide();
+            },
+
+            success: function (response) {
+                if(response.code == -1){
+                    $('#hideCustomerThumbImage').val('');
+                    alert('头像上传失败，请重试。');
+                    $('#thumbInputFile').val('');
+                } else if(response.code == 0) {
+                    $('#hideCustomerThumbImage').val(response.fileUrl);
+                    $('#authorThumb').html('');
+                    $('#authorThumb').css("background", "url(" + response.fileUrl + ")");
+                    $('#authorThumb').css("background-size", "100px 100px");
+                    $('#authorThumb').css("background-repeat", "no-repeat");
+                } else {
+                    $('#hideCustomerThumbImage').val('');
+                    alert('头像上传失败，请重试。');
+                }
+                $('#thumbUploadingAlertDiv').hide();
+            }
+        });
+
+        // Have to stop the form from submitting and causing
+        // a page refresh - don't forget this
+        return false;
+    }
+    $('#customerProfile').on("click", function(e) {
+        $('#writingClickMenuDIV').hide();
+        if($('#thumbClickMenuDIV').is(':visible')){
+            $('#thumbClickMenuDIV').hide();
+        } else {
+            $('#thumbClickMenuDIV').show();
+        }
+    });
+    $('#customerProfile2').on("click", function(e) {
+        $('#writingClickMenuDIV').hide();
+        if($('#thumbClickMenuDIV').is(':visible')){
+            $('#thumbClickMenuDIV').hide();
+        } else {
+            $('#thumbClickMenuDIV').show();
+        }
+    });
+
+    $('#loginSubmitBtn').on("click", function(e) {
+        $("#loginSubmitBtn").attr("disabled", "disabled");
+        var loginMail = $('#loginMailInput').val();
+
+        if(loginMail && loginMail != ''){
+            $.ajax ({
+                url: "/customers/login",
+                type: "POST",
+                data: JSON.stringify({mail:loginMail}),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data,status){
+                    if(status == 'success' && data.code == 0){
+                        $('#loginInputDiv').hide();
+                        $('#loginSubmittedDiv').show();
+                        $('#mailAddressInvalidDiv').hide();
+                        $("#loginSubmitBtn").removeAttr("disabled");
+                    } else {
+                        $('#mailAddressInvalidDiv').show();
+                        $("#loginSubmitBtn").removeAttr("disabled");
+                    }
+                }
+            });
+        } else {
+            $('#mailAddressInvalidDiv').show();
+            $("#loginSubmitBtn").removeAttr("disabled");
+        }
+
+        return false;
+    });
+
+    $('#rightTopSearchInput').bind("enterKey",function(e){
+        var searchKey = $('#rightTopSearchInput').val();
+        window.location.href = "/?search=" + searchKey
+    });
+    $('#rightTopSearchInput').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $(this).trigger("enterKey");
+        }
+    });
+
+    $('#menuSearchInput').bind("enterKey",function(e){
+        var searchKey = $('#menuSearchInput').val();
+        window.location.href = "/?search=" + searchKey
+    });
+    $('#menuSearchInput').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $(this).trigger("enterKey");
+        }
+    });
+    $("#authorMail").keyup(function() {
+        $('#emailCheckAlertDiv').hide();
+        $('#dupEmailAlertDiv').hide();
+    });
+    $('#authorSubmitBtn').on("click", function(e) {
+        var customerName = $('#authorName').val();
+        var customerTitle = $('#authorTitle').val();
+        var customerMail = $('#authorMail').val();
+        var acceptNotification = $('#acceptNotification').is(':checked');
+        if( !isValidEmailAddress( customerMail ) ) {
+            $('#emailCheckAlertDiv').show();
+            return;
+        }
+        var postData = { mailAddress:customerMail, customerName:customerName, customerTitle:customerTitle, acceptNotification:acceptNotification };
+        if($('#hideCustomerThumbImage').val() && $('#hideCustomerThumbImage').val() != ''){
+            postData.thumbImage = $('#hideCustomerThumbImage').val();
+        }
+        $('#updatingAlertDiv').show();
+        $.ajax ({
+            url: "/customers/profile",
+            type: "PUT",
+            data: JSON.stringify(postData),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(data,status){
+//                alert(JSON.stringify(data));
+                if(status == 'success' && data.code == 0
+                    && data.thumbImage && data.thumbImage != ''){
+                    $('#profileImg').attr('src',data.thumbImage);
+                    $('#profileImg2').attr('src',data.thumbImage);
+                    $('#updatingAlertDiv').hide();
+                    $('#authorModal').modal('hide');
+                } else if(status == 'success' && data.code == -1 && data.message == 'dupmail') {
+                    $('#updatingAlertDiv').hide();
+                    $('#dupEmailAlertDiv').show();
+                } else {
+                    $('#updatingAlertDiv').hide();
+                    $('#emailCheckAlertDiv').hide();
+                    $('#dupEmailAlertDiv').hide();
+                    $('#authorModal').modal('hide');
+                }
+            }
+        });
+    });
+});

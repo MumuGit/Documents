@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/u/275291c9866e -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<script type="text/javascript" src="./惜梦哥哥_ - 简书_files/1255494d3a"></script><script src="./惜梦哥哥_ - 简书_files/nr-1026.min.js.下载"></script><script src="./惜梦哥哥_ - 简书_files/push.js.下载"></script><script src="./惜梦哥哥_ - 简书_files/hm.js.下载"></script><script async="" src="./惜梦哥哥_ - 简书_files/analytics.js.下载"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"1255494d3a","applicationID":"15702971","transactionName":"e1daR0JWVV9RER9CRl1KRxxDUVZE","queueTime":7,"applicationTime":102,"agent":""}</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(2),u=e(3),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}finally{f.emit("fn-end",[c.now()],t)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],3:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],4:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=m(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){v[e]=m(e).concat(n)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(t)}function g(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var v={},y={},b={on:l,emit:t,get:w,listeners:m,context:n,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(2),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=h.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+h.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===d.readyState&&i()}function i(){f("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),f=e("handle"),c=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1026.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=n.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),f("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/u/275291c9866e">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+  
+
+    <title>惜梦哥哥_ - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="Cl197k2eKiFTFzU+kLvbjt3B0v6T5UWr1laTG6VFv2QtnqMOnrt71qQS12ZT0A0VtJ/LwrJQcomA7AItk650Bw==">
+
+  <link rel="stylesheet" media="all" href="./惜梦哥哥_ - 简书_files/web-54714357a9b8be07d36b.css">
+  
+  <link rel="stylesheet" media="all" href="./惜梦哥哥_ - 简书_files/entry-54714357a9b8be07d36b.css">
+
+  <link href="http://cdn2.jianshu.io/assets/favicons/favicon-783beb88ed621ceab614de960376ac0c.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/57-47624b2e2161e8eb144462c85db0a5ff.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/72-c00cde7cf98fc49e50cbb3ee1dcd5804.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/76-e8af0bdeaf1ba31e303b1fde8b5e66c4.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/114-f4c78569bbf1977e8382a5fd90c9237a.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/120-cf10c3711dba269522743729efe66bbc.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/152-7bd60457b5f3ecbf1343f0e6241be4f8.png" sizes="152x152">
+</head>
+
+  <body lang="zh-CN" class="reader-black-font" style="overflow-y: scroll;">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="http://www.jianshu.com/"><img src="./惜梦哥哥_ - 简书_files/logo-58fd04f6f0de908401aa561cda6a0688.png" alt="Logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 登录显示写文章 -->
+      <a class="btn write-btn" target="_blank" href="http://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>
+    <!-- 如果用户登录，显示下拉菜单 -->
+      <div class="user">
+        <div data-hover="dropdown">
+          <a class="avatar" href="http://www.jianshu.com/u/817df790ff3e"><img src="./惜梦哥哥_ - 简书_files/1-04bbeead395d74921af6a4e8214b4f61.jpg" alt="120"></a>
+        </div>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="http://www.jianshu.com/u/817df790ff3e">
+              <i class="iconfont ic-navigation-profile"></i><span>我的主页</span>
+</a>          </li>
+          <li>
+            <!-- TODO bookmarks_path -->
+            <a href="http://www.jianshu.com/bookmarks">
+              <i class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
+</a>          </li>
+          <li>
+            <a href="http://www.jianshu.com/users/817df790ff3e/liked_notes">
+              <i class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
+</a>          </li>
+          <li>
+            <a href="http://www.jianshu.com/wallet">
+              <i class="iconfont ic-navigation-wallet"></i><span>我的钱包</span>
+</a>          </li>
+          <li>
+            <a href="http://www.jianshu.com/settings">
+              <i class="iconfont ic-navigation-settings"></i><span>设置</span>
+</a>          </li>
+          <li>
+            <a href="http://www.jianshu.com/faqs">
+              <i class="iconfont ic-navigation-feedback"></i><span>帮助与反馈</span>
+</a>          </li>
+          <li>
+            <a rel="nofollow" data-method="delete" href="http://www.jianshu.com/sign_out">
+              <i class="iconfont ic-navigation-signout"></i><span>退出</span>
+</a>          </li>
+        </ul>
+      </div>
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="">
+              <a href="http://www.jianshu.com/">
+                <span class="menu-text">发现</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="">
+              <a href="http://www.jianshu.com/subscriptions">
+                <span class="menu-text">关注</span><i class="iconfont ic-navigation-follow menu-icon"></i>
+</a>            </li>
+            <li class="notification"><a data-hover="dropdown" href="http://www.jianshu.com/notifications" class="notification-btn"><span class="menu-text">消息</span> <i class="iconfont ic-navigation-notification menu-icon"></i> <!----> <!----></a> <ul class="dropdown-menu"><li><a href="http://www.jianshu.com/notifications#/comments"><i class="iconfont ic-comments"></i> <span>评论</span> <!----></a></li><li><a href="http://www.jianshu.com/notifications#/chats"><i class="iconfont ic-chats"></i> <span>简信</span> <!----></a></li><li><a href="http://www.jianshu.com/notifications#/requests"><i class="iconfont ic-requests"></i> <span>投稿请求</span> <!----></a></li><li><a href="http://www.jianshu.com/notifications#/likes"><i class="iconfont ic-likes"></i> <span>喜欢和赞</span> <!----></a></li><li><a href="http://www.jianshu.com/notifications#/follows"><i class="iconfont ic-follows"></i> <span>关注</span> <!----></a></li><li><a href="http://www.jianshu.com/notifications#/money"><i class="iconfont ic-money"></i> <span>赞赏</span> <!----></a></li><li><a href="http://www.jianshu.com/notifications#/others"><i class="iconfont ic-others"></i> <span>其他消息</span> <!----></a></li></ul></li>
+          <li class="search">
+            <form target="_blank" action="http://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+              <!-- <div id="navbar-trending-search"></div> -->
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+
+<div class="container person">
+  <div class="row">
+    <div class="col-xs-16 main">
+      <div class="main-top">
+  <a class="avatar" href="http://www.jianshu.com/u/275291c9866e">
+    <img src="./惜梦哥哥_ - 简书_files/b4d6a419-a6fa-417f-a946-0bb0b63573ec.jpg" alt="240">
+</a>
+    <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+    <a class="btn btn-hollow" href="http://www.jianshu.com/notifications#/chats/new?mail_to=3026506">发简信</a>
+
+  <div class="title">
+    <a class="name" href="http://www.jianshu.com/u/275291c9866e">惜梦哥哥_</a>
+      <i class="iconfont ic-man"></i>
+  </div>
+  <div class="info">
+    <ul>
+      <li>
+        <div class="meta-block">
+          <a href="http://www.jianshu.com/users/275291c9866e/following">
+            <p>6</p>
+            关注 <i class="iconfont ic-arrow"></i>
+</a>        </div>
+      </li>
+      <li>
+        <div class="meta-block">
+          <a href="http://www.jianshu.com/users/275291c9866e/followers">
+            <p>22</p>
+            粉丝 <i class="iconfont ic-arrow"></i>
+</a>        </div>
+      </li>
+      <li>
+        <div class="meta-block">
+          <a href="http://www.jianshu.com/u/275291c9866e">
+            <p>7</p>
+            文章 <i class="iconfont ic-arrow"></i>
+</a>        </div>
+      </li>
+      <li>
+        <div class="meta-block">
+          <p>3817</p>
+          <div>字数</div>
+        </div>
+      </li>
+      <li>
+        <div class="meta-block">
+          <p>36</p>
+          <div>收获喜欢</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+      <ul class="trigger-menu" data-pjax-container="#list-container"><li class="active"><a href="http://www.jianshu.com/u/275291c9866e?order_by=shared_at"><i class="iconfont ic-articles"></i> 文章</a></li><li class=""><a href="http://www.jianshu.com/users/275291c9866e/timeline"><i class="iconfont ic-feed"></i> 动态</a></li><li class=""><a href="http://www.jianshu.com/u/275291c9866e?order_by=commented_at"><i class="iconfont ic-latestcomments"></i> 最新评论</a></li><li class=""><a href="http://www.jianshu.com/u/275291c9866e?order_by=top"><i class="iconfont ic-hot"></i> 热门</a></li></ul>
+
+      <div id="list-container">
+        <!-- 文章列表模块 -->
+<ul class="note-list" infinite-scroll-url="/u/275291c9866e?order_by=shared_at">
+    <li id="note-12703801" data-note-id="12703801" class="have-img">
+    <a class="wrap-img" href="http://www.jianshu.com/p/9d1a3fdd9ef7" target="_blank">
+      <img class="img-blur-done" src="./惜梦哥哥_ - 简书_files/3026506-d50ec9d355d43688.png" alt="120">
+    </a>
+  <div class="content">
+    <div class="author">
+      <a class="avatar" target="_blank" href="http://www.jianshu.com/u/275291c9866e">
+        <img src="./惜梦哥哥_ - 简书_files/b4d6a419-a6fa-417f-a946-0bb0b63573ec(1).jpg" alt="96">
+</a>      <div class="name">
+        <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/275291c9866e">惜梦哥哥_</a>
+        <span class="time" data-shared-at="2017-05-23T13:08:49+08:00">05.23 13:08</span>
+      </div>
+    </div>
+    <a class="title" target="_blank" href="http://www.jianshu.com/p/9d1a3fdd9ef7">RxJava2组合操作符篇</a>
+    <p class="abstract">
+      最近单位项目超级忙,文章写好了,一直没空配图一直没发,今天好不容易忙里偷闲,赶紧来补一篇. 先来一个好消息 Google大大将Kotlin将作为安卓一级语言,你还不知道Kot...
+    </p>
+    <div class="meta">
+      <a target="_blank" href="http://www.jianshu.com/p/9d1a3fdd9ef7">
+        <i class="iconfont ic-list-read"></i> 28
+</a>        <a target="_blank" href="http://www.jianshu.com/p/9d1a3fdd9ef7#comments">
+          <i class="iconfont ic-list-comments"></i> 1
+</a>      <span><i class="iconfont ic-list-like"></i> 3</span>
+        <span><i class="iconfont ic-list-money"></i> 1</span>
+    </div>
+  </div>
+</li>
+
+    <li id="note-10981964" data-note-id="10981964" class="">
+  <div class="content">
+    <div class="author">
+      <a class="avatar" target="_blank" href="http://www.jianshu.com/u/275291c9866e">
+        <img src="./惜梦哥哥_ - 简书_files/b4d6a419-a6fa-417f-a946-0bb0b63573ec(1).jpg" alt="96">
+</a>      <div class="name">
+        <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/275291c9866e">惜梦哥哥_</a>
+        <span class="time" data-shared-at="2017-04-05T17:30:50+08:00">04.05 17:30</span>
+      </div>
+    </div>
+    <a class="title" target="_blank" href="http://www.jianshu.com/p/2200486b5d9a">RxJava2过滤操作符篇</a>
+    <p class="abstract">
+      上次我们讲了RxJava2中的变换操作符,这次我们来看一下过滤操作符 Filter Filter,顾名思义,过滤器,可以过滤掉一部分不符合要求的事件,当上游给我们发送的数据超...
+    </p>
+    <div class="meta">
+      <a target="_blank" href="http://www.jianshu.com/p/2200486b5d9a">
+        <i class="iconfont ic-list-read"></i> 72
+</a>        <a target="_blank" href="http://www.jianshu.com/p/2200486b5d9a#comments">
+          <i class="iconfont ic-list-comments"></i> 0
+</a>      <span><i class="iconfont ic-list-like"></i> 2</span>
+    </div>
+  </div>
+</li>
+
+    <li id="note-10224505" data-note-id="10224505" class="have-img">
+    <a class="wrap-img" href="http://www.jianshu.com/p/42df17cc25ac" target="_blank">
+      <img class="img-blur-done" src="./惜梦哥哥_ - 简书_files/3026506-d3fbf3244d7e7c52.png" alt="120">
+    </a>
+  <div class="content">
+    <div class="author">
+      <a class="avatar" target="_blank" href="http://www.jianshu.com/u/275291c9866e">
+        <img src="./惜梦哥哥_ - 简书_files/b4d6a419-a6fa-417f-a946-0bb0b63573ec(1).jpg" alt="96">
+</a>      <div class="name">
+        <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/275291c9866e">惜梦哥哥_</a>
+        <span class="time" data-shared-at="2017-03-17T11:06:10+08:00">03.17 11:06</span>
+      </div>
+    </div>
+    <a class="title" target="_blank" href="http://www.jianshu.com/p/42df17cc25ac">RxJava2之变换操作符篇</a>
+    <p class="abstract">
+      在上一篇文章中,我们介绍了RxJava2的基本简单实用,在本篇文章中,我们将继续学习RxJava2中的常用操作符 操作符之变换 Map: 首先是变换操作符- &gt; Map,(此...
+    </p>
+    <div class="meta">
+      <a target="_blank" href="http://www.jianshu.com/p/42df17cc25ac">
+        <i class="iconfont ic-list-read"></i> 158
+</a>        <a target="_blank" href="http://www.jianshu.com/p/42df17cc25ac#comments">
+          <i class="iconfont ic-list-comments"></i> 1
+</a>      <span><i class="iconfont ic-list-like"></i> 7</span>
+    </div>
+  </div>
+</li>
+
+    <li id="note-9943395" data-note-id="9943395" class="have-img">
+    <a class="wrap-img" href="http://www.jianshu.com/p/7c0640963bac" target="_blank">
+      <img class="img-blur-done" src="./惜梦哥哥_ - 简书_files/3026506-457d59a1b77325f9.png" alt="120">
+    </a>
+  <div class="content">
+    <div class="author">
+      <a class="avatar" target="_blank" href="http://www.jianshu.com/u/275291c9866e">
+        <img src="./惜梦哥哥_ - 简书_files/b4d6a419-a6fa-417f-a946-0bb0b63573ec(1).jpg" alt="96">
+</a>      <div class="name">
+        <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/275291c9866e">惜梦哥哥_</a>
+        <span class="time" data-shared-at="2017-03-09T12:07:00+08:00">03.09 12:07</span>
+      </div>
+    </div>
+    <a class="title" target="_blank" href="http://www.jianshu.com/p/7c0640963bac">RxJava2配置及使用</a>
+    <p class="abstract">
+      RxJava2.0是一个非常棒的流式编程,采用的观察者模式思想,事件的产生者产生事间之后发送给绑定的接受者,接受顺序与发送顺序一致. 依赖: 简单使用: 我们来用图解一下这其...
+    </p>
+    <div class="meta">
+      <a target="_blank" href="http://www.jianshu.com/p/7c0640963bac">
+        <i class="iconfont ic-list-read"></i> 531
+</a>        <a target="_blank" href="http://www.jianshu.com/p/7c0640963bac#comments">
+          <i class="iconfont ic-list-comments"></i> 5
+</a>      <span><i class="iconfont ic-list-like"></i> 7</span>
+    </div>
+  </div>
+</li>
+
+    <li id="note-9677554" data-note-id="9677554" class="have-img">
+    <a class="wrap-img" href="http://www.jianshu.com/p/96645d067352" target="_blank">
+      <img class="img-blur-done" src="./惜梦哥哥_ - 简书_files/3026506-af3341518921cfab.png" alt="120">
+    </a>
+  <div class="content">
+    <div class="author">
+      <a class="avatar" target="_blank" href="http://www.jianshu.com/u/275291c9866e">
+        <img src="./惜梦哥哥_ - 简书_files/b4d6a419-a6fa-417f-a946-0bb0b63573ec(1).jpg" alt="96">
+</a>      <div class="name">
+        <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/275291c9866e">惜梦哥哥_</a>
+        <span class="time" data-shared-at="2017-03-02T15:39:42+08:00">03.02 15:39</span>
+      </div>
+    </div>
+    <a class="title" target="_blank" href="http://www.jianshu.com/p/96645d067352">Kotlin之IntelliJ IDEA配置</a>
+    <p class="abstract">
+      没事在群里聊(zhuang)天(bi)的时候,和大家推荐了Kotlin,有小朋友想学的,问我IntelliJ怎么配置,这就尴尬了......  本想偷个懒用Android S...
+    </p>
+    <div class="meta">
+      <a target="_blank" href="http://www.jianshu.com/p/96645d067352">
+        <i class="iconfont ic-list-read"></i> 61
+</a>        <a target="_blank" href="http://www.jianshu.com/p/96645d067352#comments">
+          <i class="iconfont ic-list-comments"></i> 0
+</a>      <span><i class="iconfont ic-list-like"></i> 2</span>
+    </div>
+  </div>
+</li>
+
+    <li id="note-9471562" data-note-id="9471562" class="have-img">
+    <a class="wrap-img" href="http://www.jianshu.com/p/e41d96c52484" target="_blank">
+      <img class="img-blur-done" src="./惜梦哥哥_ - 简书_files/3026506-3b9b58ff671535f8.jpg" alt="120">
+    </a>
+  <div class="content">
+    <div class="author">
+      <a class="avatar" target="_blank" href="http://www.jianshu.com/u/275291c9866e">
+        <img src="./惜梦哥哥_ - 简书_files/b4d6a419-a6fa-417f-a946-0bb0b63573ec(1).jpg" alt="96">
+</a>      <div class="name">
+        <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/275291c9866e">惜梦哥哥_</a>
+        <span class="time" data-shared-at="2017-02-23T21:53:29+08:00">02.23 21:53</span>
+      </div>
+    </div>
+    <a class="title" target="_blank" href="http://www.jianshu.com/p/e41d96c52484">Kotlin基础入门</a>
+    <p class="abstract">
+      2016年11月,接触到了这门新语言,一开始只是无聊没事写着玩的,自己本身是做Android开发的,拿起Kotlin写了一段Android的Demo才发现爽的不要不要的,相见...
+    </p>
+    <div class="meta">
+      <a target="_blank" href="http://www.jianshu.com/p/e41d96c52484">
+        <i class="iconfont ic-list-read"></i> 199
+</a>        <a target="_blank" href="http://www.jianshu.com/p/e41d96c52484#comments">
+          <i class="iconfont ic-list-comments"></i> 1
+</a>      <span><i class="iconfont ic-list-like"></i> 5</span>
+    </div>
+  </div>
+</li>
+
+    <li id="note-9422036" data-note-id="9422036" class="">
+  <div class="content">
+    <div class="author">
+      <a class="avatar" target="_blank" href="http://www.jianshu.com/u/275291c9866e">
+        <img src="./惜梦哥哥_ - 简书_files/b4d6a419-a6fa-417f-a946-0bb0b63573ec(1).jpg" alt="96">
+</a>      <div class="name">
+        <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/275291c9866e">惜梦哥哥_</a>
+        <span class="time" data-shared-at="2017-02-22T13:30:04+08:00">02.22 13:30</span>
+      </div>
+    </div>
+    <a class="title" target="_blank" href="http://www.jianshu.com/p/10169004e662">GreenDao 3.0的配置及使用</a>
+    <p class="abstract">
+      GreenDao是一个优质的开源数据库,每秒支持上千次的增删改查,效率非常高,对比同类开源数据库,稳稳排在第一位,更多详细介绍:https://github.com/gree...
+    </p>
+    <div class="meta">
+      <a target="_blank" href="http://www.jianshu.com/p/10169004e662">
+        <i class="iconfont ic-list-read"></i> 138
+</a>        <a target="_blank" href="http://www.jianshu.com/p/10169004e662#comments">
+          <i class="iconfont ic-list-comments"></i> 8
+</a>      <span><i class="iconfont ic-list-like"></i> 6</span>
+    </div>
+  </div>
+</li>
+
+</ul>
+
+      </div>
+    </div>
+    
+<div class="col-xs-7 col-xs-offset-1 aside">
+      <div class="title">个人介绍</div>
+  <div class="description">
+    <div class="js-intro">一个敲代码的<br>笔名:惜梦_<br>欢迎加我微信:kun927426<br></div>
+    <a class="social-icon-sprite social-icon-weibo" target="_blank" href="http://weibo.com/u/1150157790"></a><a class="social-icon-sprite social-icon-google_plus" target="_blank" href="https://plus.google.com/117362767587385764251"></a>
+    <a class="social-icon-sprite social-icon-weixin" data-toggle="popover" data-placement="bottom" data-html="true" data-trigger="hover" href="javascript:void(0);" data-content="
+  &lt;div class=&quot;qrcode&quot;&gt;
+    &lt;div class=&quot;arrow-top&quot;&gt;&lt;/div&gt;
+    &lt;img src=&quot;//upload.jianshu.io/users/qrcodes/3026506/%E4%BA%8C%E7%BB%B4%E7%A0%81.png?imageMogr2/auto-orient/strip|imageView2/1/w/320/h/320&quot; alt=&quot;320&quot; /&gt;
+  &lt;/div&gt;
+" data-original-title="" title=""></a>
+
+  </div>
+  <ul class="list user-dynamic">
+    <li>
+      <a href="http://www.jianshu.com/users/275291c9866e/subscriptions">
+        <i class="iconfont ic-collection"></i> <span>他关注的专题/文集</span>
+</a>    </li>
+    <li>
+      <a href="http://www.jianshu.com/users/275291c9866e/liked_notes">
+        <i class="iconfont ic-like"></i> <span>他喜欢的文章</span>
+</a>    </li>
+  </ul>
+  <!-- 专题和文集 -->
+  <div><div><div class="title">他创建的专题</div> <ul class="list"><li><a href="http://www.jianshu.com/c/422d1a1e20e3" target="_blank" class="avatar-collection"><img src="./惜梦哥哥_ - 简书_files/android.graphics.Bitmap_c766d90.jpeg"></a> <a href="http://www.jianshu.com/c/422d1a1e20e3" target="_blank" class="name">百日计划</a></li><li><a href="http://www.jianshu.com/c/51357c8af128" target="_blank" class="avatar-collection"><img src="./惜梦哥哥_ - 简书_files/psb.jpg"></a> <a href="http://www.jianshu.com/c/51357c8af128" target="_blank" class="name">Dream</a></li> <li><!----> <!----></li></ul> <!----></div> <div><div class="title">他参与管理的专题</div> <ul class="list"><li><a href="http://www.jianshu.com/c/e254b138e8cd" target="_blank" class="avatar-collection"><img src="./惜梦哥哥_ - 简书_files/html_meitu_1.jpg"></a> <a href="http://www.jianshu.com/c/e254b138e8cd" target="_blank" class="name">前端大牛养成之路</a></li> <li><!----> <!----></li></ul></div> <div><div class="title">他的文集</div> <ul class="list"><li><a href="http://www.jianshu.com/nb/6262830" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a href="http://www.jianshu.com/nb/6262830" target="_blank" class="name">Android</a></li><li><a href="http://www.jianshu.com/nb/10163246" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a href="http://www.jianshu.com/nb/10163246" target="_blank" class="name">Kotlin</a></li> <li><!----> <!----></li></ul></div></div>
+    <div class="user-action">
+        <a class="js-block-button" data-user-id="3026506" href="javascript:void(null);">加入黑名单</a>
+       ·
+      <a class="js-report-button" data-reportable-id="3026506" data-reportable-type="user">举报用户</a>
+    </div>
+</div>
+
+  </div>
+</div>
+<div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部"><a href="http://www.jianshu.com/u/275291c9866e#" class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <!----></ul></div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":true,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","current_user":{"id":6228515,"nickname":"牟牟mumu","slug":"817df790ff3e","avatar":"http://cdn2.jianshu.io/assets/default_avatar/1-04bbeead395d74921af6a4e8214b4f61.jpg","unread_counts":{"total":null}},"user":{"slug":"275291c9866e"},"has_collections":true}</script>
+    
+    <script src="./惜梦哥哥_ - 简书_files/babel-polyfill-54714357a9b8be07d36b.js.下载"></script>
+    <script src="./惜梦哥哥_ - 简书_files/web-base-54714357a9b8be07d36b.js.下载"></script>
+<script src="./惜梦哥哥_ - 简书_files/web-54714357a9b8be07d36b.js.下载"></script>
+    
+    <script src="./惜梦哥哥_ - 简书_files/entry-54714357a9b8be07d36b.js.下载"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-35169517-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://www.cnblogs.com/rustfisher/p/5071494.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/bundle-darkgreentrip.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/bundle-darkgreentrip-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/rustfisher/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/rustfisher/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/rustfisher/wlwmanifest.xml">
+<script async="" src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/analytics.js"></script><script type="text/javascript" src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/encoder.js"></script><script src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'rustfisher', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/rustfisher/"><img id="blogLogo" src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/rustfisher/">RustFisher</a></h1>
+<h2>多写，多想，多读，多睡</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/rustfisher/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/RustFisher">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/rustfisher/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/rustfisher/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 104&nbsp; </span>
+<span id="stats_article_count">文章 - 3&nbsp; </span>
+<span id="stats-comment_count">评论 - 12</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园.html">Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>Android Bitmap 相关操作</p>
+<p>常见的几个操作：缩放，裁剪，旋转，偏移</p>
+<p><img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/706293-20151223220438374-2038722690.jpg" alt="" width="152" height="270">&nbsp;<img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/706293-20151223220512718-126163397.jpg" alt="" width="152" height="270">&nbsp;<img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/706293-20151223220546921-672449112.jpg" alt="" width="152" height="270">&nbsp;<img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/706293-20151223220616890-1207144042.jpg" alt="" width="151" height="268">&nbsp;<img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/706293-20151223220645234-2109692013.jpg" alt="" width="150" height="267"></p>
+<p>很多操作需要 Matrix 来支持；Matrix 通过矩阵来处理位图，计算出各个像素点的位置，从而把bitmap显示出来。 <br>matrix里有一个3x3的矩阵，用于图像处理：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">MSCALE_X MSKEW_X  MTRANS_X
+MSKEW_Y  MSCALE_Y MTRANS_Y
+MPERSP_0 MPERSP_1 MPERSP_2</span></pre>
+</div>
+<p>根据变量名能猜出具体的用途：<br>缩放X 偏移X 平移X<br>偏移Y 缩放Y 平移Y<br>透视0 透视1 透视2</p>
+<p>matrix的操作有set，pre和post；set能够直接设置矩阵中的数值；pre类似于矩阵左乘；post类似与矩阵中的右乘</p>
+<p>原bitmap经过计算后，会重新生成一张bitmap</p>
+<p>代码片段：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 根据给定的宽和高进行拉伸
+     *
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> origin    原图
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> newWidth  新图的宽
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> newHeight 新图的高
+     * </span><span style="color: #808080;">@return</span><span style="color: #008000;"> new Bitmap
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">private</span> Bitmap scaleBitmap(Bitmap origin, <span style="color: #0000ff;">int</span> newWidth, <span style="color: #0000ff;">int</span><span style="color: #000000;"> newHeight) {
+        </span><span style="color: #0000ff;">if</span> (origin == <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">int</span> height =<span style="color: #000000;"> origin.getHeight();
+        </span><span style="color: #0000ff;">int</span> width =<span style="color: #000000;"> origin.getWidth();
+        </span><span style="color: #0000ff;">float</span> scaleWidth = ((<span style="color: #0000ff;">float</span>) newWidth) /<span style="color: #000000;"> width;
+        </span><span style="color: #0000ff;">float</span> scaleHeight = ((<span style="color: #0000ff;">float</span>) newHeight) /<span style="color: #000000;"> height;
+        Matrix matrix </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);</span><span style="color: #008000;">//</span><span style="color: #008000;"> 使用后乘</span>
+        Bitmap newBM = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, <span style="color: #0000ff;">false</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">if</span> (!<span style="color: #000000;">origin.isRecycled()) {
+            origin.recycle();
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> newBM;
+    }
+
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 按比例缩放图片
+     *
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> origin 原图
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> ratio  比例
+     * </span><span style="color: #808080;">@return</span><span style="color: #008000;"> 新的bitmap
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">private</span> Bitmap scaleBitmap(Bitmap origin, <span style="color: #0000ff;">float</span><span style="color: #000000;"> ratio) {
+        </span><span style="color: #0000ff;">if</span> (origin == <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">int</span> width =<span style="color: #000000;"> origin.getWidth();
+        </span><span style="color: #0000ff;">int</span> height =<span style="color: #000000;"> origin.getHeight();
+        Matrix matrix </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Matrix();
+        matrix.preScale(ratio, ratio);
+        Bitmap newBM </span>= Bitmap.createBitmap(origin, 0, 0, width, height, matrix, <span style="color: #0000ff;">false</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (newBM.equals(origin)) {
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> newBM;
+        }
+        origin.recycle();
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> newBM;
+    }
+
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 裁剪
+     *
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> bitmap 原图
+     * </span><span style="color: #808080;">@return</span><span style="color: #008000;"> 裁剪后的图像
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">private</span><span style="color: #000000;"> Bitmap cropBitmap(Bitmap bitmap) {
+        </span><span style="color: #0000ff;">int</span> w = bitmap.getWidth(); <span style="color: #008000;">//</span><span style="color: #008000;"> 得到图片的宽，高</span>
+        <span style="color: #0000ff;">int</span> h =<span style="color: #000000;"> bitmap.getHeight();
+        </span><span style="color: #0000ff;">int</span> cropWidth = w &gt;= h ? h : w;<span style="color: #008000;">//</span><span style="color: #008000;"> 裁切后所取的正方形区域边长</span>
+        cropWidth /= 2<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">int</span> cropHeight = (<span style="color: #0000ff;">int</span>) (cropWidth / 1.2<span style="color: #000000;">);
+        </span><span style="color: #0000ff;">return</span> Bitmap.createBitmap(bitmap, w / 3, 0, cropWidth, cropHeight, <span style="color: #0000ff;">null</span>, <span style="color: #0000ff;">false</span><span style="color: #000000;">);
+    }
+
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 选择变换
+     *
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> origin 原图
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> alpha  旋转角度，可正可负
+     * </span><span style="color: #808080;">@return</span><span style="color: #008000;"> 旋转后的图片
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">private</span> Bitmap rotateBitmap(Bitmap origin, <span style="color: #0000ff;">float</span><span style="color: #000000;"> alpha) {
+        </span><span style="color: #0000ff;">if</span> (origin == <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">int</span> width =<span style="color: #000000;"> origin.getWidth();
+        </span><span style="color: #0000ff;">int</span> height =<span style="color: #000000;"> origin.getHeight();
+        Matrix matrix </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Matrix();
+        matrix.setRotate(alpha);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 围绕原地进行旋转</span>
+        Bitmap newBM = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, <span style="color: #0000ff;">false</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (newBM.equals(origin)) {
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> newBM;
+        }
+        origin.recycle();
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> newBM;
+    }
+
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 偏移效果
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> origin 原图
+     * </span><span style="color: #808080;">@return</span><span style="color: #008000;"> 偏移后的bitmap
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">private</span><span style="color: #000000;"> Bitmap skewBitmap(Bitmap origin) {
+        </span><span style="color: #0000ff;">if</span> (origin == <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">int</span> width =<span style="color: #000000;"> origin.getWidth();
+        </span><span style="color: #0000ff;">int</span> height =<span style="color: #000000;"> origin.getHeight();
+        Matrix matrix </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Matrix();
+        matrix.postSkew(</span>-0.6f, -0.3f<span style="color: #000000;">);
+        Bitmap newBM </span>= Bitmap.createBitmap(origin, 0, 0, width, height, matrix, <span style="color: #0000ff;">false</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (newBM.equals(origin)) {
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> newBM;
+        }
+        origin.recycle();
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> newBM;
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>按钮的操作定义：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">    @Override
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onClick(View v) {
+        Bitmap originBM </span>=<span style="color: #000000;"> BitmapFactory.decodeResource(getResources(),
+                R.drawable.littleboygreen_x128);
+        </span><span style="color: #0000ff;">switch</span><span style="color: #000000;"> (v.getId()) {
+            </span><span style="color: #0000ff;">case</span> R.id.btn1: {<span style="color: #008000;">//</span><span style="color: #008000;"> 按尺寸缩放</span>
+<span style="color: #000000;">                effectTextView.setText(R.string.scale);
+                Bitmap nBM </span>= scaleBitmap(originBM, 100, 72<span style="color: #000000;">);
+                effectView.setImageBitmap(nBM);
+                </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            }
+            </span><span style="color: #0000ff;">case</span> R.id.btn2: {<span style="color: #008000;">//</span><span style="color: #008000;"> 按比例缩放，每次点击缩放比例都会不同</span>
+<span style="color: #000000;">                effectTextView.setText(R.string.scale_ratio);
+                </span><span style="color: #0000ff;">if</span> (ratio &lt; 3<span style="color: #000000;">) {
+                    ratio </span>+= 0.05f<span style="color: #000000;">;
+                } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+                    ratio </span>= 0.1f<span style="color: #000000;">;
+                }
+                Bitmap nBM </span>=<span style="color: #000000;"> scaleBitmap(originBM, ratio);
+                effectView.setImageBitmap(nBM);
+                </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            }
+            </span><span style="color: #0000ff;">case</span> R.id.btn3: {<span style="color: #008000;">//</span><span style="color: #008000;"> 裁剪</span>
+                effectTextView.setText("剪个头"<span style="color: #000000;">);
+                Bitmap cropBitmap </span>=<span style="color: #000000;"> cropBitmap(originBM);
+                effectView.setImageBitmap(cropBitmap);
+                </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            }
+            </span><span style="color: #0000ff;">case</span> R.id.btn4: {<span style="color: #008000;">//</span><span style="color: #008000;"> 顺时针旋转效果；每次点击更新旋转角度</span>
+                <span style="color: #0000ff;">if</span> (alpha &lt; 345<span style="color: #000000;">) {
+                    alpha </span>+= 15<span style="color: #000000;">;
+                } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+                    alpha </span>= 0<span style="color: #000000;">;
+                }
+                effectTextView.setText(</span>"旋转"<span style="color: #000000;">);
+                Bitmap rotateBitmap </span>=<span style="color: #000000;"> rotateBitmap(originBM, alpha);
+                effectView.setImageBitmap(rotateBitmap);
+                </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            }
+            </span><span style="color: #0000ff;">case</span> R.id.btn5: {<span style="color: #008000;">//</span><span style="color: #008000;"> 逆时针旋转效果；每次点击更新旋转角度</span>
+                <span style="color: #0000ff;">if</span> (beta &gt; 15<span style="color: #000000;">) {
+                    beta </span>-= 15<span style="color: #000000;">;
+                } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+                    beta </span>= 360<span style="color: #000000;">;
+                }
+                effectTextView.setText(</span>"旋转"<span style="color: #000000;">);
+                Bitmap rotateBitmap </span>=<span style="color: #000000;"> rotateBitmap(originBM, beta);
+                effectView.setImageBitmap(rotateBitmap);
+                </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            }
+            </span><span style="color: #0000ff;">case</span> R.id.btn6: {<span style="color: #008000;">//</span><span style="color: #008000;"> 偏移效果；偏移量在方法中</span>
+                Bitmap skewBM =<span style="color: #000000;"> skewBitmap(originBM);
+                effectView.setImageBitmap(skewBM);
+                </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            }
+        }
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>遇到的问题</p>
+<div class="cnblogs_code">
+<pre>Matrix matrix = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Matrix();
+matrix.preScale(ratio, ratio);</span><span style="color: #008000;">//</span><span style="color: #008000;"> 当 ratio=1，下面的 newBM 将会等价于 origin</span>
+Bitmap newBM = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, <span style="color: #0000ff;">false</span><span style="color: #000000;">);
+</span><span style="color: #0000ff;">if</span> (!<span style="color: #000000;">origin.isRecycled()) {
+origin.recycle();
+}</span></pre>
+</div>
+<p><span style="line-height: 1.5;">log如下，当ratio=1时，新bitmap和旧的bitmap同一地址</span></p>
+<p><br>11-27 05:27:16.086 16723-16723/? D/rust: originBitmap = android.graphics.Bitmap@1e8849e<br>11-27 05:27:16.086 16723-16723/? D/rust: newBitmap = android.graphics.Bitmap@1e8849e<br><br></p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/rustfisher/category/704582.html" target="_blank">Android-101</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5071494,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;214863d1-de89-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/rustfisher/" target="_blank"><img src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/20150628195334.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/rustfisher/">RustFisher</a><br>
+            <a href="http://home.cnblogs.com/u/rustfisher/followees">关注 - 4</a><br>
+            <a href="http://home.cnblogs.com/u/rustfisher/followers">粉丝 - 2</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;214863d1-de89-e411-b908-9dcfd8948a71&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5071494,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(5071494,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/rustfisher/p/5064874.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/rustfisher/p/5064874.html" title="发布于2015-12-21 21:04">排序算法-选择，插入，希尔，归并，快排</a><br><a href="http://www.cnblogs.com/rustfisher/p/5074707.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/rustfisher/p/5074707.html" title="发布于2015-12-24 23:55">Invert a binary tree 翻转一棵二叉树</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-12-23 22:08</span> <a href="http://www.cnblogs.com/rustfisher/">RustFisher</a> 阅读(<span id="post_view_count">6960</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5071494" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/rustfisher/p/5071494.html#" onclick="AddToWz(5071494);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=209380,cb_entryId=5071494,cb_blogApp=currentBlogApp,cb_blogUserGuid='214863d1-de89-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2015/12/23 22:08:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/rustfisher/p/5071494.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/rustfisher/p/5071494.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.gcpowertools.com.cn/products/activereports/excel.htm?utm_source=cnblogs&utm_medium=blogpage&utm_term=bottom&utm_content=AR&utm_campaign=community" target="_blank">【报表】Excel 报表开发18 招式，人人都能做报表</a><br><a href="http://click.aliyun.com/m/15483" target="_blank">【活动】阿里云海外云服务全面降价助力企业全球布局</a><br><a href="https://group.cnblogs.com/topic/76829.html" target="_blank">【实用】40+篇云服务器操作及运维基础知识！</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/570462/" target="_blank">刚刚满10岁的Google街景 快被艺术家们玩坏了</a><br> ·  <a href="http://news.cnblogs.com/n/570461/" target="_blank">日研究人员用转基因猪探究糖尿病，因为其血糖值等与人类接近</a><br> ·  <a href="http://news.cnblogs.com/n/570460/" target="_blank">英国航空遭遇大面积网络故障 CEO说这个锅得印度外包公司背</a><br> ·  <a href="http://news.cnblogs.com/n/570459/" target="_blank">实地探访裁员中的乐视北美：家具正在三折大甩卖</a><br> ·  <a href="http://news.cnblogs.com/n/570458/" target="_blank">谷歌和特斯拉的无人驾驶老大联手单干 这家公司厉害了</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/17215/" target="_blank"><img width="468" height="60" src="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/24442-20170417123605337-535991337.jpg" alt="阿里云E4"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/569992/" target="_blank">程序员的工作、学习与绩效</a><br> ·  <a href="http://kb.cnblogs.com/page/569056/" target="_blank">软件开发为什么很难</a><br> ·  <a href="http://kb.cnblogs.com/page/565901/" target="_blank">唱吧DevOps的落地，微服务CI/CD的范本技术解读</a><br> ·  <a href="http://kb.cnblogs.com/page/566523/" target="_blank">程序员，如何从平庸走向理想？</a><br> ·  <a href="http://kb.cnblogs.com/page/566318/" target="_blank">我为什么鼓励工程师写blog</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/04/01&#39;);return false;">&lt;</a></td><td align="center">2017年5月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/06/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalWeekendDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td class="CalTodayDay" align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/rustfisher/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/rustfisher/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/rustfisher/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/rustfisher/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/rustfisher/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(104)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/rustfisher/category/704582.html">Android-101(37)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/rustfisher/category/704584.html">Java(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/rustfisher/category/704589.html">Linux(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/rustfisher/category/704588.html">Oops(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/rustfisher/category/715849.html">Tools(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/rustfisher/category/704585.html">计算-结构(39)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/rustfisher/category/704587.html">综合(3)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(104)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/rustfisher/archive/2016/05.html">2016年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/rustfisher/archive/2016/04.html">2016年4月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/rustfisher/archive/2016/03.html">2016年3月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/rustfisher/archive/2016/02.html">2016年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/rustfisher/archive/2016/01.html">2016年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/rustfisher/archive/2015/12.html">2015年12月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/rustfisher/archive/2015/11.html">2015年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/rustfisher/archive/2015/10.html">2015年10月 (23)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/rustfisher/archive/2015/09.html">2015年9月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/rustfisher/archive/2015/08.html">2015年8月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/rustfisher/archive/2015/07.html">2015年7月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/rustfisher/archive/2015/06.html">2015年6月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/rustfisher/archive/2015/05.html">2015年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/rustfisher/archive/2015/04.html">2015年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/rustfisher/archive/2015/03.html">2015年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/rustfisher/archive/2015/02.html">2015年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/rustfisher/archive/2015/01.html">2015年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/rustfisher/archive/2014/12.html">2014年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/rustfisher/archive/2014/10.html">2014年10月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/rustfisher/archive/2014/07.html">2014年7月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rustfisher/p/5132212.html#3348326">1. Re:Android - 自定义控件之圆形控件</a></li>
+        <li class="recent_comment_body">@小刀yeah复制粘贴一下应该就能看到效果了...</li>
+        <li class="recent_comment_author">--RustFisher</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rustfisher/p/5132212.html#3348324">2. Re:Android - 自定义控件之圆形控件</a></li>
+        <li class="recent_comment_body">不明觉厉</li>
+        <li class="recent_comment_author">--小刀yeah</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rustfisher/p/5132212.html#3348261">3. Re:Android - 自定义控件之圆形控件</a></li>
+        <li class="recent_comment_body">不错！</li>
+        <li class="recent_comment_author">--zdd</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rustfisher/p/4934560.html#3300005">4. Re:Android - 使用Volley请求网络数据</a></li>
+        <li class="recent_comment_body">@iponkan谢谢指出。我这篇写的太浅显了。我正在看源码，争取更新。...</li>
+        <li class="recent_comment_author">--RustFisher</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rustfisher/p/4934560.html#3299969">5. Re:Android - 使用Volley请求网络数据</a></li>
+        <li class="recent_comment_body">应该讲讲velly的api怎么用，哪些是它的api，用的时候注意什么。还有velly的优势。。LruCache我也不太懂，期待博主更新。。</li>
+        <li class="recent_comment_author">--iponkan</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="./Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园_files/Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移 - RustFisher - 博客园.html">1. Android Bitmap 常见的几个操作：缩放，裁剪，旋转，偏移(6960)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5132212.html">2. Android - 自定义控件之圆形控件(4003)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/4774204.html">3. shell统计文本中单词的出现次数(2881)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5232471.html">4. Android - Daydream 互动屏保(2493)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5107531.html">5. Android 上层应用读写设备节点(2395)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/4600711.html">6. Android - 读取JSON文件数据(1636)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/4830704.html">7. 罗马数字与阿拉伯数字相互转换(1285)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5313958.html">8. Android - FragmentTabHost 与 Fragment 制作页面切换效果(1120)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5389048.html">9. Android - 传统蓝牙（蓝牙2.0）(1074)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5419164.html">10. Android 应用退到后台(1043)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/rustfisher/p/4830704.html">1. 罗马数字与阿拉伯数字相互转换(5)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5132212.html">2. Android - 自定义控件之圆形控件(3)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/4934560.html">3. Android - 使用Volley请求网络数据(2)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/4814780.html">4. 二叉树 - 建立与遍历使用Java(1)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/4734016.html">5. Android - 电池状态(1)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/rustfisher/p/5159237.html">1. Android - AIDL 使用(2)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5132212.html">2. Android - 自定义控件之圆形控件(1)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/5107531.html">3. Android 上层应用读写设备节点(1)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/4830704.html">4. 罗马数字与阿拉伯数字相互转换(1)</a></li><li><a href="http://www.cnblogs.com/rustfisher/p/4814780.html">5. 二叉树 - 建立与遍历使用Java(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 RustFisher
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+<div><object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div></body></html>
