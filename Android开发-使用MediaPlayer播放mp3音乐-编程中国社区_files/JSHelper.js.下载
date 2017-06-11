@@ -1,0 +1,19 @@
+﻿
+function clickOnce(btn, msg) {
+    // Test if we are doing a validation
+    if (typeof (Page_ClientValidate) == 'function') {
+        // if we are doing a validation, return if it's false
+        if (Page_ClientValidate() == false) { return false; }
+    }
+    // Ensure that the button is not of type "submit"
+    if (btn.getAttribute('type') == 'button') {
+        // The msg attibute is absolutely optional
+        // msg will be the text of the button while it's disabled
+        if (!msg || (msg == 'undefined')) { msg = 'Loading...'; }
+        btn.value = msg;
+        // The magic :D
+        btn.disabled = true;
+    }
+    return true;
+}
+

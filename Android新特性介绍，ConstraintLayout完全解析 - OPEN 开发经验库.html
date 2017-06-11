@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://www.open-open.com/lib/view/open1486104138972.html -->
+<html><head lang="cn"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="Android Studio,Android开发">
+	<meta name="description" content="本篇文章的主题是ConstraintLayout。其实ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。我们都知道，在传统的Android开发当中，界面基本都是靠编写XML代码完成的，虽然Android Studio也支持可视化的方式来编写界面，但是操作起来并不方便，我也一直都不推荐使用可视化的方式来编写Android应用程序的界面。">
+	<link rel="shortcut icon" href="http://www.open-open.com/lib/favicon.ico">
+	<link rel="copyright" href="http://www.open-open.com/">
+
+	<link href="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/idea.min.css" rel="stylesheet">
+	<link href="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/jquery-ui.min.css" rel="stylesheet">
+	
+	<link href="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/bootstrap.min.css" rel="stylesheet">
+	<link href="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/font-awesome.min.css" rel="stylesheet">
+	<link href="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/jquery-confirm.css" rel="stylesheet">
+	<link href="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/styles.css" rel="stylesheet">
+
+	<style type="text/css" media="screen, projection">
+		/*<![CDATA[*/
+		@import "/lib/css/common.css";
+		@import "/lib/css/main.css";
+		@import "/lib/css/jGrowl.css";
+		/*]]>*/
+		.articleIndex li.active a {
+			color: #0099ff;
+		}
+	</style>
+	<style type="text/css">
+		.topheader h1{font-size: 24px;margin: 0;}
+		.crumbs{padding-bottom: 5px;font-size: 11px;}.crumbs,.crumbs a,.meta{color: #bbb;}
+		#tag-list{margin-top: 10px;}
+		#tag-list a{background: #fff;padding: 2px 10px;text-decoration: none;}
+		#tag-list a:hover{background: #c5e2ff;color: #0099ff;}
+		.crumbs a:hover{color: #0099ff;}
+		#readercontainer{background: #fff;padding: 40px 89px;}
+
+		.post-nav ul{
+			margin: 0;
+		}
+		.post-nav>ul>li a{
+			padding-left: 10px;
+		}
+		.post-nav>ul>li>ul>li a{
+			padding-left: 30px;
+		}
+		.post-nav>ul>li>ul>li>ul>li a{
+			padding-left: 50px;
+		}
+		.post-nav ul li.active a{
+			border-left: 2px solid #0099ff;
+		}
+
+		.aside-fixed {
+			left: 50%;
+			margin-left: 310px;
+			position: fixed;
+			top: 65px;
+			width: 260px;
+		}
+		.bdsharebuttonbox {
+			background: #eee none repeat scroll 0 0;
+			margin-top: 10px;
+			padding: 10px;
+			width: 100%;
+		}
+
+	</style>
+
+	<script src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/push.js.下载"></script><script type="text/javascript">
+		if(window.location.toString().indexOf('pref=padindex') != -1){
+		}else{
+			if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+				if(window.location.href.indexOf("?mobile")<0){
+					try{
+						if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+							window.location.href="http://m.open-open.com/m/lib/view/1486104138972.html";
+						}else if(/iPad/i.test(navigator.userAgent)){
+							window.location.href="http://m.open-open.com/m/lib/view/1486104138972.html"
+						}else{
+							window.location.href="http://m.open-open.com/m/lib/view/1486104138972.html"
+						}
+					}catch(e){}
+				}
+			}
+		}
+	</script>
+
+
+	<script type="text/javascript">
+		var rooturl="/lib";
+		var wgDocKey='1486104138972';
+		var wgDocTitle='Android新特性介绍，ConstraintLayout完全解析';
+		var wgDocStatusFlag='';
+		var wgUserFolders=null;
+		var wgDownFrame=null;
+		var wgCostByUser=null;
+		var wgDocFavoriteByUser=false;
+		var wgDocScoreByUser=null;
+		var wgUserLogined=0;
+		var tb_pathToImage = "/lib/images/loadingAnimation.gif";
+
+
+	</script>
+
+
+
+
+<script src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/share.js.下载"></script><link rel="stylesheet" href="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/share_style0_16.css"></head>
+<body id="view"><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div>
+
+
+<style>
+	.global-tags{background: #333;color: #ababab;height: 30px;line-height: 30px;width: 100%;}
+	.global-tags .container{position: relative;}
+	.global-tags ul{ height: 30px; margin: 0; overflow: hidden;}
+	.global-tags a{color:#ababab;padding: 5px; }
+	.global-tags a:hover{color:#e0e0e0; }
+	.global-tags li { display: inline-block; padding: 0; }
+	.global-tags  .more { background-color: #333; height: 30px; position: absolute; right: 0; top: 0; width: 30px; }
+	.global-tags  .more:before { background-image: linear-gradient(90deg, rgba(0, 95, 60, 0), #333); background-size: 100% auto; content: ""; height: 100%; left: -20px; position: absolute; top: 0; width: 20px; }
+
+	/* menu */
+	.all-sort{z-index: 100;position: absolute;left: 15px;top: 30px;display: none;}
+	.all-sort-head{background: #ff3c00; color: #fff; margin-right: 20px; text-align: center; width: 160px;float: left;}
+	.all-sort-head a{color: #fff;}
+	.item-list .subitem{float:left;padding:20px;}
+	.all-sort-list{position:relative;width:160px;border:2px solid #393939;border-top:none;background:#393939;float: left;z-index: 100;}
+	.all-sort-list .item .parent{font-weight: 700;border: none;width: 120px;text-align: right;margin-right: 2px;}
+	.all-sort-list .item .parent i{font: 400 9px/14px consolas; height: 14px; margin-left: 10px; width: 4px;}
+	.all-sort-list .item.bo{border-top:none;}
+	.all-sort-list .item h3{height:40px;line-height:40px;font-size:14px;font-weight:normal;width:158px;overflow:hidden; color:#ffffff;margin: 0;}
+	.all-sort-list .item h3 a{color: #ffffff;}
+	.all-sort-list .item:hover h3,.all-sort-list .item:hover span,.all-sort-list .item:hover h3 a,.all-sort-list .item .active ,.all-sort-list .item .active a,.all-sort-list .item .active span{color:#E4393C;}
+	.all-sort-list .item span{padding:0px 5px;color:#ffffff;font-family:"\5B8B\4F53";}
+	.all-sort-list .item a{text-decoration:none;}
+	.all-sort-list .subitem a{ float: left;  margin:5px 20px 5px 0;border-left:1px solid #eee;line-height: 14px;height: 20px;}
+	.all-sort-list .item a:hover{color:#E4393C;}
+	.all-sort-list .item:hover h3,.all-sort-list .item .active{position:relative;z-index:13;background:#FFF;border-color:#DDD;border-width:1px 0px;border-style:solid;}
+	.all-sort-list .item-list{ display:none; position:absolute; width:705px; min-height:360px; _height:360px; background:#FFF; left:157px;  border:1px solid #DDD; top:0; z-index:10; }
+
+</style>
+
+
+<header class="site-header">
+	<div class="header-top ">
+		<div class="header-top-inner">
+			<div class="" style="margin: 0 30px;">
+				<div class="row">
+					
+						<div class="header-talet pull-left">
+							<a href="http://www.open-open.com/">首页</a> &nbsp;
+							<a class="" href="http://www.open-open.com/code/">代码</a> &nbsp;
+							<a class="" href="http://www.open-open.com/doc/">文档</a> &nbsp;
+							<a title="OPEN论坛频道" href="http://www.open-open.com/solution/">问答</a> &nbsp;
+							<a title="OPEN资讯" class="" href="http://www.open-open.com/news/">资讯</a> &nbsp;
+							<a title="OPEN经验库" class="active" href="http://www.open-open.com/lib/">经验</a> &nbsp;
+							<a title="GitHub日报" class="" href="http://www.open-open.com/github/">GitHub日报</a>
+							&nbsp;|&nbsp;
+							<a class="active" title=" 安卓开发专栏" target="_blank" href="http://www.open-open.com/lib/list/177">安卓开发专栏</a>
+							&nbsp;|&nbsp;
+							<a class="active" href="http://www.open-open.com/lib/tag/%E5%BC%80%E5%8F%91%E8%80%85%E5%91%A8%E5%88%8A" target="_blank" rel="tag">开发者周刊</a>&nbsp;|&nbsp;
+							<a class="active" href="http://www.open-open.com/lib/view/open1475497562965.html" target="_blank" rel="tag">Android Studio 使用推荐</a>&nbsp;|&nbsp;
+							<a class="active" href="http://www.open-open.com/lib/view/open1475497355674.html" target="_blank" rel="tag">Android开发推荐</a>
+							
+						</div>
+					
+						<div class="user-info pull-right" id="Personal">
+							
+								<a href="http://www.open-open.com/lib/view/open1486104138972.html#" title="登录OPEN经验库" class="login">登录</a>&nbsp;&nbsp;
+								<a href="http://www.open-open.com/lib/view/open1486104138972.html#" title="注册新的账号" class="register">注册</a>
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<nav class="navbar ">
+		<div class="container">
+			<div class="navbar-header" style="margin-right: 30px;">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span aria-hidden="true" class="glyphicon glyphicon-menu-hamburger"></span>
+					<span aria-hidden="true" class="glyphicon glyphicon-menu-up"></span>
+				</button>
+				<a class="top-logo" href="http://www.open-open.com/lib"><span>www.open-open.com/lib</span></a>
+				<span style="font-size: 26px;color: #db6d4c">OPEN经验</span>
+				<span style="font-size: 12px;color: #b5b5b5"></span>
+			</div>
+
+			<div class="pull-right" style="padding: 20px;">
+				<button class="btn btn-info br40" id="upload" type="button">投稿</button>
+			</div>
+			<div id="search">
+				<form onsubmit="document.charset=&#39;utf-8&#39;;" accept-charset="utf-8" method="post" action="http://www.open-open.com/lib/query" name="sf">
+					<input type="hidden" value="all" name="site">
+					<div class="input-group">
+						<input type="text" x-webkit-speech="" placeholder="经验搜索" class="form-control" name="q" id="kw">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                      </span>
+
+					</div>
+				</form>
+
+				<!-- /input-group -->
+
+			</div>
+
+		</div>
+	</nav>
+	<div class="global-tags">
+		<div class="container">
+			<div class="all-sort-head"><a href="http://www.open-open.com/lib/list/all">全部经验分类</a>&nbsp;<i aria-hidden="true" class="fa fa-toggle-down"></i></div><div class="all-sort"><div class="all-sort-list"><div data-submenu-id="submenu1" class="item bo"><h3><span>·</span><a href="http://www.open-open.com/lib/list/1">软件开发</a></h3><div id="submenu1" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/405">VR</a><a href="http://www.open-open.com/lib/list/2">Web框架</a><a href="http://www.open-open.com/lib/list/3">GUI开发框架</a><a href="http://www.open-open.com/lib/list/4">图表/报表制作</a><a href="http://www.open-open.com/lib/list/5">搜索引擎</a><a href="http://www.open-open.com/lib/list/6">模板引擎</a><a href="http://www.open-open.com/lib/list/7">缓存组件</a><a href="http://www.open-open.com/lib/list/8">Ajax框架</a><a href="http://www.open-open.com/lib/list/9">XML操作类库</a><a href="http://www.open-open.com/lib/list/10">HTML操作类库</a><a href="http://www.open-open.com/lib/list/12">文件上传</a><a href="http://www.open-open.com/lib/list/347">3D图形处理库</a><a href="http://www.open-open.com/lib/list/14">图形/图像处理</a><a href="http://www.open-open.com/lib/list/15">常用工具包</a><a href="http://www.open-open.com/lib/list/16">JSON开发包</a><a href="http://www.open-open.com/lib/list/353">OAuth开发包</a><a href="http://www.open-open.com/lib/list/17">PDF工具包</a><a href="http://www.open-open.com/lib/list/18">Flex开发</a><a href="http://www.open-open.com/lib/list/19">Office文档处理</a><a href="http://www.open-open.com/lib/list/20">日志处理</a><a href="http://www.open-open.com/lib/list/21">网络工具包</a><a href="http://www.open-open.com/lib/list/22">多媒体处理</a><a href="http://www.open-open.com/lib/list/23">WEB服务/RPC/SOA</a><a href="http://www.open-open.com/lib/list/24">RSS/ATOM相关</a><a href="http://www.open-open.com/lib/list/25">持久层框架</a><a href="http://www.open-open.com/lib/list/26">作业调度框架</a><a href="http://www.open-open.com/lib/list/27">工作流引擎</a><a href="http://www.open-open.com/lib/list/28">业务规则引擎</a><a href="http://www.open-open.com/lib/list/29">面向方面AOP/IoC</a><a href="http://www.open-open.com/lib/list/30">JEE框架</a><a href="http://www.open-open.com/lib/list/31">安全相关</a><a href="http://www.open-open.com/lib/list/32">OpenID/单点登录SSO</a><a href="http://www.open-open.com/lib/list/34">条形码/二维码开发包</a><a href="http://www.open-open.com/lib/list/35">验证码(Captcha)</a><a href="http://www.open-open.com/lib/list/96">网络爬虫</a><a href="http://www.open-open.com/lib/list/214">OSGi</a><a href="http://www.open-open.com/lib/list/237">网络技术</a><a href="http://www.open-open.com/lib/list/324">Google相关API</a><a href="http://www.open-open.com/lib/list/328">Swing开发包</a><a href="http://www.open-open.com/lib/list/332">HTML编辑器</a><a href="http://www.open-open.com/lib/list/337" style="color:#FF3C00">JavaScript开发工具包</a><a href="http://www.open-open.com/lib/list/352">TTS/语音合成和处理</a><a href="http://www.open-open.com/lib/list/367">游戏开发</a><a href="http://www.open-open.com/lib/list/370">加密/解密软件包</a><a href="http://www.open-open.com/lib/list/374">源代码语法着色</a><a href="http://www.open-open.com/lib/list/376">WebSocket 开发</a><a href="http://www.open-open.com/lib/list/381">MathML显示与编辑</a><a href="http://www.open-open.com/lib/list/383">计算机视觉库/人脸识别</a><a href="http://www.open-open.com/lib/list/385">XML-RPC 开发</a><a href="http://www.open-open.com/lib/list/386">Markdown处理库</a><a href="http://www.open-open.com/lib/list/387">神经网络</a><a href="http://www.open-open.com/lib/list/389">多媒体播放器</a><a href="http://www.open-open.com/lib/list/391">推荐引擎</a><a href="http://www.open-open.com/lib/list/394">机器学习</a><a href="http://www.open-open.com/lib/list/401">算法</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu2" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/36">开发语言与工具</a></h3><div id="submenu2" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/406">R语言</a><a href="http://www.open-open.com/lib/list/37" style="color:#FF3C00">Java开发</a><a href="http://www.open-open.com/lib/list/38">.NET开发</a><a href="http://www.open-open.com/lib/list/39">PHP开发</a><a href="http://www.open-open.com/lib/list/40">C/C++开发</a><a href="http://www.open-open.com/lib/list/42">Ruby开发</a><a href="http://www.open-open.com/lib/list/43">Python开发</a><a href="http://www.open-open.com/lib/list/148">ActionScript开发</a><a href="http://www.open-open.com/lib/list/145" style="color:#FF3C00">JavaScript开发</a><a href="http://www.open-open.com/lib/list/44">Perl开发</a><a href="http://www.open-open.com/lib/list/263">Delphi开发</a><a href="http://www.open-open.com/lib/list/243">Erlang开发</a><a href="http://www.open-open.com/lib/list/211">Google Go/Golang开发</a><a href="http://www.open-open.com/lib/list/201">Scala开发</a><a href="http://www.open-open.com/lib/list/240">Lua开发</a><a href="http://www.open-open.com/lib/list/392">Apple Swift开发</a><a href="http://www.open-open.com/lib/list/301">Objective-C开发</a><a href="http://www.open-open.com/lib/list/45">BUG跟踪管理</a><a href="http://www.open-open.com/lib/list/294">Lisp开发</a><a href="http://www.open-open.com/lib/list/46">项目构建</a><a href="http://www.open-open.com/lib/list/41">移动开发</a><a href="http://www.open-open.com/lib/list/47">单元测试</a><a href="http://www.open-open.com/lib/list/48">测试工具</a><a href="http://www.open-open.com/lib/list/49">性能测试和优化</a><a href="http://www.open-open.com/lib/list/50">程序调试</a><a href="http://www.open-open.com/lib/list/51">代码混淆和加密</a><a href="http://www.open-open.com/lib/list/52">UML/模型工具</a><a href="http://www.open-open.com/lib/list/53">安装制作</a><a href="http://www.open-open.com/lib/list/54">代码分析/审查/优化</a><a href="http://www.open-open.com/lib/list/55">前端技术</a><a href="http://www.open-open.com/lib/list/179">Eclipse开发工具</a><a href="http://www.open-open.com/lib/list/205">IntelliJ IDEA</a><a href="http://www.open-open.com/lib/list/281">NetBeans</a><a href="http://www.open-open.com/lib/list/349">程序文档工具</a><a href="http://www.open-open.com/lib/list/361">语法/词法分析器</a><a href="http://www.open-open.com/lib/list/362">脚本/动态语言</a><a href="http://www.open-open.com/lib/list/364">持续集成系统</a><a href="http://www.open-open.com/lib/list/375">Web开发工具</a><a href="http://www.open-open.com/lib/list/388">Node.js 开发</a><a href="http://www.open-open.com/lib/list/395">中文分词</a><a href="http://www.open-open.com/lib/list/399" style="color:#FF3C00">Android Studio开发工具</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu3" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/57">网站系统</a></h3><div id="submenu3" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/58">论坛系统BBS</a><a href="http://www.open-open.com/lib/list/59">建站系统CMS</a><a href="http://www.open-open.com/lib/list/60">电子商务/商城</a><a href="http://www.open-open.com/lib/list/61">SNS社交网络/交友平台</a><a href="http://www.open-open.com/lib/list/62">百科系统Wiki</a><a href="http://www.open-open.com/lib/list/63">门户平台Portal</a><a href="http://www.open-open.com/lib/list/64">网络会议/视频会议</a><a href="http://www.open-open.com/lib/list/65">相册/照片/多媒体系统</a><a href="http://www.open-open.com/lib/list/66">微博工具/系统</a><a href="http://www.open-open.com/lib/list/363">博客系统</a><a href="http://www.open-open.com/lib/list/379">开源问答系统</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu4" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/67">企业应用</a></h3><div id="submenu4" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/68">ERP/CRM</a><a href="http://www.open-open.com/lib/list/69">OA办公/协作平台</a><a href="http://www.open-open.com/lib/list/70">WebMail系统</a><a href="http://www.open-open.com/lib/list/71">地理信息系统GIS</a><a href="http://www.open-open.com/lib/list/72">数据挖掘</a><a href="http://www.open-open.com/lib/list/73">文档管理</a><a href="http://www.open-open.com/lib/list/74">项目/任务管理</a><a href="http://www.open-open.com/lib/list/333">教学科研相关</a><a href="http://www.open-open.com/lib/list/357">开源SIP项目</a><a href="http://www.open-open.com/lib/list/368">计算机辅助设计CAD/CAM</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu5" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/75">服务器软件</a></h3><div id="submenu5" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/76">应用服务器</a><a href="http://www.open-open.com/lib/list/77">Web服务器</a><a href="http://www.open-open.com/lib/list/78">FTP服务器</a><a href="http://www.open-open.com/lib/list/79">邮件服务器</a><a href="http://www.open-open.com/lib/list/80">缓存服务器</a><a href="http://www.open-open.com/lib/list/81">版本控制系统</a><a href="http://www.open-open.com/lib/list/82">路由器/防火墙</a><a href="http://www.open-open.com/lib/list/83">电话/通讯/IM聊天</a><a href="http://www.open-open.com/lib/list/84">集群/负载均衡</a><a href="http://www.open-open.com/lib/list/85">流媒体服务器</a><a href="http://www.open-open.com/lib/list/86">消息系统</a><a href="http://www.open-open.com/lib/list/220">分布式/云计算/大数据</a><a href="http://www.open-open.com/lib/list/298">企业服务总线ESB</a><a href="http://www.open-open.com/lib/list/321">建站服务器套件</a><a href="http://www.open-open.com/lib/list/348">虚拟化</a><a href="http://www.open-open.com/lib/list/355">目录服务LDAP</a><a href="http://www.open-open.com/lib/list/393">容器系统</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu6" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/87">插件和扩展</a></h3><div id="submenu6" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/88">Eclipse插件</a><a href="http://www.open-open.com/lib/list/89">jQuery插件</a><a href="http://www.open-open.com/lib/list/331">Node.js扩展</a><a href="http://www.open-open.com/lib/list/338">jQuery分页插件</a><a href="http://www.open-open.com/lib/list/346">Prototype扩展</a><a href="http://www.open-open.com/lib/list/356">Chrome插件/扩展</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu7" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/90">数据库相关</a></h3><div id="submenu7" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/91">数据库服务器</a><a href="http://www.open-open.com/lib/list/92">数据库管理工具</a><a href="http://www.open-open.com/lib/list/93">数据库驱动程序</a><a href="http://www.open-open.com/lib/list/94">数据库建模</a><a href="http://www.open-open.com/lib/list/122">数据库连接池</a><a href="http://www.open-open.com/lib/list/154">SQL</a><a href="http://www.open-open.com/lib/list/307">NoSQL数据库</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu8" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/155">操作系统</a></h3><div id="submenu8" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/156">Linux</a><a href="http://www.open-open.com/lib/list/182">CentOS</a><a href="http://www.open-open.com/lib/list/183">Ubuntu</a><a href="http://www.open-open.com/lib/list/224">UNIX</a><a href="http://www.open-open.com/lib/list/251">Fedora</a><a href="http://www.open-open.com/lib/list/274">FreeBSD</a><a href="http://www.open-open.com/lib/list/310">Solaris</a><a href="http://www.open-open.com/lib/list/311">openSUSE</a><a href="http://www.open-open.com/lib/list/312">Debian</a><a href="http://www.open-open.com/lib/list/313">OpenBSD</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu9" class="item "><h3><span>·</span>其他分类</h3><div id="submenu9" class="item-list clearfix"><div class=" subitem"><p class="clearfix"><a href="http://www.open-open.com/lib/list/159" class="parent">软件开发管理<i>&gt;</i></a><a href="http://www.open-open.com/lib/list/174">敏捷开发</a><a href="http://www.open-open.com/lib/list/178">项目管理</a><a href="http://www.open-open.com/lib/list/196">软件架构</a><a href="http://www.open-open.com/lib/list/296">软件测试</a></p><p class="clearfix"><a href="http://www.open-open.com/lib/list/319" class="parent">管理和监控<i>&gt;</i></a><a href="http://www.open-open.com/lib/list/320">系统监控</a><a href="http://www.open-open.com/lib/list/360">日志分析和统计</a><a href="http://www.open-open.com/lib/list/366">备份工具</a></p><p class="clearfix"><a href="http://www.open-open.com/lib/list/322" class="parent">应用工具<i>&gt;</i></a><a href="http://www.open-open.com/lib/list/323">磁盘/光驱工具</a><a href="http://www.open-open.com/lib/list/359">文档/文本编辑</a><a href="http://www.open-open.com/lib/list/384">终端/远程登录</a></p><p class="clearfix"><a href="http://www.open-open.com/lib/list/329" class="parent">游戏相关<i>&gt;</i></a><a href="http://www.open-open.com/lib/list/330">网页游戏</a></p></div><div class="cat-right"></div></div></div></div></div>
+			<ul class="nav__list">
+				<li class="nav__item ">
+
+				</li>
+				<li class="nav__item"><i class="fa fa-tags"></i></li>
+
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Android" rel="tag">Android</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/IOS" rel="tag">IOS</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/JavaScript" rel="tag">JavaScript</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/HTML5" rel="tag">HTML5</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/CSS" rel="tag">CSS</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/jQuery" rel="tag">jQuery</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Python" rel="tag">Python</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/PHP" rel="tag">PHP</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/NodeJS" rel="tag">NodeJS</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Java" rel="tag">Java</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Spring" rel="tag">Spring</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/MySQL" rel="tag">MySQL</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/MongoDB" rel="tag">MongoDB</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Redis" rel="tag">Redis</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/NOSQL" rel="tag">NOSQL</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Vim" rel="tag">Vim</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/C++" rel="tag">C++</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/C#" rel="tag">C#</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/JSON" rel="tag">JSON</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Ruby" rel="tag">Ruby</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Linux" rel="tag">Linux</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Nginx" rel="tag">Nginx</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Docker" rel="tag">Docker</a></li>
+				<li class="more"></li>
+
+			</ul>
+
+		</div>
+	</div>
+</header>
+
+
+
+<div class="topheader" style="background: #eee;padding: 10px 0 30px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="crumbs">
+					<a href="http://www.open-open.com/lib/list/all">所有分类</a>
+					
+						&nbsp;&gt;&nbsp;
+						<a href="http://www.open-open.com/lib/list/36">开发语言与工具</a>
+					
+						&nbsp;&gt;&nbsp;
+						<a href="http://www.open-open.com/lib/list/41">移动开发</a>
+					
+						&nbsp;&gt;&nbsp;
+						<a href="http://www.open-open.com/lib/list/177">Android开发</a>
+					
+				</div>
+				<h1 id="articleTitle">Android新特性介绍，ConstraintLayout完全解析</h1>
+				<div class="meta" style="margin-top: 10px;">
+					<span id="tag-list">
+					
+						<a href="http://www.open-open.com/lib/tag/Android%20Studio">Android Studio</a>
+					
+					</span>&nbsp;
+
+					<span class="item">2017-02-03 14:42:18 发布</span>
+				</div>
+
+
+			</div>
+			<div class="col-md-3">
+				<table>
+					<tbody>
+					<tr>
+						<td><strong>您的评价</strong>:</td>
+						<td>
+							<div id="rate" class="rate-container"><span id="star1" class="star-big-off" title="很差">&nbsp;</span><span id="star2" class="star-big-off" title="较差">&nbsp;</span><span id="star3" class="star-big-off" title="还行">&nbsp;</span><span id="star4" class="star-big-off" title="不错">&nbsp;</span><span id="star5" class="star-big-off" title="力荐">&nbsp;</span></div>
+						</td>
+						<td width="30">
+							<span id="score-num">4.0</span>
+						</td>
+						<td width="30">
+							<div id="rate-tip"></div>
+						</td>
+
+					</tr>
+					</tbody>
+				</table>
+				<div id="favorite-container"><a id="favorite" href="javascript:void(0)" class="btn btn-default">收藏</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="item">5收藏</span>
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="container">
+<div class="row">
+
+		<div id="readercontainer" class="col-md-9">
+				<article>
+					
+ 
+ 
+  <p>今天给大家带来2017年的第一篇文章，这里先祝大家新年好。</p> 
+  <p>本篇文章的主题是ConstraintLayout。其实ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。我们都知道，在传统的Android开发当中，界面基本都是靠编写XML代码完成的，虽然Android Studio也支持可视化的方式来编写界面，但是操作起来并不方便，我也一直都不推荐使用可视化的方式来编写Android应用程序的界面。</p> 
+  <p>而ConstraintLayout就是为了解决这一现状而出现的。它和传统编写界面的方式恰恰相反，ConstraintLayout非常适合使用可视化的方式来编写界面，但并不太适合使用XML的方式来进行编写。当然，可视化操作的背后仍然还是使用的XML代码来实现的，只不过这些代码是由Android Studio根据我们的操作自动生成的。</p> 
+  <p>另外，ConstraintLayout还有一个优点，它可以有效地解决布局嵌套过多的问题。我们平时编写界面，复杂的布局总会伴随着多层的嵌套，而嵌套越多，程序的性能也就越差。ConstraintLayout则是使用约束的方式来指定各个控件的位置和关系的，它有点类似于RelativeLayout，但远比RelativeLayout要更强大。</p> 
+  <p>其实ConstraintLayout属于Android Studio 2.2的新特性，我在去年写《第二行代码》的时候就非常想要将这部分内容加入到新书里面，但是在尝试之后还是放弃了。因为ConstraintLayout的用法很多都是对控件进行拖拽，只用文字或者是一些静态图片实在太难将它的用法表达清楚了，因此不太适合写到书上。我当时的想法就是在博客上面写一篇ConstraintLayout的用法讲解，来弥补一下《第二行代码》中缺失的这部分新特性，那么今天这篇文章来了。</p> 
+  <h2 id="articleHeader0">开始</h2> 
+  <p>下面我们开始用边学边练的方式来进行学习，首先打开你的Android Studio，并新建一个ConstraintLayoutTest项目。另外，确保你的Android Studio是2.2或以上版本。</p> 
+  <p>为了要使用ConstraintLayout，我们需要在app/build.gradle文件中添加ConstraintLayout的依赖，如下所示。</p> 
+  <pre>dependencies {
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+}</pre> 
+  <p>目前ConstraintLayout库最新的版本是1.0.0-beta4，还没有推出正式稳定版本，不过这并不影响我们提前进行学习和使用。</p> 
+  <p>现在打开res/layout/activity_main.xml文件，由于这是一个新建的空项目，Android Studio会自动帮我们创建好一个布局，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144211_684.png"></p> 
+  <p>不过，Android Studio自动创建的这个布局默认使用的是RelativeLayout，我们可以通过如下操作将它转换成ConstraintLayout。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144211_16.gif"></p> 
+  <p>转换完成之后，原RelativeLayout中的内容也会自动转换到ConstraintLayout中，比如图中的TextView。如果你不需要它的话，可以选中这个控件，然后按键盘上的Delete键即可删除。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144211_586.gif"></p> 
+  <p>我们可以看到，现在主操作区域内有两个类似于手机屏幕的界面，左边的是预览界面，右边的是蓝图界面。这两部分都可以用于进行布局编辑工作，区别是左边部分主要用于预览最终的界面效果，右边部分主要用于观察界面内各个控件的约束情况。</p> 
+  <h2 id="articleHeader1">基本操作</h2> 
+  <p>下面我们来学习一些具体的操作吧，ConstraintLayout的基本用法很简单，比如我们想要向布局中添加一个按钮，那么只需要从左侧的Palette区域拖一个Button进去就可以了，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144211_984.gif"></p> 
+  <p>虽说现在Button已经添加到界面上了，但是由于我们还没有给Button添加任何的约束，因此Button并不知道自己应该出现在什么位置。现在我们在预览界面上看到的Button位置并不是它最终运行后的实际位置，如果一个控件没有添加任何约束的话，它在运行之后会自动位于界面的左上角。</p> 
+  <p>那么下面我们就来给Button添加约束，每个控件的约束都分为垂直和水平两类，一共可以在四个方向上给控件添加约束，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144212_772.png"></p> 
+  <p>上图中Button的上下左右各有一个圆圈，这圆圈就是用来添加约束的，我们可以将约束添加到ConstraintLayout，也可以将约束添加到另一个控件。比如说，想让Button位于布局的右下角，就可以这样添加约束，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144212_463.gif"></p> 
+  <p>我们给Button的右边和下边添加了约束，因此Button就会将自己定位到布局的右下角了。类似地，如果我们想要让Button居中显示，那么就需要给它的上下左右都添加约束，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144212_89.gif"></p> 
+  <p>这就是添加约束最基本的用法了。</p> 
+  <p>除此之外，我们还可以使用约束让一个控件相对于另一个控件进行定位。比如说，我们希望再添加一个Button，让它位于第一个Button的正下方，并且间距64dp，那么操作如下所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144212_270.gif"></p> 
+  <p>现在添加约束的方式我们已经学完了，那么该怎样删除约束呢？其实也很简单，删除约束的方式一共有三种，第一种用于删除一个单独的约束，将鼠标悬浮在某个约束的圆圈上，然后该圆圈会变成红色，这个时候单击一下就能删除了，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144213_110.gif"></p> 
+  <p>第二种用于删除某一个控件的所有约束，选中一个控件，然后它的左下角会出现一个删除约束的图标，点击该图标就能删除当前控件的所有约束了，如下所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144213_517.gif"></p> 
+  <p>第三种用于删除当前界面中的所有约束，点击工具栏中的删除约束图标即可，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144213_597.png"></p> 
+  <h2 id="articleHeader2">Inspector</h2> 
+  <p>这样我们就把ConstraintLayout的基本用法学完了，接下来我们开始学习一些进阶的内容。</p> 
+  <p>当你选中任意一个控件的时候，在右侧的Properties区域就会出现很多的属性选项，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144213_409.png"></p> 
+  <p>在这里我们就可以设置当前控件的所有属性，如文本内容、颜色、点击事件等等。这些功能都非常简单，我就不再进行详细介绍，大家自己点一点就会操作了。</p> 
+  <p>需要我们重点掌握的是Properties区域的上半部分，这部分也被称为Inspector。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144213_220.png"></p> 
+  <p>首先可以看到，在Inspector中有一个纵向的轴和一个横向的轴，这两个轴也是用于确定控件的位置的。我们刚才给Button的上下左右各添加了一个约束，然后Button就能居中显示了，其实就是因为这里纵横轴的值都是50。如果调整了纵横轴的比例，那么Button的位置也会随之改变，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144213_96.gif"></p> 
+  <p>不过，虽然我们将横轴的值拖动到了100，但是Button并没有紧贴到布局的最右侧，这是为什么呢？实际上，Android Studio给控件的每个方向上的约束都默认添加了一个16dp的间距，从Inspector上面也可以明显地看出来这些间距的值。如果这些默认值并不是你想要的，可以直接在Inspector上进行修改，如下图所示：</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144214_234.gif"></p> 
+  <p>可以看到，修改成0之后Button右侧的间距就没了。</p> 
+  <p>接下来我们再来学习一下位于Inspector最中间的那个正方形区域，它是用来控制控件大小的。一共有三种模式可选，每种模式都使用了一种不同的符号表示，点击符号即可进行切换。</p> 
+  <ul> 
+   <li><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144214_32.png"> 表示wrap content，这个我们很熟悉了，不需要进行什么解释。</li> 
+   <li><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144214_168.png"> 表示固定值，也就是给控件指定了一个固定的长度或者宽度值。</li> 
+   <li><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144214_648.png"> 表示any size，它有点类似于match parent，但和match parent并不一样，是属于ConstraintLayout中特有的一种大小控制方式，下面我们来重点讲解一下。</li> 
+  </ul> 
+  <p>首先需要说明，在ConstraintLayout中是有match parent的，只不过用的比较少，因为ConstraintLayout的一大特点就是为了解决布局嵌套，既然没有了布局嵌套，那么match parent也就没有多大意义了。</p> 
+  <p>而any size就是用于在ConstraintLayout中顶替match parent的，先看一下我们怎样使用any size实现和match parent同样的效果吧。比如说我想让Button的宽度充满整个布局，操作如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144214_312.gif"></p> 
+  <p>可以看到，我们将Button的宽度指定成any size，它就会自动充满整个布局了。当然还要记得将Button左侧的间距设置成0才行。</p> 
+  <p>那有的朋友可能会问了，这和match parent有什么区别呢？其实最大的区别在于，match parent是用于填充满当前控件的父布局，而any size是用于填充满当前控件的约束规则。举个例子更好理解，如果我们有一个新的Button，它的其中一个约束是添加到当前这个Button上的，那么any size的效果也会发生改变，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144214_94.gif"></p> 
+  <p>通过上图的演示，相信你已经很好地理解any size的作用了。</p> 
+  <h2 id="articleHeader3">Guidelines</h2> 
+  <p>现在你已经对ConstraintLayout比较熟悉，并且能使用ConstraintLayout来编写一些简单的界面了。不过目前有一个问题可能还比较头疼，刚才我们已经实现了让一个按钮居中对齐的功能，如果我们想让两个按钮共同居中对齐该怎么实现呢？</p> 
+  <p>其实这个需求很常见，比如说在应用的登录界面，都会有一个登录按钮和一个注册按钮，不管它们是水平居中也好还是垂直居中也好，但肯定都是两个按钮共同居中的。</p> 
+  <p>想要实现这个功能，仅仅用我们刚刚学的那些知识是不够的，这需要用到ConstraintLayout中的一个新的功能，Guidelines。</p> 
+  <p>下面我们还是通过实际操作来学习一下Guidelines的用法吧。比如现在已经向界面中添加了登录和注册这两个按钮，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144216_618.png"></p> 
+  <p>然后我们希望让这两个按钮在水平方向上居中显示，在垂直方向上都距离底部64dp，那么就需要先添加一个垂直方向上的Guideline，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144216_737.gif"></p> 
+  <p>我来对上图中的操作进行一下解释。首先点击通知栏中的Guidelines图标可以添加一个垂直或水平方向上的Guideline，这里我们需要的是垂直方向上的。而Guideline默认是使用的dp尺，我们需要选中Guideline，并点击一下最上面的箭头图标将它改成百比分尺，然后将垂直方向上的Guideline调整到50%的位置，这样就将准备工作做好了。</p> 
+  <p>接下来我们开始实现让两个按钮在水平方向上居中显示，并距离底部64dp的功能，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144216_227.gif"></p> 
+  <p>可以看到，我们给登录按钮的右边向Guideline添加约束，登录按钮的下面向底部添加约束，并拖动按钮让它距离底部64dp。然后给注册按钮的左边向Guideline添加约束，注册按钮的下面向登录按钮的下面添加约束。这样就实现了让两个按钮在水平方向上居中显示，在垂直方向上都距离底部64dp的功能了。</p> 
+  <h2 id="articleHeader4">自动添加约束</h2> 
+  <p>不过如果界面中的内容变得复杂起来，给每个控件一个个地添加约束也是一件很繁琐的事情。为此，ConstraintLayout中支持自动添加约束的功能，可以极大程度上简化那些繁琐的操作。</p> 
+  <p>自动添加约束的方式主要有两种，一种叫Autoconnect，一种叫Inference，我们先来看第一种。</p> 
+  <p>想要使用Autoconnect，首先需要在工具栏中将这个功能启用，默认情况下Autoconnect是不启用的，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144217_259.png"></p> 
+  <p>Autoconnect可以根据我们拖放控件的状态自动判断应该如何添加约束，比如我们将Button放到界面的正中央，那么它的上下左右都会自动地添加上约束，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144217_38.gif"></p> 
+  <p>然后我们在这个Button的下方再放置一个Button，效果如下。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144217_365.gif"></p> 
+  <p>可以看到，只需要将Button拖放到界面上，Autoconnect会判断我们的意图，并自动给控件添加约束。不过Autoconnect是无法保证百分百准确判断出我们的意图的，如果自动添加的约束并不是你想要的话，还可以在任何时候进行手动修改。总之，可以把它当成一个辅助工具，但不能完全靠它去添加控件的约束。</p> 
+  <p>以上是Autoconnect的用法，接下来我们看一下Inference的用法。Inference也是用于自动添加约束的，但它比Autoconnect的功能要更为强大，因为AutoConnect只能给当前操作的控件自动添加约束，而Inference会给当前界面中的所有元素自动添加约束。因而Inference比较适合用来实现复杂度比较高的界面，它可以一键自动生成所有的约束。</p> 
+  <p>下面我们就通过一个例子来演示一下Inference的用法，比如界面上现在有两个TextView，两个EditText，和两个Button，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144218_468.png"></p> 
+  <p>接下来我们先将各个控件按照界面设计的位置进行摆放，摆放完成之后点击一下工具栏上的Infer Constraints按钮，就能为所有控件自动添加约束了，如下图所示。</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144218_329.gif"></p> 
+  <p>现在运行一下程序，最终效果如下图所示：</p> 
+  <p><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/20170203144218_122.png"></p> 
+  <p>到这里，我们基本就把ConstraintLayout中的重要用法都概括到了，通过本篇的学习，大家也对ConstraintLayout有了比较深入的认识。当然，ConstraintLayout目前还是处于beta版本，有很多的功能仍然在改进当中。比如说，beta3版本中引入的Chains功能就是一个很强大的新功能，不过由于这个功能需要配合Android Studio 2.3来使用，而2.3目前也还没有出正式版，因此我就没在本篇文章中加入这部分内容的介绍。等以后ConstraintLayout的功能更加丰富的时候，我可能会再写一篇ConstraintLayout的高级用法，来补足这方面的内容吧。</p> 
+  <p>&nbsp;</p> 
+  <p>来自：http://blog.csdn.net/guolin_blog/article/details/53122387</p> 
+  <p>&nbsp;</p> 
+ 
+
+				</article>
+
+
+
+
+		
+
+
+
+		</div>
+
+
+
+	<div class="col-md-3">
+		<div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1495520034292">
+			<a href="http://www.open-open.com/lib/view/open1486104138972.html#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+			<a href="http://www.open-open.com/lib/view/open1486104138972.html#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+			<a href="http://www.open-open.com/lib/view/open1486104138972.html#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+			<a href="http://www.open-open.com/lib/view/open1486104138972.html#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+			<a href="http://www.open-open.com/lib/view/open1486104138972.html#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+
+		</div>
+
+		<div class=" side-box" style="margin-top: 20px;">
+				<div class="title"><h3>同类热门经验</h3></div>
+				<ol class="hot">
+					
+						<li>
+							<a title="上百个Android开源项目分享" href="http://www.open-open.com/lib/view/open1328063267889.html"><span class="title">上百个Android开源项目分享</span></a>
+						</li>
+					
+						<li>
+							<a title="android" json解析及简单例子="" href="http://www.open-open.com/lib/view/open1326376799874.html"><span class="title">android json解析及简单例子</span></a>
+						</li>
+					
+						<li>
+							<a title="Android" 软件自动更新功能的实现="" href="http://www.open-open.com/lib/view/open1322529319718.html"><span class="title">Android 软件自动更新功能的实现</span></a>
+						</li>
+					
+						<li>
+							<a title="自定义" android="" 对话框="" (alertdialog)="" 的样式="" href="http://www.open-open.com/lib/view/open1325635738437.html"><span class="title">自定义 Android 对话框 (AlertDialog) 的样式</span></a>
+						</li>
+					
+						<li>
+							<a title="adb" shell="" 命令详解="" href="http://www.open-open.com/lib/view/open1327557366686.html"><span class="title">adb shell 命令详解</span></a>
+						</li>
+					
+						<li>
+							<a title="android定位和地图开发实例" href="http://www.open-open.com/lib/view/open1328756009421.html"><span class="title">android定位和地图开发实例 </span></a>
+						</li>
+					
+
+				</ol>
+			</div>
+		<p class="aiBar"></p>
+		<div class="side-box post-nav aside-fixed" style="margin-top: 20px;">
+			<div class="title"><h3>阅读目录</h3></div>
+			<ul class="articleIndex"><li class=""><a href="http://www.open-open.com/lib/view/open1486104138972.html#articleHeader0">开始</a></li><li class=""><a href="http://www.open-open.com/lib/view/open1486104138972.html#articleHeader1">基本操作</a></li><li class=""><a href="http://www.open-open.com/lib/view/open1486104138972.html#articleHeader2">Inspector</a></li><li class=""><a href="http://www.open-open.com/lib/view/open1486104138972.html#articleHeader3">Guidelines</a></li><li class="active"><a href="http://www.open-open.com/lib/view/open1486104138972.html#articleHeader4">自动添加约束</a></li></ul>
+		</div>
+	</div>
+
+
+
+</div>
+	</div>
+
+<div class="container">
+<script type="text/javascript">
+    var cpro_id = "u2690846";
+</script>
+<script type="text/javascript" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/c.js.下载"></script><div id="BAIDU_SSP__wrapper_u2690846_0"><iframe id="iframeu2690846_0" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/xcvm.html" width="846" height="120" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:846px;height:120px" allowtransparency="true"></iframe></div>
+
+	<div class="row">
+		<div class="col-md-9">
+			<table width="100%"><tbody><tr>
+				<td valign="top" width="33%" class="Relatedb">
+					<div style="border-bottom: 1px #ccc solid;margin-top: 5px"><strong>相关文档</strong> 　—　<a href="http://www.open-open.com/doc" rel="nofollow" target="_blank">更多</a></div>
+					<ul>
+						
+							<li><a href="http://www.open-open.com/doc/view/db3e041cc65c4a2d98dae06e4669ea3e" rel="nofollow" target="_blank" title="Android Studio 入门指南 .pdf">Android Studio 入门指南 .pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/ce09772ebf154cb8a1384ca210839728" rel="nofollow" target="_blank" title="Android Studio入门指南.doc">Android Studio入门指南.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/17f4eb99b1604884b26e6ef1ca91c909" rel="nofollow" target="_blank" title="android-studio详细教程.pdf">android-studio详细教程.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/9aa5ce9995be47f1bc77cc588db7dc6e" rel="nofollow" target="_blank" title="Android Studio 使用指南.pdf">Android Studio 使用指南.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/72727aa7ab274ae0b039124d46bf6227" rel="nofollow" target="_blank" title="史上最详细的android-studio系列教程.pdf">史上最详细的android-studio系列教程.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/14527c569b0344f3b65105d39449b541" rel="nofollow" target="_blank" title="史上最详细的android studio系列教程.pdf">史上最详细的android studio系列教程.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/53903e5360ba44f2998544b393060ef5" rel="nofollow" target="_blank" title="Android Studio开发精要 .pdf">Android Studio开发精要 .pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/fa57693acead46afa68d86f8e6ed7c05" rel="nofollow" target="_blank" title="Android Studio Application  Development.pdf">Android Studio Application  Development.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/4b0a75867b534742a69c7ef5fe548ff1" rel="nofollow" target="_blank" title="Android Studio Development 精髓.pdf">Android Studio Development 精髓.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/b5cfb51a05eb4eaaab65ea68a5759d69" rel="nofollow" target="_blank" title="Android Studio 使用指南(v0.1).pdf">Android Studio 使用指南(v0.1).pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/9cedc384c41842aa990a903f9f3adee0" rel="nofollow" target="_blank" title="Android Studio使用指南v0.1.pdf">Android Studio使用指南v0.1.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/db8b73b5b8074605b25137cf052c4ee9" rel="nofollow" target="_blank" title="Android Studio 游戏开发理念与设计.pdf">Android Studio 游戏开发理念与设计.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/01da38aa65dc4d2ea53b05e95a5c8c78" rel="nofollow" target="_blank" title="Android Studio 使用指南v0.1.pdf">Android Studio 使用指南v0.1.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/8267829b0caa4cb5be9d108bf393d64e" rel="nofollow" target="_blank" title="android studio 操作手册 - v1.1.pdf">android studio 操作手册 - v1.1.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/037eb14cda3e47ea80f6068cabe37792" rel="nofollow" target="_blank" title="Android编程实战.pdf">Android编程实战.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/fa50871cd56f4e478b9c8d2bd45d18f2" rel="nofollow" target="_blank" title="Android Studio 使用手册.pdf">Android Studio 使用手册.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/7eabc92c04d64fe4b2cbe6735c4bb874" rel="nofollow" target="_blank" title="Android Studio 使用指南(v0.2).pdf">Android Studio 使用指南(v0.2).pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/104ea129ac414e5dbfdd1d198c7b5413" rel="nofollow" target="_blank" title="android基础入门教程.pdf">android基础入门教程.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/8ce232e34c2644d1846756bec88cf748" rel="nofollow" target="_blank" title="C#开发Android应用实战.pdf">C#开发Android应用实战.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/afe72b7eef574bfc9226198684e53e44" rel="nofollow" target="_blank" title="gradle_recipes_for_android.pdf">gradle_recipes_for_android.pdf</a></li>
+						
+					</ul>
+				</td>
+				<td valign="top" width="33%" class="Relatedb">
+					<div style="border-bottom: 1px #ccc solid;margin-top: 5px"><strong>相关经验</strong> 　—　<a href="http://www.open-open.com/lib" rel="nofollow" target="_blank">更多</a></div>
+					<ul>
+						
+							<li>
+								<a title="Android" weekly="" #207="" 中文版="" href="http://www.open-open.com/lib/view/open1464570741372.html" target="_blank"><span class="title">Android Weekly #207 中文版</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android" weekly="" #209="" 中文版="" href="http://www.open-open.com/lib/view/open1465777452974.html" target="_blank"><span class="title">Android Weekly #209 中文版</span></a>
+
+							</li>
+						
+							<li>
+								<a title="ConstraintLayout约束布局的概念与使用" href="http://www.open-open.com/lib/view/open1470727538245.html" target="_blank"><span class="title">ConstraintLayout约束布局的概念与使用</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android" weekly="" #213="" 中文版="" href="http://www.open-open.com/lib/view/open1468203865157.html" target="_blank"><span class="title">Android Weekly #213 中文版</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android" tips="" -="" 专业填坑手册="" href="http://www.open-open.com/lib/view/open1442234101883.html" target="_blank"><span class="title"> Android Tips - 专业填坑手册</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android" studio="" 2.0="" 新特性="" href="http://www.open-open.com/lib/view/open1456127373151.html" target="_blank"><span class="title">Android Studio 2.0 新特性</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android开源库大全" href="http://www.open-open.com/lib/view/open1387414885890.html" target="_blank"><span class="title">Android开源库大全</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android开源库集锦" href="http://www.open-open.com/lib/view/open1428676879468.html" target="_blank"><span class="title">Android开源库集锦 </span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android开源库集锦" href="http://www.open-open.com/lib/view/open1388231274813.html" target="_blank"><span class="title">Android开源库集锦 </span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android" studio="" 提示与技巧（官方文档翻译）="" href="http://www.open-open.com/lib/view/open1462930766027.html" target="_blank"><span class="title">Android Studio 提示与技巧（官方文档翻译）</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android" studio="" 新手完全指引="" href="http://www.open-open.com/lib/view/open1434029865551.html" target="_blank"><span class="title">Android Studio 新手完全指引</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android" studio="" 视频教程分享="" href="http://www.open-open.com/lib/view/open1455707763651.html" target="_blank"><span class="title">Android Studio 视频教程分享</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Android" studio最全解析="" href="http://www.open-open.com/lib/view/open1455981198089.html" target="_blank"><span class="title">Android Studio最全解析 </span></a>
+
+							</li>
+						
+							<li>
+								<a title="介绍" visual="" studio="" 的="" android="" 模拟器="" href="http://www.open-open.com/lib/view/open1416274442773.html" target="_blank"><span class="title">介绍 Visual Studio 的 Android 模拟器</span></a>
+
+							</li>
+						
+					</ul>
+				</td>
+				<td valign="top" width="33%" class="Relatedb">
+					<div style="border-bottom: 1px #ccc solid;margin-top: 5px"><strong>相关讨论</strong> 　—　<a href="http://www.open-open.com/solution" rel="nofollow" target="_blank">更多</a></div>
+					<ul>
+						
+							<li>
+								<a title="Android" studio="" 快捷键使用总结="" href="http://www.open-open.com/solution/view/1420701888328" rel="nofollow" target="_blank"><span class="title">Android Studio 快捷键使用总结</span></a>
+							</li>
+						
+							<li>
+								<a title="介绍几款比较新颖的移动开发调试工具，支持android" studio,eclipse="" href="http://www.open-open.com/solution/view/1450947761417" rel="nofollow" target="_blank"><span class="title">介绍几款比较新颖的移动开发调试工具，支持android studio,eclipse</span></a>
+							</li>
+						
+							<li>
+								<a title="Android的类库Picasso有哪些特性？" href="http://www.open-open.com/solution/view/1436521317380" rel="nofollow" target="_blank"><span class="title">Android的类库Picasso有哪些特性？</span></a>
+							</li>
+						
+							<li>
+								<a title="Android" studio快捷键="" href="http://www.open-open.com/solution/view/1409715785963" rel="nofollow" target="_blank"><span class="title">Android studio快捷键 </span></a>
+							</li>
+						
+							<li>
+								<a title="Android" studio常用快捷键="" href="http://www.open-open.com/solution/view/1434186708442" rel="nofollow" target="_blank"><span class="title">Android Studio常用快捷键 </span></a>
+							</li>
+						
+							<li>
+								<a title="Android" 简介="" href="http://www.open-open.com/solution/view/1318854628046" rel="nofollow" target="_blank"><span class="title">Android 简介</span></a>
+							</li>
+						
+							<li>
+								<a title="Android" fragment="" 完全解析（上）="" href="http://www.open-open.com/solution/view/1434938726997" rel="nofollow" target="_blank"><span class="title">Android Fragment 完全解析（上）</span></a>
+							</li>
+						
+					</ul>
+				</td>
+			</tr></tbody></table>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+
+
+<style>
+	footer{background-color: #fff;
+		border-top: 1px solid rgba(230, 230, 230, 0.75);
+		margin-top: 20px;
+		padding: 20px 0;}
+</style>
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-xs-4" style="line-height: 60px;">
+				<span>©2006-2016 深度开源 </span>
+			</div>
+			<div class="col-md-4 col-xs-4 text-center"><span>
+				<a rel="nofollow" href="http://www.open-open.com/" class="brightbox-logo"><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/logo-icon.png"></a>
+			</span></div>
+			<div class="col-md-4 col-xs-4" style="line-height: 60px;">
+				 <a target="_blank" href="http://www.miibeian.gov.cn/">浙ICP备09019653号-31</a>
+				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257892335'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257892335' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1257892335"><a href="http://www.cnzz.com/stat/website.php?web_id=1257892335" target="_blank" title="站长统计">站长统计</a></span><script src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/z_stat.php" type="text/javascript"></script><script src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/core.php" charset="utf-8" type="text/javascript"></script>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/jquery.min.js.下载"></script>
+<script type="text/javascript" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/jquery-confirm.js.下载"></script>
+<script type="text/javascript" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/app.js.下载"></script>
+<script type="text/javascript" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/scrolltopcontrol.js.下载"></script>
+<!-- the jScrollPane script -->
+<script type="text/javascript" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/jquery.contentcarousel.js.下载"></script>
+
+<script type="text/javascript">
+	var rooturl="/lib";
+	var tb_pathToImage = "/lib/images/loadingAnimation.gif";
+	var jc = {};
+	$(function (){
+		$('#ca-container').contentcarousel();
+		$('.login').on('click', function () {
+			jc = $.dialog({
+				title: '&nbsp;',
+				content: '<iframe id="dialog" scrolling="no" style="width:100%;border:none;height:300px;" src="/lib/members/login?keepThis=true&TB_iframe=true&height=177&width=280"></iframe>',
+				animation: 'top',
+				columnClass: 'col-md-5 col-md-offset-3',
+				closeAnimation: 'top',
+				backgroundDismiss: true
+			});
+		});
+		$('.register').on('click', function () {
+			jc = $.dialog({
+				title: '&nbsp;',
+				content: '<iframe id="dialog" scrolling="no" style="width:100%;border:none;height:460px;" src="/lib/members/register?keepThis=true&TB_iframe=true&height=460&width=460"></iframe>',
+				animation: 'top',
+				columnClass: 'col-md-6 col-md-offset-3',
+				closeAnimation: 'top',
+				backgroundDismiss: true
+			});
+		});
+
+
+	});
+
+
+</script>
+
+<script src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/jquery-ui.min.js.下载"></script>
+<script type="text/javascript" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/scrolltopcontrol.js.下载"></script>
+<script type="text/javascript" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/view.js.下载"></script>
+
+<script type="text/javascript" src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/jquery.jgrowl_minimized.js.下载"></script>
+
+<script type="text/javascript">
+	scrolltotop.offset(95,165);
+	scrolltotop.init();
+</script>
+<script src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/highlight.min.js.下载"></script>
+<script>hljs.initHighlightingOnLoad();
+
+	(function(){
+		var c = new contentIndex();
+		c("article", ".articleIndex");
+		setAIActive();
+
+
+		$(window).scroll(function () {
+			if ($(window).scrollTop() > $(".aiBar").offset().top) {
+				$(".post-nav").addClass("aside-fixed");
+//          console.log($(window).scrollTop());
+			} else {
+//           console.log($(window).scrollTop());
+				$(".post-nav").removeClass("aside-fixed");
+			}
+		});
+		$("#readercontainer img").each(function(index, element) {
+			var $width=$("#readercontainer article").width();
+			if ( this.width>$width) {
+
+				this.height = this.height*$width/this.width;
+				this.width=$width;
+			}
+		});
+
+	})();
+</script>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		bp.src = '//push.zhanzhang.baidu.com/push.js';
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+</script>
+
+
+
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="favorite-box" aria-labelledby="ui-id-1" style="display: none;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix ui-draggable-handle"><span id="ui-id-1" class="ui-dialog-title">收藏提示</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="Close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">Close</span></button></div><div id="favorite-box" class="ui-dialog-content ui-widget-content" style="display: block;">
+						<table>
+							<tbody>
+							<tr>
+								<td width="70" align="right">文件夹</td>
+								<td><select id="fav_folderlist" name="folder">
+									<option selected="" value="0">请选择...</option>
+									<option id="newfolder-sp" disabled="" value="">-------------</option>
+									<option value="-1">新增文件夹...</option>
+								</select></td>
+							</tr>
+							<tr style="display: none" id="newfolder-input">
+								<td align="right">新增文件夹</td>
+								<td><input id="fav_newfolder" maxlength="50" type="text" name="newfolder"></td>
+							</tr>
+							<tr>
+								<td align="right">标签</td>
+								<td><input id="fav_tags" maxlength="135" size="20" type="text" name="tags"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="2">(多个标签用逗号分隔)</td>
+							</tr>
+							</tbody>
+						</table>
+					</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">取消</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">确认</span></button></div></div></div><div id="topcontrol" title="回到顶部" style="position: fixed; bottom: 165px; right: 95px; cursor: pointer;"><img src="./Android新特性介绍，ConstraintLayout完全解析 - OPEN 开发经验库_files/gotop.gif" style="width:35px; height:35px;"></div></body></html>
