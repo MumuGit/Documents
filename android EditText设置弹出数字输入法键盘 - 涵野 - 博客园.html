@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://www.cnblogs.com/lxshanye/p/3865593.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>android EditText设置弹出数字输入法键盘 - 涵野 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/bundle-LessIsMore.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/bundle-LessIsMore-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/lxshanye/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/lxshanye/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/lxshanye/wlwmanifest.xml">
+<script async="" src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/analytics.js.下载"></script><script src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'lxshanye', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/lxshanye/">涵野</a></div>
+<div class="subtitle"></div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/lxshanye/">首页</a></li>
+<li id="nav_newpost"><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%B6%B5%E9%87%8E">联系</a></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/lxshanye/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/lxshanye/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-179&nbsp;
+文章-0&nbsp;
+评论-10&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/lxshanye/p/3865593.html">android EditText设置弹出数字输入法键盘</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&lt;EditText&nbsp;<br>
+&nbsp;&nbsp;&nbsp; android:id="@+id/edit_digit_input"&nbsp;<br>
+&nbsp;&nbsp;&nbsp; android:layout_width="wrap_content"&nbsp;<br>
+&nbsp;&nbsp;&nbsp; android:layout_height="wrap_content"&nbsp;<br>
+&nbsp;&nbsp;&nbsp; android:digits="1234567890."&nbsp;<br>
+&nbsp;&nbsp;&nbsp; android:singleLine="true"&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp; /&gt;&nbsp;<br>
+&lt;EditText<br>
+&nbsp;android:id="@+id/edit_digit_input"<br>
+&nbsp;android:layout_width="wrap_content"<br>
+&nbsp;android:layout_height="wrap_content"<br>
+&nbsp;android:digits="1234567890."<br>
+&nbsp;android:singleLine="true"<br>
+&nbsp;/&gt;<br>
+&nbsp;<br>
+再者代码里面设置输入法类型：</p>
+<p>[java] editText.setInputType(EditorInfo.TYPE_CLASS_PHONE);&nbsp;<br>
+editText.setInputType(EditorInfo.TYPE_CLASS_PHONE);<br>
+则如果该EditText获得焦点，会弹出数字输入法的模拟键盘</p>
+<p>&nbsp;<iframe id="iframe_0.8423817277653529" src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/saved_resource.html" style="border: none; width: 326px; height: 480px;" frameborder="0" scrolling="no"></iframe><br>
+&nbsp;</p>
+</div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/lxshanye/category/526335.html" target="_blank">Android</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3865593,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;e354e471-3a54-e211-aa8f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/lxshanye/" target="_blank"><img src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/lxshanye/">涵野</a><br>
+            <a href="http://home.cnblogs.com/u/lxshanye/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/lxshanye/followers">粉丝 - 33</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;e354e471-3a54-e211-aa8f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3865593,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(3865593,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/lxshanye/p/3863319.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/lxshanye/p/3863319.html" title="发布于2014-07-23 16:22">Android让文本输入框默认不获取焦点</a><br><a href="http://www.cnblogs.com/lxshanye/p/3865599.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/lxshanye/p/3865599.html" title="发布于2014-07-24 14:43">判断字符串为空</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2014-07-24 14:42</span> <a href="http://www.cnblogs.com/lxshanye/">涵野</a> 阅读(<span id="post_view_count">12456</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3865593" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/lxshanye/p/3865593.html#" onclick="AddToWz(3865593);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=140537,cb_entryId=3865593,cb_blogApp=currentBlogApp,cb_blogUserGuid='e354e471-3a54-e211-aa8f-842b2b196315',cb_entryCreatedDate='2014/7/24 14:42:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/lxshanye/p/3865593.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/lxshanye/p/3865593.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://click.aliyun.com/m/21970/" target="_blank">【阿里云】云计算科技红利邀您免费体验！云服务器、云数据库等35+产品，6个月免费使用！</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.241259.241259.241259" target="_blank">【免费】从零开始学编程，开发者专属实验平台免费实践！</a><br><a href="https://www.upyun.com/618?utm_source=cnblogs&amp;utm_medium=referral&amp;utm_content=618" target="_blank">【推荐】又拍云年中大促！现在注册，充值最高送4800元</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://cn.udacity.com/dand/?utm_source=cnblog&amp;utm_medium=referral&amp;utm_campaign=dand04" target="_blank"><img width="300" height="250" src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/24442-20170622211528820-758499309.jpg" alt="优达学城_FaceBook_0623"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/572512/" target="_blank">苹果悄悄买下一家眼部追踪公司 AR眼镜传说要成真？</a><br> ·  <a href="http://news.cnblogs.com/n/572509/" target="_blank">苹果在西雅图组建Siri研发团队 跑亚马逊大本营抢人才</a><br> ·  <a href="http://news.cnblogs.com/n/572490/" target="_blank">Facebook推出哈利·波特复活节彩蛋</a><br> ·  <a href="http://news.cnblogs.com/n/572508/" target="_blank">和三星抢生意 LG力争明年为iPhone 9供应柔性电路板</a><br> ·  <a href="http://news.cnblogs.com/n/572510/" target="_blank">不想被亚马逊淘汰 零售巨头纷纷推出网购一小时送达</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.mtyun.com/activity-anniversary?site=cnblogs&amp;campaign=20170601sales" target="_blank"><img width="468" height="60" src="./android EditText设置弹出数字输入法键盘 - 涵野 - 博客园_files/24442-20170615095125603-13625507.png" alt="美团云"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/570194/" target="_blank">小printf的故事：什么是真正的程序员？</a><br> ·  <a href="http://kb.cnblogs.com/page/569992/" target="_blank">程序员的工作、学习与绩效</a><br> ·  <a href="http://kb.cnblogs.com/page/569056/" target="_blank">软件开发为什么很难</a><br> ·  <a href="http://kb.cnblogs.com/page/565901/" target="_blank">唱吧DevOps的落地，微服务CI/CD的范本技术解读</a><br> ·  <a href="http://kb.cnblogs.com/page/566523/" target="_blank">程序员，如何从平庸走向理想？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/lxshanye/">涵野</a><br>园龄：<a href="http://home.cnblogs.com/u/lxshanye/" title="入园时间：2013-01-02">4年5个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/lxshanye/followers/">33</a><br>关注：<a href="http://home.cnblogs.com/u/lxshanye/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;e354e471-3a54-e211-aa8f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/05/01&#39;);return false;">&lt;</a></td><td align="center">2017年6月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/07/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td class="CalWeekendDay" align="center">3</td></tr><tr><td class="CalWeekendDay" align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td class="CalWeekendDay" align="center">10</td></tr><tr><td class="CalWeekendDay" align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td class="CalWeekendDay" align="center">17</td></tr><tr><td class="CalWeekendDay" align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalWeekendDay" align="center">24</td></tr><tr><td class="CalWeekendDay" align="center">25</td><td align="center">26</td><td class="CalTodayDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td></tr><tr><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/lxshanye/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/lxshanye/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/lxshanye/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/lxshanye/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/lxshanye/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/lxshanye/category/448330.html">.net(31)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/lxshanye/category/526335.html">Android(36)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/lxshanye/category/594870.html">Android 微信开发(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/lxshanye/category/450726.html">C/C++(32)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/lxshanye/category/622427.html">CSS(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/lxshanye/category/459538.html">HTML5(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/lxshanye/category/618337.html">javascript(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/lxshanye/category/461349.html">Socket(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/lxshanye/category/448331.html">SQL SERVER 2005(18)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/lxshanye/category/449044.html">VBA&amp;Excel(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/lxshanye/category/471757.html">VPN(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/lxshanye/category/566560.html">Webkit(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/lxshanye/category/578446.html">Webservice(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/lxshanye/category/546098.html">WIN 7(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/lxshanye/category/620693.html">win8(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/lxshanye/category/471759.html">Windows Server 2003(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/lxshanye/category/450887.html">Windows Server 2008(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/lxshanye/category/465173.html">Windows技巧(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/lxshanye/category/583051.html">Winform(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/lxshanye/category/599914.html">版本控制(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/lxshanye/category/465136.html">存储过程(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/lxshanye/category/450759.html">计划任务(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/lxshanye/category/448339.html">开发框架(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/lxshanye/category/536501.html">逆向破解辅助(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/lxshanye/category/517969.html">无线网络(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/lxshanye/category/450052.html">系统安全(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/lxshanye/category/451393.html">学习地址(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/lxshanye/category/450719.html">远程桌面(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/lxshanye/category/564393.html">证券相关(3)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/lxshanye/archive/2014/12.html">2014年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/lxshanye/archive/2014/11.html">2014年11月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/lxshanye/archive/2014/10.html">2014年10月 (24)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/lxshanye/archive/2014/09.html">2014年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/lxshanye/archive/2014/08.html">2014年8月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/lxshanye/archive/2014/07.html">2014年7月 (23)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/lxshanye/archive/2014/06.html">2014年6月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/lxshanye/archive/2014/05.html">2014年5月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/lxshanye/archive/2014/04.html">2014年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/lxshanye/archive/2014/03.html">2014年3月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/lxshanye/archive/2014/02.html">2014年2月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/lxshanye/archive/2014/01.html">2014年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/lxshanye/archive/2013/12.html">2013年12月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/lxshanye/archive/2013/11.html">2013年11月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/lxshanye/archive/2013/10.html">2013年10月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/lxshanye/archive/2013/09.html">2013年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/lxshanye/archive/2013/07.html">2013年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/lxshanye/archive/2013/06.html">2013年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/lxshanye/archive/2013/05.html">2013年5月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/lxshanye/archive/2013/04.html">2013年4月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/lxshanye/archive/2013/03.html">2013年3月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/lxshanye/archive/2013/02.html">2013年2月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/lxshanye/archive/2013/01.html">2013年1月 (8)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListArticleCategory">
+<h3 class="catListTitle">文章分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/lxshanye/category/564392.html">证券相关</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListImageCategory">
+<h3 class="catListTitle">相册</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_3_Link_0" href="http://www.cnblogs.com/lxshanye/gallery/449046.html" rel="nofollow">VBA_Excel(6)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lxshanye/p/3580697.html#3410298">1. Re:android基站定位程序获取地理位置</a></li>
+        <li class="recent_comment_body">请问访问谷歌需要翻墙该怎么办呀。。是不是手机不翻墙就不能调用谷歌的API了</li>
+        <li class="recent_comment_author">--看都看不懂啊</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lxshanye/archive/2013/03/14/2958659.html#3400222">2. Re:SQL Server 2005数据库日志文件损坏的情况下如何恢复数据库</a></li>
+        <li class="recent_comment_body">也可以直接从mdf里面读数据.提取table ,procedure,view等，生成新的数据库。再附加即可。QQ：80554803</li>
+        <li class="recent_comment_author">--jogewang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lxshanye/p/3416154.html#3352064">3. Re:如何分配数据库角色权限</a></li>
+        <li class="recent_comment_body">创建数据库角色用<br>create role role1<br>和<br>exec sp_addrole 'role1'<br>有什么区别？</li>
+        <li class="recent_comment_author">--皑皑ii</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lxshanye/p/3560188.html#3288346">4. Re:HTML5桌面通知：notification api</a></li>
+        <li class="recent_comment_body">Notification.Permission    p 小写</li>
+        <li class="recent_comment_author">--raisezhang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lxshanye/p/3752827.html#3287744">5. Re:winform下通过webclient使用非流方式上传(post)数据和文件</a></li>
+        <li class="recent_comment_body">人才</li>
+        <li class="recent_comment_author">--神人再生</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/lxshanye/archive/2013/05/20/3088558.html">1. C++动态数组(72274)</a></li><li><a href="http://www.cnblogs.com/lxshanye/archive/2013/06/06/3121712.html">2. C++字符串格式化 sprintf、printf(35193)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/3899303.html">3. android LinearLayout添加分隔线(29707)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/3580697.html">4. android基站定位程序获取地理位置(23735)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/3560188.html">5. HTML5桌面通知：notification api(16622)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/lxshanye/p/3580697.html">1. android基站定位程序获取地理位置(2)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/3560188.html">2. HTML5桌面通知：notification api(1)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/3416154.html">3. 如何分配数据库角色权限(1)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/4072183.html">4. asp.net项目在IE11下出现“__doPostBack”未定义的解决办法(1)</a></li><li><a href="http://www.cnblogs.com/lxshanye/archive/2013/03/14/2958659.html">5. SQL Server 2005数据库日志文件损坏的情况下如何恢复数据库(1)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/lxshanye/archive/2013/05/20/3088558.html">1. C++动态数组(3)</a></li><li><a href="http://www.cnblogs.com/lxshanye/archive/2013/04/11/3014207.html">2. .net中常用的几种页面间传递参数的方法(2)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/3805462.html">3. .Net执行cmd命令(2)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/4031303.html">4. ApkTool反编译和重新打包(2)</a></li><li><a href="http://www.cnblogs.com/lxshanye/p/4029995.html">5. sql server 2005 32位+64位、企业版+标准版、CD+DVD 下载地址大全(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 涵野
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>
