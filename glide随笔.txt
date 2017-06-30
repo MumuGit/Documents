@@ -1,0 +1,34 @@
+Glide-->with(FragmentActivity activity)会走RequestManager的onStop方法使RequestTracker的isPaused为true
+-->RequestManagerRetriever--->RequestManager--->load()---> 
+asDrawable()-->RequestBuilder-->load( Object model)-->loadGeneric()-->into(ImageView)
+-->GlideContext-->buildImageViewTarget(ImageView imageView, Class<X> transcodeClass);
+-->DrawableImageViewTarget extends Target-->RequestBuilder.into(Target)-->RequestBuilder.buildRequest()
+-->SingleRequest extends Request-->RequestManager.track()
+--> TargetTracker.track(target);RequestTracker.runRequest(request)内的pendingRequests.add(request)-->转折点
+-->SupportRequestManagerFragment.onAttach()--> onStart()-->ActivityFragmentLifecycle.onStart()
+-->lifecycleListener.onStart()-->RequestManager implements LifecycleListener .onStart()-->
+requestTracker.resumeRequests()--> SingleRequest.begin()-->ImageViewTarget.onLoadStarted()就是加载个占位图
+-->targetTracker.onStart()-->
+
+
+
+
+SingleRequest.onSizeReady-->EngineJob.handleResultOnMainThread() 的cb.onResourceReady(engineResource, dataSource)
+-->SingleRequest.onResourceReady(Resource<?> resource, DataSource dataSource)-->ImageViewTarget.onResourceReady()
+-->ImageViewTarget.setResourceInternal()
+
+
+RequestManager implements LifecycleListener
+
+Glide.with(this)-->RequestManager构造[lifecycle.addListener(this)]
+
+SupportRequestManagerFragment.onStart()-->ActivityFragmentLifecycle implements Lifecycle.onStart()
+-->RequestManager implements LifecycleListener.onStart()-->TargetTracker implements LifecycleListener.onStart()
+-->DrawableImageViewTarget.onStart()
+
+
+RequestManager主要作用为实现request和Activity生命周期相关联
+ctrl+shift+r来查找类
+Request可以随Activity或Fragment的onStart而resume，onStop而pause，onDestroy而clear
+target实现了lifecycleListener，故将它加入到lifecycle，这样在恰当的时机得到回调
+RequestManager，实现了LifeCycleListener，主要作用为结合Activity或Fragment生命周期，对Request进行管理，如pauseRequests(), resumeRequests(), clearRequests()
