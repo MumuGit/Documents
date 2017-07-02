@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)https://www.oschina.net/question/54100_27822 -->
+<html lang="zh-CN" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1,user-scalable=0">
+    <meta name="keywords" content="${Keywords}">
+    <meta name="description" itemprop="description" content="${Description}">
+    <title>Handler+Looper+MessageQueue深入详解 - 开源中国社区</title>
+            <script src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/push.js.下载"></script><script src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/hm.js.下载"></script><script src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/ca-pub-7090564139599510.js.下载"></script><script src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/ca-pub-7443704194229694.js.下载"></script><script src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/share.js.下载"></script><style>.cke{visibility:hidden;}</style><style type="text/css">.fancybox-margin{margin-right:17px;}</style><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/config.js.下载"></script><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/skin.js.下载"></script><link rel="stylesheet" href="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/share_style0_16.css"><link rel="stylesheet" type="text/css" href="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/editor.css"><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/zh-cn.js.下载"></script><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/styles.js.下载"></script><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/plugin.js.下载"></script><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/plugin.js(1).下载"></script><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/zh-cn.js(1).下载"></script><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/highlight.pack.js.下载"></script></head><body class="sc sc-bgc body" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0"><val data-name="goto_this_page" data-value="https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fwww.oschina.net%2Fquestion%2F54100_27822"></val>
+                <link type="text/css" rel="stylesheet" href="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/question-main-b06014f2149991e1d053297fc7f6b8b01f6a5dfb.css">        
+
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="position:absolute;"><defs><svg width="14" height="15" viewBox="0 0 14 15" id="ic-comment-delete"><path d="M4.702 12.134V4.868a.33.33 0 0 0-.661 0v7.266a.33.33 0 0 0 .661 0zm2.645 0V4.868a.33.33 0 0 0-.661 0v7.266a.33.33 0 0 0 .661 0zm4.96-7.596v8.917c0 .364-.296.66-.662.66H2.388a.661.661 0 0 1-.661-.66V4.538a.33.33 0 0 0-.65-.083c-.004-.002-.012 9-.012 9 0 .73.592 1.32 1.323 1.32h9.257c.73 0 1.323-.59 1.323-1.32V4.538a.33.33 0 0 0-.661 0zm1.324-2.642H9.823L8.603.677a.35.35 0 0 0-.256-.102h-2.66a.35.35 0 0 0-.255.102l-1.22 1.219H.404a.33.33 0 1 0 0 .66h3.98a.35.35 0 0 0 .261-.102l1.22-1.219H8.17l1.22 1.219a.35.35 0 0 0 .261.102h3.98a.33.33 0 0 0 0-.66zM9.992 12.134V4.868a.33.33 0 0 0-.66 0v7.266a.33.33 0 0 0 .66 0z" stroke="#5F5E5E" stroke-width=".4" fill="#5F5E5E" fill-rule="evenodd"></path></svg><svg width="16" height="15" viewBox="0 0 16 15" id="ic-comment-icon"><defs><path d="M53 5.007C53 3.9 53.895 3 54.994 3h12.012C68.107 3 69 3.901 69 5.007v7.978a2.003 2.003 0 0 1-2.01 2.008h-.72c-1.11 0-2.644.631-3.428 1.412l-.376.374c-.783.78-2.05.78-2.831 0l-.375-.374c-.78-.78-2.302-1.412-3.413-1.412H55c-1.104 0-1.999-.902-1.999-2.008V5.007z" id="ba"></path><mask id="bb" x="0" y="0" width="16" height="14.364" fill="#fff"><use xlink:href="#ba"></use></mask></defs><use mask="url(#bb)" xlink:href="#ba" transform="translate(-53 -3)" stroke-width="2" stroke="#999" fill="none" fill-rule="evenodd"></use></svg><svg width="17" height="17" viewBox="0 0 17 17" id="ic-comment-like"><path d="M15.249 5.895c-.625-.164-2.095-.162-4.244-.218.102-.47.125-.892.125-1.642 0-1.792-1.307-3.371-2.463-3.371-.817 0-1.49.667-1.5 1.487-.012 1.006-.323 2.744-2 3.625-.123.065-.475.238-.527.26l.027.023c-.263-.226-.627-.4-1-.4h-1.5c-.827 0-1.5.673-1.5 1.5v7.993a1.5 1.5 0 0 0 1.5 1.499h1.5c.595 0 1.092-.36 1.334-.863a.164.164 0 0 0 .023.006l.12.031.023.006c.288.071.842.204 2.027.476.254.058 1.596.344 2.987.344h2.733c.833 0 1.45-.31 1.79-.963.333-.581 1.964-3.692 1.963-8.077 0-.63-.437-1.436-1.418-1.716zM4.167 15.152a.5.5 0 0 1-.5.5h-1.5a.5.5 0 0 1-.5-.5V7.158a.5.5 0 0 1 .5-.499h1.5a.5.5 0 0 1 .5.5v7.993z" fill="#4AAB47" fill-rule="evenodd"></path></svg><svg width="18" height="16" viewBox="0 0 18 16" id="ic-comment-report"><defs><rect id="da" x="7.2" y="4" width="1.5" height="5" rx=".75"></rect><mask id="db" x="0" y="0" width="1.5" height="5" fill="#fff"><use xlink:href="#da"></use></mask></defs><g transform="translate(1 1)" fill="none" fill-rule="evenodd"><path d="M6.944.719c.551-.956 1.442-.962 1.997 0l6.706 11.624c.551.956.111 1.73-.998 1.73H1.236c-1.103 0-1.553-.768-.998-1.73L6.944.72z" stroke="#979797"></path><use stroke="#979797" mask="url(#db)" stroke-width="2" fill="#D8D8D8" xlink:href="#da"></use><circle fill="#979797" cx="8" cy="11" r="1"></circle></g></svg><svg width="20" height="20" viewBox="0 0 20 20" id="ic-comment-smile"><path d="M9.996 19.979C4.495 19.979 0 15.497 0 9.996 0 4.482 4.482 0 9.996 0c5.515 0 9.996 4.482 9.996 9.996 0 5.501-4.481 9.983-9.996 9.983zm0-18.731c-4.817 0-8.748 3.918-8.748 8.748 0 4.817 3.918 8.748 8.748 8.748 4.817 0 8.748-3.918 8.748-8.748a8.75 8.75 0 0 0-8.748-8.748zm0 14.679a6.69 6.69 0 0 1-5.112-2.362.633.633 0 0 1 .067-.885c.255-.229.658-.188.886.067a5.47 5.47 0 0 0 8.346 0 .606.606 0 0 1 .872-.067.606.606 0 0 1 .067.872 6.752 6.752 0 0 1-5.126 2.375zm-3.18-5.985c-.55 0-1.006-.456-1.006-1.006V7.568c0-.55.456-1.007 1.006-1.007s1.006.456 1.006 1.007v1.368c0 .55-.456 1.006-1.006 1.006zm6.36 0c-.55 0-1.006-.456-1.006-1.006V7.568c0-.55.456-1.007 1.006-1.007s1.006.456 1.006 1.007v1.368c0 .55-.442 1.006-1.006 1.006z" fill="#888" fill-rule="evenodd"></path></svg><svg width="19" height="19" viewBox="0 0 19 19" id="ic-comment-software"><g fill="#888" fill-rule="evenodd"><path d="M3.187 6.519h3.42v-3.42h-3.42zM7.746 6.519h3.42v-3.42h-3.42zM12.306 6.519h3.42v-3.42h-3.42zM3.187 11.078h3.42v-3.42h-3.42zM7.746 11.078h3.42v-3.42h-3.42zM3.187 15.637h3.42v-3.42h-3.42z"></path><path d="M13.5 15.637h2.225V7.659h-3.42v4.558H7.747v3.42H13.5"></path><path d="M17.18.019H1.73C.737.019.004.823.004 1.815V17.2c0 .992.804 1.796 1.796 1.796h15.381c.992 0 1.796-.804 1.796-1.796V1.709c0-.992-.804-1.69-1.796-1.69zM2.117 16.884h14.748V2.131H2.116v14.753z"></path></g></svg><svg width="17" height="17" viewBox="0 0 17 17" id="ic-comment-unlike"><path d="M15.249 5.895c-.625-.164-2.095-.162-4.244-.218.102-.47.125-.892.125-1.642 0-1.792-1.307-3.371-2.463-3.371-.817 0-1.49.667-1.5 1.487-.012 1.006-.323 2.744-2 3.625-.123.065-.475.238-.527.26l.027.023c-.263-.226-.627-.4-1-.4h-1.5c-.827 0-1.5.673-1.5 1.5v7.993a1.5 1.5 0 0 0 1.5 1.499h1.5c.595 0 1.092-.36 1.334-.863a.164.164 0 0 0 .023.006l.12.031.023.006c.288.071.842.204 2.027.476.254.058 1.596.344 2.987.344h2.733c.833 0 1.45-.31 1.79-.963.333-.581 1.964-3.692 1.963-8.077 0-.63-.437-1.436-1.418-1.716zM4.167 15.152a.5.5 0 0 1-.5.5h-1.5a.5.5 0 0 1-.5-.5V7.158a.5.5 0 0 1 .5-.499h1.5a.5.5 0 0 1 .5.5v7.993zm11.488-7.227c-.208 5.021-1.831 7.29-1.831 7.29-.151.273-.395.437-.91.437H10.18c-1.374 0-2.736-.312-2.77-.32-2.078-.477-2.187-.515-2.318-.552l.074-7.34c0-.76.017-.568 0-.558 2.284-.945 2.98-3.018 3-4.72.003-.239.187-.5.5-.5.529 0 1.463 1.061 1.463 2.373 0 1.185-.048 1.39-.463 2.624 5 0 4.965.072 5.406.187a.766.766 0 0 1 .594.765c0 .171-.005.147-.012.314z" fill="#999" fill-rule="evenodd"></path></svg><svg width="19" height="19" viewBox="0 0 19 19" id="ic_back_top"><path d="M9.351 3.447L.694 11.815h4.913l-.043 6.853h7.553v-6.874l5.042-.065-8.808-8.282zM.035.035h18.633v2.747H.035V.035z" fill="#9C9C9C" fill-rule="evenodd"></path></svg></defs></svg>    <svg width="0" height="0" style="position:absolute"><defs><svg width="15" height="15" viewBox="0 0 15 15" id="ic_search"><path d="M10.688 10.078a6 6 0 1 0-.943.943l3.784 3.784a.665.665 0 0 0 .942 0 .667.667 0 0 0 0-.943l-3.783-3.784zM6 11a4.667 4.667 0 1 1 0-9.333A4.667 4.667 0 0 1 6 11z" fill="#FFF" fill-rule="evenodd" fill-opacity=".5"></path></svg><svg width="24" height="26" viewBox="0 0 24 26" id="question-accepted"><path d="M9.5 18.5s6-15 14-18.5v9.5s-8 6-13.5 16L0 16l6-4.5 3.5 7z" fill="#3AAB4F" fill-rule="evenodd"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" id="question-ask"><path d="M9.706 13.956A.498.498 0 0 1 9 13.5c0-.073.016-.143.044-.206a1 1 0 1 1 .662.662zM9 18A9 9 0 1 0 9 0a9 9 0 0 0 0 18zm0-1A8 8 0 1 0 9 1a8 8 0 0 0 0 16zm-.6-6.627v-.268c0-1.026.75-1.81 1.412-2.502.486-.509.988-1.033.988-1.452 0-1.046-.808-1.896-1.8-1.896-1.01 0-1.8.814-1.8 1.854a.614.614 0 0 1-.6.627.614.614 0 0 1-.6-.627C6 4.395 7.346 3 9 3s3 1.414 3 3.151c0 .94-.681 1.651-1.34 2.34-.521.544-1.06 1.107-1.06 1.614v.267c0 .346-.269.628-.6.628a.614.614 0 0 1-.6-.627z" fill="#4EAA4C" fill-rule="evenodd"></path></svg><svg width="18" height="16" viewBox="0 0 18 16" id="question-follow"><path d="M15.682 2.318A4.472 4.472 0 0 0 12.5 1c-1.202 0-2.165.432-3.015 1.282h-.002v.001L9 2.891l-.483-.571-.002-.002C7.665 1.468 6.702 1 5.5 1a4.471 4.471 0 0 0-3.182 1.318A4.47 4.47 0 0 0 1 5.5c0 1.202.467 2.33 1.316 3.18l5.974 6.024a1 1 0 0 0 1.42 0l5.973-6.023A4.471 4.471 0 0 0 17 5.5a4.471 4.471 0 0 0-1.318-3.182z" stroke="#FFF" fill="none" fill-rule="evenodd"></path></svg><svg width="135" height="31" viewBox="0 0 135 31" id="question-logo"><defs><lineargradient x1="100%" y1="100%" x2="0%" y2="0%" id="ea"><stop stop-color="#4AC58C" offset="0%"></stop><stop stop-color="#24A659" offset="100%"></stop></lineargradient></defs><g transform="translate(-3)" fill="none" fill-rule="evenodd"><path d="M5.727 6.802c-.579 0-.98-.134-1.247-.357-.223-.222-.357-.668-.357-1.247 0-.535.134-.89.357-1.114.223-.222.668-.356 1.247-.356h20.804c.623 0 1.024.134 1.247.356.223.223.312.624.312 1.114 0 .58-.09.98-.312 1.247-.223.223-.624.357-1.247.357h-3.119v7.395h4.633c.624 0 1.025.089 1.248.311.222.223.312.535.312 1.025 0 .535-.09.936-.312 1.203-.223.267-.624.4-1.248.4h-4.633v9.623c0 .624-.178 1.025-.49 1.247-.356.223-.712.312-1.202.312s-.891-.134-1.203-.356c-.356-.223-.49-.668-.49-1.248v-9.622h-7.484c-.09 1.337-.267 2.54-.58 3.609a10.923 10.923 0 0 1-1.157 2.85c-.49.847-1.07 1.649-1.782 2.317a22.527 22.527 0 0 1-2.406 2.094c-.534.4-1.024.579-1.514.534-.49-.044-.847-.267-1.114-.757-.312-.49-.446-.891-.312-1.292.134-.4.445-.802.891-1.158a26.039 26.039 0 0 0 1.915-1.56c.535-.49.98-1.068 1.381-1.692a9.345 9.345 0 0 0 .891-2.138c.223-.802.357-1.738.446-2.807h-4.5c-.623 0-1.024-.133-1.247-.4-.222-.268-.312-.669-.312-1.204 0-.49.09-.801.312-1.024.223-.223.624-.312 1.248-.312H9.29V6.757H5.727v.045zm6.816 7.395h7.395V6.802h-7.395v7.395zM39.432 14.592c-.356.356-.757.49-1.158.445-.4-.044-.846-.312-1.38-.802-.223-.133-.58-.4-.98-.757-.402-.356-.847-.668-1.293-1.025-.4-.4-.668-.757-.757-1.113-.089-.357.045-.758.401-1.292.624-.802 1.425-.802 2.45-.09.356.312.802.624 1.247.98.49.357.891.669 1.203.98.401.402.668.803.802 1.248.178.49 0 .936-.535 1.426zm.669 4.9a64.518 64.518 0 0 1-1.159 4.054c-.4 1.291-.935 2.539-1.559 3.786-.267.535-.623.891-1.113 1.025-.49.133-.936.089-1.337-.134-.445-.267-.713-.579-.802-.98-.089-.4.045-.98.446-1.648.534-.98.98-2.05 1.336-3.208.357-1.158.713-2.405 1.07-3.742.133-.623.356-1.069.668-1.291.311-.223.712-.312 1.291-.179.535.09.936.312 1.114.669.223.311.267.89.045 1.648zm.49-11.36c-.357.357-.758.49-1.114.446-.4-.045-.846-.312-1.381-.758-.356-.311-.757-.668-1.203-1.024-.445-.357-.802-.668-1.069-.891-.445-.357-.713-.713-.757-1.07-.045-.356.044-.757.4-1.247.313-.4.669-.623 1.114-.668.446-.044.891.134 1.337.49.356.267.624.49.89.668.268.223.446.401.624.535.179.178.357.312.49.445.134.134.312.268.49.446.401.4.669.802.802 1.247.134.401-.044.847-.534 1.337l-.09.044zm8.063-.044c-.936 0-1.56.222-1.916.623-.356.446-.534 1.114-.534 2.05v6.058c0 1.782.802 2.673 2.45 2.673h2.494v5.212c0 .267-.044.445-.178.534-.133.09-.49.045-1.069-.133-.624-.178-1.069-.223-1.336-.09-.268.134-.446.446-.58.892-.133.534-.133.98.09 1.291.178.357.623.58 1.292.669.89.178 1.648.267 2.182.267.535 0 1.025-.09 1.381-.356.357-.223.58-.624.713-1.114.134-.49.223-1.158.223-2.005v-5.212h2.494c.936 0 1.604-.178 1.96-.579.401-.4.58-1.069.58-2.094v-6.058c0-.936-.179-1.648-.535-2.05-.356-.445-.98-.623-1.87-.623h-2.941c.09-.134.134-.223.134-.267.044-.045.044-.09.089-.09.312-.667.312-1.202.044-1.558h4.811c.58 0 .936-.09 1.159-.312.178-.223.311-.58.311-1.07 0-.49-.089-.846-.267-1.113-.178-.267-.579-.356-1.158-.356H44.422c-.936 0-1.604.222-2.005.668-.4.445-.624 1.203-.624 2.227v7.039c0 1.648 0 3.073-.044 4.232-.045 1.202-.09 2.227-.178 3.162a16.9 16.9 0 0 1-.401 2.406c-.178.713-.401 1.336-.668 1.96-.134.312-.268.624-.357.847-.089.267-.133.49-.133.668 0 .222.044.4.178.579.089.178.267.356.49.49.4.267.802.356 1.158.267.356-.044.713-.4 1.025-1.069a15.54 15.54 0 0 0 .89-2.54c.223-.89.446-1.915.58-2.984.133-1.114.222-2.272.267-3.608.045-1.292.09-2.762.09-4.321V6.84c0-.311.044-.49.133-.579a.404.404 0 0 1 .312-.133h6.325c-.044.089-.089.133-.089.222a.34.34 0 0 0-.089.223 11.556 11.556 0 0 1-.846 1.47l-1.782.045zm.4 14.121c.223-.579.313-1.024.268-1.38-.045-.357-.312-.58-.802-.803-.445-.178-.802-.222-1.069-.044-.267.178-.535.49-.713.98-.178.49-.356.935-.49 1.292a7.247 7.247 0 0 1-.49 1.024 27.49 27.49 0 0 1-.579.98c-.223.357-.445.713-.713 1.159-.312.49-.49.935-.445 1.291.044.357.178.669.49.936.4.312.757.4 1.114.267.356-.133.668-.4.935-.802.49-.801.98-1.648 1.426-2.45.4-.802.757-1.603 1.069-2.45zm6.95-9.711h-6.95v-1.292c0-.223.045-.312.09-.356a.478.478 0 0 1 .267-.09h6.148c.267 0 .4.134.4.446l.045 1.292zm0 3.875c0 .357-.134.535-.4.535h-6.148c-.268 0-.401-.178-.401-.535v-1.336h6.95v1.336zm3.475 8.598a23.753 23.753 0 0 0-.624-1.158c-.178-.312-.4-.668-.579-.98-.178-.312-.4-.624-.624-.98-.222-.312-.49-.713-.757-1.114-.312-.445-.668-.668-1.07-.713-.355-.044-.712.09-.98.401-.177.178-.311.357-.356.58-.044.178-.089.4-.044.579 0 .178.089.356.134.534.089.178.178.312.267.49.223.312.445.624.624.891.178.267.356.58.579.891.178.312.356.624.579.98.222.356.4.713.623 1.158.268.535.535.847.802.98.268.134.624.09 1.025-.089.49-.223.713-.534.757-.935.09-.49-.044-.98-.356-1.515z" fill="#4B4B4B"></path><rect fill="url(#ea)" x="67" width="70.32" height="31" rx="3"></rect><path d="M82.488 5.424c.225 0 .633.095 1.222.286.59.19 1.023.477 1.3.858.277.381.416.85.416 1.404 0 .607-.2.91-.598.91-.243 0-.494-.121-.754-.364s-.641-.737-1.144-1.482c-.503-.745-.754-1.2-.754-1.365 0-.165.104-.247.312-.247zm14.014 5.59c0 1.473.065 3.514.195 6.123.13 2.609.195 4.069.195 4.381 0 1.317-.169 2.383-.507 3.198-.338.815-.646 1.222-.923 1.222s-.52-.182-.728-.546c-.433-.85-1.17-1.725-2.21-2.626-.208-.173-.312-.303-.312-.39 0-.087.052-.13.156-.13.104 0 .386.052.845.156.46.104.867.156 1.222.156s.576-.178.663-.533c.087-.355.13-1.326.13-2.912 0-1.586-.03-3.289-.091-5.109-.06-1.82-.134-3.155-.221-4.004-.087-.85-.182-1.434-.286-1.755-.104-.32-.204-.52-.299-.598-.095-.078-.277-.117-.546-.117s-.88.07-1.833.208c-.953.139-1.599.256-1.937.351a4.324 4.324 0 0 1-1.17.143c-.442 0-.858-.1-1.248-.299-.39-.2-.585-.377-.585-.533 0-.156.243-.243.728-.26a31.988 31.988 0 0 0 3.588-.377c1.248-.2 2.05-.386 2.405-.559.355-.173.641-.26.858-.26.217 0 .698.19 1.443.572.745.381 1.118.693 1.118.936 0 .243-.139.59-.416 1.04-.156.26-.234 1.1-.234 2.522zm-14.196-.572c0 .139-.026.32-.078.546-.087.347-.139 1.395-.156 3.146-.052 4.732-.2 7.7-.442 8.905-.243 1.205-.529 1.807-.858 1.807-.225 0-.425-.264-.598-.793s-.26-.975-.26-1.339.07-.693.208-.988c.139-.295.282-1.062.429-2.301.147-1.24.221-2.795.221-4.667 0-1.872-.022-3.111-.065-3.718-.043-.607-.139-1.057-.286-1.352-.147-.295-.221-.529-.221-.702 0-.173.104-.26.312-.26.208 0 .559.173 1.053.52.494.347.741.745.741 1.196zm3.146 2.392A14.97 14.97 0 0 0 88 12.561c.85-.165 1.426-.355 1.729-.572.303-.217.568-.325.793-.325.225 0 .659.173 1.3.52.641.347.962.641.962.884s-.234.529-.702.858c-.139.104-.381.46-.728 1.066-.347.607-.52.992-.52 1.157 0 .165.087.29.26.377.173.087.26.234.26.442s-.065.36-.195.455c-.13.095-.754.195-1.872.299-1.118.104-2.084.139-2.899.104-.017.659-.13.988-.338.988-.208 0-.386-.19-.533-.572a4.227 4.227 0 0 1-.273-1.144c-.208-1.803-.52-3.068-.936-3.796-.139-.243-.208-.438-.208-.585 0-.147.108-.221.325-.221.217 0 .559.113 1.027.338zm.936 4.134c1.075-.121 1.816-.238 2.223-.351.407-.113.68-.277.819-.494.139-.217.264-.58.377-1.092.113-.511.169-.919.169-1.222 0-.303-.039-.49-.117-.559-.078-.07-.221-.087-.429-.052-1.543.208-2.678.338-3.406.39.052.607.173 1.733.364 3.38zm31.236-10.712c.555-.017 1.291-.173 2.21-.468.572-.156 1.036-.234 1.391-.234s.659.078.91.234c.251.156.377.312.377.468 0 .156-.13.29-.39.403-.26.113-.741.225-1.443.338-.702.113-1.296.169-1.781.169-.485 0-1.04-.139-1.664-.416-.537.693-1.222 1.4-2.054 2.119-.832.72-1.378 1.079-1.638 1.079-.121 0-.182-.056-.182-.169 0-.113.078-.264.234-.455.85-1.023 1.53-1.928 2.041-2.717.511-.789.724-1.478.637-2.067a2.15 2.15 0 0 1-.026-.286c0-.277.139-.416.416-.416.277 0 .654.1 1.131.299.477.2.715.438.715.715a.518.518 0 0 1-.13.338l-.754 1.066zm-8.06.858c.52-.035 1.265-.208 2.236-.52.485-.139.85-.208 1.092-.208.243 0 .46.06.65.182.19.121.286.256.286.403 0 .147-.07.273-.208.377-.139.104-.537.23-1.196.377a8.484 8.484 0 0 1-1.846.221c-.572 0-1.04-.06-1.404-.182-.797 1.248-1.664 2.27-2.6 3.068-.936.797-1.543 1.196-1.82 1.196-.121 0-.182-.06-.182-.182 0-.121.087-.269.26-.442 1.04-1.04 1.876-2.123 2.509-3.25.633-1.127.949-1.993.949-2.6a.941.941 0 0 0-.065-.364.708.708 0 0 1-.065-.26c0-.26.173-.39.52-.39.347 0 .745.07 1.196.208.45.139.676.33.676.572 0 .173-.33.771-.988 1.794zm9.724 2.678c0 .225-.06.438-.182.637a.576.576 0 0 1-.52.299c-.225 0-.46-.139-.702-.416a27.784 27.784 0 0 1-.819-.988c-.303-.381-.455-.654-.455-.819 0-.165.165-.247.494-.247.659 0 1.187.152 1.586.455.399.303.598.663.598 1.079zm-10.374-.702c.728 0 1.283.1 1.664.299.381.2.572.542.572 1.027 0 .485-.173.728-.52.728-.277 0-.702-.264-1.274-.793-.572-.529-.858-.871-.858-1.027 0-.156.139-.234.416-.234zm4.862 2.912c2.132 1.75 4.008 3.003 5.629 3.757 1.62.754 3.54 1.365 5.759 1.833.676.156 1.014.312 1.014.468 0 .104-.113.195-.338.273-.225.078-.819.2-1.781.364-.962.165-1.703.247-2.223.247-.52 0-.966-.091-1.339-.273-.373-.182-1.395-.94-3.068-2.275s-3.055-2.6-4.147-3.796c-1.075 1.387-1.95 2.457-2.626 3.211-.676.754-1.538 1.504-2.587 2.249a16.04 16.04 0 0 1-3.185 1.781c-1.075.442-1.725.663-1.95.663-.225 0-.338-.056-.338-.169 0-.113.095-.221.286-.325 1.49-.797 2.981-1.798 4.472-3.003 1.49-1.205 2.63-2.327 3.419-3.367.789-1.04 1.209-1.872 1.261-2.496.035-.416.182-.624.442-.624s.585.117.975.351c.39.234.585.425.585.572 0 .147-.087.334-.26.559zm2.522 4.914c0 .087-.06.178-.182.273-.121.095-.758.269-1.911.52s-1.95.377-2.392.377c-.442 0-.85-.074-1.222-.221-.373-.147-.559-.277-.559-.39 0-.113.065-.19.195-.234.13-.043.559-.134 1.287-.273.728-.139 1.274-.269 1.638-.39.728-.26 1.335-.39 1.82-.39.485 0 .828.078 1.027.234.2.156.299.32.299.494zm-6.578 3.744c1.11-.07 2.375-.225 3.796-.468 1.421-.243 2.206-.407 2.353-.494a.981.981 0 0 1 .507-.13c.45 0 .992.195 1.625.585.633.39.949.758.949 1.105a.51.51 0 0 1-.234.429c-.156.113-.403.351-.741.715-.338.364-.507.685-.507.962 0 .277.06.481.182.611.121.13.182.256.182.377 0 .243-.217.373-.65.39-2.41.121-4.697.295-6.864.52-.104.381-.251.572-.442.572-.19 0-.36-.108-.507-.325-.147-.217-.256-.524-.325-.923-.33-1.82-.585-2.908-.767-3.263-.182-.355-.273-.611-.273-.767 0-.156.126-.234.377-.234s.698.113 1.339.338zm.624 3.692l2.99-.39a76.492 76.492 0 0 0 1.911-.247.72.72 0 0 0 .403-.234c.121-.13.243-.438.364-.923.121-.485.182-.897.182-1.235 0-.338-.143-.507-.429-.507-.286 0-2.188.225-5.707.676.139 1.283.234 2.236.286 2.86z" fill="#FFF"></path></g></svg><svg width="16" height="15" viewBox="0 0 16 15" id="question-msg"><defs><path d="M26 13.786c0 3.747-3.582 6.785-8 6.785a9.363 9.363 0 0 1-2.178-.254S14.437 22.01 12.182 22c1.091-1.52 1.09-2.74 1.09-2.74C11.287 18.025 10 16.033 10 13.786 10 10.038 13.581 7 18 7c4.418 0 8 3.038 8 6.786z" id="fa"></path><mask id="fb" x="0" y="0" width="16" height="15" fill="#fff"><use xlink:href="#fa"></use></mask></defs><use mask="url(#fb)" xlink:href="#fa" transform="translate(-10 -7)" stroke="#49AC4F" stroke-width="2.207" fill="none" fill-rule="evenodd"></use></svg><svg width="14" height="14" viewBox="0 0 14 14" id="question-remove"><g fill="none" fill-rule="evenodd"><circle fill="#C8C8C8" cx="7" cy="7" r="7"></circle><path d="M7.178 6.118l-1.9-1.9a.75.75 0 0 0-1.054.006.744.744 0 0 0-.006 1.055l1.9 1.9-1.9 1.9a.75.75 0 0 0 .006 1.054.744.744 0 0 0 1.055.006l1.9-1.9 1.9 1.9a.75.75 0 0 0 1.054-.006.744.744 0 0 0 .006-1.055l-1.9-1.9 1.9-1.9a.75.75 0 0 0-.006-1.054.744.744 0 0 0-1.055-.006l-1.9 1.9z" fill="#FFF"></path></g></svg><svg width="20" height="20" viewBox="0 0 20 20" id="question-staron"><path d="M15.262 19.913c-.167 0-.501 0-.668-.174l-4.676-3.304-4.676 3.304c-.5.348-1.002.348-1.503 0-.5-.348-.668-.87-.5-1.391l1.67-5.74-4.51-3.651a1.391 1.391 0 0 1-.333-1.392 1.26 1.26 0 0 1 1.168-.87l5.511-.347L8.75.783c.334-1.044 2.004-1.044 2.338 0l2.004 5.565 5.677.174a1.26 1.26 0 0 1 1.17.87c.166.521 0 1.043-.502 1.39l-4.508 3.827 1.503 5.739c.167.522 0 1.043-.501 1.391-.167 0-.334.174-.668.174z" fill="#F5A622" fill-rule="evenodd"></path></svg><svg width="24" height="26" viewBox="0 0 24 26" id="question-unaccept"><path d="M9.5 18.5s6-15 14-18.5v9.5s-8 6-13.5 16L0 16l6-4.5 3.5 7z" fill="#EF5039" fill-rule="evenodd"></path></svg><svg width="16" height="9" viewBox="0 0 16 9" id="question-votedown"><path d="M-.045.43l7.373 7.374a.808.808 0 0 0 1.143 0L15.844.43H-.045" fill="#AAA" fill-rule="evenodd"></path></svg><svg width="16" height="9" viewBox="0 0 16 9" id="question-votedownon"><path d="M-.045.43l7.373 7.374a.808.808 0 0 0 1.143 0L15.844.43H-.045" fill="#EF5039" fill-rule="evenodd"></path></svg><svg width="16" height="9" viewBox="0 0 16 9" id="question-voteup"><path d="M-.045 8.368L7.328.995a.808.808 0 0 1 1.143 0l7.373 7.373H-.045" fill="#AAA" fill-rule="evenodd"></path></svg><svg width="16" height="9" viewBox="0 0 16 9" id="question-voteupon"><path d="M-.045 8.368L7.328.995a.808.808 0 0 1 1.143 0l7.373 7.373H-.045" fill="#49AB4F" fill-rule="evenodd"></path></svg><svg width="20" height="20" viewBox="0 0 20 20" id="question_unstar"><path d="M15.262 19.913c-.167 0-.501 0-.668-.174l-4.676-3.304-4.676 3.304c-.5.348-1.002.348-1.503 0-.5-.348-.668-.87-.5-1.391l1.67-5.74-4.51-3.651a1.391 1.391 0 0 1-.333-1.392 1.26 1.26 0 0 1 1.168-.87l5.511-.347L8.75.783c.334-1.044 2.004-1.044 2.338 0l2.004 5.565 5.677.174a1.26 1.26 0 0 1 1.17.87c.166.521 0 1.043-.502 1.39l-4.508 3.827 1.503 5.739c.167.522 0 1.043-.501 1.391-.167 0-.334.174-.668.174z" fill="#E0DFDD" fill-rule="evenodd"></path></svg></defs></svg>    <x-foo-define data-define="www_question_detail"></x-foo-define>
+        <val data-name="question_id" data-value="27822"></val>
+    <val data-name="question_url" data-value="https://www.oschina.net/question/54100_27822"></val>
+    <style>
+.header-navbar .top-banner .menus .mayun {
+  color: #F8E71C;
+  position: relative;
+}
+.header-navbar .top-banner .menus #icon_mayun {
+  position: absolute;
+  top: 4px;
+  font-size: 12px;
+  color: #fff;
+  background: #C71D24;
+  padding: 0 3px;
+  border-radius: 2px;
+  margin-left: 4px;
+  line-height: 18px;
+  width: 36px;
+  text-align: center;
+}
+</style>
+<header class="header-navbar">
+    <div class="box top-banner">
+        <div class="box vertical box-aw">
+            <a href="https://www.oschina.net/" class="osc-logo"></a>
+            <div class="menus">
+                <a class="menu-item" href="https://www.oschina.net/">首页</a>
+                <div class="menu-item menu-drop">
+                    <a href="https://www.oschina.net/project" class="project">
+                        开源项目
+                        <i class="icon-svg icon-arr-down-white"></i>
+                    </a>
+                    <div class="menu-drop-down">
+                        <ul class="drop-list">
+                            <li><a href="https://www.oschina.net/project/zh">国产开源项目</a></li>
+                            <li><a href="https://www.oschina.net/project/tags">项目分类</a></li>
+                            <li><a href="https://www.oschina.net/project/list?sort=time">最新收录项目</a></li>
+                            <li class="split"></li>
+                            <li><a href="https://www.oschina.net/project/lang/19/java">Java 开源软件</a></li>
+                            <li><a href="https://www.oschina.net/project/lang/194/csharp">C# 开源软件</a></li>
+                            <li><a href="https://www.oschina.net/project/lang/22/php">PHP 开源软件</a></li>
+                            <li><a href="https://www.oschina.net/project/lang/21/c">C/C++ 开源软件</a></li>
+                            <li><a href="https://www.oschina.net/project/lang/26/ruby">Ruby 开源软件</a></li>
+                            <li><a href="https://www.oschina.net/project/lang/25/python">Python 开源软件</a></li>
+                            <li><a href="https://www.oschina.net/project/lang/358/go">Go开源软件</a></li>
+                            <li><a href="https://www.oschina.net/project/lang/28/javascript">JS开源软件</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box menu-item menu-drop">
+                    <a href="https://www.oschina.net/question" class="question">
+                        问答
+                        <i class="icon-svg icon-arr-down-white"></i>
+                    </a>
+                    <div class="menu-drop-down">
+                        <ul class="drop-list">
+                            <li><a href="https://www.oschina.net/question?catalog=1"> 技术问答</a></li>
+                            <li><a href="https://www.oschina.net/question?catalog=2"> 技术分享</a></li>
+                            <li><a href="https://www.oschina.net/question?catalog=3"> IT大杂烩</a></li>
+                            <li><a href="https://www.oschina.net/question?catalog=100"> 职业生涯</a></li>
+                            <li><a href="https://www.oschina.net/question?catalog=4"> 站务/建议</a></li>
+                            <li><a href="https://www.oschina.net/alipay"> 支付宝专区</a></li>
+                            <li><a href="https://www.oschina.net/mopaas"> MoPaaS专区</a></li>
+                            <li><a href="https://www.oschina.net/hardware"> 开源硬件专区</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="https://www.oschina.net/tweets" class="menu-item tweets">动弹</a>
+                <a href="https://www.oschina.net/blog" class="menu-item blog">博客</a>
+                <a href="https://www.oschina.net/translate" class="menu-item tran">翻译</a>
+                <a href="https://www.oschina.net/news" class="menu-item news">资讯</a>
+                <div class="menu-item menu-drop">
+                    <a href="https://www.oschina.net/android" class="mobile">
+                        专题
+                        <i class="icon-svg icon-arr-down-white"></i>
+                    </a>
+                    <div class="menu-drop-down">
+                        <ul class="drop-list drop-list-inline">
+                            <li><a href="https://www.oschina.net/event/ych" class="font-red">源创会</a></li>
+                            <li><a href="https://www.oschina.net/question/tag/%E9%AB%98%E6%89%8B%E9%97%AE%E7%AD%94">高手问答</a> <a href="https://www.oschina.net/question/tag/%E5%BC%80%E6%BA%90%E8%AE%BF%E8%B0%88">访谈</a></li>
+                            <li><a href="https://my.oschina.net/editorial-story/blog">周刊</a> <a href="https://my.oschina.net/xxiaobian/blog">乱弹</a></li>
+                            <li><a href="https://www.oschina.net/company">公司开源导航页</a></li>
+                        </ul>
+                        <div class="split"></div>
+                        <ul class="drop-list mobile">
+                            <li class="android"><a href="https://www.oschina.net/android">Android开发专区</a></li>
+                            <li class="ios"><a href="https://www.oschina.net/ios/home">iOS开发专区</a></li>
+                            <li class="ios"><a href="https://www.oschina.net/ios/codingList">iOS代码库</a></li>
+                            <li class="wp7"><a href="https://www.oschina.net/wp">Windows Phone</a></li>
+                            <li class="wp7"><a href="https://www.oschina.net/ibm">IBM开发专区</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="https://www.oschina.net/event" class="menu-item event">活动</a>
+                <a href="https://job.oschina.net/" class="menu-item event">招聘</a>
+                <a href="https://git.oschina.net/?from=osc-index" class="menu-item event mayun">码云<span id="icon_mayun">特惠</span>
+                </a>
+            </div>
+
+        </div>
+        <div class="box-fr user-bar">
+            <div class="box user-info">
+                                                    [ <a href="https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fwww.oschina.net%2Fquestion%2F54100_27822">登录</a> | <a href="https://www.oschina.net/home/reg?goto_page=https%3A%2F%2Fwww.oschina.net%2Fquestion%2F54100_27822">注册</a> ]
+                            </div>
+        </div>
+    </div>
+</header>
+<!-- 此script用于百度统计工具-->
+<script src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?a411c4d1664dd70048ee98afe7b28f0b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    <section class="p-question-detail">
+        <header class="box vertical sec-header question-banner">
+    <div class="banner-box box vertical">
+        <div class="box vertical box-aw">
+            <a href="https://www.oschina.net/question" class="sec-title">
+                <svg width="135" height="31" viewBox="0 0 135 31" class="question-logo">
+				    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#question-logo"></use>
+				</svg>
+            </a>
+                        <a class="sec-link" href="https://www.oschina.net/question/ask">我要提问</a>
+        </div>
+        <div class="box-fr">
+            <form class="sec-search" action="https://www.oschina.net/search">
+                                <input type="text" class="search-text" placeholder="在 44080 款开源软件中搜索" name="q">
+                <input type="hidden" name="scope" value="bbs">
+                <button type="submit" class="ic-search box vertical"></button>
+            </form>
+        </div>
+    </div>
+</header>        <main class="box sc-container">
+            
+<style>
+    main header section ul{
+        padding-left: 40px;
+        list-style-type: disc;
+    }
+</style>
+
+<article class="box-aw main-container">
+    <header class="body">
+        <header class="question-title-wrapper">
+            <nav class="box vertical sub-nav">
+                <a href="https://www.oschina.net/question?catalog=2">技术分享</a>&nbsp;&gt;&nbsp;
+                                                                           <a href="https://www.oschina.net/android/1/android" target="_blank">Android开发专区</a>&nbsp;&gt;&nbsp;
+                                           <a href="https://www.oschina.net/android/3/android-dev-base" target="_blank">Android开发基础</a>&nbsp;&gt;&nbsp;
+                                           <a href="https://www.oschina.net/android/78/handler-and-thread" target="_blank">Handler/线程</a>&nbsp;&gt;&nbsp;
+                                                </nav>
+            <!-- 广告2.0  -->
+             <div data-traceid="question_detai_above_1" data-tracepid="question_detai_above" style="margin: -20px 0 25px">
+
+<a href="https://cloud.tencent.com/product/cas?fromSource=gwzcw.267026.267026.267026" target="_blank"> <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/153857_XJ9A_2982602.jpg">
+</a>
+
+</div>            <a class="cursor" href="https://www.oschina.net/question/54100_27822#form_answer">
+                <div class="jump-answer" title="跳到回复">
+                    <div class="answer_count">9</div>
+                    <div>回答</div>
+                </div>
+            </a>
+                                    <span class="question-title-link">
+                Handler+Looper+MessageQueue深入详解
+            </span>
+        </header>
+
+        <header class="text-jj">
+             <a data-traceid="question_detail_above_text_link_1" data-tracepid="question_detail_above_text_link" style="color:#A00;font-weight:bold; " href="http://click.aliyun.com/m/22443/" target="_blank"><strong style="font-size: 16px">【阿里云】新一代云服务器，9元体验半年，限时领取！&gt;&gt;&gt; </strong></a>&nbsp;&nbsp;<img style="max-height: 32px; max-width: 32px;" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/hot3.png" align="absmiddle">        </header>
+        <section class="box content-container">
+            <aside class="box-fl">
+                <div class="vote_collect_wrapper">
+                    <div class="vote_collect">
+
+                        <a class="vote_up  " data-violet="support" onclick="page.vote(this,27822,true)" title="顶">
+                        </a>
+                        <span class="vote_count">0</span>
+
+                        <a class="vote_down " data-violet="support" onclick="page.vote(this,27822,false)" title="踩">
+                        </a>
+                    </div>
+                    
+                    <a data-violet="collect" class="collect collect_question tooltipstered" onclick="page.removeFavorite(this,27822)" data-ajax="https://www.oschina.net/question/_widgets/_collect?id=27822" data-tooltipster="{&quot;side&quot;:&quot;right&quot;,&quot;trigger&quot;:&quot;custom&quot;,&quot;triggerOpen&quot;:{&quot;mouseenter&quot;:true,&quot;click&quot;:true},&quot;triggerClose&quot;:{&quot;click&quot;:true,&quot;scroll&quot;:true,&quot;mouseleave&quot;: true}}">
+                        <span class="collect-count">收藏(58)</span>
+                    </a>
+                </div>
+            </aside>
+            <main class="box-aw">
+                <header class="detail">
+                    <section class="wrap cke_editable cke_editable_themed cke_contents_ltr cke_show_borders">
+                        <p>在《<a href="http://www.oschina.net/question/54100_27820" rel="nofollow"><span style="color:#336699;">Android异步处理一：使用Thread+Handler实现非UI线程更新UI界面》</span></a>中，我们讲到使用Thread+Handler的方式来实现界面的更新，其实是在非UI线程发送消息到UI线程，通知UI线程进行界面更新，这一篇我们将深入学习Android线程间通讯的实现原理。</p> 
+<p><strong>概述</strong>：Android使用消息机制实现线程间的通信，线程通过Looper建立自己的消息循环，MessageQueue是FIFO的消息队列，Looper负责从MessageQueue中取出消息，并且分发到消息指定目标Handler对象。Handler对象绑定到线程的局部变量Looper，封装了发送消息和处理消息的接口。</p> 
+<p><strong>例子</strong>：在介绍原理之前，我们先介绍Android线程通讯的一个例子，这个例子实现点击按钮之后从主线程发送消息"hello"到另外一个名为” CustomThread”的线程。</p> 
+<p><a href="http://www.androidtwitters.com/blog/looperthread.rar" rel="nofollow"><span style="color:#336699;">代码下载</span></a></p> 
+<p>LooperThreadActivity.java</p> 
+<pre class="hljs java"><span class="hljs-keyword"><span class="hljs-keyword">package</span></span> com.zhuozhuo;
+
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> android.app.Activity;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> android.os.Bundle;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> android.os.Handler;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> android.os.Looper;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> android.os.Message;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> android.util.Log;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> android.view.View;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> android.view.View.OnClickListener;
+
+<span class="hljs-keyword"><span class="hljs-keyword">public</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">LooperThreadActivity</span></span></span><span class="hljs-class"> </span><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">extends</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">Activity</span></span></span></span>{
+    <span class="hljs-comment"><span class="hljs-comment">/** Called when the activity is first created. */</span></span>
+	
+	<span class="hljs-keyword"><span class="hljs-keyword">private</span></span> <span class="hljs-keyword"><span class="hljs-keyword">final</span></span> <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> MSG_HELLO = <span class="hljs-number"><span class="hljs-number">0</span></span>;
+    <span class="hljs-keyword"><span class="hljs-keyword">private</span></span> Handler mHandler;
+	
+    <span class="hljs-meta"><span class="hljs-meta">@Override</span></span>
+    <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">onCreate</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(Bundle savedInstanceState)</span></span></span><span class="hljs-function"> </span></span>{
+        <span class="hljs-keyword"><span class="hljs-keyword">super</span></span>.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> CustomThread().start();<span class="hljs-comment"><span class="hljs-comment">//新建并启动CustomThread实例</span></span>
+        
+        findViewById(R.id.send_btn).setOnClickListener(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> OnClickListener() {
+			
+			<span class="hljs-meta"><span class="hljs-meta">@Override</span></span>
+			<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">onClick</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(View v)</span></span></span><span class="hljs-function"> </span></span>{<span class="hljs-comment"><span class="hljs-comment">//点击界面时发送消息</span></span>
+				String str = <span class="hljs-string"><span class="hljs-string">"hello"</span></span>;
+		        Log.d(<span class="hljs-string"><span class="hljs-string">"Test"</span></span>, <span class="hljs-string"><span class="hljs-string">"MainThread is ready to send msg:"</span></span> + str);
+				mHandler.obtainMessage(MSG_HELLO, str).sendToTarget();<span class="hljs-comment"><span class="hljs-comment">//发送消息到CustomThread实例</span></span>
+				
+			}
+		});
+        
+    }
+    
+    
+    
+    
+    
+    <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">CustomThread</span></span></span><span class="hljs-class"> </span><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">extends</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">Thread</span></span></span><span class="hljs-class"> </span></span>{
+    	<span class="hljs-meta"><span class="hljs-meta">@Override</span></span>
+    	<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+    		<span class="hljs-comment"><span class="hljs-comment">//建立消息循环的步骤</span></span>
+    		Looper.prepare();<span class="hljs-comment"><span class="hljs-comment">//1、初始化Looper</span></span>
+    		mHandler = <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> Handler(){<span class="hljs-comment"><span class="hljs-comment">//2、绑定handler到CustomThread实例的Looper对象</span></span>
+    			<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">handleMessage</span></span></span><span class="hljs-function"> </span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(Message msg)</span></span></span><span class="hljs-function"> </span></span>{<span class="hljs-comment"><span class="hljs-comment">//3、定义处理消息的方法</span></span>
+    				<span class="hljs-keyword"><span class="hljs-keyword">switch</span></span>(msg.what) {
+    				<span class="hljs-keyword"><span class="hljs-keyword">case</span></span> MSG_HELLO:
+    					Log.d(<span class="hljs-string"><span class="hljs-string">"Test"</span></span>, <span class="hljs-string"><span class="hljs-string">"CustomThread receive msg:"</span></span> + (String) msg.obj);
+    				}
+    			}
+    		};
+    		Looper.loop();<span class="hljs-comment"><span class="hljs-comment">//4、启动消息循环</span></span>
+    	}
+    }
+}</pre> 
+<p>main.xml</p> 
+<pre class="hljs xml"><span class="php"><span class="hljs-meta"><span class="php"><span class="hljs-meta">&lt;?</span></span></span><span class="php">xml version=</span><span class="hljs-string"><span class="php"><span class="hljs-string">"1.0"</span></span></span><span class="php"> encoding=</span><span class="hljs-string"><span class="php"><span class="hljs-string">"utf-8"</span></span></span><span class="hljs-meta"><span class="php"><span class="hljs-meta">?&gt;</span></span></span></span>
+<span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">LinearLayout</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">xmlns:android</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"http://schemas.android.com/apk/res/android"</span></span></span><span class="hljs-tag">
+    </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:orientation</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"vertical"</span></span></span><span class="hljs-tag">
+    </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:layout_width</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"fill_parent"</span></span></span><span class="hljs-tag">
+    </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:layout_height</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"fill_parent"</span></span></span><span class="hljs-tag">
+    &gt;</span></span>
+<span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">TextView</span></span></span><span class="hljs-tag">  
+    </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:layout_width</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"fill_parent"</span></span></span><span class="hljs-tag"> 
+    </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:layout_height</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"wrap_content"</span></span></span><span class="hljs-tag"> 
+    </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:text</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"@string/hello"</span></span></span><span class="hljs-tag">
+    /&gt;</span></span>
+<span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">Button</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:text</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"发送消息"</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:id</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"@+id/send_btn"</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:layout_width</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"wrap_content"</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">android:layout_height</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"wrap_content"</span></span></span><span class="hljs-tag">&gt;</span></span><span class="hljs-tag"><span class="hljs-tag">&lt;/</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">Button</span></span></span><span class="hljs-tag">&gt;</span></span>
+<span class="hljs-tag"><span class="hljs-tag">&lt;/</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">LinearLayout</span></span></span><span class="hljs-tag">&gt;</span></span></pre> 
+<p>Log打印结果：</p> 
+<img alt="" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/17192426_bgJl.gif"> 
+<p></p> 
+<p><strong>原理：</strong></p> 
+<p><strong>我们看到，为一个线程建立消息循环有四个步骤：</strong></p> 
+<p><strong>1、 初始化Looper</strong></p> 
+<p><strong>2、 绑定handler到CustomThread实例的Looper对象</strong></p> 
+<p><strong>3、 定义处理消息的方法</strong></p> 
+<p><strong>4、 启动消息循环</strong></p> 
+<p>下面我们以这个例子为线索，深入Android源代码，说明Android Framework是如何建立消息循环，并对消息进行分发的。</p> 
+<p><strong>1、 初始化Looper : Looper.prepare()</strong></p> 
+<p>Looper.java</p> 
+<pre class="hljs java"><span class="hljs-keyword"><span class="hljs-keyword">private</span></span> <span class="hljs-keyword"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword"><span class="hljs-keyword">final</span></span> ThreadLocal sThreadLocal = <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> ThreadLocal();
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">static</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">final</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">prepare</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (sThreadLocal.get() != <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>) {
+            <span class="hljs-keyword"><span class="hljs-keyword">throw</span></span> <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> RuntimeException(<span class="hljs-string"><span class="hljs-string">"Only one Looper may be created per thread"</span></span>);
+        }
+        sThreadLocal.set(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> Looper());
+}</pre> 
+<p>一个线程在调用Looper的静态方法prepare()时，这个线程会新建一个Looper对象，并放入到线程的局部变量中，而这个变量是不和其他线程共享的（关于ThreadLocal的介绍）。下面我们看看Looper()这个构造函数：</p> 
+<p>Looper.java</p> 
+<pre class="hljs java"><span class="hljs-keyword"><span class="hljs-keyword">final</span></span> MessageQueue mQueue;
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">private</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">Looper</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+        mQueue = <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> MessageQueue();
+        mRun = <span class="hljs-keyword"><span class="hljs-keyword">true</span></span>;
+        mThread = Thread.currentThread();
+    }</pre> 
+<p>可以看到在Looper的构造函数中，创建了一个消息队列对象mQueue，此时，调用Looper. prepare()的线程就建立起一个消息循环的对象（此时还没开始进行消息循环）。</p> 
+<p><strong>2、 绑定handler到CustomThread实例的Looper对象 : mHandler= new Handler()</strong></p> 
+<p>Handler.java</p> 
+<pre class="hljs java"><span class="hljs-keyword"><span class="hljs-keyword">final</span></span> MessageQueue mQueue;
+ <span class="hljs-keyword"><span class="hljs-keyword">final</span></span> Looper mLooper;
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">Handler</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (FIND_POTENTIAL_LEAKS) {
+            <span class="hljs-keyword"><span class="hljs-keyword">final</span></span> Class&lt;? extends Handler&gt; klass = getClass();
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &amp;&amp;
+                    (klass.getModifiers() &amp; Modifier.STATIC) == <span class="hljs-number"><span class="hljs-number">0</span></span>) {
+                Log.w(TAG, <span class="hljs-string"><span class="hljs-string">"The following Handler class should be static or leaks might occur: "</span></span> +
+                    klass.getCanonicalName());
+            }
+        }
+
+        mLooper = Looper.myLooper();
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (mLooper == <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>) {
+            <span class="hljs-keyword"><span class="hljs-keyword">throw</span></span> <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> RuntimeException(
+                <span class="hljs-string"><span class="hljs-string">"Can't create handler inside thread that has not called Looper.prepare()"</span></span>);
+        }
+        mQueue = mLooper.mQueue;
+        mCallback = <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>;
+}</pre> 
+<p>Handler通过mLooper = Looper.myLooper();绑定到线程的局部变量Looper上去，同时Handler通过mQueue =mLooper.mQueue;获得线程的消息队列。此时，Handler就绑定到创建此Handler对象的线程的消息队列上了。</p> 
+<strong>3、定义处理消息的方法：Override public void handleMessage (Message msg){}</strong> 
+<br> 
+<p> 子类需要覆盖这个方法，实现接受到消息后的处理方法。</p> 
+<p><strong>4、启动消息循环 ： Looper.loop()</strong></p> 
+<p> 所有准备工作都准备好了，是时候启动消息循环了！Looper的静态方法loop()实现了消息循环。</p> 
+<p>Looper.java</p> 
+<pre class="hljs java"> <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">static</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">final</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">loop</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+        Looper me = myLooper();
+        MessageQueue queue = me.mQueue;
+        
+        <span class="hljs-comment"><span class="hljs-comment">// Make sure the identity of this thread is that of the local process,</span></span>
+        <span class="hljs-comment"><span class="hljs-comment">// and keep track of what that identity token actually is.</span></span>
+        Binder.clearCallingIdentity();
+        <span class="hljs-keyword"><span class="hljs-keyword">final</span></span> <span class="hljs-keyword"><span class="hljs-keyword">long</span></span> ident = Binder.clearCallingIdentity();
+        
+        <span class="hljs-keyword"><span class="hljs-keyword">while</span></span> (<span class="hljs-keyword"><span class="hljs-keyword">true</span></span>) {
+            Message msg = queue.next(); <span class="hljs-comment"><span class="hljs-comment">// might block</span></span>
+            <span class="hljs-comment"><span class="hljs-comment">//if (!me.mRun) {</span></span>
+            <span class="hljs-comment"><span class="hljs-comment">//    break;</span></span>
+            <span class="hljs-comment"><span class="hljs-comment">//}</span></span>
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (msg != <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>) {
+                <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (msg.target == <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>) {
+                    <span class="hljs-comment"><span class="hljs-comment">// No target is a magic identifier for the quit message.</span></span>
+                    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span>;
+                }
+                <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (me.mLogging!= <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>) me.mLogging.println(
+                        <span class="hljs-string"><span class="hljs-string">"&gt;&gt;&gt;&gt;&gt; Dispatching to "</span></span> + msg.target + <span class="hljs-string"><span class="hljs-string">" "</span></span>
+                        + msg.callback + <span class="hljs-string"><span class="hljs-string">": "</span></span> + msg.what
+                        );
+                msg.target.dispatchMessage(msg);
+                <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (me.mLogging!= <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>) me.mLogging.println(
+                        <span class="hljs-string"><span class="hljs-string">"&lt;&lt;&lt;&lt;&lt; Finished to    "</span></span> + msg.target + <span class="hljs-string"><span class="hljs-string">" "</span></span>
+                        + msg.callback);
+                
+                <span class="hljs-comment"><span class="hljs-comment">// Make sure that during the course of dispatching the</span></span>
+                <span class="hljs-comment"><span class="hljs-comment">// identity of the thread wasn't corrupted.</span></span>
+                <span class="hljs-keyword"><span class="hljs-keyword">final</span></span> <span class="hljs-keyword"><span class="hljs-keyword">long</span></span> newIdent = Binder.clearCallingIdentity();
+                <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ident != newIdent) {
+                    Log.wtf(<span class="hljs-string"><span class="hljs-string">"Looper"</span></span>, <span class="hljs-string"><span class="hljs-string">"Thread identity changed from 0x"</span></span>
+                            + Long.toHexString(ident) + <span class="hljs-string"><span class="hljs-string">" to 0x"</span></span>
+                            + Long.toHexString(newIdent) + <span class="hljs-string"><span class="hljs-string">" while dispatching to "</span></span>
+                            + msg.target.getClass().getName() + <span class="hljs-string"><span class="hljs-string">" "</span></span>
+                            + msg.callback + <span class="hljs-string"><span class="hljs-string">" what="</span></span> + msg.what);
+                }
+                
+                msg.recycle();
+            }
+        }
+    }</pre> 
+<p>while(true)体现了消息循环中的“循环“，Looper会在循环体中调用queue.next()获取消息队列中需要处理的下一条消息。当msg != null且msg.target != null时，调用msg.target.dispatchMessage(msg);分发消息，当分发完成后，调用msg.recycle();回收消息。</p> 
+<p>msg.target是一个handler对象，表示需要处理这个消息的handler对象。Handler的void dispatchMessage(Message msg)方法如下：</p> 
+<p>Handler.java</p> 
+<pre class="hljs java"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">dispatchMessage</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(Message msg)</span></span></span><span class="hljs-function"> </span></span>{
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (msg.callback != <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>) {
+            handleCallback(msg);
+        } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> {
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (mCallback != <span class="hljs-keyword"><span class="hljs-keyword">null</span></span>) {
+                <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (mCallback.handleMessage(msg)) {
+                    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span>;
+                }
+            }
+            handleMessage(msg);
+        }
+}</pre> 
+<p>可见，当msg.callback== null 并且mCallback == null时，这个例子是由handleMessage(msg);处理消息，上面我们说到子类覆盖这个方法可以实现消息的具体处理过程。</p> 
+<p><strong>总结</strong>：从上面的分析过程可知，消息循环的核心是Looper，Looper持有消息队列MessageQueue对象，一个线程可以把Looper设为该线程的局部变量，这就相当于这个线程建立了一个对应的消息队列。Handler的作用就是封装发送消息和处理消息的过程，让其他线程只需要操作Handler就可以发消息给创建Handler的线程。由此可以知道，在上一篇《<a href="http://www.oschina.net/question/54100_27820" rel="nofollow"><span style="color:#336699;">Android异步处理一：使用Thread+Handler实现非UI线程更新UI界面》</span></a>中，UI线程在创建的时候就建立了消息循环(在ActivityThread的public static final void main(String[] args)方法中实现)，因此我们可以在其他线程给UI线程的handler发送消息，达到更新UI的目的。</p> 
+<p>文章转自：<a href="http://blog.csdn.net/mylzc/article/details/6771331" rel="nofollow">http://blog.csdn.net/mylzc/article/details/6771331</a></p>
+                    </section>
+                </header>
+                <section style="margin-top:40px;">
+                    <article class="poll">
+                                            </article>
+
+                    <article class="box">
+                        <div class="box-aw">
+                            <div class="box wrap vertical  toolbar_tags">
+                                                                                                                                                                                            <div class="box tooltipstered" data-ajax="/question/_widgets/tag_introduce?type=project&amp;tag=1089" data-tooltipster="{&quot;side&quot;:&quot;bottom&quot;}">
+                                            <a href="https://www.oschina.net/question/tag/android" class="tag project image" data-id="1089" title="Android开发工具包 Android SDK"><img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/android.png" height="18" class="prj_logo_18">Android SDK</a>
+                                        </div>
+                                                                                                                                </div>
+                            <div class="box vertical toolbar_socials">
+                                <a class="report" onclick="page.report(27822,2,&#39;https://www.oschina.net/question/54100_27822&#39;)">举报</a>
+                                <a style="cursor: default;" class="share" href="javascript:void(0);">分享</a>
+                                <div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1498915713553">
+                                    <a class="bds_tsina" data-cmd="tsina" data-violet="share" title="分享到新浪微博"></a>
+                                    <a class="bds_tqq" data-cmd="tqq" data-violet="share" title="分享到腾讯微博"></a>
+                                </div>
+                                                                <script type="text/javascript" async="async">
+                                    window._bd_share_config = {
+                                        "common": {
+                                            "bdSnsKey": {},
+                                            "bdText": "Handler+Looper+MessageQueue深入详解",
+                                            "bdMini": "2",
+                                            "bdMiniList": ["tsina", "tqq"],
+                                            "bdPic": "",
+                                            "bdStyle": "0",
+                                            "bdSize": "16"
+                                        }, "share": {"bdSize": 16}
+                                    };
+                                    with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = '/js/bdshare_api/share.js'];
+                                </script>
+
+                                                                                                                            </div>
+                        </div>
+                        <div class="box-fr question-author">
+                            <div class="box" title="鉴客">
+                                <div class="vertical box-aw author-info">
+                                    <a class="author-name" href="https://my.oschina.net/javaeye" target="_blank">
+                                        鉴客
+                                    </a>
+                                    <div class="summary">
+                                        <span class="pub_time">发帖于6年前</span>
+                                        <span class="answer_view_count">
+                                            <a href="https://www.oschina.net/question/54100_27822#answer_list_content_pjax" class="answer_count">9回</a>/<a class="view_count">17K+阅</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="box-fr">
+                                    <a class="ahthor-img" href="https://my.oschina.net/javaeye" target="_blank">
+                                        <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/54100_50.jpg" align="absmiddle" alt="鉴客" title="鉴客" class="SmallPortrait" user="54100">                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                            <footer class="additional_remarks" id="additional_remarks">
+                                    </footer>
+            </main>
+        </section>
+    </header>
+    <!-- 广告2.0  -->
+        <div id="answer_list_content_pjax">
+            <style type="text/css">
+    .question_answer_header {
+        font-size: 14px;
+        height: 32px;
+        margin: 0 0 15px;
+        box-shadow: inset 0 -1px 0 0 #D8D8D8;
+    }
+
+    .question_answer_count {
+        font-size: 16px;
+        color: #111;
+    }
+
+    .last_answers {
+        font-size: 14px;
+        color: #898989;
+    }
+
+    .answer_sort {
+        font-size: 12px;
+        color: #111;
+    }
+
+    .answer_sort.current {
+        color: #49AB4F;
+    }
+</style>
+<footer class="question_answer_list">
+    <header class="box question_answer_header">
+        <div class="box-aw">
+            <span class="question_answer_count">共有<span id="question_comment_total_count">9</span>个评论</span>
+                            <a class="last_answers" href="https://www.oschina.net/question/54100_27822?sort=time">
+                    最后回答: 2年前
+                </a>
+                    </div>
+
+        <div class="box-fr">
+            <a href="https://www.oschina.net/question/54100_27822?sort=default" class="answer_sort current">
+                按默认排序</a>
+            <a href="https://www.oschina.net/question/54100_27822?sort=time" class="answer_sort ">
+                显示最新评论
+            </a>
+        </div>
+    </header>
+
+    <article id="anser_list" class="answer_list">
+                    <section class="box answer " id="answer_189182">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,189182,true)" id="a_post_voteup_189182" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,189182,false)" id="a_post_votedown_189182" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            此文甚好，而且代码写的很规范，我不仅学到了线程处理的知识，也学到了，理论，实践，再深入挖掘的学习方法。
+        </header>
+        <section class="answer_replies" id="answer_replies_189182">
+            <header class="answer_reply_title">--- 共有 1 条评论 ---</header>
+<section class="answer_reply_list">
+            <div class="answer_reply" id="answer_reply_476700">
+            <div class="anser_reply_content">
+                <a class="user" href="https://my.oschina.net/u/197482">J2EEEdward</a>：
+                <span class="content">好2的评论</span>
+                <span class="pub_time">4年前</span>
+                <span class="toolbar">
+                    <a onclick="page.commentAnswer(189182,197482,&#39;#answer_replies_189182&#39;)" class="reply">回复</a>
+                                    </span>
+            </div>
+        </div>
+    </section>
+<footer class="answer_reply_pager">
+    </footer>
+        </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(189182,0,&#39;#answer_replies_189182&#39;)">评论(1)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=189182">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(189182,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer189182&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="李VS超">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/fistao" target="_blank">李VS超</a>
+            <div class="reply-time" title="2012-04-08 11:31">5年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/fistao" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/254256_50.jpg" align="absmiddle" alt="李VS超" title="李VS超" class="SmallPortrait" user="254256">            </a>
+        </div>
+    </aside>
+</section>
+                    <section class="box answer " id="answer_240272">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,240272,true)" id="a_post_voteup_240272" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,240272,false)" id="a_post_votedown_240272" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            学习了，结合例子看起来，要容易理解很多啊
+        </header>
+        <section class="answer_replies" id="answer_replies_240272">
+                    </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(240272,0,&#39;#answer_replies_240272&#39;)">评论(0)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=240272">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(240272,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer240272&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="杨永恒">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/u/578478" target="_blank">杨永恒</a>
+            <div class="reply-time" title="2012-06-21 13:39">5年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/u/578478" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/portrait.gif" align="absmiddle" alt="杨永恒" title="杨永恒" class="SmallPortrait" user="578478">            </a>
+        </div>
+    </aside>
+</section>
+                    <section class="box answer " id="answer_361540">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,361540,true)" id="a_post_voteup_361540" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,361540,false)" id="a_post_votedown_361540" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            强烈建议整理个专题。。。我都是零零散散的找。。。
+        </header>
+        <section class="answer_replies" id="answer_replies_361540">
+            <header class="answer_reply_title">--- 共有 2 条评论 ---</header>
+<section class="answer_reply_list">
+            <div class="answer_reply" id="answer_reply_361635">
+            <div class="anser_reply_content">
+                <a class="user" href="https://my.oschina.net/blackdog">黑狗</a>：
+                <span class="content">回复 <a href="http://my.oschina.net/javaeye" class="referer" target="_blank">@鉴客</a>  : 恩 我看到了 跳到CSDN来看这个异步的专题了</span>
+                <span class="pub_time">5年前</span>
+                <span class="toolbar">
+                    <a onclick="page.commentAnswer(361540,699232,&#39;#answer_replies_361540&#39;)" class="reply">回复</a>
+                                    </span>
+            </div>
+        </div>
+            <div class="answer_reply" id="answer_reply_361563">
+            <div class="anser_reply_content">
+                <a class="user" href="https://my.oschina.net/javaeye">鉴客</a>：
+                <span class="content">看帖子标题顶部的路径，那里有专题</span>
+                <span class="pub_time">5年前</span>
+                <span class="toolbar">
+                    <a onclick="page.commentAnswer(361540,54100,&#39;#answer_replies_361540&#39;)" class="reply">回复</a>
+                                    </span>
+            </div>
+        </div>
+    </section>
+<footer class="answer_reply_pager">
+    </footer>
+        </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(361540,0,&#39;#answer_replies_361540&#39;)">评论(2)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=361540">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(361540,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer361540&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="黑狗">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/blackdog" target="_blank">黑狗</a>
+            <div class="reply-time" title="2012-11-30 09:59">5年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/blackdog" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/699232_50.jpg" align="absmiddle" alt="黑狗" title="黑狗" class="SmallPortrait" user="699232">            </a>
+        </div>
+    </aside>
+</section>
+                    <section class="box answer " id="answer_575832">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,575832,true)" id="a_post_voteup_575832" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,575832,false)" id="a_post_votedown_575832" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            学习了
+        </header>
+        <section class="answer_replies" id="answer_replies_575832">
+                    </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(575832,0,&#39;#answer_replies_575832&#39;)">评论(0)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=575832">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(575832,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer575832&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="Macrotea">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/macrotea" target="_blank">Macrotea</a>
+            <div class="reply-time" title="2013-09-02 19:22">4年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/macrotea" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/98375_50.jpg" align="absmiddle" alt="Macrotea" title="Macrotea" class="SmallPortrait" user="98375">            </a>
+        </div>
+    </aside>
+</section>
+                    <section class="box answer " id="answer_591519">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,591519,true)" id="a_post_voteup_591519" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,591519,false)" id="a_post_votedown_591519" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            <p> 绝对好文 </p>
+        </header>
+        <section class="answer_replies" id="answer_replies_591519">
+                    </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(591519,0,&#39;#answer_replies_591519&#39;)">评论(0)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=591519">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(591519,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer591519&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="杨大侠">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/u/154644" target="_blank">杨大侠</a>
+            <div class="reply-time" title="2013-09-23 11:49">4年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/u/154644" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/portrait.gif" align="absmiddle" alt="杨大侠" title="杨大侠" class="SmallPortrait" user="154644">            </a>
+        </div>
+    </aside>
+</section>
+                    <section class="box answer " id="answer_635019">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,635019,true)" id="a_post_voteup_635019" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,635019,false)" id="a_post_votedown_635019" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            <span>赞，能再写一写</span> 
+<span>HandlerThread就更棒了</span>
+        </header>
+        <section class="answer_replies" id="answer_replies_635019">
+                    </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(635019,0,&#39;#answer_replies_635019&#39;)">评论(0)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=635019">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(635019,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer635019&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="lixun">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/lyxung" target="_blank">lixun</a>
+            <div class="reply-time" title="2013-11-19 18:05">4年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/lyxung" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/169546_50.jpg" align="absmiddle" alt="lixun" title="lixun" class="SmallPortrait" user="169546">            </a>
+        </div>
+    </aside>
+</section>
+                    <section class="box answer " id="answer_972512">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,972512,true)" id="a_post_voteup_972512" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,972512,false)" id="a_post_votedown_972512" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            很全面，很详细，已收藏
+        </header>
+        <section class="answer_replies" id="answer_replies_972512">
+                    </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(972512,0,&#39;#answer_replies_972512&#39;)">评论(0)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=972512">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(972512,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer972512&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="Matrix-lj">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/u/1402227" target="_blank">Matrix-lj</a>
+            <div class="reply-time" title="2015-06-28 16:24">2年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/u/1402227" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/1402227_50.jpg" align="absmiddle" alt="Matrix-lj" title="Matrix-lj" class="SmallPortrait" user="1402227">            </a>
+        </div>
+    </aside>
+</section>
+                    <section class="box answer " id="answer_978327">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,978327,true)" id="a_post_voteup_978327" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,978327,false)" id="a_post_votedown_978327" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            学习了 写的太好了 谢谢
+        </header>
+        <section class="answer_replies" id="answer_replies_978327">
+                    </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(978327,0,&#39;#answer_replies_978327&#39;)">评论(0)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=978327">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(978327,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer978327&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="zongmumask">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/u/1174320" target="_blank">zongmu...</a>
+            <div class="reply-time" title="2015-07-09 10:32">2年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/u/1174320" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/1174320_50.jpg" align="absmiddle" alt="zongmumask" title="zongmumask" class="SmallPortrait" user="1174320">            </a>
+        </div>
+    </aside>
+</section>
+                    <section class="box answer " id="answer_1011788">
+    <aside class="box-fl">
+        <div class="vote_collect_wrapper answer_vote">
+            <div class="vote_collect answer_vote">
+                <a class="vote_up " onclick="page.voteAnswer(this,1011788,true)" id="a_post_voteup_1011788" title="顶">
+                </a>
+                <span class="vote_count">0</span>
+                <a class="vote_down " onclick="page.voteAnswer(this,1011788,false)" id="a_post_votedown_1011788" title="踩">
+                </a>
+            </div>
+
+                                                </div>
+    </aside>
+    <article class="box-aw" style="margin-right:25px;">
+        <header class="wrap answer_detail">
+            问下，looper在什么时候进行初始化？
+        </header>
+        <section class="answer_replies" id="answer_replies_1011788">
+            <header class="answer_reply_title">--- 共有 1 条评论 ---</header>
+<section class="answer_reply_list">
+            <div class="answer_reply" id="answer_reply_1086799">
+            <div class="anser_reply_content">
+                <a class="user" href="https://my.oschina.net/u/2462176">Kevin-Min</a>：
+                <span class="content">如果是UI线程中的looper的话应该是在Activity初始化就初始化了吧</span>
+                <span class="pub_time">1年前</span>
+                <span class="toolbar">
+                    <a onclick="page.commentAnswer(1011788,2462176,&#39;#answer_replies_1011788&#39;)" class="reply">回复</a>
+                                    </span>
+            </div>
+        </div>
+    </section>
+<footer class="answer_reply_pager">
+    </footer>
+        </section>
+        <footer class="box vertical answer_toolbar">
+            <a class="answer_tool cursor" onclick="page.commentAnswer(1011788,0,&#39;#answer_replies_1011788&#39;)">评论(1)</a>
+                            <a class="answer_tool" href="https://www.oschina.net/question/answer?question=27822&amp;answer=1011788">
+                    引用此评论
+                </a>
+                                    <a class="cursor answer_report" onclick="page.report(1011788,17,&#39;https://www.oschina.net/question/54100_27822#AnchorAnswer1011788&#39;)">举报</a>
+                    </footer>
+    </article>
+    <aside class="box box-fr answer_user" title="Lu_Kun">
+        <div class="box-aw user_info">
+            <a class="wrap user_name" href="https://my.oschina.net/u/2440054" target="_blank">Lu_Kun</a>
+            <div class="reply-time" title="2015-09-13 21:21">2年前</div>
+        </div>
+        <div class="box-fr">
+            <a href="https://my.oschina.net/u/2440054" target="_blank" class="user_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/portrait.gif" align="absmiddle" alt="Lu_Kun" title="Lu_Kun" class="SmallPortrait" user="2440054">            </a>
+        </div>
+    </aside>
+</section>
+            </article>
+        </footer>
+    </div>
+    <style type="text/css">
+    .answer_pub_form {
+        margin: 40px 0;
+    }
+
+    .answer_pub_form .toolbar {
+        margin: 15px 0 0 0;
+        height: 26px;
+    }
+
+    #txt_answner{
+        width: 100%;
+        resize: none;
+        border-radius: 2px;
+        border: 1px solid #ddd;
+        min-height: 161px;
+    }
+
+    .answer_pub_form .submit_button{
+        text-align: center;
+        font-size: 14px;
+        height: 26px;
+        background: #49AB4F;
+        color: #fff;
+        padding: 0 8px;
+        border-radius: 2px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+</style>
+<section class="answer_pub_form">
+    <form id="form_answer" action="https://www.oschina.net/action/question/answer" method="post">
+        <input type="hidden" value="" bind="">
+        <input type="hidden" value="27822" bind="27822">
+        <textarea id="txt_answner" name="body" style="display: none; visibility: hidden;" bind="">                    </textarea><div id="cke_txt_answner" class="cke_1 cke cke_reset cke_chrome cke_editor_txt_answner cke_ltr cke_browser_webkit" dir="ltr" lang="zh-cn" role="application" aria-labelledby="cke_txt_answner_arialbl"><span id="cke_txt_answner_arialbl" class="cke_voice_label">所见即所得编辑器, txt_answner</span><div class="cke_inner cke_reset" role="presentation"><span id="cke_1_top" class="cke_top cke_reset_all" role="presentation" style="height: auto; user-select: none;"><span id="cke_10" class="cke_voice_label">工具栏</span><span id="cke_1_toolbox" class="cke_toolbox" role="group" aria-labelledby="cke_10" onmousedown="return false;"><span id="cke_12" class="cke_toolbar" role="toolbar"><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_13" class="cke_button cke_button__link cke_button_off" href="javascript:void(&#39;插入/编辑超链接&#39;)" title="插入/编辑超链接" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_13_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(1,event);" onfocus="return CKEDITOR.tools.callFunction(2,event);" onclick="CKEDITOR.tools.callFunction(3,this);return false;"><span class="cke_button_icon cke_button__link_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -504px;background-size:auto;">&nbsp;</span><span id="cke_13_label" class="cke_button_label cke_button__link_label" aria-hidden="false">插入/编辑超链接</span></a><a id="cke_14" class="cke_button cke_button__unlink cke_button_disabled " href="javascript:void(&#39;取消超链接&#39;)" title="取消超链接" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_14_label" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(4,event);" onfocus="return CKEDITOR.tools.callFunction(5,event);" onclick="CKEDITOR.tools.callFunction(6,this);return false;"><span class="cke_button_icon cke_button__unlink_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -528px;background-size:auto;">&nbsp;</span><span id="cke_14_label" class="cke_button_label cke_button__unlink_label" aria-hidden="false">取消超链接</span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_15" class="cke_button cke_button__textcolor cke_button_off " href="javascript:void(&#39;文本颜色&#39;)" title="文本颜色" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_15_label" aria-haspopup="true" onkeydown="return CKEDITOR.tools.callFunction(7,event);" onfocus="return CKEDITOR.tools.callFunction(8,event);" onclick="CKEDITOR.tools.callFunction(9,this);return false;"><span class="cke_button_icon cke_button__textcolor_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -888px;background-size:auto;">&nbsp;</span><span id="cke_15_label" class="cke_button_label cke_button__textcolor_label" aria-hidden="false">文本颜色</span><span class="cke_button_arrow"></span></a><a id="cke_16" class="cke_button cke_button__bgcolor cke_button_off " href="javascript:void(&#39;背景颜色&#39;)" title="背景颜色" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_16_label" aria-haspopup="true" onkeydown="return CKEDITOR.tools.callFunction(10,event);" onfocus="return CKEDITOR.tools.callFunction(11,event);" onclick="CKEDITOR.tools.callFunction(12,this);return false;"><span class="cke_button_icon cke_button__bgcolor_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -864px;background-size:auto;">&nbsp;</span><span id="cke_16_label" class="cke_button_label cke_button__bgcolor_label" aria-hidden="false">背景颜色</span><span class="cke_button_arrow"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_17" class="cke_button cke_button__image cke_button_off" href="javascript:void(&#39;图像&#39;)" title="图像" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_17_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(13,event);" onfocus="return CKEDITOR.tools.callFunction(14,event);" onclick="CKEDITOR.tools.callFunction(15,this);return false;"><span class="cke_button_icon cke_button__image_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -336px;background-size:auto;">&nbsp;</span><span id="cke_17_label" class="cke_button_label cke_button__image_label" aria-hidden="false">图像</span></a><a id="cke_18" class="cke_button cke_button__flash cke_button_off" href="javascript:void(&#39;Flash&#39;)" title="Flash" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_18_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(16,event);" onfocus="return CKEDITOR.tools.callFunction(17,event);" onclick="CKEDITOR.tools.callFunction(18,this);return false;"><span class="cke_button_icon cke_button__flash_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/flash/icons/flash.png?t=G2VC20161114&#39;);background-position:0 0px;background-size:16px;">&nbsp;</span><span id="cke_18_label" class="cke_button_label cke_button__flash_label" aria-hidden="false">Flash</span></a><a id="cke_19" class="cke_button cke_button__table cke_button_off" href="javascript:void(&#39;表格&#39;)" title="表格" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_19_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(19,event);" onfocus="return CKEDITOR.tools.callFunction(20,event);" onclick="CKEDITOR.tools.callFunction(21,this);return false;"><span class="cke_button_icon cke_button__table_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -720px;background-size:auto;">&nbsp;</span><span id="cke_19_label" class="cke_button_label cke_button__table_label" aria-hidden="false">表格</span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_20" class="cke_button cke_button__bold cke_button_off" href="javascript:void(&#39;加粗&#39;)" title="加粗" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_20_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(22,event);" onfocus="return CKEDITOR.tools.callFunction(23,event);" onclick="CKEDITOR.tools.callFunction(24,this);return false;"><span class="cke_button_icon cke_button__bold_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 0px;background-size:auto;">&nbsp;</span><span id="cke_20_label" class="cke_button_label cke_button__bold_label" aria-hidden="false">加粗</span></a><a id="cke_21" class="cke_button cke_button__italic cke_button_off" href="javascript:void(&#39;倾斜&#39;)" title="倾斜" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_21_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(25,event);" onfocus="return CKEDITOR.tools.callFunction(26,event);" onclick="CKEDITOR.tools.callFunction(27,this);return false;"><span class="cke_button_icon cke_button__italic_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -24px;background-size:auto;">&nbsp;</span><span id="cke_21_label" class="cke_button_label cke_button__italic_label" aria-hidden="false">倾斜</span></a><a id="cke_22" class="cke_button cke_button__strike cke_button_off" href="javascript:void(&#39;删除线&#39;)" title="删除线" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_22_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(28,event);" onfocus="return CKEDITOR.tools.callFunction(29,event);" onclick="CKEDITOR.tools.callFunction(30,this);return false;"><span class="cke_button_icon cke_button__strike_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -48px;background-size:auto;">&nbsp;</span><span id="cke_22_label" class="cke_button_label cke_button__strike_label" aria-hidden="false">删除线</span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_23" class="cke_button cke_button__numberedlist cke_button_off" href="javascript:void(&#39;编号列表&#39;)" title="编号列表" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_23_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(31,event);" onfocus="return CKEDITOR.tools.callFunction(32,event);" onclick="CKEDITOR.tools.callFunction(33,this);return false;"><span class="cke_button_icon cke_button__numberedlist_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -624px;background-size:auto;">&nbsp;</span><span id="cke_23_label" class="cke_button_label cke_button__numberedlist_label" aria-hidden="false">编号列表</span></a><a id="cke_24" class="cke_button cke_button__bulletedlist cke_button_off" href="javascript:void(&#39;项目列表&#39;)" title="项目列表" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_24_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(34,event);" onfocus="return CKEDITOR.tools.callFunction(35,event);" onclick="CKEDITOR.tools.callFunction(36,this);return false;"><span class="cke_button_icon cke_button__bulletedlist_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -576px;background-size:auto;">&nbsp;</span><span id="cke_24_label" class="cke_button_label cke_button__bulletedlist_label" aria-hidden="false">项目列表</span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_25" class="cke_button cke_button__justifyleft cke_button_off" href="javascript:void(&#39;左对齐&#39;)" title="左对齐" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_25_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(37,event);" onfocus="return CKEDITOR.tools.callFunction(38,event);" onclick="CKEDITOR.tools.callFunction(39,this);return false;"><span class="cke_button_icon cke_button__justifyleft_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -960px;background-size:auto;">&nbsp;</span><span id="cke_25_label" class="cke_button_label cke_button__justifyleft_label" aria-hidden="false">左对齐</span></a><a id="cke_26" class="cke_button cke_button__justifycenter cke_button_off" href="javascript:void(&#39;居中&#39;)" title="居中" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_26_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(40,event);" onfocus="return CKEDITOR.tools.callFunction(41,event);" onclick="CKEDITOR.tools.callFunction(42,this);return false;"><span class="cke_button_icon cke_button__justifycenter_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -936px;background-size:auto;">&nbsp;</span><span id="cke_26_label" class="cke_button_label cke_button__justifycenter_label" aria-hidden="false">居中</span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_27" class="cke_button cke_button__blockquote cke_button_off" href="javascript:void(&#39;块引用&#39;)" title="块引用" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_27_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(43,event);" onfocus="return CKEDITOR.tools.callFunction(44,event);" onclick="CKEDITOR.tools.callFunction(45,this);return false;"><span class="cke_button_icon cke_button__blockquote_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -144px;background-size:auto;">&nbsp;</span><span id="cke_27_label" class="cke_button_label cke_button__blockquote_label" aria-hidden="false">块引用</span></a><a id="cke_28" class="cke_button cke_button__codesnippet cke_button_off" href="javascript:void(&#39;插入代码段&#39;)" title="插入代码段" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_28_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(46,event);" onfocus="return CKEDITOR.tools.callFunction(47,event);" onclick="CKEDITOR.tools.callFunction(48,this);return false;"><span class="cke_button_icon cke_button__codesnippet_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -840px;background-size:auto;">&nbsp;</span><span id="cke_28_label" class="cke_button_label cke_button__codesnippet_label" aria-hidden="false">插入代码段</span></a></span><span class="cke_toolbar_separator" role="separator"></span><span id="cke_11" class="cke_combo cke_combo__format cke_combo_off" role="presentation"><span id="cke_11_label" class="cke_combo_label">格式</span><a class="cke_combo_button" title="格式" tabindex="-1" href="javascript:void(&#39;格式&#39;)" hidefocus="true" role="button" aria-labelledby="cke_11_label" aria-haspopup="true" onkeydown="return CKEDITOR.tools.callFunction(50,event,this);" onfocus="return CKEDITOR.tools.callFunction(51,event);" onclick="CKEDITOR.tools.callFunction(49,this);return false;"><span id="cke_11_text" class="cke_combo_text cke_combo_inlinelabel">格式</span><span class="cke_combo_open"><span class="cke_combo_arrow"></span></span></a></span><span class="cke_toolgroup" role="presentation"><a id="cke_29" class="cke_button cke_button__source cke_button_off" href="javascript:void(&#39;&#39;)" title="" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_29_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(52,event);" onfocus="return CKEDITOR.tools.callFunction(53,event);" onclick="CKEDITOR.tools.callFunction(54,this);return false;"><span class="cke_button_icon cke_button__source_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -696px;background-size:auto;">&nbsp;</span><span id="cke_29_label" class="cke_button_label cke_button__source_label" aria-hidden="false"></span></a><a id="cke_30" class="cke_button cke_button__maximize cke_button_off" href="javascript:void(&#39;全屏&#39;)" title="全屏" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_30_label" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(55,event);" onfocus="return CKEDITOR.tools.callFunction(56,event);" onclick="CKEDITOR.tools.callFunction(57,this);return false;"><span class="cke_button_icon cke_button__maximize_icon" style="background-image:url(&#39;https://www.oschina.net/dist/www/vendor/ckeditor/4.5.8/plugins/icons.png?t=G2VC20161114&#39;);background-position:0 -648px;background-size:auto;">&nbsp;</span><span id="cke_30_label" class="cke_button_label cke_button__maximize_label" aria-hidden="false">全屏</span></a></span><span class="cke_toolbar_end"></span></span></span></span><div id="cke_1_contents" class="cke_contents cke_reset" role="presentation" style="height: 161px;"><span id="cke_35" class="cke_voice_label">按 ALT+0 获得帮助</span><iframe src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/saved_resource.html" frameborder="0" class="cke_wysiwyg_frame cke_reset" title="所见即所得编辑器, txt_answner" aria-describedby="cke_35" tabindex="0" allowtransparency="true" style="width: 100%; height: 100%;"></iframe></div><span id="cke_1_bottom" class="cke_bottom cke_reset_all" role="presentation" style="user-select: none;"><span id="cke_1_path_label" class="cke_voice_label">元素路径</span><span id="cke_1_path" class="cke_path" role="group" aria-labelledby="cke_1_path_label"><span class="cke_path_empty">&nbsp;</span></span></span></div></div>
+        <div class="box vertical toolbar">
+            <div class="box-aw">
+                                <span class="error_msg"></span>
+            </div>
+            <div class="box-fr">
+                <input type="button" class="submit_button" value="提交回答" data-violet="comment">
+            </div>
+        </div>
+    </form>
+</section></article>
+<aside class="box-fr aside-container right_toolbar">
+    <div class="aside-card quesiton_author">
+        <div class="box vertical author_user" title="鉴客">
+            <a href="https://my.oschina.net/javaeye" class="box-fl author_img">
+                <img src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/54100_50.jpg" align="absmiddle" alt="鉴客" title="鉴客" class="SmallPortrait" user="54100">            </a>
+            <div class="box-aw author_info">
+                <div class="author_name">
+                    作者：<a href="https://my.oschina.net/javaeye">@鉴客</a>
+                </div>
+                <div class="last_login_time">
+                    最近登录：7天前
+                </div>
+            </div>
+        </div>
+                    </div>
+                			 					<div name="question_banner_one" data-traceid="questionbanner01" data-tracepid="question_banner_one">
+			<p></p><center><script type="text/javascript"><!--
+google_ad_client = "ca-pub-7443704194229694";
+/* IDG.CN_B2C_oschina.net_HY_250x250_6 */
+google_ad_slot = "1744575184";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/show_ads.js.下载">
+</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><iframe width="250" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:250px;height:250px;" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/saved_resource(1).html"></iframe></ins></ins></center><p></p>
+            </div>
+				                    <div class="aside-card list-card">
+            <div class="box vertical list-title">
+                <div class="box-aw">鉴客的其它问题</div>
+                <a href="https://my.oschina.net/javaeye/?type=bbs&amp;scope=entity&amp;showme=SHOW" class="box-fr more">
+                    全部
+                </a>
+            </div>
+            <ul>
+                                    <li class="list-item">
+                                                <a class="sc sc-text wrap list-content" href="https://www.oschina.net/question/54100_2232229" title="深入 MNIST (TensorFlow)">深入 MNIST (TensorFlow)</a>
+                        <div class="toolbar">
+                            (0回/253阅,4个月前)
+                        </div>
+                    </li>
+                                    <li class="list-item">
+                                                <a class="sc sc-text wrap list-content" href="https://www.oschina.net/question/54100_2232228" title="MNIST 机器学习入门（TensorFlow）">MNIST 机器学习入门（TensorFlow）</a>
+                        <div class="toolbar">
+                            (0回/319阅,4个月前)
+                        </div>
+                    </li>
+                                    <li class="list-item">
+                                                <a class="sc sc-text wrap list-content" href="https://www.oschina.net/question/54100_2231325" title="58到家数据库30条军规解读，你认可几条？">58到家数据库30条军规解读，你认可几条？</a>
+                        <div class="toolbar">
+                            (11回/1K+阅,4个月前)
+                        </div>
+                    </li>
+                                    <li class="list-item">
+                                                <a class="sc sc-text wrap list-content" href="https://www.oschina.net/question/54100_2214662" title="Apache CarbonData 性能初体验">Apache CarbonData 性能初体验</a>
+                        <div class="toolbar">
+                            (2回/482阅,6个月前)
+                        </div>
+                    </li>
+                                    <li class="list-item">
+                                                <a class="sc sc-text wrap list-content" href="https://www.oschina.net/question/54100_2213599" title="升级到 macOS 10.12.2 以后，每次 git push 都要输入 ssh/id_rsa 的密码">升级到 macOS 10.12.2 以后，每次 git push 都要输入 ssh/id_rsa 的密码</a>
+                        <div class="toolbar">
+                            (1回/205阅,6个月前)
+                        </div>
+                    </li>
+                            </ul>
+        </div>
+                            			 					<div name="question_banner_two" data-traceid="questionbanner02" data-tracepid="question_banner_two">
+			<p></p>
+<center>
+<script async="" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/adsbygoogle.js.下载"></script>
+<!-- osc_news_details_sidebar_1_ad_250x250 -->
+<ins class="adsbygoogle" style="display:inline-block;width:250px;height:250px" data-ad-client="ca-pub-7090564139599510" data-ad-slot="9649490513" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><iframe width="250" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:250px;height:250px;" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/saved_resource(2).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+            </div>
+				                <div class="aside-card list-card">
+                    </div>
+</aside>        </main>
+    </section>
+    <div style="display: none;"><div id="loading-effect" style="display:none;">
+    <div class="sk-circle">
+        <div class="sk-circle1 sk-child"></div>
+        <div class="sk-circle2 sk-child"></div>
+        <div class="sk-circle3 sk-child"></div>
+        <div class="sk-circle4 sk-child"></div>
+        <div class="sk-circle5 sk-child"></div>
+        <div class="sk-circle6 sk-child"></div>
+        <div class="sk-circle7 sk-child"></div>
+        <div class="sk-circle8 sk-child"></div>
+        <div class="sk-circle9 sk-child"></div>
+        <div class="sk-circle10 sk-child"></div>
+        <div class="sk-circle11 sk-child"></div>
+        <div class="sk-circle12 sk-child"></div>
+    </div>
+</div></div>
+    <div id="v-report">
+        <comp-report :param="{action:&#39;/action/communityManage/reportv2&#39;}"></comp-report>
+    </div>
+     
+                
+     
+      
+     
+      
+     
+
+<input type="hidden" value="bb8fb098-8574-4089-a71c-e4aaefd470e1" id="uu"> 
+    <input type="hidden" value="0" id="oo">
+
+
+<script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/jquery.js.下载"></script>
+<script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/jquery.cookie.js.下载"></script> 
+
+    <div class="item tool-top" style="display: block;">
+        <a href="javascript:void(0)" class="over">
+            <div class="icon">
+                <i class="icon-svg icon-go-top"></i>
+            </div>
+            <div class="txt">顶部</div>
+        </a>
+    </div>
+    <script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/ckeditor.js.下载"></script>
+    <footer class="footer">
+    <div class="sc-container footer-wrapper box">
+        <div class="box-aw">
+            <div>
+                © 开源中国(OSChina.NET) | <a href="https://www.oschina.net/home/aboutosc">关于我们</a> | <a href="mailto:market@oschina.cn">广告联系</a> | <a href="http://weibo.com/oschina2010" target="_blank">@新浪微博</a>
+                | <a href="https://m.oschina.net/">开源中国手机版</a> | <a href="http://www.miitbeian.gov.cn/" target="_blank" style="color:#737573;text-decoration:none;">粤ICP备12009483号-3</a>
+            </div>
+            <div>开源中国社区(OSChina.net)是工信部 <a href="http://www.copu.org.cn/" target="_blank">开源软件推进联盟</a> 指定的官方社区</div>
+        </div>
+
+        <div class="box-fr">
+            <div class="box vertical oscapp">
+                <span>开源中国手机客户端：</span>
+                <a href="https://www.oschina.net/app" class="android">
+                    <img alt="Android客户端" data-delay="/build/oschina/components/imgs/device/android.svg?t=1481559581000" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/android.svg" load="loaded">
+                </a>
+                <a href="https://www.oschina.net/app" class="iphone">
+                    <img alt="iPhone 客户端" data-delay="/build/oschina/components/imgs/device/iphone.svg?t=1481559581000" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/iphone.svg" load="loaded">
+                </a>
+                <a href="https://www.oschina.net/app" class="wp7">
+                    <img alt="Windows Phone 客户端" data-delay="/build/oschina/components/imgs/device/winphone.svg?t=1481559581000" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/winphone.svg" load="loaded">
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- 此script用于百度统计工具-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a411c4d1664dd70048ee98afe7b28f0b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+        <script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/question-main-87a96ee907505ffc5c17985d90006ec8ed9f281d.js.下载"></script> <script type="text/javascript">
+     (function (ww, dt) {
+         ww.__gac = {
+             domain: 'www.oschina.net'
+         };
+         if(!(/\/marketing\/ad-slice/.test(location.href))){
+             var script = dt.createElement('script');
+             script.setAttribute('type', 'text/javascript');
+             script.setAttribute('src', '//www.oschina.net/public/javascripts/cjl/ga.js?t=20160926');
+             dt.body.appendChild(script);
+         }
+     } (window, window.document));
+ </script><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/ga.js.下载"></script>    <script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/highlight.pack.js(1).下载"></script>
+    <link rel="stylesheet" type="text/css" href="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/zenburn.css">
+            <script>
+        window.addEventListener("load", function() {
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        });
+    </script>
+        <script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/question"></script>
+
+                
+<!-- Generated by OsChina.NET (init:1[ms],page:74[ms],ip:112.254.4.101) --><script type="text/javascript" src="./Handler+Looper+MessageQueue深入详解 - 开源中国社区_files/detail.js.下载"></script></body></html>

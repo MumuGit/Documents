@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://www.cnblogs.com/LittleHann/p/3690187.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/encoder.js.下载"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Java集合类: Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/bundle-SimpleMemory.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/bundle-SimpleMemory-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/LittleHann/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/LittleHann/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/LittleHann/wlwmanifest.xml">
+<script src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'LittleHann', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true }, extensions: ['extpfeil.js'] },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/LittleHann/"><img id="blogLogo" src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/LittleHann/">长路</a></h1>
+<h2>相比到达的地方，同行的人更重要
+I will Make Impossible To I'm possible</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/LittleHann/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/.Little%20Hann">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/LittleHann/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/LittleHann/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 545&nbsp; </span>
+<span id="stats_article_count">文章 - 9&nbsp; </span>
+<span id="stats-comment_count">评论 - 288</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/LittleHann/p/3690187.html">Java集合类: Set、List、Map、Queue使用场景梳理</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>本文主要关注Java编程中涉及到的各种集合类，以及它们的使用场景</p>
+<p>&nbsp;</p>
+<p><strong>相关学习资料</strong></p>
+<div class="cnblogs_code">
+<pre>http:<span style="color: #008000;">//</span><span style="color: #008000;">files.cnblogs.com/LittleHann/java%E9%9B%86%E5%90%88%E6%8E%92%E5%BA%8F%E5%8F%8Ajava%E9%9B%86%E5%90%88%E7%B1%BB%E8%AF%A6%E8%A7%A3%28collection%E3%80%81list%E3%80%81map%E3%80%81set%29.rar</span><span style="color: #000000;">
+http:</span><span style="color: #008000;">//</span><span style="color: #008000;">blog.sina.com.cn/s/blog_a345a8960101k9vx.html</span><span style="color: #000000;">
+http:</span><span style="color: #008000;">//</span><span style="color: #008000;">f51889920.iteye.com/blog/1884810</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>目录</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">. Java集合类基本概念
+</span><span style="color: #800080;">2</span><span style="color: #000000;">. Java集合类架构层次关系
+</span><span style="color: #800080;">3</span>. Java集合类的应用场景代码</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>1. Java集合类基本概念</strong></p>
+<p>在编程中，常常需要集中存放多个数据。从传统意义上讲，数组是我们的一个很好的选择，前提是我们事先已经明确知道我们将要保存的对象的数量。一旦在数组初始化时指定了这个数组长度，这个数组长度就是不可变的，如果我们需要保存一个可以动态增长的数据(在编译时无法确定具体的数量)，java的集合类就是一个很好的设计方案了。</p>
+<p>集合类主要负责保存、盛装其他数据，因此集合类也被称为容器类。所以的集合类都位于java.util包下，后来为了处理多线程环境下的并发安全问题，java5还在java.util.concurrent包下提供了一些多线程支持的集合类。</p>
+<p>在学习Java中的集合类的API、编程原理的时候，我们一定要明白，"集合"是一个很古老的数学概念，它远远早于Java的出现。从数学概念的角度来理解集合能帮助我们更好的理解编程中什么时候该使用什么类型的集合类。</p>
+<p>Java容器类类库的用途是"保存对象"，并将其划分为两个不同的概念：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) Collection
+一组</span><span style="color: #800000;">"</span><span style="color: #800000;">对立</span><span style="color: #800000;">"</span><span style="color: #000000;">的元素，通常这些元素都服从某种规则
+ 　　</span><span style="color: #800080;">1.1</span><span style="color: #000000;">) List必须保持元素特定的顺序
+ 　　</span><span style="color: #800080;">1.2</span><span style="color: #000000;">) Set不能有重复元素
+ 　　</span><span style="color: #800080;">1.3</span><span style="color: #000000;">) Queue保持一个队列(先进先出)的顺序
+</span><span style="color: #800080;">2</span><span style="color: #000000;">) Map
+一组成对的</span><span style="color: #800000;">"</span><span style="color: #800000;">键值对</span><span style="color: #800000;">"</span>对象</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>Collection和Map的区别在于容器中每个位置保存的元素个数:</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) Collection 每个位置只能保存一个元素(对象)
+</span><span style="color: #800080;">2</span>) Map保存的是<span style="color: #800000;">"</span><span style="color: #800000;">键值对</span><span style="color: #800000;">"</span>，就像一个小型数据库。我们可以通过<span style="color: #800000;">"</span><span style="color: #800000;">键</span><span style="color: #800000;">"</span>找到该键对应的<span style="color: #800000;">"</span><span style="color: #800000;">值</span><span style="color: #800000;">"</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>2. Java集合类架构层次关系</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">. Interface Iterable
+迭代器接口，这是Collection类的父接口。实现这个Iterable接口的对象允许使用foreach进行遍历，也就是说，所有的Collection集合对象都具有</span><span style="color: #800000;">"</span><span style="color: #800000;">foreach可遍历性</span><span style="color: #800000;">"</span>。这个Iterable接口只<br>有一个方法: iterator()。它返回一个代表当前集合对象的泛型&lt;T&gt;<span style="color: #000000;">迭代器，用于之后的遍历操作
+</span><span style="color: #800080;">1.1</span><span style="color: #000000;"> Collection
+Collection是最基本的集合接口，一个Collection代表一组Object的集合，这些Object被称作Collection的元素。Collection是一个接口，用以提供规范定义，不能被实例化使用
+    </span><span style="color: #800080;">1</span><span style="color: #000000;">) Set
+    Set集合类似于一个罐子，</span><span style="color: #800000;">"</span><span style="color: #800000;">丢进</span><span style="color: #800000;">"</span><span style="color: #000000;">Set集合里的多个对象之间没有明显的顺序。Set继承自Collection接口，不能包含有重复元素(记住，这是整个Set类层次的共有属性)。
+    Set判断两个对象相同不是使用</span><span style="color: #800000;">"</span><span style="color: #800000;">==</span><span style="color: #800000;">"</span><span style="color: #000000;">运算符，而是根据equals方法。也就是说，我们在加入一个新元素的时候，如果这个新元素对象和Set中已有对象进行注意equals比较都返回false，　　<br> 　 则Set就会接受这个新元素对象，否则拒绝。
+    因为Set的这个制约，在使用Set集合的时候，应该注意两点：</span><span style="color: #800080;">1</span>) 为Set集合里的元素的实现类实现一个有效的equals(Object)方法、<span style="color: #800080;">2</span><span style="color: #000000;">) 对Set的构造函数，传入的Collection参数不能包<br>　　含重复的元素
+        </span><span style="color: #800080;">1.1</span><span style="color: #000000;">) HashSet
+        HashSet是Set接口的典型实现，HashSet使用HASH算法来存储集合中的元素，因此具有良好的存取和查找性能。当向HashSet集合中存入一个元素时，HashSet会调用该对象的<br>　　　　 hashCode()方法来得到该对象的hashCode值，然后根据该HashCode值决定该对象在HashSet中的存储位置。
+        值得主要的是，HashSet集合判断两个元素相等的标准是两个对象通过equals()方法比较相等，并且两个对象的hashCode()方法的返回值相等
+            </span><span style="color: #800080;">1.1</span>.<span style="color: #800080;">1</span><span style="color: #000000;">) LinkedHashSet
+            LinkedHashSet集合也是根据元素的hashCode值来决定元素的存储位置，但和HashSet不同的是，它同时使用链表维护元素的次序，这样使得元素看起来是以插入的顺序保存的。<br>　　　　　　　当遍历LinkedHashSet集合里的元素时，LinkedHashSet将会按元素的添加顺序来访问集合里的元素。
+            LinkedHashSet需要维护元素的插入顺序，因此性能略低于HashSet的性能，但在迭代访问Set里的全部元素时(遍历)将有很好的性能(链表很适合进行遍历)
+        </span><span style="color: #800080;">1.2</span><span style="color: #000000;">) SortedSet    
+        此接口主要用于排序操作，即实现此接口的子类都属于排序的子类
+            </span><span style="color: #800080;">1.2</span>.<span style="color: #800080;">1</span><span style="color: #000000;">) TreeSet
+            TreeSet是SortedSet接口的实现类，TreeSet可以确保集合元素处于排序状态
+        </span><span style="color: #800080;">1.3</span><span style="color: #000000;">) EnumSet
+        EnumSet是一个专门为枚举类设计的集合类，EnumSet中所有元素都必须是指定枚举类型的枚举值，该枚举类型在创建EnumSet时显式、或隐式地指定。EnumSet的集合元素也是有序的，<br>　　　　 它们以枚举值在Enum类内的定义顺序来决定集合元素的顺序
+    </span><span style="color: #800080;">2</span><span style="color: #000000;">) List
+    List集合代表一个元素有序、可重复的集合，集合中每个元素都有其对应的顺序索引。List集合允许加入重复元素，因为它可以通过索引来访问指定位置的集合元素。List集合默认按元素<br>　　 的添加顺序设置元素的索引
+        </span><span style="color: #800080;">2.1</span><span style="color: #000000;">) ArrayList
+        ArrayList是基于数组实现的List类，它封装了一个动态的增长的、允许再分配的Object[]数组。
+        </span><span style="color: #800080;">2.2</span><span style="color: #000000;">) Vector
+        Vector和ArrayList在用法上几乎完全相同，但由于Vector是一个古老的集合，所以Vector提供了一些方法名很长的方法，但随着JDK1.2以后，java提供了系统的集合框架，就将<br>　　　　 Vector改为实现List接口，统一归入集合框架体系中
+            </span><span style="color: #800080;">2.2</span>.<span style="color: #800080;">1</span><span style="color: #000000;">) Stack
+            Stack是Vector提供的一个子类，用于模拟</span><span style="color: #800000;">"</span><span style="color: #800000;">栈</span><span style="color: #800000;">"</span><span style="color: #000000;">这种数据结构(LIFO后进先出)
+        </span><span style="color: #800080;">2.3</span><span style="color: #000000;">) LinkedList
+        implements List</span>&lt;E&gt;, Deque&lt;E&gt;。实现List接口，能对它进行队列操作，即可以根据索引来随机访问集合中的元素。同时它还实现Deque接口，即能将LinkedList当作双端队列<br>　　　　 使用。自然也可以被当作<span style="color: #800000;">"</span><span style="color: #800000;">栈来使用</span><span style="color: #800000;">"</span>
+    <span style="color: #800080;">3</span><span style="color: #000000;">) Queue
+    Queue用于模拟</span><span style="color: #800000;">"</span><span style="color: #800000;">队列</span><span style="color: #800000;">"</span><span style="color: #000000;">这种数据结构(先进先出 FIFO)。队列的头部保存着队列中存放时间最长的元素，队列的尾部保存着队列中存放时间最短的元素。新元素插入(offer)到队列的尾部，<br>　　 访问元素(poll)操作会返回队列头部的元素，队列不允许随机访问队列中的元素。结合生活中常见的排队就会很好理解这个概念
+        </span><span style="color: #800080;">3.1</span><span style="color: #000000;">) PriorityQueue
+        PriorityQueue并不是一个比较标准的队列实现，PriorityQueue保存队列元素的顺序并不是按照加入队列的顺序，而是按照队列元素的大小进行重新排序，这点从它的类名也可以<br>　　　　 看出来
+        </span><span style="color: #800080;">3.2</span><span style="color: #000000;">) Deque
+        Deque接口代表一个</span><span style="color: #800000;">"</span><span style="color: #800000;">双端队列</span><span style="color: #800000;">"</span><span style="color: #000000;">，双端队列可以同时从两端来添加、删除元素，因此Deque的实现类既可以当成队列使用、也可以当成栈使用
+            </span><span style="color: #800080;">3.2</span>.<span style="color: #800080;">1</span><span style="color: #000000;">) ArrayDeque
+            是一个基于数组的双端队列，和ArrayList类似，它们的底层都采用一个动态的、可重分配的Object[]数组来存储集合元素，当集合元素超出该数组的容量时，系统会在底层重<br>　　　　　　　新分配一个Object[]数组来存储集合元素
+            </span><span style="color: #800080;">3.2</span>.<span style="color: #800080;">2</span><span style="color: #000000;">) LinkedList
+</span><span style="color: #800080;">1.2</span><span style="color: #000000;"> Map
+Map用于保存具有</span><span style="color: #800000;">"</span><span style="color: #800000;">映射关系</span><span style="color: #800000;">"</span><span style="color: #000000;">的数据，因此Map集合里保存着两组值，一组值用于保存Map里的key，另外一组值用于保存Map里的value。key和value都可以是任何引用类型的数据。Map的key不允<br>许重复，即同一个Map对象的任何两个key通过equals方法比较结果总是返回false。
+关于Map，我们要从代码复用的角度去理解，java是先实现了Map，然后通过包装了一个所有value都为null的Map就实现了Set集合
+Map的这些实现类和子接口中key集的存储形式和Set集合完全相同(即key不能重复)
+Map的这些实现类和子接口中value集的存储形式和List非常类似(即value可以重复、根据索引来查找)
+    </span><span style="color: #800080;">1</span><span style="color: #000000;">) HashMap
+    和HashSet集合不能保证元素的顺序一样，HashMap也不能保证key</span>-<span style="color: #000000;">value对的顺序。并且类似于HashSet判断两个key是否相等的标准也是: 两个key通过equals()方法比较返回true、<br>　　 同时两个key的hashCode值也必须相等
+        </span><span style="color: #800080;">1.1</span><span style="color: #000000;">) LinkedHashMap
+        LinkedHashMap也使用双向链表来维护key</span>-value对的次序，该链表负责维护Map的迭代顺序，与key-value对的插入顺序一致(注意和TreeMap对所有的key-<span style="color: #000000;">value进行排序进行区<br>分)
+    </span><span style="color: #800080;">2</span><span style="color: #000000;">) Hashtable
+    是一个古老的Map实现类
+        </span><span style="color: #800080;">2.1</span><span style="color: #000000;">) Properties 
+        Properties对象在处理属性文件时特别方便(windows平台上的.ini文件)，Properties类可以把Map对象和属性文件关联起来，从而可以把Map对象中的key</span>-value对写入到属性文<br>　　　　　件中，也可以把属性文件中的<span style="color: #800000;">"</span><span style="color: #800000;">属性名-属性值</span><span style="color: #800000;">"</span><span style="color: #000000;">加载到Map对象中
+    </span><span style="color: #800080;">3</span><span style="color: #000000;">) SortedMap
+    正如Set接口派生出SortedSet子接口，SortedSet接口有一个TreeSet实现类一样，Map接口也派生出一个SortedMap子接口，SortedMap接口也有一个TreeMap实现类
+        </span><span style="color: #800080;">3.1</span><span style="color: #000000;">) TreeMap
+        TreeMap就是一个红黑树数据结构，每个key</span>-value对即作为红黑树的一个节点。TreeMap存储key-value对(节点)时，需要根据key对节点进行排序。TreeMap可以保证所有的<br>　　　　 key-<span style="color: #000000;">value对处于有序状态。同样，TreeMap也有两种排序方式: 自然排序、定制排序
+    </span><span style="color: #800080;">4</span><span style="color: #000000;">) WeakHashMap
+    WeakHashMap与HashMap的用法基本相似。区别在于，HashMap的key保留了对实际对象的</span><span style="color: #800000;">"</span><span style="color: #800000;">强引用</span><span style="color: #800000;">"</span>，这意味着只要该HashMap对象不被销毁，该HashMap所引用的对象就不会被垃圾回收。<br>　　但WeakHashMap的key只保留了对实际对象的弱引用，这意味着如果WeakHashMap对象的key所引用的对象没有被其他强引用变量所引用，则这些key所引用的对象可能被垃圾回收，当垃<br>　　圾回收了该key所对应的实际对象之后，WeakHashMap也可能自动删除这些key所对应的key-<span style="color: #000000;">value对
+    </span><span style="color: #800080;">5</span><span style="color: #000000;">) IdentityHashMap
+    IdentityHashMap的实现机制与HashMap基本相似，在IdentityHashMap中，当且仅当两个key严格相等(key1 </span>==<span style="color: #000000;"> key2)时，IdentityHashMap才认为两个key相等
+    </span><span style="color: #800080;">6</span><span style="color: #000000;">) EnumMap
+    EnumMap是一个与枚举类一起使用的Map实现，EnumMap中的所有key都必须是单个枚举类的枚举值。创建EnumMap时必须显式或隐式指定它对应的枚举类。EnumMap根据key的自然顺序<br>　　(即枚举值在枚举类中的定义顺序)</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/262238192165666.jpg" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>3. Java集合类的应用场景代码</strong></p>
+<p>学习了集合类的基本架构框架之后，我们接着来学习它们各自的应用场景、以及细节处的注意事项</p>
+<p><strong><span style="color: #ff0000;">0x1: Set</span></strong></p>
+<p><em><strong><span style="color: #888888;">HashSet</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">; 
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;">类A的equals方法总是返回true,但没有重写其hashCode()方法。不能保证当前对象是HashSet中的唯一对象</span>
+<span style="color: #0000ff;">class</span><span style="color: #000000;"> A
+{
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> boolean equals(Object obj)
+    {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+    }
+}
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;">类B的hashCode()方法总是返回1,但没有重写其equals()方法。不能保证当前对象是HashSet中的唯一对象</span>
+<span style="color: #0000ff;">class</span><span style="color: #000000;"> B
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> hashCode()
+    {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">1</span><span style="color: #000000;">;
+    }
+}
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;">类C的hashCode()方法总是返回2,且有重写其equals()方法</span>
+<span style="color: #0000ff;">class</span><span style="color: #000000;"> C
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> hashCode()
+    {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">2</span><span style="color: #000000;">;
+    }
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> boolean equals(Object obj)
+    {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+    }
+}
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> HashSetTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        HashSet books </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> HashSet();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">分别向books集合中添加两个A对象，两个B对象，两个C对象</span>
+        books.add(<span style="color: #0000ff;">new</span><span style="color: #000000;"> A());
+        books.add(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> A());
+
+        books.add(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> B());
+        books.add(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> B());
+
+        books.add(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> C());
+        books.add(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> C());
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>result:</p>
+<div class="cnblogs_code">
+<pre>[B@<span style="color: #800080;">1</span>, B@<span style="color: #800080;">1</span>, C@<span style="color: #800080;">2</span>, A@3bc257, A@785d65]</pre>
+</div>
+<p>可以看到，如果两个对象通过equals()方法比较返回true，但这两个对象的hashCode()方法返回不同的hashCode值时，这将导致HashSet会把这两个对象保存在Hash表的不同位置，从而使对象可以添加成功，这就与Set集合的规则有些出入了。所以，我们要明确的是: equals()决定是否可以加入HashSet、而hashCode()决定存放的位置，它们两者必须同时满足才能允许一个新元素加入HashSet<br>但是要注意的是: 如果两个对象的hashCode相同，但是它们的equlas返回值不同，HashSet会在这个位置用链式结构来保存多个对象。而HashSet访问集合元素时也是根据元素的HashCode值来快速定位的，这种链式结构会导致性能下降。</p>
+<p>所以如果需要把某个类的对象保存到HashSet集合中，我们在重写这个类的equlas()方法和hashCode()方法时，应该尽量保证两个对象通过equals()方法比较返回true时，它们的hashCode()方法返回值也相等</p>
+<p><em><strong><span style="color: #888888;">LinkedHashSet</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">; 
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> LinkedHashSetTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        LinkedHashSet books </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> LinkedHashSet();
+        books.add(</span><span style="color: #800000;">"</span><span style="color: #800000;">Java</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        books.add(</span><span style="color: #800000;">"</span><span style="color: #800000;">LittleHann</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">删除 Java</span>
+      books.remove(<span style="color: #800000;">"</span><span style="color: #800000;">Java</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">重新添加 Java</span>
+        books.add(<span style="color: #800000;">"</span><span style="color: #800000;">Java</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>元素的顺序总是与添加顺序一致，同时要明白的是，LinkedHashSetTest是HashSet的子类，因此它不允许集合元素重复</p>
+<p><em><strong><span style="color: #888888;">TreeSet</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> TreeSetTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        TreeSet nums </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> TreeSet();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">向TreeSet中添加四个Integer对象</span>
+        nums.add(<span style="color: #800080;">5</span><span style="color: #000000;">);
+        nums.add(</span><span style="color: #800080;">2</span><span style="color: #000000;">);
+        nums.add(</span><span style="color: #800080;">10</span><span style="color: #000000;">);
+        nums.add(</span>-<span style="color: #800080;">9</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出集合元素，看到集合元素已经处于排序状态</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(nums);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出集合里的第一个元素</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(nums.first());
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出集合里的最后一个元素</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(nums.last());
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">返回小于4的子集，不包含4</span>
+        System.<span style="color: #0000ff;">out</span>.println(nums.headSet(<span style="color: #800080;">4</span><span style="color: #000000;">));
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">返回大于5的子集，如果Set中包含5，子集中还包含5</span>
+        System.<span style="color: #0000ff;">out</span>.println(nums.tailSet(<span style="color: #800080;">5</span><span style="color: #000000;">));
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">返回大于等于-3，小于4的子集。</span>
+        System.<span style="color: #0000ff;">out</span>.println(nums.subSet(-<span style="color: #800080;">3</span> , <span style="color: #800080;">4</span><span style="color: #000000;">));
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>与HashSet集合采用hash算法来决定元素的存储位置不同，TreeSet采用红黑树的数据结构来存储集合元素。TreeSet支持两种排序方式: 自然排序、定制排序<br><strong>1. 自然排序:</strong></p>
+<p>TreeSet会调用集合元素的compareTo(Object obj)方法来比较元素之间的大小关系，然后将集合元素按升序排序，即自然排序。如果试图把一个对象添加到TreeSet时，则该对象的类必须实现Comparable接口，否则程序会抛出异常。</p>
+<p>当把一个对象加入TreeSet集合中时，TreeSet会调用该对象的compareTo(Object obj)方法与容器中的其他对象比较大小，然后根据红黑树结构找到它的存储位置。如果两个对象通过compareTo(Object obj)方法比较相等，新对象将无法添加到TreeSet集合中(牢记Set是不允许重复的概念)。</p>
+<p>注意: 当需要把一个对象放入TreeSet中，重写该对象对应类的equals()方法时，应该保证该方法与compareTo(Object obj)方法有一致的结果，即如果两个对象通过equals()方法比较返回true时，这两个对象通过compareTo(Object obj)方法比较结果应该也为0(即相等)</p>
+<p>看到这里，我们应该明白：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) 对与Set来说，它定义了equals()为唯一性判断的标准，而对于到了具体的实现，HashSet、TreeSet来说，它们又会有自己特有的唯一性判断标准，只有同时满足了才能判定为唯一性
+</span><span style="color: #800080;">2</span>) 我们在操作这些集合类的时候，对和唯一性判断有关的函数重写要重点关注</pre>
+</div>
+<p><strong>&nbsp;2. 定制排序</strong></p>
+<p>TreeSet的自然排序是根据集合元素的大小，TreeSet将它们以升序排序。如果我们需要实现定制排序，则可以通过Comparator接口的帮助(类似PHP中的array_map回调处理函数的思想)。该接口里包含一个int compare(T o1， T o2)方法，该方法用于比较大小</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">class</span><span style="color: #000000;"> M
+{
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> age;
+    </span><span style="color: #0000ff;">public</span> M(<span style="color: #0000ff;">int</span><span style="color: #000000;"> age)
+    {
+        </span><span style="color: #0000ff;">this</span>.age =<span style="color: #000000;"> age;
+    }
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> String toString()
+    {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800000;">"</span><span style="color: #800000;">M[age:</span><span style="color: #800000;">"</span> + age + <span style="color: #800000;">"</span><span style="color: #800000;">]</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+    }
+}
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> TreeSetTest4
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        TreeSet ts </span>= <span style="color: #0000ff;">new</span> TreeSet(<span style="color: #0000ff;">new</span><span style="color: #000000;"> Comparator()
+        {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">根据M对象的age属性来决定大小</span>
+            <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> compare(Object o1, Object o2)
+            {
+                M m1 </span>=<span style="color: #000000;"> (M)o1;
+                M m2 </span>=<span style="color: #000000;"> (M)o2;
+                </span><span style="color: #0000ff;">return</span> m1.age &gt; m2.age ? -<span style="color: #800080;">1</span><span style="color: #000000;">
+                    : m1.age </span>&lt; m2.age ? <span style="color: #800080;">1</span> : <span style="color: #800080;">0</span><span style="color: #000000;">;
+            }
+        });    
+        ts.add(</span><span style="color: #0000ff;">new</span> M(<span style="color: #800080;">5</span><span style="color: #000000;">));
+        ts.add(</span><span style="color: #0000ff;">new</span> M(-<span style="color: #800080;">3</span><span style="color: #000000;">));
+        ts.add(</span><span style="color: #0000ff;">new</span> M(<span style="color: #800080;">9</span><span style="color: #000000;">));
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(ts);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>看到这里，我们需要梳理一下关于排序的概念</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) equals、compareTo决定的是怎么比的问题，即用什么field进行大小比较
+</span><span style="color: #800080;">2</span><span style="color: #000000;">) 自然排序、定制排序、Comparator决定的是谁大的问题，即按什么顺序(升序、降序)进行排序
+它们的关注点是不同的，一定要注意区分</span></pre>
+</div>
+<p><em><strong><span style="color: #888888;">EnumSet</span></strong></em></p>
+<p>&nbsp;</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">enum</span><span style="color: #000000;"> Season
+{
+    SPRING,SUMMER,FALL,WINTER
+}
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> EnumSetTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">创建一个EnumSet集合，集合元素就是Season枚举类的全部枚举值</span>
+        EnumSet es1 = EnumSet.allOf(Season.<span style="color: #0000ff;">class</span><span style="color: #000000;">);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出[SPRING,SUMMER,FALL,WINTER]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(es1);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">创建一个EnumSet空集合，指定其集合元素是Season类的枚举值。</span>
+        EnumSet es2 = EnumSet.noneOf(Season.<span style="color: #0000ff;">class</span><span style="color: #000000;">); 
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出[]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(es2); 
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">手动添加两个元素</span>
+<span style="color: #000000;">        es2.add(Season.WINTER);
+        es2.add(Season.SPRING);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出[SPRING,WINTER]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(es2);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">以指定枚举值创建EnumSet集合</span>
+        EnumSet es3 =<span style="color: #000000;"> EnumSet.of(Season.SUMMER , Season.WINTER); 
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出[SUMMER,WINTER]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(es3);
+
+        EnumSet es4 </span>=<span style="color: #000000;"> EnumSet.range(Season.SUMMER , Season.WINTER); 
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出[SUMMER,FALL,WINTER]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(es4);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">新创建的EnumSet集合的元素和es4集合的元素有相同类型，
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">es5的集合元素 + es4集合元素 = Season枚举类的全部枚举值</span>
+        EnumSet es5 =<span style="color: #000000;"> EnumSet.complementOf(es4); 
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出[SPRING]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(es5);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>以上就是Set集合类的编程应用场景。那么应该怎样选择何时使用这些集合类呢？</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) HashSet的性能总是比TreeSet好(特别是最常用的添加、查询元素等操作)，因为TreeSet需要额外的红黑树算法来维护集合元素的次序。只有当需要一个保持排序的Set时，才应该使用TreeSet，否则都应该使用HashSet
+</span><span style="color: #800080;">2</span><span style="color: #000000;">) 对于普通的插入、删除操作，LinkedHashSet比HashSet要略慢一点，这是由维护链表所带来的开销造成的。不过，因为有了链表的存在，遍历LinkedHashSet会更快
+</span><span style="color: #800080;">3</span><span style="color: #000000;">) EnumSet是所有Set实现类中性能最好的，但它只能保存同一个枚举类的枚举值作为集合元素
+</span><span style="color: #800080;">4</span>) HashSet、TreeSet、EnumSet都是<span style="color: #800000;">"</span><span style="color: #800000;">线程不安全</span><span style="color: #800000;">"</span>的，通常可以通过Collections工具类的synchronizedSortedSet方法来<span style="color: #800000;">"</span><span style="color: #800000;">包装</span><span style="color: #800000;">"</span><span style="color: #000000;">该Set集合。
+SortedSet s </span>= Collections.synchronizedSortedSet(<span style="color: #0000ff;">new</span><span style="color: #000000;"> TreeSet(...));<br></span></pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000;"><strong>0x2: List</strong></span></p>
+<p><em><strong><span style="color: #808080;">ArrayList</span></strong></em></p>
+<p><span style="color: #000000;">如果一开始就知道ArrayList集合需要保存多少元素，则可以在创建它们时就指定initialCapacity大小，这样可以减少重新分配的次数，提供性能，ArrayList还提供了如下方法来重新分配Object[]数组</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span>) ensureCapacity(<span style="color: #0000ff;">int</span><span style="color: #000000;"> minCapacity): 将ArrayList集合的Object[]数组长度增加minCapacity
+</span><span style="color: #800080;">2</span>) trimToSize(): 调整ArrayList集合的Object[]数组长度为当前元素的个数。程序可以通过此方法来减少ArrayList集合对象占用的内存空间</pre>
+</div>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> ListTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        List books </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> ArrayList();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">向books集合中添加三个元素</span>
+        books.add(<span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        books.add(</span><span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        books.add(</span><span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Android讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将新字符串对象插入在第二个位置</span>
+        books.add(<span style="color: #800080;">1</span> , <span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Ajax讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span> ; i &lt; books.size() ; i++<span style="color: #000000;"> )
+        {
+            System.</span><span style="color: #0000ff;">out</span>.println(books.<span style="color: #0000ff;">get</span><span style="color: #000000;">(i));
+        }
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">删除第三个元素</span>
+        books.remove(<span style="color: #800080;">2</span><span style="color: #000000;">);
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">判断指定元素在List集合中位置：输出1，表明位于第二位</span>
+        System.<span style="color: #0000ff;">out</span>.println(books.indexOf(<span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Ajax讲义</span><span style="color: #800000;">"</span>)));  <span style="color: #008000;">//</span><span style="color: #008000;">①
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将第二个元素替换成新的字符串对象</span>
+        books.<span style="color: #0000ff;">set</span>(<span style="color: #800080;">1</span>, <span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">LittleHann</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将books集合的第二个元素（包括）
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">到第三个元素（不包括）截取成子集合</span>
+        System.<span style="color: #0000ff;">out</span>.println(books.subList(<span style="color: #800080;">1</span> , <span style="color: #800080;">2</span><span style="color: #000000;">));
+    }
+<br></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><em><strong><span style="color: #999999;">Stack</span></strong></em></p>
+<p><span style="color: #000000;">注意Stack的后进先出的特点</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> VectorTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        Stack v </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Stack();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">依次将三个元素push入"栈"</span>
+        v.push(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        v.push(</span><span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        v.push(</span><span style="color: #800000;">"</span><span style="color: #800000;">疯狂Android讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出：[疯狂Java讲义, 轻量级Java EE企业应用实战 , 疯狂Android讲义]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(v);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">访问第一个元素，但并不将其pop出"栈"，输出：疯狂Android讲义</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(v.peek());
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">依然输出：[疯狂Java讲义, 轻量级Java EE企业应用实战 , 疯狂Android讲义]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(v);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">pop出第一个元素，输出：疯狂Android讲义</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(v.pop());
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出：[疯狂Java讲义, 轻量级Java EE企业应用实战]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(v);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><em><strong><span style="color: #808080;">LinkedList</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> LinkedListTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        LinkedList books </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> LinkedList();
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将字符串元素加入队列的尾部(双端队列)</span>
+        books.offer(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将一个字符串元素加入栈的顶部(双端队列)</span>
+        books.push(<span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将字符串元素添加到队列的头(相当于栈的顶部)</span>
+        books.offerFirst(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Android讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; books.size() ; i++<span style="color: #000000;"> )
+        {
+            System.</span><span style="color: #0000ff;">out</span>.println(books.<span style="color: #0000ff;">get</span><span style="color: #000000;">(i));
+        }
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">访问、并不删除栈顶的元素</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books.peekFirst());
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">访问、并不删除队列的最后一个元素</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books.peekLast());
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将栈顶的元素弹出"栈"</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books.pop());
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">下面输出将看到队列中第一个元素被删除</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">访问、并删除队列的最后一个元素</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books.pollLast());
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">下面输出将看到队列中只剩下中间一个元素：
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">轻量级Java EE企业应用实战</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>从代码中我们可以看到，LinkedList同时表现出了双端队列、栈的用法。功能非常强大</p>
+<p>&nbsp;</p>
+<p><strong><span style="color: #ff0000;">0x3:&nbsp;Queue</span></strong></p>
+<p><em><span style="color: #808080;"><strong>PriorityQueue</strong></span></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> PriorityQueueTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        PriorityQueue pq </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> PriorityQueue();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">下面代码依次向pq中加入四个元素</span>
+        pq.offer(<span style="color: #800080;">6</span><span style="color: #000000;">);
+        pq.offer(</span>-<span style="color: #800080;">3</span><span style="color: #000000;">);
+        pq.offer(</span><span style="color: #800080;">9</span><span style="color: #000000;">);
+        pq.offer(</span><span style="color: #800080;">0</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出pq队列，并不是按元素的加入顺序排列，
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">而是按元素的大小顺序排列，输出[-3, 0, 9, 6]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(pq);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">访问队列第一个元素，其实就是队列中最小的元素：-3</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(pq.poll());
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>PriorityQueue不允许插入null元素，它还需要对队列元素进行排序，PriorityQueue的元素有两种排序方式</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) 自然排序:
+采用自然顺序的PriorityQueue集合中的元素对象都必须实现了Comparable接口，而且应该是同一个类的多个实例，否则可能导致ClassCastException异常
+</span><span style="color: #800080;">2</span><span style="color: #000000;">) 定制排序
+创建PriorityQueue队列时，传入一个Comparator对象，该对象负责对队列中的所有元素进行排序
+关于自然排序、定制排序的原理和之前说的TreeSet类似</span></pre>
+</div>
+<p><em><strong><span style="color: #888888;">&nbsp;ArrayDeque</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> ArrayDequeTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        ArrayDeque stack </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> ArrayDeque();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">依次将三个元素push入"栈"</span>
+        stack.push(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        stack.push(</span><span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        stack.push(</span><span style="color: #800000;">"</span><span style="color: #800000;">疯狂Android讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出：[疯狂Java讲义, 轻量级Java EE企业应用实战 , 疯狂Android讲义]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(stack);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">访问第一个元素，但并不将其pop出"栈"，输出：疯狂Android讲义</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(stack.peek());
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">依然输出：[疯狂Java讲义, 轻量级Java EE企业应用实战 , 疯狂Android讲义]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(stack);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">pop出第一个元素，输出：疯狂Android讲义</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(stack.pop());
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出：[疯狂Java讲义, 轻量级Java EE企业应用实战]</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(stack);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>以上就是List集合类的编程应用场景。我们来梳理一下思路</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span>. java提供的List就是一个<span style="color: #800000;">"</span><span style="color: #800000;">线性表接口</span><span style="color: #800000;">"</span><span style="color: #000000;">，ArrayList(基于数组的线性表)、LinkedList(基于链的线性表)是线性表的两种典型实现
+</span><span style="color: #800080;">2</span><span style="color: #000000;">. Queue代表了队列，Deque代表了双端队列(既可以作为队列使用、也可以作为栈使用)
+</span><span style="color: #800080;">3</span><span style="color: #000000;">. 因为数组以一块连续内存来保存所有的数组元素，所以数组在随机访问时性能最好。所以的内部以数组作为底层实现的集合在随机访问时性能最好。
+</span><span style="color: #800080;">4</span><span style="color: #000000;">. 内部以链表作为底层实现的集合在执行插入、删除操作时有很好的性能
+</span><span style="color: #800080;">5</span>. 进行迭代操作时，以链表作为底层实现的集合比以数组作为底层实现的集合性能好</pre>
+</div>
+<p>我们之前说过，Collection接口继承了Iterable接口，也就是说，我们以上学习到的所有的Collection集合类都具有"可遍历性"</p>
+<p>Iterable接口也是java集合框架的成员，它隐藏了各种Collection实现类的底层细节，向应用程序提供了遍历Collection集合元素的统一编程接口:</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) boolean hasNext(): 是否还有下一个未遍历过的元素
+</span><span style="color: #800080;">2</span><span style="color: #000000;">) Object next(): 返回集合里的下一个元素
+</span><span style="color: #800080;">3</span>) <span style="color: #0000ff;">void</span> remove(): 删除集合里上一次next方法返回的元素</pre>
+</div>
+<p><strong>iterator实现遍历:</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> IteratorTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">创建一个集合</span>
+        Collection books = <span style="color: #0000ff;">new</span><span style="color: #000000;"> HashSet();
+        books.add(</span><span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        books.add(</span><span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        books.add(</span><span style="color: #800000;">"</span><span style="color: #800000;">疯狂Android讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">获取books集合对应的迭代器</span>
+        Iterator it =<span style="color: #000000;"> books.iterator();
+        </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(it.hasNext())
+        {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">it.next()方法返回的数据类型是Object类型，
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">需要强制类型转换</span>
+            String book =<span style="color: #000000;"> (String)it.next();
+            System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(book);
+            </span><span style="color: #0000ff;">if</span> (book.equals(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">))
+            {
+                </span><span style="color: #008000;">//</span><span style="color: #008000;">从集合中删除上一次next方法返回的元素</span>
+<span style="color: #000000;">                it.remove();
+            }
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">对book变量赋值，不会改变集合元素本身</span>
+            book = <span style="color: #800000;">"</span><span style="color: #800000;">测试字符串</span><span style="color: #800000;">"</span><span style="color: #000000;">;    
+        }
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>从代码可以看出，iterator必须依附于Collection对象，若有一个iterator对象，必然有一个与之关联的Collection对象。</p>
+<p>除了可以使用iterator接口迭代访问Collection集合里的元素之外，使用java5提供的foreach循环迭代访问集合元素更加便捷</p>
+<p><strong>foreach实现遍历:</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> ForeachTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">创建一个集合</span>
+        Collection books = <span style="color: #0000ff;">new</span><span style="color: #000000;"> HashSet();
+        books.add(</span><span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        books.add(</span><span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        books.add(</span><span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Android讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+
+        </span><span style="color: #0000ff;">for</span><span style="color: #000000;"> (Object obj : books)
+        {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">此处的book变量也不是集合元素本身</span>
+            String book =<span style="color: #000000;"> (String)obj;
+            System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(book);
+            </span><span style="color: #0000ff;">if</span> (book.equals(<span style="color: #800000;">"</span><span style="color: #800000;">疯狂Android讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">))
+            {
+                </span><span style="color: #008000;">//</span><span style="color: #008000;">下面代码会引发ConcurrentModificationException异常
+                </span><span style="color: #008000;">//</span><span style="color: #008000;">books.remove(book);      </span>
+<span style="color: #000000;">            }
+        }
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(books);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>除了Collection固有的iterator()方法，List还额外提供了一个listIterator()方法，该方法返回一个ListIterator对象，ListIterator接口继承了Iterator接口，提供了专门操作List的方法。ListIterator接口在Iterator接口的继承上增加了如下方法:</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) boolean hasPrevious(): 返回该迭代器关联的集合是否还有上一个元素
+</span><span style="color: #800080;">2</span><span style="color: #000000;">) Object previous(): 返回该迭代器的上一个元素(向前迭代)
+</span><span style="color: #800080;">3</span>) <span style="color: #0000ff;">void</span> add(): 在指定位置插入一个元素</pre>
+</div>
+<p><strong>ListIterator实现遍历:</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> ListIteratorTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        String[] books </span>=<span style="color: #000000;"> {
+            </span><span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">,
+            </span><span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">
+        };
+        List bookList </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> ArrayList();
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; books.length ; i++<span style="color: #000000;"> )
+        {
+            bookList.add(books[i]);
+        }
+        ListIterator lit </span>=<span style="color: #000000;"> bookList.listIterator();
+        </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (lit.hasNext())
+        {
+            System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(lit.next());
+            lit.add(</span><span style="color: #800000;">"</span><span style="color: #800000;">-------分隔符-------</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        }
+        System.</span><span style="color: #0000ff;">out</span>.println(<span style="color: #800000;">"</span><span style="color: #800000;">=======下面开始反向迭代=======</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(lit.hasPrevious())
+        {
+            System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(lit.previous());
+        }
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000;"><strong>0x4:&nbsp;Map</strong></span></p>
+<p><em><span style="color: #999999;"><strong>HashMap、Hashtable</strong></span></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">class</span><span style="color: #000000;"> A
+{
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> count;
+    </span><span style="color: #0000ff;">public</span> A(<span style="color: #0000ff;">int</span><span style="color: #000000;"> count)
+    {
+        </span><span style="color: #0000ff;">this</span>.count =<span style="color: #000000;"> count;
+    }
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">根据count的值来判断两个对象是否相等。</span>
+    <span style="color: #0000ff;">public</span><span style="color: #000000;"> boolean equals(Object obj)
+    {
+        </span><span style="color: #0000ff;">if</span> (obj == <span style="color: #0000ff;">this</span><span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span> (obj!=<span style="color: #0000ff;">null</span> &amp;&amp;<span style="color: #000000;">
+            obj.getClass()</span>==A.<span style="color: #0000ff;">class</span><span style="color: #000000;">)
+        {
+            A a </span>=<span style="color: #000000;"> (A)obj;
+            </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">this</span>.count ==<span style="color: #000000;"> a.count;
+        }
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+    }
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">根据count来计算hashCode值。</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> hashCode()
+    {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">this</span><span style="color: #000000;">.count;
+    }
+}
+</span><span style="color: #0000ff;">class</span><span style="color: #000000;"> B
+{
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">重写equals()方法，B对象与任何对象通过equals()方法比较都相等</span>
+    <span style="color: #0000ff;">public</span><span style="color: #000000;"> boolean equals(Object obj)
+    {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+    }
+}
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> HashtableTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        Hashtable ht </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Hashtable();
+        ht.put(</span><span style="color: #0000ff;">new</span> A(<span style="color: #800080;">60000</span>) , <span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        ht.put(</span><span style="color: #0000ff;">new</span> A(<span style="color: #800080;">87563</span>) , <span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        ht.put(</span><span style="color: #0000ff;">new</span> A(<span style="color: #800080;">1232</span>) , <span style="color: #0000ff;">new</span><span style="color: #000000;"> B());
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(ht);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">只要两个对象通过equals比较返回true，
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">Hashtable就认为它们是相等的value。
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">由于Hashtable中有一个B对象，
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">它与任何对象通过equals比较都相等，所以下面输出true。</span>
+        System.<span style="color: #0000ff;">out</span>.println(ht.containsValue(<span style="color: #800000;">"</span><span style="color: #800000;">测试字符串</span><span style="color: #800000;">"</span>));  <span style="color: #008000;">//</span><span style="color: #008000;">①
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">只要两个A对象的count相等，它们通过equals比较返回true，且hashCode相等
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">Hashtable即认为它们是相同的key，所以下面输出true。</span>
+        System.<span style="color: #0000ff;">out</span>.println(ht.containsKey(<span style="color: #0000ff;">new</span> A(<span style="color: #800080;">87563</span>)));   <span style="color: #008000;">//</span><span style="color: #008000;">②
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">下面语句可以删除最后一个key-value对</span>
+        ht.remove(<span style="color: #0000ff;">new</span> A(<span style="color: #800080;">1232</span>));    <span style="color: #008000;">//</span><span style="color: #008000;">③
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">通过返回Hashtable的所有key组成的Set集合，
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">从而遍历Hashtable每个key-value对</span>
+        <span style="color: #0000ff;">for</span><span style="color: #000000;"> (Object key : ht.keySet())
+        {
+            System.</span><span style="color: #0000ff;">out</span>.print(key + <span style="color: #800000;">"</span><span style="color: #800000;">----&gt;</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+            System.</span><span style="color: #0000ff;">out</span>.print(ht.<span style="color: #0000ff;">get</span>(key) + <span style="color: #800000;">"</span><span style="color: #800000;">\n</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        }
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>当使用自定义类作为HashMap、Hashtable的key时，如果重写该类的equals(Object obj)和hashCode()方法，则应该保证两个方法的判断标准一致--当两个key通过equals()方法比较返回true时，两个key的hashCode()的返回值也应该相同</p>
+<p><em><strong><span style="color: #999999;">LinkedHashMap</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> LinkedHashMapTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        LinkedHashMap scores </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> LinkedHashMap();
+        scores.put(</span><span style="color: #800000;">"</span><span style="color: #800000;">语文</span><span style="color: #800000;">"</span> , <span style="color: #800080;">80</span><span style="color: #000000;">);
+        scores.put(</span><span style="color: #800000;">"</span><span style="color: #800000;">英文</span><span style="color: #800000;">"</span> , <span style="color: #800080;">82</span><span style="color: #000000;">);
+        scores.put(</span><span style="color: #800000;">"</span><span style="color: #800000;">数学</span><span style="color: #800000;">"</span> , <span style="color: #800080;">76</span><span style="color: #000000;">);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">遍历scores里的所有的key-value对</span>
+        <span style="color: #0000ff;">for</span><span style="color: #000000;"> (Object key : scores.keySet())
+        {
+            System.</span><span style="color: #0000ff;">out</span>.println(key + <span style="color: #800000;">"</span><span style="color: #800000;">------&gt;</span><span style="color: #800000;">"</span> + scores.<span style="color: #0000ff;">get</span><span style="color: #000000;">(key));
+        }
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><em><strong><span style="color: #999999;">Properties</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+import java.io.</span>*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> PropertiesTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) throws Exception
+    {
+        Properties props </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Properties();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">向Properties中增加属性</span>
+        props.setProperty(<span style="color: #800000;">"</span><span style="color: #800000;">username</span><span style="color: #800000;">"</span> , <span style="color: #800000;">"</span><span style="color: #800000;">yeeku</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        props.setProperty(</span><span style="color: #800000;">"</span><span style="color: #800000;">password</span><span style="color: #800000;">"</span> , <span style="color: #800000;">"</span><span style="color: #800000;">123456</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将Properties中的key-value对保存到a.ini文件中</span>
+        props.store(<span style="color: #0000ff;">new</span> FileOutputStream(<span style="color: #800000;">"</span><span style="color: #800000;">a.ini</span><span style="color: #800000;">"</span>), <span style="color: #800000;">"</span><span style="color: #800000;">comment line</span><span style="color: #800000;">"</span>);   <span style="color: #008000;">//</span><span style="color: #008000;">①
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">新建一个Properties对象</span>
+        Properties props2 = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Properties();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">向Properties中增加属性</span>
+        props2.setProperty(<span style="color: #800000;">"</span><span style="color: #800000;">gender</span><span style="color: #800000;">"</span> , <span style="color: #800000;">"</span><span style="color: #800000;">male</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将a.ini文件中的key-value对追加到props2中</span>
+        props2.load(<span style="color: #0000ff;">new</span> FileInputStream(<span style="color: #800000;">"</span><span style="color: #800000;">a.ini</span><span style="color: #800000;">"</span>) );    <span style="color: #008000;">//</span><span style="color: #008000;">②</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(props2);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>Properties还可以把key-value对以XML文件的形式保存起来，也可以从XML文件中加载key-value对</p>
+<p><em><strong><span style="color: #999999;">TreeMap</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">class</span><span style="color: #000000;"> R implements Comparable
+{
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> count;
+    </span><span style="color: #0000ff;">public</span> R(<span style="color: #0000ff;">int</span><span style="color: #000000;"> count)
+    {
+        </span><span style="color: #0000ff;">this</span>.count =<span style="color: #000000;"> count;
+    }
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> String toString()
+    {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800000;">"</span><span style="color: #800000;">R[count:</span><span style="color: #800000;">"</span> + count + <span style="color: #800000;">"</span><span style="color: #800000;">]</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+    }
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">根据count来判断两个对象是否相等。</span>
+    <span style="color: #0000ff;">public</span><span style="color: #000000;"> boolean equals(Object obj)
+    {
+        </span><span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">this</span> ==<span style="color: #000000;"> obj)
+            </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span> (obj!=<span style="color: #0000ff;">null</span>
+            &amp;&amp; obj.getClass()==R.<span style="color: #0000ff;">class</span><span style="color: #000000;">)
+        {
+            R r </span>=<span style="color: #000000;"> (R)obj;
+            </span><span style="color: #0000ff;">return</span> r.count == <span style="color: #0000ff;">this</span><span style="color: #000000;">.count;
+        }
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+    }
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">根据count属性值来判断两个对象的大小。</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> compareTo(Object obj)
+    {
+        R r </span>=<span style="color: #000000;"> (R)obj;
+        </span><span style="color: #0000ff;">return</span> count &gt; r.count ? <span style="color: #800080;">1</span><span style="color: #000000;"> :
+            count </span>&lt; r.count ? -<span style="color: #800080;">1</span> : <span style="color: #800080;">0</span><span style="color: #000000;">;
+    }
+}
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> TreeMapTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        TreeMap tm </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> TreeMap();
+        tm.put(</span><span style="color: #0000ff;">new</span> R(<span style="color: #800080;">3</span>) , <span style="color: #800000;">"</span><span style="color: #800000;">轻量级Java EE企业应用实战</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        tm.put(</span><span style="color: #0000ff;">new</span> R(-<span style="color: #800080;">5</span>) , <span style="color: #800000;">"</span><span style="color: #800000;">疯狂Java讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        tm.put(</span><span style="color: #0000ff;">new</span> R(<span style="color: #800080;">9</span>) , <span style="color: #800000;">"</span><span style="color: #800000;">疯狂Android讲义</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(tm);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">返回该TreeMap的第一个Entry对象</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(tm.firstEntry());
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">返回该TreeMap的最后一个key值</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(tm.lastKey());
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">返回该TreeMap的比new R(2)大的最小key值。</span>
+        System.<span style="color: #0000ff;">out</span>.println(tm.higherKey(<span style="color: #0000ff;">new</span> R(<span style="color: #800080;">2</span><span style="color: #000000;">)));
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">返回该TreeMap的比new R(2)小的最大的key-value对。</span>
+        System.<span style="color: #0000ff;">out</span>.println(tm.lowerEntry(<span style="color: #0000ff;">new</span> R(<span style="color: #800080;">2</span><span style="color: #000000;">)));
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">返回该TreeMap的子TreeMap</span>
+        System.<span style="color: #0000ff;">out</span>.println(tm.subMap(<span style="color: #0000ff;">new</span> R(-<span style="color: #800080;">1</span>) , <span style="color: #0000ff;">new</span> R(<span style="color: #800080;">4</span><span style="color: #000000;">)));
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>从代码中可以看出，类似于TreeSet中判断两个元素是否相等的标准，TreeMap中判断两个key相等的标准是:&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) 两个key通过compareTo()方法返回0
+</span><span style="color: #800080;">2</span>) equals()放回true</pre>
+</div>
+<p>我们在重写这两个方法的时候一定要保证它们的逻辑关系一致。</p>
+<p>再次强调一下:</p>
+<div class="cnblogs_code">
+<pre>Set和Map的关系十分密切，java源码就是先实现了HashMap、TreeMap等集合，然后通过包装一个所有的value都为null的Map集合实现了Set集合类</pre>
+</div>
+<p><em><strong><span style="color: #999999;">WeakHashMap</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> WeakHashMapTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        WeakHashMap whm </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> WeakHashMap();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将WeakHashMap中添加三个key-value对，
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">三个key都是匿名字符串对象（没有其他引用）</span>
+        whm.put(<span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">语文</span><span style="color: #800000;">"</span>) , <span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">良好</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        whm.put(</span><span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">数学</span><span style="color: #800000;">"</span>) , <span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">及格</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        whm.put(</span><span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">英文</span><span style="color: #800000;">"</span>) , <span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">中等</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">将WeakHashMap中添加一个key-value对，
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">该key是一个系统缓存的字符串对象。"java"是一个常量字符串强引用</span>
+        whm.put(<span style="color: #800000;">"</span><span style="color: #800000;">java</span><span style="color: #800000;">"</span> , <span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">中等</span><span style="color: #800000;">"</span><span style="color: #000000;">));
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">输出whm对象，将看到4个key-value对。</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(whm);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">通知系统立即进行垃圾回收</span>
+<span style="color: #000000;">        System.gc();
+        System.runFinalization();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">通常情况下，将只看到一个key-value对。</span>
+        System.<span style="color: #0000ff;">out</span><span style="color: #000000;">.println(whm);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>如果需要使用WeakHashMap的key来保留对象的弱引用，则不要让key所引用的对象具有任何强引用，否则将失去使用WeakHashMap的意义</p>
+<p><em><strong><span style="color: #999999;">IdentityHashMap</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> IdentityHashMapTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        IdentityHashMap ihm </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> IdentityHashMap();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">下面两行代码将会向IdentityHashMap对象中添加两个key-value对</span>
+        ihm.put(<span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">语文</span><span style="color: #800000;">"</span>) , <span style="color: #800080;">89</span><span style="color: #000000;">);
+        ihm.put(</span><span style="color: #0000ff;">new</span> String(<span style="color: #800000;">"</span><span style="color: #800000;">语文</span><span style="color: #800000;">"</span>) , <span style="color: #800080;">78</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">下面两行代码只会向IdentityHashMap对象中添加一个key-value对</span>
+        ihm.put(<span style="color: #800000;">"</span><span style="color: #800000;">java</span><span style="color: #800000;">"</span> , <span style="color: #800080;">93</span><span style="color: #000000;">);
+        ihm.put(</span><span style="color: #800000;">"</span><span style="color: #800000;">java</span><span style="color: #800000;">"</span> , <span style="color: #800080;">98</span><span style="color: #000000;">);
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(ihm);
+    }
+}</span> </pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><em><strong><span style="color: #999999;">EnumMap</span></strong></em></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>import java.util.*<span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">enum</span><span style="color: #000000;"> Season
+{
+    SPRING,SUMMER,FALL,WINTER
+}
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> EnumMapTest
+{
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) 
+    {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">创建一个EnumMap对象，该EnumMap的所有key
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">必须是Season枚举类的枚举值</span>
+        EnumMap enumMap = <span style="color: #0000ff;">new</span> EnumMap(Season.<span style="color: #0000ff;">class</span><span style="color: #000000;">);
+        enumMap.put(Season.SUMMER , </span><span style="color: #800000;">"</span><span style="color: #800000;">夏日炎炎</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        enumMap.put(Season.SPRING , </span><span style="color: #800000;">"</span><span style="color: #800000;">春暖花开</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        System.</span><span style="color: #0000ff;">out</span><span style="color: #000000;">.println(enumMap);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>与创建普通Map有所区别的是，创建EnumMap是必须指定一个枚举类，从而将该EnumMap和指定枚举类关联起来</p>
+<p>以上就是Map集合类的编程应用场景。我们来梳理一下思路</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">) HashMap和Hashtable的效率大致相同，因为它们的实现机制几乎完全一样。但HashMap通常比Hashtable要快一点，因为Hashtable需要额外的线程同步控制
+</span><span style="color: #800080;">2</span>) TreeMap通常比HashMap、Hashtable要慢(尤其是在插入、删除key-value对时更慢)，因为TreeMap底层采用红黑树来管理key-<span style="color: #000000;">value对
+</span><span style="color: #800080;">3</span>) 使用TreeMap的一个好处就是： TreeMap中的key-value对总是处于有序状态，无须专门进行排序操作</pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="color: #999999;"><em><strong>Copyright (c) 2014 LittleHann All rights reserved</strong></em></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/LittleHann/category/572212.html" target="_blank">Java</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3690187,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;8cb3dedf-4dc5-e211-8d02-90b11c0b17d6&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/LittleHann/" target="_blank"><img src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/20160607123502.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/LittleHann/">.Little Hann</a><br>
+            <a href="http://home.cnblogs.com/u/LittleHann/followees">关注 - 4</a><br>
+            <a href="http://home.cnblogs.com/u/LittleHann/followers">粉丝 - 331</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;8cb3dedf-4dc5-e211-8d02-90b11c0b17d6&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3690187,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">18</span>
+    </div>
+    <div class="buryit" onclick="votePost(3690187,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/LittleHann/p/3678685.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/LittleHann/p/3678685.html" title="发布于2014-04-22 15:36">Java输入、输入、IO流 类层次关系梳理</a><br><a href="http://www.cnblogs.com/LittleHann/p/3695332.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/LittleHann/p/3695332.html" title="发布于2014-04-28 11:12">Java JDBC下执行SQL的不同方式、参数化预编译防御</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2014-04-26 22:39</span> <a href="http://www.cnblogs.com/LittleHann/">.Little Hann</a> 阅读(<span id="post_view_count">21070</span>) 评论(<span id="post_comment_count">8</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3690187" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/LittleHann/p/3690187.html#" onclick="AddToWz(3690187);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=152568,cb_entryId=3690187,cb_blogApp=currentBlogApp,cb_blogUserGuid='8cb3dedf-4dc5-e211-8d02-90b11c0b17d6',cb_entryCreatedDate='2014/4/26 22:39:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3220997" class="layer">#1楼</a><a name="3220997" id="comment_anchor_3220997"></a>  <span class="comment_date">2015-07-03 15:51</span> <a id="a_comment_author_3220997" href="http://www.cnblogs.com/csf1219250084/" target="_blank">池上府</a> <a href="http://msg.cnblogs.com/send/%E6%B1%A0%E4%B8%8A%E5%BA%9C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3220997" class="blog_comment_body">写的很详细，表达很透彻</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3220997,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3220997,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3238005" class="layer">#2楼</a><a name="3238005" id="comment_anchor_3238005"></a>  <span class="comment_date">2015-07-30 10:45</span> <a id="a_comment_author_3238005" href="http://www.cnblogs.com/share-wang/" target="_blank">peter_feng</a> <a href="http://msg.cnblogs.com/send/peter_feng" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3238005" class="blog_comment_body">请问这个图是用什么画的</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3238005,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3238005,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3253961" class="layer">#3楼</a><a name="3253961" id="comment_anchor_3253961"></a>  <span class="comment_date">2015-08-25 16:18</span> <a id="a_comment_author_3253961" href="http://www.cnblogs.com/jianyeLee/" target="_blank">EthanCoco</a> <a href="http://msg.cnblogs.com/send/EthanCoco" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3253961" class="blog_comment_body">模糊的  全清楚了 ！收藏了！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3253961,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3253961,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3253961_avatar" style="display:none;">http://pic.cnblogs.com/face/751248/20150804105526.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3312335" class="layer">#4楼</a><a name="3312335" id="comment_anchor_3312335"></a>  <span class="comment_date">2015-11-23 17:44</span> <a id="a_comment_author_3312335" href="http://www.cnblogs.com/gy19920604/" target="_blank">gaungyao.wu</a> <a href="http://msg.cnblogs.com/send/gaungyao.wu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3312335" class="blog_comment_body">6666666</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3312335,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3312335,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3312335_avatar" style="display:none;">http://pic.cnblogs.com/face/792966/20160923145343.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3384711" class="layer">#5楼</a><a name="3384711" id="comment_anchor_3384711"></a>  <span class="comment_date">2016-03-18 13:11</span> <a id="a_comment_author_3384711" href="http://www.cnblogs.com/fairy1674/" target="_blank">fairy1674</a> <a href="http://msg.cnblogs.com/send/fairy1674" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3384711" class="blog_comment_body">说的好!</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3384711,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3384711,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3466455" class="layer">#6楼</a><a name="3466455" id="comment_anchor_3466455"></a>  <span class="comment_date">2016-07-08 16:15</span> <a id="a_comment_author_3466455" href="http://home.cnblogs.com/u/989520/" target="_blank">LetusGo</a> <a href="http://msg.cnblogs.com/send/LetusGo" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3466455" class="blog_comment_body">博主你好：请问一个博文中的问题<br> 在List的总结中你写到：“内部以链表作为底层实现的集合在执行插入、删除操作时有很好的性能”，意思是不是LinkedList是比ArrayList要快的？<br>但是再Set的总结中你写到：“ 对于普通的插入、删除操作，LinkedHashSet比HashSet要略慢一点”，这里的意思是LinkedHashSet比HashSet慢。<br><br>请问这是没有问题的吗？如果没有问题，是为什么呀，求教</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3466455,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3466455,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3524592" class="layer">#7楼</a><a name="3524592" id="comment_anchor_3524592"></a>  <span class="comment_date">2016-10-05 20:42</span> <a id="a_comment_author_3524592" href="http://home.cnblogs.com/u/1032723/" target="_blank">青青草原的羊</a> <a href="http://msg.cnblogs.com/send/%E9%9D%92%E9%9D%92%E8%8D%89%E5%8E%9F%E7%9A%84%E7%BE%8A" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3524592" class="blog_comment_body">您好博主，ArrayDequeTest的第一个输出顺序错误</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3524592,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3524592,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3524593" class="layer">#8楼</a><a name="3524593" id="comment_anchor_3524593"></a><span id="comment-maxId" style="display:none;">3524593</span><span id="comment-maxDate" style="display:none;">2016/10/5 20:45:09</span>  <span class="comment_date">2016-10-05 20:45</span> <a id="a_comment_author_3524593" href="http://home.cnblogs.com/u/1032723/" target="_blank">青青草原的羊</a> <a href="http://msg.cnblogs.com/send/%E9%9D%92%E9%9D%92%E8%8D%89%E5%8E%9F%E7%9A%84%E7%BE%8A" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3524593" class="blog_comment_body">ArrayDequeTest 第三个和第五和输出顺序也有误</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3524593,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3524593,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/LittleHann/p/3690187.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/LittleHann/p/3690187.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.241259.241259.241259" target="_blank">【免费】从零开始学编程，开发者专属实验平台免费实践！</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://click.aliyun.com/m/19236/" target="_blank"><img width="300" height="250" src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/24442-20170502163240086-1545306933.jpg" alt="阿里云B1"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/572914/" target="_blank">国行iPhone 6疯狂降价！比大厂还便宜 太超值</a><br> ·  <a href="http://news.cnblogs.com/n/572913/" target="_blank">摩托罗拉手机宣告回归！欧美官推已改用Motorola</a><br> ·  <a href="http://news.cnblogs.com/n/572912/" target="_blank">玩家们都好鸡贼 Steam最近退款太疯狂</a><br> ·  <a href="http://news.cnblogs.com/n/572911/" target="_blank">《魔兽世界》70级私服公测开启 重温艰难的远征</a><br> ·  <a href="http://news.cnblogs.com/n/572910/" target="_blank">Linux再出大危机</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky" target="_blank"><img width="468" height="60" src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/24442-20170629165247758-2056260207.png" alt="极光推广_0701"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/570194/" target="_blank">小printf的故事：什么是真正的程序员？</a><br> ·  <a href="http://kb.cnblogs.com/page/569992/" target="_blank">程序员的工作、学习与绩效</a><br> ·  <a href="http://kb.cnblogs.com/page/569056/" target="_blank">软件开发为什么很难</a><br> ·  <a href="http://kb.cnblogs.com/page/565901/" target="_blank">唱吧DevOps的落地，微服务CI/CD的范本技术解读</a><br> ·  <a href="http://kb.cnblogs.com/page/566523/" target="_blank">程序员，如何从平庸走向理想？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="weiboIframe"><iframe width="100%" height="115" class="share_self" frameborder="0" scrolling="no" src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/index.html"></iframe></div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/LittleHann/">.Little Hann</a><br>园龄：<a href="http://home.cnblogs.com/u/LittleHann/" title="入园时间：2013-05-25">4年1个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/LittleHann/followers/">331</a><br>关注：<a href="http://home.cnblogs.com/u/LittleHann/followees/">4</a><div id="p_b_follow"></div><div style="display: none" id="__document_write_ajax_div-2"></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/06/01&#39;);return false;">&lt;</a></td><td align="center">2017年7月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/08/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalTodayDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/LittleHann/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/LittleHann/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/LittleHann/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/LittleHann/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/LittleHann/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/LittleHann/p/7062257.html">1. AV Automated Signature Synthesizer</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/7054280.html">2. RANSOM_EREBUS.A Analysis &amp;&amp; Detection</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/7026219.html">3. STYX EXPLOIT DELIVERS SIMDA MALWARE</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6952731.html">4. Powershell入侵方式总结</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6974928.html">5. Windows启动过程(MBR引导过程分析)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6940378.html">6. chrome extension webAPP开发小试</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6920231.html">7. CVE-2017-7494 Linux Samba named pipe file Open Vul Lead to DLL Execution</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6916326.html">8. SMB(Server Message Block) Protocal Research</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6907308.html">9. IPC$概念及入侵方式研究</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6906164.html">10. Linux中的pipe(管道)与named pipe(FIFO 命名管道)</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/LittleHann/tag/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a>(2)</li><li><a href="http://www.cnblogs.com/LittleHann/tag/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/">缓冲区溢出</a>(1)</li><li><a href="http://www.cnblogs.com/LittleHann/tag/%E6%B1%87%E7%BC%96/">汇编</a>(1)</li><li><a href="http://www.cnblogs.com/LittleHann/tag/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%98%B2%E7%81%AB%E5%A2%99/">数据库防火墙</a>(1)</li><li><a href="http://www.cnblogs.com/LittleHann/tag/%E8%84%B1%E5%A3%B3%20%E9%80%86%E5%90%91/">脱壳 逆向</a>(1)</li><li><a href="http://www.cnblogs.com/LittleHann/tag/AST/">AST</a>(1)</li><li><a href="http://www.cnblogs.com/LittleHann/tag/fuzzing/">fuzzing</a>(1)</li><li><a href="http://www.cnblogs.com/LittleHann/tag/PE/">PE</a>(1)</li><li><a href="http://www.cnblogs.com/LittleHann/tag/SafeSHE%20%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%20%E8%B7%B3%E6%9D%BF%20shellcode/">SafeSHE 缓冲区溢出 跳板 shellcode</a>(1)</li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(712)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/LittleHann/category/525081.html">Android逆向(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/LittleHann/category/617836.html">C/C++(32)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/LittleHann/category/622722.html">CMS漏洞分析(156)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/LittleHann/category/801114.html">DDOS攻防(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/LittleHann/category/907323.html">Deep Learning/machine learning(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/LittleHann/category/592963.html">DNS安全(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/LittleHann/category/575782.html">Internet协议族(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/LittleHann/category/579719.html">J2EE(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/LittleHann/category/572212.html">Java(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/LittleHann/category/611433.html">JAVA中间件(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/LittleHann/category/676035.html">Linux CVE研究(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/LittleHann/category/569659.html">Linux安全攻防(33)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/LittleHann/category/596714.html">Linux编程(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/LittleHann/category/598029.html">Linux操作系统原理(27)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/LittleHann/category/602303.html">Linux服务器配置(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/LittleHann/category/596053.html">Linux内核(31)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/LittleHann/category/899720.html">Lua</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/LittleHann/category/524491.html">PHP安全研究(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/LittleHann/category/644579.html">PHP编程(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/LittleHann/category/483718.html">PHP内核(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/LittleHann/category/580818.html">PKI(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/LittleHann/category/793593.html">Python编程(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/LittleHann/category/598580.html">Rootkit攻防(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/LittleHann/category/805298.html">Sandbox(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/LittleHann/category/487805.html">SQL注入(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/LittleHann/category/745292.html">WAF(Web Application Firewall)(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/LittleHann/category/548519.html">WebShell(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/LittleHann/category/556094.html">Web代码安全(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/LittleHann/category/1013208.html">WEB应用开发(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/LittleHann/category/746006.html">WEB组件扩展模块开发(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/LittleHann/category/676037.html">Windows CVE研究(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/LittleHann/category/629722.html">Windows安全攻防(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/LittleHann/category/538436.html">Windows操作系统原理(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/LittleHann/category/501333.html">Windows内核(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/LittleHann/category/527349.html">XSS攻击与防御(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_35" href="http://www.cnblogs.com/LittleHann/category/624141.html">安全峰会(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_36" href="http://www.cnblogs.com/LittleHann/category/561044.html">安全规范标准(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_37" href="http://www.cnblogs.com/LittleHann/category/799329.html">编译原理(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_38" href="http://www.cnblogs.com/LittleHann/category/503534.html">病毒攻防(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_39" href="http://www.cnblogs.com/LittleHann/category/758866.html">恶意代码分析(41)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_40" href="http://www.cnblogs.com/LittleHann/category/624251.html">服务器安全加固(29)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_41" href="http://www.cnblogs.com/LittleHann/category/601620.html">高性能架构(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_42" href="http://www.cnblogs.com/LittleHann/category/842074.html">黑/灰产研究(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_43" href="http://www.cnblogs.com/LittleHann/category/483722.html">缓冲区溢出(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_44" href="http://www.cnblogs.com/LittleHann/category/603049.html">缓存Cache(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_45" href="http://www.cnblogs.com/LittleHann/category/526608.html">技术外文翻译(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_46" href="http://www.cnblogs.com/LittleHann/category/489278.html">可执行文件格式研究(PE、ELF)(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_47" href="http://www.cnblogs.com/LittleHann/category/489009.html">密码学(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_48" href="http://www.cnblogs.com/LittleHann/category/801470.html">蜜罐技术(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_49" href="http://www.cnblogs.com/LittleHann/category/599204.html">内核协议栈原理(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_50" href="http://www.cnblogs.com/LittleHann/category/491236.html">逆向破解(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_51" href="http://www.cnblogs.com/LittleHann/category/534907.html">平台安全(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_52" href="http://www.cnblogs.com/LittleHann/category/562000.html">入侵分析取证(20)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_53" href="http://www.cnblogs.com/LittleHann/category/565100.html">入侵检测(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_54" href="http://www.cnblogs.com/LittleHann/category/614372.html">软件工程(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_55" href="http://www.cnblogs.com/LittleHann/category/483721.html">社会工程学(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_56" href="http://www.cnblogs.com/LittleHann/category/506607.html">渗透测试(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_57" href="http://www.cnblogs.com/LittleHann/category/545790.html">数据库防火墙(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_58" href="http://www.cnblogs.com/LittleHann/category/565317.html">算法(25)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_59" href="http://www.cnblogs.com/LittleHann/category/761413.html">态势感知(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_60" href="http://www.cnblogs.com/LittleHann/category/626964.html">网络安全(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_61" href="http://www.cnblogs.com/LittleHann/category/583054.html">网络协议逆向分析(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_62" href="http://www.cnblogs.com/LittleHann/category/807748.html">威胁情报(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_63" href="http://www.cnblogs.com/LittleHann/category/574937.html">无线安全(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_64" href="http://www.cnblogs.com/LittleHann/category/602099.html">系统IO模型(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_65" href="http://www.cnblogs.com/LittleHann/category/675784.html">硬件安全研究(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_66" href="http://www.cnblogs.com/LittleHann/category/839168.html">硬件研究(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_67" href="http://www.cnblogs.com/LittleHann/category/628621.html">云计算架构(4)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(545)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/LittleHann/archive/2017/06.html">2017年6月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/LittleHann/archive/2017/05.html">2017年5月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/LittleHann/archive/2017/04.html">2017年4月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/LittleHann/archive/2017/03.html">2017年3月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/LittleHann/archive/2017/02.html">2017年2月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/LittleHann/archive/2017/01.html">2017年1月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/LittleHann/archive/2016/12.html">2016年12月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/LittleHann/archive/2016/11.html">2016年11月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/LittleHann/archive/2016/10.html">2016年10月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/LittleHann/archive/2016/09.html">2016年9月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/LittleHann/archive/2016/08.html">2016年8月 (26)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/LittleHann/archive/2016/07.html">2016年7月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/LittleHann/archive/2016/06.html">2016年6月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/LittleHann/archive/2016/05.html">2016年5月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/LittleHann/archive/2016/04.html">2016年4月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/LittleHann/archive/2016/03.html">2016年3月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/LittleHann/archive/2016/02.html">2016年2月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/LittleHann/archive/2016/01.html">2016年1月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/LittleHann/archive/2015/12.html">2015年12月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/LittleHann/archive/2015/11.html">2015年11月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/LittleHann/archive/2015/10.html">2015年10月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/LittleHann/archive/2015/09.html">2015年9月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/LittleHann/archive/2015/08.html">2015年8月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/LittleHann/archive/2015/07.html">2015年7月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/LittleHann/archive/2015/06.html">2015年6月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/LittleHann/archive/2015/05.html">2015年5月 (40)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/LittleHann/archive/2015/04.html">2015年4月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/LittleHann/archive/2015/03.html">2015年3月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/LittleHann/archive/2015/02.html">2015年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/LittleHann/archive/2015/01.html">2015年1月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/LittleHann/archive/2014/12.html">2014年12月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/LittleHann/archive/2014/11.html">2014年11月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/LittleHann/archive/2014/10.html">2014年10月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/LittleHann/archive/2014/09.html">2014年9月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/LittleHann/archive/2014/08.html">2014年8月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/LittleHann/archive/2014/07.html">2014年7月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/LittleHann/archive/2014/06.html">2014年6月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/LittleHann/archive/2014/05.html">2014年5月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/LittleHann/archive/2014/04.html">2014年4月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/LittleHann/archive/2014/03.html">2014年3月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/LittleHann/archive/2014/02.html">2014年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/LittleHann/archive/2014/01.html">2014年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/LittleHann/archive/2013/12.html">2013年12月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_43" href="http://www.cnblogs.com/LittleHann/archive/2013/11.html">2013年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_44" href="http://www.cnblogs.com/LittleHann/archive/2013/10.html">2013年10月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_45" href="http://www.cnblogs.com/LittleHann/archive/2013/09.html">2013年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_46" href="http://www.cnblogs.com/LittleHann/archive/2013/08.html">2013年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_47" href="http://www.cnblogs.com/LittleHann/archive/2013/07.html">2013年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_48" href="http://www.cnblogs.com/LittleHann/archive/2013/06.html">2013年6月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_49" href="http://www.cnblogs.com/LittleHann/archive/2013/05.html">2013年5月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_articlecategory" class="catListArticleCategory sidebar-block">
+<h3 class="catListTitle">文章分类<span style="font-size:11px;font-weight:normal">(4)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/LittleHann/category/532177.html">编码格式小工具(2)</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_1" href="http://www.cnblogs.com/LittleHann/category/488531.html">漏洞测试(2)</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_2" href="http://www.cnblogs.com/LittleHann/category/611872.html">系统维护脚本</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_articlearchive" class="catListArticleArchive sidebar-block">
+<h3 class="catListTitle">文章档案<span style="font-size:11px;font-weight:normal">(6)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_3_Link_0" href="http://www.cnblogs.com/LittleHann/archives/2016/05.html" rel="nofollow">2016年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_1" href="http://www.cnblogs.com/LittleHann/archives/2013/11.html" rel="nofollow">2013年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_2" href="http://www.cnblogs.com/LittleHann/archives/2013/06.html" rel="nofollow">2013年6月 (2)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_imagecategory" class="catListImageCategory sidebar-block">
+<h3 class="catListTitle">相册<span style="font-size:11px;font-weight:normal">(43)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_4_Link_0" href="http://www.cnblogs.com/LittleHann/gallery/483719.html" rel="nofollow">My Life(1)</a> </li>
+
+<li><a id="CatList_LinkList_4_Link_1" href="http://www.cnblogs.com/LittleHann/gallery/593386.html" rel="nofollow">Skin(3)</a> </li>
+
+<li><a id="CatList_LinkList_4_Link_2" href="http://www.cnblogs.com/LittleHann/gallery/540015.html" rel="nofollow">去了趟西宁(1)</a> </li>
+
+<li><a id="CatList_LinkList_4_Link_3" href="http://www.cnblogs.com/LittleHann/gallery/593587.html" rel="nofollow">我毕业了(14)</a> </li>
+
+<li><a id="CatList_LinkList_4_Link_4" href="http://www.cnblogs.com/LittleHann/gallery/838683.html" rel="nofollow">武功山(4)</a> </li>
+
+<li><a id="CatList_LinkList_4_Link_5" href="http://www.cnblogs.com/LittleHann/gallery/600877.html" rel="nofollow">在杭州瞎逛(20)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links533898" class="catList sidebar-block">
+<h3 class="catListTitle">友情链接</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_5_Link_0" href="http://www.lshack.cn/" rel="nofollow" target="_blank">lsh4ck's blog</a> </li>
+
+<li><a id="CatList_LinkList_5_Link_1" href="http://www.03sec.com/" rel="nofollow" target="_blank">sky</a> </li>
+
+<li><a id="CatList_LinkList_5_Link_2" href="http://www.programlife.net/" rel="nofollow" target="_blank">代码疯子</a> </li>
+
+<li><a id="CatList_LinkList_5_Link_3" href="http://www.laruence.com/" rel="nofollow" target="_blank">风雪之隅</a> </li>
+
+<li><a id="CatList_LinkList_5_Link_4" href="http://26836659.blogcn.com/" rel="nofollow" target="_blank">混世魔王的技术博客</a> </li>
+
+<li><a id="CatList_LinkList_5_Link_5" href="http://hi.baidu.com/306211321" rel="nofollow" target="_blank">小瀚的杂货铺</a> </li>
+
+<li><a id="CatList_LinkList_5_Link_6" href="http://javaweb.org/" rel="nofollow" target="_blank">园长MM</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	237337
+	</li>
+	<li class="liRank">
+		排名 -	766
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3733469.html#3701485">1. Re:SSL、TLS协议格式、HTTPS通信过程、RDP SSL通信过程</a></li>
+        <li class="recent_comment_body">赞，找了这么多文章，没有比这一篇更详细的了。</li>
+        <li class="recent_comment_author">--winhbb</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/6180296.html#3698996">2. Re:Kademlia、DHT、KRPC、BitTorrent 协议、DHT Sniffer</a></li>
+        <li class="recent_comment_body">写的很清楚啊，搞明白了很多问题</li>
+        <li class="recent_comment_author">--xjjaid13</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3665062.html#3670848">3. Re:LFI、RFI、PHP封装协议安全问题学习</a></li>
+        <li class="recent_comment_body">写得实在是太好了！</li>
+        <li class="recent_comment_author">--muhe</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/6558575.html#3665494">4. Re:数据分析中的降维方法研究</a></li>
+        <li class="recent_comment_body">大神，好厉害</li>
+        <li class="recent_comment_author">--雨落知音</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/4043597.html#3581273">5. Re:phpMyadmin /scripts/setup.php Remote Code Injection &amp;&amp; Execution CVE-2009-1151</a></li>
+        <li class="recent_comment_body">怎么后边的文章都加密码了呢</li>
+        <li class="recent_comment_author">--雪无痕0110</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/archive/2013/06/14/3136111.html#3578148">6. Re:PE(Portable Execute)学习</a></li>
+        <li class="recent_comment_body">@满墙爬山虎是不是可以试试遍历到全零的时候不立刻停止，记下一个标志，尝试性地后向继续搜索一下，如果又重新开始获得非零的地址则置零标志，继续搜索找到一个可以兼容win10和win7它们的判断方法...</li>
+        <li class="recent_comment_author">--.Little Hann</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/archive/2013/06/14/3136111.html#3578060">7. Re:PE(Portable Execute)学习</a></li>
+        <li class="recent_comment_body">@.Little Hann（1）通过 NtHeaders.OptionalHeader.DataDirectory[1].VirtualBase --&gt; 定位到导入表(IID Table)。 （......</li>
+        <li class="recent_comment_author">--满墙爬山虎</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/archive/2013/06/14/3136111.html#3577959">8. Re:PE(Portable Execute)学习</a></li>
+        <li class="recent_comment_body">@爬山虎123这个还没听过这种思路呢，你能稍微伪码描述一下你的思路过程吗...</li>
+        <li class="recent_comment_author">--.Little Hann</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/5957129.html#3574190">9. Re:Sensitive directory/file Integrity Monitoring and Checking</a></li>
+        <li class="recent_comment_body">难道入侵检测目前只有这种查看hash值，文件属性的方法吗？前辈，如果帮公家单位做入侵检测的话是没有办法拿到磁盘的，顶多一个c盘，一个内存转存给你，这种情况很多工作没法做？前辈有好办法吗？</li>
+        <li class="recent_comment_author">--权叔</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/5937331.html#3528895">10. Re:CVE-2016-1240 Tomcat 服务本地提权漏洞</a></li>
+        <li class="recent_comment_body">Tomcat 8 &lt;= 8.0.36-2   这里的-2 是什么意思呢？ 我在查看版本的时候仅看到8.0.36 或者是8.0.37等等。</li>
+        <li class="recent_comment_author">--yuexianlun</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3524593">11. Re:Java集合类: Set、List、Map、Queue使用场景梳理</a></li>
+        <li class="recent_comment_body">ArrayDequeTest 第三个和第五和输出顺序也有误</li>
+        <li class="recent_comment_author">--青青草原的羊</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3524592">12. Re:Java集合类: Set、List、Map、Queue使用场景梳理</a></li>
+        <li class="recent_comment_body">您好博主，ArrayDequeTest的第一个输出顺序错误</li>
+        <li class="recent_comment_author">--青青草原的羊</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3708222.html#3521369">13. Re:Linux数据包路由原理、Iptables/netfilter入门学习</a></li>
+        <li class="recent_comment_body">楼主大黑！佩服</li>
+        <li class="recent_comment_author">--lfsblack</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3733469.html#3515569">14. Re:SSL、TLS协议格式、HTTPS通信过程、RDP SSL通信过程</a></li>
+        <li class="recent_comment_body">赞一个，正在学习</li>
+        <li class="recent_comment_author">--歼10</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3700357.html#3485319">15. Re:802.11协议帧格式、Wi-Fi连接交互过程、无线破解入门研究</a></li>
+        <li class="recent_comment_body">无线密码发送是在“6. 客户端向AP发送连接(Association)请求”这个步骤里面么？</li>
+        <li class="recent_comment_author">--梦幻之海</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3735602.html#3466606">16. Re:中间人攻击(MITM)姿势总结</a></li>
+        <li class="recent_comment_body">试了下NAT类型的中间攻击，结果无法ssh远程连接该主机了。iptables -t nat -F后又能重新连接了。但是以后的连接没有断，邪门。</li>
+        <li class="recent_comment_author">--handsometian</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3466455">17. Re:Java集合类: Set、List、Map、Queue使用场景梳理</a></li>
+        <li class="recent_comment_body">博主你好：请问一个博文中的问题 在List的总结中你写到：“内部以链表作为底层实现的集合在执行插入、删除操作时有很好的性能”，意思是不是LinkedList是比ArrayList要快的？但是再Set的......</li>
+        <li class="recent_comment_author">--LetusGo</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3854977.html#3433159">18. Re:Linux System Calls Hooking Method Summary</a></li>
+        <li class="recent_comment_body">博主，请问一下，劫持I/O操作，将进程原有I/O函数替换成自己提供的完成的I/O函数，这个怎么做？</li>
+        <li class="recent_comment_author">--卡丁车h</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3970746.html#3427935">19. Re:中间件、MetaQ入门学习</a></li>
+        <li class="recent_comment_body">您好，我问下，在SPRING中怎么对MessageSessionFactory 和MessageProducer 进行单例配置呢？</li>
+        <li class="recent_comment_author">--luoyonghui55</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3735602.html#3425697">20. Re:中间人攻击(MITM)姿势总结</a></li>
+        <li class="recent_comment_body">博主 你好 我是用wampserver 搭建的https服务器，但是./SSL_man_in_middle程序的输出总是“key error error:0B080074:x509 certifica......</li>
+        <li class="recent_comment_author">--codergeek</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3213396.html#3422505">21. Re:windows核心编程读后感(待续)</a></li>
+        <li class="recent_comment_body">有没有推荐的书籍看的？我也报名了iscc</li>
+        <li class="recent_comment_author">--程潇抱紧我</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3738141.html#3419409">22. Re:openSSL命令、PKI、CA、SSL证书原理</a></li>
+        <li class="recent_comment_body">我跟着你的教程想使用Openssl搭建https服务器和客户端,用于中间人攻击的测试,我的搭建环境是windows,采用wampserver我搭建了好久也没搭建好,有什么不错的博客推荐下吗?</li>
+        <li class="recent_comment_author">--codergeek</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3690187.html#3384711">23. Re:Java集合类: Set、List、Map、Queue使用场景梳理</a></li>
+        <li class="recent_comment_body">说的好!</li>
+        <li class="recent_comment_author">--fairy1674</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3879961.html#3371567">24. Re:Linux Rootkit Sample &amp;&amp; Rootkit Defenser Analysis</a></li>
+        <li class="recent_comment_body">给你微博私信了，可以多向你请教吗！</li>
+        <li class="recent_comment_author">--chwcasiie</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3879961.html#3371565">25. Re:Linux Rootkit Sample &amp;&amp; Rootkit Defenser Analysis</a></li>
+        <li class="recent_comment_body">比如现在研究比较公用的，又或者说是比较广泛的那种。</li>
+        <li class="recent_comment_author">--chwcasiie</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3879961.html#3371564">26. Re:Linux Rootkit Sample &amp;&amp; Rootkit Defenser Analysis</a></li>
+        <li class="recent_comment_body">@chwcasiie=%E2%9C%93&amp;q=rootkit...</li>
+        <li class="recent_comment_author">--.Little Hann</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3879961.html#3371563">27. Re:Linux Rootkit Sample &amp;&amp; Rootkit Defenser Analysis</a></li>
+        <li class="recent_comment_body">@.Little Hann这几天找过一些，并没有想要的。比如说？ 很多是找不到源码的...</li>
+        <li class="recent_comment_author">--chwcasiie</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3879961.html#3371561">28. Re:Linux Rootkit Sample &amp;&amp; Rootkit Defenser Analysis</a></li>
+        <li class="recent_comment_body">@chwcasiiegithub可以找到很多这方面的资料，这方面国外研究员研究的比较多，你可以上github上看看...</li>
+        <li class="recent_comment_author">--.Little Hann</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3879961.html#3371557">29. Re:Linux Rootkit Sample &amp;&amp; Rootkit Defenser Analysis</a></li>
+        <li class="recent_comment_body">@.Little Hann受教了，总结的非常赞。 我最经想分析一下 kernel rootkit的行为， 希望是那种不但是破坏kernel，对上层也会有破坏的，比如说记录key，破坏注册表等等。 博主......</li>
+        <li class="recent_comment_author">--chwcasiie</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/LittleHann/p/3879961.html#3371548">30. Re:Linux Rootkit Sample &amp;&amp; Rootkit Defenser Analysis</a></li>
+        <li class="recent_comment_body">@chwcasiie是的...</li>
+        <li class="recent_comment_author">--.Little Hann</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/LittleHann/p/3690187.html">1. Java集合类: Set、List、Map、Queue使用场景梳理(21070)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3700357.html">2. 802.11协议帧格式、Wi-Fi连接交互过程、无线破解入门研究(13284)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3738141.html">3. openSSL命令、PKI、CA、SSL证书原理(9986)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3735602.html">4. 中间人攻击(MITM)姿势总结(6666)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3708222.html">5. Linux数据包路由原理、Iptables/netfilter入门学习(6180)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3741907.html">6. OPENSSL编程入门学习(5389)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3733469.html">7. SSL、TLS协议格式、HTTPS通信过程、RDP SSL通信过程(4873)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3992778.html">8. CVE: 2014-6271、CVE: 2014-7169 Bash Specially-crafted Environment Variables Code Injection Vulnerability Analysis(4710)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3704517.html">9. 无线安全: 通过伪AP进行DHCP+DNS劫持的钓鱼攻击(4606)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3854977.html">10. Linux System Calls Hooking Method Summary(4542)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3374206.html">11. android逆向学习小结--CrackMe_1(4508)</a></li><li><a href="http://www.cnblogs.com/LittleHann/archive/2013/06/08/3126611.html">12. 关于SQL注入的一点思考和总结(4277)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3247106.html">13. 技术剖析中国菜刀原理(3875)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/4026781.html">14. The Linux Process Principle，NameSpace, PID、TID、PGID、PPID、SID、TID、TTY(3800)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3522990.html">15. Deformity PHP Webshell、Webshell Hidden Learning(3477)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3295515.html">16. 关于PHP代码审计和漏洞挖掘的一点思考(3271)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6442161.html">17. Keras:基于Theano和TensorFlow的深度学习库(3260)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3751595.html">18. IM通信协议逆向分析、Wireshark自定义数据包格式解析插件编程学习(3032)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3458736.html">19. windows进程/线程创建过程 --- windows操作系统学习(3001)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3695332.html">20. Java JDBC下执行SQL的不同方式、参数化预编译防御(2794)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3705263.html">21. DHCP协议格式、DHCP服务搭建、DHCP协商交互过程入门学习(2752)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3725886.html">22. JSP/Servlet基础语法(2651)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3980364.html">23. C/C++ 跨平台交叉编译、静态库/动态库编译、MinGW、Cygwin、CodeBlocks使用原理及链接参数选项(2624)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/6426610.html">24. Tensorflow搞一个聊天机器人(2587)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3344261.html">25. VMP虚拟机加壳的原理学习(2574)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3665062.html">26. LFI、RFI、PHP封装协议安全问题学习(2409)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/5165928.html">27. PHP解释器引擎执行流程 - [ PHP内核学习 ](2314)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3865490.html">28. linux内核数据结构学习总结(2241)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3870974.html">29. Linux Rootkit Learning(2157)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3828927.html">30. DNS安全浅议、域名A记录(ANAME)，MX记录，CNAME记录(2144)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/LittleHann/archive/2013/06/08/3126611.html">1. 关于SQL注入的一点思考和总结(29)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3704517.html">2. 无线安全: 通过伪AP进行DHCP+DNS劫持的钓鱼攻击(29)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3735602.html">3. 中间人攻击(MITM)姿势总结(18)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3247106.html">4. 技术剖析中国菜刀原理(17)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3700357.html">5. 802.11协议帧格式、Wi-Fi连接交互过程、无线破解入门研究(14)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3879961.html">6. Linux Rootkit Sample &amp;&amp; Rootkit Defenser Analysis(8)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3733469.html">7. SSL、TLS协议格式、HTTPS通信过程、RDP SSL通信过程(8)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3690187.html">8. Java集合类: Set、List、Map、Queue使用场景梳理(8)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3148349.html">9. 关于《加密与解密》的读后感----对dump脱壳的一点思考(7)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3854977.html">10. Linux System Calls Hooking Method Summary(7)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3541989.html">11. 密码破解技术分类、工具使用(1)(7)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3505410.html">12. 数据库防火墙基本原理、基于AST的SQL注入检测原理(6)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3708222.html">13. Linux数据包路由原理、Iptables/netfilter入门学习(6)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3871092.html">14. ELF(Executable and Linkable Format)(6)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3751595.html">15. IM通信协议逆向分析、Wireshark自定义数据包格式解析插件编程学习(5)</a></li><li><a href="http://www.cnblogs.com/LittleHann/archive/2013/06/14/3136111.html">16. PE(Portable Execute)学习(5)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3454855.html">17. ETHREAD APC 《寒江独钓》内核学习笔记（4）(5)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3344261.html">18. VMP虚拟机加壳的原理学习(5)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3522990.html">19. Deformity PHP Webshell、Webshell Hidden Learning(5)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/4615936.html">20. QTVA-2015-198545、WooYun-2015-104148 .NET Framework Arbitrary File Permissions Modify Vul(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3567908.html">21. 浅议google hacking、社工技巧、数据安全(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3988923.html">22. IIS FTP Server Anonymous Writeable Reinforcement, WEBDAV Anonymous Writeable Reinforcement(undone)(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3177829.html">23. 《ODAY安全:软件漏洞分析技术》学习心得-----shellcode的一点小小的思考(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3725886.html">24. JSP/Servlet基础语法(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3695332.html">25. Java JDBC下执行SQL的不同方式、参数化预编译防御(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3633840.html">26. Aho-Corasick算法、多模正则匹配、Snort入门学习(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/4775266.html">27. Metinfo /admin/include/common.inc.php SQL Injection/Var Override Vul(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3562259.html">28. PHP内核源代码、PHP Zend扩展、API Hook学习笔记(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/4632990.html">29. 2015阿里安全峰会(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3702816.html">30. 无线安全入门、芯片选型、扫描器使用(3)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/LittleHann/p/3690187.html">1. Java集合类: Set、List、Map、Queue使用场景梳理(18)</a></li><li><a href="http://www.cnblogs.com/LittleHann/archive/2013/06/08/3126611.html">2. 关于SQL注入的一点思考和总结(11)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3725886.html">3. JSP/Servlet基础语法(11)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3700357.html">4. 802.11协议帧格式、Wi-Fi连接交互过程、无线破解入门研究(11)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3738141.html">5. openSSL命令、PKI、CA、SSL证书原理(10)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3735602.html">6. 中间人攻击(MITM)姿势总结(9)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3741907.html">7. OPENSSL编程入门学习(7)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3541989.html">8. 密码破解技术分类、工具使用(1)(7)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3704517.html">9. 无线安全: 通过伪AP进行DHCP+DNS劫持的钓鱼攻击(6)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3865490.html">10. linux内核数据结构学习总结(6)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3733469.html">11. SSL、TLS协议格式、HTTPS通信过程、RDP SSL通信过程(5)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3854977.html">12. Linux System Calls Hooking Method Summary(5)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3828927.html">13. DNS安全浅议、域名A记录(ANAME)，MX记录，CNAME记录(5)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3374206.html">14. android逆向学习小结--CrackMe_1(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3295515.html">15. 关于PHP代码审计和漏洞挖掘的一点思考(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3850653.html">16. Linux的系统调用、网络连接状态、磁盘I/O；可疑行为监控/日志收集、SHELL命令执行流程(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3632646.html">17. 入侵检测基本概念、检测算法入门学习(4)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3562259.html">18. PHP内核源代码、PHP Zend扩展、API Hook学习笔记(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3992778.html">19. CVE: 2014-6271、CVE: 2014-7169 Bash Specially-crafted Environment Variables Code Injection Vulnerability Analysis(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3898807.html">20. Nginx Installation、Configuration、Rreverse Proxy、Load Balancing Learning(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3897910.html">21. Linux Network IO Model、Socket IO Model - select、poll、epoll(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3662161.html">22. Linux登录验证机制、SSH Bruteforce Login学习(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3522990.html">23. Deformity PHP Webshell、Webshell Hidden Learning(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3678685.html">24. Java输入、输入、IO流 类层次关系梳理(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3850655.html">25. Linux中断技术、门描述符、IDT(中断描述符表)、异常控制技术总结归类(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3834860.html">26. 浅议SNMP安全、SNMP协议、网络管理学习(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3862652.html">27. Linux文件权限；ACL；Setuid、Setgid、Stick bit特殊权限；sudo提权(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3543681.html">28. 浅议密码强度与密码破解(2)(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3247106.html">29. 技术剖析中国菜刀原理(3)</a></li><li><a href="http://www.cnblogs.com/LittleHann/p/3505410.html">30. 数据库防火墙基本原理、基于AST的SQL注入检测原理(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 .Little Hann
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<div align="center">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000401968'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000401968%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+</script><span id="cnzz_stat_icon_1000401968"><a href="http://www.cnzz.com/stat/website.php?web_id=1000401968" target="_blank">站长统计</a><a href="http://www.cnzz.com/stat/website.php?web_id=1000401968" target="_blank"> |  今日IP[27] | 今日PV[37] | 昨日IP[144] |  昨日PV[200] | </a><a href="http://www.cnzz.com/stat/website.php?web_id=1000401968&amp;method=online" target="_blank">当前在线[2]</a></span><script src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/z_stat.php" type="text/javascript"></script><script src="./【重要】Java集合类_ Set、List、Map、Queue使用场景梳理 - .Little Hann - 博客园_files/core.php" charset="utf-8" type="text/javascript"></script>
+</div>
+<!--PageEndHtml Block End-->
+
+
+</body></html>

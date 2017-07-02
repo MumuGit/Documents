@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.cnblogs.com/mengdd/p/3601294.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/hm.js.下载"></script><script async="" src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/analytics.js.下载"></script><script async="" src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/encoder.js.下载"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/bundle-BlueSky.css">
+<link type="text/css" rel="stylesheet" href="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/122894.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/bundle-BlueSky-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/mengdd/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/mengdd/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/mengdd/wlwmanifest.xml">
+<script src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'mengdd', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<div id="page_begin_html">
+
+
+
+</div><script>load_page_begin_html();</script>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/mengdd/"><img id="blogLogo" src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/mengdd/">圣骑士Wind的博客</a></h1>
+<h2>技术让生活更美好。</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/mengdd/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E5%9C%A3%E9%AA%91%E5%A3%ABwind">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/mengdd/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/mengdd/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 430&nbsp; </span>
+<span id="stats_article_count">文章 - 8&nbsp; </span>
+<span id="stats-comment_count">评论 - 502</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/mengdd/p/3601294.html">Android的消息循环机制 Looper Handler类分析</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><h1 style="text-align: center;">&nbsp;</h1>
+<h1 style="text-align: center;"><span style="font-size: 18pt; color: #000080;">Android的消息循环机制 Looper Handler类分析</span></h1>
+<p>&nbsp;</p>
+<h2><span style="font-size: 18pt; color: #3366ff;">Looper类说明</span></h2>
+<p><span style="font-size: 15px;"><strong>&nbsp;　　</strong><code><strong><a href="http://developer.android.com/reference/android/os/Looper.html">Looper</a></strong></code>&nbsp;类用来为一个线程跑一个消息循环。</span></p>
+<p><span style="font-size: 15px;">　　<span style="color: #ff0000;"><strong>线程在默认情况下是没有消息循环与之关联的</strong></span>，Thread类在run()方法中的内容执行完之后就退出了，即线程做完自己的工作之后就结束了，没有循环的概念。</span></p>
+<p><span style="font-size: 15px;">　　调用Looper类的<strong>&nbsp;</strong><code><strong><a href="http://developer.android.com/reference/android/os/Looper.html#prepare()">prepare()</a></strong></code>&nbsp;方法可以为当前线程创建一个消息循环，调用<code><strong><a href="http://developer.android.com/reference/android/os/Looper.html#loop()">loop()</a></strong></code><strong>&nbsp;</strong>方法使之处理信息，直到循环结束。</span></p>
+<p><span style="font-size: 15px;">　　大多数和消息循环的交互是通过&nbsp;<code><strong><a href="http://developer.android.com/reference/android/os/Handler.html">Handler</a></strong></code><strong>&nbsp;</strong>类进行的。</span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　下面是一个典型的实现：</span></p>
+<div>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>  <span style="color: #0000ff;">class</span> LooperThread <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Thread {
+      </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> Handler mHandler;
+
+      </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> run() {
+          Looper.prepare();
+
+          mHandler </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Handler() {
+              </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> handleMessage(Message msg) {
+                  </span><span style="color: #008000;">//</span><span style="color: #008000;"> process incoming messages here</span>
+<span style="color: #000000;">              }
+          };
+
+          Looper.loop();
+      }
+  }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+</div>
+<h2><span style="font-size: 18pt; color: #3366ff;">Handler类说明</span><span style="font-size: 18pt; color: #3366ff;">　　</span></h2>
+<p><span style="font-size: 15px;"><strong>　　<a href="http://developer.android.com/reference/android/os/Handler.html">Handler</a></strong>类用来发送和处理消息(<strong><a href="http://developer.android.com/reference/android/os/Message.html">Message</a></strong>)以及和线程的消息队列(<code><strong><a href="http://developer.android.com/reference/android/os/MessageQueue.html">MessageQueue</a></strong></code>)关联的Runnable对象。</span></p>
+<p><span style="font-size: 15px;">　　<strong>每一个Handler对象都仅和一个线程及这个线程的消息队列关联。</strong></span></p>
+<p><span style="font-size: 15px;">　　<strong>一个特定线程的所有Handler对象都会收到同样的方法。（这是一个“一对多”的关系）。</strong></span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　当你创建一个新的Handler对象，它会和创建它的这个线程/线程的消息队列绑定，从那个时刻开始，它将向这个消息队列传递消息和runnable对象，并且当它们从队列中出来时执行它们。</span></p>
+<p><span style="font-size: 15px;">　　<span style="background-color: #ffff00;"><strong>Handler主要有两种用途：</strong></span></span></p>
+<p><span style="font-size: 15px;">　　1.合理调度安排消息和runnable对象，使它们在将来的某个点被执行。</span></p>
+<p><span style="font-size: 15px;">　　2.将一个动作入队安排在<strong>非当前线程</strong>执行。</span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　调度消息是通过一系列的post方法和sendMessage方法。</span></p>
+<p><span style="font-size: 15px;">　　post方法允许你向消息队列中入队一些Runnable对象，在它们被接收到的时候会被调用，(实际上post方法也就是将runnable对象包装在消息里，然后再通过sendMessage方法实现)，post方法有：</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#post(java.lang.Runnable)">post</a>(<a href="http://developer.android.com/reference/java/lang/Runnable.html">Runnable</a>&nbsp;r)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#postAtFrontOfQueue(java.lang.Runnable)">postAtFrontOfQueue</a>(<a href="http://developer.android.com/reference/java/lang/Runnable.html">Runnable</a>&nbsp;r)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#postAtTime(java.lang.Runnable, java.lang.Object, long)">postAtTime</a>(<a href="http://developer.android.com/reference/java/lang/Runnable.html">Runnable</a>&nbsp;r,&nbsp;<a href="http://developer.android.com/reference/java/lang/Object.html">Object</a>&nbsp;token, long uptimeMillis)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#postAtTime(java.lang.Runnable, long)">postAtTime</a>(<a href="http://developer.android.com/reference/java/lang/Runnable.html">Runnable</a>&nbsp;r, long uptimeMillis)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#postDelayed(java.lang.Runnable, long)">postDelayed</a>(<a href="http://developer.android.com/reference/java/lang/Runnable.html">Runnable</a>&nbsp;r, long delayMillis)</span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　sendMessage方法允许你入队一个消息对象(<strong><a href="http://developer.android.com/reference/android/os/Message.html">Message</a></strong>)，包含一个bundle数据，之后将会被Handler的<strong><a href="http://developer.android.com/reference/android/os/Handler.html#handleMessage(android.os.Message)">handleMessage(Message)</a></strong>方法所处理。</span></p>
+<p><span style="font-size: 15px;">　　(这个需要你实现一个Handler的子类)。</span></p>
+<p><span style="font-size: 15px;">　　sendMessage方法有：</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#sendEmptyMessage(int)">sendEmptyMessage</a>(int what)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#sendEmptyMessageAtTime(int, long)">sendEmptyMessageAtTime</a>(int what, long uptimeMillis)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#sendEmptyMessageDelayed(int, long)">sendEmptyMessageDelayed</a>(int what, long delayMillis)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#sendMessage(android.os.Message)">sendMessage</a>(<a href="http://developer.android.com/reference/android/os/Message.html">Message</a>&nbsp;msg)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#sendMessageAtFrontOfQueue(android.os.Message)">sendMessageAtFrontOfQueue</a>(<a href="http://developer.android.com/reference/android/os/Message.html">Message</a>&nbsp;msg)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#sendMessageAtTime(android.os.Message, long)">sendMessageAtTime</a>(<a href="http://developer.android.com/reference/android/os/Message.html">Message</a>&nbsp;msg, long uptimeMillis)</span></p>
+<p><span style="font-size: 15px;">　　<a href="http://developer.android.com/reference/android/os/Handler.html#sendMessageDelayed(android.os.Message, long)">sendMessageDelayed</a>(<a href="http://developer.android.com/reference/android/os/Message.html">Message</a>&nbsp;msg, long delayMillis)</span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　<span style="color: #ff0000;"><strong>一个线程对应一个Looper，有一个消息队列，但是可以关联多个Handlers。</strong></span></span></p>
+<h2>&nbsp;</h2>
+<h2><span style="font-size: 18pt; color: #3366ff;">UI线程和非UI线程的通信</span></h2>
+<p><span style="font-size: 15px;">　　当你的应用进程被创建的时候，应用进程的主线程(<span style="color: #ff0000;"><strong>main thread</strong></span>)就建立一个消息队列，操纵top级别的应用对象(比如activities、broadcast receivers等)和它们创建的任何窗口。</span></p>
+<p><span style="font-size: 15px;">　　因为效率的考虑，所有的View和Widget都不是线程安全的，所以相关操作强制放在同一个线程，这样就可以避免多线程带来的问题。这个线程就是主线程，也即UI线程。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">　　你可以创建自己的线程，通过一个Handler对象和应用的主线程通信。</span></p>
+<p><span style="font-size: 15px;">　　如果你将一个Handler和你的UI线程连接，处理消息的代码就将会在UI线程中执行。</span></p>
+<p><span style="font-size: 15px;">　　新线程和UI线程的通信是通过从你的新线程调用和主线程相关的Handler对象的post或者sendMessage方法实现的，给定的Runnable或Message将会在Handler的消息队列中，并且在合适的时间被处理。</span></p>
+<p><span style="font-size: 15px;">　　总的来说，共有5种方式从非UI线程和UI线程通信：</span></p>
+<ul>
+<li><span style="font-size: 15px;"><a href="http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)">Activity.runOnUiThread(Runnable)</a></span></li>
+<li><span style="font-size: 15px;"><a href="http://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable)">View.post(Runnable)</a></span></li>
+<li><span style="font-size: 15px;"><a href="http://developer.android.com/reference/android/view/View.html#postDelayed(java.lang.Runnable, long)">View.postDelayed(Runnable, long)</a></span></li>
+</ul>
+<p><span style="font-size: 15px;">　　还有就是通过Handler，或者使用AsyncTask。</span></p>
+<p><span style="font-size: 15px;">　　具体参见之前的博文：<a href="http://www.cnblogs.com/mengdd/p/3418780.html">http://www.cnblogs.com/mengdd/p/3418780.html</a></span></p>
+<p>&nbsp;</p>
+<h2><span style="font-size: 18pt; color: #3366ff;">消息循环</span></h2>
+<p><span style="font-size: 15px;">　　消息处理机制中，消息存放在一个消息队列中，而线程围绕这个队列进入一个<span style="color: #ff0000;"><strong>无限循环</strong></span>，直到程序退出。</span></p>
+<p><span style="font-size: 15px;">　　如果队列中有消息，线程就会把消息取出来，并分发给相应的Handler进行处理；</span></p>
+<p><span style="font-size: 15px;">　　如果队列中没有消息，线程就会进入空闲等待状态，等待下一个消息的到来。</span></p>
+<p>&nbsp;</p>
+<h2><span style="font-size: 18pt; color: #3366ff;">Android的主线程循环创建</span></h2>
+<p><span style="font-size: 15px;">　　Android程序的运行入口点可以认为是android.app.ActivityThread类的main()方法(源码2.3.3)：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> other codes...
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 创建主线程循环</span>
+<span style="color: #000000;">        Looper.prepareMainLooper();
+        </span><span style="color: #0000ff;">if</span> (sMainThreadHandler == <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            sMainThreadHandler </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Handler();
+        }
+
+        ActivityThread thread </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> ActivityThread();
+        thread.attach(</span><span style="color: #0000ff;">false</span><span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> other codes...
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 进入当前线程(此时是主线程)消息循环</span>
+<span style="color: #000000;">        Looper.loop();
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> other codes...</span>
+<span style="color: #000000;">
+        thread.detach();
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> other codes...</span>
+    }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">　　这个main()方法里面为程序<strong>创建了主线程循环</strong>。</span></p>
+<p><span style="font-size: 15px;">　　Looper类中的主线程创建方法<span style="color: #ff0000;"><strong>prepareMainLooper()</strong></span>：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #008000;">/**</span><span style="color: #008000;">
+     * Initialize the current thread as a looper, marking it as an application's
+     * main looper. The main looper for your application is created by the
+     * Android environment, so you should never need to call this function
+     * yourself. {</span><span style="color: #808080;">@link</span><span style="color: #008000;"> #prepare()}
+     </span><span style="color: #008000;">*/</span>
+
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> prepareMainLooper() {
+        prepare();
+        setMainLooper(myLooper());
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> other codes...</span>
+    }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 15px;">　　上面这个方法是专门为创建应用程序的主线程调用的，其他线程都不应该调用这个方法，而应该调用<span style="color: #ff0000;"><strong>prepare()</strong></span>方法。</span></p>
+<p><span style="font-size: 15px;">　　主线程的Looper对象创建好之后会存在Looper类的成员变量mMainLooper里，通过一个get方法可以获取到：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #008000;">/**</span><span style="color: #008000;">
+     * Returns the application's main looper, which lives in the main thread of
+     * the application.
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">synchronized</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span><span style="color: #000000;"> Looper getMainLooper() {
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> mMainLooper;
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">　　这样之后，<strong>程序中其他线程就可以获取主线程的消息循环对象，从而和主线程通信。</strong></span></p>
+<p>&nbsp;</p>
+<h2><span style="font-size: 18pt; color: #3366ff;">线程创建消息循环：Looper.prepare()</span></h2>
+<p><span style="font-size: 15px;">　　非主线程创建消息循环时，调用的是Looper类的<span style="color: #ff0000;"><strong>prepare()</strong></span>方法，其实创建主线程的方法实质也调用了prepare方法：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #008000;">/**</span><span style="color: #008000;">
+     * Initialize the current thread as a looper. This gives you a chance to
+     * create handlers that then reference this looper, before actually starting
+     * the loop. Be sure to call {</span><span style="color: #808080;">@link</span><span style="color: #008000;"> #loop()} after calling this method, and
+     * end it by calling {</span><span style="color: #808080;">@link</span><span style="color: #008000;"> #quit()}.
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> prepare() {
+        </span><span style="color: #0000ff;">if</span> (sThreadLocal.get() != <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">throw</span> <span style="color: #0000ff;">new</span><span style="color: #000000;"> RuntimeException(
+                    </span>"Only one Looper may be created per thread"<span style="color: #000000;">);
+        }
+        sThreadLocal.set(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> Looper());
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">　　这个方法会调用Looper类的私有构造方法，创建Looper类对象。</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #0000ff;">private</span><span style="color: #000000;"> Looper() {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 私有构造方法，在prepare()方法里面调用
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 创建消息队列</span>
+        mQueue = <span style="color: #0000ff;">new</span><span style="color: #000000;"> MessageQueue();
+        mRun </span>= <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 当前线程</span>
+        mThread =<span style="color: #000000;"> Thread.currentThread();
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<h2><span style="font-size: 18pt; color: #3366ff;">进入消息循环：Looper.loop()</span></h2>
+<p><span style="font-size: 15px;">　　不管是不是主线程，prepare之后需要调用Looper类的<span style="color: #ff0000;"><strong>loop()</strong></span>方法，可以看作是进入消息循环：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * Run the message queue in this thread. Be sure to call {</span><span style="color: #808080;">@link</span><span style="color: #008000;"> #quit()} to
+     * end the loop.
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> loop() {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 进入当前线程的消息循环</span>
+        Looper me =<span style="color: #000000;"> myLooper();
+        MessageQueue queue </span>=<span style="color: #000000;"> me.mQueue;
+        </span><span style="color: #0000ff;">while</span> (<span style="color: #0000ff;">true</span><span style="color: #000000;">) {
+
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 从队列中取出消息</span>
+            Message msg = queue.next(); <span style="color: #008000;">//</span><span style="color: #008000;"> might block</span>
+
+            <span style="color: #0000ff;">if</span> (msg != <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+                </span><span style="color: #0000ff;">if</span> (msg.target == <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+                    </span><span style="color: #008000;">//</span><span style="color: #008000;"> No target is a magic identifier for the quit message.</span>
+                    <span style="color: #0000ff;">return</span><span style="color: #000000;">;
+                }
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> other codes...
+
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> 分发消息</span>
+<span style="color: #000000;">                msg.target.dispatchMessage(msg);
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> 消息的target是Handler类型的对象
+
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> other codes...
+
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> 释放清理</span>
+<span style="color: #000000;">                msg.recycle();
+            }
+        }
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<h2><span style="font-size: 18pt; color: #3366ff;">消息分发和处理——Handler</span></h2>
+<p><span style="font-size: 15px;">　　前面创建了消息循环，并且进入了这个循环，但是消息队列中的消息是如何加入和处理的呢？是通过Handler。</span></p>
+<p><span style="font-size: 14pt; background-color: #ffff00;"><strong>Handler</strong><strong>构造：</strong></span></p>
+<p><span style="font-size: 15px;">　　Handler有几个构造重载，如果构造时不提供Looper类对象参数，会获取当前线程的Looper对象，即将当前线程的消息循环作为Handler关联的消息循环。</span></p>
+<p><span style="font-size: 15px;">　　前面说过，不是所有线程都有一个消息循环，所以<span style="color: #ff0000;"><strong>如果当前线程没有消息循环，而构造Handler对象时又没有指定Looper对象，则会抛出一个运行时异常</strong></span>：</span></p>
+<div class="cnblogs_code">
+<pre>        mLooper =<span style="color: #000000;"> Looper.myLooper();
+        </span><span style="color: #0000ff;">if</span> (mLooper == <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">throw</span> <span style="color: #0000ff;">new</span><span style="color: #000000;"> RuntimeException(
+                </span>"Can't create handler inside thread that has not called Looper.prepare()"<span style="color: #000000;">);
+        }</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">　　<span style="color: #ff0000;"><strong>如果没有抛出异常，</strong><strong>Handler对象构造好之后，它就关联了相应的Looper实例和消息队列实例，即完成绑定。</strong></span></span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14pt; background-color: #ffff00;"><strong>消息发送：</strong></span></p>
+<p><span style="font-size: 15px;">　　Handler对象的post方法和sendMessage方法本质上都是发送消息的方法(post类方法实质上是调用了sendMessage方法)。</span></p>
+<p><span style="font-size: 15px;">　　<span style="color: #ff0000;"><strong>所谓发送消息就是把消息放入消息队列中的合适位置</strong></span>，并且把<span style="color: #ff0000;"><strong>消息的target设置为本Handler对象</strong></span>。</span></p>
+<p><span style="font-size: 15px;">　　(这里将消息加入队列，也有一些什么线程唤醒的事儿咱们不深入讨论了)。</span></p>
+<p><span style="font-size: 15px;">　　可以添加，也就相应地有一些移除方法。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14pt; background-color: #ffff00;"><strong>消息处理：</strong></span></p>
+<p><span style="font-size: 15px;">　　在上面的Looper.loop()方法中，调用了消息对象target(即发送这个消息的Handler对象)的<span style="color: #ff0000;"><strong>dispatchMessage()</strong></span>方法。</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre> 　　<span style="color: #008000;">/**</span><span style="color: #008000;">
+     * Handle system messages here.
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> dispatchMessage(Message msg) {
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 首先，处理Message自己的callback，调用其run方法</span>
+        <span style="color: #0000ff;">if</span> (msg.callback != <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            handleCallback(msg);
+        }
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 其次，调用Handler自留的接口对象
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 这个成员变量声明时的注释如下：</span>
+            <span style="color: #008000;">/**</span><span style="color: #008000;">
+             * Callback interface you can use when instantiating a Handler to
+             * avoid having to implement your own subclass of Handler.
+             </span><span style="color: #008000;">*/</span>
+            <span style="color: #0000ff;">if</span> (mCallback != <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+                </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (mCallback.handleMessage(msg)) {
+                    </span><span style="color: #0000ff;">return</span><span style="color: #000000;">;
+                }
+            }
+
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 最后，调用handleMessage方法处理消息，Handler类中这个方法为空，子类可以重写这个方法</span>
+<span style="color: #000000;">            handleMessage(msg);
+        }
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">　　Handler类的<strong><span style="color: #ff0000;">handleMessage()</span></strong>方法默认实现为空：</span></p>
+<div class="cnblogs_code">
+<pre>    <span style="color: #008000;">/**</span><span style="color: #008000;">
+     * Subclasses must implement this to receive messages.
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> handleMessage(Message msg) {
+    }</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;">　　上面的代码中也解释了为什么一个消息队列可以关联很多个Handler对象，因为虽然队列只有一个，但是<span style="color: #ff0000;"><strong>消息的target是当时把它加入的Handler对象。</strong></span></span></p>
+<p><span style="font-size: 15px;"><span style="color: #ff0000;"><strong>　　</strong></span>所以当队列中的消息处理的时候，也会找到当时送它来的Handler对象，<span style="color: #ff0000;"><strong>调用其相应的dispatchMessage()方法</strong></span>，进而调用其中的<strong><span style="color: #ff0000;">handleMessage()</span></strong>方法或者<span style="color: #ff0000;"><strong>mCallback</strong></span>成员的<strong><span style="color: #ff0000;">handleMessage()</span></strong>方法来进行处理。</span></p>
+<p>&nbsp;</p>
+<h2><span style="font-size: 18pt; color: #3366ff;">参考资料</span></h2>
+<p><span style="font-size: 15px;">　　</span><span style="font-size: 15px;">Handler：</span><span style="font-size: 15px;"><a href="http://developer.android.com/reference/android/os/Handler.html">http://developer.android.com/reference/android/os/Handler.html</a></span></p>
+<p><span style="font-size: 15px; line-height: 1.5;">　　Looper：</span><span style="font-size: 15px;"><a href="http://developer.android.com/reference/android/os/Looper.html">http://developer.android.com/reference/android/os/Looper.html</a></span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　比较好的几个博文：</span></p>
+<p><span style="font-size: 15px;">　　Android应用程序线程消息循环模型分析：</span><span style="font-size: 15px;"><a href="http://blog.csdn.net/luoshengyang/article/details/6905587">http://blog.csdn.net/luoshengyang/article/details/6905587</a></span></p>
+<p><span style="font-size: 15px;">&nbsp;　　</span><span style="font-size: 15px;">Android应用程序消息处理机制（Looper、Handler）分析：</span><span style="font-size: 15px;"><a href="http://blog.csdn.net/luoshengyang/article/details/6817933">http://blog.csdn.net/luoshengyang/article/details/6817933</a></span></p>
+<p><span style="font-size: 15px;">　　Android的消息队列模型：</span><span style="font-size: 15px;"><a href="http://www.cnblogs.com/ghj1976/archive/2011/05/06/2038469.html">http://www.cnblogs.com/ghj1976/archive/2011/05/06/2038469.html</a></span></p>
+<p><span style="font-size: 15px;">　　Android中的Handler, Looper, MessageQueue和Thread：</span><span style="font-size: 15px;"><a href="http://www.cnblogs.com/xirihanlin/archive/2011/04/11/2012746.html">http://www.cnblogs.com/xirihanlin/archive/2011/04/11/2012746.html</a></span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　本博客其他相关博文：</span></p>
+<p><span style="font-size: 15px;">　　Android中的UI线程与非UI线程：</span><span style="font-size: 15px;"><a href="http://www.cnblogs.com/mengdd/p/3418780.html">http://www.cnblogs.com/mengdd/p/3418780.html</a></span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">　　<strong>说明：本文相关源码是Android 2.3.3版本的。</strong></span></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/mengdd/category/518886.html" target="_blank">Android 进阶</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/mengdd/tag/Android/">Android</a>, <a href="http://www.cnblogs.com/mengdd/tag/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3601294,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;6ef3479d-7ccc-e011-8ee0-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/mengdd/" target="_blank"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/u325852.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/mengdd/">圣骑士wind</a><br>
+            <a href="http://home.cnblogs.com/u/mengdd/followees">关注 - 68</a><br>
+            <a href="http://home.cnblogs.com/u/mengdd/followers">粉丝 - 1268</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;6ef3479d-7ccc-e011-8ee0-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3601294,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">6</span>
+    </div>
+    <div class="buryit" onclick="votePost(3601294,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/mengdd/p/3597100.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/mengdd/p/3597100.html" title="发布于2014-03-12 19:42">加密算法 科普文</a><br><a href="http://www.cnblogs.com/mengdd/p/3607293.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/mengdd/p/3607293.html" title="发布于2014-03-18 11:48">Java Android HTTP实现总结</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2014-03-14 21:10</span> <a href="http://www.cnblogs.com/mengdd/">圣骑士wind</a> 阅读(<span id="post_view_count">21007</span>) 评论(<span id="post_comment_count">2</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3601294" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/mengdd/p/3601294.html#" onclick="AddToWz(3601294);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=122894,cb_entryId=3601294,cb_blogApp=currentBlogApp,cb_blogUserGuid='6ef3479d-7ccc-e011-8ee0-842b2b196315',cb_entryCreatedDate='2014/3/14 21:10:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/mengdd/p/3601294.html#2896800" class="layer">#1楼</a><a name="2896800" id="comment_anchor_2896800"></a>  <span class="comment_date">2014-03-17 10:37</span> <a id="a_comment_author_2896800" href="http://www.cnblogs.com/mjblogs/" target="_blank">mjsky</a> <a href="http://msg.cnblogs.com/send/mjsky" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2896800" class="blog_comment_body">“因为效率的考虑，所有的View和Widget都不是线程安全的”  <br>应该是对View的“操作”不是线程安全的</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2896800,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2896800,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2896800_avatar" style="display:none;">http://pic.cnblogs.com/face/u119877.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/mengdd/p/3601294.html#3298701" class="layer">#2楼</a><a name="3298701" id="comment_anchor_3298701"></a><span id="comment-maxId" style="display:none;">3298701</span><span id="comment-maxDate" style="display:none;">2015/11/4 11:42:11</span>  <span class="comment_date">2015-11-04 11:42</span> <a id="a_comment_author_3298701" href="http://www.cnblogs.com/David-Young/" target="_blank">David Young</a> <a href="http://msg.cnblogs.com/send/David%20Young" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3298701" class="blog_comment_body">谢谢楼主，受益匪浅！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3298701,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3298701,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/mengdd/p/3601294.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/mengdd/p/3601294.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.241259.241259.241259" target="_blank">【免费】从零开始学编程，开发者专属实验平台免费实践！</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://cn.udacity.com/course/front-end-web-developer-nanodegree--nd001-cn-advanced/?utm_source=cnblogs&amp;utm_medium=referral&amp;utm_campaign=FEND04" target="_blank"><img width="300" height="250" src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/24442-20170629184920789-1740545267.png" alt="Udacity_前端_06290712"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/572897/" target="_blank">给你移植个猪的器官 愿意吗？</a><br> ·  <a href="http://news.cnblogs.com/n/572896/" target="_blank">乐视视频被曝裁员 将不买版权转为自制剧</a><br> ·  <a href="http://news.cnblogs.com/n/572895/" target="_blank">1800万帐户信息外泄 GitHub搞砸8Tracks数据库</a><br> ·  <a href="http://news.cnblogs.com/n/572894/" target="_blank">德国怒了 社交网站不删掉仇恨言论就罚款5000万欧元</a><br> ·  <a href="http://news.cnblogs.com/n/572893/" target="_blank">苹果又摊上专利流氓了 被Uniloc指控侵犯三项专利</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky" target="_blank"><img width="468" height="60" src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/24442-20170629165247758-2056260207.png" alt="极光推广_0701"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/570194/" target="_blank">小printf的故事：什么是真正的程序员？</a><br> ·  <a href="http://kb.cnblogs.com/page/569992/" target="_blank">程序员的工作、学习与绩效</a><br> ·  <a href="http://kb.cnblogs.com/page/569056/" target="_blank">软件开发为什么很难</a><br> ·  <a href="http://kb.cnblogs.com/page/565901/" target="_blank">唱吧DevOps的落地，微服务CI/CD的范本技术解读</a><br> ·  <a href="http://kb.cnblogs.com/page/566523/" target="_blank">程序员，如何从平庸走向理想？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news">
+
+
+
+
+
+
+<h2>欢迎来到圣骑士Wind的博客！</h2>
+<div class="github-card user-card"><div class="header User"></div><a class="avatar" href="https://github.com/mengdd" target="_top"><img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/3823345" alt="Dandan Meng"></a><div class="content"><h3><a href="https://github.com/mengdd" target="_blank">Dandan Meng</a></h3></div></div>
+<a href="https://github.com/mengdd" target="_blank">My Github</a><br>
+<h3>友情链接</h3>
+<ul>
+<li><b><a href="http://mengdd.github.io/" target="_blank">我的github pages</a></b></li>
+<li><b><a href="http://talentprince.github.io/" target="_blank">WeYoung</a></b></li>
+<li><b><a href="http://yanni4night.com/" target="_blank">yanni4night</a></b></li>
+</ul>
+<b>微信公众号: 圣骑士Wind: 分享最新Android开发资讯</b>
+<div>
+<img src="./Android的消息循环机制 Looper Handler类分析 - 圣骑士wind - 博客园_files/o_qrcode_196.png" height="196" width="196" alt="微信公众号二维码">
+</div>
+<h3>Links：</h3>
+<p>
+<a href="https://github.com/mengdd" target="_blank">My Github</a><br>
+<a href="http://developer.android.com/guide/components/index.html" target="_blank">Android API Guides</a><br>
+<a href="http://grepcode.com/search/?query=google+android&amp;entity=project" target="_blank">GrepCode Android</a><br>
+<a href="http://androidxref.com/" target="_blank">AndroidXRef</a><br>
+
+
+</p><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/mengdd/">圣骑士wind</a><br>园龄：<a href="http://home.cnblogs.com/u/mengdd/" title="入园时间：2011-08-22">5年10个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/mengdd/followers/">1268</a><br>关注：<a href="http://home.cnblogs.com/u/mengdd/followees/">68</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;6ef3479d-7ccc-e011-8ee0-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/06/01&#39;);return false;">&lt;</a></td><td align="center">2017年7月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/08/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalTodayDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/mengdd/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/mengdd/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/mengdd/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/mengdd/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/mengdd/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/mengdd/p/20-awesome-open-source-android-apps.html">1. 20+个很棒的Android开源项目</a></li><li><a href="http://www.cnblogs.com/mengdd/p/android-network-usage-and-battery-consumption.html">2. 网络使用和电池消耗 原因和改进</a></li><li><a href="http://www.cnblogs.com/mengdd/p/android-realm-database-guides.html">3. Android Realm数据库使用指南</a></li><li><a href="http://www.cnblogs.com/mengdd/p/6370715.html">4. Say Hello to ConstraintLayout</a></li><li><a href="http://www.cnblogs.com/mengdd/p/6237266.html">5. Android Weekly Notes Issue #237</a></li><li><a href="http://www.cnblogs.com/mengdd/p/6206779.html">6. Android Weekly Notes Issue #236</a></li><li><a href="http://www.cnblogs.com/mengdd/p/6186829.html">7. Android Weekly Notes Issue #235</a></li><li><a href="http://www.cnblogs.com/mengdd/p/6169220.html">8. Android Weekly Notes Issue #234</a></li><li><a href="http://www.cnblogs.com/mengdd/p/6123123.html">9. Android Weekly Notes Issue #233</a></li><li><a href="http://www.cnblogs.com/mengdd/p/6102332.html">10. Effective Java笔记一 创建和销毁对象</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/mengdd/tag/Android/">Android</a>(175)</li><li><a href="http://www.cnblogs.com/mengdd/tag/Java/">Java</a>(86)</li><li><a href="http://www.cnblogs.com/mengdd/tag/Android%20Weekly/">Android Weekly</a>(42)</li><li><a href="http://www.cnblogs.com/mengdd/tag/Web/">Web</a>(38)</li><li><a href="http://www.cnblogs.com/mengdd/tag/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>(29)</li><li><a href="http://www.cnblogs.com/mengdd/tag/JavaScript/">JavaScript</a>(29)</li><li><a href="http://www.cnblogs.com/mengdd/tag/RxJava/">RxJava</a>(24)</li><li><a href="http://www.cnblogs.com/mengdd/tag/Kotlin/">Kotlin</a>(23)</li><li><a href="http://www.cnblogs.com/mengdd/tag/Animation/">Animation</a>(19)</li><li><a href="http://www.cnblogs.com/mengdd/tag/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/">数据结构和算法</a>(17)</li><li><a href="http://www.cnblogs.com/mengdd/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(507)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/mengdd/category/397111.html">3D基础(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/mengdd/category/397120.html">Android(107)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/mengdd/category/514665.html">Android Animation(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/mengdd/category/494269.html">Android Testing(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/mengdd/category/869520.html">Android Weekly(43)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/mengdd/category/518886.html">Android 进阶(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/mengdd/category/838283.html">Android开发相关类库(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/mengdd/category/397113.html">C#(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/mengdd/category/397112.html">C++(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/mengdd/category/397121.html">CMake(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/mengdd/category/505303.html">DirectX(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/mengdd/category/466308.html">Git(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/mengdd/category/397119.html">GPU(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/mengdd/category/397114.html">Java(83)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/mengdd/category/455641.html">JavaScript(24)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/mengdd/category/478092.html">JNI(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/mengdd/category/651519.html">jQuery(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/mengdd/category/464078.html">JUnit(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/mengdd/category/838260.html">JVM(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/mengdd/category/546662.html">Linux(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/mengdd/category/492314.html">MySQL(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/mengdd/category/397115.html">OpenCV(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/mengdd/category/397116.html">OpenGL(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/mengdd/category/476567.html">OpenGL ES(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/mengdd/category/496026.html">Python(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/mengdd/category/677202.html">Testing(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/mengdd/category/546057.html">Tools &amp; IDE(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/mengdd/category/533744.html">UX(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/mengdd/category/482223.html">Web(28)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/mengdd/category/403050.html">Windows(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/mengdd/category/483818.html">XML(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/mengdd/category/397118.html">XNA(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/mengdd/category/433526.html">笔试面试(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/mengdd/category/410551.html">编程调试(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/mengdd/category/488646.html">服务器(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_35" href="http://www.cnblogs.com/mengdd/category/432170.html">科研什么的(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_36" href="http://www.cnblogs.com/mengdd/category/457711.html">每天一个算法题(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_37" href="http://www.cnblogs.com/mengdd/category/426388.html">设计模式(29)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_38" href="http://www.cnblogs.com/mengdd/category/423360.html">数据结构和算法(19)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_39" href="http://www.cnblogs.com/mengdd/category/473166.html">数据库(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_40" href="http://www.cnblogs.com/mengdd/category/421443.html">图形图像(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_41" href="http://www.cnblogs.com/mengdd/category/397109.html">图形学(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_42" href="http://www.cnblogs.com/mengdd/category/458354.html">网络(13)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(429)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/mengdd/archive/2017/06.html">2017年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/mengdd/archive/2017/05.html">2017年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/mengdd/archive/2017/04.html">2017年4月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/mengdd/archive/2017/03.html">2017年3月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/mengdd/archive/2017/02.html">2017年2月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/mengdd/archive/2017/01.html">2017年1月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/mengdd/archive/2016/12.html">2016年12月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/mengdd/archive/2016/11.html">2016年11月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/mengdd/archive/2016/10.html">2016年10月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/mengdd/archive/2016/09.html">2016年9月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/mengdd/archive/2016/08.html">2016年8月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/mengdd/archive/2016/07.html">2016年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/mengdd/archive/2016/06.html">2016年6月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/mengdd/archive/2016/05.html">2016年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/mengdd/archive/2016/03.html">2016年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/mengdd/archive/2015/10.html">2015年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/mengdd/archive/2015/06.html">2015年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/mengdd/archive/2015/05.html">2015年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/mengdd/archive/2015/04.html">2015年4月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/mengdd/archive/2015/03.html">2015年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/mengdd/archive/2015/02.html">2015年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/mengdd/archive/2015/01.html">2015年1月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/mengdd/archive/2014/12.html">2014年12月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/mengdd/archive/2014/09.html">2014年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/mengdd/archive/2014/07.html">2014年7月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/mengdd/archive/2014/06.html">2014年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/mengdd/archive/2014/05.html">2014年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/mengdd/archive/2014/04.html">2014年4月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/mengdd/archive/2014/03.html">2014年3月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/mengdd/archive/2014/02.html">2014年2月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/mengdd/archive/2014/01.html">2014年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/mengdd/archive/2013/12.html">2013年12月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/mengdd/archive/2013/11.html">2013年11月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/mengdd/archive/2013/10.html">2013年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/mengdd/archive/2013/09.html">2013年9月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/mengdd/archive/2013/08.html">2013年8月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/mengdd/archive/2013/07.html">2013年7月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/mengdd/archive/2013/06.html">2013年6月 (34)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/mengdd/archive/2013/05.html">2013年5月 (26)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/mengdd/archive/2013/04.html">2013年4月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/mengdd/archive/2013/03.html">2013年3月 (38)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/mengdd/archive/2013/02.html">2013年2月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/mengdd/archive/2013/01.html">2013年1月 (38)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_43" href="http://www.cnblogs.com/mengdd/archive/2012/12.html">2012年12月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_44" href="http://www.cnblogs.com/mengdd/archive/2012/11.html">2012年11月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_45" href="http://www.cnblogs.com/mengdd/archive/2012/10.html">2012年10月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_46" href="http://www.cnblogs.com/mengdd/archive/2012/09.html">2012年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_47" href="http://www.cnblogs.com/mengdd/archive/2012/08.html">2012年8月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_48" href="http://www.cnblogs.com/mengdd/archive/2012/07.html">2012年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_49" href="http://www.cnblogs.com/mengdd/archive/2012/05.html">2012年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_50" href="http://www.cnblogs.com/mengdd/archive/2012/04.html">2012年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_51" href="http://www.cnblogs.com/mengdd/archive/2011/08.html">2011年8月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_articlearchive" class="catListArticleArchive sidebar-block">
+<h3 class="catListTitle">文章档案<span style="font-size:11px;font-weight:normal">(8)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/mengdd/archives/2015/04.html" rel="nofollow">2015年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_1" href="http://www.cnblogs.com/mengdd/archives/2015/01.html" rel="nofollow">2015年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_2" href="http://www.cnblogs.com/mengdd/archives/2013/12.html" rel="nofollow">2013年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_3" href="http://www.cnblogs.com/mengdd/archives/2013/08.html" rel="nofollow">2013年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_4" href="http://www.cnblogs.com/mengdd/archives/2013/03.html" rel="nofollow">2013年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_5" href="http://www.cnblogs.com/mengdd/archives/2012/11.html" rel="nofollow">2012年11月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links511234" class="catList sidebar-block">
+<h3 class="catListTitle">Android学习</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_3_Link_0" href="http://grepcode.com/project/repository.grepcode.com/java/ext/com.google.android/android/" rel="nofollow">Android源码查看</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_1" href="https://android.googlesource.com/" rel="nofollow">Android源码项目git</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_2" href="http://blog.csdn.net/Luoshengyang/" rel="nofollow">老罗的Android之旅</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_各种官方文档" class="catList各种官方文档 sidebar-block">
+<h3 class="catListTitle">官方文档</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_4_Link_0" href="http://developer.android.com/index.html" rel="nofollow">Android 官网</a> </li>
+
+<li><a id="CatList_LinkList_4_Link_1" href="http://gitref.org/" rel="nofollow">Git Reference</a> </li>
+
+<li><a id="CatList_LinkList_4_Link_2" href="http://www.python.org/" rel="nofollow">Python</a> </li>
+<li class="c_b_p_link_desc">Python官网</li>
+</ul>
+
+</div>
+
+<div id="sidebar_开源社区，开源软件分享" class="catList开源社区，开源软件分享 sidebar-block">
+<h3 class="catListTitle">开源社区</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_5_Link_0" href="https://github.com/" rel="nofollow">GitHub</a> </li>
+
+<li><a id="CatList_LinkList_5_Link_1" href="http://code.google.com/intl/zh-CN/" rel="nofollow">Google Code</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links496540" class="catList sidebar-block">
+<h3 class="catListTitle">学习链接</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_6_Link_0" href="http://zhgdg.gitcafe.com/static/doc/byte_of_python.html" rel="nofollow">A Byte of Python</a> </li>
+
+<li><a id="CatList_LinkList_6_Link_1" href="http://lucida.me/" rel="nofollow">某G家程序员</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	823174
+	</li>
+	<li class="liRank">
+		排名 -	93
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/mengdd/archive/2013/02/16/2913659.html#3718885">1. Re:Java 多线程（四） 多线程访问成员变量与局部变量</a></li>
+        <li class="recent_comment_body">这个局部变量和ThreadLocal有什么区别？</li>
+        <li class="recent_comment_author">--mzzcy</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/mengdd/archive/2012/11/30/2796845.html#3695295">2. Re:堆排序 Heap Sort</a></li>
+        <li class="recent_comment_body">图给 满分</li>
+        <li class="recent_comment_author">--_流芒</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/mengdd/p/20-awesome-open-source-android-apps.html#3668288">3. Re:20+个很棒的Android开源项目</a></li>
+        <li class="recent_comment_body">android</li>
+        <li class="recent_comment_author">--euler</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/mengdd/archive/2013/01/21/2869921.html#3667016">4. Re:Java 包装类 自动装箱和拆箱</a></li>
+        <li class="recent_comment_body">打包带走 &gt;.&lt;</li>
+        <li class="recent_comment_author">--BoomKe</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/mengdd/archive/2013/01/23/2873312.html#3660459">5. Re:Java 静态导入</a></li>
+        <li class="recent_comment_body">收藏</li>
+        <li class="recent_comment_author">--Lumia1020</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/mengdd/p/3569127.html">1. Android PopupWindow的使用和分析(210358)</a></li><li><a href="http://www.cnblogs.com/mengdd/archive/2013/01/04/2844264.html">2. Java 数组基础(127805)</a></li><li><a href="http://www.cnblogs.com/mengdd/archive/2013/01/08/2851368.html">3. Android Fragment 基本介绍(120467)</a></li><li><a href="http://www.cnblogs.com/mengdd/archive/2013/01/11/2856374.html">4. Android Fragment和Activity(114468)</a></li><li><a href="http://www.cnblogs.com/mengdd/p/3213378.html">5. Android 抽屉效果的导航菜单实现(113263)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/mengdd/archive/2013/01/01/2841390.html">1. Google Maps Android API V2的使用及问题解决(151)</a></li><li><a href="http://www.cnblogs.com/mengdd/archive/2012/08/01/2619043.html">2. OpenCV实现人脸检测(14)</a></li><li><a href="http://www.cnblogs.com/mengdd/archive/2013/02/20/2917956.html">3. Java 多线程（七） 线程间的通信(13)</a></li><li><a href="http://www.cnblogs.com/mengdd/p/3142442.html">4. Android HTTP实例 使用GET方法和POST方法发送请求(13)</a></li><li><a href="http://www.cnblogs.com/mengdd/p/3213378.html">5. Android 抽屉效果的导航菜单实现(13)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/mengdd/archive/2013/02/16/2913806.html">1. Java 多线程（六） synchronized关键字详解(19)</a></li><li><a href="http://www.cnblogs.com/mengdd/archive/2013/01/08/2851368.html">2. Android Fragment 基本介绍(15)</a></li><li><a href="http://www.cnblogs.com/mengdd/p/3569127.html">3. Android PopupWindow的使用和分析(13)</a></li><li><a href="http://www.cnblogs.com/mengdd/archive/2013/02/03/2890923.html">4. Java 异常基础 Exception(12)</a></li><li><a href="http://www.cnblogs.com/mengdd/p/3213378.html">5. Android 抽屉效果的导航菜单实现(12)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 圣骑士wind
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>
