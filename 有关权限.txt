@@ -1,0 +1,6 @@
+1.即使是需要动态权限的也要在androidMenifast中添加，否则不会弹出相关的请求框。也会
+ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+!= PackageManager.PERMISSION_GRANTED 的结果为true
+2.不管在哪里requestPermission()都会调用startactivityforresult所以回来后就会调用onresume
+
+
