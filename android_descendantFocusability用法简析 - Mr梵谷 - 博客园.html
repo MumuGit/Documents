@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>android:descendantFocusability用法简析 - Mr梵谷 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/bundle-ClearScreen_iheshi.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/bundle-ClearScreen_iheshi-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/eyu8874521/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/eyu8874521/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/eyu8874521/wlwmanifest.xml">
+<script async="" src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/analytics.js.下载"></script><script src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'eyu8874521', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/eyu8874521/">Mr梵谷</a><br>
+		
+	</div>
+</div>
+
+</div>
+<div id="mylinks">
+<!--done-->
+<a id="blog_nav_sitehome" class="listitem" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;::&nbsp;
+<a id="blog_nav_myhome" class="listitem" href="http://www.cnblogs.com/eyu8874521/">首页</a>&nbsp;&nbsp;::&nbsp;
+<a id="blog_nav_newpost" class="listitem" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;::&nbsp;
+<a id="blog_nav_contact" accesskey="9" class="listitem" rel="nofollow" href="https://msg.cnblogs.com/send/Mr%E6%A2%B5%E8%B0%B7">联系</a>&nbsp;&nbsp;::&nbsp;
+<a id="blog_nav_rss" class="listitem" href="http://www.cnblogs.com/eyu8874521/rss">订阅</a>&nbsp;<a id="blog_nav_rss_image" href="http://www.cnblogs.com/eyu8874521/rss"><img src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;&nbsp;::&nbsp;
+<a id="blog_nav_admin" class="listitem" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+</div>
+<div id="mytopmenu">
+	
+		<div id="mystats">
+			<div id="blog_stats">
+<!--done-->
+<div class="blogStats">
+posts - 10,&nbsp;
+comments - 50,&nbsp;
+trackbacks - 0
+
+</div></div></div>
+	
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			
+<!--done-->
+<div class="news">公告</div>
+	<div class="newsItem">
+		<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/eyu8874521/">Mr梵谷</a><br>园龄：<a href="http://home.cnblogs.com/u/eyu8874521/" title="入园时间：2012-07-16">4年11个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/eyu8874521/followers/">29</a><br>关注：<a href="http://home.cnblogs.com/u/eyu8874521/followees/">3</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;22b1dfa0-e7ce-e111-aa3f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+	</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/06/01&#39;);return false;">&lt;</a></td><td align="center">2017年7月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/08/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td class="CalTodayDay" align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/eyu8874521/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/eyu8874521/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/eyu8874521/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/eyu8874521/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/eyu8874521/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/eyu8874521/tag/android/">android</a>(4)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/crop/">crop</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/hierarchyviewer/">hierarchyviewer</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/Intent/">Intent</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/QQ%E7%99%BB%E9%99%86%E7%95%8C%E9%9D%A2/">QQ登陆界面</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/UI%E5%B8%83%E5%B1%80/">UI布局</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/wakelock/">wakelock</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/%E4%BB%BFiPhone/">仿iPhone</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/%E8%BD%AE%E7%9B%98/">轮盘</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/%E5%B1%8F%E5%B9%95%E5%94%A4%E9%86%92/">屏幕唤醒</a>(1)</li><li><a href="http://www.cnblogs.com/eyu8874521/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<!--done-->
+
+		<h1 class="catListTitle">随笔分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/eyu8874521/category/397528.html">android(10)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">随笔档案</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/eyu8874521/archive/2012/10.html">2012年10月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/eyu8874521/archive/2012/09.html">2012年9月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/eyu8874521/archive/2012/08.html">2012年8月 (6)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/eyu8874521/archive/2012/07.html">2012年7月 (1)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">相册</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_0" class="listitem" href="http://www.cnblogs.com/eyu8874521/gallery/527508.html" rel="nofollow">APK(3)</a></li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/07/20/2600697.html#3473392">1. Re:Android中从SD卡中/拍照选择图片并进行剪裁的方法</a></li>
+        <li class="recent_comment_body">剛好要用到~<br><br>學得很清楚!<br>感恩</li>
+        <li class="recent_comment_author">--brightdanielt</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/27/2658648.html#3462268">2. Re:Android的PowerManager和PowerManager.WakeLock用法简析</a></li>
+        <li class="recent_comment_body">&lt;uses-permission android:name="android.permission.DEVICE_POWER"/&gt;<br>这个权限普通的应用可以获取？</li>
+        <li class="recent_comment_author">--路易贤</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/07/2626455.html#3433519">3. Re:Android ViewPager 实现多个页面切换滑动</a></li>
+        <li class="recent_comment_body">楼主更新下源码下载地址为喂 <br>thx</li>
+        <li class="recent_comment_author">--阿斯顿刺马丁</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#3366019">4. Re:android:descendantFocusability用法简析</a></li>
+        <li class="recent_comment_body">我是自定义的gridview还是不行呢</li>
+        <li class="recent_comment_author">--henry_wang123</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/16/2642605.html#3365760">5. Re:关于ExpandableListView用法的一个简单小例子</a></li>
+        <li class="recent_comment_body">1057328047@qq.com</li>
+        <li class="recent_comment_author">--TCDXG</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html">1. android:descendantFocusability用法简析(118118)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/16/2642605.html">2. 关于ExpandableListView用法的一个简单小例子(103131)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/07/2626455.html">3. Android ViewPager 实现多个页面切换滑动(18772)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/27/2658648.html">4. Android的PowerManager和PowerManager.WakeLock用法简析(16629)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/07/20/2600697.html">5. Android中从SD卡中/拍照选择图片并进行剪裁的方法(10285)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/16/2642605.html">1. 关于ExpandableListView用法的一个简单小例子(22)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html">2. android:descendantFocusability用法简析(10)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/09/07/2674551.html">3. 使用EditText+ListView并结合TextWatcher实现输入关键字筛选数据(4)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/15/2639642.html">4. 使用层级观察器hierarchyviewer综合各种布局实现Android QQ2012登陆界面和注册界面(4)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/07/20/2600697.html">5. Android中从SD卡中/拍照选择图片并进行剪裁的方法(3)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/16/2642605.html">1. 关于ExpandableListView用法的一个简单小例子(14)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html">2. android:descendantFocusability用法简析(13)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/07/20/2600697.html">3. Android中从SD卡中/拍照选择图片并进行剪裁的方法(2)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/07/2626455.html">4. Android ViewPager 实现多个页面切换滑动(2)</a></li><li><a href="http://www.cnblogs.com/eyu8874521/archive/2012/08/27/2658648.html">5. Android的PowerManager和PowerManager.WakeLock用法简析(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>
+	
+</div>
+<div id="centercontent">
+	
+<div id="post_detail">
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html">android:descendantFocusability用法简析</a>
+	</div>
+	<div id="cnblogs_post_body"><p><font size="4" face="SimSun">&nbsp;&nbsp;&nbsp; 开发中很常见的一个问题，项目中的listview不仅仅是简单的文字，常常需要自己定义listview，自己的Adapter去继承BaseAdapter，在adapter中按照需求进行编写，问题就出现了，可能会发生点击每一个item的时候没有反应，无法获取的焦点。原因多半是由于在你自己定义的Item中存在诸如ImageButton，Button，CheckBox等子控件(也可以说是Button或者Checkable的子类控件)，此时这些子控件会将焦点获取到，所以常常当点击item时变化的是子控件，item本身的点击没有响应。</font></p>
+<p><font size="4" face="SimSun">&nbsp;&nbsp;&nbsp; 这时候就可以使用descendantFocusability来解决啦，API描述如下：</font></p>
+<h4 class="jd-details-title"><font face="SimSun">android:descendantFocusability</font></h4>
+<p>Defines the relationship between the ViewGroup and its descendants when looking for a View to take focus.</p>
+<p>Must be one of the following constant values.</p>
+<p><img alt="" src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/1350460358_5684.jpg" _xhe_src="http://img.my.csdn.net/uploads/201210/17/1350460358_5684.jpg"></p>
+<p>&nbsp;</p>
+<p><font size="4" face="SimSun">该属性是当一个为view获取焦点时，定义viewGroup和其子控件两者之间的关系。</font></p>
+<p><font size="4" face="SimSun">属性的值有三种：</font></p>
+<p><font size="4" face="SimSun">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; beforeDescendants：viewgroup会优先其子类控件而获取到焦点</font></p>
+<p><font size="4" face="SimSun">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; afterDescendants：viewgroup只有当其子类控件不需要获取焦点时才获取焦点</font></p>
+<p><font size="4" face="SimSun">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; blocksDescendants：viewgroup会覆盖子类控件而直接获得焦点</font></p>
+<p><font size="4" face="SimSun"></font>&nbsp;</p>
+<p><font size="4" face="SimSun">通常我们用到的是第三种，即在Item布局的根布局加上<strong>android:descendantFocusability=”blocksDescendants”</strong>的属性就好了，至此listview点击的灵异事件告一段落。心得：遇到不会不懂的地方除了网上查询资料之外，也可以多多去尝试每种属性的作用，多阅读官方文档(我始终觉得还是读原文的比翻译的理解的会更好)。</font></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/eyu8874521/category/397528.html" target="_blank">android</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2727882,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;22b1dfa0-e7ce-e111-aa3f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/eyu8874521/" target="_blank"><img src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/u427904.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/eyu8874521/">Mr梵谷</a><br>
+            <a href="http://home.cnblogs.com/u/eyu8874521/followees">关注 - 3</a><br>
+            <a href="http://home.cnblogs.com/u/eyu8874521/followers">粉丝 - 29</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;22b1dfa0-e7ce-e111-aa3f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2727882,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">13</span>
+    </div>
+    <div class="buryit" onclick="votePost(2727882,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/16/2726029.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/16/2726029.html" title="发布于2012-10-16 14:50">android:addStatesFromChildren用法简单介绍</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2012-10-17 16:11</span> <a href="http://www.cnblogs.com/eyu8874521/">Mr梵谷</a> 阅读(<span id="post_view_count">118117</span>) 评论(<span id="post_comment_count">10</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=2727882" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#" onclick="AddToWz(2727882);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=123069,cb_entryId=2727882,cb_blogApp=currentBlogApp,cb_blogUserGuid='22b1dfa0-e7ce-e111-aa3f-842b2b196315',cb_entryCreatedDate='2012/10/17 16:11:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<a name="feedback"></a>
+<div class="feedback">
+	<div class="feedbackTitle">
+		Feedback
+	</div>
+	<div class="feedbackNoItems"></div>
+	
+	
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#2509541" class="layer">#1楼</a><a name="2509541" id="comment_anchor_2509541"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2012-10-24 17:08</span> | <a id="a_comment_author_2509541" href="http://www.cnblogs.com/henanjing/" target="_blank">彼岸荼蘼_花非花</a> <a href="http://msg.cnblogs.com/send/%E5%BD%BC%E5%B2%B8%E8%8D%BC%E8%98%BC_%E8%8A%B1%E9%9D%9E%E8%8A%B1" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_2509541" class="blog_comment_body">学习了  谢谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2509541,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2509541,&#39;Bury&#39;,this)">反对(0)</a></div><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#2632712" class="layer">#2楼</a><a name="2632712" id="comment_anchor_2632712"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2013-03-12 09:17</span> | <a id="a_comment_author_2632712" href="http://home.cnblogs.com/u/487873/" target="_blank">Jerry Fang</a> <a href="http://msg.cnblogs.com/send/Jerry%20Fang" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_2632712" class="blog_comment_body">我有这么一种情况, 就是下载列表, 点击每一项进行单独下载时, 不刷新, 重新进入就可以.</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2632712,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2632712,&#39;Bury&#39;,this)">反对(0)</a></div><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#2848322" class="layer">#3楼</a><a name="2848322" id="comment_anchor_2848322"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2013-12-31 11:49</span> | <a id="a_comment_author_2848322" href="http://home.cnblogs.com/u/512217/" target="_blank">na_tsume</a> <a href="http://msg.cnblogs.com/send/na_tsume" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_2848322" class="blog_comment_body">学习了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2848322,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2848322,&#39;Bury&#39;,this)">反对(0)</a></div><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#2916995" class="layer">#4楼</a><a name="2916995" id="comment_anchor_2916995"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2014-04-14 08:27</span> | <a id="a_comment_author_2916995" href="http://www.cnblogs.com/siaslizhi/" target="_blank">小强fly888</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E5%BC%BAfly888" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_2916995" class="blog_comment_body">很好！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2916995,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2916995,&#39;Bury&#39;,this)">反对(0)</a></div><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#3011947" class="layer">#5楼</a><a name="3011947" id="comment_anchor_3011947"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2014-08-20 11:09</span> | <a id="a_comment_author_3011947" href="http://www.cnblogs.com/fangfang-pengpeng/" target="_blank">方方@鹏鹏</a> <a href="http://msg.cnblogs.com/send/%E6%96%B9%E6%96%B9%40%E9%B9%8F%E9%B9%8F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_3011947" class="blog_comment_body"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#2916995" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2916995);">@</a>
+小强fly888<br>学写了，谢谢。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3011947,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3011947,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3011947_avatar" style="display:none;">http://pic.cnblogs.com/face/573436/20131011143827.png</span><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#3102333" class="layer">#6楼</a><a name="3102333" id="comment_anchor_3102333"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2015-01-07 19:56</span> | <a id="a_comment_author_3102333" href="http://home.cnblogs.com/u/711659/" target="_blank">robotgamer</a> <a href="http://msg.cnblogs.com/send/robotgamer" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_3102333" class="blog_comment_body">多谢楼主.今天正好遇到这个问题,自定义的Item布局确实包含了多个控件,导致不响应list的OnItemClickListener点击回调.</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3102333,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3102333,&#39;Bury&#39;,this)">反对(0)</a></div><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#3186644" class="layer">#7楼</a><a name="3186644" id="comment_anchor_3186644"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2015-05-18 23:00</span> | <a id="a_comment_author_3186644" href="http://www.cnblogs.com/liyanli-mu640065/" target="_blank">liyyanli</a> <a href="http://msg.cnblogs.com/send/liyyanli" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_3186644" class="blog_comment_body">怒赞，收藏了，</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3186644,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3186644,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3186644_avatar" style="display:none;">http://pic.cnblogs.com/face/568543/20131005202432.png</span><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#3279848" class="layer">#8楼</a><a name="3279848" id="comment_anchor_3279848"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2015-10-08 09:58</span> | <a id="a_comment_author_3279848" href="http://home.cnblogs.com/u/789830/" target="_blank">夜色微凉小绵羊</a> <a href="http://msg.cnblogs.com/send/%E5%A4%9C%E8%89%B2%E5%BE%AE%E5%87%89%E5%B0%8F%E7%BB%B5%E7%BE%8A" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_3279848" class="blog_comment_body">多谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3279848,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3279848,&#39;Bury&#39;,this)">反对(0)</a></div><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#3299895" class="layer">#9楼</a><a name="3299895" id="comment_anchor_3299895"></a></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2015-11-05 17:04</span> | <a id="a_comment_author_3299895" href="http://home.cnblogs.com/u/702593/" target="_blank">奋斗_少年</a> <a href="http://msg.cnblogs.com/send/%E5%A5%8B%E6%96%97_%E5%B0%91%E5%B9%B4" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_3299895" class="blog_comment_body">为什么不用第一个啊。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3299895,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3299895,&#39;Bury&#39;,this)">反对(0)</a></div><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+			<div class="feedbackItem">
+				<div class="feedbackListTitle"><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#3366019" class="layer">#10楼</a><a name="3366019" id="comment_anchor_3366019"></a><span id="comment-maxId" style="display:none;">3366019</span><span id="comment-maxDate" style="display:none;">2016/2/24 13:49:03</span></div>
+				<div class="feedbackListSubtitle">
+					 <span class="comment_date">2016-02-24 13:49</span> | <a id="a_comment_author_3366019" href="http://www.cnblogs.com/whlei/" target="_blank">honglei92</a> <a href="http://msg.cnblogs.com/send/honglei92" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div id="comment_body_3366019" class="blog_comment_body">我是自定义的gridview还是不行呢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3366019,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3366019,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3366019_avatar" style="display:none;">http://pic.cnblogs.com/face/358041/20161122164255.png</span><br>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		
+</div>
+
+
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.241259.241259.241259" target="_blank">【免费】从零开始学编程，开发者专属实验平台免费实践！</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://cn.udacity.com/course/machine-learning-engineer-nanodegree--nd009-cn-basic/?utm_source=cnblog&amp;utm_medium=referral&amp;utm_campaign=MLND04" target="_blank"><img width="300" height="250" src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/24442-20170701051047461-13081482.jpg" alt="Udacity_0706"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/573043/" target="_blank">如何在10分钟内获得投资人青睐？YC合伙人给了14个建议</a><br> ·  <a href="http://news.cnblogs.com/n/573042/" target="_blank">这个奇怪的模拟器通过用户的性别、种族和年龄来预测他们将如何死亡</a><br> ·  <a href="http://news.cnblogs.com/n/573041/" target="_blank">SpaceX公司龙飞船重复使用 第二次成功返回地球</a><br> ·  <a href="http://news.cnblogs.com/n/573040/" target="_blank">OneDrive突然要求用户使用NTFS格式</a><br> ·  <a href="http://news.cnblogs.com/n/573039/" target="_blank">Google今日涂鸦以网球为主题</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky" target="_blank"><img width="468" height="60" src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/24442-20170629165247758-2056260207.png" alt="极光推广_0701"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/570194/" target="_blank">小printf的故事：什么是真正的程序员？</a><br> ·  <a href="http://kb.cnblogs.com/page/569992/" target="_blank">程序员的工作、学习与绩效</a><br> ·  <a href="http://kb.cnblogs.com/page/569056/" target="_blank">软件开发为什么很难</a><br> ·  <a href="http://kb.cnblogs.com/page/565901/" target="_blank">唱吧DevOps的落地，微服务CI/CD的范本技术解读</a><br> ·  <a href="http://kb.cnblogs.com/page/566523/" target="_blank">程序员，如何从平庸走向理想？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+
+<!--done-->
+<div class="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<a id="Footer1_Hyperlink1" name="Hyperlink1" href="http://blogs.clearscreen.com/migs"><img src="./android_descendantFocusability用法简析 - Mr梵谷 - 博客园_files/DotTextSkin.gif" alt=""></a>
+	<br>
+	Copyright ©2017 Mr梵谷
+</div>
+
+
+
+
+</body></html>
