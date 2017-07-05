@@ -1,0 +1,1 @@
+1.不new Fragment ，但是依然会走oncreateview。如导航栏点击按钮后。
