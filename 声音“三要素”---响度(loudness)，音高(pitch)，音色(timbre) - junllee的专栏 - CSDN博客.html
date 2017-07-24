@@ -1,0 +1,1163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0052)http://blog.csdn.net/junllee/article/details/7217435 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/lcim"></script>  
+
+            <link rel="canonical" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客.html"> 
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/junllee/article/details/7217435#">
+
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848"> 
+       
+    <title>声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏
+        - CSDN博客</title>
+    
+    <meta name="description" content="由于人耳听觉系统非常复杂，迄今为止人类对它的生理结构和听觉特性还不能从生理解剖角度完全解释清楚。所以，对人耳听觉特性的研究目前仅限于在心理声学和语言声学。 人耳对不同强度、不同频率声音的听觉范围称为声域。在人耳的声域范围内，声音听觉心理的主观感受主要有响度、音高、音色等特征和掩蔽效应、高频定位等特性。其中响度、音高、音色可以在主观上用来描述具有振幅、频率和相位三个物理量的任何复杂的声音，故又称为声">
+
+    <meta name="keywords" content="音乐,语言">
+
+   
+    <script src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/hm.js"></script><script src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/blog_static_head.min.js" type="text/javascript"></script>
+
+    
+        <!--new top-->
+       
+       
+        <!--new top-->
+    
+      <!-- ad begin -->
+         
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/junllee/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/default.css">
+ 
+
+
+
+    <link href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet">
+     
+         <link rel="stylesheet" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/csdn_blog_detail.min.css">
+
+  
+
+
+    <!-- 请置于所有广告位代码之前 --> 
+            <script src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/ds.js"></script>
+
+<script src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/share.js"></script><link rel="stylesheet" type="text/css" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/style(1).css"><link href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/bdsstyle.css" rel="stylesheet" type="text/css"><link rel="stylesheet" type="text/css" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/style(2).css"><script src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/logger.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link rel="stylesheet" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/share_style0_16.css"></head>
+
+
+<body><div id="MathJax_Message" style="display: none;"></div><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><iframe frameborder="0" style="display: none;"></iframe><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap ">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" id="toolbar_search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label"><span class="red_txt">*</span>标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group" style="display:none;">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">位置</label>                        <div class="col-sm-10">                          <div class="my_lib_box">                            个人主页&nbsp;-&nbsp;<a href="http://my.csdn.net/" target="_blank">我的知识</a>                          </div>                          <div class="checkbox">                            <div class="pull-left">                              <label>                                <input type="checkbox" name="share" class="save_lib_map" checked="checked">同时保存至：                              </label>                            </div>                            <div class="pull-left">                              <div class="dropdown">                                <button id="toolbar_sele_map" type="button">                                  选择知识图谱                                  <i class="fa fa-chevron-down"></i>                                </button>                                <div class="top_arr"></div>                                <div class="outside">                                  <ul class="dropdown-menu" id="toolbar_Design_knowledge"><li>选择知识图谱</li></ul>                                </div>                              </div>                            </div>                            <div class="pull-left new_txt">                              <a href="http://lib.csdn.net/my/create/structure" target="_blank">新建？</a>                            </div>                          </div>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left" style="display:none">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"><div class="icon-hasnotes" style=""></div></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note" style="left: -212px; top: 1025px; display: none;">                      <div class="box"><div class="notifications notice_list_con curr">  <div class="menu_title">    <span class="title"><a href="http://msg.csdn.net/letters" target="_blank" class="read_all">查看所有私信</a><a href="http://msg.csdn.net/" target="_blank" class="go_all">查看所有通知</a></span>  </div>  <div class="loading"></div>  <div class="empty">暂没有新通知</div>  <div class="notice_content" style="overflow-y: auto; max-height: 270px;"></div></div><div class="notifications detail_con" style="display: none">  <div class="menu_title">    <span class="title">      <a class="go_back" href="javascript:void 0;">返回通知列表</a>      <a class="notifications_page_none nextnote" href="javascript:void 0;">下一条</a>      <a class="notifications_page prvnote" href="javascript:void 0;">上一条</a>    </span>  </div>  <div class="notice_content" style="overflow-y: scroll; height: 250px;"></div></div><div class="error"></div></div>                    <iframe src="about:block" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/2_daoye2011.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/2_daoye2011.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname">牟牟mumu</a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     
+        <div class="tracking-ad" data-view="true" data-mod="ad_popu_72" data-mtp="62" data-order="40" data-con="ad_content_2072">
+                     <script id="popuLayer_js_q" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/popuLayer.js" defer="defer" type="text/javascript"></script>
+                <div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px; display: none;">
+    	                <div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">关闭</div><!-- 广告占位容器 --><div id="cpro_u2895327"><iframe id="iframeu2895327_0" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/lcim(1).html" width="300" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:300px;height:250px" allowtransparency="true"></iframe></div></div>
+                <script>  document.getElementById("popuLayer_js_q").onload = function () { var styObjd = styObj = { width: "300px", "height": parseInt(250) + 28 }; window.CSDN.Layer.PopuLayer("#layerd", { storageName: "layerd", styleObj: styObjd, total: 50, expoire: 1000 * 60 }); }</script><!-- 投放代码 --><script type="text/javascript">                    /*服务器频道首页置顶Banner960*90，创建于2014-7-3*/    (window.cproArray = window.cproArray || []).push({ id: "u2895327" });  </script>  <script src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/c.js" type="text/javascript"></script>
+     
+        </div>
+
+    <!-- 广告位开始 -->
+        
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/junllee">junllee的专栏</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/junllee?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/junllee?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/junllee/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "junllee";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/junllee";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "daoye2011";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/74779828" target="_blank">
+<font color="red"><strong>CSDN日报20170707——《稀缺：百分之二的选择》</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/74550215" target="_blank">
+<font color="blue"><strong>征文 | 你会为 AI 转型么？</strong></font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://blog.csdn.net/broadview2006/article/details/74431515" target="_blank">
+<font color="red"><strong>每周荐书 | Android、Keras、ES6（评论送书）</strong></font></a>
+
+
+</div>                        </div>
+
+                        
+
+
+
+  
+
+
+
+
+
+
+<script type="text/javascript" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/category.js"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+      var isBole = false; 
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=%e5%a3%b0%e9%9f%b3%e2%80%9c%e4%b8%89%e8%a6%81%e7%b4%a0%e2%80%9d---%e5%93%8d%e5%ba%a6(loudness)%ef%bc%8c%e9%9f%b3%e9%ab%98(pitch)%ef%bc%8c%e9%9f%b3%e8%89%b2(timbre)&u=http://blog.csdn.net/junllee/article/details/7217435"
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+    <h1>
+        <span class="link_title"><a href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客.html">
+        声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)        
+           
+        </a>
+        </span>
+
+         
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/%e9%9f%b3%e4%b9%90" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">音乐</a><a href="http://www.csdn.net/tag/%e8%af%ad%e8%a8%80" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">语言</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2012-01-29 10:40</span>
+            <span class="link_view" title="阅读次数">6487人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/junllee/article/details/7217435#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(1)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;%e5%a3%b0%e9%9f%b3%e2%80%9c%e4%b8%89%e8%a6%81%e7%b4%a0%e2%80%9d---%e5%93%8d%e5%ba%a6(loudness)%ef%bc%8c%e9%9f%b3%e9%ab%98(pitch)%ef%bc%8c%e9%9f%b3%e8%89%b2(timbre)&#39;,&#39;7217435&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/junllee/article/details/7217435#report" onclick="javascript:report(7217435,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;765020&#39;,&#39;junllee&#39;,&#39;top&#39;,&#39;7217435&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">多媒体--音频<em>（19）</em></span>
+                      <img class="arrow-down" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/junllee/article/category/765020" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_765020">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+
+  
+
+  
+  
+     
+
+
+<div id="article_content" class="article_content tracking-ad" data-mod="popu_307" data-dsm="post">
+
+<p>&nbsp;由于人耳听觉系统非常复杂，迄今为止人类对它的生理结构和听觉特性还不能从生理解剖角度完全解释清楚。所以，对人耳听觉特性的研究目前仅限于在心理声学和语言声学。 人耳对不同强度、不同频率声音的听觉范围称为声域。在人耳的声域范围内，声音听觉心理的主观感受主要有响度、音高、音色等特征和掩蔽效应、高频定位等特性。其中响度、音高、音色可以在主观上用来描述具有振幅、频率和相位三个物理量的任何复杂的声音，故又称为声音“三要素”；而在多种音源场合，人耳掩蔽效应等特性更重要，它是心理声学的基础。下面简单介绍一下以上问题。</p>
+<p>1．响度 响度，又称声强或音量，它表示的是声音能量的强弱程度，主要取决于声波振幅的大小。声音的响度一般用声压(达因／平方厘米)或声强(瓦特／平方厘米)来计量，声压的单位为帕(Pa)，它与基准声压比值的对数值称为声压级，单位是分贝(dB)。对于响度的心理感受，一般用单位宋(Sone)来度量，并定义lkHz、40dB的纯音的响度为1宋。响度的相对量称为响度级，它表示的是某响度与基准响度比值的对数值，单位为口方(phon)，即当人耳感到某声音与1kHz单一频率的纯音同样响时，该声音声压级的分贝数即为其响度级。可见，无论在客观和主观上，这两个单位的概念是完全不同的，除1kHz纯音外，声压级的值一般不等于响度级的值，使用中要注意。
+ 响度是听觉的基础。正常人听觉的强度范围为0dB—140dB(也有人认为是-5dB—130dB)。固然，超出人耳的可听频率范围(即频域)的声音，即使响度再大，人耳也听不出来(即响度为零)。但在人耳的可听频域内，若声音弱到或强到一定程度，人耳同样是听不到的。当声音减弱到人耳刚刚可以听见时，此时的声音强度称为“听阈”。一般以1kHz纯音为准进行测量，人耳刚能听到的声压为0dB(通常大于0．3dB即有感受)、声强为10-16W/cm2 时的响度级定为0口方。而当声音增强到使人耳感到疼痛时，这个阈值称为“痛阈”。仍以1kHz纯音为准来进行测量，使人耳感到疼痛时的声压级约达到140dB左右。
+ 实验表明，闻阈和痛阈是随声压、频率变化的。闻阈和痛阈随频率变化的等响度曲线(弗莱彻—芒森曲线)之间的区域就是人耳的听觉范围。通常认为，对于1kHz纯音，0dB—20dB为宁静声，30dB--40dB为微弱声，50dB—70dB为正常声，80dB—100dB为响音声，110dB—130dB为极响声。而对于1kHz以外的可听声，在同一级等响度曲线上有无数个等效的声压—频率值，例如，200Hz的30dB的声音和1kHz的10dB的声音在人耳听起来具有相同的响度，这就是所谓的“等响”。小于0dB闻阈和大于140dB痛阈时为不可听声，即使是人耳最敏感频率范围的声音，人耳也觉察不到。人耳对不同频率的声音闻阈和痛阈不一样，灵敏度也不一样。人耳的痛阈受频率的影响不大，而闻阈随频率变化相当剧烈。人耳对3kHz—5kHz声音最敏感，幅度很小的声音信号都能被人耳听到，而在低频区(如小于800Hz)和高频区(如大于5kHz)人耳对声音的灵敏度要低得多。响度级较小时，高、低频声音灵敏度降低较明显，而低频段比高频段灵敏度降低更加剧烈，一般应特别重视加强低频音量。通常200Hz--3kHz语音声压级以60dB—70dB为宜，频率范围较宽的音乐声压以80dB—90dB最佳。</p>
+<p>2．音高 音高也称音调，表示人耳对声音调子高低的主观感受。客观上音高大小主要取决于声波基频的高低，频率高则音调高，反之则低，单位用赫兹(Hz)表示。主观感觉的音高单位是“美”，通常定义响度为40方的1kHz纯音的音高为1000美。赫兹与“美”同样是表示音高的两个不同概念而又有联系的单位。 人耳对响度的感觉有一个从闻阈到痛阈的范围。人耳对频率的感觉同样有一个从最低可听频率20Hz到最高可听频率别20kHz的范围。响度的测量是以1kHz纯音为基准，同样，音高的测量是以40dB声强的纯音为基准。实验证明，音高与频率之间的变化并非线性关系，除了频率之外，音高还与声音的响度及波形有关。音高的变化与两个频率相对变化的对数成正比。不管原来频率多少，只要两个40dB的纯音频率都增加1个倍频程(即1倍)，人耳感受到的音高变化则相同。在音乐声学中，音高的连续变化称为滑音，1个倍频程相当于乐音提高了一个八度音阶。根据人耳对音高的实际感受，人的语音频率范围可放宽到80Hz--12kHz，乐音较宽，效果音则更宽。</p>
+<p>3．音色 音色又称音品，由声音波形的谐波频谱和包络决定。声音波形的基频所产生的听得最清楚的音称为基音，各次谐波的微小振动所产生的声音称泛音。单一频率的音称为纯音，具有谐波的音称为复音。每个基音都有固有的频率和不同响度的泛音，借此可以区别其它具有相同响度和音调的声音。声音波形各次谐波的比例和随时间的衰减大小决定了各种声源的音色特征，其包络是每个周期波峰间的连线，包络的陡缓影响声音强度的瞬态特性。声音的音色色彩纷呈，变化万千，高保真(Hi—Fi)音响的目标就是要尽可能准确地传输、还原重建原始声场的一切特征，使人们其实地感受到诸如声源定位感、空间包围感、层次厚度感等各种临场听感的立体环绕声效果。
+</p>
+<p>另外，表征声音的其它物理特性还有：音值，又称音长，是由振动持续时间的长短决定的。持续的时间长，音则长；反之则短。从以上主观描述声音的三个主要特征看，人耳的听觉特性并非完全线性。声音传到人的耳内经处理后，除了基音外，还会产生各种谐音及它们的和音和差音，并不是所有这些成分都能被感觉。人耳对声音具有接收、选择、分析、判断响度、音高和音品的功能，例如，人耳对高频声音信号只能感受到对声音定位有决定性影响的时域波形的包络(特别是变化快的包络在内耳的延时)，而感觉不出单个周期的波形和判断不出频率非常接近的高频信号的方向；以及对声音幅度分辨率低，对相位失真不敏感等。这些涉及心理声学和生理声学方面的复杂问题。</p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1499592574337">
+<a href="http://blog.csdn.net/junllee/article/details/7217435#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/junllee/article/details/7217435#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/junllee/article/details/7217435#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/junllee/article/details/7217435#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/junllee/article/details/7217435#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/junllee/article/details/7217435#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   
+
+<!--172.16.140.13-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+
+ 
+
+
+        <div id="digg" articleid="7217435">
+            <dl id="btnDigg" class="digg digg_enable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_enable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;http://blog.csdn.net/junllee/article/details/7206353&#39;;">上一篇</span><a href="http://blog.csdn.net/junllee/article/details/7206353" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">如何消除音频输出端的喀嗒声</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;http://blog.csdn.net/junllee/article/details/7219035&#39;;">下一篇</span><a href="http://blog.csdn.net/junllee/article/details/7219035" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">揭开Σ-ΔADC的神秘面纱</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article">
+                    <h4></h4>
+                    <div class="similar_c" style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36">                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u014646950/article/details/55518238" title="matlab中文注释nmat2snd" strategy="BlogCommendFromBaidu" target="_blank">matlab中文注释nmat2snd</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/vastsmile/article/details/5756277" title="基频分析方法汇总【笔记】" strategy="BlogCommendFromBaidu" target="_blank">基频分析方法汇总【笔记】</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/wzf28/article/details/54348743" title="音高和频率（转）" strategy="BlogCommendFromBaidu" target="_blank">音高和频率（转）</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u014646950/article/details/59096095" title="matlab工具miditoolbox函数中文说明" strategy="BlogCommendFromBaidu" target="_blank">matlab工具miditoolbox函数中文说明</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u014646950/article/details/55050696" title="matlab工具voicebox函数中文说明" strategy="BlogCommendFromBaidu" target="_blank">matlab工具voicebox函数中文说明</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/wangshunli/article/details/7877558" title="自相关函数法基音周期提取(matlab版)" strategy="BlogCommendFromBaidu" target="_blank">自相关函数法基音周期提取(matlab版)</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://greemranqq.iteye.com/blog/1814799" title="程序员学习能力提升三要素" strategy="BlogCommendFromCsdn" target="_blank">程序员学习能力提升三要素</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/yangshu168/article/details/2010043" title="声音四要素：音强、音调、音色和波形包络" strategy="BlogCommendFromCsdn" target="_blank">声音四要素：音强、音调、音色和波形包络</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://mmdev.iteye.com/blog/1726692" title="网站三要素是什么?" strategy="BlogCommendFromCsdn" target="_blank">网站三要素是什么?</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/suncrafted/article/details/5765203" title="数据仓库三要素" strategy="BlogCommendFromCsdn" target="_blank">数据仓库三要素</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+      
+</div>
+
+    <div>
+        
+
+        <script type="text/javascript">
+            /*博客内容页下方Banner1-728*90，创建于2016-12-13*/
+            var cpro_id = "u2843949";
+        </script>
+        <script type="text/javascript" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/c.js"></script><div id="BAIDU_SSP__wrapper_u2843949_0"><iframe id="iframeu2843949_0" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/lcim.html" width="728" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:728px;height:90px" allowtransparency="true"></iframe></div>
+
+     </div>
+
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/junllee/svc/GetSuggestContent/7217435",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+        <dl class="blog-ass-articl tracking-ad" id="res-relatived" data-mod="popu_84"> 
+             <dt><span>猜你在找</span></dt>    
+           
+    
+           
+
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/46" title="机器学习之概率与统计推断" strategy="undefined" target="_blank">机器学习之概率与统计推断</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/49" title="机器学习之数学基础" strategy="undefined" target="_blank">机器学习之数学基础</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/48" title="机器学习之凸优化" strategy="undefined" target="_blank">机器学习之凸优化</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/47" title="机器学习之矩阵" strategy="undefined" target="_blank">机器学习之矩阵</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/detail/421" title="响应式布局全新探索" strategy="undefined" target="_blank">响应式布局全新探索</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/detail/426" title="探究Linux的总线、设备、驱动模型" strategy="undefined" target="_blank">探究Linux的总线、设备、驱动模型</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/detail/422" title="深度学习基础与TensorFlow实践" strategy="undefined" target="_blank">深度学习基础与TensorFlow实践</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/45" title="深度学习之神经网络原理与实战技巧" strategy="undefined" target="_blank">深度学习之神经网络原理与实战技巧</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/43" title="前端开发在线峰会" strategy="undefined" target="_blank">前端开发在线峰会</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/44" title="TensorFlow实战进阶：手把手教你做图像识别应用" strategy="undefined" target="_blank">TensorFlow实战进阶：手把手教你做图像识别应用</a>
+                        </dd>
+        </dl>
+
+
+
+
+            
+                                    
+            
+                                    
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_2620444"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/W_angRong" target="_blank">W_angRong</a> <span class="ptime">2013-05-08 09:25发表</span>  <a href="http://blog.csdn.net/junllee/article/details/7217435#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2620444" username="W_angRong"> <a href="http://blog.csdn.net/junllee/article/details/7217435#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/junllee/article/details/7217435#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/W_angRong" target="_blank"><img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/3_w_angrong.jpg" width="40" height="40"></a></dd><dd class="comment_body">高手啊，基本不知道说啥，嗨....差距太大了</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><a name="commentbox"></a><a name="reply"></a><a name="quote"></a><form action="http://blog.csdn.net/junllee/comment/submit?id=7217435" method="post" onsubmit="return subform(this);"><div class="commentform"><div class="panel_head">发表评论</div><ul><li class="left">用 户 名：</li><li class="right">daoye2011</li></ul><ul><li class="left">评论内容：</li><li class="right" style="position:relative;"><div id="ubbtools"><a href="http://blog.csdn.net/junllee/article/details/7217435#insertcode" code="code"><img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/code.gif" border="0" alt="插入代码" title="插入代码"></a></div><div id="lang_list" style="position: absolute; top: 28px; left: 0px; display: none;"><a class="long_name" href="http://blog.csdn.net/junllee/article/details/7217435#html">HTML/XML</a><a class="long_name" href="http://blog.csdn.net/junllee/article/details/7217435#objc">objective-c</a><a class="zhong_name" href="http://blog.csdn.net/junllee/article/details/7217435#delphi">Delphi</a><a class="zhong_name" href="http://blog.csdn.net/junllee/article/details/7217435#ruby">Ruby</a><a href="http://blog.csdn.net/junllee/article/details/7217435#php">PHP</a><a class="duan_name" href="http://blog.csdn.net/junllee/article/details/7217435#csharp">C#</a><a style=" border-right: none;" class="duan_name" href="http://blog.csdn.net/junllee/article/details/7217435#cpp">C++</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/junllee/article/details/7217435#javascript">JavaScript</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/junllee/article/details/7217435#vb">Visual Basic</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/junllee/article/details/7217435#python">Python</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/junllee/article/details/7217435#java">Java</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/junllee/article/details/7217435#css">CSS</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/junllee/article/details/7217435#sql">SQL</a><a style="border:none;" class="duan_name" href="http://blog.csdn.net/junllee/article/details/7217435#plain">其它</a></div><textarea class="comment_content" name="comment_content" id="comment_content" style="width: 400px; height: 200px;"></textarea></li></ul><ul><input type="hidden" id="comment_replyId" name="comment_replyId"><input type="hidden" id="comment_userId" name="comment_userId" value="521203"><input type="hidden" id="commentId" name="commentId" value=""><input type="submit" class="comment_btn" value="提交">&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span></ul></div></form></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '7217435';
+    var commentscount = 1;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)';
+
+</script>
+
+
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/junllee" target="_blank">
+    <img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/1_junllee.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/junllee" class="user_name" target="_blank">junllee</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=junllee&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>185325次</span></li>
+    <li>积分：<span>2211</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/blog5.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：2211 </div>
+        </span>  </li>
+    <li>排名：<span>第16330名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>22篇</span></li>
+    <li>转载：<span>73篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>16条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search csdn-tracking-statistics" target="_blank" data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/junllee/article/category/765027" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">C/C++</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/junllee/article/category/765026" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">其它</a><span>(31)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/junllee/article/category/767995" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">多媒体--视频</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/junllee/article/category/765020" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">多媒体--音频</a><span>(20)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/junllee/article/category/1265948" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Linux</a><span>(17)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/junllee/article/month/2016/12">2016年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2016/11">2016年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2016/02">2016年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2015/09">2015年09月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2015/03">2015年03月</a><span>(1)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/junllee/article/month/2014/11">2014年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2014/06">2014年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2014/04">2014年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2014/03">2014年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2014/02">2014年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2014/01">2014年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2013/08">2013年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2013/05">2013年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2013/04">2013年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/11">2012年11月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/10">2012年10月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/09">2012年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/08">2012年08月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/07">2012年07月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/06">2012年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/05">2012年05月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/04">2012年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/03">2012年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/02">2012年02月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2012/01">2012年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2011/12">2011年12月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2011/11">2011年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2011/10">2011年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2011/09">2011年09月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2011/07">2011年07月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2011/06">2011年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2011/03">2011年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2011/01">2011年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/junllee/article/month/2010/12">2010年12月</a><span>(12)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/8900372" title="Linux内核驱动GPIO的使用">Linux内核驱动GPIO的使用</a><span>(10805)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/8895908" title="Marvell w8782 sdio wifi AP模式设置">Marvell w8782 sdio wifi AP模式设置</a><span>(7251)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/28424019" title="linux下SD卡mount的问题">linux下SD卡mount的问题</a><span>(6931)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/8933331" title="交叉编译 hostapd">交叉编译 hostapd</a><span>(6908)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/6110912" title="Jitter知识--时基/时基抖动">Jitter知识--时基/时基抖动</a><span>(6777)</span>
+</li>
+<li>
+<a href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客.html" title="声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)">声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)</a><span>(6486)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/7535554" title="Linux alsa驱动中的CODEC寄存器配置问题">Linux alsa驱动中的CODEC寄存器配置问题</a><span>(5278)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/8017677" title="ffmpeg configure遇到的奇怪问题">ffmpeg configure遇到的奇怪问题</a><span>(5006)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/7415732" title="ioremap 与 mmap">ioremap 与 mmap</a><span>(4825)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/7219050" title="VoIP声学回声消除算法研究">VoIP声学回声消除算法研究</a><span>(4757)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/6616836" title="AVI格式解析">AVI格式解析</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/8895908" title="Marvell w8782 sdio wifi AP模式设置">Marvell w8782 sdio wifi AP模式设置</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/7535554" title="Linux alsa驱动中的CODEC寄存器配置问题">Linux alsa驱动中的CODEC寄存器配置问题</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/7231319" title="关于SWAP指令用于实现多CPU的互斥信号量">关于SWAP指令用于实现多CPU的互斥信号量</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/6227808" title="手机屏幕VGA QVGA HVGA WVGA区别 ">手机屏幕VGA QVGA HVGA WVGA区别 </a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/8017677" title="ffmpeg configure遇到的奇怪问题">ffmpeg configure遇到的奇怪问题</a><span>(1)</span>
+</li>
+<li>
+<a href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客.html" title="声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)">声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/8900372" title="Linux内核驱动GPIO的使用">Linux内核驱动GPIO的使用</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/6821569" title="linux的嵌入汇编的一个问题(关于earlyclobber)">linux的嵌入汇编的一个问题(关于earlyclobber)</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/junllee/article/details/8102536" title="linux的nand中计算ECC的时候buf地址不4字节对齐的问题">linux的nand中计算ECC的时候buf地址不4字节对齐的问题</a><span>(1)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/74779821" target="_blank">* CSDN日报20170706——《屌丝程序员的逆袭之旅》</a></li>
+<li><a href="http://blog.csdn.net/phodal/article/details/74516182" target="_blank">* 探讨后端选型中不同语言及对应的Web框架</a></li>
+<li><a href="http://blog.csdn.net/briblue/article/details/74616922" target="_blank">* 细说反射，Java 和 Android 开发者必须跨越的坎</a></li>
+<li><a href="http://blog.csdn.net/xiaopihaierletian/article/details/74688643" target="_blank">* 深度学习 | 反向传播与它的直观理解</a></li>
+<li><a href="http://blog.csdn.net/liyuanxiang1984/article/details/74611136" target="_blank">* ArcGIS 水文分析实战教程——雨量计算与流量统计</a></li>
+<li><a href="http://blog.csdn.net/broadview2006/article/details/74431515" target="_blank">* 每周荐书：Android、Keras、ES6（评论送书）</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/8017677#comments">ffmpeg configure遇到的奇怪问题</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ccw0054" class="user_name">ccw0054</a>:
+遇到同样的问题 添加echo之后 错误变成了Symbol mangling check failed...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/8900372#comments">Linux内核驱动GPIO的使用</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/fzs333" class="user_name">Kevin_Smart</a>:
+学习了
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/7535554#comments">Linux alsa驱动中的CODEC寄存器配置问题</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/liubofei0000" class="user_name">liubofei0000</a>:
+怎么解决的？
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/8895908#comments">Marvell w8782 sdio wifi AP模式设置</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/bindaz" class="user_name">bindaz</a>:
+8782 可以同时开启station和ap模式吗？我看它的驱动代码支持wifi direct
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/8895908#comments">Marvell w8782 sdio wifi AP模式设置</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/jb_mai" class="user_name">jb_mai</a>:
+厉害啊！有什么方式把开发板行的流视频或文件发送到手机上？
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/8895908#comments">Linux alsa驱动中的CODEC寄存器配置问题</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/mianhuantang848989" class="user_name">木之子</a>:
+你好，大神，能不能把wm8960代码给我一份，邮箱85639973@qq.com谢谢你
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/8102536#comments">linux的nand中计算ECC的时候buf地址不4字节对齐的问题</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/hdw10" class="user_name">韩大卫</a>:
+请问一下，  你遇到上面那个问题时， 在jffs2_mark_erased_block() 里有报错...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/7217435#comments">声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/W_angRong" class="user_name">W_angRong</a>:
+高手啊，基本不知道说啥，嗨....差距太大了
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/7247175#comments">共振峰合成语音方法</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/junllee" class="user_name">junllee</a>:
+PSOLA算法合成语音方法      20世纪80年代末提出的PSOLA合成技术（基音同步叠加技术）...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/junllee/article/details/7247175#comments">共振峰合成语音方法</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/junllee" class="user_name">junllee</a>:
+线性预测(LPC)参数合成法    波形拼接技术的发展与语音的编、解码技术的发展密不可分，其中LPC...
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+                   <!-- 广告位开始 -->                    <!-- 广告位结束 -->
+                   <div class="tracking-ad" data-view="true" data-mtp="63" data-order="40" data-con="ad_content_1260" style="width: 200px; height: 500px;">
+                         <div id="nav_show_top_stop" style="width: 200px; height: 500px; z-index: 1000; position: fixed; top: 1762px;"><div id="cpro_u3026762"><iframe id="iframeu3026762_0" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/lcim(2).html" width="200" height="500" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:200px;height:500px" allowtransparency="true"></iframe></div></div>
+                   </div>
+    <script type="text/javascript">
+        setTimeout(function () {
+            var naviga_offsetTop = 0;
+            function naviga_stay_top() { var scrollTop = jQuery(document).scrollTop(); if (scrollTop > naviga_offsetTop) { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": "0px" }); } else { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop - scrollTop + "px" }); } }
+            function onload_function() { naviga_offsetTop = jQuery("#nav_show_top_stop").position().top; jQuery(window).bind("scroll", naviga_stay_top); jQuery(window).bind("mousewheel", naviga_stay_top); jQuery(document).bind("scroll", naviga_stay_top); jQuery(document).bind("mousewheel", naviga_stay_top); } jQuery(document).ready(onload_function);
+
+        }, 200);
+    </script>
+<script type="text/javascript">(window.cproArray = window.cproArray || []).push({ id: "u3026762" });  </script> 
+                    <script src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/c.js" type="text/javascript"></script> 
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+
+     
+
+   
+   
+     <!--new top-->
+   
+   
+
+    
+    
+    
+   
+
+   
+
+
+       <script type="text/javascript" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/MathJax.js"></script>
+          <script type="text/javascript">
+              //$(function () {
+              //    setTimeout(function () {
+              //        var searchtitletags = articletitle + ',' + $("#tags").html();
+              //        searchService({
+              //            index: 'blog',
+              //            query: searchtitletags,
+              //            from: 5,
+              //            size: 5,
+              //            appendTo: '#res',
+              //            url: 'recommend',
+              //            his: 2,
+              //            client: "blog_cf_enhance",
+              //            tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+              //        });
+              //    }, 1000);
+              //});
+
+         </script>
+    
+    <script src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/csdn_blog_detail.min.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&uin=2251809102&site=qq&menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="position: absolute; z-index: 9990; width: 170px; left: -72px; top: 1018px; display: block;">  <iframe src="about:blank" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>9</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/notify.js"></script><input type="hidden" id="aa_g_data_ids">
+        
+    <script type="text/javascript" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/csdn_public_blog_detail.min.js"></script>
+
+    <script type="text/javascript" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/showblogmedal.ashx"></script>
+
+     
+    
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/52b5334.js"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    
+    
+        
+     
+
+    
+          
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function () {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            //$(".toc a[target='_blank']").attr("target", "");
+
+            setTimeout(function () {
+                $(".toc a[target='_blank']").attr("target", "");
+            }, 500);
+
+        </script>
+
+
+   
+<div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder="声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre)： http://blog.csdn.net/junllee/article/details/7217435"></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><span class="label blog_tag"><span>音乐</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>语言</span><a title="Removing tag" href="javascript:;">x</a></span><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value="音乐,语言,"><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div><div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="csdn-tracking-statistics" chg-blk="0"><a id="com-quick-QRcode" class="QRcodebg1" title="扫描二维码" style="top:298px"><span class="closeQR"></span></a><a id="com-quick-reply" title="快速回复" style="top:432px"></a><a id="com-quick-collect" title="我要收藏" style="top:470px"></a><a id="com-d-top-a" style="top: 508px; display: block;" title="返回顶部" onclick=""></a></div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/junllee/article/details/7217435#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/junllee/article/details/7217435#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/junllee/article/details/7217435#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./声音“三要素”---响度(loudness)，音高(pitch)，音色(timbre) - junllee的专栏 - CSDN博客_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor" style="visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/junllee/article/details/7217435#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/junllee/article/details/7217435#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true"></div><div><object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div></body></html>
