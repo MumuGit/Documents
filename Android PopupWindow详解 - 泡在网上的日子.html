@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Android PopupWindow详解 - 泡在网上的日子</title>
+<meta name="keywords" content="PopupWindow" />
+<meta name="description" content="本文介绍Popupwindow的一些难点，比如大小问题，焦点问题，点击空白popup消失问题，以及介绍如何用PopupWindow实现模态对话框" />
+<link href="/templets/jcodecraeer/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/templets/jcodecraeer/css/new.css?v=8.8" rel="stylesheet" type="text/css">
+<script language="javascript" type="text/javascript" src="/templets/jcodecraeer/js/jquery-1.7.1.min.js"></script>
+<link href="/templets/jcodecraeer/prettify/tranquil-heart.min.css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="/include/myajax.js"></script>
+<script language="javascript" type="text/javascript">
+	function CheckLogin(){
+	    var taget_obj = document.getElementById('login_info');
+	    myajax = new MyAjax(taget_obj,false,false,'','','');
+	    myajax.SendGet2("/member/ajax_loginsta.php");
+	    DedeXHTTP = null;
+	}
+	function checkSubmit(){
+		if(document.feedback.msg.value!='') document.feedback.submit();
+		else alert("评论内容不能为空！");
+	}		
+
+	function postBadGood(ftype,fid)
+	{
+		var taget_obj = document.getElementById(ftype+fid);
+		var saveid = GetCookie('badgoodid');
+		if(saveid != null)
+		{
+			var saveids = saveid.split(',');
+			var hasid = false;
+			saveid = '';
+			j = 1;
+			for(i=saveids.length-1;i>=0;i--)
+			{
+				if(saveids[i]==fid && hasid) continue;
+				else {
+					if(saveids[i]==fid && !hasid) hasid = true;
+					saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+					j++;
+					if(j==10 && hasid) break;
+					if(j==9 && !hasid) break;
+				}
+			}
+			if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+			else saveid += ','+fid;
+			SetCookie('badgoodid',saveid,1);
+		}
+		else
+		{
+			SetCookie('badgoodid',fid,1);
+		}
+		myajax = new MyAjax(taget_obj,false,false,'','','');
+		myajax.SendGet2("/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+	}
+	function postStow(aid)
+	{
+		var taget_obj = document.getElementById('newdigg');
+ 
+		myajax = new MyAjax(taget_obj,false,false,'','','');
+		myajax.SendGet2("/plus/stow.php?aid="+aid);
+	}
+	function postDigg(ftype,aid)
+	{
+		var taget_obj = document.getElementById('newdigg');
+		var saveid = GetCookie('diggid');
+		if(saveid != null)
+		{
+			var saveids = saveid.split(',');
+			var hasid = false;
+			saveid = '';
+			j = 1;
+			for(i=saveids.length-1;i>=0;i--)
+			{
+				if(saveids[i]==aid && hasid) continue;
+				else {
+					if(saveids[i]==aid && !hasid) hasid = true;
+					saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+					j++;
+					if(j==20 && hasid) break;
+					if(j==19 && !hasid) break;
+				}
+			}
+			if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+			else saveid += ','+aid;
+			SetCookie('diggid',saveid,1);
+		}
+		else
+		{
+			SetCookie('diggid',aid,1);
+		}
+		myajax = new MyAjax(taget_obj,false,false,'','','');
+		var url = "/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+		myajax.SendGet2(url);
+	}
+	function getDigg(aid)
+	{
+		var taget_obj = document.getElementById('newdigg');
+		myajax = new MyAjax(taget_obj,false,false,'','','');
+		myajax.SendGet2("/plus/digg_ajax.php?id="+aid);
+		DedeXHTTP = null;
+	} 
+	function getcollectionuser(aid)
+	{
+		var taget_obj = document.getElementById('collection-users-list');
+		myajax = new MyAjax(taget_obj,false,false,'','','');
+		myajax.SendGet2("/plus/collection_user_ajax.php?id="+aid);
+		DedeXHTTP = null;
+	} 	
+	jQuery(document).ready(function($) {
+		$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+	    prettyPrint();
+	
+	    //注意最后的@me必须要加两重引号，不然js语法会出错
+	    var htmlstr =  '';
+	    $(".arc_body").prepend(htmlstr); 
+	});
+			
+</script>
+
+</head>
+<body>
+
+<div class="header">  
+	<div class="headercon container clearfix">
+        <div class="row">
+            <div class="col-md-12">
+            	<!-- 导航部分 -->
+                <a class="logo-t" href="/"><img src="/templets/jcodecraeer/images/logo.png?v=1.0">泡在网上的日子</a>
+                <ul class="nav-ul">
+                	<li id="nav-index"><a href="/" >首页</a></li>
+                    <li id="nav-code"><a href="/plus/list.php?tid=31" >代码</a></li>
+                    <li id="nav-feed"><a class="" href="/plus/freelist.php?lid=12" >话题</a></li>
+                    <li id="nav-ask"><a class="" href="/hao" >导航</a></li>
+                    <li id="nav-ask"><a class="" href="/ask" >问答</a></li>
+                    <li><a href="/about.html" class="">关于</a></li>
+
+                </ul>
+                <!-- 导航部分 end -->
+                
+                <!-- 搜索-下拉 -->
+                <div class="header_right">
+                    <a href="/appdown.html" class="lg_app">APP</a>
+                	<div class="search_start">
+                         <div class="search_cont">
+                            <form action="/plus/search.php" method="get">
+                            	<input type="hidden" name="kwtype" value="0" />
+                                <input type="text" name="q" class="in_search" autocomplete="off" value="搜索"/>
+                                <input type="submit" class="in_submit" />
+        						<span class="glyphicon glyphicon-search icon-search"></span>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 消息下拉 -->
+                    <div class="header_right_msg z">  
+                        <!-- 登录 -->
+                        <div class="right_login" id="login_info">
+                            <a class="l" href="/member/login.php">登录</a>
+                            <a href="/member/reg_new.php">注册</a>
+                        </div>
+                        <!-- 登录 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript" type="text/javascript">CheckLogin();</script>
+<script language="javascript" type="text/javascript">
+  $(function(){
+	
+	$(".in_search").click(function(){
+		$(".search_cont").addClass('ser').animate({
+			width:200,
+		},200);
+		if($(this).val() == '搜索'){
+			$(".in_search").val('');
+		}
+	})
+	$(".in_search").blur(function(){
+		if($(this).val() !== ''){
+			return false;
+		}
+		$(".search_cont").removeClass('ser').animate({
+			width:90,
+		},200);
+		$(".in_search").val('搜索');
+	});
+	
+});
+</script>
+
+
+<div class="container main">
+	<div class="row">	
+	    <div class="text-center mgt20">	
+			<script src='/plus/fuckblok.php?aid=49' language='javascript'></script> 
+		</div>
+	</div>
+	<div class="row">	
+        <div class="col-md-9">
+			<div class="arc_position">
+				  <a href='http://www.jcodecraeer.com/'>首页</a>&nbsp&#8250&nbsp<a href='/plus/list.php?tid=16'>安卓开发</a>&nbsp&#8250&nbsp<a href='/plus/list.php?tid=18'>android开发</a>
+			</div>	
+					
+            <div class="articlecon clearfix">
+				<h1 class="title">Android PopupWindow详解</h1>
+			
+				<div class="subinfo clearfix">              
+					<span>泡在网上的日子 / 文</span>
+					<span> 发表于2014-07-02 17:40</span>   
+					<span>第<script src="/plus/count.php?view=yes&aid=1627&mid=1" type='text/javascript' language="javascript"></script>次阅读
+					</span>
+					<span class="tags" id="arc_tags">                            
+						<a href='/tags.php?/PopupWindow/' class='tag'>PopupWindow</a>
+					 </span>
+				</div>
+				<!-- JiaThis Button BEGIN -->
+				<div class="jiathis_style" style=" height:30px; width:180px; margin:auto;text-align:center;">
+					<a class="jiathis_button_qzone"></a>
+					<a class="jiathis_button_tsina"></a>
+					<a class="jiathis_button_tqq"></a>
+					<a class="jiathis_button_weixin"></a>
+					<a class="jiathis_button_renren"></a>
+					<a class="jiathis_button_xiaoyou"></a>
+					<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+					<a class="jiathis_counter_style"></a>
+				</div>
+				<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1397764132570636" charset="utf-8"></script>
+				<!-- JiaThis Button END -->
+             
+				<div class="arc_body"> 
+					 <p style="margin-top:10px">
+						<script src='/plus/fuckblok.php?aid=39' language='javascript'></script>
+					</p>
+					 <p><strong><span style="font-size:14px;font-family:&#39;宋体&#39;">构造方法</span></strong></p><pre class="brush:js;toolbar:false;">public&nbsp;PopupWindow(View&nbsp;contentView,&nbsp;int&nbsp;width,&nbsp;int&nbsp;height,&nbsp;boolean&nbsp;focusable)</pre><p>contentView为要显示的view，width和height为宽和高，值为像素值，也可以是MATCHT_PARENT和WRAP_CONTENT。</p><p>还可以</p><pre class="brush:js;toolbar:false;">public&nbsp;PopupWindow&nbsp;(Context&nbsp;context)</pre><p>或者<span style="font-size:14px;font-family:&#39;宋体&#39;"></span></p><pre class="brush:js;toolbar:false;">public&nbsp;PopupWindow(View&nbsp;contentView,&nbsp;int&nbsp;width,&nbsp;int&nbsp;height)</pre><p>或者</p><p><strong><span style="font-size:14px;font-family:&#39;宋体&#39;"></span></strong></p><pre class="brush:js;toolbar:false;">public&nbsp;PopupWindow(View&nbsp;contentView)</pre><p><strong><span style="font-size:14px;font-family:&#39;宋体&#39;"></span></strong>其中第一种最省事，构造函数中设置了要显示的View，宽度 ，高度以及是否能获得焦点。以上是几种用的比较常见的构造方法。</p><p><br/></p><p><strong>改变PopupWindow的视图内容</strong><br/></p><p>可以通过</p><pre class="brush:js;toolbar:false;">public&nbsp;void&nbsp;setContentView(View&nbsp;contentView)</pre><p>来改变popup的显示内容，也可以用来初始化PopupWindow的View，比如使用构造函数<code class="js plain">public PopupWindow (Context context)</code>获得的Popupwindow就只能用setContentView来设置内容。</p><pre class="brush:js;toolbar:false;">PopupWindow&nbsp;popupWindow&nbsp;=&nbsp;new&nbsp;PopupWindow(context);
+popupWindow.setContentView(contentview);</pre><p><strong><br/></strong></p><p><strong>获得PopupWindow的视图内容</strong></p><p><strong><span style="font-size:14px;font-family:&#39;宋体&#39;"></span></strong></p><pre><br/></pre><pre class="brush:js;toolbar:false;">public&nbsp;View&nbsp;getContentView()</pre><p><br/></p><p><strong><span style="font-size:14px;font-family:&#39;宋体&#39;">显示<strong>PopupWindow</strong>：</span></strong></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;"></span></p><ul class=" list-paddingleft-2"><li><p>showAsDropDown(View anchor)：相对某个控件的位置（正左下方），无偏移</p></li><li><p>showAsDropDown(View anchor, int xoff, int yoff)：相对某个控件的位置，有偏移</p></li><li><p>showAtLocation(View parent, int gravity, int x, int y)：相对于父控件的位置（例如正中央Gravity.CENTER，下方Gravity.BOTTOM等），可以设置偏移或无偏移</p></li></ul><p>其实我发现showAtLocation的parent参数可以很随意，只要是activity中的view都可以。</p><p><br/></p><p><strong><span style="font-size:14px;font-family:&#39;宋体&#39;">大小：</span></strong></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">有两种方法设置</span><span style="font-size:14px;font-family:&#39;宋体&#39;">PopupWindow</span><span style="font-size:14px;font-family:&#39;宋体&#39;">的大小：</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">调用有宽高参数的构造函数：</span></p><pre class="brush:js;toolbar:false;">LayoutInflater&nbsp;inflater&nbsp;=&nbsp;(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+View&nbsp;contentview&nbsp;=&nbsp;inflater.inflate(R.layout.popup_process,&nbsp;null);
+PopupWindow&nbsp;popupWindow&nbsp;=&nbsp;new&nbsp;PopupWindow(contentview,LayoutParams.WRAP_CONTENT,
+LayoutParams.WRAP_CONTENT);</pre><p><span style="font-size:14px;font-family:&#39;宋体&#39;">通过</span><span style="font-size:14px;font-family:&#39;宋体&#39;">setWidth<span style="font-family:宋体;">和</span><span style="font-family:times new roman;">setHeight</span><span style="font-family:宋体;">设置</span></span></p><pre class="brush:js;toolbar:false;">PopupWindow&nbsp;popupWindow&nbsp;=&nbsp;new&nbsp;PopupWindow(contentview);
+popupWindow.setWidth(LayoutParams.WRAP_CONTENT);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+popupWindow.setHeight(LayoutParams.WRAP_CONTENT);</pre><p><span style="font-size:14px;font-family:&#39;宋体&#39;">两种办法是等效的，不管采用何种办法，必须设置宽和高，否则不显示任何东西<span style="font-family:times new roman;">.</span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">这里的<span style="font-family:times new roman;">WRAP_CONTENT</span><span style="font-family:宋体;">可以换成</span><span style="font-family:times new roman;">fill_parent </span><span style="font-family:宋体;">也可以是具体的数值，它是指</span></span><span style="font-size:14px;font-family:&#39;宋体&#39;">PopupWindow</span><span style="font-size:14px;font-family:&#39;宋体&#39;">的大小，也就是</span><span style="font-size:14px;font-family:&#39;宋体&#39;">contentview</span><span style="font-size:14px;font-family:&#39;宋体&#39;">的大小，注意</span><span style="font-size:14px;font-family:&#39;宋体&#39;">popupwindow<span style="font-family:宋体;">根据这个大小显示你的</span><span style="font-family:times new roman;">View</span><span style="font-family:宋体;">，如果你的</span><span style="font-family:times new roman;">View</span><span style="font-family:宋体;">本身是从</span><span style="font-family:times new roman;">xml</span><span style="font-family:宋体;">得到的，那么</span><span style="font-family:times new roman;">xml</span><span style="font-family:宋体;">的第一层</span><span style="font-family:times new roman;">view</span><span style="font-family:宋体;">的大小属性将被忽略。</span></span><span style="color:#ff0000;font-size:14px;font-family:&#39;宋体&#39;">相当于</span><span style="color:#ff0000;font-size:13px;background:#ffffff;background:#ffffff;font-family:&#39;宋体&#39;">popupWindow<span style="font-family:宋体;">的</span><span style="font-family:consolas;">width</span><span style="font-family:宋体;">和</span><span style="font-family:consolas;">height</span><span style="font-family:宋体;">属性直接和第一层</span><span style="font-family:consolas;">View</span><span style="font-family:宋体;">相对应。</span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">设想下面一种场景：</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">popupWindow <span style="font-family:宋体;">设置为</span><span style="font-family:times new roman;">WRAP_CONTENT </span><span style="font-family:宋体;">，我想得到的是一个宽</span><span style="font-family:times new roman;">150dip </span><span style="font-family:宋体;">高</span><span style="font-family:times new roman;">80dip</span><span style="font-family:宋体;">的</span><span style="font-family:times new roman;">popupwindow</span><span style="font-family:宋体;">，需要额外加一层</span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">LinearLayout <span style="font-family:宋体;">，这个</span><span style="font-family:times new roman;">LinearLayout </span><span style="font-family:宋体;">的</span><span style="font-family:times new roman;">layout_width</span><span style="font-family:宋体;">和</span><span style="font-family:times new roman;">layout_height</span><span style="font-family:宋体;">为任意值。而我们真正想显示的</span><span style="font-family:times new roman;">View </span><span style="font-family:宋体;">放在第二层，并且 &nbsp;</span><span style="font-family:times new roman;">android:layout_width=&quot;150.0dip&quot; &nbsp;android:layout_height=&quot;80.0dip&quot; </span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">如</span></p><pre class="brush:js;toolbar:false;">&lt;?xml&nbsp;version=&quot;1.0&quot;&nbsp;encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout&nbsp;xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;android:layout_width=&quot;wrap_content&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;android:layout_height=&quot;wrap_content&quot;
+&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;LinearLayout
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:background=&quot;@drawable/shape_ret_loading_bg&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_width=&quot;150.0dip&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_height=&quot;80.0dip&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:orientation=&quot;vertical&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:gravity=&quot;center&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TextView
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:textSize=&quot;14dip&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:textColor=&quot;@color/white&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_width=&quot;wrap_content&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_height=&quot;wrap_content&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_marginLeft=&quot;10.0dip&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:text=&quot;加载中...&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/LinearLayout&gt;
+&lt;/LinearLayout&gt;</pre><p><strong><span style="font-size:14px;font-family:&#39;宋体&#39;"><br/></span></strong></p><p><strong><span style="font-size:14px;font-family:&#39;宋体&#39;">PopUpWindow<span style="font-family:宋体;">的焦点：</span></span></strong></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">setFocusable</span><span style="font-size:14px;font-family:&#39;宋体&#39;">设置</span><span style="font-size:14px;font-family:&#39;宋体&#39;">PopupWindow<span style="font-family:宋体;">的焦点，一般资料对此的解释都是：是否让</span><span style="font-family:times new roman;">Popupwindow</span><span style="font-family:宋体;">可以点击但是这揭示了本质却与直观现象不符。实际上，</span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">如果：</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">setFocusable(true);</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">则</span><span style="font-size:14px;font-family:&#39;宋体&#39;">PopUpWindow<span style="font-family:宋体;">本身可以看作一个类似于模态对话框的东西（但有区别），<span style="color:#ff0000;">PopupWindow弹出后，所有的触屏和物理按键都有PopupWindows处理。</span>其他任何事件的响应都必须发生在</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">消失之后， （</span><span style="font-family:times new roman;">home &nbsp;</span><span style="font-family:宋体;">等系统层面的事件除外）。比如这样一个</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">出现的时候，按</span><span style="font-family:times new roman;">back</span><span style="font-family:宋体;">键首先是让</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">消失，第二次按才是退出</span><span style="font-family:times new roman;">activity</span><span style="font-family:宋体;">，准确的说是想退出</span><span style="font-family:times new roman;">activity</span><span style="font-family:宋体;">你得首先让</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">消失，因为不并是任何情况下按</span><span style="font-family:times new roman;">back &nbsp;PopupWindow</span><span style="font-family:宋体;">都会消失，必须在</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">设置了背景的情况</span></span>下 。</p><p><span style="color:#ff0000;">如果PopupWindow中有Editor的话，focusable要为true。</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">而</span><span style="font-size:14px;font-family:&#39;宋体&#39;">setFocusable(</span><span style="font-size:14px;font-family:&#39;宋体&#39;">false</span><span style="font-size:14px;font-family:&#39;宋体&#39;">);</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">则<span style="font-family:times new roman;">PopUpWindow</span><span style="font-family:宋体;">只是一个浮现在当前界面上的</span><span style="font-family:times new roman;">view</span><span style="font-family:宋体;">而已，不影响当前界面的任何操作。</span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">是一个“没有存在感”的东西。</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;;color:#ff0000;">一般情况下</span><span style="font-size:14px;font-family:&#39;宋体&#39;;color:#ff0000;">setFocusable(true);</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;;color:#ff0000;"><br/></span></p><p><strong>点击空白处的时候让PopupWindow消失</strong></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">关于<span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">最搞笑的地方是</span></span><span style="color:#000000;font-size:15px;background:#c0c0c0;background:#c0c0c0;font-family:&#39;consolas&#39;">setOutsideTouchable</span><span style="color:#000000;font-size:15px;background:#c0c0c0;background:#c0c0c0;font-family:&#39;宋体&#39;">方法，原本以为如果你</span><span style="color:#000000;font-size:15px;background:#c0c0c0;background:#c0c0c0;font-family:&#39;consolas&#39;">setOutsideTouchable</span><span style="color:#000000;font-size:15px;background:#c0c0c0;background:#c0c0c0;font-family:&#39;宋体&#39;">(true)<span style="font-family:宋体;">则点击</span></span><span style="color:#000000;font-size:15px;background:#ffffff;background:#ffffff;font-family:&#39;宋体&#39;">PopupWindow<span style="font-family:宋体;">之外的地方</span><span style="font-family:consolas;">PopupWindow</span><span style="font-family:宋体;">会消失，其实这玩意儿好像一点用都没有。</span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">要让点击<span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">之外的地方</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">消失你需要调用</span></span><span style="font-size:14px;font-family:&#39;宋体&#39;">setBackgroundDrawable(new BitmapDrawable())</span><span style="font-size:14px;font-family:&#39;宋体&#39;">;</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">设置背景，为了不影响样式，这个背景是空的。还可以这样写，觉得这样要保险些：</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">s</span><span style="font-size:14px;font-family:&#39;宋体&#39;">etBackgroundDrawable(new ColorDrawable(0x</span><span style="font-size:14px;font-family:&#39;宋体&#39;">00</span><span style="font-size:14px;font-family:&#39;宋体&#39;">000000));</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">背景不为空但是完全透明。如此设置还能让<span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">在点击</span><span style="font-family:times new roman;">back</span><span style="font-family:宋体;">的时候消失。其实一直觉得很奇怪，不明白为什么一个背景会影响点击事件，只知道这样用可行。</span></span></p><p><font face="宋体"><span style="font-size: 14px;">后来在评论中有人回答了此问题：</span></font></p><p><font face="宋体"><span style="font-size: 14px;"><br/></span></font></p><p></p><blockquote><p>如果有背景，则会在contentView外面包一层<strong>PopupViewContainer</strong>之后作为mPopupView，如果没有背景，则直接用contentView作为mPopupView。</p><p>而这个PopupViewContainer是一个内部私有类，它继承了FrameLayout，在其中重写了Key和Touch事件的分发处理</p></blockquote><p><font face="宋体"><span style="font-size: 14px;">详情见：<a href="http://www.cnblogs.com/mengdd/p/3569127.html" _src="http://www.cnblogs.com/mengdd/p/3569127.html">http://www.cnblogs.com/mengdd/p/3569127.html</a>&nbsp; </span></font><br/></p><p><br/></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;"><span style="font-family:宋体;"><br/></span></span></p><p><span style="font-weight:bold;font-size:14px;font-family:&#39;宋体&#39;">用<span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">实现一个真正的模态对话框</span></span><span style="font-size:14px;font-family:&#39;宋体&#39;">：</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">刚才说到“</span><span style="color:#808080;font-size:14px;font-family:&#39;宋体&#39;">popupWindow.setFocusable(true);</span></p><p><span style="color:#808080;font-size:14px;font-family:&#39;宋体&#39;">则</span><span style="color:#808080;font-size:14px;font-family:&#39;宋体&#39;">PopUpWindow<span style="font-family:宋体;">本身可以看作一个类似于模态对话框的东西</span></span><span style="font-size:14px;font-family:&#39;宋体&#39;">”</span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">其实这句话有一些细微的错误，在<span style="font-family:times new roman;">android</span><span style="font-family:宋体;">中一个模态对话框应该是这样的：</span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">阻止屏幕上的其他<span style="font-family:times new roman;">View</span><span style="font-family:宋体;">事件，且点击</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">外面不会消失，但是能响应</span><span style="font-family:times new roman;">back</span><span style="font-family:宋体;">事件（点击</span><span style="font-family:times new roman;">back</span><span style="font-family:宋体;">消失），所以如果要让</span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">PopupWindow<span style="font-family:宋体;">有模态对话框的表现，则不能调用</span></span><span style="font-size:14px;font-family:&#39;宋体&#39;">setBackgroundDrawable</span><span style="font-size:14px;font-family:&#39;宋体&#39;">，因为</span><span style="font-size:14px;font-family:&#39;宋体&#39;">setBackgroundDrawable</span><span style="font-size:14px;font-family:&#39;宋体&#39;">会让</span><span style="font-size:14px;font-family:&#39;宋体&#39;">点击<span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">外面</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">消失。但是如果不调用</span></span><span style="font-size:14px;font-family:&#39;宋体&#39;">setBackgroundDrawable</span><span style="font-size:14px;font-family:&#39;宋体&#39;">则点击</span><span style="font-size:14px;font-family:&#39;宋体&#39;">back<span style="font-family:宋体;">键也不会消失，比模态对话框还变态。不过还是有解决的办法：</span></span></p><pre class="brush:js;toolbar:false;">LayoutInflater&nbsp;inflater&nbsp;=&nbsp;(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+View&nbsp;contentview&nbsp;=&nbsp;inflater.inflate(R.layout.popup_process,&nbsp;null);
+contentview.setFocusable(true);&nbsp;//&nbsp;这个很重要
+contentview.setFocusableInTouchMode(true);
+final&nbsp;PopupWindow&nbsp;popupWindow&nbsp;=&nbsp;new&nbsp;PopupWindow(contentview,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+popupWindow.setFocusable(true);
+popupWindow.setOutsideTouchable(false);
+contentview.setOnKeyListener(new&nbsp;OnKeyListener()&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;@Override
+&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;boolean&nbsp;onKey(View&nbsp;v,&nbsp;int&nbsp;keyCode,&nbsp;KeyEvent&nbsp;event)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(keyCode&nbsp;==&nbsp;KeyEvent.KEYCODE_BACK)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;popupWindow.dismiss();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;true;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;false;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+});
+popupWindow.showAtLocation(view,&nbsp;&nbsp;Gravity.CENTER|Gravity.CENTER_HORIZONTAL,&nbsp;0,&nbsp;0);</pre><p><span style="font-size:14px;font-family:&#39;宋体&#39;">其中要注意的是<span style="font-family:times new roman;">PopupWindow </span><span style="font-family:宋体;">的视图</span><span style="font-family:times new roman;">contentview</span><span style="font-family:宋体;">的设置，</span><span style="font-family:times new roman;">contentview.setFocusable(true); &nbsp;</span><span style="font-family:宋体;">这个很重要，注意不是</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">的</span><span style="font-family:times new roman;">setFocusable</span><span style="font-family:宋体;">，同时</span><span style="font-family:times new roman;">setOnKeyListener</span><span style="font-family:宋体;">也是</span><span style="font-family:times new roman;">contentview</span><span style="font-family:宋体;">调用的，而不是</span><span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">。</span><span style="font-family:times new roman;">setOnKeyListener</span><span style="font-family:宋体;">方法中的代码很好理解，但是为啥是</span><span style="font-family:times new roman;">contentview</span><span style="font-family:宋体;">调用就不是很清楚了，貌似没人去研究。<span style="font-size:14px;font-family:宋体;color:#FF0000;">其实为了是代码的相关性更低</span><code class="js plain"><span style="font-size:14px;font-family:宋体;color:#FF0000;">contentview.setOnKeyListener</span></code><span style="font-size:14px;font-family:宋体;color:#FF0000;">可以用</span><code class="js plain"><span style="font-size:14px;font-family:宋体;color:#FF0000;">popupWindow</span></code><span style="font-size:14px;font-family:宋体;color:#FF0000;">.getContentView</span><span style="font-size:14px;font-family:&#39;宋体&#39;"><span style="font-family:宋体;"><code class="js plain"><span style="font-size:14px;font-family:宋体;color:#FF0000;">.setOnKeyListener</span></code></span></span><span style="font-size:14px;font-family:宋体;color:#FF0000;">来代替。</span></span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;">话说如果<span style="font-family:times new roman;">PopupWindow</span><span style="font-family:宋体;">需要如此这番周折才能实现一个模态对话框何不直接用</span><span style="font-family:times new roman;">Dialog</span><span style="font-family:宋体;">呢？其实我只是将这些现象讲清楚，你可以根据这些知识将</span><span style="font-family:times new roman;">PopupWindow </span><span style="font-family:宋体;">应用在很苛刻的场景中。</span></span></p><p><br/><span style="font-size:14px;font-family:&#39;宋体&#39;"><span style="font-family:宋体;"></span></span></p><p><span style="font-size:14px;font-family:&#39;宋体&#39;"><span style="font-family:宋体;"><strong>PopupWindow的动画</strong></span></span></p><p>很多时候我们把PopupWindow用作自定义的菜单，需要一个从底部向上弹出的效果，这就需要为PopupWindow添加动画。</p><p>设置动画的方法：<br/></p><pre class="brush:js;toolbar:false;">public&nbsp;void&nbsp;setAnimationStyle(int&nbsp;animationStyle)</pre><p>在res/value/styles.xml添加一个sytle<br/></p><pre class="brush:js;toolbar:false;">&lt;style&nbsp;name=&quot;anim_menu_bottombar&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;item&nbsp;name=&quot;android:windowEnterAnimation&quot;&gt;@anim/menu_bottombar_in&lt;/item&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;item&nbsp;name=&quot;android:windowExitAnimation&quot;&gt;@anim/menu_bottombar_out&lt;/item&gt;
+&lt;/style&gt;</pre><p>在工程res下新建anim文件夹，在anim文件夹先新建两个xml文件</p><p>menu_bottombar_in.xml</p><pre class="brush:js;toolbar:false;">&lt;?xml&nbsp;version=&quot;1.0&quot;&nbsp;encoding=&quot;utf-8&quot;?&gt;
+&lt;set&nbsp;xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&nbsp;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;translate
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:duration=&quot;250&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:fromYDelta=&quot;100.0%&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:toYDelta=&quot;0.0&quot;&nbsp;/&gt;
+&lt;/set&gt;</pre><p>menu_bottombar_out.xml</p><pre class="brush:js;toolbar:false;">&lt;?xml&nbsp;version=&quot;1.0&quot;&nbsp;encoding=&quot;utf-8&quot;?&gt;
+&lt;set&nbsp;xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&nbsp;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;translate
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:duration=&quot;250&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:fromYDelta=&quot;0.0&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:toYDelta=&quot;100%&quot;&nbsp;/&gt;
+&lt;/set&gt;</pre><p>mPopupWindow.setAnimationStyle(R.style.menu_anim_bottombar);</p><p><br/></p><p>关于Popupwindow介绍的差不多了，如果你觉得还需要补充请在下面留言。<br/></p>
+				</div>
+			 
+				<div class="pageActive clearfix" id="newdigg">
+					<a href="javascript:void(0)"   class="pageActive-item" onclick="javascript:postStow(1627)"><span><img src="http://jcodecraeer.oss-cn-shanghai.aliyuncs.com/image/collection.png" />收藏</a>	
+					<a href="javascript:void(0)"   class="pageActive-item" onclick="javascript:postDigg('good',1627)"> <span><img src="http://jcodecraeer.oss-cn-shanghai.aliyuncs.com/image/approve.png" /></span>赞 (130) </a>
+					<a href="javascript:void(0)"   class="pageActive-item" onclick="javascript:postDigg('bad',1627)"><span><img src="http://jcodecraeer.oss-cn-shanghai.aliyuncs.com/image/disapprove.png" /></span>踩 (6)</a>
+					<script language="javascript" type="text/javascript">getDigg(1627);</script>							
+				</div>				
+				<div id="collection-users-list" class="mgt60"> 
+					 <script language="javascript" type="text/javascript">getcollectionuser(1627);</script>
+				</div>			
+				<div class="related_arc">
+					<div class='sub-title'>相关文章</div>
+					<div class="rearc_list clearfix">
+						<ul>   
+						<li>
+							 <a href="/a/anzhuokaifa/androidkaifa/2013/0302/943.html" target="_blank">Android中的悬浮效果PopupWindow详解</a>  <span class="pull-right"> 2013-09-26 </span></li>
+<li>
+							 <a href="/a/anzhuokaifa/androidkaifa/2014/1120/2021.html" target="_blank">用PopupWindow实现自定义溢出(overflow)菜单</a>  <span class="pull-right"> 2014-11-20 </span></li>
+<li>
+							 <a href="/a/anzhuokaifa/androidkaifa/2013/0304/963.html" target="_blank">onCreate方法中调用PopupWindow的错误：android.view.WindowManager$BadTo</a>  <span class="pull-right"> 2013-09-26 </span></li>
+<li>
+							 <a href="/a/anzhuokaifa/androidkaifa/2015/0721/3212.html" target="_blank">Android PopupMenu 与 PopupWindow（的区别）</a>  <span class="pull-right"> 2015-07-21 </span></li>
+<li>
+							 <a href="/a/anzhuokaifa/androidkaifa/2012/1126/633.html" target="_blank">Android UI开发 popupwindow介绍以及代码实例</a>  <span class="pull-right"> 2013-09-26 </span></li>
+<li>
+							 <a href="/a/anzhuokaifa/androidkaifa/2013/0323/1064.html" target="_blank">Android中PopupWindow显示在指定位置</a>  <span class="pull-right"> 2013-09-26 </span></li>
+<li>
+							 <a href="/plus/view.php?aid=7710" target="_blank">Android7.0中PopupWindow(showAsDropDown())弹出位置异常问题</a>  <span class="pull-right"> 2017-03-22 </span></li>
+
+						    
+						</ul>
+			   
+					</div>  						
+				</div>	
+				<ul>				 
+					<li style="margin-top:10px"><script src='/plus/fuckblok.php?aid=24' language='javascript'></script></li>			
+				</ul>										
+            </div>				
+             
+            <div  style="width:680px;"></div> 
+			<div class="pre_next">
+            	<div class="row"> 
+                	 <div class="col-md-6">
+					<div class='div_button'>上一篇：<a href='/a/anzhuokaifa/androidkaifa/2014/0627/1625.html'>可以下拉缩放HeaderView的ListView:PullToZoomInListView</a> <div>下面这种效果在ios应用中很常见： 其实在android中也有不少应用实现了这种效果，比如知乎日报（新版本好像去掉了），但是我觉得做的最好的还是“最美应用”。于是将最美应用的apk下载下来，用apktool反编译出其xml文件，发现它用的是自定义的一个ListView控</div></div>
+					</div>
+					 <div class="col-md-6">
+					<div class='div_button'>下一篇：<a href='/a/anzhuokaifa/androidkaifa/2014/0703/1628.html'>ProgressDialog使用总结</a> <div>rogressDialog的使用 ProgressDialog 继承自AlertDialog，AlertDialog继承自Dialog,实现DialogInterface接口。 ProgressDialog的创建方式有两种，一种是new Dialog ,一种是调用Dialog的静态方法Dialog.show()。 方式一：new Dialog final ProgressDialog dia</div></div>
+					</div>
+                </div>
+            </div>
+            <div class="dede_comment_post">
+				
+<div class="comments_body">
+	<form action="#" method="post" name="feedback" onsubmit="return false;">
+		<input type="hidden" name="dopost" value="send" />
+		<input type="hidden" name="comtype" value="comments">
+		<input type="hidden" name="arcauthor" value="1 ">
+		<input type="hidden" name="aid" value="1627" />
+		<input type="hidden" name="fid" id='feedbackfid' value="0" />
+		<div class="post_box clearfix">
+            <textarea cols="60" name="msg" id="cm_content" rows="5" class="ipt-txt"></textarea>	
+            <div class="post_act">
+            	<button type="button clearfix"  onClick='PostComment()'>发表评论</button>
+            </div>
+		</div>
+		
+		
+    </form>	
+</div>
+
+
+<!-- //评论表单区结束 -->
+<!-- //评论内容区 -->
+<a name='commettop'></a>
+
+<div id='commetcontentNew'>
+
+</div>
+<div id='commetcontent'>
+
+</div>
+<!--
+//由于评论载入时使用异步传输，因此必须在最后一步加载（DIGG和评论框须放在评论内容前面）
+//如果一定需要提前的把myajax.SendGet改为myajax.SendGet2，但可能会引起页面阻滞
+-->
+<script language='javascript'>
+function LoadCommets(page)
+{
+		var taget_obj = document.getElementById('commetcontent');
+		var waithtml = "<div style='line-height:50px'><img src='/images/loadinglit.gif' />评论加载中...</div>";
+		var myajax = new MyAjax(taget_obj, true, true, '', 'x', waithtml);
+		myajax.SendGet2("/plus/feedback_ajax.php?dopost=getlist&aid=1627&page="+page);
+		DedeXHTTP = null;
+}
+function updatetag(){
+	var tags = $DE("tags").value;
+	var nfeedbacktype = 'feedback';
+	var taget_obj = $DE('tag_response');
+	var myajax = new MyAjax(taget_obj, false, true, '', '', "...");
+	myajax.sendlang = 'gb2312';
+	myajax.AddKeyN('dopost', 'send');
+	myajax.AddKeyN('id', '1627');
+	myajax.AddKeyN('tags', tags);
+	myajax.SendPost2('/action/update_tags.php');	
+}
+function PostComment()
+{
+		var f = document.feedback;
+		var msg = $DE("cm_content").value;
+		var nface = '6';
+		var nfeedbacktype = 'feedback';
+		var nvalidate = '';
+		var nnotuser = '';
+		var nusername = '';
+		var npwd = '';
+		var taget_obj = $DE('commetcontentNew');
+		var waithtml = "<div style='line-height:30px'><img src='/images/loadinglit.gif' />正在发送中...</div>";
+		if(msg=='')
+		{
+			alert("评论内容不能为空！");
+			return;
+		}
+		if(f.validate)
+		{
+			if(f.validate.value=='') {
+				alert("请填写验证码！");
+				return;
+			}
+			else {
+				nvalidate = f.validate.value;
+			}
+		}
+		if(msg.length > 500)
+		{
+			alert("你的评论是不是太长了？请填写500字以内的评论。");
+			return;
+		}
+		if(f.feedbacktype) {
+			for(var i=0; i < f.feedbacktype.length; i++)
+				if(f.feedbacktype[i].checked) nfeedbacktype = f.feedbacktype[i].value;
+		}
+		/*
+		if(f.face) {
+			for(var j=0; j < f.face.length; j++)
+				if(f.face[j].checked) nface = f.face[j].value;
+		}
+		*/
+
+		
+		var myajax = new MyAjax(taget_obj, false, true, '', '', waithtml);
+		myajax.sendlang = 'gb2312';
+		myajax.AddKeyN('dopost', 'send');
+		myajax.AddKeyN('aid', '1627');
+		myajax.AddKeyN('fid', f.fid.value);
+		myajax.AddKeyN('face', nface);
+		myajax.AddKeyN('feedbacktype', nfeedbacktype);
+		myajax.AddKeyN('validate', nvalidate);
+		myajax.AddKeyN('notuser', nnotuser);
+		myajax.AddKeyN('username', nusername);
+		myajax.AddKeyN('pwd', npwd);
+		myajax.AddKeyN('msg', msg);
+		myajax.AddKeyN('arcauthor', f.arcauthor.value);
+
+		myajax.SendPost2('/plus/feedback_ajax.php');
+		//msg = '';
+		CKEDITOR.instances.msg.setData('');
+		//taget_obj.removeAttribute('id');
+		f.fid.value = 0;
+		if(f.validate)
+		{
+			if($DE('validateimg')) $DE('validateimg').src = "/include/vdimgck.php?"+f.validate.value;
+			f.validate.value = '';
+		}
+		
+}
+function quoteCommet(fid)
+{
+	    document.feedback.fid.value = fid;
+}
+  
+function ajaxFeedback(aid, fid, type)
+{
+	var taget_obj = $DE('ajaxfeedback_'+fid);
+	if(taget_obj.innerHTML == '')
+	{
+		var myajax = new MyAjax(taget_obj, true, true, '', 'x');
+		myajax.SendGet2("/plus/feedback.php?aid="+aid+"&fid="+fid+"&action=quote&type=ajax");
+		eval('var result = typeof CKEDITOR.instances.msg_'+fid);
+		if(result != 'undefined')
+		{
+			// 删除实例
+			eval('var edit = CKEDITOR.instances.msg_'+fid);
+			CKEDITOR.remove(edit);
+		}
+		CKEDITOR.replace(document.getElementById('msg_'+fid) , CKEDITOR.instances.msg.config);
+		scroll(0, taget_obj.offsetTop - 120);
+		var formname = 'f = document.ajaxfeedback_'+fid;
+		eval(formname);
+		if(f.validate)
+		{
+			if($DE('vdimg_'+fid)) $DE('vdimg_'+fid).src = "/include/vdimgck.php?"+f.validate.value;
+			f.validate.value = '';
+		}
+		
+		DedeXHTTP = null;
+	}else{
+		taget_obj.innerHTML = '';
+	}
+}
+
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new MyAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+}
+
+function ajaxQuotePost(fid)
+{
+	var formname = 'f = document.ajaxfeedback_'+fid;
+	eval(formname);
+	//var f = document.formname;
+	//var f = f[0];
+	var nvalidate = '';
+	var nnotuser = '';
+	var nusername = '';
+	var npwd = '';
+	var taget_obj = $DE('commetcontentNew');
+	var waithtml = "<div style='line-height:30px'><img src='/images/loadinglit.gif' />正在发送中...</div>";
+	eval('var msg = $DE("msg_'+fid+'").value');
+	if(f.validate)
+	{
+		if(f.validate.value=='') {
+			alert("请填写验证码！");
+			return;
+		}
+		else {
+			nvalidate = f.validate.value;
+		}
+	}
+	var myajax = new MyAjax(taget_obj, false, true, '', '', waithtml);
+	
+
+	
+	myajax.sendlang = 'gb2312';
+	myajax.AddKeyN('dopost', 'send');
+	myajax.AddKeyN('aid', '1627');
+	myajax.AddKeyN('fid', f.fid.value);
+	myajax.AddKeyN('type', 'ajax');
+	myajax.AddKeyN('comtype', f.comtype.value);
+	myajax.AddKeyN('isconfirm','yes');
+	
+	myajax.AddKeyN('typeid', f.typeid.value);
+	myajax.AddKeyN('quotemsg', f.quotemsg.value);
+	myajax.AddKeyN('validate', nvalidate);
+	myajax.AddKeyN('notuser', nnotuser);
+	myajax.AddKeyN('username', nusername);
+	myajax.AddKeyN('pwd', npwd);
+	myajax.AddKeyN('msg', msg);
+	myajax.SendPost2('/plus/feedback_ajax.php');
+	//alert(f.quotemsg.value);
+	if($DE('ajaxfeedback_'+fid).innerHTML != null)
+	{
+		$DE('ajaxfeedback_'+fid).innerHTML = '';
+	}
+	scroll(0, taget_obj.offsetTop);
+}
+LoadCommets(1);
+</script>
+<!-- //评论内容区结束 -->
+
+ 			</div>  
+ 
+                                   
+        </div>  
+        <!-- end  of  content -->
+
+        <div class="col-md-3">  
+ 
+			<div class="sub-title">推荐文章</div>
+			<ul class="sidearticle_c clearfix">                     
+				<li><a href="/a/anzhuokaifa/androidkaifa/2016/0328/4094.html" target="_blank">Android View绘制13问13答</a></li>
+<li><a href="/a/anzhuokaifa/androidkaifa/2016/0629/4397.html" target="_blank">Android一款UI体验好于NumberPicker的自定义控件NumberPickerVie</a></li>
+<li><a href="/a/anzhuokaifa/androidkaifa/2015/0506/2841.html" target="_blank">InstaMaterial 概念设计(第八部分) - 拍照功能</a></li>
+<li><a href="/a/anzhuokaifa/androidkaifa/2015/1217/3782.html" target="_blank">InstaMaterial：正确处理RecyclerView动画</a></li>
+<li><a href="/a/anzhuokaifa/androidkaifa/2015/0616/3047.html" target="_blank">你说你看到了沉浸模式，你可能只是见到鬼了</a></li>
+<li><a href="/a/anzhuokaifa/androidkaifa/2014/1121/2029.html" target="_blank">使用ShareActionProvider分享数据</a></li>
+
+			</ul>				 
+		            
+
+			<div class="sub-title">赞助商</div>
+			 
+                                                               
+            <div id="floatbox">  
+				<script src='/plus/fuckblok.php?aid=25' language='javascript'></script>	
+         	</div>
+            
+        </div>        
+    
+        <div style="clear:both;"></div>
+	</div> 	
+</div> 
+<script src="/templets/jcodecraeer/js/jcodecraeer.js"></script>
+<!-- 返回顶部 -->
+<div id="gotop" style="display:none"></div>
+
+<script type='text/javascript'>
+	backTop=function (btnId){
+		var btn=document.getElementById(btnId);
+		var d=document.documentElement;
+		var b=document.body;
+		window.onscroll=set;
+		btn.onclick=function (){
+			btn.style.display="none";
+			window.onscroll=null;
+			this.timer=setInterval(function(){
+				d.scrollTop-=Math.ceil((d.scrollTop+b.scrollTop)*0.1);
+				b.scrollTop-=Math.ceil((d.scrollTop+b.scrollTop)*0.1);
+				if((d.scrollTop+b.scrollTop)==0) clearInterval(btn.timer,window.onscroll=set);
+			},10);
+		};
+		function set(){
+			btn.style.display=(d.scrollTop+b.scrollTop>100)?'block':"none";
+		}
+	};
+	backTop('gotop');
+	
+	(new SidebarFollow()).init({
+		element: jQuery('#floatbox'),
+		distanceToTop: 0
+	});	
+	
+</script>
+
+
+<!-- 返回顶部END -->
+<style>
+#gotop {
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAAANAgMAAACP9jv8AAAACVBMVEX///////8AAACO9MPsAAAAAXRSTlMAQObYZgAAAGhJREFUeF49zsEJwCAMBdBvoRfvWaJTOEIPZp+O4lEyZcn/RIl+SMJDAG2gTlfc7+k8H8Pm6cRiuFfjip3RphXUV4ghJIaQjVZQoCfkLDI7C7kgiAuRDK+YvJwLQnBPhovRw7ER5of3DyPbFp8RB9axAAAAAElFTkSuQmCC") no-repeat scroll 18px 21px #000000;
+    bottom: 200px;
+    cursor: pointer;
+    display: block;
+    height: 60px;
+    opacity: 0.5;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in 0s, opacity 0.3s ease-out 0s;
+     right: 10px;
+    position: fixed;
+    top: auto;
+    width: 60px;
+    z-index: 999;
+}
+</style>
+<div class="footer">
+	<div class="container">	
+		<div class="row clearfix">
+			<div class="col-md-12">
+				<div class="copyright z">
+					<p>Copyright  2011 - 2016 jcodecraeer.com All Rights Reversed.</p>
+					<p>蜀ICP备12021840号-1</p>
+					<p>本站文章用于学习交流</p>
+				</div>
+				<div class="footer-nav y">
+					<ul class="clearfix">
+						<li><script src='/plus/fuckblok.php?aid=51' language='javascript'></script></li>
+					</ul>					
+					<ul class="clearfix">
+						<li><a href="http://weibo.com/u/2711441293" target="_blank">新浪微博</a></li>
+						<li>qq群一161644793</li>
+						<li>qq群二98711210</li> 
+					</ul>
+					<ul class="clearfix">
+						<li><a href="/sitemap/" target="_blank">网站地图</a></li>	
+						<li>				
+						<script type="text/javascript">
+						var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+						document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f2ac530df20294f718580cea710780e' type='text/javascript'%3E%3C/script%3E"));
+						</script> 
+						</li>	 
+					</ul>			
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+</body>
+<script src="/templets/jcodecraeer/prettify/prettify.js"></script>
+
+
+</html>
