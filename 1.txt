@@ -1,0 +1,75 @@
+l 购买VPS服务器，这里我用的是Vultr，推荐日本节点。自己搭建SS的好处自己独享，超级稳定用了一年没掉过线，玩steam游戏看YOUTUBE1080毫无压力。 
+KVM架构15GB的SSD硬盘、768Mb内存和1000GB的月流量，售价是5美元一个月（折合我国货币35元/月）个人用起来体验非常好, 使用本链接注册账户立即到账10 美元http://www.vultr.com/?ref=7035609，我同时可以获取10美元。（10美元可以用两个月）
+说明一下，Vultr支持PayPal付款， 而PayPal可以使用银联卡，也即是一般的银行卡/借记卡来支付)（当然你也可以选择在账单里绑定信用卡进行支付）
+值得说明的是 无论是注册VPS还是注册PayPal，尽量填写真实信息，这样一旦遇到审核会更容易通过，注册的时候遇到国家地区一定要如实选择你所在的真实地区如“China”，以防被系统判定为欺诈。
+我建议你直接使用PayPal支付 ，方便快捷。通过审核开始正式使用后，一般就没什么问题了，多点耐心。
+Paypal是可以避免信用卡盗刷，万一被盗刷，Paypal的赔付速度也是很快的) 注册地址https://www.paypal.com/c2/webapps/mpp/account-selection,注册Paypal时选择个人账户(外币转换手续费不用你支付，由卖家支付)，创建账户并验证邮箱后，在我的账户中上方可以看到账户状态，显示未认证，绑定你的信用卡/借记卡/储蓄卡进行认证，，Palpay会从你的信用卡 /借记卡/储蓄卡扣除几毛钱左右的费用，这样认证就完成了,认证完成后几毛钱会再退回给你,
+认证完打开链接:https://www.paypal.com/selfhelp/contact/call,打里面的客服电话,输入自己的动态识别码，跟连线客服表达自己是新账户，希望申请 10$的代金券，一般都会同意，不同意就多打几次，不同意就多打几次，不同意就多打几次(有网友反应客服以活动结束之类的理由不发代金券,客服可能以为你在骗领10美金,并不是用来海外消费, 要是不幸碰上这样的客服,只能先挂断电话,再多打几次换别的客服重新申请,态度好点表明用意基本上没问题,目前已经有好多网友成功申领到10美金了)。然后等10分钟就到Paypal账上了(友情提醒:每人只申领一次就好,不要多次申领小心被封号)
+Billing 账单方式选择关联信用卡或者Paypal (如果选择Paypal需要预存10－250，直接预存Paypal的10$新手奖励）。
+回到Vulrt的界面，点击右侧的＋号，deploy一个新的VPS(虚拟服务器)。名字自己取，IP选择日本（或洛杉矶），操作系统选择CentOS 6（重要）套餐选5$一个月的。点生成，之后跳转到管理页面（Servers），当显示绿色的running时，该VPS就部署好了，然后你点击o/s下面的按钮就可以看到VPS的具体信息。
+l 搭建SS
+下载PUTTYhttp://pan.baidu.com/s/1sl1n6qT,复制你的VPS的IP。打开。点击是。输入root回车。复制你的VPS密码到putty(右击鼠标粘贴但是不会显示任何东西)回车。
+PS:putty里粘贴是鼠标右键，复制是直接选中。
+关于本脚本：这里是秋水逸冰的一键脚本，也可以直接看链接http://teddysun.com/392.html
+一键安装Go版的shadowsocks 最新版本 1.1.5。据说 go 版本有buff 。与Python版不同的是，其客户端程序能使用多个服务端配置，本脚本安装的是服务端程序。作者默认推荐 aes-128-cfb 加密，基于一致性，脚本使用了 aes-256-cfb 加密方式。
+默认配置：
+服务器端口：自己设定（如不设定，默认为 8989）
+客户端端口：1080
+密码：自己设定（如不设定，默认为teddysun.com）
+使用方法：
+使用root用户登录，运行以下命令：
+wget –no-check-certificatehttps://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-go.sh
+复制代码
+chmod +x shadowsocks-go.sh
+复制代码
+./shadowsocks-go.sh 2>&1 | tee shadowsocks-go.log
+复制代码
+安装完成后，脚本提示如下：
+Congratulations, shadowsocks-go install completed!
+Your Server IP:your_server_ip //你的服务器ip
+Your Server Port:your_server_port //端口
+复制代码
+卸载方法：
+使用 root 用户登录，运行以下命令：
+./shadowsocks-go.sh uninstall
+复制代码
+其他事项：
+客户端配置的参考链接：https://teddysun.com/339.html
+安装完成后即已后台启动 shadowsocks-go ，运行：
+/etc/init.d/shadowsocks status
+可以查看 shadowsocks-go 进程是否已经启动。
+本脚本安装完成后，已将 shadowsocks-go 加入开机自启动。
+统一回复：
+在 Bandwagonhost 的 VPS 上出现 Trace/breakpoint trap 现象的，初步认为是 Bandwagonhost 的系统问题。
+经过测试发现，和版本升级无关，唯独在 Bandwagonhost 才会出现这个现象。建议换成 libev 版，或者将系统换为 CentOS 7 可以解决该问题。
+本人不是 Shadowsocks Go 作者，安装程序均来自于这里。
+使用命令：
+启动：/etc/init.d/shadowsocks start
+停止：/etc/init.d/shadowsocks stop
+重启：/etc/init.d/shadowsocks restart
+状态：/etc/init.d/shadowsocks status
+多用户多端口配置文件 sample（2015年01月08日）：
+配置文件路径及代码：
+vi /etc/shadowsocks/config.json
+复制代码
+按i编辑，esc退出编辑，然后按Shift+Q编辑状态输入wq保存
+{
+“port_password”:{
+“8989”:”password0”,
+“9001”:”password1”,
+“9002”:”password2”,
+“9003”:”password3”,
+“9004”:”password4”
+},
+“method”:”aes-256-cfb”,
+“timeout”:600
+}
+复制代码
+锐速破解版一键脚本
+锐速破解版安装方法（一次性复制）：
+wget -N –no-check-certificatehttps://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh&& bash serverspeeder-all.sh
+锐速破解版卸载方法：
+chattr -i /serverspeeder/etc/apx* && /serverspeeder/bin/serverSpeeder.sh uninstall -f
+几个相关命令:
+service serverSpeeder status 查看serverSpeeder的状态
+service serverSpeeder start | stop | restart 停止暂停重启锐速

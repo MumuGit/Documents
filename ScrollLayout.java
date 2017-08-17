@@ -1,4 +1,4 @@
-package com.rytong.bankqd.view.dragviewhorizontal;
+﻿package com.rytong.bankqd.view.dragviewhorizontal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -356,7 +356,7 @@ public class ScrollLayout extends ViewGroup {
 //			if(mMode==StateMode.DELETE){
 //				
 //			}else{
-//				setMode(StateMode.REST);
+//			   setMode(StateMode.REST);
 //			}
 			
 			break;
@@ -377,8 +377,7 @@ public class ScrollLayout extends ViewGroup {
 			if (i == currentPosition) {
 				points.get(i).setImageResource(R.drawable.viewpager_point_red);
 			} else {
-				points.get(i)
-						.setImageResource(R.drawable.viewpager_point_white);
+				points.get(i).setImageResource(R.drawable.viewpager_point_white);
 			}
 
 		}
