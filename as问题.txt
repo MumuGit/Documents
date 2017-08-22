@@ -1,0 +1,13 @@
+Error:(2, 0) No service of type Factory<LoggingManagerInternal> available in ProjectScopeServices. <
+点击open file 会跳转到apply plugin: ‘com.github.dcendents.android-maven’这行。 
+解决方案更新maven-plugin的依赖 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5' // This line you need to add
+    }
+}
