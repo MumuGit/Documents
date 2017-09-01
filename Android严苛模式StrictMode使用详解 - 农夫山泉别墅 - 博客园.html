@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.cnblogs.com/yaowen/p/6024690.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/bundle-summerGarden.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/bundle-summerGarden-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/yaowen/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/yaowen/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/yaowen/wlwmanifest.xml">
+<script async="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/analytics.js.下载"></script><script src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'yaowen', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/yaowen/"><img id="blogLogo" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/yaowen/">672530440</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+	<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/yaowen/">首页</a></li>
+	<li><a href="http://news.cnblogs.com/">新闻</a></li>
+	<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li><a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89%E5%88%AB%E5%A2%85">联系</a></li>
+	<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+	<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/yaowen/rss">订阅</a>
+	<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/yaowen/rss"><img src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/xml.gif" alt="订阅"></a></li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔- 1104&nbsp;
+文章- 0&nbsp;
+评论- 17&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/yaowen/p/6024690.html">Android严苛模式StrictMode使用详解</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>StrictMode类是<a class="replace_word" title="Android知识库" href="http://lib.csdn.net/base/android" target="_blank">Android</a>&nbsp;2.3 （API 9）引入的一个工具类，可以用来帮助开发者发现代码中的一些不规范的问题，以达到提升应用响应能力的目的。举个例子来说，如果开发者在UI线程中进行了网络操作或者文件系统的操作，而这些缓慢的操作会严重影响应用的响应能力，甚至出现ANR对话框。为了在开发中发现这些容易忽略的问题，我们使用StrictMode，系统检测出主线程违例的情况并做出相应的反应，最终帮助开发者优化和改善代码逻辑。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;官网文档：<a href="http://developer.android.com/reference/android/os/StrictMode.html">http://developer.android.com/reference/android/os/StrictMode.html</a></p>
+<h2 id="strictmode具体能检测什么"><a name="t0"></a>StrictMode具体能检测什么</h2>
+<p>严苛模式主要检测两大问题，一个是线程策略，即TreadPolicy，另一个是VM策略，即VmPolicy。</p>
+<h3 id="threadpolicy线程策略检测"><a name="t1"></a>ThreadPolicy线程策略检测</h3>
+<ul>
+<li>线程策略检测的内容有</li>
+<li>自定义的耗时调用 使用detectCustomSlowCalls()开启</li>
+<li>磁盘读取操作 使用detectDiskReads()开启</li>
+<li>磁盘写入操作 使用detectDiskWrites()开启</li>
+<li>网络操作 使用detectNetwork()开启</li>
+</ul>
+<h3 id="vmpolicy虚拟机策略检测"><a name="t2"></a>VmPolicy虚拟机策略检测</h3>
+<ul>
+<li>Activity泄露 使用detectActivityLeaks()开启</li>
+<li>未关闭的Closable对象泄露 使用detectLeakedClosableObjects()开启</li>
+<li>泄露的Sqlite对象 使用detectLeakedSqlLiteObjects()开启</li>
+<li>检测实例数量 使用setClassInstanceLimit()开启</li>
+</ul>
+<h2 id="工作原理"><a name="t3"></a>工作原理</h2>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;其实StrictMode实现原理也比较简单，以IO操作为例，主要是通过在open，read，write，close时进行监控。libcore.io.BlockGuardOs文件就是监控的地方。以open为例，如下进行监控。</p>
+<pre name="code" class="prettyprint"><code class="hljs java has-numbering"><span class="hljs-annotation">@Override
+<span class="hljs-keyword">public FileDescriptor <span class="hljs-title">open(String path, <span class="hljs-keyword">int flags, <span class="hljs-keyword">int mode) <span class="hljs-keyword">throws ErrnoException {
+  BlockGuard.getThreadPolicy().onReadFromDisk();
+    <span class="hljs-keyword">if ((mode &amp; O_ACCMODE) != O_RDONLY) {
+      BlockGuard.getThreadPolicy().onWriteToDisk();
+    }
+    <span class="hljs-keyword">return os.open(path, flags, mode);
+}</span></span></span></span></span></span></span></span></code></pre>
+<p>其中onReadFromDisk()方法的实现，代码位于StrictMode.<a class="replace_word" title="Java EE知识库" href="http://lib.csdn.net/base/javaee" target="_blank">Java</a>中。</p>
+<pre name="code" class="prettyprint"><code class="hljs cs has-numbering"><span class="hljs-keyword">public <span class="hljs-keyword">void <span class="hljs-title">onReadFromDisk() {
+    <span class="hljs-keyword">if ((mPolicyMask &amp; DETECT_DISK_READ) == <span class="hljs-number">0) {
+      <span class="hljs-keyword">return;
+    }
+    <span class="hljs-keyword">if (tooManyViolationsThisLoop()) {
+      <span class="hljs-keyword">return;
+    }
+    BlockGuard.BlockGuardPolicyException e = <span class="hljs-keyword">new StrictModeDiskReadViolation(mPolicyMask);
+    e.fillInStackTrace();
+    startHandlingViolationException(e);
+}</span></span></span></span></span></span></span></span></span></code></pre>
+<p><a style="font-size: 1.5em; line-height: 1.5; background-color: #ffffff" name="t4"></a></p>
+<h2 id="常见用法">常见用法</h2>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;严格模式的开启可以放在Application或者Activity以及其他组件的onCreate方法。为了更好地分析应用中的问题，建议放在Application的onCreate方法中。&nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp;其中，我们只需要在app的开发版本下使用 StrictMode，线上版本避免使用 StrictMode，这里定义了一个布尔值变量DEV_MODE来进行控制。</p>
+<pre name="code" class="prettyprint"><code class="hljs avrasm has-numbering">private boolean DEV_MODE = true<span class="hljs-comment">;
+ public void onCreate() {
+     if (DEV_MODE) {
+         StrictMode<span class="hljs-preprocessor">.setThreadPolicy(new StrictMode<span class="hljs-preprocessor">.ThreadPolicy<span class="hljs-preprocessor">.Builder()
+                 <span class="hljs-preprocessor">.detectCustomSlowCalls() //API等级<span class="hljs-number">11，使用StrictMode<span class="hljs-preprocessor">.noteSlowCode
+                 <span class="hljs-preprocessor">.detectDiskReads()
+                 <span class="hljs-preprocessor">.detectDiskWrites()
+                 <span class="hljs-preprocessor">.detectNetwork()   // <span class="hljs-keyword">or <span class="hljs-preprocessor">.detectAll() for all detectable problems
+                 <span class="hljs-preprocessor">.penaltyDialog() //弹出违规提示对话框
+                 <span class="hljs-preprocessor">.penaltyLog() //在Logcat 中打印违规异常信息
+                 <span class="hljs-preprocessor">.penaltyFlashScreen() //API等级<span class="hljs-number">11
+                 <span class="hljs-preprocessor">.build())<span class="hljs-comment">;
+         StrictMode<span class="hljs-preprocessor">.setVmPolicy(new StrictMode<span class="hljs-preprocessor">.VmPolicy<span class="hljs-preprocessor">.Builder()
+                 <span class="hljs-preprocessor">.detectLeakedSqlLiteObjects()
+                 <span class="hljs-preprocessor">.detectLeakedClosableObjects() //API等级<span class="hljs-number">11
+                 <span class="hljs-preprocessor">.penaltyLog()
+                 <span class="hljs-preprocessor">.penaltyDeath()
+                 <span class="hljs-preprocessor">.build())<span class="hljs-comment">;
+     }
+     super<span class="hljs-preprocessor">.onCreate()<span class="hljs-comment">;
+ }</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;其中Android3.0引入的方法包括detectCustomSlowCalls()和noteSlowCode()，它们都是用来检测应用中执行缓慢代码的或者潜在的缓慢代码。</p>
+<h2 id="查看报告结果"><a name="t5"></a>查看报告结果</h2>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;严格模式有很多种报告违例的形式，但是想要分析具体违例情况，还是需要查看日志，终端下过滤StrictMode就能得到违例的具体stacktrace信息。</p>
+<pre name="code" class="prettyprint"><code class="hljs 1c has-numbering">adb logcat <span class="hljs-string">| grep StrictMode</span></code></pre>
+<p><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160623120724022" alt="这里写图片描述"></p>
+<p>当然也可以选择弹窗形式来简明提醒开发者</p>
+<p><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160622181045140" alt="弹窗警告"></p>
+<h2 id="threadpolicy-详解"><a name="t6"></a>ThreadPolicy 详解</h2>
+<p>StrictMode.ThreadPolicy.Builder 主要方法如下</p>
+<ul>
+<li>
+<h4 id="detectnetwork-用于检查ui线程中是否有网络请求操作"><a name="t7"></a>detectNetwork() 用于检查UI线程中是否有网络请求操作</h4>
+</li>
+</ul>
+<pre name="code" class="prettyprint"><code class="hljs java has-numbering">检测UI线程中网络请求案例：
+
+<span class="hljs-keyword">public <span class="hljs-class"><span class="hljs-keyword">class <span class="hljs-title">MainActivity <span class="hljs-keyword">extends <span class="hljs-title">AppCompatActivity <span class="hljs-keyword">implements <span class="hljs-title">View.<span class="hljs-title">OnClickListener {
+
+    Button btnTest;
+    <span class="hljs-annotation">@Override
+    <span class="hljs-keyword">protected <span class="hljs-keyword">void <span class="hljs-title">onCreate(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        StrictMode.setThreadPolicy(<span class="hljs-keyword">new StrictMode.ThreadPolicy.Builder()
+                .detectNetwork()
+                .penaltyLog()
+                .build());
+        btnTest = (Button) findViewById(R.id.btn_test);
+        btnTest.setOnClickListener(<span class="hljs-keyword">this);
+    }
+
+    <span class="hljs-annotation">@Override
+    <span class="hljs-keyword">public <span class="hljs-keyword">void <span class="hljs-title">onClick(View v) {
+        <span class="hljs-keyword">int id = v.getId();
+        <span class="hljs-keyword">switch (id) {
+            <span class="hljs-keyword">case R.id.btn_test:
+                postNetwork();
+            <span class="hljs-keyword">break;
+        }
+    }
+
+    <span class="hljs-javadoc">/**
+     * 网络连接的操作
+     */
+    <span class="hljs-keyword">private <span class="hljs-keyword">void <span class="hljs-title">postNetwork() {
+        <span class="hljs-keyword">try {
+            URL url = <span class="hljs-keyword">new URL(<span class="hljs-string">"http://www.wooyun.org");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.connect();
+            BufferedReader reader = <span class="hljs-keyword">new BufferedReader(<span class="hljs-keyword">new InputStreamReader(
+                    conn.getInputStream()));
+            String lines = <span class="hljs-keyword">null;
+            StringBuffer sb = <span class="hljs-keyword">new StringBuffer();
+            <span class="hljs-keyword">while ((lines = reader.readLine()) != <span class="hljs-keyword">null) {
+                sb.append(lines);
+            }
+        } <span class="hljs-keyword">catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+<p>运行后，触发的警告如下</p>
+<p><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160623120724022" alt="这里写图片描述"></p>
+<ul>
+<li>
+<h4 id="detectdiskreads-和-detectdiskwrites-是磁盘读写检查"><a name="t8"></a>detectDiskReads() 和 detectDiskWrites() 是磁盘读写检查</h4>
+</li>
+</ul>
+<pre name="code" class="prettyprint"><code class="hljs java has-numbering">磁盘读写检查案例：
+<span class="hljs-keyword">public <span class="hljs-class"><span class="hljs-keyword">class <span class="hljs-title">MainActivity <span class="hljs-keyword">extends <span class="hljs-title">AppCompatActivity <span class="hljs-keyword">implements <span class="hljs-title">View.<span class="hljs-title">OnClickListener {
+
+    Button btnTest;
+    <span class="hljs-annotation">@Override
+    <span class="hljs-keyword">protected <span class="hljs-keyword">void <span class="hljs-title">onCreate(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        StrictMode.setThreadPolicy(<span class="hljs-keyword">new StrictMode.ThreadPolicy.Builder()
+                .detectDiskWrites()
+                .detectDiskReads()
+                .penaltyLog()
+                .build());
+        btnTest = (Button) findViewById(R.id.btn_test);
+        btnTest.setOnClickListener(<span class="hljs-keyword">this);
+    }
+
+    <span class="hljs-annotation">@Override
+    <span class="hljs-keyword">public <span class="hljs-keyword">void <span class="hljs-title">onClick(View v) {
+        <span class="hljs-keyword">int id = v.getId();
+        <span class="hljs-keyword">switch (id) {
+            <span class="hljs-keyword">case R.id.btn_test:
+                writeToExternalStorage();
+                <span class="hljs-keyword">break;
+        }
+    }
+
+    <span class="hljs-javadoc">/**
+     * 文件系统的操作
+     */
+    <span class="hljs-keyword">public <span class="hljs-keyword">void <span class="hljs-title">writeToExternalStorage() {
+        File externalStorage = Environment.getExternalStorageDirectory();
+        File mbFile = <span class="hljs-keyword">new File(externalStorage, <span class="hljs-string">"castiel.txt");
+        <span class="hljs-keyword">try {
+            OutputStream output = <span class="hljs-keyword">new FileOutputStream(mbFile, <span class="hljs-keyword">true);
+            output.write(<span class="hljs-string">"www.wooyun.org".getBytes());
+            output.flush();
+            output.close();
+        } <span class="hljs-keyword">catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } <span class="hljs-keyword">catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+<p><span style="line-height: 1.5">运行后，触发的警告如下&nbsp;</span></p>
+<p><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160623120852255" alt="这里写图片描述"></p>
+<ul>
+<li>
+<h4 id="noteslowcall针对执行比较耗时的检查"><a name="t9"></a>noteSlowCall针对执行比较耗时的检查</h4>
+<br>&nbsp; &nbsp; &nbsp; &nbsp;StrictMode从 API 11开始允许开发者自定义一些耗时调用违例，这种自定义适用于自定义的任务执行类中，比如我们有一个进行任务处理的类，为TaskExecutor。</li>
+
+
+</ul>
+<pre name="code" class="prettyprint"><code class="hljs cs has-numbering"><span class="hljs-keyword">public <span class="hljs-keyword">class TaskExecutor {
+    <span class="hljs-keyword">public <span class="hljs-keyword">void <span class="hljs-title">execute(Runnable task) {
+        task.run();
+    }
+}</span></span></span></span></span></code></pre>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;先需要跟踪每个任务的耗时情况，如果大于500毫秒需要提示给开发者，noteSlowCall就可以实现这个功能，如下修改代码</p>
+<pre name="code" class="prettyprint"><code class="hljs cs has-numbering"><span class="hljs-keyword">public <span class="hljs-keyword">class TaskExecutor {
+
+    <span class="hljs-keyword">private <span class="hljs-keyword">static <span class="hljs-keyword">long SLOW_CALL_THRESHOLD = <span class="hljs-number">500;
+    <span class="hljs-keyword">public <span class="hljs-keyword">void <span class="hljs-title">executeTask(Runnable task) {
+        <span class="hljs-keyword">long startTime = SystemClock.uptimeMillis();
+        task.run();
+        <span class="hljs-keyword">long cost = SystemClock.uptimeMillis() - startTime;
+        <span class="hljs-keyword">if (cost &gt; SLOW_CALL_THRESHOLD) {
+            StrictMode.noteSlowCall(<span class="hljs-string">"slowCall cost=" + cost);
+        }
+    }
+}</span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+<p>执行一个耗时2000毫秒的任务</p>
+<pre name="code" class="prettyprint"><code class="hljs java has-numbering">TaskExecutor executor = <span class="hljs-keyword">new TaskExecutor();
+executor.executeTask(<span class="hljs-keyword">new Runnable() {
+  <span class="hljs-annotation">@Override
+    <span class="hljs-keyword">public <span class="hljs-keyword">void <span class="hljs-title">run() {
+        <span class="hljs-keyword">try {
+          Thread.sleep(<span class="hljs-number">2000);
+        } <span class="hljs-keyword">catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+});</span></span></span></span></span></span></span></span></span></code></pre>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;得到的违例日志，注意其中~duration=20 ms并非耗时任务的执行时间，而我们的自定义信息msg=slowCall cost=2000才包含了真正的耗时。</p>
+<ul>
+<li>
+<h4 id="penaltydeath当触发违规条件时直接crash掉当前应用程序"><a name="t10"></a>penaltyDeath()，当触发违规条件时，直接Crash掉当前应用程序。</h4>
+</li>
+<li>
+<h4 id="penaltydeathonnetwork当触发网络违规时crash掉当前应用程序"><a name="t11"></a>penaltyDeathOnNetwork()，当触发网络违规时，Crash掉当前应用程序。</h4>
+</li>
+<li>
+<h4 id="penaltydialog触发违规时显示对违规信息对话框"><a name="t12"></a>penaltyDialog()，触发违规时，显示对违规信息对话框。</h4>
+</li>
+<li>
+<h4 id="penaltyflashscreen会造成屏幕闪烁不过一般的设备可能没有这个功能"><a name="t13"></a>penaltyFlashScreen()，会造成屏幕闪烁，不过一般的设备可能没有这个功能。</h4>
+</li>
+<li>
+<h4 id="penaltydropbox将违规信息记录到-dropbox-系统日志目录中datasystemdropbox你可以通过如下命令进行插件"><a name="t14"></a>penaltyDropBox()，将违规信息记录到 dropbox 系统日志目录中（/data/system/dropbox），你可以通过如下命令进行插件：</h4>
+</li>
+</ul>
+<pre name="code" class="prettyprint"><code class="hljs livecodeserver has-numbering">adb <span class="hljs-built_in">shell dumpsys dropbox dataappstrictmode  <span class="hljs-comment">--print</span></span></code></pre>
+<ul>
+<li>
+<h4 id="permitcustomslowcallspermitdiskreads-permitdiskwritespermitnetwork-如果你想关闭某一项检测可以使用对应的permit方法"><a name="t15"></a>permitCustomSlowCalls()、permitDiskReads ()、permitDiskWrites()、permitNetwork： 如果你想关闭某一项检测，可以使用对应的permit*方法。</h4>
+</li>
+</ul>
+<h2 id="vmpolicy-详解"><a name="t16"></a>VMPolicy 详解</h2>
+<p>StrictMode.VmPolicy.Builder 主要方法如下</p>
+<ul>
+<li>
+<h4 id="detectactivityleaks-用户检查-activity-的内存泄露情况"><a name="t17"></a>detectActivityLeaks() 用户检查 Activity 的内存泄露情况</h4>
+</li>
+</ul>
+<pre name="code" class="prettyprint"><code class="hljs java has-numbering">内存泄露检查案例：
+<span class="hljs-keyword">public <span class="hljs-class"><span class="hljs-keyword">class <span class="hljs-title">MainActivity <span class="hljs-keyword">extends <span class="hljs-title">AppCompatActivity <span class="hljs-keyword">implements <span class="hljs-title">View.<span class="hljs-title">OnClickListener {
+    <span class="hljs-annotation">@Override
+    <span class="hljs-keyword">protected <span class="hljs-keyword">void <span class="hljs-title">onCreate(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        StrictMode.setVmPolicy(<span class="hljs-keyword">new StrictMode.VmPolicy.Builder()
+                .detectActivityLeaks()
+                .penaltyLog()
+                .build()
+        );
+
+        <span class="hljs-keyword">new Thread() {
+            <span class="hljs-annotation">@Override
+            <span class="hljs-keyword">public <span class="hljs-keyword">void <span class="hljs-title">run() {
+                <span class="hljs-keyword">while (<span class="hljs-keyword">true) {
+
+                    SystemClock.sleep(<span class="hljs-number">1000);
+                }
+            }
+        }.start();
+
+    }
+}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+<p>我们反复旋转屏幕就会输出提示信息（重点在 instances=2; limit=1 这一行）&nbsp;<br><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160623120912396" alt="这里写图片描述">&nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp;这时因为，我们在Activity中创建了一个Thread匿名内部类，而匿名内部类隐式持有外部类的引用。而每次旋转屏幕是，Android会新创建一个Activity，而原来的Activity实例又被我们启动的匿名内部类线程持有，所以不会释放，从日志上看，当先系统中该Activty有4个实例，而限制是只能创建1各实例。我们不断翻转屏幕，instances 的个数还会持续增加。</p>
+<ul>
+<li>
+<h4 id="detectleakedclosableobjects用于资源没有正确关闭时提醒"><a name="t18"></a>detectLeakedClosableObjects()用于资源没有正确关闭时提醒</h4>
+
+
+</li>
+
+
+</ul>
+<pre name="code" class="prettyprint"><code class="hljs java has-numbering"><span class="hljs-comment">// 资源引用没有关闭检查案例
+<span class="hljs-keyword">public <span class="hljs-class"><span class="hljs-keyword">class <span class="hljs-title">MainActivity <span class="hljs-keyword">extends <span class="hljs-title">AppCompatActivity <span class="hljs-keyword">implements <span class="hljs-title">View.<span class="hljs-title">OnClickListener {
+    <span class="hljs-annotation">@Override
+    <span class="hljs-keyword">protected <span class="hljs-keyword">void <span class="hljs-title">onCreate(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        StrictMode.setVmPolicy(<span class="hljs-keyword">new StrictMode.VmPolicy.Builder()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .build()
+        );
+
+        File newxmlfile = <span class="hljs-keyword">new File(Environment.getExternalStorageDirectory(), <span class="hljs-string">"castiel.txt");
+        <span class="hljs-keyword">try {
+            newxmlfile.createNewFile();
+            FileWriter fw = <span class="hljs-keyword">new FileWriter(newxmlfile);
+            fw.write(<span class="hljs-string">"猴子搬来的救兵WooYun");
+            <span class="hljs-comment">//fw.close(); 我们在这里特意没有关闭 fw
+        } <span class="hljs-keyword">catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+<p>&nbsp;</p>
+<p>运行后触发警告如下&nbsp;<br><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160623120930602" alt="这里写图片描述"></p>
+<ul>
+<li>
+<h4 id="detectleakedsqlliteobjects-和-detectleakedclosableobjects的用法类似只不过是用来检查-sqlitecursor-或者-其他-sqlite-对象是否被正确关闭">detectLeakedSqlLiteObjects() 和&nbsp;<br>detectLeakedClosableObjects()的用法类似，只不过是用来检查 SQLiteCursor 或者 其他 SQLite&nbsp;<br>对象是否被正确关闭</h4>
+
+
+</li>
+<li>
+<h4 id="detectleakedregistrationobjects-用来检查-broadcastreceiver-或者-serviceconnection-注册类对象是否被正确释放"><a name="t20"></a>detectLeakedRegistrationObjects() 用来检查 BroadcastReceiver 或者&nbsp;<br>ServiceConnection 注册类对象是否被正确释放</h4>
+
+
+</li>
+<li>
+<h4 id="setclassinstancelimit设置某个类的同时处于内存中的实例上限可以协助检查内存泄露"><a name="t21"></a>setClassInstanceLimit()，设置某个类的同时处于内存中的实例上限，可以协助检查内存泄露</h4>
+
+
+</li>
+
+
+</ul>
+<pre name="code" class="prettyprint"><code class="hljs java has-numbering">检测内存泄露案例
+<span class="hljs-keyword">public <span class="hljs-class"><span class="hljs-keyword">class <span class="hljs-title">MainActivity <span class="hljs-keyword">extends <span class="hljs-title">AppCompatActivity <span class="hljs-keyword">implements <span class="hljs-title">View.<span class="hljs-title">OnClickListener {
+
+    <span class="hljs-keyword">private <span class="hljs-keyword">static <span class="hljs-class"><span class="hljs-keyword">class <span class="hljs-title">CastielClass{}
+    <span class="hljs-keyword">private <span class="hljs-keyword">static List&lt;CastielClass&gt; classList;
+
+    <span class="hljs-annotation">@Override
+    <span class="hljs-keyword">protected <span class="hljs-keyword">void <span class="hljs-title">onCreate(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        classList = <span class="hljs-keyword">new ArrayList&lt;CastielClass&gt;();
+
+        StrictMode.setVmPolicy(<span class="hljs-keyword">new StrictMode.VmPolicy.Builder()
+                .setClassInstanceLimit(CastielClass.class, <span class="hljs-number">2)
+                .penaltyLog()
+                .build());
+
+        classList.add(<span class="hljs-keyword">new CastielClass());
+        classList.add(<span class="hljs-keyword">new CastielClass());
+        classList.add(<span class="hljs-keyword">new CastielClass());
+        classList.add(<span class="hljs-keyword">new CastielClass());
+        classList.add(<span class="hljs-keyword">new CastielClass());
+        classList.add(<span class="hljs-keyword">new CastielClass());
+        classList.add(<span class="hljs-keyword">new CastielClass());
+        classList.add(<span class="hljs-keyword">new CastielClass());
+
+    }
+}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+<p>运行后触发警告如下</p>
+<p><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160623120943459" alt="这里写图片描述"></p>
+<h2 id="其他操作"><a name="t22"></a>其他操作</h2>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;除了通过日志查看之外，我们也可以在开发者选项中开启严格模式，开启之后，如果主线程中有执行时间长的操作，屏幕则会闪烁，这是一个更加直接的方法。&nbsp;<br><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160622181951862" alt="这里写图片描述"></p>
+<h2 id="注意事项"><a name="t23"></a>注意事项</h2>
+<ul>
+<li>只在开发阶段启用StrictMode，发布应用或者release版本一定要禁用它。</li>
+<li>严格模式无法监控JNI中的磁盘IO和网络请求。</li>
+<li>应用中并非需要解决全部的违例情况，比如有些IO操作必须在主线程中进行。</li>
+
+
+</ul>
+<p>参考链接:<a href="http://droidyue.com/blog/2015/09/26/android-tuning-tool-strictmode/">http://droidyue.com/blog/2015/09/26/android-tuning-tool-strictmode/</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<blockquote>
+<p><strong><a class="replace_word" title="Android知识库" href="http://lib.csdn.net/base/android" target="_blank">安卓</a>开发高级技术交流QQ群：<span style="color: red; font-size: medium">108721298</span>&nbsp;欢迎入群</strong></p>
+<p><strong><a class="replace_word" title="微信开发知识库" href="http://lib.csdn.net/base/wechat" target="_blank">微信</a>公众号：mobilesafehome</strong></p>
+<p><span style="color: red; font-size: medium">（本公众号支持投票）</span></p>
+<p><img title="" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/20160509111910010" alt="Android安全技术大本营"></p>
+
+
+</blockquote></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6024690,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;d07e70b7-ff56-e211-aa8f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/yaowen/" target="_blank"><img src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/yaowen/">农夫山泉别墅</a><br>
+            <a href="http://home.cnblogs.com/u/yaowen/followees">关注 - 4</a><br>
+            <a href="http://home.cnblogs.com/u/yaowen/followers">粉丝 - 37</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;d07e70b7-ff56-e211-aa8f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6024690,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(6024690,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/yaowen/p/6024555.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/yaowen/p/6024555.html" title="发布于2016-11-02 21:12">@SuppressLint("NewApi"）和@TargetApi()的区别</a><br><a href="http://www.cnblogs.com/yaowen/p/6026795.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/yaowen/p/6026795.html" title="发布于2016-11-03 15:25">Android Private Libraries 和 Dependencies的区别</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-11-02 21:58</span> <a href="http://www.cnblogs.com/yaowen/">农夫山泉别墅</a> 阅读(<span id="post_view_count">507</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6024690" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/yaowen/p/6024690.html#" onclick="AddToWz(6024690);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=138734,cb_entryId=6024690,cb_blogApp=currentBlogApp,cb_blogUserGuid='d07e70b7-ff56-e211-aa8f-842b2b196315',cb_entryCreatedDate='2016/11/2 21:58:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/yaowen/p/6024690.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/yaowen/p/6024690.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.jiguang.cn/devservice?bky" target="_blank">【推荐】极光开发者服务平台，五大功能一站集齐</a><br><a href="https://dnspod.cloud.tencent.com/act/seckill?fromSource=gwzcw.410370.410370.410370" target="_blank">【推荐】腾讯云域名+云解析 限时折扣抓紧抢购</a><br><a href="http://click.aliyun.com/m/18488/" target="_blank">【推荐】阿里云“全民云计算”优惠升级</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.330910.330910.330910" target="_blank">【推荐】一小时搭建人工智能应用，让技术更容易入门</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://cn.udacity.com/mlnd/?utm_source=cnblogs&amp;utm_medium=banner&amp;utm_campaign=MLND06" target="_blank"><img width="300" height="250" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/24442-20170816053533459-1918329004.png" alt="Udacity08.15 - 08.22"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/576621/" target="_blank">短视频也能打赏了 火山小视频十亿补贴之后又出大招</a><br> ·  <a href="http://news.cnblogs.com/n/576620/" target="_blank">Reddit是如何面试工程师的</a><br> ·  <a href="http://news.cnblogs.com/n/576619/" target="_blank">Oracle欲放手Java EE，谁有望接手？</a><br> ·  <a href="http://news.cnblogs.com/n/576618/" target="_blank">阮一峰：你的鞋都比你聪明</a><br> ·  <a href="http://news.cnblogs.com/n/576617/" target="_blank">三星家族动荡史：兄弟阋墙、财产争夺与牢狱之灾</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky&amp;hmsr=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;hmpl=&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank"><img width="468" height="60" src="./Android严苛模式StrictMode使用详解 - 农夫山泉别墅 - 博客园_files/24442-20170727100914671-839522651.gif" alt="极光0801"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br> ·  <a href="http://kb.cnblogs.com/page/569057/" target="_blank">架构腐化之谜</a><br> ·  <a href="http://kb.cnblogs.com/page/572854/" target="_blank">学会思考，而不只是编程</a><br> ·  <a href="http://kb.cnblogs.com/page/574767/" target="_blank">编写Shell脚本的最佳实践</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/yaowen/">农夫山泉别墅</a><br>园龄：<a href="http://home.cnblogs.com/u/yaowen/" title="入园时间：2013-01-05">4年7个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/yaowen/followers/">37</a><br>关注：<a href="http://home.cnblogs.com/u/yaowen/followees/">4</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;d07e70b7-ff56-e211-aa8f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/07/01&#39;);return false;">&lt;</a></td><td align="center">2017年8月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/09/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/02.html"><u>2</u></a></td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/03.html"><u>3</u></a></td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/04.html"><u>4</u></a></td><td class="CalWeekendDay" align="center">5</td></tr><tr><td class="CalWeekendDay" align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/13.html"><u>13</u></a></td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/14.html"><u>14</u></a></td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/15.html"><u>15</u></a></td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/16.html"><u>16</u></a></td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/17.html"><u>17</u></a></td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/18.html"><u>18</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/19.html"><u>19</u></a></td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/21.html"><u>21</u></a></td><td class="CalTodayDay" align="center"><a href="http://www.cnblogs.com/yaowen/archive/2017/08/22.html"><u>22</u></a></td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/yaowen/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/yaowen/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/yaowen/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/yaowen/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/yaowen/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/yaowen/p/6024690.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/yaowen/p/7411184.html">1. oc08--局部变量，全局变量，函数方法的区别</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7410768.html">2. oc7--内存分析</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7410266.html">3. oc6--类方法</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7407433.html">4. xcode打包测试</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7405981.html">5. oc5--方法</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7405980.html">6. oc4--方法</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7405741.html">7. oc3--类方法1</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7405612.html">8. oc2---类</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7405029.html">9. oc1</a></li><li><a href="http://www.cnblogs.com/yaowen/p/7404413.html">10. c28---const</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(1107)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/yaowen/archive/2017/08.html">2017年8月 (45)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/yaowen/archive/2017/07.html">2017年7月 (35)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/yaowen/archive/2017/06.html">2017年6月 (133)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/yaowen/archive/2017/05.html">2017年5月 (85)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/yaowen/archive/2017/02.html">2017年2月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/yaowen/archive/2017/01.html">2017年1月 (32)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/yaowen/archive/2016/12.html">2016年12月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/yaowen/archive/2016/11.html">2016年11月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/yaowen/archive/2016/10.html">2016年10月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/yaowen/archive/2016/08.html">2016年8月 (26)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/yaowen/archive/2016/07.html">2016年7月 (27)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/yaowen/archive/2016/06.html">2016年6月 (29)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/yaowen/archive/2016/05.html">2016年5月 (27)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/yaowen/archive/2016/04.html">2016年4月 (45)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/yaowen/archive/2016/03.html">2016年3月 (48)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/yaowen/archive/2016/02.html">2016年2月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/yaowen/archive/2016/01.html">2016年1月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/yaowen/archive/2015/12.html">2015年12月 (26)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/yaowen/archive/2015/11.html">2015年11月 (70)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/yaowen/archive/2015/10.html">2015年10月 (118)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/yaowen/archive/2015/09.html">2015年9月 (114)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/yaowen/archive/2015/08.html">2015年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/yaowen/archive/2015/05.html">2015年5月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/yaowen/archive/2015/04.html">2015年4月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/yaowen/archive/2015/03.html">2015年3月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/yaowen/archive/2015/02.html">2015年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/yaowen/archive/2015/01.html">2015年1月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/yaowen/archive/2014/12.html">2014年12月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/yaowen/archive/2014/11.html">2014年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/yaowen/archive/2014/08.html">2014年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/yaowen/archive/2014/07.html">2014年7月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/yaowen/archive/2014/06.html">2014年6月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/yaowen/archive/2014/05.html">2014年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/yaowen/archive/2014/03.html">2014年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/yaowen/archive/2013/04.html">2013年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_35" href="http://www.cnblogs.com/yaowen/archive/2013/03.html">2013年3月 (22)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_36" href="http://www.cnblogs.com/yaowen/archive/2013/02.html">2013年2月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_37" href="http://www.cnblogs.com/yaowen/archive/2013/01.html">2013年1月 (40)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	169619
+	</li><li class="liRank">
+		排名 -	1338
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/4272310.html#3755122">1. Re:线性表 及Java实现 顺序表、链表、栈、队列</a></li>
+        <li class="recent_comment_body">非常赞的文章，对于从C语言转型到面对对象的Java思维非常重要</li>
+        <li class="recent_comment_author">--939796364</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5080174.html#3753023">2. Re:android128   zhihuibeijing   科大讯飞 语音识别</a></li>
+        <li class="recent_comment_body">语音实现在线听书<br><a href="http://www.cnblogs.com/yaowen/p/6024690.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--ls0609</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5983136.html#3709486">3. Re:【集合类型的并发】Collections.synchronizedList</a></li>
+        <li class="recent_comment_body">@迷路的猫其它线程确实不会进入putifabsent()，但是其它线程是否可以执行其它方法获取到这个list，并执行了add方法，这样 就不能保证列表中的对象的唯一性了。但是如果其它 地方可以擅自调用......</li>
+        <li class="recent_comment_author">--尼玛旦</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5983136.html#3705132">4. Re:【集合类型的并发】Collections.synchronizedList</a></li>
+        <li class="recent_comment_body">多线程运行putifabsent方法时也不会有这个问题吧，这个方法不是已经加了synchronize关键字了吗？“假如A线程进入putIfAbsent方法，list这个锁并没有被获取（A线程获取的是 ......</li>
+        <li class="recent_comment_author">--迷路的猫</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5983136.html#3705130">5. Re:【集合类型的并发】Collections.synchronizedList</a></li>
+        <li class="recent_comment_body">楼主有没有一个能证明其线程不安全的例子？没想到是哪种情况</li>
+        <li class="recent_comment_author">--迷路的猫</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5983136.html#3693180">6. Re:【集合类型的并发】Collections.synchronizedList</a></li>
+        <li class="recent_comment_body">上面的源码解析很给力。</li>
+        <li class="recent_comment_author">--shl1988012</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/archive/2013/01/15/2861733.html#3674831">7. Re:C#和C++的区别</a></li>
+        <li class="recent_comment_body">C#中实现自动垃圾回收，通过new在堆中创建对象，当对该对象的引用计数为0时回收内存。类有构造函数而没有析够函数<br>这句话是错的，C#不仅仅是依靠简单的引用计数来判断是否回收</li>
+        <li class="recent_comment_author">--代码小兵的成长</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/4203763.html#3586920">8. Re:JAVA+FlexPaper+OpenOffice+SWFTools文档预览</a></li>
+        <li class="recent_comment_body">博主你好，我转换过的swf文件在前台展示图片有点模糊，这是什么原因，谢谢</li>
+        <li class="recent_comment_author">--未来的曙光</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/4141622.html#3509471">9. Re:Flex开发框架cairngorm入门实例</a></li>
+        <li class="recent_comment_body">官网已下载不了，百度上也找了很久。请问能否将Cairngrom.swc发我一份：<br>lwulon@21cn.com 谢谢！</li>
+        <li class="recent_comment_author">--fgtre</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5508394.html#3506216">10. Re:我为什么不要你</a></li>
+        <li class="recent_comment_body">谢谢楼主,自勉</li>
+        <li class="recent_comment_author">--PheonixHkbxoic</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5508394.html#3438400">11. Re:我为什么不要你</a></li>
+        <li class="recent_comment_body">@迷失深渊的爱应该工作有些年头了，并且还很牛逼，...</li>
+        <li class="recent_comment_author">--672530440@qq</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5508394.html#3438397">12. Re:我为什么不要你</a></li>
+        <li class="recent_comment_body">@672530440@qq楼主是哪里的大神...</li>
+        <li class="recent_comment_author">--迷失深渊的爱</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5508394.html#3438391">13. Re:我为什么不要你</a></li>
+        <li class="recent_comment_body">@迷失深渊的爱add oil...</li>
+        <li class="recent_comment_author">--672530440@qq</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/5508394.html#3438389">14. Re:我为什么不要你</a></li>
+        <li class="recent_comment_body">我也是做前端，您的文章描述的和我自己比较符合，确实很多都不懂。不过起码我不会在简历上写精通js/jquery等东西。你现在说的情况确实很多人都是这个样子</li>
+        <li class="recent_comment_author">--迷失深渊的爱</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaowen/p/4529124.html#3260078">15. Re:给出一个数组A，找出一对 (i, j)使得A[i] &lt;= A[j] (i &lt; j)并且j-i最大</a></li>
+        <li class="recent_comment_body">最后一种复杂度为什么是O(n)？<br>可以贴下代码吗？</li>
+        <li class="recent_comment_author">--flexwang</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/yaowen/p/3757571.html">1. HttpClient4.x 使用cookie保持会话(38513)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/3779284.html">2. quartz CronExpression表达式(29086)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/15/2861733.html">3. C#和C++的区别(22173)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/21/2920919.html">4. &lt;img&gt;的onClick属性的问题。(10890)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/22/2870762.html">5. VC2010对Excel的操作(8747)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/15/2861727.html">6. C++中L和_T()之区别(8655)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/26/2933679.html">7. 实现session监听器(8612)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5013366.html">8. Android应用在不同版本间兼容性处理(7681)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/26/2933882.html">9. request.getcontextPath() 详解(7498)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4220569.html">10. java将office文档pdf文档转换成swf文件在线预览(6596)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/03/08/2949258.html">11. Struts2之两个Action传值和不传值的struts.xml文件配置(5079)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4272310.html">12. 线性表 及Java实现 顺序表、链表、栈、队列(4653)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/19/2867210.html">13. MFC连接数据库(4160)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4268157.html">14. java  哈夫曼编码(4158)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5983136.html">15. 【集合类型的并发】Collections.synchronizedList(3613)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/22/2870756.html">16. VS2008环境使用MFC操作读取excel文件(3604)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/17/2865176.html">17. MFC中ListControl控件的使用(3319)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/21/2869781.html">18. MFC 导入EXCEL到数据库(2583)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/21/2920848.html">19. ssh生成随机数字验证码(2380)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/03/28/2985848.html">20. Spring Security3 页面 权限标签(2290)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4980190.html">21. Bluetooth 4.0之Android 讲解(2222)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5673960.html">22. 保持Service不被Kill掉的方法--双Service守护 &amp;&amp; Android实现双进程守护 1(2178)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4203763.html">23. JAVA+FlexPaper+OpenOffice+SWFTools文档预览(1983)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/6351214.html">24. Android 计算Bitmap大小(1970)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/07/2848553.html">25. MFC ADO mysql 经验总结一(1884)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/3777409.html">26. Spring整合Quartz定时发送邮件(1883)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5478012.html">27. webview同步cookies(1756)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4871897.html">28. Spring AOP注解通过@Autowired，@Resource，@Qualifier，@PostConstruct，@PreDestroy注入属性的配置文件详解(1689)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/21/2920569.html">29. 学习document.location.href和document.location.replace 区别(1664)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5203910.html">30. mybatis0212   mybatis逆向工程 （MyBatis Generator）(1662)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/21/2920596.html">31. Strtus2标签&lt;s:url&gt;(1629)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4269409.html">32. java 图的邻接矩阵(1611)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5654168.html">33. Android webView 缓存 Cache + HTML5离线功能 解决(1611)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/20/2868550.html">34. _RecordsetPtr(1568)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4833576.html">35. java11  Guava:谷歌开发的集合库(1522)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/06/2848356.html">36. MFC使用ADO对象开发数据库应用程序(1511)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5626509.html">37. Java 如何有效地避免OOM：善于利用软引用和弱引用(1444)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/21/2920612.html">38. s:url标签使用(1424)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4819018.html">39. sessionID和cookie(1377)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5747619.html">40. angularjs  路由  ngRoute  tab切换(1176)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/yaowen/p/5508394.html">1. 我为什么不要你(5)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5983136.html">2. 【集合类型的并发】Collections.synchronizedList(4)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/15/2861733.html">3. C#和C++的区别(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4141622.html">4. Flex开发框架cairngorm入门实例(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4529124.html">5. 给出一个数组A，找出一对 (i, j)使得A[i] &lt;= A[j] (i &lt; j)并且j-i最大(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4272310.html">6. 线性表 及Java实现 顺序表、链表、栈、队列(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4203763.html">7. JAVA+FlexPaper+OpenOffice+SWFTools文档预览(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5080174.html">8. android128   zhihuibeijing   科大讯飞 语音识别(1)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/15/2861733.html">1. C#和C++的区别(3)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/3779284.html">2. quartz CronExpression表达式(2)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/4272310.html">3. 线性表 及Java实现 顺序表、链表、栈、队列(2)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5013366.html">4. Android应用在不同版本间兼容性处理(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5983136.html">5. 【集合类型的并发】Collections.synchronizedList(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5684455.html">6. war包放入tomcat(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5626509.html">7. Java 如何有效地避免OOM：善于利用软引用和弱引用(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5478558.html">8. Android持久化保存cookie(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5203910.html">9. mybatis0212   mybatis逆向工程 （MyBatis Generator）(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/5508394.html">10. 我为什么不要你(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/p/3757571.html">11. HttpClient4.x 使用cookie保持会话(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/26/2933679.html">12. 实现session监听器(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/21/2920848.html">13. ssh生成随机数字验证码(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/02/21/2920646.html">14. JSP的相对路径深入研究（多次完善）(1)</a></li><li><a href="http://www.cnblogs.com/yaowen/archive/2013/01/22/2870762.html">15. VC2010对Excel的操作(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 农夫山泉别墅
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

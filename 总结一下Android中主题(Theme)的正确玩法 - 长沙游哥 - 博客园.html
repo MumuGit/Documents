@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://www.cnblogs.com/zhouyou96/p/5323138.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/bundle-arrow.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/bundle-arrow-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/zhouyou96/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/zhouyou96/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/zhouyou96/wlwmanifest.xml">
+<script async="" src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/analytics.js.下载"></script><script src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'zhouyou96', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/zhouyou96/">游哥</a><br>
+		侠客的风格
+	</div>
+</div>
+
+</div>
+<div id="mylinks">
+<!--done-->
+<a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;&nbsp;
+<a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/zhouyou96/">首页</a>&nbsp;&nbsp;&nbsp;
+<a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;
+<a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E9%95%BF%E6%B2%99%E6%B8%B8%E5%93%A5">联系</a>&nbsp;&nbsp;&nbsp;
+<a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/zhouyou96/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/zhouyou96/rss"><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;&nbsp;&nbsp;
+<a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+</div>
+<div id="mytopmenu">
+	
+		<div id="blog_stats">
+<div class="blogStats">随笔 - 24&nbsp;
+文章 - 0&nbsp;评论 - 199&nbsp;trackbacks - 1
+</div></div>
+	
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/07/01&#39;);return false;">&lt;</a></td><td align="center">2017年8月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/09/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/zhouyou96/archive/2017/08/05.html"><u>5</u></a></td></tr><tr><td class="CalWeekendDay" align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td class="CalWeekendDay" align="center">19</td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center">21</td><td class="CalTodayDay" align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/zhouyou96/">长沙游哥</a><br>园龄：<a href="http://home.cnblogs.com/u/zhouyou96/" title="入园时间：2006-10-11">10年10个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/zhouyou96/followers/">17</a><br>关注：<a href="http://home.cnblogs.com/u/zhouyou96/followees/">3</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;fa61360b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/zhouyou96/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/zhouyou96/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/zhouyou96/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/zhouyou96/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/zhouyou96/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_categories">
+<!--done-->
+
+		<h1 class="catListTitle">随笔分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/zhouyou96/category/245280.html">ASP.NET(3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/zhouyou96/category/245285.html">C++(3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/zhouyou96/category/245281.html">js脚本(6)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/zhouyou96/category/245279.html">Oracle(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/zhouyou96/category/1045321.html">前端(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/zhouyou96/category/245284.html">原创(17)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/zhouyou96/category/245282.html">转载(4)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">随笔档案</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2017/08.html">2017年8月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2017/07.html">2017年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2017/04.html">2017年4月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2016/03.html">2016年3月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_4" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2015/08.html">2015年8月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_5" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2015/07.html">2015年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_6" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2013/03.html">2013年3月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_7" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2012/05.html">2012年5月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_8" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2012/02.html">2012年2月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_9" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2011/06.html">2011年6月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_10" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2010/12.html">2010年12月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_11" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2010/11.html">2010年11月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_12" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2010/05.html">2010年5月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_13" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2010/01.html">2010年1月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_14" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2008/07.html">2008年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_15" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2008/03.html">2008年3月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_16" class="listitem" href="http://www.cnblogs.com/zhouyou96/archive/2007/12.html">2007年12月 (2)</a></li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zhouyou96/p/7284403.html#3753880">1. Re:EF 中 Code First 的数据迁移以及创建视图</a></li>
+        <li class="recent_comment_body">3种各有应用场景，其实看项目实际情况吧。我们这边不管是项目原因还是整体流程原因，往往数据库不由我们所掌控，而且为了后期调整和迁移迭代，所以多次都是使用DB优先，另外推荐使用微软的 EFPowerToo......</li>
+        <li class="recent_comment_author">--Epochs</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zhouyou96/p/7284403.html#3751324">2. Re:EF 中 Code First 的数据迁移以及创建视图</a></li>
+        <li class="recent_comment_body">@lcs-帅谢谢指正，又学到新东西啦。...</li>
+        <li class="recent_comment_author">--长沙游哥</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zhouyou96/p/7284403.html#3751306">3. Re:EF 中 Code First 的数据迁移以及创建视图</a></li>
+        <li class="recent_comment_body">......</li>
+        <li class="recent_comment_author">--lcs-帅</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zhouyou96/p/7284403.html#3751286">4. Re:EF 中 Code First 的数据迁移以及创建视图</a></li>
+        <li class="recent_comment_body">@吴瑞祥原来如此，但我依然觉得就算是Web应用程序，用明文将连接字符串写在Web.config里多少有点让人不太舒服。...</li>
+        <li class="recent_comment_author">--长沙游哥</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zhouyou96/p/7284403.html#3751285">5. Re:EF 中 Code First 的数据迁移以及创建视图</a></li>
+        <li class="recent_comment_body">第一节没看完就直接啦下来评论了.窗体程序就不该直接连服务器数据库.如果连了.那不管怎么加密.客户端都有办法拿到连接字符串加密不加密意义不大.如果是放服务器上用ef.那连接字符串加密不加密.依然意义不大......</li>
+        <li class="recent_comment_author">--吴瑞祥</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/zhouyou96/p/5323138.html">1. 总结一下Android中主题(Theme)的正确玩法(35621)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/archive/2011/06/17/2083566.html">2. java十宗罪(5270)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/archive/2007/12/20/1006905.html">3. Ext2.0 form使用实例(3721)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/archive/2008/07/15/1243001.html">4. isqlweb (Web版 SQL Server 管理器)(3368)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/archive/2013/03/21/2973747.html">5. 深入分析结构体——结构体里有属性必须new才能使用？(2935)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/zhouyou96/archive/2011/06/17/2083566.html">1. java十宗罪(87)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/archive/2008/07/15/1243001.html">2. isqlweb (Web版 SQL Server 管理器)(28)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/p/4743514.html">3. 并不优雅(15)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/archive/2010/11/10/TableEx.html">4. TableEx 控件 v1.0 [原创][免费][开源](13)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/archive/2013/03/21/2973747.html">5. 深入分析结构体——结构体里有属性必须new才能使用？(10)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/zhouyou96/archive/2011/06/17/2083566.html">1. java十宗罪(14)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/p/7284403.html">2. EF 中 Code First 的数据迁移以及创建视图(8)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/p/5323138.html">3. 总结一下Android中主题(Theme)的正确玩法(8)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/archive/2010/11/10/TableEx.html">4. TableEx 控件 v1.0 [原创][免费][开源](7)</a></li><li><a href="http://www.cnblogs.com/zhouyou96/p/4743514.html">5. 并不优雅(4)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>		
+	
+</div>
+<div id="centercontent">
+	
+<div id="post_detail">
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		<h1><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/zhouyou96/p/5323138.html">总结一下Android中主题(Theme)的正确玩法</a></h1>
+	</div>
+	<div id="cnblogs_post_body"><p>在AndroidManifest.xml文件中有&lt;application android:theme="@style/AppTheme"&gt;，其中的@style/AppTheme是引用的res/values/styles.xml 中的主题样式，也有可能是引用的 res/values-v11/styles.xml 或者 res/values-v14/styles.xml，这是根据运行此程序的手机系统来决定的，如果手机系统的API版本是11以上就是v11/styles.xml，以此类推。在values/styles.xml中你会发现AppTheme的主题样式又是继承自AppBaseTheme，而AppBaseTheme的父主题就各有不同了，你也可以从这个位置来自己修改主题，此文章主要就是来讨论这个主题如何修改。</p>
+<p><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/18387-20160326152943901-349881464.png" alt=""></p>
+<p>需要注意的是，做为初学者或者专门来研究主题(Theme)，你最好是删除values-v11和values-v14以及values-vXX，以免被这些东西所干扰。</p>
+<p><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/18387-20160326153243183-674805702.png" alt=""></p>
+<p>&nbsp;</p>
+<p>主题的来源有三个：</p>
+<p>1) 来自Android系统自带的</p>
+<p>2) 来自兼容包的(比如v7兼容包)</p>
+<p>3) 你自己写一个主题</p>
+<p>这里主要探讨前两者，自己写主题不探讨。</p>
+<p>&nbsp;</p>
+<p>使用android系统中自带的主题要加上“android:”，如：android:Theme.Black<br>使用v7兼容包中的主题不需要前缀，直接：Theme.AppCompat</p>
+<p>&nbsp;</p>
+<p>在Android Studio中书写主题时都会有自动提示，而在Eclipse不会有自动提示</p>
+<p><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/18387-20160326153904058-332328847.png" alt=""><br>解决办法是不要写“android:Theme.Black”，而是写“@android:style/Theme.Black”这样就会有提示<br>不要写“Theme.AppCompat”，而是写“@style/Theme.AppCompat”</p>
+<p><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/18387-20160326153917089-334698557.png" alt=""></p>
+<p>因为 style(@android:style/Theme.Black) 与 theme(android:Theme.Black) 在使命上还是有区别的，所以在eclipse中书写时为了出现自动提示，可以写“@android:style/Theme.Black”，但是写完了之后，记得手动的改为“android:Theme.Black”</p>
+<p><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/18387-20160326154207464-353913993.png" alt=""></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;"><strong>现在看看有些什么主题</strong></span></p>
+<blockquote>
+<p>系统自带主题：<br>API 1:<br>android:Theme              根主题<br>android:Theme.Black        背景黑色<br>android:Theme.Light        背景白色<br>android:Theme.Wallpaper    以桌面墙纸为背景<br>android:Theme.Translucent  透明背景<br>android:Theme.Panel        平板风格<br>android:Theme.Dialog       对话框风格</p>
+<p>API 11:<br>android:Theme.Holo          Holo根主题<br>android:Theme.Holo.Black    Holo黑主题<br>android:Theme.Holo.Light    Holo白主题</p>
+<p>API 14:<br>Theme.DeviceDefault         设备默认根主题<br>Theme.DeviceDefault.Black   设备默认黑主题<br>Theme.DeviceDefault.Light   设备默认白主题</p>
+<p>API 21: (网上常说的 Android Material Design 就是要用这种主题)<br>Theme.Material              Material根主题<br>Theme.Material.Light        Material白主题</p>
+<p><br>兼容包v7中带的主题：<br>Theme.AppCompat                  兼容主题的根主题<br>Theme.AppCompat.Black            兼容主题的黑色主题<br>Theme.AppCompat.Light            兼容主题的白色主题</p>
+
+
+
+
+</blockquote>
+<p>&nbsp;</p>
+<p>Theme.AppCompat主题是兼容主题，是什么意思呢？</p>
+<p>意思就是说如果运行程序的手机API是21则就相当于是Material主题，如果运行程序的手机API是11则就相当于是Holo主题，以此类推</p>
+<p>&nbsp;</p>
+<p>兼容包v7会被Google公司不断升级：<br>比如 appcompat-v7-21.0 表示升级到向 API 21 兼容<br>比如 appcompat-v7-23.2 表示升级到向 API 23 兼容</p>
+<p><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/18387-20160326155153573-1849009563.png" alt=""><br>在eclipse中只能看到 appcompat_v7 后面没有跟API的版本号，如何识别呢？<br>可以在eclipse中展开v7项目的res文件夹，查看有没有values-21、values-23这样的文件夹，最大数字就是API版本号了。</p>
+<p><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/18387-20160326155206667-1992468068.png" alt=""><br>所以同样是v7兼容包，会有API版本号不同的区别，要注意。</p>
+<p>&nbsp;</p>
+<p>所有能应用于应用程序主题都是以“Theme.”开头<br>不是以“Theme.”开头的就不是应用程序主题，而是用于某些局部控件<br>比如“ThemeOverlay”主题，可用于 Toolbar 控件，这里不做深入分析了。<br>比如“TextAppearance”主题，可用于设置文字外观，这里不做深入分析了。<br>比如在v7中有很多以“Base”开头的主题，是一些父主题，不建议直接使用。</p>
+<p>&nbsp;</p>
+<p><br>更多主题：<br>以下都是指“<span style="color: #ff0000;"><strong>包含</strong></span>”，比如包含“Dialog”表示对话框风格<br>比如Theme.Dialog、Theme.Holo.Dialog、Theme.Material.Dialog、Theme.AppCompat.Dialog都是对话框风格<br>具体有没有这种组合，你就在“<span style="font-size: 18pt; background-color: #ffff00;"><strong>自动提示</strong></span>”中来看就可以，提示有就有，没有就没有。</p>
+<blockquote>
+<p>Black         黑色风格<br>Light         光明风格<br>Dark          黑暗风格<br>DayNight      白昼风格<br>Wallpaper     墙纸为背景<br>Translucent   透明背景<br>Panel         平板风格<br>Dialog        对话框风格<br>NoTitleBar    没有TitleBar<br>NoActionBar   没有ActionBar<br>Fullscreen    全屏风格<br>MinWidth      对话框或者ActionBar的宽度根据内容变化，而不是充满全屏<br>WhenLarge     对话框充满全屏<br>TranslucentDecor  半透明风格<br>NoDisplay     不显示，也就是隐藏了<br>WithActionBar 在旧版主题上显示ActionBar</p>
+
+
+</blockquote>
+<p>很多主题在使用时会报错，原因有很多，比如窗体必须继承AppCompactActivity，或者要继承ActionBarActiivty，或者要继承FragmentActivity，或者需要手动指定宽高，或者需要提升最低API版本，或者需要更高版本的SDK，或者兼容包版本不对等原因。</p>
+<p>&nbsp;</p>
+<p>使劲折腾吧！！！</p>
+<p>&nbsp;</p>
+<p>写得不好，请批评指正。</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/zhouyou96/category/245284.html" target="_blank">原创</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/zhouyou96/tag/android/">android</a>, <a href="http://www.cnblogs.com/zhouyou96/tag/theme/">theme</a>, <a href="http://www.cnblogs.com/zhouyou96/tag/android%20studio/">android studio</a>, <a href="http://www.cnblogs.com/zhouyou96/tag/eclipse/">eclipse</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5323138,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;fa61360b-63cf-dd11-9e4d-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zhouyou96/" target="_blank"><img src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/20150702151941.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zhouyou96/">长沙游哥</a><br>
+            <a href="http://home.cnblogs.com/u/zhouyou96/followees">关注 - 3</a><br>
+            <a href="http://home.cnblogs.com/u/zhouyou96/followers">粉丝 - 17</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;fa61360b-63cf-dd11-9e4d-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5323138,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">8</span>
+    </div>
+    <div class="buryit" onclick="votePost(5323138,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/zhouyou96/p/4743514.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/zhouyou96/p/4743514.html" title="发布于2015-08-19 21:27">并不优雅</a><br><a href="http://www.cnblogs.com/zhouyou96/p/6732717.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/zhouyou96/p/6732717.html" title="发布于2017-04-19 11:51">Oracle自动备份.bat  最新更新(支持Win10了)</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2016-03-26 16:02</span> <a href="http://www.cnblogs.com/zhouyou96/">长沙游哥</a> 阅读(<span id="post_view_count">35629</span>) 评论(<span id="post_comment_count">4</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5323138" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/zhouyou96/p/5323138.html#" onclick="AddToWz(5323138);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=21946,cb_entryId=5323138,cb_blogApp=currentBlogApp,cb_blogUserGuid='fa61360b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2016/3/26 16:02:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<b>FeedBack:</b>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/zhouyou96/p/5323138.html#3394791" class="layer">#1楼</a><a name="3394791" id="comment_anchor_3394791"></a>&nbsp; <span class="comment_date">2016-03-29 17:21</span>&nbsp;<a id="a_comment_author_3394791" href="http://home.cnblogs.com/u/924089/" target="_blank">Maluma</a> <a href="http://msg.cnblogs.com/send/Maluma" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_3394791" class="blog_comment_body">很好</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3394791,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3394791,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/zhouyou96/p/5323138.html#3461521" class="layer">#2楼</a><a name="3461521" id="comment_anchor_3461521"></a>&nbsp; <span class="comment_date">2016-06-30 11:42</span>&nbsp;<a id="a_comment_author_3461521" href="http://home.cnblogs.com/u/570115/" target="_blank">许助云</a> <a href="http://msg.cnblogs.com/send/%E8%AE%B8%E5%8A%A9%E4%BA%91" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_3461521" class="blog_comment_body">写的很实用，解决了我的问题。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3461521,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3461521,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/zhouyou96/p/5323138.html#3521624" class="layer">#3楼</a><a name="3521624" id="comment_anchor_3521624"></a>&nbsp; <span class="comment_date">2016-09-28 16:23</span>&nbsp;<a id="a_comment_author_3521624" href="http://home.cnblogs.com/u/1034693/" target="_blank">gwulundi</a> <a href="http://msg.cnblogs.com/send/gwulundi" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_3521624" class="blog_comment_body">写的真的很好了，通俗易懂，非常感谢分享！为了回复专门注册的账号。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3521624,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3521624,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/zhouyou96/p/5323138.html#3664313" class="layer">#4楼</a><a name="3664313" id="comment_anchor_3664313"></a><span id="comment-maxId" style="display:none;">3664313</span><span id="comment-maxDate" style="display:none;">2017/4/10 15:39:46</span>&nbsp; <span class="comment_date">2017-04-10 15:39</span>&nbsp;<a id="a_comment_author_3664313" href="http://home.cnblogs.com/u/566903/" target="_blank">太白银杏</a> <a href="http://msg.cnblogs.com/send/%E5%A4%AA%E7%99%BD%E9%93%B6%E6%9D%8F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_3664313" class="blog_comment_body">非常感谢，解决了一直以来的困扰</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3664313,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3664313,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div></div></div></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/zhouyou96/p/5323138.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/zhouyou96/p/5323138.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.jiguang.cn/devservice?bky" target="_blank">【推荐】极光开发者服务平台，五大功能一站集齐</a><br><a href="https://dnspod.cloud.tencent.com/act/seckill?fromSource=gwzcw.410370.410370.410370" target="_blank">【推荐】腾讯云域名+云解析 限时折扣抓紧抢购</a><br><a href="http://click.aliyun.com/m/18488/" target="_blank">【推荐】阿里云“全民云计算”优惠升级</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.330910.330910.330910" target="_blank">【推荐】一小时搭建人工智能应用，让技术更容易入门</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://cn.udacity.com/mlnd/?utm_source=cnblogs&amp;utm_medium=banner&amp;utm_campaign=MLND06" target="_blank"><img width="300" height="250" src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/24442-20170816053533459-1918329004.png" alt="Udacity08.15 - 08.22"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/576635/" target="_blank">比太阳能更稳的定发电技术：日本秀洋流黑科技</a><br> ·  <a href="http://news.cnblogs.com/n/576634/" target="_blank">西安女子获赠支付宝空白机票 目的地随便填</a><br> ·  <a href="http://news.cnblogs.com/n/576633/" target="_blank">索尼PlayStation官方推特被黑 结果出人意外</a><br> ·  <a href="http://news.cnblogs.com/n/576632/" target="_blank">丝般顺滑！安卓8.0正式版新功能体验：智能、人性化</a><br> ·  <a href="http://news.cnblogs.com/n/576631/" target="_blank">用户数仅腾讯视频10% 搜狐视频已彻底掉队？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky&amp;hmsr=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;hmpl=&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank"><img width="468" height="60" src="./总结一下Android中主题(Theme)的正确玩法 - 长沙游哥 - 博客园_files/24442-20170727100914671-839522651.gif" alt="极光0801"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br> ·  <a href="http://kb.cnblogs.com/page/569057/" target="_blank">架构腐化之谜</a><br> ·  <a href="http://kb.cnblogs.com/page/572854/" target="_blank">学会思考，而不只是编程</a><br> ·  <a href="http://kb.cnblogs.com/page/574767/" target="_blank">编写Shell脚本的最佳实践</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	
+<!--done-->
+<div class="footer">
+	
+	Copyright ©2017 长沙游哥 Powered by: <a href="http://www.cnblogs.com/" class="footerlink">博客园</a> 模板提供：<a href="http://blog.hjenglish.com/" class="footerlink">沪江博客</a><br>
+</div>
+</div>
+
+
+
+
+
+</body></html>

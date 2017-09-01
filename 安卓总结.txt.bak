@@ -1,0 +1,12 @@
+
+?android:attr/actionBarSize和?attr/actionBarSize是一样的
+
+2.
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+  <android.support.v7.widget.Toolbar
+        style="@style/AppTheme.Toolbar"
+        app:title="dddd">
+app这个属性哪来的？
+
+3.如果手机没有物理Menu键的话，overflow按钮就可以显示，如果有物理Menu键的话，overflow按钮就不会显示出来。

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/bundle-BlackLowKey.css">
+<link type="text/css" rel="stylesheet" href="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/104901.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/bundle-BlackLowKey-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/yc-755909659/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/yc-755909659/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/yc-755909659/wlwmanifest.xml">
+<script async="" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/encoder.js.下载"></script><script src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'yc-755909659', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<script type="text/javascript" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/honehone_clock.js.下载"></script>
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/yc-755909659/"><img id="blogLogo" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/yc-755909659/"></a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/yc-755909659/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E5%8F%B6%E8%B6%85Luka">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/yc-755909659/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/yc-755909659/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 213&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 210</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html">【Android Demo】让Android支持自定义的ttf字体</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&nbsp;所谓无图无真相，先看效果图：</p>
+<p><img src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/2012040121150271.png" alt=""></p>
+<p>&nbsp;</p>
+<p>Java代码如下：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #0000ff;">package</span> yc.android.fonts;<br><br>    <span style="color: #0000ff;">import</span> android.app.Activity;<br>    <span style="color: #0000ff;">import</span> android.graphics.Typeface;<br>    <span style="color: #0000ff;">import</span> android.os.Bundle;<br>    <span style="color: #0000ff;">import</span> android.widget.TextView;<br><br>    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> Y_fonts <span style="color: #0000ff;">extends</span> Activity {<br>            <span style="color: #008000;">/**</span><span style="color: #008000;"> Called when the activity is first created. </span><span style="color: #008000;">*/</span><br>            @Override<br>            <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onCreate(Bundle savedInstanceState) {<br>                    <span style="color: #0000ff;">super</span>.onCreate(savedInstanceState);<br>                    setContentView(R.layout.main);<br>                    <span style="color: #008000;">/*</span><span style="color: #008000;"><br>                     * 必须事先在assets底下创建一fonts文件夹 并放入要使用的字体文件(.ttf)<br>                     * 并提供相对路径给creatFromAsset()来创建Typeface对象<br>                     </span><span style="color: #008000;">*/</span><br>                    Typeface fontFace = Typeface.createFromAsset(getAssets(),<br>                                    "fonts/STXINGKA.TTF");<br>                    <span style="color: #008000;">//</span><span style="color: #008000;"> 字体文件必须是true type font的格式(ttf)；<br>                    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 当使用外部字体却又发现字体没有变化的时候(以 Droid Sans代替)，通常是因为<br>                    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 这个字体android没有支持,而非你的程序发生了错误</span><span style="color: #008000;"><br></span><br>                    TextView text = (TextView) findViewById(R.id.ttf);<br>                    text.setTypeface(fontFace);<br>            }<br>    }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>PS:<br> 我使用的字体是华文行楷<br> 由于Android系统对字体文件的支持问题，该字体文件2.3.3版本以上有效，2.2版本不支持。</p>
+<p>&nbsp;</p>
+<p>来源：<a href="http://www.eoeandroid.com/thread-163834-1-1.html" target="_blank">http://www.eoeandroid.com/thread-163834-1-1.html</a><br><br></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/yc-755909659/category/472285.html" target="_blank">【Android 开发】</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/yc-755909659/tag/Android%20Demo/">Android Demo</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2429363,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;da93814b-2623-e111-b422-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/yc-755909659/" target="_blank"><img src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/20160103145453.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/yc-755909659/">叶超Luka</a><br>
+            <a href="http://home.cnblogs.com/u/yc-755909659/followees">关注 - 4</a><br>
+            <a href="http://home.cnblogs.com/u/yc-755909659/followers">粉丝 - 315</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;da93814b-2623-e111-b422-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2429363,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">2</span>
+    </div>
+    <div class="buryit" onclick="votePost(2429363,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/04/2431962.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/04/2431962.html" title="发布于2012-04-04 14:52">【Android Demo】自定义Activity的标题栏(Titlebar)</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2012-04-01 21:18</span> <a href="http://www.cnblogs.com/yc-755909659/">叶超Luka</a> 阅读(<span id="post_view_count">21869</span>) 评论(<span id="post_comment_count">3</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=2429363" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html#" onclick="AddToWz(2429363);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=104901,cb_entryId=2429363,cb_blogApp=currentBlogApp,cb_blogUserGuid='da93814b-2623-e111-b422-842b2b196315',cb_entryCreatedDate='2012/4/1 21:18:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html#2348261" class="layer">#1楼</a><a name="2348261" id="comment_anchor_2348261"></a>  <span class="comment_date">2012-04-05 22:38</span> <a id="a_comment_author_2348261" href="http://www.cnblogs.com/evil2012/" target="_blank">我是谁2012</a> <a href="http://msg.cnblogs.com/send/%E6%88%91%E6%98%AF%E8%B0%812012" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2348261" class="blog_comment_body">这个字体文件大小冒似有限制，大于1M的好像不支持，这个怎么办？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2348261,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2348261,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html#2348264" class="layer">#2楼</a><a name="2348264" id="comment_anchor_2348264"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2012-04-05 22:45</span> <a id="a_comment_author_2348264" href="http://www.cnblogs.com/yc-755909659/" target="_blank">叶超Luka</a> <a href="http://msg.cnblogs.com/send/%E5%8F%B6%E8%B6%85Luka" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2348264" class="blog_comment_body"><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html#2348261" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2348261);">@</a>
+我是谁2012<br><br>不会啊，我加载的字体文件都3.8M，怎么可能啊。<br>你到来源帖子处，下载源码，就知道不存在这情况的，应该是你的机子系统不支持该字体啦，和大小没关系的。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2348264,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2348264,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2348264_avatar" style="display:none;">http://pic.cnblogs.com/face/359646/20160103145453.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html#3360444" class="layer">#3楼</a><a name="3360444" id="comment_anchor_3360444"></a><span id="comment-maxId" style="display:none;">3360444</span><span id="comment-maxDate" style="display:none;">2016/2/10 22:08:22</span>  <span class="comment_date">2016-02-10 22:08</span> <a id="a_comment_author_3360444" href="http://www.cnblogs.com/lovingalice/" target="_blank">lovingAlice</a> <a href="http://msg.cnblogs.com/send/lovingAlice" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3360444" class="blog_comment_body">知道了，谢谢博主</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3360444,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3360444,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3360444_avatar" style="display:none;">http://pic.cnblogs.com/face/871433/20170130003536.png</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.jiguang.cn/devservice?bky" target="_blank">【推荐】极光开发者服务平台，五大功能一站集齐</a><br><a href="https://dnspod.cloud.tencent.com/act/seckill?fromSource=gwzcw.410370.410370.410370" target="_blank">【推荐】腾讯云域名+云解析 限时折扣抓紧抢购</a><br><a href="http://click.aliyun.com/m/18488/" target="_blank">【推荐】阿里云“全民云计算”优惠升级</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.330910.330910.330910" target="_blank">【推荐】一小时搭建人工智能应用，让技术更容易入门</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://click.aliyun.com/m/26126/" target="_blank"><img width="300" height="250" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/24442-20170718132533661-166801094.jpg" alt="阿里云0718"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/576893/" target="_blank">在向机器人征税这件事上，一位旧金山官员的想法和盖茨是一致的</a><br> ·  <a href="http://news.cnblogs.com/n/576892/" target="_blank">张朝阳：创业巅峰到十年萎靡 53岁的他又杀回来了</a><br> ·  <a href="http://news.cnblogs.com/n/576891/" target="_blank">Google工程师一天写多少代码？</a><br> ·  <a href="http://news.cnblogs.com/n/576890/" target="_blank">腾讯推出升级版“七夕黄金红包”，借社交关系链推动黄金交易</a><br> ·  <a href="http://news.cnblogs.com/n/576889/" target="_blank">C# 8.0先睹为快</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky&amp;hmsr=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;hmpl=&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank"><img width="468" height="60" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/24442-20170727100914671-839522651.gif" alt="极光0801"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br> ·  <a href="http://kb.cnblogs.com/page/569057/" target="_blank">架构腐化之谜</a><br> ·  <a href="http://kb.cnblogs.com/page/572854/" target="_blank">学会思考，而不只是编程</a><br> ·  <a href="http://kb.cnblogs.com/page/574767/" target="_blank">编写Shell脚本的最佳实践</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div style="display: table; text-align: center; width: 100%; height: 100%;">
+  <div style="display: table-cell; vertical-align: middle;"> <img id="headPortrait" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/20160103145453(1).png" alt="my photo"> </div>
+</div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/yc-755909659/">叶超Luka</a><br>园龄：<a href="http://home.cnblogs.com/u/yc-755909659/" title="入园时间：2011-12-10">5年8个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/yc-755909659/followers/">315</a><br>关注：<a href="http://home.cnblogs.com/u/yc-755909659/followees/">4</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;da93814b-2623-e111-b422-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2012/03/01&#39;);return false;">&lt;</a></td><td align="center">2012年4月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2012/05/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01.html"><u>1</u></a></td><td align="center">2</td><td align="center">3</td><td align="center"><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/04.html"><u>4</u></a></td><td align="center">5</td><td align="center">6</td><td class="CalWeekendDay" align="center">7</td></tr><tr><td class="CalWeekendDay" align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center"><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/12.html"><u>12</u></a></td><td align="center"><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/13.html"><u>13</u></a></td><td class="CalWeekendDay" align="center">14</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/15.html"><u>15</u></a></td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td class="CalWeekendDay" align="center">21</td></tr><tr><td class="CalWeekendDay" align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td class="CalWeekendDay" align="center">28</td></tr><tr><td class="CalWeekendDay" align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/yc-755909659/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/yc-755909659/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/yc-755909659/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/yc-755909659/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/yc-755909659/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/yc-755909659/p/7171596.html">1. 【SQL 代码】SQL复制数据表及表结构</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6530131.html">2. Web 前端面试题整理(不定时更新)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6610566.html">3. HTML和CSS中判断IE版本并实现相应HTML和CSS</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6602222.html">4. 【转】JavaScript 的装载和执行</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6599553.html">5. 【转】浏览器的渲染原理</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6594877.html">6. Html5游戏框架createJS组件--EaselJS</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6590210.html">7. 【Little Demo】左右按钮tab选项卡双切换</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6569039.html">8. 【Little Demo】从简单的Tab标签到Tab图片切换</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6565244.html">9. 前端工程师说明（仅以自勉）</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/6560041.html">10. CSS 布局整理</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/yc-755909659/tag/JavaScript/">JavaScript</a>(29)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E3%80%8AAndroid%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E3%80%8B/">读书笔记《Android游戏编程之从零开始》</a>(20)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/ASP.NET%20%E8%BF%9B%E9%98%B6/">ASP.NET 进阶</a>(14)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/Android%20Demo/">Android Demo</a>(12)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/Css/">Css</a>(11)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/%E7%BD%91%E7%BB%9C%E6%96%87%E6%91%98/">网络文摘</a>(11)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/Android%20UI%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/">Android UI设计与开发</a>(10)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/MVC%204/">MVC 4</a>(9)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/SQL/">SQL</a>(7)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/Ext.Net%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Ext.Net学习笔记</a>(7)</li><li><a href="http://www.cnblogs.com/yc-755909659/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(213)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/yc-755909659/category/472285.html">【Android 开发】(53)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/yc-755909659/category/472286.html">【ASP.NET 开发】(42)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/yc-755909659/category/583120.html">【C# 笔记】(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/yc-755909659/category/583114.html">【Ext.Net 开发】(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/yc-755909659/category/688635.html">【iOS 开发】(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/yc-755909659/category/472290.html">【SqlServer】(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/yc-755909659/category/472287.html">【Web前端】(73)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/yc-755909659/category/472288.html">【Windows OS】(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/yc-755909659/category/644972.html">【软件使用】(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/yc-755909659/category/614504.html">【算法与数据结构】(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/yc-755909659/category/761146.html">【网络文摘】(11)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	275516
+	</li>
+	<li class="liRank">
+		排名 -	611
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yc-755909659/p/4290784.html#3764131">1. Re:【Android UI设计与开发】8.顶部标题栏（一）ActionBar 奥义·详解</a></li>
+        <li class="recent_comment_body">转载请注明出处，明显大部分粘贴csdn郭霖的嘛。<a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/01/2429363.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--澎湃的代码激情</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yc-755909659/p/5928209.html#3764086">2. Re:【读书笔记《Bootstrap 实战》】1.初识Bootstrap</a></li>
+        <li class="recent_comment_body">mark</li>
+        <li class="recent_comment_author">--youloveme</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yc-755909659/p/4290784.html#3749573">3. Re:【Android UI设计与开发】8.顶部标题栏（一）ActionBar 奥义·详解</a></li>
+        <li class="recent_comment_body">目前看过最好的关于actionbar的文章，完美啊！感谢！</li>
+        <li class="recent_comment_author">--spkingr</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yc-755909659/p/4884576.html#3740866">4. Re:【ASP.NET 插件】zyUpload的HTML5上传插件</a></li>
+        <li class="recent_comment_body">博主，我这边做图片上传需要做判断，可是，我上传失败也也是上传成功，这事怎么回事呢，是这个demo没考虑失败的情况吗？？</li>
+        <li class="recent_comment_author">--最幸运的爷</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yc-755909659/p/5254427.html#3708034">5. Re:【MVC 4】4.MVC 基本工具（Visual Studio 的单元测试、使用Moq）</a></li>
+        <li class="recent_comment_body">不错！</li>
+        <li class="recent_comment_author">--东篱南山</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/yc-755909659/p/4290114.html">1. 【Android 基础】Animation 动画介绍和实现(65503)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4290784.html">2. 【Android UI设计与开发】8.顶部标题栏（一）ActionBar 奥义·详解(51053)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4306938.html">3. 【Android UI设计与开发】9：滑动菜单栏（一）开源项目SlidingMenu的使用和示例(40301)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/12/25/2832673.html">4. 【C#】时间戳转换(38671)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/3753626.html">5. 【软件使用】GitHub使用教程for Eclipse(36350)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4080645.html">6. 【问题&amp;解决】解决创建Android模拟器时提示"No system images installed for this target"的问题(35900)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2013/03/20/2971557.html">7. 【问题&amp;解决】Android导入一个工程时提示 Invalid project description的解决方法(33012)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/08/18/2645404.html">8. 【问题&amp;解决】解决eclipse不识别Android手机的问题(27301)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/3605214.html">9. 【问题&amp;解决】手机网页Html代码实现（解决显示页面很小的问题）(25086)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4286672.html">10. 【Android UI设计与开发】5.底部菜单栏（二）使用Fragment实现底部菜单栏(23634)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/yc-755909659/p/4884576.html">1. 【ASP.NET 插件】zyUpload的HTML5上传插件(25)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/07/10/2584703.html">2. WCF初见之SQL数据库的增删改查(17)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/10/10/2718713.html">3. 【Javascript Demo】一个日期下拉菜单的实现(12)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2013/04/17/3026409.html">4. 【ASP.NET 基础】图片上传和显示(8)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4073415.html">5. 【问题&amp;解决】解决 Android SDK下载和更新失败“Connection to https://dl-ssl.google.com refused”的问题(8)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4195436.html">6. 【Android 我的博客APP】1.抓取博客首页文章列表内容——网页数据抓取(7)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/3753626.html">7. 【软件使用】GitHub使用教程for Eclipse(7)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/04/2431962.html">8. 【Android Demo】自定义Activity的标题栏(Titlebar)(6)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4290784.html">9. 【Android UI设计与开发】8.顶部标题栏（一）ActionBar 奥义·详解(6)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/06/12/2546279.html">10. WCF初见之SQL数据库的连接和查询(5)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/yc-755909659/p/3753626.html">1. 【软件使用】GitHub使用教程for Eclipse(12)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4290784.html">2. 【Android UI设计与开发】8.顶部标题栏（一）ActionBar 奥义·详解(11)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4884576.html">3. 【ASP.NET 插件】zyUpload的HTML5上传插件(8)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4290114.html">4. 【Android 基础】Animation 动画介绍和实现(7)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/09/25/2701903.html">5. 【HTML】有利于SEO的DIV+CSS的命名规则(7)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/06/12/2546279.html">6. WCF初见之SQL数据库的连接和查询(6)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2013/04/23/3038274.html">7. 【jQuery Demo】打造动态渐变按钮(6)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/3753355.html">8. 【软件使用】GitHub使用教程for VS2012(6)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/archive/2012/04/04/2431962.html">9. 【Android Demo】自定义Activity的标题栏(Titlebar)(5)</a></li><li><a href="http://www.cnblogs.com/yc-755909659/p/4073415.html">10. 【问题&amp;解决】解决 Android SDK下载和更新失败“Connection to https://dl-ssl.google.com refused”的问题(5)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 叶超Luka
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<div id="goup"></div> 
+<script type="text/javascript" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/goup.js.下载"></script>
+<script type="text/javascript" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/yc_blog.js.下载"></script>
+<script type="text/javascript" src="./【Android Demo】让Android支持自定义的ttf字体 - 叶超Luka - 博客园_files/plugins.js.下载"></script>
+<script type="text/javascript">
+   function BecomeGray(){
+        if(document.body.className==""){
+            document.body.className = "body_gray";
+        } else {
+            document.body.className ="";
+        }
+    }
+</script>
+<!--PageEndHtml Block End-->
+
+
+</body></html>
