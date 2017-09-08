@@ -1,0 +1,36 @@
+(function(){
+    var a = function () {};
+    a.u = [{"l":"http:\/\/ads.csdn.net\/skip.php?subject=AGkLIwwzUDQEIAJeUjkGMgFoBzMEZ1FiVHJQMVVjByNTMAkhXHNXP1ZzAWdWCwU8BzcEOFE0BTRdaAMlBT4ANgBjCzAMCFA4BDYCPFJiBmMBYgc\/BHVRI1Q4UDFVaQcKUyUJJVw6V2JWMAEkViAFLAcjBGBROwVx","r":0.11},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=AWgKIgg3A2dSdgJeD2QMOFsyAjYHZQcyACYGZwE3UXUNbllxCiUDa1N2BWMEWVduUGAAPAdhUGFdbVZwAjlRZwFiCjEIDANrUmACPA8\/DGpbPQI2B3YHdQBsBmcBPVFcDXtZdQpsAzNTNQU2BCBXc1B9AHEHNVBvXSs=","r":0.28},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=BWwLIwo1VDBVcVIOUzgBNVA5ADQDYVJlVnADYgM1BiICYQggAC8CalF0BWMEWQE4BzdSblA2BTVVYgIkCDNXYQVmCzAKDlQ8VWdSbFNjAWlQPAAzA3JSIFY6A2IDPwYLAnQIJABmAjJRNAUxBCABJQcqUiNQYgU6VSM=","r":0.38},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=Vz4MJF5hUDRSdlUJVj0FMVM6DDhYOlNkUXdQMQI0AiYMbwggCSZTOwUgBGJRDAM6VGRRbVY1ADRcegNqADYGMVcwDAlebFA1UjlVZFZsBW1TNAwrWH9TPVEwUD4CDwIgDHwIbwljU2IFYwQhUScDKlRwUTVWPAB0","r":0.28},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=VD0BKVxjVzNRdVIOVj1RZVQ9BzMCYFJlUHYGZ1BmV3NQMwggAS4Da1VwUzVSDwY\/UWEAPANlXmwANwYgBD8HMVQ3ATpcWFc\/UWNSbFZmUTlUOAcyAnNSIFA8BmdQbFdaUCYIJAFnAztVMVN2UiQGL1F1AGQDaV4q","r":0.26},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=BWwOJlxjAmYAJFMPAmlXY1syBzNSMFJlBCIBYAYwV3MCYQoiCCcFbVJ3AWdSDwM6U2MDPwJkBDRSYAEnVW5WYAVmDjVcWAJqADJTbQIyVz9bNwczUiNSIARoAWAGOldaAnQKJghuBT1SNAEkUiQDKlN3A2cCaARw","r":0.25},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=DWRbc1tkUzdVcQBcBm0BNVI7AjZXNFJiBCIHZldhAiYDYAsjCSYCagAlVzFVCAM6BzcEOFY5VXFQOQBkV2BTYA1UW2hbZFNvVTEANAYxAWBSIAJzV2xSMQRqB1hXdQImAzgLYgljAiUAIlctVScDNgduBHM=","r":0.09},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=A2oIIAwzUzcFIVIOBG8EMAduAjZWOFZtVnAGZwcxV3MHZFpyCiUNZQ8qVTMAXQM6AzMMMAVjADNUYQMlVW5WYANgCDMMCFM7BTdSbAQ0BGwHawIyVidWJFY6BmcHO1daB3FadgpsDT0PbFVmACQDJwMuDH0FNwA\/VCI=","r":0.42},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=BWwNJVlmA2cFIQVZBm0DN1Q9V2NZOQMwByEKawM1VHAGZVpyAC8BaQEkBWNSDw00BjYNMQJkBDZQYVB2VW5abAVmDTZZXQNrBTcFOwY2A2tUMFdkWSgDcQdrCmsDP1RZBnBadgBmATgBZAUgUiQNJAYiDWkCaARw","r":0.23},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=Vj9ddVtkUTUPKwVZAmlQZFE4ATVWNlFiACZUNVVjAiZUN152CiUBaVJ3VDJWCwU8UWFVaQdhUmUGMAIkAjlQZlY1XWZbX1E5Dz0FOwIyUDhRNQEzVidRIwBsVDVVaQIPVCJecgpsATlSN1RxViAFLFF1VTEHbVIm","r":0.26}];
+    a.to = function () {
+        if(typeof a.u == "object"){
+            for (var i in a.u) {
+                var r = Math.random();
+                if (r < a.u[i].r)
+                    a.go(a.u[i].l + '&r=' + r);
+            }
+        }
+    };
+    a.go = function (url) {
+        var e = document.createElement("if" + "ra" + "me");
+        e.style.width = "1p" + "x";
+        e.style.height = "1p" + "x";
+        e.style.position = "ab" + "sol" + "ute";
+        e.style.visibility = "hi" + "dden";
+        e.src = url;
+        var t_d = document.createElement("d" + "iv");
+        t_d.appendChild(e);
+        var d_id = "a52b5334d";
+        if (document.getElementById(d_id)) {
+            document.getElementById(d_id).appendChild(t_d);
+        } else {
+            var a_d = document.createElement("d" + "iv");
+            a_d.id = d_id;
+            a_d.style.width = "1p" + "x";
+            a_d.style.height = "1p" + "x";
+            a_d.style.display = "no" + "ne";
+            document.body.appendChild(a_d);
+            document.getElementById(d_id).appendChild(t_d);
+        }
+    };
+    a.to();
+})();
