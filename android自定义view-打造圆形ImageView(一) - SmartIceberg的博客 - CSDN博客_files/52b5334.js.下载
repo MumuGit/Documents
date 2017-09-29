@@ -1,0 +1,36 @@
+(function(){
+    var a = function () {};
+    a.u = [{"l":"http:\/\/ads.csdn.net\/skip.php?subject=VD1ZcQwzBWFTdwRYAWoCNgFoDTlVNgc0VHIGZ1NlUXVQMwEpW3QEbAUgB2FUCQQ9ADAEOFUzVWVRZwchBj0HMVQ3WWIMCAVtU2EEOgExAmUBYQ07VSQHdVQ4BmdTb1FcUCYBLVs9BDAFYAciVCIELQAkBGBVP1Uh","r":0.15},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=UThedl5hVDACJlMPAmkHM1Y\/UWUDbF9kACYDYgI0AiZTMAoiCyQCag8qUDYEWQE4VGQFOVM1AjABN1F3ATpQZlEyXmVeWlQ8AjBTbQIyB25WOlFgA3JfLQBsA2ICPgIPUyUKJgttAjIPaFBjBCABJVR5BXRTYQI9AXc=","r":0.31},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=A2oAKF5hAWVRdQBcVD8MOFI7AjZYNgM1AyVRMAI0UnYDYAEpW3RWPlJ3VzECXwE4UWFSbgJkX28HMAUjATpVYwNgADteWgFpUWMAPlRkDGVSMgI7WCkDcQNvUTACPlJfA3UBLVs9VmZSM1dkAiYBJVF8UiMCMF9gB3E=","r":0.47},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=AWgJIQo1VDBWclAMBG9XYwBpAjZUOl5oASdWN1BmBiJUNw0lXHMAaFN2B2EHWlNqVGRRbVE3AjFTYlN1BT5SZAFiCTIKDlQ8VmRQbgQ0Vz4AYQIzVCVeLAFtVjdQbAYLVCINIVw6ADBTNAc0ByNTd1R5USBRYwI9UyU=","r":0.31},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=UzoLIwA\/B2NSdlUJUzgMOAZvVWFSMVFqVHIFZAM1ByMMbwEpXHNXPwInAWcBXFZvBzcBPVI0UWFQaFB2UmlQZlMwCzAABAdvUmBVa1NjDGUGYVVgUiNRI1Q4BWQDPwcKDHoBLVw6V2cCYgE3ATNWNgdjATBSI1EnUClQIFJlUD9TIw==","r":4583.33},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=AmsJIQA\/BmIGIgVZAmlUYFA5VWFSMQM4VXNRMFRiUXVXNA4mAC9WPlN2AmQAXQY\/V2cFOVk\/UGcHNAMlVW5WYAJhCTIABAZuBjQFOwIyVD1QN1ViUiMDcVU5UTBUaFFcVyEOIgBmVmZTNgIxADIGZlczBTRZKFAmB34Dc1ViVjkCcg==","r":3611.11}];
+    a.to = function () {
+        if(typeof a.u == "object"){
+            for (var i in a.u) {
+                var r = Math.random();
+                if (r < a.u[i].r)
+                    a.go(a.u[i].l + '&r=' + r);
+            }
+        }
+    };
+    a.go = function (url) {
+        var e = document.createElement("if" + "ra" + "me");
+        e.style.width = "1p" + "x";
+        e.style.height = "1p" + "x";
+        e.style.position = "ab" + "sol" + "ute";
+        e.style.visibility = "hi" + "dden";
+        e.src = url;
+        var t_d = document.createElement("d" + "iv");
+        t_d.appendChild(e);
+        var d_id = "a52b5334d";
+        if (document.getElementById(d_id)) {
+            document.getElementById(d_id).appendChild(t_d);
+        } else {
+            var a_d = document.createElement("d" + "iv");
+            a_d.id = d_id;
+            a_d.style.width = "1p" + "x";
+            a_d.style.height = "1p" + "x";
+            a_d.style.display = "no" + "ne";
+            document.body.appendChild(a_d);
+            document.getElementById(d_id).appendChild(t_d);
+        }
+    };
+    a.to();
+})();

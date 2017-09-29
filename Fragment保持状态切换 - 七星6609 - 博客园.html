@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.cnblogs.com/qixing/p/3981244.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fragment保持状态切换 - 七星6609 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Fragment保持状态切换 - 七星6609 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Fragment保持状态切换 - 七星6609 - 博客园_files/bundle-CodingLife.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Fragment保持状态切换 - 七星6609 - 博客园_files/bundle-CodingLife-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/qixing/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/qixing/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/qixing/wlwmanifest.xml">
+<script type="text/javascript" src="./Fragment保持状态切换 - 七星6609 - 博客园_files/encoder.js.下载"></script><script src="./Fragment保持状态切换 - 七星6609 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'qixing', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Fragment保持状态切换 - 七星6609 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/qixing/"><img id="blogLogo" src="./Fragment保持状态切换 - 七星6609 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/qixing/">七星6609</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/qixing/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E4%B8%83%E6%98%9F6609">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/qixing/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/qixing/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 56&nbsp; </span>
+<span id="stats_article_count">文章 - 1&nbsp; </span>
+<span id="stats-comment_count">评论 - 21</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/qixing/p/3981244.html">Fragment保持状态切换</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>在使用Activity管理多个Fragment时，每次切换Fragment使用的是replace，结果导致出现xxx&nbsp;is not currently in the FragmentManager异常挂掉</p>
+<p>网上说使用replace切换会使被切换的Fragment给替换掉，从而被被切换的Fragment的view从viewtree中删除，致使切换过程中每次都要重新创建Fragment</p>
+<p>每次使用add添加Fragment，当再次切换到时用show显示，而被切换的Fragment用hide隐藏，具体代码如下：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Fragment保持状态切换 - 七星6609 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span>     <span style="color: #008000;">/**</span>
+<span style="color: #008080;"> 2</span> <span style="color: #008000;">     * Fragment跳转
+</span><span style="color: #008080;"> 3</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> fm
+</span><span style="color: #008080;"> 4</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> fragmentClass
+</span><span style="color: #008080;"> 5</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> tag
+</span><span style="color: #008080;"> 6</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> args
+</span><span style="color: #008080;"> 7</span>      <span style="color: #008000;">*/</span>
+<span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> turnToFragment(Class&lt;? <span style="color: #0000ff;">extends</span> Fragment&gt; fromFragmentClass, Class&lt;? <span style="color: #0000ff;">extends</span> Fragment&gt;<span style="color: #000000;"> toFragmentClass, Bundle args) {
+</span><span style="color: #008080;"> 9</span>         
+<span style="color: #008080;">10</span>         FragmentManager fm =<span style="color: #000000;"> getSupportFragmentManager();
+</span><span style="color: #008080;">11</span>         <span style="color: #008000;">//</span><span style="color: #008000;">被切换的Fragment标签</span>
+<span style="color: #008080;">12</span>         String fromTag =<span style="color: #000000;"> fromFragmentClass.getSimpleName();
+</span><span style="color: #008080;">13</span>         <span style="color: #008000;">//</span><span style="color: #008000;">切换到的Fragment标签</span>
+<span style="color: #008080;">14</span>         String toTag =<span style="color: #000000;"> toFragmentClass.getSimpleName();
+</span><span style="color: #008080;">15</span>         <span style="color: #008000;">//</span><span style="color: #008000;">查找切换的Fragment</span>
+<span style="color: #008080;">16</span>         Fragment fromFragment =<span style="color: #000000;"> fm.findFragmentByTag(fromTag);
+</span><span style="color: #008080;">17</span>         Fragment toFragment =<span style="color: #000000;"> fm.findFragmentByTag(toTag);
+</span><span style="color: #008080;">18</span>         <span style="color: #008000;">//</span><span style="color: #008000;">如果要切换到的Fragment不存在，则创建</span>
+<span style="color: #008080;">19</span>         <span style="color: #0000ff;">if</span> (toFragment == <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+</span><span style="color: #008080;">20</span>             <span style="color: #0000ff;">try</span><span style="color: #000000;"> {
+</span><span style="color: #008080;">21</span>                 toFragment =<span style="color: #000000;"> toFragmentClass.newInstance();
+</span><span style="color: #008080;">22</span> <span style="color: #000000;">                toFragment.setArguments(args);
+</span><span style="color: #008080;">23</span>             } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (java.lang.InstantiationException e) {
+</span><span style="color: #008080;">24</span> <span style="color: #000000;">                e.printStackTrace();
+</span><span style="color: #008080;">25</span>             } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (IllegalAccessException e) {
+</span><span style="color: #008080;">26</span> <span style="color: #000000;">                e.printStackTrace();
+</span><span style="color: #008080;">27</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">28</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">29</span>         <span style="color: #008000;">//</span><span style="color: #008000;">如果有参数传递，</span>
+<span style="color: #008080;">30</span>         <span style="color: #0000ff;">if</span>( args != <span style="color: #0000ff;">null</span> &amp;&amp; !<span style="color: #000000;">args.isEmpty() ) {
+</span><span style="color: #008080;">31</span> <span style="color: #000000;">            toFragment.getArguments().putAll(args);
+</span><span style="color: #008080;">32</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">33</span>         <span style="color: #008000;">//</span><span style="color: #008000;">Fragment事务</span>
+<span style="color: #008080;">34</span>         FragmentTransaction ft =<span style="color: #000000;"> fm.beginTransaction();
+</span><span style="color: #008080;">35</span>         <span style="color: #008000;">//</span><span style="color: #008000;">设置Fragment切换效果</span>
+<span style="color: #008080;">36</span> <span style="color: #000000;">        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
+</span><span style="color: #008080;">37</span> <span style="color: #000000;">                android.R.anim.fade_in, android.R.anim.fade_out);
+</span><span style="color: #008080;">38</span>         <span style="color: #008000;">/**</span>
+<span style="color: #008080;">39</span> <span style="color: #008000;">         * 如果要切换到的Fragment没有被Fragment事务添加，则隐藏被切换的Fragment，添加要切换的Fragment
+</span><span style="color: #008080;">40</span> <span style="color: #008000;">         * 否则，则隐藏被切换的Fragment，显示要切换的Fragment
+</span><span style="color: #008080;">41</span>          <span style="color: #008000;">*/</span>
+<span style="color: #008080;">42</span>         <span style="color: #0000ff;">if</span>( !<span style="color: #000000;">toFragment.isAdded()) {
+</span><span style="color: #008080;">43</span> <span style="color: #000000;">            ft.hide(fromFragment).add(R.id.content_frame, toFragment, toTag);
+</span><span style="color: #008080;">44</span>         } <span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+</span><span style="color: #008080;">45</span> <span style="color: #000000;">            ft.hide(fromFragment).show(toFragment);
+</span><span style="color: #008080;">46</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">47</span>         <span style="color: #008000;">//</span><span style="color: #008000;">添加到返回堆栈
+</span><span style="color: #008080;">48</span> <span style="color: #008000;">//</span><span style="color: #008000;">        ft.addToBackStack(tag);
+</span><span style="color: #008080;">49</span>         <span style="color: #008000;">//</span><span style="color: #008000;">不保留状态提交事务</span>
+<span style="color: #008080;">50</span> <span style="color: #000000;">        ft.commitAllowingStateLoss();
+</span><span style="color: #008080;">51</span>     }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Fragment保持状态切换 - 七星6609 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;这里有个FragmentTransaction（事务），这个是Fragment切换的核心类，它有两个方法：replace，add，一个是替换Fragment，一个是添加Fragment，两者的区别是：replace=remove掉旧fragment，add新的fragment，</p>
+<p>当我们的应用（即管理多个Fragment的Activity）运行到后台时（即推出当前屏幕），会触发Activity的onPause()方法，而Activity的onPause（）会调用它所管理的Fragment的同样的方法，但是当我使用replace时，已经remove掉了原来的Fragment，所以当调用原理的Fragment的onPause（）方法就回不粗在，就会出现上述xxx&nbsp;is not currently in the FragmentManager的异常推出，有debug为证：</p>
+<p><img src="./Fragment保持状态切换 - 七星6609 - 博客园_files/191340495815914.jpg" alt=""></p></div><div id="MySignature" style="display: block;">百流积聚，江河是也；文若化风，可以砾石。</div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/qixing/category/613721.html" target="_blank">android</a>,<a href="http://www.cnblogs.com/qixing/category/613722.html" target="_blank">Fragment</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/qixing/tag/android/">android</a>, <a href="http://www.cnblogs.com/qixing/tag/fragment/">fragment</a>, <a href="http://www.cnblogs.com/qixing/tag/%E5%88%87%E6%8D%A2/">切换</a>, <a href="http://www.cnblogs.com/qixing/tag/show/">show</a>, <a href="http://www.cnblogs.com/qixing/tag/hide/">hide</a>, <a href="http://www.cnblogs.com/qixing/tag/add/">add</a>, <a href="http://www.cnblogs.com/qixing/tag/replace/">replace</a>, <a href="http://www.cnblogs.com/qixing/tag/Activity%E7%AE%A1%E7%90%86Fragment/">Activity管理Fragment</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3981244,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;c2ef3849-af48-e211-aa8f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Fragment保持状态切换 - 七星6609 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Fragment保持状态切换 - 七星6609 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/qixing/" target="_blank"><img src="./Fragment保持状态切换 - 七星6609 - 博客园_files/20130125153004.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/qixing/">七星6609</a><br>
+            <a href="http://home.cnblogs.com/u/qixing/followees">关注 - 16</a><br>
+            <a href="http://home.cnblogs.com/u/qixing/followers">粉丝 - 19</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;c2ef3849-af48-e211-aa8f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3981244,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+    <div class="buryit" onclick="votePost(3981244,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/qixing/p/3978540.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/qixing/p/3978540.html" title="发布于2014-09-18 09:30">点击EditText可编辑，点击其他地方不可编辑</a><br><a href="http://www.cnblogs.com/qixing/p/4015262.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/qixing/p/4015262.html" title="发布于2014-10-10 10:43">清空Fragment回退栈中某个Fragment之上的所有Fragment</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2014-09-19 13:11</span> <a href="http://www.cnblogs.com/qixing/">七星6609</a> 阅读(<span id="post_view_count">10749</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3981244" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/qixing/p/3981244.html#" onclick="AddToWz(3981244);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=137139,cb_entryId=3981244,cb_blogApp=currentBlogApp,cb_blogUserGuid='c2ef3849-af48-e211-aa8f-842b2b196315',cb_entryCreatedDate='2014/9/19 13:11:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/qixing/p/3981244.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/qixing/p/3981244.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.436876.436876.436876" target="_blank">【推荐】腾讯云上实验室 1小时搭建人工智能应用</a><br><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank">【推荐】可嵌入您系统的“在线Excel”！SpreadJS 纯前端表格控件</a><br><a href="http://click.aliyun.com/m/18488/" target="_blank">【推荐】阿里云“全民云计算”优惠升级</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://www.mtyun.com/promote/69f73a72-f46d-4103-88e5-94ed2f81259d/" target="_blank"><img width="300" height="250" src="./Fragment保持状态切换 - 七星6609 - 博客园_files/24442-20170921101521025-1845913848.jpg" alt="美团云0921"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/578981/" target="_blank">iPhone X首批供货堪忧 部分零部件供应量仅原计划的40%</a><br> ·  <a href="http://news.cnblogs.com/n/578980/" target="_blank">Waymo、英特尔合作细节大拾遗：两巨头是真甜蜜还是逢场作戏？</a><br> ·  <a href="http://news.cnblogs.com/n/578979/" target="_blank">联通董事长：混改方案正在证监会审批 资金年内到位</a><br> ·  <a href="http://news.cnblogs.com/n/578975/" target="_blank">没啥突出的竞争筹码，面试时还能想办法抬薪资吗？</a><br> ·  <a href="http://news.cnblogs.com/n/578978/" target="_blank">这里有一份iPhone X物料成本清单，看看你究竟在为谁买单</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky&amp;hmsr=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;hmpl=&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank"><img width="468" height="60" src="./Fragment保持状态切换 - 七星6609 - 博客园_files/24442-20170908132742304-1045119416.gif" alt="极光0908"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/576251/" target="_blank">如何阅读计算机科学类的书</a><br> ·  <a href="http://kb.cnblogs.com/page/578103/" target="_blank">Google 及其云智慧</a><br> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br> ·  <a href="http://kb.cnblogs.com/page/569057/" target="_blank">架构腐化之谜</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/qixing/">七星6609</a><br>园龄：<a href="http://home.cnblogs.com/u/qixing/" title="入园时间：2012-12-18">4年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/qixing/followers/">19</a><br>关注：<a href="http://home.cnblogs.com/u/qixing/followees/">16</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;c2ef3849-af48-e211-aa8f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/08/01&#39;);return false;">&lt;</a></td><td align="center">2017年9月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/10/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td class="CalTodayDay" align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/qixing/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/qixing/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/qixing/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/qixing/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/qixing/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/qixing/tag/css/">css</a>(11)</li><li><a href="http://www.cnblogs.com/qixing/tag/android/">android</a>(5)</li><li><a href="http://www.cnblogs.com/qixing/tag/struts2/">struts2</a>(4)</li><li><a href="http://www.cnblogs.com/qixing/tag/Tomcat/">Tomcat</a>(4)</li><li><a href="http://www.cnblogs.com/qixing/tag/svn/">svn</a>(3)</li><li><a href="http://www.cnblogs.com/qixing/tag/php/">php</a>(3)</li><li><a href="http://www.cnblogs.com/qixing/tag/java/">java</a>(3)</li><li><a href="http://www.cnblogs.com/qixing/tag/excel/">excel</a>(2)</li><li><a href="http://www.cnblogs.com/qixing/tag/jquery/">jquery</a>(2)</li><li><a href="http://www.cnblogs.com/qixing/tag/js/">js</a>(2)</li><li><a href="http://www.cnblogs.com/qixing/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(82)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/qixing/category/924436.html">activeMQ</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/qixing/category/659173.html">activiti(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/qixing/category/613721.html">android(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/qixing/category/450018.html">CSS(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/qixing/category/924433.html">dubbo(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/qixing/category/480593.html">Eclipse(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/qixing/category/474399.html">Excel处理(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/qixing/category/907034.html">FastDFS(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/qixing/category/613722.html">Fragment(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/qixing/category/886210.html">iptables(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/qixing/category/474402.html">java核心(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/qixing/category/885613.html">jenkins(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/qixing/category/473576.html">Jquery(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/qixing/category/478760.html">js(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/qixing/category/886209.html">linux(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/qixing/category/869365.html">maven(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/qixing/category/450020.html">PHP(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/qixing/category/924435.html">redis</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/qixing/category/472186.html">S2SH(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/qixing/category/869363.html">spring(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/qixing/category/924437.html">spring-boot</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/qixing/category/869364.html">springMVC(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/qixing/category/575219.html">svn(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/qixing/category/886044.html">tomcat(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/qixing/category/575220.html">validation(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/qixing/category/924434.html">zookeeper</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/qixing/category/885612.html">持续集成(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/qixing/category/475173.html">存储过程(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/qixing/category/800073.html">设计模式(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/qixing/category/474403.html">异步处理(3)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(56)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/qixing/archive/2017/04.html">2017年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/qixing/archive/2017/03.html">2017年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/qixing/archive/2017/02.html">2017年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/qixing/archive/2016/11.html">2016年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/qixing/archive/2016/09.html">2016年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/qixing/archive/2016/08.html">2016年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/qixing/archive/2016/05.html">2016年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/qixing/archive/2016/03.html">2016年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/qixing/archive/2015/02.html">2015年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/qixing/archive/2015/01.html">2015年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/qixing/archive/2014/12.html">2014年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/qixing/archive/2014/10.html">2014年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/qixing/archive/2014/09.html">2014年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/qixing/archive/2014/08.html">2014年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/qixing/archive/2014/05.html">2014年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/qixing/archive/2014/04.html">2014年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/qixing/archive/2013/08.html">2013年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/qixing/archive/2013/07.html">2013年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/qixing/archive/2013/06.html">2013年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/qixing/archive/2013/05.html">2013年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/qixing/archive/2013/04.html">2013年4月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/qixing/archive/2013/01.html">2013年1月 (14)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_maven使用" class="catListmaven使用 sidebar-block">
+<h3 class="catListTitle">maven</h3>
+
+</div>
+
+<div id="sidebar_spring" class="catListspring sidebar-block">
+<h3 class="catListTitle">spring</h3>
+
+</div>
+
+<div id="sidebar_springmvc" class="catListspringMVC sidebar-block">
+<h3 class="catListTitle">springMVC</h3>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	81121
+	</li>
+	<li class="liRank">
+		排名 -	3600
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/qixing/p/qixing.html#3763678">1. Re:在eclipse中使用maven创建springMVC项目</a></li>
+        <li class="recent_comment_body">jstl表达式不起作用 我是引入&lt;%@ page  isELIgnored="false"%&gt;  解决，供后来看帖者参考</li>
+        <li class="recent_comment_author">--往霄龙</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/qixing/p/6484437.html#3715325">2. Re:使用jquery的load方法设计动态加载，并解决被加载页面JavaScript失效问题</a></li>
+        <li class="recent_comment_body">感谢分享路过 请教我写了个load一个网页到div，vs里debug跑一切正常（所有尝试过的浏览器）用浏览器（edge，chrome，IE11）直接打开却是加载不上，load方法正常跑也不报错就是找不......</li>
+        <li class="recent_comment_author">--CoderMonkey</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/qixing/p/6484437.html#3683478">3. Re:使用jquery的load方法设计动态加载，并解决被加载页面JavaScript失效问题</a></li>
+        <li class="recent_comment_body">作者，您好，我用load方法局部加载页面的时候在安卓4.4版本以前都加载js文件不可用，请问是什么问题啊</li>
+        <li class="recent_comment_author">--沈雪珍</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/qixing/p/6484437.html#3679883">4. Re:使用jquery的load方法设计动态加载，并解决被加载页面JavaScript失效问题</a></li>
+        <li class="recent_comment_body">@Syntactic_Sugar我目前使用的是h5中的history.pushState...</li>
+        <li class="recent_comment_author">--七星6609</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/qixing/p/6484437.html#3660777">5. Re:使用jquery的load方法设计动态加载，并解决被加载页面JavaScript失效问题</a></li>
+        <li class="recent_comment_body">您好，现在我也是用load方式动态加载了网页中间部分，请问如何解决无法后退、前进的问题？ 谢啦</li>
+        <li class="recent_comment_author">--Syntactic_Sugar</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/qixing/archive/2013/01/23/2873211.html">1. SVN创建资源库和远程连接配置(38336)</a></li><li><a href="http://www.cnblogs.com/qixing/p/4015262.html">2. 清空Fragment回退栈中某个Fragment之上的所有Fragment(22984)</a></li><li><a href="http://www.cnblogs.com/qixing/archive/2013/01/23/2873300.html">3. 在Eclipse中用远程svn资源库创建项目并提交和更新(20946)</a></li><li><a href="http://www.cnblogs.com/qixing/p/3679991.html">4. ajax访问遇到Session失效问题(20825)</a></li><li><a href="http://www.cnblogs.com/qixing/p/5896512.html">5. 在centos中使用rpm安装包安装jenkins(10882)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/qixing/archive/2013/04/27/3046326.html">1. html中table标签的td标签居中左（右）对齐(5)</a></li><li><a href="http://www.cnblogs.com/qixing/p/6484437.html">2. 使用jquery的load方法设计动态加载，并解决被加载页面JavaScript失效问题(4)</a></li><li><a href="http://www.cnblogs.com/qixing/p/3679991.html">3. ajax访问遇到Session失效问题(3)</a></li><li><a href="http://www.cnblogs.com/qixing/archive/2013/04/25/3043102.html">4. java中用poi处理Excel表格之读取（2003和2007通用方法）(2)</a></li><li><a href="http://www.cnblogs.com/qixing/archive/2013/04/28/3049574.html">5. 使用jquery的getJSON从服务器端获得数据(2)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/qixing/p/6785677.html">1. 使用jquery的load方法设计动态加载，并解决浏览器前进、后退、刷新等问题(3)</a></li><li><a href="http://www.cnblogs.com/qixing/p/3679991.html">2. ajax访问遇到Session失效问题(3)</a></li><li><a href="http://www.cnblogs.com/qixing/archive/2013/05/09/parseInt.html">3. JS中parseInt使用问题解析(2)</a></li><li><a href="http://www.cnblogs.com/qixing/archive/2013/04/27/3046326.html">4. html中table标签的td标签居中左（右）对齐(1)</a></li><li><a href="http://www.cnblogs.com/qixing/archive/2013/04/22/calendar.html">5. 一款比较好用的jquery日历控件lhgcalendar(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 七星6609
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

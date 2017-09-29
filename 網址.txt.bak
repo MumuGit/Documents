@@ -10,3 +10,4 @@ retrofit
 
 C:\Program Files (x86)\Java\jdk1.8.0_131\bin>keytool -list -v  -keystore D:\Mumu
 Git\client_releasekey.jks
+http://www.jianshu.com/p/38f7994faa6b
