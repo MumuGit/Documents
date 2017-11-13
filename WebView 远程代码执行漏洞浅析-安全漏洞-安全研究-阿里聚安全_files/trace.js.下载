@@ -1,0 +1,89 @@
+/**
+ * 统计渠道转化率
+ * 需求：http://work.cloud.alibaba.net/issues/1915
+ */
+
+(function (win) {
+
+	var doc = document;
+	var refer = doc.referrer;
+	var key_channel = "_jaq_channel";
+	var key_login_logged = "_jaq_login_logged";
+	var pathname = location.pathname;
+	var channel;
+
+	function parseChannel() {
+		var m = refer.match(/^https?:\/\/([^\/]*)/i);
+		var root;
+		if (!m) return "NA";
+		root = m[1];
+		//root = m[1].split(".").reverse();
+		//if (!root[0].match(/^\d+$/)) {
+		//	// 如果来源不是一个 IP 地址，则只取根域名，即：jaq.alibaba.com -> alibaba.com
+		//	root = root.slice(0, 2);
+		//}
+		//root = root.reverse();
+		return root;
+	}
+
+	function setSessionKV(k, v) {
+		if (win.sessionStorage) {
+			win.sessionStorage.setItem(k, v);
+		} else {
+			doc.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v);
+		}
+	}
+
+	function getSessionKV(k) {
+		if (win.sessionStorage) {
+			return win.sessionStorage.getItem(k);
+		} else {
+			return decodeURIComponent(doc.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*"
+					+ encodeURIComponent(k).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")
+				) || null;
+		}
+	}
+
+	function tagChannel(action) {
+		var czc = "_czc";
+
+		// 如果页面上没有 CNZZ 埋点，或者 CNZZ 埋点还没有初始化
+		//if (!win[czc]) return;
+		if (!win[czc]) {
+			return setTimeout(function () {
+				tagChannel(action);
+			}, 500);
+		}
+
+		// 用法参见：http://open.cnzz.com/a/new/trackevent/
+		// 如：
+		// _czc.push(["_trackEvent",category,action,label,value,nodeid]);
+		win[czc].push(['_trackEvent', '渠道', action, channel]);
+	}
+
+	channel = getSessionKV(key_channel);
+	if (!channel) {
+		channel = parseChannel();
+		setSessionKV(key_channel, channel);
+	}
+
+	/**
+	 * 1.对来到聚安全的用户打上渠道标签
+	 * 2.当用户登录聚安全时带着渠道标签
+	 * 3.提交apk进行风险扫描时带着渠道标签
+	 */
+
+	// 已登录的页面：
+	if (pathname.indexOf("/gc/") == 0) {
+		if (!getSessionKV(key_login_logged)) {
+			// 发送登录渠道统计
+			tagChannel("登录");
+			setSessionKV(key_login_logged, 1);
+		}
+	}
+
+	// 上传成功页：/gc/appadd.htm
+	if (pathname.indexOf("/gc/appadd.htm") == 0) {
+		tagChannel("上传");
+	}
+})(window);

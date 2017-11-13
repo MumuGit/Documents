@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://mrfu.me/2016/02/27/Glide_Caching_Basics/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Hi, I’m Fu Yuan, a Mobile Developer">
+    <meta name="keywords" content="Yuan Fu, YuanFu, FuYuan, Fu Yuan, 傅圆, MrFu, 傅傅傅先生, MrFuFuFu, Mr.Fu, @傅圆, 傅圆的博客, MrFu Blog, 博客, 个人网站, 互联网, Android, iOS, Swift, Java">
+    <meta name="theme-color" content="">
+
+    <title>Glide - 缓存基础 - YuanFu’s blog | MrFu blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="https://mrfu.me/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://mrfu.me/img/favicon.ico">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/">
+
+    <!-- Bootstrap Core CSS -->
+    <style class="anchorjs"></style><link rel="stylesheet" href="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/jquery.nav.js.下载"></script><script src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/hm.js.下载"></script><script async="" src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/analytics.js.下载"></script><script src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/fastclick.min.js.下载"></script><script src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/anchor.min.js.下载"></script><script></script>
+<script type="text/javascript" async="" src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/embed.js.下载"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.6320e20b57d877f77ba9dc866ff7fb10.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.94d68a3431b70c72522e54f84b601a07.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.8d77c6498bc3a96a1e3d595b9e83cb6b.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"><script src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/alfie.f51946af45e0b561c60f768335c9eb79.js.下载" async="" charset="UTF-8"></script></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top is-fixed">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://mrfu.me/">MrFu Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/learn/">Learn</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                     -->
+
+                    <li>
+                    <a href="https://mrfu.me/">Home</a>
+                    </li>
+                    <!--
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/learn/">Learn</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    -->
+                    
+                    <!--<li>
+                        <a href="/learn/">Learn</a>
+                    </li>-->
+                    
+                    <li>
+                        <a href="https://mrfu.me/tags/">Tags</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://mrfu.me/about/">About</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+
+    
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="https://mrfu.me/tags/#Glide" title="Glide">Glide</a>
+                        
+                    </div>
+                    <h1 id="glide">Glide - 缓存基础</h1>
+                    
+                    
+                    <h2 class="subheading" id="glide-caching-basics">Glide — Caching Basics</h2>
+                    
+                    <span class="meta">Posted by MrFu on February 27, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p>当我们看了加载，显示和处理图像后，我们将会继续进行优化的进程。图像成功和高效加载的一个很基础的功能是缓存！在这篇博客中，我们将整理在 Glide 中的缓存基础。</p>
+
+<h2 id="glide-系列预览">Glide 系列预览<a class="anchorjs-link " href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#glide-系列预览" aria-label="Anchor link for: glide 系列预览" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; padding-left: 0.375em;"></a></h2>
+
+<ol>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Getting_Started/">开始！</a></li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Advanced_Loading/">加载进阶</a></li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_ListAdapter_(ListView,_GridView)/">ListAdapter(ListView, GridView)</a></li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Placeholders_&amp;_Fade_Animations/">占位符 和 渐现动画</a></li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Image_Resizing_&amp;_Scaling/">图片重设大小 和 缩放</a></li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Displaying_Gifs_&amp;_Videos/">显示 Gif 和 Video</a></li>
+  <li>缓存基础</li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Request_Priorities/">请求优先级</a></li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Thumbnails/">缩略图</a></li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Callbacks_SimpleTarget_and_ViewTarget_for_Custom_View_Classes/">回调：SimpleTarget 和 ViewTarget 用于自定义视图类</a></li>
+  <li><a href="http://mrfu.me/2016/02/27/Glide_Loading_Images_into_Notifications_and_AppWidgets/">加载图片到通知栏和应用小部件中</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Exceptions-_Debugging_and_Error_Handling/">异常：调试和错误处理</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Custom_Transformations/">自定义转换</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Custom_Animations_with_animate()/">用 animate() 自定义动画</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Integrating_Networking_Stacks/">集成网络栈</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Customize_Glide_with_Modules/">用 Module 自定义 Glide</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Module_Example_Accepting_Self-Signed_HTTPS_Certificates/">Module 实例：接受自签名证书的 HTTPS</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Module_Example_Customize_Caching/">Module 实例：自定义缓存</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Module_Example_Optimizing/">Module 实例：用自定义尺寸优化加载的图片</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Dynamically_Use_Model_Loaders/">动态使用 Model Loader</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_How_to_Rotate_Images/">如何旋转图像</a></li>
+  <li><a href="http://mrfu.me/2016/02/28/Glide_Series_Roundup/">系列综述</a></li>
+</ol>
+
+<h2 id="缓存基础">缓存基础<a class="anchorjs-link " href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#缓存基础" aria-label="Anchor link for: 缓存基础" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; padding-left: 0.375em;"></a></h2>
+
+<p>在 Android App 中必须去做的是一个很好的实现图片加载组件，尝试去减少网络请求。Glide 在这里并没有什么不同。Glide 通过使用默认的内存和磁环缓存去避免不必要的网络请求。我们将在后面的博客中去详细的查看实现细节。如果你等不到那个时候，通过浏览<a href="https://github.com/bumptech/glide/wiki/Caching-and-Cache-Invalidation">官方文档</a>这个话题。</p>
+
+<p>目前最重要的是带着所有的图片请求放到内存和磁盘中。虽然缓存通常是很有用的，但在某些情况下，它可能不是像期待的行为那样。在下一节中，我们会看看如何为单个请求改变 Glide 的缓存行为。</p>
+
+<h2 id="使用缓存策略">使用缓存策略<a class="anchorjs-link " href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#使用缓存策略" aria-label="Anchor link for: 使用缓存策略" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; padding-left: 0.375em;"></a></h2>
+
+<p>如果你以前用过 Glide。你会发现不需要去做任何额外的事情来激活缓存。它直接就从盒子里取出来用了！然而，如果你知道一张图片变化很快，你可能想要避免某些缓存。</p>
+
+<p>Glide 提供了方法去适配内存和磁盘缓存行为。让我们先看看内存缓存。</p>
+
+<h2 id="内存缓存">内存缓存<a class="anchorjs-link " href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#内存缓存" aria-label="Anchor link for: 内存缓存" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; padding-left: 0.375em;"></a></h2>
+
+<p>让我们想象一个非常简单的请求，从网络中加载图片到 <code class="highlighter-rouge">ImageView</code>。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Glide</span>  
+    <span class="o">.</span><span class="na">with</span><span class="o">(</span> <span class="n">context</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">load</span><span class="o">(</span> <span class="n">eatFoodyImages</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">skipMemoryCache</span><span class="o">(</span> <span class="kc">true</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">into</span><span class="o">(</span> <span class="n">imageViewInternet</span> <span class="o">);</span>
+
+</code></pre>
+</div>
+
+<p>你已经注意到，我们调用了 <code class="highlighter-rouge">.skipMemoryCache(true)</code> 去明确告诉 Glide 跳过内存缓存。这意味着 Glide 将不会把这张图片放到内存缓存中去。这里需要明白的是，这只是会影响内存缓存！Glide 将会仍然利用磁盘缓存来避免重复的网络请求。</p>
+
+<p>这也容易知道 Glide 将会默认将所有的图片资源放到内存缓存中去。因为，指明调用 <code class="highlighter-rouge">.skipMemoryCache(false)</code> 是没有必要的。</p>
+
+<p><strong>提示：注意一个事实，对于相同的 URL ，如果你的初始请求没调用 .skipMemoryCache(true) 方法，你后来又调用了 <code class="highlighter-rouge">.skipMemoryCache(true)</code> 这个方法，这个资源将会在内存中获取缓存。当你想要去调整缓存行为时，确保对同一个资源调用的一致性。</strong></p>
+
+<h2 id="跳过磁盘缓存">跳过磁盘缓存<a class="anchorjs-link " href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#跳过磁盘缓存" aria-label="Anchor link for: 跳过磁盘缓存" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; padding-left: 0.375em;"></a></h2>
+
+<p>正如你上面这部分所了解到的，即使你关闭内存缓存，请求图片将会仍然被存储在设备的磁盘缓存中。如果你有一张图片具有相同的 URL，但是变化很快，你可能想要连磁盘缓存也一起禁用。</p>
+
+<p>你可以用 <code class="highlighter-rouge">.diskCacheStrategy()</code> 方法为 Glide 改变磁盘缓存的行为。不同的于 <code class="highlighter-rouge">.skipMemoryCache()</code> 方法，它需要一个枚举而不是一个简答的布尔值。如果你想要为一个请求禁用磁盘缓存。使用枚举 <code class="highlighter-rouge">DiskCacheStrategy.NONE</code> 作为参数。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Glide</span>  
+    <span class="o">.</span><span class="na">with</span><span class="o">(</span> <span class="n">context</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">load</span><span class="o">(</span> <span class="n">eatFoodyImages</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">diskCacheStrategy</span><span class="o">(</span> <span class="n">DiskCacheStrategy</span><span class="o">.</span><span class="na">NONE</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">into</span><span class="o">(</span> <span class="n">imageViewInternet</span> <span class="o">);</span>
+</code></pre>
+</div>
+
+<p>图片在这段代码片段中将不会被保存在磁盘缓存中。然而，默认的它将仍然使用内存缓存！为了把这里两者都禁用掉，两个方法一起调用：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Glide</span>  
+    <span class="o">.</span><span class="na">with</span><span class="o">(</span> <span class="n">context</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">load</span><span class="o">(</span> <span class="n">eatFoodyImages</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">diskCacheStrategy</span><span class="o">(</span> <span class="n">DiskCacheStrategy</span><span class="o">.</span><span class="na">NONE</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">skipMemoryCache</span><span class="o">(</span> <span class="kc">true</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">into</span><span class="o">(</span> <span class="n">imageViewInternet</span> <span class="o">);</span>
+</code></pre>
+</div>
+
+<h2 id="自定义磁盘缓存行为">自定义磁盘缓存行为<a class="anchorjs-link " href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#自定义磁盘缓存行为" aria-label="Anchor link for: 自定义磁盘缓存行为" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; padding-left: 0.375em;"></a></h2>
+
+<p>正如我们之前提到的，Glide 有多个选项去配置磁盘缓存行为。在我们向你展示这些选项之前，你必须了解到 Glide 的磁盘缓存是相当复杂的。比如，<a href="https://futurestud.io/blog/tag/picasso/">Picasso</a> 仅仅缓存了全尺寸的图像。然而 Glide 缓存了原始图像，全分辨率图像和另外小版本的图像。比如，如果你请求的一个图像是 1000x1000 像素的，但你的 <code class="highlighter-rouge">ImageView</code> 是 500x500 像素的，Glide 将会把这两个尺寸都进行缓存。</p>
+
+<p>现在你将会理解对于 <code class="highlighter-rouge">.diskCacheStrategy()</code> 方法来说不同的枚举参数的意义：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">DiskCacheStrategy.NONE</code> 什么都不缓存，就像刚讨论的那样</li>
+  <li><code class="highlighter-rouge">DiskCacheStrategy.SOURCE</code> 仅仅只缓存原来的全分辨率的图像。在我们上面的例子中，将会只有一个 1000x1000 像素的图片</li>
+  <li><code class="highlighter-rouge">DiskCacheStrategy.RESULT</code> 仅仅缓存最终的图像，即，降低分辨率后的（或者是转换后的）</li>
+  <li><code class="highlighter-rouge">DiskCacheStrategy.ALL</code> 缓存所有版本的图像（<strong>默认行为</strong>）</li>
+</ul>
+
+<p>作为最后一个例子，如果你有一张图片，你知道你将会经常操作处理，并做了一堆不同的版本，对其有意义的仅仅是缓存原始分辨率图片。因此，我们用 <code class="highlighter-rouge">DiskCacheStrategy.SOURCE</code> 去告诉 Glide 仅仅保存原始图片：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Glide</span>  
+    <span class="o">.</span><span class="na">with</span><span class="o">(</span> <span class="n">context</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">load</span><span class="o">(</span> <span class="n">eatFoodyImages</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">diskCacheStrategy</span><span class="o">(</span> <span class="n">DiskCacheStrategy</span><span class="o">.</span><span class="na">SOURCE</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">into</span><span class="o">(</span> <span class="n">imageViewFile</span> <span class="o">);</span>
+</code></pre>
+</div>
+
+<h2 id="outlook">Outlook<a class="anchorjs-link " href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#outlook" aria-label="Anchor link for: outlook" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; padding-left: 0.375em;"></a></h2>
+
+<p>在这篇博客中，你已经了解了 Glide 图像缓存工作的基础知识以及你如何根据你的需求去调整它的行为。在后面的博客中，我们会回头来做更高级的优化。然而，这个博客开了个头，给了你一个非常有效的方法去获得最出色的 Glide 缓存行为。</p>
+
+<p>下周，我们将看另一个对于用户体验来说极其重要的部分：对图像的要求！</p>
+
+
+                <hr>
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://mrfu.me/2016/02/27/Glide_Displaying_Gifs_&amp;_Videos/" data-toggle="tooltip" data-placement="top" title="Glide - 显示 Gif 和 Video">
+                        Previous<br>
+                        <span>Glide - 显示 Gif 和 Video</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="https://mrfu.me/2016/02/27/Glide_Request_Priorities/" data-toggle="tooltip" data-placement="top" title="Glide - 请求优先级">
+                        Next<br>
+                        <span>Glide - 请求优先级</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"><iframe id="dsq-app6958" name="dsq-app6958" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 2525px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog fixed">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5 id="catalog">
+                        <a class="catalog-toggle" href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"><li class="h2_nav"><a href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#glide-系列预览" rel="nofollow">Glide 系列预览</a></li><li class="h2_nav"><a href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#缓存基础" rel="nofollow">缓存基础</a></li><li class="h2_nav"><a href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#使用缓存策略" rel="nofollow">使用缓存策略</a></li><li class="h2_nav active"><a href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#内存缓存" rel="nofollow">内存缓存</a></li><li class="h2_nav"><a href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#跳过磁盘缓存" rel="nofollow">跳过磁盘缓存</a></li><li class="h2_nav"><a href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#自定义磁盘缓存行为" rel="nofollow">自定义磁盘缓存行为</a></li><li class="h2_nav"><a href="https://mrfu.me/2016/02/27/Glide_Caching_Basics/#outlook" rel="nofollow">Outlook</a></li></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <!-- <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#Life" title="Life" rel="4">
+                                    Life
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Android" title="Android" rel="15">
+                                    Android
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#English" title="English" rel="7">
+                                    English
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RxJava" title="RxJava" rel="3">
+                                    RxJava
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#《Android 群英传》" title="《Android 群英传》" rel="2">
+                                    《Android 群英传》
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Glide" title="Glide" rel="22">
+                                    Glide
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Swift" title="Swift" rel="2">
+                                    Swift
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://maples.me/">maple Blog</a></li>
+                    
+                        <li><a href="http://yifeiyuan.me/">程序亦非猿的OnePiece</a></li>
+                    
+                        <li><a href="http://www.jianshu.com/users/df40282480b4/latest_articles">小鄧子 - 简书</a></li>
+                    
+                </ul>
+                
+            </div> -->
+        </div>
+    </div>
+</article>
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "mrfu";
+    var disqus_identifier = "/2016/02/27/Glide_Caching_Basics";
+    var disqus_url = "https://mrfu.me/2016/02/27/Glide_Caching_Basics/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/mrfufufu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    <li>
+                        <a href="https://cn.linkedin.com/in/mrfufufu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://instagram.com/mrfufufufu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                   
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/mrfufufu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    <!-- delete twitter -->
+                    <!--
+                    
+                    -->
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright © <a href="https://github.com/MrFuFuFu/mrfufufu.github.io">MrFu Blog</a> 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me/">Hux</a><!--  |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/jquery.min.js.下载"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/bootstrap.min.js.下载"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/hux-blog.min.js.下载"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- GA hacking -->
+<input id="gaId" type="hidden" value="UA-69471101-1">
+<input id="gaDomain" type="hidden" value="mrfu">
+
+<!-- Google Analytics -->
+<script>
+    // dynamic User hacking by Hux
+    var _gaId = document.getElementById('gaId').value;
+    var _gaDomain = document.getElementById('gaDomain').value;
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, 'auto');//_gaDomain
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- BT hacking -->
+<input id="baId" type="hidden" value="c3407349cc1129e07d0c33c8714b6175">
+
+<!-- Baidu Tongji -->
+<script>
+    // dynamic User hacking by Hux
+    var _baId = document.getElementById('baId').value;
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+
+
+
+<iframe style="display: none;" src="./Glide - 缓存基础 - YuanFu’s blog _ MrFu blog_files/saved_resource(2).html"></iframe></body></html>

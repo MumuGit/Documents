@@ -1,0 +1,78 @@
+.wrapper { width: 98%; max-width: 1000px }
+
+h1{margin: 68px 64px 16px; text-align: center; font-size: 24px; line-height: 34px; color: #5b5b5b;}
+button.ok{height: 30px; padding: 0 20px;}
+
+.topicWrapper, .replyWrapper{background-color: #fff; padding: 10px 0; position: relative;}
+.topicWrapper.istop{background-image: url(../images/settop.png); background-repeat: no-repeat; background-position: 0 0;}
+
+.topicCategories{border-bottom: 1px solid #e6e6e6; height: 44px;color: #323232; position: relative;}
+.topicCategories span{position: absolute; left: 0; top: 0; height: 44px; line-height: 36px; font-size: 16px; border-bottom: 2px solid #246bb9; padding: 0 13px 0 7px}
+.topicCategoriessub{height: 34px;}
+.topicCategoriessub span{height: 34px;}
+
+.topicAuthor{font-size: 12px; color: #b1b1b1; line-height: 24px; margin: 0 20px 0 60px;}
+.topicAuthor a{color: #666}
+
+.topicTags{margin: 0 20px; padding: 0 40px 8px; border-bottom: 1px dashed #b3b3b3; font-size: 0}
+.topicTags span{display: inline-block; font-size: 12px; line-height: 1; padding: 1px 3px; background: #e0e9f2; color: #246bb9; margin-right: 3px}
+
+.topicText{font-size: 14px; line-height: 20px; font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; color: #5b5b5b; margin: 20px 64px 30px; padding-right: 4px; overflow: hidden}
+.topicText img{max-width: 100%;}
+.topicText strong{font-weight: bold}
+.topicText em{font-style: italic}
+/*.topicText p{padding-bottom: 20px; overflow: hidden;}*/
+.topicText ol{margin-left: 64px}
+
+.replyWrapper{margin-top: 45px}
+.taolunqu_icon{position: absolute; width: 124px; height: 40px; left: 0; top: -12px; line-height: 40px; text-indent: 32px; font-size: 18px; color: #5b5b5b; font-weight: bold; background: url(../images/ic.png) no-repeat;}
+
+.replyThis{text-align: right; font-size: 14px; line-height: 50px; margin: 0 31px 0 34px; border-bottom: 1px solid #d3d3d3}
+.replyThis a{ color: #246cb6}
+
+.replyList{margin: 0 31px 0 34px}
+.replyList strong{font-weight: bold}
+.replyList em{font-style: italic}
+.replyList img{max-width: 100%; margin-bottom: 10px}
+.replyList > div{padding: 15px 0 0; border-bottom: 1px solid #e6e6e6; overflow: hidden;}
+.replyListHead{float: left; width: 50px; height: 50px;}
+.replyInfo{float: right; width: 850px;}
+
+.replyInfo-1{font-size: 14px; color: #8c8c8c; line-height: 30px;}
+.replyInfo-1 a{color: #5786c0}
+.replyInfo-2{line-height: 30px; font-size: 14px; color: #323232;}
+.replyInfo-3{overflow: hidden;}
+.replyInfo-3 .reply-btn{float: right}
+
+.replyForm{background: #fff; border: 1px solid #d6d6d6; margin-top: 10px; clear: both}
+.replyFormWidget{height: 32px; margin: 0 0 10px 0; padding: 0 10px; line-height: 32px; background: #f8f8f8; box-shadow: 0 1px 3px #ddd;}
+.replyFormWidget .closeReplyForm{float: right; cursor: pointer; padding: 0 4px;}
+.replyForm textarea{width:98%; margin: 0 auto; display: block; font-size: 12px; line-height: 16px;}
+.replyFormBtn{text-align: right; padding: 10px;}
+
+.replied{background: #f1f1f1; margin: 5px 0 24px}
+.replied li{overflow: hidden; padding: 16px 30px 14px 24px}
+.repliedContent{float: right; width: 720px;}
+.repliedContent .d1{padding-top: 4px; line-height: 24px; font-size: 14px; color: #323232}
+.repliedContent a{color: #246bb9}
+.repliedContent .d2{font-size: 12px; color: #8c8c8c; overflow: hidden;}
+
+.replyTopic{padding: 10px 0 30px;}
+.replyTopicTitle{font-size: 18px; color: #246bb9; line-height: 40px;}
+.replyTopicBtn{text-align: right; padding: 10px 0 0;}
+.replyTopicBtn label{font-size:14px;padding-left:5px;}
+.replyTopicBtn label em{color: #EA4227;font-weight: bold;}
+.replyTopicBtn img{margin: 0 16px 0 2px;}
+.replyTopicBtn input[type=text]{width: 100px;height: 30px;border: 1px solid #D0D0D0;border-radius: 5px;outline: none;vertical-align: baseline;margin-left: 5px;padding-left: 5px;}
+
+@media all and (max-width:768px) {
+	h1 { margin: 68px 10px 16px; }
+	#nav { height: auto; }
+	.topicAuthor, .topicTags, .replyThis, .replyList, .replyTopic { margin: 0 10px; }
+	.topicTags { margin: 0 10px; padding: 0 0 8px; }
+	.topicText { margin: 20px 10px 30px; }
+	.replyInfo { float: none; margin-left: 60px; width: auto; }
+	.footerWrapper { margin: 0 10px; width: auto; }
+	.footerWrapper .fl { float: none; }
+	.footerWrapper .fr { float: none; text-align: center; padding-top: 20px; }
+}

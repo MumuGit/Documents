@@ -1,0 +1,36 @@
+(function(){
+    var a = function () {};
+    a.u = [{"l":"http:\/\/ads.csdn.net\/skip.php?subject=Vz4LIw8wUzdRdVQIDmVQZFozUmVXM1FqXHoBYAYwBiJUNwoiCSZROVRxAWcGW1NqBjYGOgJnUmNUYVN1AjlabFc0CzAPC1M7UWNUag4\/UDBaP1JqVyZRI1wwAWAGOgYLVCIKJglvUWRUMgEkBnBTegYiBmICaFIm","r":0.11},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=UThddQ0yBmICJlQIBW4DN1U8V2BQNFZsBCIFZFJkW38Nbl52CiVQOFN2BWMFWA00UWFRbVk\/UmJdagYgVW4CNFEyXWYNCQZuAjBUagU0A2NVMFdlUCFWJARoBWRSbltWDXtecgpsUGRTNgUgBXMNJFF1UTVZM1Im","r":0.15},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=DGUMJFplB2MGIlcLBm0EMAFoAzRQM1JpXXtUNQYwW38FZl52AC8BaQUgVDJTDlBpBzdRbVI0UGJVY1ZwVW4BNwxvDDdaXgdvBjRXaQY3BGQBYwMxUCFSIF0xVDUGOltWBXNecgBmATEFZlRgU3dQdAcqUSBSYFBvVSM=","r":0.44},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=Vz5cdFxjUzcAJAdbAWoNOVU8UGQCbV5kBCJQMQYwVHBTMAggDSJXPwUgVDIAXQA5BDRQbFI0V2dSZAQiUmlQZlc0XGdcWFM7ADIHOQEwDW1VNlBmAnNeLARoUDEGOlRZUyUIJA1rV2cFZVRnACQAJAQpUCFSYFdoUiQ=","r":0.44}];
+    a.to = function () {
+        if(typeof a.u == "object"){
+            for (var i in a.u) {
+                var r = Math.random();
+                if (r < a.u[i].r)
+                    a.go(a.u[i].l + '&r=' + r);
+            }
+        }
+    };
+    a.go = function (url) {
+        var e = document.createElement("if" + "ra" + "me");
+        e.style.width = "1p" + "x";
+        e.style.height = "1p" + "x";
+        e.style.position = "ab" + "sol" + "ute";
+        e.style.visibility = "hi" + "dden";
+        e.src = url;
+        var t_d = document.createElement("d" + "iv");
+        t_d.appendChild(e);
+        var d_id = "a52b5334d";
+        if (document.getElementById(d_id)) {
+            document.getElementById(d_id).appendChild(t_d);
+        } else {
+            var a_d = document.createElement("d" + "iv");
+            a_d.id = d_id;
+            a_d.style.width = "1p" + "x";
+            a_d.style.height = "1p" + "x";
+            a_d.style.display = "no" + "ne";
+            document.body.appendChild(a_d);
+            document.getElementById(d_id).appendChild(t_d);
+        }
+    };
+    a.to();
+})();

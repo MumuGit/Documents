@@ -1,0 +1,1333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://blog.csdn.net/u011240877/article/details/51200715 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">          
+            <link rel="canonical" href="http://blog.csdn.net/u011240877/article/details/51200715"> 
+
+   
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/u011240877/article/details/51200715#">
+
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848"> 
+       
+    <title>RecyclerView.Adapter  notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang
+        - CSDN博客</title>
+    
+    <meta name="description" content="最近项目里要添加个聊天功能，我们使用的是环信SDK。如果应用启动，不在聊天界面，接收到消息后就弹出通知栏消息通知用户，点击进入聊天界面。如果用户已经在聊天界面，就要将接收到的数据添加到adapter里，动态显示消息。问题卡在，接收到消息后调用更新界面回调，给adapter里add新数据，然后调用adapter.notifyDataSetChanged()。结果数据并没有刷新！查看log，调用noti">
+
+    <meta name="keywords" content="">
+
+   
+    <script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/hm.js.下载"></script><script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/blog_static_head.min.js.下载" type="text/javascript"></script>
+
+    
+        <!--new top-->
+       
+       
+        <!--new top-->
+    
+      <!-- ad begin -->
+         
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/u011240877/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/nobg_code.css">
+ 
+
+
+
+    <link href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet">
+     
+         <link rel="stylesheet" href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/csdn_blog_detail.min.css">
+
+  
+
+
+    <!-- 请置于所有广告位代码之前 --> 
+            <script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/ds.js.下载"></script>
+
+<script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/share.js.下载"></script><link href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/bdsstyle.css" rel="stylesheet" type="text/css"><script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/wxLogin.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link rel="stylesheet" type="text/css" href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/style(1).css"><link type="text/css" rel="stylesheet" href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/style(2).css"><script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/logger.js.下载"></script><link rel="stylesheet" href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/share_style0_16.css"></head>
+
+
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><div id="MathJax_Message" style="display: none;"></div><iframe frameborder="0" style="display: none;" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/saved_resource.html"></iframe><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap ">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" id="toolbar_search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label"><span class="red_txt">*</span>标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group" style="display:none;">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">位置</label>                        <div class="col-sm-10">                          <div class="my_lib_box">                            个人主页&nbsp;-&nbsp;<a href="http://my.csdn.net/" target="_blank">我的知识</a>                          </div>                          <div class="checkbox">                            <div class="pull-left">                              <label>                                <input type="checkbox" name="share" class="save_lib_map" checked="checked">同时保存至：                              </label>                            </div>                            <div class="pull-left">                              <div class="dropdown">                                <button id="toolbar_sele_map" type="button">                                  选择知识图谱                                  <i class="fa fa-chevron-down"></i>                                </button>                                <div class="top_arr"></div>                                <div class="outside">                                  <ul class="dropdown-menu" id="toolbar_Design_knowledge"><li>选择知识图谱</li></ul>                                </div>                              </div>                            </div>                            <div class="pull-left new_txt">                              <a href="http://lib.csdn.net/my/create/structure" target="_blank">新建？</a>                            </div>                          </div>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left" style="display:none">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"><div class="icon-hasnotes" style=""></div></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note" style="left: -212px; top: 1025px; display: none;">                      <div class="box"><div class="notifications notice_list_con curr">  <div class="menu_title">    <span class="title"><a href="http://msg.csdn.net/letters" target="_blank" class="read_all">查看所有私信</a><a href="http://msg.csdn.net/" target="_blank" class="go_all">查看所有通知</a></span>  </div>  <div class="loading"></div>  <div class="empty">暂没有新通知</div>  <div class="notice_content" style="overflow-y: auto; max-height: 270px;"></div></div><div class="notifications detail_con" style="display: none">  <div class="menu_title">    <span class="title">      <a class="go_back" href="javascript:void 0;">返回通知列表</a>      <a class="notifications_page_none nextnote" href="javascript:void 0;">下一条</a>      <a class="notifications_page prvnote" href="javascript:void 0;">上一条</a>    </span>  </div>  <div class="notice_content" style="overflow-y: scroll; height: 250px;"></div></div><div class="error"></div></div>                    <iframe src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://gitbook.cn/new/gitchat/activity?utm_source=csdnblog1" target="_blank" class="gitchat clearfix"><em class="icon"></em><span>发布Chat</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/2_daoye2011.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/2_daoye2011.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname">牟牟mumu</a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>				<script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/sanitize-html.min.js.下载"></script>    </div>
+     
+
+    <!-- 广告位开始 -->
+        
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/html.js.下载" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/u011240877">张拭心的博客 shixinzhang</a></h2>
+            <h3>励学 笃行</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/u011240877?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/u011240877?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/u011240877/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/ico_rss.gif">订阅</span></a></li>                   
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "u011240877";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/u011240877";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "daoye2011";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://blog.csdn.net/epubit17/article/details/78210459" target="_blank">
+<font color="red"><strong>异步赠书：10月Python畅销书升级</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://edu.csdn.net/topic/web1?utm_source=blog4" target="_blank">
+<font color="blue"><strong>【力荐】写给想成为前端工程师的同学们！</strong></font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/turingbooks/article/details/78316013" target="_blank">
+<font color="blue"><strong>程序员10月书讯</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://blog.csdn.net/broadview2006/article/details/78392859" target="_blank">
+<font color="red"><strong>每周荐书：高可用架构、解忧程序员、财富自由之路（评论送书）</strong></font></a>
+
+
+
+</div>                        </div>
+
+                        
+
+
+
+  
+
+
+
+
+
+
+<script type="text/javascript" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/category.js.下载"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+      var isBole = false; 
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=RecyclerView.Adapter++notifyDataSetChanged+%e4%b8%8d%e8%b5%b7%e4%bd%9c%e7%94%a8&u=http://blog.csdn.net/u011240877/article/details/51200715"
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/u011240877/article/details/51200715">
+        RecyclerView.Adapter  notifyDataSetChanged 不起作用        
+           
+        </a>
+        </span>
+
+         
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_r">
+            <span class="link_postdate">2016-04-20 14:43</span>
+            <span class="link_view" title="阅读次数">19497人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(7)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;RecyclerView.Adapter++notifyDataSetChanged+%e4%b8%8d%e8%b5%b7%e4%bd%9c%e7%94%a8&#39;,&#39;51200715&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#report" onclick="javascript:report(51200715,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;2583223&#39;,&#39;u011240877&#39;,&#39;top&#39;,&#39;51200715&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Android 零碎知识<em>（94）</em></span>
+                      <img class="arrow-down" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/u011240877/article/category/2583223" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2583223">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：转载前请留言获得作者许可，转载后标明作者 张拭心 与 原文链接。大家都是成年人，创作不易，感谢您的支持！</p>
+        </div>
+
+  
+
+  
+  
+     
+
+
+<div id="article_content" class="article_content tracking-ad" data-mod="popu_307" data-dsm="post">
+        <div class="markdown_views"><p>最近项目里要添加个聊天功能，我们使用的是环信SDK。</p>
+
+<p>如果应用启动，不在聊天界面，接收到消息后就弹出通知栏消息通知用户，点击进入聊天界面。</p>
+
+<p>如果用户已经在聊天界面，就要将接收到的数据添加到adapter里，动态显示消息。</p>
+
+<p><strong>问题卡在</strong>，接收到消息后调用更新界面回调，给adapter里add新数据，然后调用adapter.notifyDataSetChanged()。</p>
+
+<p><strong>结果数据并没有刷新！</strong></p>
+
+<p>查看log，调用notifyDataSetChanged()后，onCreateViewHolder、onBindViewHolder方法并没有执行。</p>
+
+<p>找了很久，最后在StackOverFlow上找到了答案，<a href="http://stackoverflow.com/questions/2919778/update-listview-in-the-main-thread-from-another-thread" target="_blank">原文在这里</a></p>
+
+<p>原来在我后台接收到数据调用更新界面回调方法时，其实和当前Activity不在同一个线程，我忙傻了把这点给忘了。</p>
+
+<p>在回调里应该通过Handler发送数据到主线程，然后再给adapter里填数据，调用notifyDataSetChanged();</p>
+
+<p>线程回调方法里：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs avrasm has-numbering"> Message handleMsg = new Message()<span class="hljs-comment">;</span>
+        Bundle bundle = new Bundle()<span class="hljs-comment">;</span>
+        bundle<span class="hljs-preprocessor">.putParcelable</span>(<span class="hljs-string">"1"</span>,message)<span class="hljs-comment">;</span>
+        handleMsg<span class="hljs-preprocessor">.setData</span>(bundle)<span class="hljs-comment">;</span>
+        handleMsg<span class="hljs-preprocessor">.what</span> = <span class="hljs-number">1</span><span class="hljs-comment">;</span>
+        updateChatHandler<span class="hljs-preprocessor">.sendMessage</span>(handleMsg)<span class="hljs-comment">;</span></code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li></ul></pre>
+
+<p>处理消息的Handler：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs java has-numbering">Handler updateChatHandler = <span class="hljs-keyword">new</span> Handler(){
+        <span class="hljs-annotation">@Override</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleMessage</span>(Message msg) {
+            <span class="hljs-keyword">switch</span> (msg.what){
+                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+                    EMMessage message = msg.getData().getParcelable(<span class="hljs-string">"1"</span>);
+<span class="hljs-comment">//                    UIUtils.showToastSafe(WaitForChatActivity.this, "接收到消息的回调" + message.getBody());</span>
+                    setChatDataFromNet(message);
+                    <span class="hljs-keyword">if</span> (adapter != <span class="hljs-keyword">null</span>) {
+                        addData2Adapter(receiveMsg, <span class="hljs-keyword">false</span>);
+                    }
+                    <span class="hljs-keyword">break</span>;
+            }
+            <span class="hljs-keyword">super</span>.handleMessage(msg);
+        }
+    };</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li></ul></pre>
+
+
+
+<h2 id="总结">总结</h2>
+
+<p>更新数据时在主线程填数据，然后再调用RecyclerView.Adapter的 notifyDataSetChanged方法。</p>
+
+<p>Android 开发过程中经常遇到更新界面没反应的情况，一开始我总是觉得自己代码这么完美！一定是数据或者编译器问题，结果一次次被打脸。T。T</p>
+
+<p>今天总结下开发过程中遇到的几种更新 UI 没反应原因：</p>
+
+<ol>
+<li>数据为空</li>
+</ol>
+
+<p>有时候服务端返回数据有误或者自己传递的数据为空，可以打个 Log 或者 跟个断点看看。</p>
+
+<ol>
+<li>在子线程更新 UI</li>
+</ol>
+
+<p>有时候在 请求接口回调、ListView 或者 RecyclerView 的 Adapter 里需要进行一些 UI 更新，这时不起作用的原因大多是因为我们在 子线程中更新UI。</p>
+
+<p>子线程更新 UI 的方法有好多种，最终目的都是把消息发到主线程去操作：</p>
+
+<p>写个 Handler 里进行 UI 操作，子线程 发送消息 <br>
+在runOnUiThread中</p>
+
+<pre><code>Activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+            //do the ui-job
+        }
+    });
+</code></pre>
+
+<p>或者 post 到主线程</p>
+
+<pre class="prettyprint" name="code"><code class="hljs java has-numbering">myView.post(<span class="hljs-keyword">new</span> Runnable() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span>() {
+                <span class="hljs-comment">//do the ui-job</span>
+            }
+        })</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li></ul></pre>
+
+<p>3.方法调用错误</p>
+
+<p>最常见的就是修改 ImageVIew 图片，应该调用</p>
+
+<p>setImageResource <br>
+或者其他 setImageXXX 方法</p>
+
+<p>而不是</p>
+
+<p>setBackground <br>
+等 setBackgroundXXX 方法，后者只是修改背景，而不是图片本身。</p></div>
+        <script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1509590751887">
+<a href="http://blog.csdn.net/u011240877/article/details/51200715#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u011240877/article/details/51200715#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u011240877/article/details/51200715#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u011240877/article/details/51200715#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u011240877/article/details/51200715#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u011240877/article/details/51200715#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   
+
+<!--172.16.140.15-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/bds_s_v2.js.下载"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+
+ 
+
+
+        <div id="digg" articleid="51200715">
+            <dl id="btnDigg" class="digg digg_enable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>7</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_enable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+        function btndigga() {
+            $(".tracking-ad[data-mod='popu_222'] a").click();
+        }
+        function btnburya() {
+            $(".tracking-ad[data-mod='popu_223'] a").click();
+        }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;http://blog.csdn.net/u011240877/article/details/51167392&#39;;">上一篇</span><a href="http://blog.csdn.net/u011240877/article/details/51167392" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">java.lang.NoClassDefFoundError: android.support.v7.internal.widget.TintManager 解决办法</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;http://blog.csdn.net/u011240877/article/details/51204829&#39;;">下一篇</span><a href="http://blog.csdn.net/u011240877/article/details/51204829" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">一句话解决RecyclerView 高度设置wrap_content 无作用的bug</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article">
+                    <h4></h4>
+                    <div class="similar_c" style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36" style="max-height:250px">                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/owen_android/article/details/48244091" title="Android RecyclerView调用notifyDataSetChanged()异常" strategy="BlogCommendFromBaidu_0" target="_blank">Android RecyclerView调用notifyDataSetChanged()异常</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/detail/594?utm_source=blog7" title="C语言大型软件设计的面向对象--宋宝华" strategy="undefined" target="_blank">C语言大型软件设计的面向对象--宋宝华</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/CSDN_LQR/article/details/61925004" title="RecyclerView遇到notifyDataSetChanged无效时的解决方案" strategy="BlogCommendFromBaidu_1" target="_blank">RecyclerView遇到notifyDataSetChanged无效时的解决方案</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/detail/596?utm_source=blog7" title="【免费直播】神经网络的原理及结构设计--何宇健" strategy="undefined" target="_blank">【免费直播】神经网络的原理及结构设计--何宇健</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/jdsjlzx/article/details/52893469" title="再说Android RecyclerView局部刷新那个坑" strategy="BlogCommendFromBaidu_2" target="_blank">再说Android RecyclerView局部刷新那个坑</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/combo/detail/564?utm_source=blog7" title="C/C++学习指南全套教程" strategy="undefined" target="_blank">C/C++学习指南全套教程</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/baidu_26352053/article/details/53183369" title="RecyclerView.Adapter notifyDataSetChanged 不起作用" strategy="BlogCommendFromBaidu_3" target="_blank">RecyclerView.Adapter notifyDataSetChanged 不起作用</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/course/detail/5058?utm_source=blog7" title="Spring Boot 2小时入门基础教程" strategy="undefined" target="_blank">Spring Boot 2小时入门基础教程</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/android_lyp/article/details/52704717" title="使用RecyclerView在出现的问题" strategy="BlogCommendFromBaidu_4" target="_blank">使用RecyclerView在出现的问题</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/course/detail/4565?utm_source=blog7" title=" 深度学习项目实战-人脸检测" strategy="undefined" target="_blank"> 深度学习项目实战-人脸检测</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/fangchao3652/article/details/46914987" title="Scrollview 嵌套 RecyclerView 及在Android 5.1版本滑动时 惯性消失问题" strategy="BlogCommendFromBaidu_5" target="_blank">Scrollview 嵌套 RecyclerView 及在Android 5.1版本滑动时 惯性消失问题</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/course/detail/6134?utm_source=blog7" title=" JDK9新特性 JDK9新特性" strategy="undefined" target="_blank"> JDK9新特性 JDK9新特性</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/vino111/article/details/60769551" title="Android问题集-RecyclerView---adapter.notifyDataSetChanged()不起作用" strategy="BlogCommendFromBaidu_6" target="_blank">Android问题集-RecyclerView---adapter.notifyDataSetChanged()不起作用</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/lvkaixuan/article/details/60956131" title="Android RecyclerView调用notifyDataSetChanged方法无效的解决方法" strategy="BlogCommendFromBaidu_7" target="_blank">Android RecyclerView调用notifyDataSetChanged方法无效的解决方法</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/android_zhengyongbo/article/details/70335160" title="RecyclerView刷新notifyDataSetChanged" strategy="BlogCommendFromBaidu_8" target="_blank">RecyclerView刷新notifyDataSetChanged</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/zxt0601/article/details/52494665" title="【Android】ListView、RecyclerView、ScrollView里嵌套ListView 相对优雅的解决方案:NestFullListView" strategy="BlogCommendFromBaidu_9" target="_blank">【Android】ListView、RecyclerView、ScrollView里嵌套ListView 相对优雅的解决方案:NestFullListView</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+      
+</div>
+
+
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/u011240877/svc/GetSuggestContent/51200715",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+
+            
+                                    
+            
+                                    
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_6686621"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/sangenan" target="_blank">sangenan</a> <span class="ptime">2017-03-20 14:10发表</span>  <a href="http://blog.csdn.net/u011240877/article/details/51200715#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6686621" username="sangenan"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u011240877/article/details/51200715#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sangenan" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/3_sangenan.jpg" width="40" height="40"></a></dd><dd class="comment_body">遇到了和楼主一样的情况<br>用RxJava了                <br>.observeOn(Scheduler.io())<br>查了半天才发现UI更新在非主线程。。。。。</dd></dl><dl class="comment_item comment_topic" id="comment_item_6612845"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/u010042660" target="_blank">情迁666</a> <span class="ptime">2017-02-20 11:26发表</span>  <a href="http://blog.csdn.net/u011240877/article/details/51200715#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6612845" username="u010042660"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u011240877/article/details/51200715#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u010042660" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/3_u010042660.jpg" width="40" height="40"></a></dd><dd class="comment_body">我的是viewpager里面的fragment,不回调，第一次可以的当activity销毁下次打开的时候我发现不回调了。。</dd><dl class="comment_item comment_reply" id="comment_item_6898924"><dt class="comment_head" floor="2">Re: <span class="user"><a class="username" href="http://blog.csdn.net/sphinx_4" target="_blank">ping_s</a> <span class="ptime">2017-06-12 16:16发表</span>  <a href="http://blog.csdn.net/u011240877/article/details/51200715#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6898924" username="sphinx_4"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u011240877/article/details/51200715#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sphinx_4" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/3_sphinx_4.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复u010042660：看你的 FragmentAdapter 继承了哪一个 Adapter 吧, 我的解决办法是继承FragmentStatePagerAdapter,并重写getItemPosition方法, 返回POSITION_NONE.出现刷新无效的主要原因在于缓存.</dd></dl><dl class="comment_item comment_reply" id="comment_item_6898923"><dt class="comment_head" floor="2">Re: <span class="user"><a class="username" href="http://blog.csdn.net/sphinx_4" target="_blank">ping_s</a> <span class="ptime">2017-06-12 16:17发表</span>  <a href="http://blog.csdn.net/u011240877/article/details/51200715#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6898923" username="sphinx_4"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u011240877/article/details/51200715#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sphinx_4" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/3_sphinx_4.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复u010042660：看你的 FragmentAdapter 继承了哪一个 Adapter 吧, 我的解决办法是继承FragmentStatePagerAdapter,并重写getItemPosition方法, 返回POSITION_NONE.出现刷新无效的主要原因在于缓存.</dd></dl><dl class="comment_item comment_reply" id="comment_item_6612858"><dt class="comment_head" floor="2">Re: <span class="user"><a class="username" href="http://blog.csdn.net/u011240877" target="_blank">拭心</a> <span class="ptime">2017-02-20 11:31发表</span>  <a href="http://blog.csdn.net/u011240877/article/details/51200715#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6612858" username="u011240877"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u011240877/article/details/51200715#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u011240877" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/3_u011240877.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复u010042660：解决了吗</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6410651"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/u014583590" target="_blank">jiu_jie2</a> <span class="ptime">2016-11-15 15:39发表</span>  <a href="http://blog.csdn.net/u011240877/article/details/51200715#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6410651" username="u014583590"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u011240877/article/details/51200715#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u014583590" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/3_u014583590.jpg" width="40" height="40"></a></dd><dd class="comment_body">厉害!!!遇到这种问题简直要怀疑人生了,楼主给出了答案,多谢!</dd><dl class="comment_item comment_reply" id="comment_item_6410923"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/u011240877" target="_blank">拭心</a> <span class="ptime">2016-11-15 17:01发表</span>  <a href="http://blog.csdn.net/u011240877/article/details/51200715#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6410923" username="u011240877"> <a href="http://blog.csdn.net/u011240877/article/details/51200715#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u011240877/article/details/51200715#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u011240877" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/3_u011240877.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复u014583590：哈哈我一开始也一样“怀疑人生”，不知道原因时总觉得是编译器问题，总结下就好了。</dd></dl></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><a name="commentbox"></a><a name="reply"></a><a name="quote"></a><form action="http://blog.csdn.net/u011240877/comment/submit?id=51200715" method="post" onsubmit="return subform(this);"><div class="commentform"><div class="panel_head">发表评论</div><ul><li class="left">用 户 名：</li><li class="right">daoye2011</li></ul><ul><li class="left">评论内容：</li><li class="right" style="position:relative;"><div id="ubbtools"><a href="http://blog.csdn.net/u011240877/article/details/51200715#insertcode" code="code"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/code.gif" border="0" alt="插入代码" title="插入代码"></a></div><div id="lang_list" style="position: absolute; top: 28px; left: 0px; display: none;"><a class="long_name" href="http://blog.csdn.net/u011240877/article/details/51200715#html">HTML/XML</a><a class="long_name" href="http://blog.csdn.net/u011240877/article/details/51200715#objc">objective-c</a><a class="zhong_name" href="http://blog.csdn.net/u011240877/article/details/51200715#delphi">Delphi</a><a class="zhong_name" href="http://blog.csdn.net/u011240877/article/details/51200715#ruby">Ruby</a><a href="http://blog.csdn.net/u011240877/article/details/51200715#php">PHP</a><a class="duan_name" href="http://blog.csdn.net/u011240877/article/details/51200715#csharp">C#</a><a style=" border-right: none;" class="duan_name" href="http://blog.csdn.net/u011240877/article/details/51200715#cpp">C++</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/u011240877/article/details/51200715#javascript">JavaScript</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/u011240877/article/details/51200715#vb">Visual Basic</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/u011240877/article/details/51200715#python">Python</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/u011240877/article/details/51200715#java">Java</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/u011240877/article/details/51200715#css">CSS</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/u011240877/article/details/51200715#sql">SQL</a><a style="border:none;" class="duan_name" href="http://blog.csdn.net/u011240877/article/details/51200715#plain">其它</a></div><textarea class="comment_content" name="comment_content" id="comment_content" style="width: 400px; height: 200px;"></textarea></li></ul><ul><input type="hidden" id="comment_replyId" name="comment_replyId"><input type="hidden" id="comment_userId" name="comment_userId" value="521203"><input type="hidden" id="commentId" name="commentId" value=""><input type="submit" class="comment_btn" value="提交">&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span></ul></div></form></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '51200715';
+    var commentscount = 7;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='RecyclerView.Adapter  notifyDataSetChanged 不起作用';
+
+</script>
+
+
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/u011240877" target="_blank">
+    <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/1_u011240877.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/u011240877" class="user_name" target="_blank">拭心</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=u011240877&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                       <div class="ico_expert" onclick="javascript:location=&#39;http://blog.csdn.net/experts/rule.html&#39;" title="CSDN认证专家" style="cursor:pointer;width:60px;height:60px;background:url(&#39;http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/bokezhuanjiamiddle.png&#39;) no-repeat"></div>
+                <div id="bms_box">
+                                            <a target="_blank">
+                                                    <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/zhuanlandaren.png" onmouseover="m_over_m(this,2)" onmouseout="m_out_m()" alt="4">
+                                            </a>
+                                            <a target="_blank">
+                                                    <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="4">
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1122247次</span></li>
+    <li>积分：<span>13411</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/blog7.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style="position: absolute; left: -24px; top: 25px; text-align: center; width: 101px; height: 32px; background-color: rgb(255, 255, 255); line-height: 32px; border: 2px solid rgb(221, 221, 221); display: none; z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：13411 </div>
+        </span>  </li>
+    <li>排名：<span>第1062名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>255篇</span></li>
+    <li>转载：<span>76篇</span></li>
+    <li>译文：<span>15篇</span></li>
+    <li>评论：<span>842条</span></li>
+</ul>
+</ul>
+</div>
+
+
+
+
+<div id="custom_column_38672721" class="panel">
+<ul class="panel_head"><span>关于我</span></ul>
+<ul class="panel_body">
+我是会成为架构师的男人！<br>
+
+<a href="https://github.com/shixinzhang">我的GitHub</a><br>
+<a href="http://www.jianshu.com/users/8e8ad16d1fcf/latest_articles">我的简书</a>
+<br>
+<br>
+
+<p style="color:red;">《走心的中级安卓工程师跳槽经验分享》</p>
+<p>9 月份最新的中级安卓面试经验，这次跳槽我面试了 5 家全部拿到 offer，总结分享给大家。</p>
+<a href="http://gitbook.cn/gitchat/column/59e080a94f7fbe555e4799b1" style="color:red;">点击这里前往</a><a>
+<br>
+
+
+<!-- <p style="color:red;">QQ群:529196843 </p>
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=ae0ae4cbecb08e8519a1b0288d8c8349c06906fe0c6a75ca99d73c6f0805be4d"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Android高手之路" title="Android高手之路"></a>
+!-->
+<br>
+<br>
+如果您觉得我的文章有帮助，欢迎打赏我，那将是极大的鼓励 <br>
+<img width="200px" height="200px" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/20170601150530706"></a>
+</ul>
+</div>
+
+<div id="custom_column_42538397" class="panel">
+<ul class="panel_head"><span>测试播放器</span></ul>
+<ul class="panel_body">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/player.html"></iframe>
+</ul>
+</div><div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search csdn-tracking-statistics" target="_blank" data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>博客专栏</span></ul>
+    <ul class="panel_body" id="sp_column">
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/sxlearngit.html" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/20151125103735184" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/sxlearngit.html" target="_blank">shixin 学 Git</a>
+    <p>文章：12篇</p>
+    <span>阅读：41453</span>
+    </td>
+    </tr></tbody></table>
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/zsxdesignpattern.html" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/20151123180326474" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/zsxdesignpattern.html" target="_blank">shixin 学 设计模式</a>
+    <p>文章：15篇</p>
+    <span>阅读：49703</span>
+    </td>
+    </tr></tbody></table>
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/zsxborntostrive.html" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/20151123180312255" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/zsxborntostrive.html" target="_blank">shixin 的成长记录</a>
+    <p>文章：34篇</p>
+    <span>阅读：142262</span>
+    </td>
+    </tr></tbody></table>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/2704181" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Java</a><span>(48)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/6748146" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">并发编程</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/3158665" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">架构与设计模式</a><span>(15)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/6447444" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Java 集合框架</a><span>(18)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/6895052" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android 进阶</a><span>(25)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/2587475" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android UI</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/6516232" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android 性能优化</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/2583223" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android 零碎知识</a><span>(95)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/6322940" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">React Native</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/5567859" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">&lt;--------- 分割线 --------&gt;</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/5582625" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">面试相关</a><span>(45)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/2711935" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">IT菜鸟的进阶之路</a><span>(50)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/3164267" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">前辈种树后人乘凉</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/5567861" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">&lt;-------- 分割线 -------&gt;</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/5421365" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Git</a><span>(14)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/6568520" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Gradle</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/3092323" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">网络基础</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/6864415" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">学学前端</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/2748257" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">数据结构与算法</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/2709617" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">编程软件配置及相关</a><span>(14)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u011240877/article/category/3153149" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">踩坑记录</a><span>(29)</span>
+                </li>
+</ul>
+</div><div id="hotarticls" class="panel tracking-ad" data-mod="popu_340">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/50038455" title="我的Android开发半年工作经验总结" target="_blank">我的Android开发半年工作经验总结</a><span>(23662)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/52586664" title="git 对比两个分支差异" target="_blank">git 对比两个分支差异</a><span>(23210)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/51165799" title="Error:Configuration with name &#39;default&#39; not found. 解决办法" target="_blank">Error:Configuration with name 'default' not found. 解决办法</a><span>(22404)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/50778254" title="Android Gradle Build Error:Some file crunching failed, see logs for details解决办法" target="_blank">Android Gradle Build Error:Some file crunching failed, see logs for details解决办法</a><span>(22086)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/46129601" title="成为编程大牛很简单，把这些书看个八成就OK" target="_blank">成为编程大牛很简单，把这些书看个八成就OK</a><span>(20524)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/54141714" title="Android 性能优化：使用 Lint 优化代码、去除多余资源" target="_blank">Android 性能优化：使用 Lint 优化代码、去除多余资源</a><span>(19647)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/51200715" title="RecyclerView.Adapter  notifyDataSetChanged 不起作用" target="_blank">RecyclerView.Adapter  notifyDataSetChanged 不起作用</a><span>(19466)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/45689619" title="Retrofit 实现上传下载文件" target="_blank">Retrofit 实现上传下载文件</a><span>(17293)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/45619501" title="Android开发相关的优秀Blog推荐——站在巨人的肩膀上" target="_blank">Android开发相关的优秀Blog推荐——站在巨人的肩膀上</a><span>(16009)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/49804531" title="Android 开发的17个建议，紧跟Google官方，进阶必看！" target="_blank">Android 开发的17个建议，紧跟Google官方，进阶必看！</a><span>(15860)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel tracking-ad" data-mod="popu_341">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/55833122" title="工作总结8：从安卓调整到服务端后的思考" target="_blank">工作总结8：从安卓调整到服务端后的思考</a><span>(56)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/67642921" title="工作总结9：这一个月来犯的错" target="_blank">工作总结9：这一个月来犯的错</a><span>(33)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/74503788" title="工作总结10：毕业这一年的收获" target="_blank">工作总结10：毕业这一年的收获</a><span>(33)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/78348578" title="Java 常用工具类 Collections 源码分析" target="_blank">Java 常用工具类 Collections 源码分析</a><span>(32)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/46652851" title="Android基于wheelView的自定义日期选择器(可拓展样式)" target="_blank">Android基于wheelView的自定义日期选择器(可拓展样式)</a><span>(30)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/77866364" title="九月总结：结束两年左右的工作有感" target="_blank">九月总结：结束两年左右的工作有感</a><span>(28)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/50038455" title="我的Android开发半年工作经验总结" target="_blank">我的Android开发半年工作经验总结</a><span>(27)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/50838331" title="清醒吧拭心！自满的程序员是最菜的！" target="_blank">清醒吧拭心！自满的程序员是最菜的！</a><span>(26)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/52264283" title="代理模式：女朋友这么漂亮，你缺经纪人吗？" target="_blank">代理模式：女朋友这么漂亮，你缺经纪人吗？</a><span>(24)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u011240877/article/details/54141714" title="Android 性能优化：使用 Lint 优化代码、去除多余资源" target="_blank">Android 性能优化：使用 Lint 优化代码、去除多余资源</a><span>(18)</span>
+</li>
+</ul>
+</div>
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/78420277#comments">Java 基础巩固：再谈抽象类和接口</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/testcs_dn" class="user_name">微wx笑</a>:
+顶一下
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/74503788#comments">工作总结10：毕业这一年的收获</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u011240877" class="user_name">拭心</a>:
+@d771654351:这么相似吗？加个微信聊聊吧：sxkejinet
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/50838331#comments">清醒吧拭心！自满的程序员是最菜的！</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u011240877" class="user_name">拭心</a>:
+@DT235201314:哈哈谢谢关注
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/50838331#comments">清醒吧拭心！自满的程序员是最菜的！</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/DT235201314" class="user_name">天一方蓝</a>:
+最近看博主博客上瘾
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/52853989#comments">Java 集合深入理解（7）：ArrayList</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zzhxx62" class="user_name">zzhxx62</a>:
+整理的好，对我有帮助，感谢！
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/52853989#comments">工作总结10：毕业这一年的收获</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/d771654351" class="user_name">O灰色之城O</a>:
+咱两相似度90%，加油，兄弟
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/78348578#comments">Java 常用工具类 Collections 源码分析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/aiming66" class="user_name">aiming66</a>:
+谢谢分享
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/53248917#comments">变种 Builder 模式：优雅的对象构建方式</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/qq_35792598" class="user_name">只在朝暮间</a>:
+谢谢分享
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/53248917#comments">Java 常用工具类 Collections 源码分析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/myy629464" class="user_name">暗夜丿使者</a>:
+学习了，感谢分享！
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u011240877/article/details/53248917#comments">工作总结10：毕业这一年的收获</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u011240877" class="user_name">拭心</a>:
+@s617065698:包头的
+    </p>
+    </li>
+</ul>
+</div>
+<div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/u011240877/article/month/2017/11">2017年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/10">2017年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/09">2017年09月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/08">2017年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/07">2017年07月</a><span>(9)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/u011240877/article/month/2017/06">2017年06月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/05">2017年05月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/04">2017年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/03">2017年03月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/02">2017年02月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2017/01">2017年01月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/12">2016年12月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/11">2016年11月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/10">2016年10月</a><span>(22)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/09">2016年09月</a><span>(14)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/08">2016年08月</a><span>(19)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/07">2016年07月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/06">2016年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/05">2016年05月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/04">2016年04月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2016/03">2016年03月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/12">2015年12月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/11">2015年11月</a><span>(25)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/10">2015年10月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/09">2015年09月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/08">2015年08月</a><span>(39)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/07">2015年07月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/06">2015年06月</a><span>(32)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/05">2015年05月</a><span>(29)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/04">2015年04月</a><span>(24)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/03">2015年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2015/01">2015年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2014/12">2014年12月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2014/11">2014年11月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2014/10">2014年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u011240877/article/month/2014/09">2014年09月</a><span>(1)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li>
+<a href="http://blog.csdn.net/blogdevteam/article/details/78287539" target="_blank">* CSDN邀请您来GitChat赚钱啦！</a></li>
+
+<li>
+<a href="http://blog.csdn.net/gitchat/article/details/78341822" target="_blank">* TensorFlow 优化实践</a></li>
+
+<li>
+<a href="http://blog.csdn.net/GitChat/article/details/78341649" target="_blank">*   webpack 学习之路</a></li>
+
+<li>
+<a href="http://blog.csdn.net/gitchat/article/details/78341401" target="_blank">* 技术学到多厉害，才能顺利进入BAT？ </a></li>
+
+<li>
+<a href="http://blog.csdn.net/GitChat/article/details/78341484" target="_blank">*  当我说要做大数据工程师时他们都笑我，直到三个月后……</a></li>
+
+
+<li>
+<a href="http://blog.csdn.net/GitChat/article/details/78341763" target="_blank">* 如何利用“女装术”突破基于二维图像的人脸识别</a></li>
+
+</ul></ul>
+</div>
+
+
+
+
+<div id="custom_column_42546169" class="panel">
+<ul class="panel_head"><span>统计</span></ul>
+<ul class="panel_body">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260697038'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260697038%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1260697038"><a href="http://www.cnzz.com/stat/website.php?web_id=1260697038" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/pic.gif"></a></span><script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/z_stat.php" type="text/javascript"></script><script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/core.php" charset="utf-8" type="text/javascript"></script>
+</ul>
+</div>
+
+<div id="custom_column_45886987" class="panel">
+<ul class="panel_body">
+<div style="position:fixed;bottom: 0; right: 0px;z-index:99999;font-weight:bold;font-size:1.3em;color:red;background-color:#fff;font-family: &#39;Microsoft FangSong&#39;;border:1px solid #aaa;">
+<div style="text-align:center;border-bottom:1px solid #aaa;padding:4px;"><a href="https://github.com/hejunlin2013" target="_blank"><font color="#FF6347">欢迎微信关注安卓进化论</font></a></div><a href="https://github.com/iwannabetop/Awesome-Android-Learning-Guide" target="_blank">
+<img width="200px" height="200px" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/20160923012706321">
+    </a></div>
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+
+
+           </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/login.js.下载"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+     
+
+
+       <script type="text/javascript" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/MathJax.js.下载"></script>   
+    
+    <script src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/csdn_blog_detail.min.js.下载" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="position: absolute; z-index: 9990; width: 170px; left: -72px; top: 1018px; display: block;">  <iframe src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/saved_resource(2).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>9</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/notify.js.下载"></script><input type="hidden" id="aa_g_data_ids">
+        
+    <script type="text/javascript" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/csdn_public_blog_detail.min.js.下载"></script>
+
+    <script type="text/javascript" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/showblogmedal.ashx"></script>
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/52b5334.js.下载"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+          
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/saved_resource(3).html" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function () {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            //$(".toc a[target='_blank']").attr("target", "");
+
+            setTimeout(function () {
+                $(".toc a[target='_blank']").attr("target", "");
+            }, 500);
+
+        </script>
+
+
+   
+<link rel="stylesheet" type="text/css" media="screen" href="./RecyclerView.Adapter notifyDataSetChanged 不起作用 - 张拭心的博客 shixinzhang - CSDN博客_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="csdn-tracking-statistics" chg-blk="0"><a id="com-quick-QRcode" class="QRcodebg1" title="扫描二维码" style="top:311px"><span class="closeQR"></span></a><a id="com-quick-reply" title="快速回复" style="top:445px"></a><a id="com-quick-collect" title="我要收藏" style="top:483px"></a><a id="com-d-top-a" style="top: 521px; display: inline;" title="返回顶部" onclick=""></a></div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/u011240877/article/details/51200715#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/u011240877/article/details/51200715#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/u011240877/article/details/51200715#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor" style="">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/u011240877/article/details/51200715#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/u011240877/article/details/51200715#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true"></div></body></html>

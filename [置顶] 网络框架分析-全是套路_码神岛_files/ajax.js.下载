@@ -1,0 +1,25 @@
+define(['jquery'], function($){
+    return function(options, done, fail){
+    	if(options.needLogin === true && !/MISU_COOKIES/i.test(document.cookie)){
+    		window.location.href = '//www.misuland.com/login.html?redirectPage=' + encodeURIComponent(window.location.href);
+    		return;
+    	}
+        $.ajax({
+            url: options.url,
+            type: options.type || 'GET',
+            dataType: options.dataType || 'json',
+            data: options.data || {},
+            xhrFields:{
+            	withCredentials:true
+        	},
+            success: function(data){
+            	if(data == 'ERROR'){
+            		window.location.href = '//www.misuland.com/login.html?redirectPage=' + encodeURIComponent(window.location.href);
+            		return;
+            	}
+            	try{done(data)}catch(e){}
+            	},
+            error: function(data){try{fail(data)}catch(e){}}
+        })
+    }
+})

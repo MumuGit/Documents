@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://www.bijishequ.com/detail/438246?p= -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源</title>
+    <meta keywords="Glide,图片,设置,加载,资源">
+    <meta discripstion="前言 有段时间没做 Android 开发了，目前一直在从事 JavaWeb 相关工作。最近打算做一款 Android 应用，在使用 Glide 的时候，发现 Glide已经升...">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/base.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/homepage.css">
+    <link rel="stylesheet" href="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/listfortheme.css">
+	<script src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/hm.js.下载"></script><script src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/jQuery.js.下载"></script>
+	
+	<script src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/jquery.validate.min.js.下载"></script>
+	
+	<script src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/bootstrap.min.js.下载"></script>
+	<script src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/commet.js.下载"></script>
+<script src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/share.js.下载"></script><link rel="stylesheet" href="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/share_style1_16.css"></head>
+<body>
+
+ <div class="col-md-12 column">
+<div class="navbar" style="padding-top:4px;" role="navigation">
+  <div class="navbar-header">
+  		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+			<span class="sr-only">切换导航</span>
+			<span class="icon-bar" style="background-color:#333"></span>
+			<span class="icon-bar" style="background-color:#333"></span>
+			<span class="icon-bar" style="background-color:#333"></span>
+		</button>
+    <a href="http://www.bijishequ.com/" class="navbar-brand" target="_blank" style="background: url(/images/logo.png) no-repeat 0 0;padding-left:42px;"></a>
+  </div>
+  <div class="collapse navbar-collapse" id="example-navbar-collapse">
+  <ul class="nav navbar-nav">
+    <li>
+<a class="text-info" href="http://www.bijishequ.com/">首页</a>
+</li>
+<li>
+<a class="text-info" href="http://www.bijishequ.com/themeList">专题</a>
+</li>
+<li>
+<a class="text-info" href="http://www.bijishequ.com/original/blogIndex">博客</a>
+</li>
+<li>
+<a class="text-info" href="http://www.bijishequ.com/comment/list">评论</a>
+</li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+					<li><a class="text-info" href="http://www.bijishequ.com/login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+			<li><a class="text-info" href="http://www.bijishequ.com/register.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+</ul>
+</div>
+</div>        </div>
+
+	<div class="container">
+					<div class="row">
+			<div class="col-md-12 leaderboard">
+			<h2><small>www.bijishequ.com</small></h2>
+			<form class="search-form" accept-charset="UTF-8" method="get" action="http://www.bijishequ.com/info/search.html">
+			<div class="input-group input-group-lg">
+			<input name="searchText" id="searchText" placeholder="搜索你想要的内容" class="form-control" autofocus="autofocus" type="text">
+			<span class="input-group-btn">
+			<button class="btn btn-primary" name="searchText" value="" type="submit">搜索</button>
+			</span>
+			</div>
+			<h1></h1>
+			<p class="hidden-xs">笔记社区共收录<strong>536,718篇</strong>文章，由网站知识贡献者分类总结出<strong> 392个 </strong>技术专题。<a href="http://www.bijishequ.com/creat.html">创建自己的专题&gt;</a>
+			</p>
+			<hr>
+			</form> </div>
+			</div>
+
+	<div class="container">
+	<div class="row clearfix">
+<!-- 		<div class="col-md-2 column">
+		</div> -->
+		<div class="col-md-8 column" style="word-break: break-all;">
+		<p class="visible-xs">关注社区微信公众号: PMvideo</p>
+			<h2 style="word-break: break-all;">
+				【Android 从入门到放弃】Glide4.0 RC版的使用（上）
+			</h2>
+			<p>
+				  作者：<a href="http://www.bijishequ.com/authorarticle.html?author=%E8%A8%80%E5%8D%88%E5%AD%A6%E5%A0%82">言午学堂 </a>
+				  <span style="padding-left:8px">2017-07-29</span> 
+				  <a href="http://www.bijishequ.com/select.html?articleId=438246" class="text-info" target="_blank" style="color:#337ab7;">
+				  <span class="glyphicon glyphicon-star-empty" style="padding-left:8px"></span>
+				  <span style="padding-left:2px;">收录到我的专题</span></a>
+			</p>
+			<p>
+			标签 
+			 <a href="http://www.bijishequ.com/info/search.html?searchText=Glide" style="color:#337ab7;">
+			 <span style="padding:5px;margin:5px;">Glide</span></a>
+			 <a href="http://www.bijishequ.com/info/search.html?searchText=%E5%9B%BE%E7%89%87" style="color:#337ab7;">
+			 <span style="padding:5px;margin:5px;">图片</span></a>
+			 <a href="http://www.bijishequ.com/info/search.html?searchText=%E8%AE%BE%E7%BD%AE" style="color:#337ab7;">
+			 <span style="padding:5px;margin:5px;">设置</span></a>
+			 <a href="http://www.bijishequ.com/info/search.html?searchText=%E5%8A%A0%E8%BD%BD" style="color:#337ab7;">
+			 <span style="padding:5px;margin:5px;">加载</span></a>
+			 <a href="http://www.bijishequ.com/info/search.html?searchText=%E8%B5%84%E6%BA%90" style="color:#337ab7;">
+			 <span style="padding:5px;margin:5px;">资源</span></a>
+			 </p>
+			 
+<!--     大炮这段是分享代码 -->
+<div class="bdsharebuttonbox bdshare-button-style1-16" data-bd-bind="1509669451220"><a class="bds_more" href="http://www.bijishequ.com/detail/438246?p=#" data-cmd="more"></a><a class="bds_weixin" title="分享到微信" href="http://www.bijishequ.com/detail/438246?p=#" data-cmd="weixin"></a><a class="bds_qzone" title="分享到QQ空间" href="http://www.bijishequ.com/detail/438246?p=#" data-cmd="qzone"></a><a class="bds_evernotecn" title="分享到印象笔记" href="http://www.bijishequ.com/detail/438246?p=#" data-cmd="evernotecn"></a><a class="bds_youdao" title="分享到有道云笔记" href="http://www.bijishequ.com/detail/438246?p=#" data-cmd="youdao"></a><a class="bds_linkedin" title="分享到linkedin" href="http://www.bijishequ.com/detail/438246?p=#" data-cmd="linkedin"></a><a class="bds_fbook" title="分享到Facebook" href="http://www.bijishequ.com/detail/438246?p=#" data-cmd="fbook"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["qzone","tsina","bdysc","weixin","sqq","huaban","youdao","mail","fbook","twi","linkedin","evernotecn"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["weixin","qzone","evernotecn","youdao","linkedin","fbook"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>			<br><br>
+			<h2><strong>前言</strong></h2> 
+<p>有段时间没做 Android 开发了，目前一直在从事 JavaWeb 相关工作。最近打算做一款 Android 应用，在使用 Glide 的时候，发现 Glide已经升级到 4.0 RC版了。虽然之前整理过 Glide 的使用，4.0 RC版还是有不少区别的，所以抽时间重新整理下。</p> 
+<p>关于版本简单说明下，目前Glide 4.0版本是由Google的各种团队内部使用，4.0被认为是内部稳定的。但外部用户可能会发现内部尚未发现的问题。因此，将此作为RC发布。如果没有发现稳定性或API中的重大问题，预计不久之后就会发布非RC版本。</p> 
+<hr> 
+<h2><strong>Glide 简介</strong></h2> 
+<p>Glide是一个面向Android快速和高效的开源媒体管理（open source media management ）和图片加载(image loading )的框架,使用指定的接口很容易在一个案例中实现媒体解码（media decoding），内存（memory）和磁盘缓存（disk caching），资源池（resource pooling）的功能。</p> 
+<p>Glide支视三种类型的资源：视频，图片，动画GIF，对其进行获取，解码，显示操作。Glide拥有灵活的API，允许开发人员自定义添加网络堆栈（Network stack）。Glide默认使用HttpUrlConnection的网络堆栈，也可以使用Google的Volley库和Squareas的OkHttp库来替代。<br> Glide的主要重点是平滑和快速的滚动任何类型的图像列表。同时，Glide也高效的适用于这些情况,例如：获取，调整大小，显示远程图像。</p> 
+<p>github地址：<br> <a href="https://github.com/bumptech/glide" target="_blank">https://github.com/bumptech/glide</a></p> 
+<p>doc地址：<br> <a href="http://sjudd.github.io/glide/" target="_blank">http://sjudd.github.io/glide/</a></p> 
+<hr> 
+<h2><strong>Glide 配置</strong></h2> 
+<p><strong>1. 在Gradle中引入</strong></p> 
+<pre><code>dependencies {
+    compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+}
+</code></pre> 
+<p><strong>2. 在proguard中添加混淆规则</strong></p> 
+<pre><code>-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+</code></pre> 
+<hr> 
+<h2><strong>小试牛刀</strong></h2> 
+<p>使用Glide加载图片是很容易的，在很多情况下只需要一行代码。</p> 
+<pre><code>Glide.with(this).load(IMG_URL).into(testIv1);
+//如果加载网络图片，记得添加权限哦~
+</code></pre> 
+<hr> 
+<h2><strong>V3 到 V4 的改变</strong></h2> 
+<p>Glide V4变化较大的是库处理选项的方式。在Glide v3中，选项是由一系列复杂的多类型构建器单独处理的。在Glide v4中，这些已被具有单一类型的单个构建器和可以提供给构建器的一系列选项的对象所替代。Glide 生成的API通过将选项对象和任何包含的集成库与构建器的选项合并，来创建单个流畅的API。<br> 可以简单理解为，Glide v4 将Glide V3中Glide.with()实现的一系列复杂功能拆分成一些独立的API。大体上说，以下几个方面是全新功能。</p> 
+<pre><code class="java">Options
+    RequestBuilder
+    RequestOptions
+    TransitionOptions
+    Generated API
+Types and Targets
+    Picking Resource Types
+    Drawables
+    Targets
+        Cancellation
+Configuration
+    Applications
+    Libraries
+    Manifest parsing
+</code></pre> 
+<hr> 
+<h2><strong>RequestOptions</strong></h2> 
+<p>RequestOptions请求设置，V4 已经将大多数的设置已经放到了RequestOptions对象中。包括：</p> 
+<ul> 
+ <li>Placeholders 占位图片</li> 
+ <li>Transformations 变换的操作</li> 
+ <li>Caching Strategies 缓存策略</li> 
+ <li>Component specific options, like encode quality, or decode Bitmap configurations. 其他设置，如编码质量、Bitmap配置等。</li> 
+</ul> 
+<p><strong>1. RequestOptions对象的创建</strong></p> 
+<pre><code class="java">RequestOptions myOptions = new RequestOptions();
+//后面可以链式操作
+</code></pre> 
+<p><strong>2. Placeholders 占位图片</strong><br> <strong>2.1. placeholder</strong><br> 设置加载中的图片。当请求资源的过程中，加载中的图片会被显示。当资源请求成功后，加载中的图片会被请求的资源替换掉。如果请求的是内存资源，加载中的图片可能永远无法被显示。如果请求失败，而error图片没有被设置，那么加载中的图片将会一直被显示。或者url为null，而fallback图片没有被设置，那么加载中的图片也将会一直被显示。</p> 
+<pre><code class="java"> placeholder(R.drawable.placeholder)
+ //或者
+ placeholder(new ColorDrawable(Color.BLACK))
+</code></pre> 
+<p><strong>2.2. error</strong><br> 当请求失败的时候，error资源被显示。又或者url为null，而fallback图片没有被设置，那么加载中的图片也将会一直被显示。</p> 
+<pre><code class="java"> error(R.drawable.error)
+ //或者
+ error(new ColorDrawable(Color.RED))
+</code></pre> 
+<p><strong>2.3. fallback</strong><br> 当url为空的时候，fallback图片被显示。</p> 
+<pre><code class="java"> fallback(R.drawable.fallback)
+ //或者
+ fallback(new ColorDrawable(Color.GREY))
+</code></pre> 
+<p><strong>3. Transformations 变换的操作</strong><br> 比如设置圆角图片</p> 
+<pre><code class="java">transform(new CircleCrop())
+</code></pre> 
+<p><strong>4. 设置尺寸及填充方式</strong><br> 3.1 override(width, height)<br> 设置图片尺寸，当ImageView为wrap尺寸时有效<br> 3.2 centerCrop()<br> 拉伸截取中间部分显示<br> 3.3 fitCenter()<br> 等比拉伸填满ImageView</p> 
+<p><strong>5. RequestOptions对象的创建后，可以被RequstBuilder多次使用，通过apply()方法调用。</strong></p> 
+<pre><code class="java">RequestOptions requestOptions = new RequestOptions()
+        .placeholder(R.mipmap.placeholder) //加载中图片
+        .error(R.mipmap.error) //加载失败图片
+        .fallback(R.mipmap.fallback) //url为空图片
+        .centerCrop() // 填充方式
+        .override(600,600) //尺寸
+        .transform(new CircleCrop()) //圆角
+        .priority(Priority.HIGH) //优先级
+        .diskCacheStrategy(DiskCacheStrategy.NONE); //缓存策略，后面详细介绍
+
+Glide.with(this).load(IMG_URL1).apply(requestOptions).into(testIv1);
+Glide.with(this).load(IMG_URL2).apply(requestOptions).into(testIv2);
+</code></pre> 
+<hr> 
+<h2><strong>TransitionOptions</strong></h2> 
+<p>TransitionOptions是用来设置占位图片或者缩略图片切换到真正需要加载的图片之间的过度效果。</p> 
+<p><strong>1. 常用效果</strong></p> 
+<ul> 
+ <li>crossFade()</li> 
+ <li>animate()</li> 
+</ul> 
+<p><strong>2. 移除效果</strong></p> 
+<ul> 
+ <li>dontTransition()</li> 
+</ul> 
+<p><strong>3. 三个子类</strong></p> 
+<ul> 
+ <li>GenericTransitionOptions</li> 
+ <li>DrawableTransitionOptions</li> 
+ <li>BitmapTransitionOptions</li> 
+</ul> 
+<p><strong>3. 通过RequestBuilder的transition加载</strong></p> 
+<pre><code>Glide.with(this).load(IMG_URL1).apply(requestOptions)
+    .transition(new DrawableTransitionOptions().crossFade(2000)) //淡入淡出2秒
+    .into(testIv1);
+</code></pre> 
+<hr> 
+<h2><strong>RequestBuilder</strong></h2> 
+<p><strong>1. 概述</strong><br> requestbuilder是请求的主体，负责请求的各种操作，并开始请求。<br> 使用requestbuilder可以指定：</p> 
+<ul> 
+ <li>资源要加载的类型（Bitmap, Drawable等）</li> 
+ <li>加载资源的URL / Model</li> 
+ <li>载入资源</li> 
+ <li>设置requestoption对象</li> 
+ <li>设置transitionoption对象</li> 
+ <li>设置thumbnail()缩略图对象</li> 
+ <li>设置listener监听</li> 
+</ul> 
+<p><strong>2. 资源要加载的类型</strong><br> requestbuilders针对资源类型进行加载。资源类型包括Bitmap,Drawable,GifDrawable等。默认情况下，你会得到一个Drawable RequestBuilder。您可以使用as...的方法更改请求的类型。例如</p> 
+<pre><code class="java">RequestBuilder&lt;Bitmap&gt; requestBuilder = Glide.with(fragment).asBitmap();
+</code></pre> 
+<p><strong>3. 其他常用方法</strong><br> <strong>3.1 加载资源的URL / Model</strong></p> 
+<pre><code>load(url)
+</code></pre> 
+<p><strong>3.2 载入资源</strong></p> 
+<pre><code class="java">into()
+</code></pre> 
+<p><strong>3.3 设置thumbnail()缩略图对象</strong></p> 
+<pre><code>thumbnail(Glide.with(this).load(thumb_url)
+</code></pre> 
+<p><strong>3.4 设置requestoption对象</strong></p> 
+<pre><code>apply(requestOptions);
+</code></pre> 
+<p><strong>3.5 设置transitionoption对象</strong></p> 
+<pre><code>transition(transitionOptions)
+</code></pre> 
+<p><strong>3.6 设置listener监听</strong></p> 
+<pre><code>listener(requestListener)
+</code></pre> 
+<p><strong>4. 示例代码</strong></p> 
+<pre><code class="java">RequestOptions requestOptions = new RequestOptions()
+        .centerCrop() // 填充方式
+        .override(600,600) //尺寸
+        .transform(new CircleCrop()) //圆角
+        .priority(Priority.HIGH) //优先级
+        .diskCacheStrategy(DiskCacheStrategy.NONE); //缓存策略，后面详细介绍
+
+
+RequestBuilder&lt;Drawable&gt; requestBuilder = Glide.with(this)
+        .load(IMG_URL1);
+requestBuilder
+      //  .thumbnail(Glide.with(this).load(R.mipmap.error)) //缩略图
+        .apply(requestOptions) //requestOptions
+        .transition(new DrawableTransitionOptions().crossFade(2000)) //变换
+
+        .listener(new RequestListener&lt;Drawable&gt;() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target&lt;Drawable&gt; target, boolean isFirstResource) {
+                Log.e("Tag", "onLoadFailed : " + e.getMessage());
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target&lt;Drawable&gt; target, DataSource dataSource, boolean isFirstResource) {
+                Log.e("Tag", "onResourceReady : " + resource);
+                return false;
+            }
+        })
+        .into(testIv1);
+</code></pre> 
+<hr> 
+<div class="image-package"> 
+ <img src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/3394314-87d2f9969906df53" data-original-src="http://upload-images.jianshu.io/upload_images/3394314-87d2f9969906df53?imageMogr2/auto-orient/strip" alt="点滴分享  共同进步" data-bd-imgshare-binded="1">
+ <br>
+ <div class="image-caption">
+  点滴分享 共同进步
+ </div> 
+</div> 
+<hr>
+<br><br>
+<!--     大炮这段代码开始是评论 -->
+ <div class="m2-comment-list">
+ 
+     <div class="new-comment main-comment">
+	<form>
+	<a href="javascript:;" class="avatar">
+	<img src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/logout-info.png" data-bd-imgshare-binded="1">
+	</a>
+	<div class="nologin show">
+		<a class="mbtn sign loginButton" href="http://www.bijishequ.com/login.html?redirectUrl=%2Fdetail%2F438246">登录</a>
+		<span>后发表评论</span>
+	</div>
+	</form>
+</div>
+        
+        <h4>0条评论或问题</h4>
+        <div class="normal-comment-list">
+        
+            
+            
+        </div>
+    </div>
+    
+    <!--     大炮这段代码结束是评论 -->
+<script>
+function validateForm()
+{
+	 return $("#commentForm").validate({  
+        rules: {
+            commentContent: {  
+                required: true,  
+                maxlength: 1500  
+            }
+        },  
+        messages: {  
+            commentContent: {  
+                required: "评论内容不能为空",  
+                minlength: "评论内容不能大于1500个字符"  
+            }
+        }  
+    });
+} 
+
+function addComment(){
+	if(validateForm().form())
+	{
+		$("#commentForm").submit();
+	}
+}
+
+function onReply(obj)
+{
+    var commentId=$(obj).attr("commentid"); 
+    var commentDivId = "comment-"+commentId; 
+    var isShow = $(obj).attr("isShow"); 
+    if(isShow=="false")
+	{
+		$("#"+commentDivId).show(); 
+		$(obj).attr("isShow","true");
+	}
+	else
+	{
+		$("#"+commentDivId).hide(); 
+		$(obj).attr("isShow","false");
+	}
+}
+
+function onThumbsUp(obj)
+{
+	var commentId=$(obj).attr("commentid"); 
+    var thumbsUpId = "thumbsUp-"+commentId; 
+    var thumbsNum = $("#"+thumbsUpId).html();
+    var isThumbsUp = $(obj).attr("isThumbsUp"); 
+    if(isThumbsUp=="false")
+    {
+    	$.post("/comment/thumbsUp",{commentId:commentId},
+  		function(data){
+    		if(data.code == 1)
+    		{
+    			$("#"+thumbsUpId).html(Number(thumbsNum)+1); 
+    		}
+  		}); 
+  		$(obj).attr("isThumbsUp","true");
+    }
+}
+</script>    
+<h4>
+				<span class="glyphicon glyphicon-hand-right" style="color: #333;"> </span> 社区邀请
+			</h4>
+			<p>
+				笔记社区是一个面向中高端IT开发者、程序员的知识共享社区，通过网络抓取与文章分类总结，由专家为用户提供高质量的专题文章系列。<a class="btn" href="http://www.bijishequ.com/creat.html" target="_blank"><span class="glyphicon glyphicon-import" style="color: #333;"> </span> 邀请您成为社区专家 &gt;&gt;</a>
+			</p>
+			<p>原文链接：http://www.jianshu.com/p/f8189ea605ea
+			</p><p>声明：所有文章资源均从网络抓取，如果侵犯到您的著作权，请联系删除文章。联系方式请关注微信公众号PMvideo【锤子视频-程序员喜欢的短视频】，笔记社区开发者交流群 628286713。 </p>
+
+		</div>
+		<div class="col-md-4 column">
+			<div class="row clearfix">
+			<div class="col-md-6 column" style="width:28%;">
+				</div>
+				<div class="col-md-8 column">
+				
+				<div class="calendar">
+					<div class="calendar-time ">
+						<h4>2</h4>
+						<p>November</p>
+					</div>
+					
+					<div class="calendar-btn sign-in" id="calendar-btn">
+						<h4>签到</h4>
+						<p>今日签到<span id="signInCount">8</span>人</p>
+					</div>
+				</div>
+				
+				<div class="hidden-xs">
+				<h4 class="hidden-xs">关注微信公众号:PMvideo</h4>
+				<img src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/weixinvideo.png" class="img-thumbnail hidden-xs" style="width:200px;height:200px;" data-bd-imgshare-binded="1">
+				</div>
+				<div class="cloud">
+				<h4>相关标签</h4>
+				<ul>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2300" target="_blank">IOS</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2301" target="_blank">Android</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2299" target="_blank">移动开发</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=291" target="_blank">ApplicationContext</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=290" target="_blank">NotificationManager</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=863" target="_blank">MenuInflater</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=294" target="_blank">BorderLayout</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=292" target="_blank">Id</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=980" target="_blank">Option</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=981" target="_blank">AccountManager</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=978" target="_blank">ParcelFileDescriptor</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=979" target="_blank">Throwables</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=982" target="_blank">Parameters</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2316" target="_blank">GitHub</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2314" target="_blank">反编译</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2318" target="_blank">GitLab</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2279" target="_blank">Maven</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2282" target="_blank">Ant</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2280" target="_blank">Gradle</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2281" target="_blank">Git</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2283" target="_blank">svn</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=1983" target="_blank">持久层</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=1982" target="_blank">ORM</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2162" target="_blank">系统设计</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=1981" target="_blank">系统分析</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=1984" target="_blank">ORM框架</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2397" target="_blank">J2EE</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2396" target="_blank">java</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2761" target="_blank">编程语言</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2303" target="_blank">Eclipse</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2302" target="_blank">开发工具</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=2278" target="_blank">项目构建</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=1978" target="_blank">架构师</a>
+					<a class="label label-success" href="http://www.bijishequ.com/tag/list?tagId=1977" target="_blank">架构</a>
+				</ul>
+				</div>
+				
+	<br>
+				<h4>相关文章</h4>
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541942?p=" target="_blank" style="text-decoration:none;"><small>.Android事件管理源码剖析</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541971?p=" target="_blank" style="text-decoration:none;"><small>.Android动画全解</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541953?p=" target="_blank" style="text-decoration:none;"><small>.第14章 使用Kotlin 进行 Android 开发（2）</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541955?p=" target="_blank" style="text-decoration:none;"><small>.UI组件-对话框</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541956?p=" target="_blank" style="text-decoration:none;"><small>.ActionBar的使用</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541984?p=" target="_blank" style="text-decoration:none;"><small>.Android Studio NDK开发（一）：NDK开发准备工作（CMake方式）</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541926?p=" target="_blank" style="text-decoration:none;"><small>.Azure 下通知（百度推送）</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541972?p=" target="_blank" style="text-decoration:none;"><small>.Android Studio 3.0 新功能解析和旧项目适配</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541970?p=" target="_blank" style="text-decoration:none;"><small>.Android样式开发之style、theme、attr总结</small></a>
+					</h4>
+					
+					<h4 style="word-break: break-all;">
+						<a href="http://www.bijishequ.com/detail/541952?p=" target="_blank" style="text-decoration:none;"><small>.Android 实战-友盟统计和支付宝jar冲突</small></a>
+					</h4>
+					
+					<br>
+									<h4>相关专题</h4>
+<a target="_blank" href="http://www.bijishequ.com/subject/168" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelgy1fgyxt7e5s5j308x08ywew.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     Android开发教程
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    本博客的所链接的文章不全是原创。很多是写的非常好的博客。以下是推荐初学者学习和了解Android开发的链接
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 1 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/101" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelly1fgex6hojznj305m05mwf1.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     Android自定义View的实例讲解
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    专题将通过对一系列Android自定义View的实例讲解，让Android开发者熟悉Android中自定义View的开发流程，涉及量算、布局、绘图、交互等
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 14 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/318" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelly1fj0z332mesj30al0aljru.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     Android 网络编程
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    在Android开发中，经常会用到网络编程相关的知识，虽然也是用，但是感觉还是不太全面。所以整理下网络编程的相关知识。
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 4 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/174" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelgy1fgz02645wij305y05yjrb.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     Android插件化知识梳理-Small 框架
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    在网上查了一些相关的资料，发现了Small这个开源的插件化框架，因此打算从它入手，通过它的内部实现，学习一下插件化的相关原理。
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 9 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/104" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelly1fgf0bbk3r7j3092093wf0.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     Android之kotlin框架教程
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    开发Android也有些时间了，一直想把一些基础的组件和功能封装起来，做成一个简单的android开发框架，以备以后的使用和开发，今天就把之前的一些代码整理出来，当然了，也有很多代码是参考了网上的，这里我就不一一鸣谢了。
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 14 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/329" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelly1fj4g0li3k5j309m09mq3l.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     AS入门
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    Android Studio是一个Android集成开发工具，基于IntelliJ IDEA. 类似 Eclipse ADT，Android Studio 提供了集成的 Android 开发工具用于开发和调试。
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 12 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/15" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelly1fg3q4pfkojj307o07n74p.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     一个iOS开发者学习Android之路
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    学习安卓的过程让我有些意外，因为我一直以为所有的环境会很相似。毕竟，iOS与Android系统都是基于Unix，两者的开发语言也都是基于C的。可惜事实并非如此。
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 15 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/189" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelgy1fh5rv77revj30cx0cyjt6.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     Android多媒体与播放器
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    MediaPlayer在底层是基于OpenCore(PacketVideo)的库实现的，为了构建一个MediaPlayer程序，上层还包含了进程间通讯等内容，这种进程间通讯的基础是Android基本库中的Binder机制。
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 8 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/113" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelly1fgh2cijpl4j3055055q3v.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     Android进阶之路
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    为了方便读者阅读以及自己回顾，总结写过的文章和一些想要写的文章目录放到这里，希望大家能够在Android进阶之路上有所帮助
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 16 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+<a target="_blank" href="http://www.bijishequ.com/subject/352" style="color:#333;text-decoration:none;">
+                        <div class="thumbnail">
+                            <img alt="300x200" src="./【Android 从入门到放弃】Glide4.0 RC版的使用（上）--Option,GitHub,Git,ORM,Glide,图片,设置,加载,资源_files/006PUlelly1fjdoe6fpypj30b70b70tb.jpg" class="img-circle" style="height:80px;margin-top: 20px;" data-bd-imgshare-binded="1">
+                            <div class="caption">
+                                <h4 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;word-break: break-all;">
+                                     Android OpenGL ES从白痴到入门
+                                </h4>
+                                <p style="height:80px;overflow:hidden;">
+                                    OpenGL ES(OpenGL for Embedded Systems)实际上就是OpenGL(Open Graphics Library)在移动端的阉割版。那么OpenGL又是什么？他是跨编程语言、跨平台的编程接口或者叫图形库。
+                                </p>
+                               
+                                
+                 <h5 class="text-center">
+                         <small>共<strong> 5 </strong>篇文章</small>
+                    </h5>
+                            </div>
+                        </div>
+                    </a>
+
+			
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+			<div class="col-md-12 column" style="margin-bottom:30px;margin-top:60px;border-bottom:1px solid #f0f0f0;">
+		</div>			
+						<h3>
+						<small>
+						精选专题
+						</small>
+						</h3>
+						<div class="row">
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-go"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/spring-series.html">spring系列</a>
+						<small>1893篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-javascript"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/orm.html">ORM</a>
+						<small>1622篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-php"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/cache.html">缓存</a>
+						<small>2346篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-ruby"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/mq.html">消息中间件</a>
+						<small>534篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-java"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/ds.html">分布式服务</a>
+						<small>1792篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-python"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/nio.html">Nio框架</a>
+						<small>691篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-c#"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/concurrent.html">并发编程</a>
+						<small>2110篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-css"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/network.html">网络基础</a>
+						<small>18925篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-html"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/searchEngine.html">搜索引擎</a>
+						<small>962篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-coffeescript"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/design-mode.html">设计模式</a>
+						<small>2941篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-objective-c"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/other-arch.html">其他arch</a>
+						<small>2837篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-typescript"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/computer.html">计算机基础</a>
+						<small>2885篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-scala"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/os.html">操作系统</a>
+						<small>11.2篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-swift"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/developer.html">开发工具</a>
+						<small>3575篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-clojure"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/nginx.html">Nginx</a>
+						<small>1095篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-perl"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/jvm.html">JVM虚拟机</a>
+						<small>1239篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-c"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/monitor.html">系统监控</a>
+						<small>968篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-rust"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/log.html">日志分析</a>
+						<small>830篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-c++"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/hadoop.html">Hadoop</a>
+						<small>5091篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-haskell"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/mongodb.html">Mongodb</a>
+						<small>666篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-shell"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/android.html">Android开发</a>
+						<small>18345篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-elixir"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/ios.html">IOS开发</a>
+						<small>640篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-emacs lisp"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/mobile-game.html">移动游戏</a>
+						<small>1935篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-dart"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/react-native.html">React-Native</a>
+						<small>465篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-r"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/front.html">前端基础</a>
+						<small>11854篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-d"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/html5.html">HTML5 </a>
+						<small>12402篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-f#"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/reactjs.html">ReactJs</a>
+						<small>102篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-haxe"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/angularjs.html">AngularJs</a>
+						<small>354篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-makefile"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/bigdata.html">大数据</a>
+						<small>18102篇</small>
+						</div>
+						</h4>
+						</div>
+						<div class="language col-xs-6 col-sm-4 col-md-4">
+						<h4>
+						<div class="pictogram pictogram-groovy"></div>
+						<div class="blurb">
+						<a href="http://www.bijishequ.com/info/ai.html">人工智能</a>
+						<small>9530篇</small>
+						</div>
+						</h4>
+						</div>
+						</div>						<footer id="footer" class="footer hidden-print text-center text-muted" style="margin-top:30px;margin-bottom:60px;"><div class="container" style="width:76%;"><div class="copy-right"><span>笔记社区www.<a href="http://www.bijishequ.com/" target="_blank">bijishequ</a>.com© 2016-2017</span> 京ICP备16050282</div></div></footer>
+						<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a79f7d09275b96369a9c7fb68111436c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+var divM = document.getElementById("calendar-btn");
+    divM.onclick = function () {
+           $.ajax({
+             type: "GET",
+             url: "/singIn",
+             dataType: "json",
+             success: function(result){
+                        $('#signInCount').html(result);
+                      }
+         });
+       }
+</script>
+
+</div><div id="bdimgshare_1509669451226" class="sr-bdimgshare sr-bdimgshare-list sr-bdimgshare-16 sr-bdimgshare-black" style="height:36px;line-height:26px;font-size:12px;width:autopx;display:none;" data-bd-bind="1509669451226"><div class="bdimgshare-bg"></div><div class="bdimgshare-content bdsharebuttonbox bdshare-button-style0-16"><label class="bdimgshare-lbl">分享到：</label><a href="http://www.bijishequ.com/detail/438246?p=#" onclick="return false;" class="bds_weixin" data-cmd="weixin" hidefocus=""></a><a href="http://www.bijishequ.com/detail/438246?p=#" onclick="return false;" class="bds_qzone" data-cmd="qzone" hidefocus=""></a><a href="http://www.bijishequ.com/detail/438246?p=#" onclick="return false;" class="bds_evernotecn" data-cmd="evernotecn" hidefocus=""></a><a href="http://www.bijishequ.com/detail/438246?p=#" onclick="return false;" class="bds_youdao" data-cmd="youdao" hidefocus=""></a><a href="http://www.bijishequ.com/detail/438246?p=#" onclick="return false;" class="bds_linkedin" data-cmd="linkedin" hidefocus=""></a><a href="http://www.bijishequ.com/detail/438246?p=#" onclick="return false;" class="bds_fbook" data-cmd="fbook" hidefocus=""></a><a href="http://www.bijishequ.com/detail/438246?p=#" onclick="return false;" class="bds_more" data-cmd="more" hidefocus=""></a></div></div></body></html>

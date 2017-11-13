@@ -1,0 +1,104 @@
+define(['jquery', 'tools/ajax'], function($, $ajax){
+
+    return function(opts){
+        /*
+            opts = {
+                appendTo: '#id' | jQueryObject,
+                btn: jQueryObject,
+                userName: 'string',
+                userTimeKey: 'int',
+                success: function
+            }
+        */
+
+        if(opts.btn.attr('replyid')){
+            $('#' + opts.btn.attr('replyid')).toggle();
+            return;
+        }
+
+        var replyId = 'reply_' + new Date().getTime();
+        var replyForm = document.createElement('div');
+        var replyFormWidget = document.createElement('div');
+        var replyFormBtn = document.createElement('div');
+        var closeReplyForm = document.createElement('span');
+        var textarea = document.createElement('textarea');
+        var submit = document.createElement('button');
+
+        replyForm.id = replyId;
+        replyForm.className = 'replyForm';
+
+        replyFormWidget.className = 'replyFormWidget';
+        closeReplyForm.className = 'closeReplyForm';
+        closeReplyForm.innerHTML = 'X';
+
+        textarea.setAttribute('rows', '3');
+
+        replyFormBtn.className = 'replyFormBtn';
+
+        submit.className = 'ok';
+        submit.innerHTML = '发表';
+
+        replyFormBtn.appendChild(submit);
+        replyFormWidget.appendChild(closeReplyForm);
+
+        replyForm.appendChild(replyFormWidget);
+        replyForm.appendChild(textarea);
+        replyForm.appendChild(replyFormBtn);
+
+        if(typeof opts.appendTo == 'string'){
+        	$(opts.appendTo).append(replyForm)
+        } else if(opts.appendTo instanceof jQuery){
+            opts.appendTo.append(replyForm)
+        };
+
+        opts.btn.attr('replyid', replyId);
+        textarea.focus();
+
+
+        // 关闭
+        $(closeReplyForm).click(function(){
+            $('#' + replyId).toggle();
+        });
+
+        // 提交
+        $(submit).click(function(){
+            if(!textarea.value|| /^\s+$/.test(textarea.value)){
+                alert('内容不能为空');
+                textarea.focus();
+                return;
+            };
+            
+            $(submit).attr('disabled', 'disabled').text('请稍后..');
+
+            $ajax({
+            	url: '//msd.misuland.com/post/KeepAbreast',
+            	type: 'post',
+            	data: {'timeKey': opts.btn.attr('data-timekey'), content: textarea.value},
+            	dataType: 'text'
+            },function(res){
+            	//try{opts.success(res)}catch(e){};
+            	
+            	if(res == 'ok'){
+            		try{opts.success(textarea.value)}catch(e){};
+            		textarea.value = '';
+            		$(submit).removeAttr('disabled').text('发表');
+            		$(replyForm).toggle();
+            		return;
+            	};
+            	
+            	if(res == 'notalk'){
+            		alert('你当前处于禁言状态，将不能回复');
+            		$(submit).attr('disabled', 'disabled').text('当前处于禁言状态');
+            		return
+            	}
+            	
+        		alert('提交失败，请重试!');
+        		$(submit).removeAttr('disabled').text('发表');
+            },function(){
+            	alert('网络请求错误，请重试!');
+            	$(submit).removeAttr('disabled').text('发表');
+            });
+        });
+
+    }
+})

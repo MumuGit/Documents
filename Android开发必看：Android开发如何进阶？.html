@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)http://www.xiaoxiansheng.com/html/talk/detail/4950?type=New&categoryId= -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="wap-font-scale" content="no">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <meta name="description" content="小先生网是一家借助职场信用背书，营造高质量人才推荐的精英人才推荐平台">   
+
+
+
+<meta name="keywords" content="求职,招聘,小先生,找工作,小先生网">
+
+
+        <title>Android开发必看：Android开发如何进阶？</title>
+        <link rel="shortcut icon" href="http://www.xiaoxiansheng.com/xiaoxiansheng.ico">
+        <link rel="stylesheet" href="./Android开发必看：Android开发如何进阶？_files/reui.css">
+        <!--[if lt IE 9]>
+                <script src="/page/js/ie/html5shiv.js"></script>favicon.ico
+                <script src="/page/js/ie/respond.js"></script>
+        <![endif]-->
+        <!--[if(lt IE 8)]>
+                <script src="/page/js/ie/ie.js"></script>
+        <![endif]-->
+        <script src="./Android开发必看：Android开发如何进阶？_files/hm.js.下载"></script><script type="text/javascript">
+            function setCommentType(commentPostid, commenType) {
+                $("#commentPostid").val(commentPostid);
+//						 $("#commentType").val(commenType);
+            }
+            function addThreadCollection(threadid) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/auth/favorite/add',
+                    data: {"threadid": threadid, "_csrf": "3cd369fa-9730-4fcf-a07f-43d7f42a10d0"},
+                    async: false,
+                    success: function (data) {
+                        $.MsgBox.Alert('小先生提示', '已加入收藏');
+                        $("#addcollection").hide();
+                        $("#deletecollection").show();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('系统错误，请联系管理员。');
+                    }
+                });
+            }
+            function deleteThreadCollection(threadid) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/auth/favorite/delete',
+                    data: {"threadid": threadid, "_csrf": "3cd369fa-9730-4fcf-a07f-43d7f42a10d0"},
+                    async: false,
+                    success: function (data) {
+                        $.MsgBox.Alert('小先生提示', '已取消收藏');
+                        $("#addcollection").show();
+                        $("#deletecollection").hide();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('系统错误，请联系管理员。');
+                    }
+                });
+            }
+            function deleteConfirm() {
+                $.MsgBox.Confirm('小先生提示', '确定要删除吗？', function () {
+                    window.location = '/auth/talk/delete/4950'
+
+                });
+
+            }
+        </script>
+    <script src="./Android开发必看：Android开发如何进阶？_files/share.js.下载"></script><link href="./Android开发必看：Android开发如何进阶？_files/saved_resource" rel="styleSheet" type="text/css"></head>
+
+    <body>
+        <header class="header">
+            
+
+
+
+
+<div class="container clearfix">
+    <div class="navbar-header">
+        <a href="./Android开发必看：Android开发如何进阶？_files/saved_resource" class="navbar-logo left">
+            <img src="./Android开发必看：Android开发如何进阶？_files/logo.png" class="img-logo">
+        </a>
+        <button class="btn btn-toggle left navbar-toggle J-toggle" type="button">
+            <span class="toggle-bar"></span>
+            <span class="toggle-bar"></span>
+            <span class="toggle-bar"></span>
+        </button>
+    </div>
+    <nav class="navbar-collapse left clearfix J-collapse">
+        <ul class="navbar-nav nav left clearfix">
+            <li class="" id="home">
+                <a href="./Android开发必看：Android开发如何进阶？_files/saved_resource">首页</a>
+            </li>
+            <li id="hunt">
+                <a href="http://www.xiaoxiansheng.com/html/jobhunt/">推荐</a>
+            </li>
+            <li id="job">
+                <a href="http://www.xiaoxiansheng.com/html/jobs/">招聘</a>
+            </li>
+            <li id="talk" class="nav-hover">
+                <a href="http://www.xiaoxiansheng.com/html/talk/list">职场交流</a>
+            </li>
+        </ul>
+    </nav>
+
+    
+    
+        <div class="navbar-login right clearfix" role="link">
+            <ul class="nav clearfix">
+                <li><a href="http://www.xiaoxiansheng.com/login">登录</a></li>
+                <li><a href="http://www.xiaoxiansheng.com/register">注册</a></li>
+            </ul></div>
+        
+    <form class="navbar-search left" action="http://www.xiaoxiansheng.com/logout" method="post" id="logoutForm">
+        <input type="hidden" id="avatar" name="avatar" value="">
+        <input type="hidden" name="_csrf" value="3cd369fa-9730-4fcf-a07f-43d7f42a10d0">
+    </form>
+    <script src="./Android开发必看：Android开发如何进阶？_files/jquery.js.下载"></script>
+    <script type="text/javascript">
+                            jQuery(document).ready(function () {
+                                var avatarname = $("#avatar").val();
+                                if (avatarname.indexOf("/picture") >= 0) {
+                                    $("#headimg").attr("src", avatarname);
+                                } else {
+                                    var path = "/picture/avatar/"
+                                    if (avatarname.length > 0) {
+                                        path += "small/";
+                                        var n = avatarname.split(".")[0];
+                                        for (var i = 0; i < n.length; i++) {
+                                            path += n.substring(i, i + 1) + "/";
+                                        }
+                                        path += avatarname;
+                                    } else {
+                                        path += "default_small.jpg";
+                                    }
+                                    $("#headimg").attr("src", path);
+                                }
+                            });
+                            var url = window.location.href;
+                            if (/.*\/$/.test(url) || /.*\/index$/.test(url)) {
+                                $('.navbar-nav li').removeClass('nav-hover');
+                                $("#home").addClass('nav-hover');
+                            }
+                            if (url.indexOf("/jobhunt") > 0) {
+                                $('.navbar-nav li').removeClass('nav-hover');
+                                $("#hunt").addClass('nav-hover');
+                            }
+                            if (url.indexOf("/jobs") > 0) {
+                                $('.navbar-nav li').removeClass('nav-hover');
+                                $("#job").addClass('nav-hover');
+                            }
+                            if (url.indexOf("/talk") > 0) {
+                                $('.navbar-nav li').removeClass('nav-hover');
+                                $("#talk").addClass('nav-hover');
+                            }
+    </script>
+
+        </div></header>
+        <section class="section">
+            <div class="container clearfix">
+                <aside class="sidebar right J-sidebar">
+                    
+                        <div class="sidebar-box">
+                            <div class="widget">
+                                <h3 class="widget-title">
+                                    <i class="font"></i>
+                                    作者信息
+                                </h3>
+                                <div class="widget-box">
+                                    <div class="widget-box-hd">
+                                        <img src="./Android开发必看：Android开发如何进阶？_files/977.jpg" class="mr-w-info-img radius">
+                                        <h3 class="mr-w-info-name">
+                                            粪斗男
+                                        </h3>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <h3 class="widget-title">
+                                    <i class="font"></i>
+                                    作者其他话题
+                                    <a href="http://www.xiaoxiansheng.com/html/talk/usertalklist?userid=977" class="widget-title-more">更多</a>
+                                </h3>
+                                <div class="widget-box">
+                                    <ul class="widget-pen clearfix mr-w-pen">
+                                        
+                                            <li>
+                                                <a href="http://www.xiaoxiansheng.com/html/talk/detail/4950?type=New&amp;categoryId=" title="标题全称">
+                                                    Android开发必看：Android开发如何进阶？
+                                                </a>
+                                                <span class="mr-w-pen-titme">04-04 17:03</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="http://www.xiaoxiansheng.com/html/talk/detail/4838?type=New&amp;categoryId=" title="标题全称">
+                                                    【精彩分享】携程Android App插件化和动态加载实践
+                                                </a>
+                                                <span class="mr-w-pen-titme">02-29 15:20</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="http://www.xiaoxiansheng.com/html/talk/detail/4790?type=New&amp;categoryId=" title="标题全称">
+                                                    现阶段和未来一段时间都推崇一种分布式架构
+                                                </a>
+                                                <span class="mr-w-pen-titme">02-20 18:18</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="http://www.xiaoxiansheng.com/html/talk/detail/4788?type=New&amp;categoryId=" title="标题全称">
+                                                    【思考】中国程序员和外国程序员的不同
+                                                </a>
+                                                <span class="mr-w-pen-titme">02-20 13:35</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="http://www.xiaoxiansheng.com/html/talk/detail/4735?type=New&amp;categoryId=" title="标题全称">
+                                                    【分享】从LinkedIn的数据处理机制学习数据架构
+                                                </a>
+                                                <span class="mr-w-pen-titme">01-28 23:05</span>
+                                            </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <h3 class="widget-title">
+                                    <i class="font"></i>
+                                    企业悬赏
+                                </h3>
+                                <div class="widget-box">
+                                    <ul class="widget-pen clearfix mr-w-pen">
+                                        
+                                            <li>
+                                                <span class="table-news-area left btn btn-cl2">北京</span>
+                                                
+                                                <span class="table-news-area left btn btn-cl6">￥750</span>
+                                                <a href="http://www.xiaoxiansheng.com/html/jobs/detail/3086" title="标题全称">
+                                                    产品总监
+                                                </a>
+                                                <span class="mr-w-pen-titme">
+                                                    <i class="font"></i>
+                                                    北京悟言科技有限公司
+                                                </span>
+                                            </li>
+                                        
+                                            <li>
+                                                <span class="table-news-area left btn btn-cl2">北京</span>
+                                                
+                                                <span class="table-news-area left btn btn-cl6">￥1000</span>
+                                                <a href="http://www.xiaoxiansheng.com/html/jobs/detail/2877" title="标题全称">
+                                                    高级Android工程师
+                                                </a>
+                                                <span class="mr-w-pen-titme">
+                                                    <i class="font"></i>
+                                                    北京悠扬互动科技有限公司
+                                                </span>
+                                            </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <h3 class="widget-title">
+                                    <i class="font"></i>
+                                    热门推荐
+                                </h3>
+                                <ul class="widget-pen clearfix mr-w-pen">
+                                    
+                                        <li>
+                                            <span class="table-news-area left btn btn-cl2">北京</span>
+                                            
+                                            <span class="table-news-area left btn btn-cl6">￥1150</span>
+                                            <a href="http://www.xiaoxiansheng.com/html/jobhunt/detail?jobhuntid=1698" title="标题全称">
+                                                影视市场总监
+                                            </a>
+                                            <span class="mr-w-pen-titme">
+                                                <i class="font"></i>
+                                                小先生-商务1
+                                            </span>
+                                        </li>
+                                    
+                                        <li>
+                                            <span class="table-news-area left btn btn-cl2">北京</span>
+                                            
+                                            <span class="table-news-area left btn btn-cl6">￥1500</span>
+                                            <a href="http://www.xiaoxiansheng.com/html/jobhunt/detail?jobhuntid=1697" title="标题全称">
+                                                市场总监
+                                            </a>
+                                            <span class="mr-w-pen-titme">
+                                                <i class="font"></i>
+                                                小先生-商务1
+                                            </span>
+                                        </li>
+                                    
+                                        <li>
+                                            <span class="table-news-area left btn btn-cl2">广州</span>
+                                            
+                                            <span class="table-news-area left btn btn-cl6">￥1000</span>
+                                            <a href="http://www.xiaoxiansheng.com/html/jobhunt/detail?jobhuntid=1695" title="标题全称">
+                                                资深测试工程师
+                                            </a>
+                                            <span class="mr-w-pen-titme">
+                                                <i class="font"></i>
+                                                小先生-商务1
+                                            </span>
+                                        </li>
+                                    
+                                        <li>
+                                            <span class="table-news-area left btn btn-cl2">上海</span>
+                                            
+                                            <span class="table-news-area left btn btn-cl6">￥5000</span>
+                                            <a href="http://www.xiaoxiansheng.com/html/jobhunt/detail?jobhuntid=1689" title="标题全称">
+                                                金融平台总裁/CEO
+                                            </a>
+                                            <span class="mr-w-pen-titme">
+                                                <i class="font"></i>
+                                                狗狗-小先生
+                                            </span>
+                                        </li>
+                                    
+                                        <li>
+                                            <span class="table-news-area left btn btn-cl2">北京</span>
+                                            
+                                            <span class="table-news-area left btn btn-cl6">￥1200</span>
+                                            <a href="http://www.xiaoxiansheng.com/html/jobhunt/detail?jobhuntid=1696" title="标题全称">
+                                                视频/直播产品总监
+                                            </a>
+                                            <span class="mr-w-pen-titme">
+                                                <i class="font"></i>
+                                                小先生-商务1
+                                            </span>
+                                        </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    
+                </aside>
+                <div class="main main-left">
+                    <nav class="main-nav main-break">
+                        <a href="http://www.xiaoxiansheng.com/html/talk/list?type=New&amp;page=0&amp;size=20">职场交流</a>
+                        <i class="font"></i>
+                        <a href="http://www.xiaoxiansheng.com/html/talk/list?type=New&amp;page=0&amp;size=20&amp;categoryId="></a>
+                        <!--						<i class="font">&#xe114;</i>
+                                                                        <a href="/html/talk/detail/4950?type=New&categoryId=">话题详情</a>-->
+                    </nav>
+                    <div class="main-sing">
+                        <div class="main-sing-box">
+                            <div class="sing-hd">
+                                <h2 class="sing-title">Android开发必看：Android开发如何进阶？</h2>
+                                <div class="sing-meta">
+                                    <span><i class="font"></i>2016-04-04 17:03</span>
+                                    <span><i class="font"></i>1793</span>
+                                    <span><i class="font"></i>2</span>
+                                </div>
+                            </div>
+                            <div class="sing-bd">
+                                
+                                <p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">之前不少人都问我同一个问题，就是我学习Android有一两年了，但是遇到瓶颈了，感觉没什么进步，到底怎么才能进阶呢？</span></span></p>
+
+<p><span style="font-size:16px"><span style="color:rgb(0, 0, 0)">我相信有不少人遇到这样的困扰，那么今天我就以一个过来人的身份给大家系统的解答各个阶段遇到的问题。</span></span></p>
+
+<p><a class="fancybox" href="http://www.xiaoxiansheng.com/neo_content/forum/9/7/7/f9a2ee46ed.jpg"><img src="./Android开发必看：Android开发如何进阶？_files/f9a2ee46ed.jpg"></a></p>
+
+<p><span style="font-size:16px"><span style="color:rgb(171, 25, 66)"><strong>初学者</strong></span></span></p>
+
+<p><span style="font-size:16px"><span style="color:rgb(0, 0, 0)">一般来说初学者需要一本书，结合视频，把书本看完基本上就算初学者了，需要提醒的是一定要记得把书中的demo全部敲一遍并亲自运行，很多时候看不如敲，敲远比不上亲自运行。这个时间每个人学习能力不一样，专职学习的话1-3个月差不多了。</span></span></p>
+
+<p><span style="font-size:16px"><span style="color:rgb(171, 25, 66)"><strong>初级工程师</strong></span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">一般工作一年以下的都算初级工程师，这个时候基础知识基本都能掌握，比如四大组件的使用，常用的布局与控件的使用，一些简单的动画与自定义View等，这个阶段相对来说算进步挺快的，这个时候只需要找家相对靠谱点的公司，主动做事，多承担任务，不要怕吃苦，多加加班，虽然说到加班大家都反感，但是现实就是这个时候你不加班多做点事，难不成等着以后觉得技能不够用了再加班么？这个阶段完全不用考虑生活与工作的平衡，因为这个时候你根本谈不上生活。这个阶段多努努力，很容易快速成长为中级工程师。</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px"><strong>中级工程师</strong></span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">这个阶段因人而异，大概工作经验1-2年之间。但是往往这个阶段才是遇到瓶颈的时期，这个时期也许你承担app中单独的某块功能完全没问题，对一些常用的开源库也都能耳熟能详，项目中也会采用一些比较流行的开源库等，对常见的一些动画、自定义View与布局也能很快实现，可能也会注意一些常见的代码技巧，但是这个时候再也不是加加班就能对你的技术有很大提高的阶段了，这个阶段需要方法、实践与执行力，那么就这个阶段如何进阶我总结了以下方法：</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px"><strong>1、坚持写博客</strong></span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">中级工程师不只是一味的去做事、学习，其实更多的需要对知识的总结与归纳，而写博客是最好的手段，坚持写博客其实就是对你知识体系的回顾与总结，很多时候你对某块领域自认为掌握了，但是能写出来，并且能让别人看懂，那才是真正的熟练掌握呢，不说别的，就说一些IT界业内的大牛一般都有自己的博客，那些博客文章才是你知识沉淀的最好见证。至于更多写博客的好处见这篇文章「我为什么坚持写博客？」</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px"><strong>2、在GitHub上参与开源项目</strong></span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">我曾无数次提醒大家GitHub堪称程序员必备，聚集了全球各个领域的程序员，在上面你可以直接阅读Google、Facebook顶级公司的开源项目，可以一睹顶尖工程师的风采，在这里你绝对打开了另一扇世界大门，你可以阅读大牛源码，并试着贡献自己的代码，走出第一步，多参与，多交流，那句话怎么说来着：「与优秀的人接触，自己才会变得优秀。」同样的道理，阅读大牛们的代码多了，自己不知不觉中就会成长进步。GitHub并不仅是一个名片，更是进阶必备神器！</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px"><strong>3、有自己的完整作品</strong></span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">也许我们在公司参与不少功能的开发，不管是公司原因还是产品原因，或多或少我们为了赶进度也好，为了盈利也好，总有一些我们觉得不满意的地方，比如设计风格上不够Material Design，产品经理的一些天马行空的垃圾想法，甚至一些KPI导向的功能实现等，我相信这个阶段每个人心中都有这个想法，都觉得自己家的app不够酷，不叫Android，所以这个时候就付出行动吧，利用业余时间开发一款属于自己的完整作品，你可以尝试最新的技术与框架，用你认为最棒的工具，适配你认为的Material Design风格，这个过程不仅亲自实践了你之前想尝鲜的新技能，还完整经历了一个产品的构思与迭代过程，甚至最后把它开源，这个过程是非常宝贵的，其中你会遇到并克服各种问题，不知不觉中就在成长，开源之后你会在潜意识里对自己的代码要求更高，而且这款作品也会成为你之后简历上的加分项。所以如果你还没有过这个阶段，那从现在开始，着手准备并经历这个阶段吧，哪怕你没有什么有创意的idea，甚至高仿下开源社区或者市场上的一些app都可以，毕竟你是用来练手，不是用来商业，idea这个阶段不是特别重要。</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px"><strong>4、看一些进阶的书籍</strong></span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">看书是每个阶段进步必备的过程，但是这个阶段你需要看的是一些进阶类的书籍了，不管是关于Java还是关于Android，你需要看一下以下书籍：</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">「Thinking In Java」</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">也许之前你看过，但是我相信对于一些高深的知识你肯定没理解，这个时候再回头看一下这本书，估计又是一番收获。</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">「Effective Java」</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">这本书堪称Java进阶必备，里面教你一些你不知道的Java技巧，以及一些常用的设计模式与原则，真正教你如何优雅的写Java。</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">「Android开发艺术探索」</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">这本书是面向Android中高级工程师，里面讲到的一些知识点与技能很不错，Android进阶必备。</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px"><strong>5. 阅读Android源码，理解一些高级概念</strong></span></span></p>
+
+<p><span style="font-size:16px"><span style="color:rgb(0, 0, 0)">Java语言进阶了，同样关于Android你也需要进阶，并不能停留在一些基本api的使用上，应该往更深层次的方向去研究，比如activity、view的内部运行机制，比如Android内存优化，比如aidl，比如JNI等，并不仅仅停留在会用，而要通过阅读源码，理解其实现原理。</span></span></p>
+
+<p><span style="font-size:16px"><span style="color:rgb(171, 25, 66)"><strong>高级工程师</strong></span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">我相信如果做到了以上几个方面，加上时间的考验你已经是一位高级工程师了，一般在工作3年以上。但是即使成为了高级工程师，你依然有更多需要学习的，比如技术方面关于网络，关于架构，服务端相关知识，都需要继续学习与实践。但是除了技术之外，高级工程师的区别就在于还会关心产品与业务，在考虑问题的思维方面其实就已经发生了蜕变，并不仅仅是从技术方面去考虑问题了，不再是一个单纯的编码机器，工作内容而是会横向的扩散到其他方面。</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">我一直都说过，技术不是一切，哪怕你想走一个单纯的技术路线，以后发展架构师或CTO，最终也一定是要参与产品、管理团队、了解业务的，只不过侧重点不太一样，除非你想一辈子当个码农，两耳不闻窗外事，只想安安静静的躲在角落敲代码，否则你都必须多方位发展。只不过在你们成为高级工程师之前这些都可以先不用考虑，等你们到了这一步我相信你们自然会理解今天我说的，如果你们感兴趣，以后我再抽时间写篇技术人的职业发展路线吧。</span></span></p>
+
+<p><span style="color:rgb(0, 0, 0)"><span style="font-size:16px">最后送大家一句话，人生每个阶段都有每个阶段该干的事，你当下能做的就是踏踏实实做好现在的事，最好你能比你身边的人更努力些，不用太着急，你想要的，岁月都会给你！</span></span></p>
+
+<p><span style="color:rgb(0, 100, 0)"><span style="font-size:14px"><strong>来自：AndroidDeveloper（微信号：googdev）</strong></span></span></p>
+                                
+                                    <div class="sing-edt-time"><span>2016-04-04 17:03:41 再次编辑</span></div>
+                                
+                            </div>
+                            <div class="sing-copyright">
+                                <p>本文独家授权小先生网独家发布，任何人都可以转载，转载时必须保留版权信息</p>
+                                <p>小先生网（www.xiaoxiansheng.com)是一家借助职场信用背书，营造高质量人才推荐的精英人才推荐平台</p>
+                            </div>
+                        </div>
+                        <div class="sing-share">
+                            <div class="left">
+                                <div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1509348723501">
+                                    <a class="bds_more share-a" data-cmd="more">
+                                        <i class="font"></i>一键分享
+                                    </a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="comment main-cont">
+                            <ul class="comment-box J-commentbox">
+                                
+                                    <li>
+                                        <img src="./Android开发必看：Android开发如何进阶？_files/2367.jpg" class="comment-img radius">
+                                        <div class="comment-group" data-comment="18400">
+                                            <div class="comment-info">
+                                                <span class="comment-name">镜如</span>
+                                                <span class="comment-time">2016-07-19 21:40</span>
+                                                
+                                                <span class="comment-num">2楼</span>
+                                            </div>
+                                            <div class="comment-text">
+                                                
+                                                <p>有用，嘻嘻~~</p>
+                                            </div>
+                                            <i class="comment-bg font"></i>
+                                        </div>
+
+                                        
+
+                                    </li>
+                                
+                                    <li>
+                                        <img src="./Android开发必看：Android开发如何进阶？_files/977(1).jpg" class="comment-img radius">
+                                        <div class="comment-group" data-comment="17444">
+                                            <div class="comment-info">
+                                                <span class="comment-name">粪斗男</span>
+                                                <span class="comment-time">2016-04-04 17:04</span>
+                                                
+                                                <span class="comment-num">1楼</span>
+                                            </div>
+                                            <div class="comment-text">
+                                                
+                                                <p></p><p>有用拿走！</p><p></p>
+                                            </div>
+                                            <i class="comment-bg font"></i>
+                                        </div>
+
+                                        
+
+                                    </li>
+                                
+                            </ul>
+                           
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            
+
+
+<div class="tool">
+				<ul>
+					<li>
+						<a href="javascript:;" class="clearfix tool-icon">
+							<i class="font"></i>
+						</a>
+						<a href="http://shang.qq.com/wpa/qunwpa?idkey=b2167e5de98a60288fa881f051c38bddea14269408cc6b2dec353836d6b9d1a5" target="_blank" class="clearfix tool-text">
+							反馈问题
+						</a>
+					</li>
+					<li class="tool-sidebar">
+						<a href="javascript:;" class="clearfix tool-icon">
+							<i class="font"></i>
+						</a>
+						<a href="javascript:;" class="clearfix tool-text J-tool-s">
+							显示侧边
+						</a>
+					</li>
+					<li class="J-li-top" style="display: list-item;">
+						<a href="javascript:;" class="clearfix tool-icon">
+							<i class="font"></i>
+						</a>
+						<a href="javascript:;" class="clearfix tool-text J-top">
+							回到顶部
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="footer-box nocopy">
+				<a href="http://www.xiaoxiansheng.com/html/connus">
+					<i class="font"></i>
+					联系我们
+				</a>
+				<a href="http://weibo.com/p/1006065334361761" target="_blank">
+					<i class="font"></i>
+					官方微博
+				</a>
+				<a href="javascript:;" data-wximg="/page/img/qr.png" class="J-wx">
+					<i class="font"></i>
+					官方微信
+				</a>
+			</div>
+			<div class="footer-copy">
+				© 2014 xiaoxiansheng.com
+				<br>
+				京ICP备14051025号   京公安网安备11010802016348号
+			</div>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?80d2862d577359aa1f7100fa05f14dab";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+        </footer>
+        <script src="./Android开发必看：Android开发如何进阶？_files/sea.js.下载"></script>
+        <script>seajs.use('mod/reui');</script>
+        <script>seajs.use('mod/comment');</script>
+        <!--[if lt IE 10]>
+                <script>seajs.use(['jquery', 'ie/placeholder']);</script>
+        <![endif]-->
+    
+
+</body></html>

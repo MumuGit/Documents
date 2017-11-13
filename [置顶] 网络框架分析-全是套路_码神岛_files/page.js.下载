@@ -1,0 +1,235 @@
+define(['jquery', 'tools/ajax'], function($, $ajax) {
+
+    function a(options) {
+        this.$resultWrapper = options.resultWrapper instanceof jQuery ? options.resultWrapper : $(options.resultWrapper); // 显示取回的数据容器
+        this.$pageWrapper = options.pageWrapper instanceof jQuery ? options.pageWrapper : $(options.pageWrapper); // 显示分页码的容器
+        this.requestUrl = /\?/.test(options.requestUrl) ? options.requestUrl + '&' : options.requestUrl + '?'; // 请求的URL
+        this.beforeSend = options.beforeSend; // URL上追加的参数
+        this.method = options.method || 'GET'; // 请求的方式， 默认为 GET
+        this.dataType = options.dataType || 'text'; // 指定返回的数据类型，默认为 text
+        this.callback = options.callback; // 加载成功后执行的回调
+        this.count = null;
+        this.$prev = null;
+        this.$next = null;
+        this.$pages = [];
+    };
+
+    a.prototype.initPageNum = function(num, current) {
+        var that = this;
+        //var html = '<a href="#1" class="p disabled">首页</a><a href="#1" class="current">1</a>';
+        var html = '<a href="#1" class="current">1</a>';
+        num = num.replace(/\s/g, function() {
+            return ''
+        });
+
+        if (/\D+/.test(num)) {
+            that.$pageWrapper.html('<p style="text-align:center; line-height:30px; font-size:12px; color:red">获取页码出错=>' + num + '</p>');
+            return;
+        }
+
+        that.count = num;
+
+        if (num == 1){
+            //html += '<a href="#1" class="n disabled">尾页</a><span>共1页</span>'
+            html += '<a href="#1" class="n disabled">尾页</a>'
+        }else{
+            for (var i = 2, l = Math.min(5, num); i <= l; i++) {
+                html += '<a href="#' + i + '">' + i + '</a>';
+            };
+            //html += '<a href="#' + num + '" class="n">尾页</a><span>共' + num + '页</span>';
+        };
+        
+
+//        if (num > 5){
+//            html += '<span>到第 <input type="text"> 页</span><span><button>确定</button></span>';
+//        }
+
+
+        that.$pageWrapper.html(html);
+
+        // 链接分页
+        that.$pageWrapper.find('a').each(function() {
+            var text = $(this).text();
+            if (!/\d/.test(text)) {
+                if (text == '首页') {
+                    that.$prev = $(this)
+                } else {
+                    that.$next = $(this)
+                }
+            } else {
+                that.$pages.push($(this))
+            }
+        }).click(function(ev) {
+
+            ev.preventDefault();
+
+            if (!/(disabled)|(current)/.test($(this).attr('class'))) {
+                that.renderPage($(this).attr('href').split('#')[1]);
+            }
+        });
+
+        // input
+        that.$pageWrapper.find('input').keypress(function(ev){
+            if (ev.keyCode == 13){
+                check()
+            }
+        });
+
+        // button
+        that.$pageWrapper.find('button').click(function(){
+                check()
+        });
+
+        function check(){
+            var $input = that.$pageWrapper.find('input');
+            var val = $input.val().replace(/\s+/g, function(){return ''});
+
+            if(val == ''){
+                alert('请输入页码');
+                $input.focus();
+                return;
+            }
+            if(/\D+/.test(val)){
+                alert('页码必须为纯数字');
+                $input.focus();
+                return
+            };
+
+            val = Math.max(val, 1);
+            val = Math.min(val, that.count);
+
+            that.renderPage(val)
+        };
+
+        that.renderPage(current, 'nopoll')
+    };
+
+    a.prototype.renderPage = function(n, can) {
+        //console.log('页码： ' + n);
+        n = n - 0;
+
+        // 开始载入数据
+        can!=='nopoll' && this.getNewData(n);
+
+        for(var i=0; i<this.$pages.length; i++){
+            this.$pages[i].removeClass('current');
+        };
+        // 首页
+//        if(n>1){
+//            this.$prev.removeClass('disabled');
+//        }else{
+//            this.$prev.addClass('disabled');
+//        }
+//
+//        // 尾页
+//        if(n==this.count){
+//            this.$next.addClass('disabled');
+//        }else{
+//            this.$next.removeClass('disabled');
+//        };
+
+        // 总数大于5页
+        if(this.count > 5){
+            // 前3页
+            if (n <= 3) {
+                for(var i=0; i<5; i++){
+                    this.$pages[i].attr('href', '#'+(i+1)).text(i+1);
+                };
+                if (n == 1){
+                    this.$pages[0].addClass('current');
+                    return;
+                }
+                this.$pages[n-1].addClass('current');
+                return;
+            };
+
+            // 后2页
+            if(this.count-n <=1) {
+                for(var i=0, j=this.count-4; i<this.$pages.length; i++,j++){
+                    this.$pages[i].attr('href', '#'+j).text(j);
+                };
+                this.$pages[Math.abs(j-n-5)].addClass('current');
+                return
+            };
+
+            // 中间的
+            for(var i=0, j=n-2; i<this.$pages.length; i++, j++){
+                this.$pages[i].attr('href', '#'+j).text(j);
+            };
+            this.$pages[2].addClass('current');
+            return;
+        }
+
+        // 总数小于5页
+        for(var i=0; i<this.$pages.length; i++){
+            this.$pages[i].attr('href', '#'+(i+1)).text(i+1);
+        };
+        this.$pages[n-1].addClass('current');
+    };
+
+    a.prototype.getNewData = function(n) {
+        var that = this;
+        that.$resultWrapper.addClass('loading');
+        $ajax({
+            url: that.requestUrl + 'page=' + n,
+            type: that.method,
+            dataType: that.dataType
+        }, function(res) {
+        	if(typeof res == 'object'){
+        		that.$resultWrapper.removeClass('loading').html(res.text);
+        	}else{
+        		that.$resultWrapper.removeClass('loading').html(res);
+        	}
+            try{that.callback()}catch(e){};
+        }, function(res) {
+            that.$resultWrapper.removeClass('loading').html('<p style="text-align:center; line-height:50px; font-size:12px; color:red">获取信息出错了</p>');
+        });
+    };
+
+    a.prototype.init = function(haspage) {
+        var that = this;
+
+        if(haspage === true){
+        	
+            var res = that.$resultWrapper.html();
+            var pageCount = res.match(/####count(.*)####/);
+            var pageCurrent = res.match(/####current(.*)####/);
+            
+            if (/array/i.test(Object.prototype.toString.call(pageCount)) && /array/i.test(Object.prototype.toString.call(pageCurrent))) {
+                that.initPageNum(pageCount[1], pageCurrent[1]);
+            }
+            return;
+        }
+
+
+        that.$resultWrapper.addClass('loading');
+
+        $ajax({
+            url: that.requestUrl + 'page=1',
+            type: that.method,
+            dataType: that.dataType
+        }, function(resource) {
+        	var res = '';
+        	
+        	if(typeof resource == 'object'){
+        		res = resource.text;
+        	}else{
+        		res = resource;
+        	}
+        	
+            var pageCount = res.match(/####count(\d+)####/);
+            var pageCurrent = res.match(/####current(\d+)####/);
+            if (/array/i.test(Object.prototype.toString.call(pageCount)) && /array/i.test(Object.prototype.toString.call(pageCurrent))) {
+                that.initPageNum(pageCount[1], pageCurrent[1]);
+            }
+            that.$resultWrapper.removeClass('loading').html(res);
+            
+            
+            try{that.callback()}catch(e){};
+        }, function(res) {
+            that.$resultWrapper.removeClass('loading').html('<p style="text-align:center; line-height:50px; font-size:12px; color:red">获取信息出错了</p>')
+        })
+    };
+
+    return a;
+})

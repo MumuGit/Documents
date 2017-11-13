@@ -1,0 +1,202 @@
+require(['jquery', 'tools/confirm', 'tools/reply',  'tools/page', 'tools/ajax'], function($, $confirm, $reply, $Page, $ajax){
+
+    var isDisabledTalk = false,
+        userInfo = {};
+
+    // 登录状态下初始化编辑器
+    $.ajax({
+        type : "GET",
+        url : "//www.misuland.com/login/topInfo.do",
+        dataType : "jsonp",
+        xhrFields:{
+            withCredentials:true
+        },
+        success: function(info){
+            if(info.state == 0) {
+                $('.replyInfo-3').hide();
+                return
+            };
+
+            userInfo = info;
+
+            var ue = initEditor({
+                nType: 6,
+                md5: true,
+                tag: 'misu',
+                wrapper: 'markItUp',
+                opts: {toolbars: [["undo","redo","simpleupload","link","unlink","insertcode","cleardoc"]]}
+            });
+            
+            $('#sendReply').removeAttr('disabled');
+            
+            // 判断是否禁言
+        	$ajax({
+        		url: '//msd.misuland.com/post/isTalk',
+        		dataType: 'text'
+        	},function(res){
+        		if(res != 'notalk'){
+        			isDisabledTalk = false;
+        		}
+        	},function(res){
+        		console.error('请求用户是否禁言失败');
+        	});
+        	
+        	// 判断帖子是否
+        	$ajax({
+        		url: '//msd.misuland.com/post/isDel?timeKey=' + $('#forms').attr('data-timeKey'),
+        		dataType: 'text'
+        	},function(res){
+        		if(res == 'del'){
+        			$('.topicWrapper').html('<div id="topicIsDel">'+
+                        '<div>'+
+                            '<h1>该帖子已被删除</h1>'+
+                            '<p><a href="javascript:history.go(-1)">&lt;返回上一页</a></p>'+
+                        '</div>'+
+                    '</div>');
+        			$('#forms').hide();
+        			$('.page').hide();
+        			return;
+        		}
+        	},function(res){
+        		console.error('请求帖子是否被删除失败');
+        	});
+        },
+        error: function(){
+            console.log('获取用户消息出错')
+        }
+    });
+
+    // 回复帖子
+    $('#forms').submit(function(ev){
+    	if(isDisabledTalk){
+			alert('你当前处于禁言状态，将禁止发表任何言论');
+			ev.preventDefault();
+			return;
+		};
+    	var $this = $(this),
+    		$textarea = window.UE.getEditor('markItUp'),
+    		$content = $textarea.getContent(),
+    		$btn = $('#sendReply');
+
+    	ev.preventDefault();
+
+    	if(!$content){
+    		alert('请输入内容');
+    		return;
+    	};
+    	
+    	//验证码
+		 if (!$('#checkcodebyvalidate').val()) {
+			alert('请输入验证码');
+			$('#checkcodebyvalidate').focus();
+			return
+		}
+		 
+		 $btn.attr('disabled', 'disabled').text('请稍后');
+
+	    	$ajax({
+	    		url: '//msd.misuland.com/post/replyPost',
+	    		type: 'post',
+	    		dataType: 'text',
+	    		data: {'timeKey': $this.attr('data-timeKey'), 'str': $content, checkCode: $('#checkcodebyvalidate').val()}
+	    	},function(value){
+	    		if(value == 'ok'){
+	    			$textarea.setContent('');
+	    			window.location.reload();
+//	    			$('#replyBox').append('<div class="replyList">'+
+//	    	                '<div>'+
+//	                        '<div class="replyListHead">'+
+//	                            '<a href="javascript:;"><img onerror="this.src=\'http:\/\/item.misuland.com\/images\/head.jpg\'" src="//item.misuland.com/head/'+ userInfo.timeKey +'.jpg" class="userHead"></a>'+
+//	                        '</div>'+
+//	                        '<div class="replyInfo">'+
+//	                            '<div class="replyInfo-1">'+
+//	                                '<a href="javascript:;">' + userInfo.userName + ' </a>'+
+//	                                //'<span class="levelV">1</span>'+
+//	                                '<span> 发表于 刚刚</span>'+
+//	                            '</div>'+
+//	                            '<div class="replyInfo-2">' + $content + ''+
+//	                            '</div>'+
+//	                        '</div>'+
+//	                    '</div>'+
+//	                '</div>');
+//
+//	    			$btn.removeAttr('disabled').text('提交');
+//	    			$textarea.setContent('');
+//	    			$('#checkcodebyvalidate_img').trigger('click');
+//	    			$('#checkcodebyvalidate').val('');
+	    			return;
+	        	};
+
+	        	if(value == 'notalk'){
+	        		alert('你当前处于禁言状态，将不能回复');
+	        		$btn.attr('disabled', 'disabled').text('当前处于禁言状态');
+	        		return
+	        	}
+	        	
+	        	if(value == 'codeErr'){
+	        		alert('验证码错误');
+	        		$btn.removeAttr('disabled').text('提交');
+	        		$('#checkcodebyvalidate_img').trigger('click');
+					$('#checkcodebyvalidate').val('').focus();
+	        		return
+	        	}
+
+	    		window.location.href =  '//www.misuland.com/login.html?redirectPage=' + encodeURIComponent(window.location.href);
+	    	},function(){
+	    		alert('网络请求错误');
+	    		$btn.removeAttr('disabled').text('提交');
+	    	})
+				
+
+    	
+    });
+
+	// 查看每条回复是否需要分页
+	$('.replied').each(function(){
+		var $this = $(this);
+
+		if(parseInt($this.attr('data-pagenum')) > 1){
+			var pageWrapperDiv = document.createElement('div');
+				pageWrapperDiv.className = 'page';
+
+			$this.parent().append(pageWrapperDiv);
+
+			new $Page({
+		        resultWrapper : $this, // 显示取回的数据容器
+		        pageWrapper : $(pageWrapperDiv), // 显示分页码的容器
+		        requestUrl : '//msd.misuland.com/post/moreRePost?timeKey=' + $this.attr('data-timekey') // 请求的URL
+		    }).init(true);
+		}
+	});
+	
+	//变更验证码
+	$('#checkcodebyvalidate').bind('click', function() {
+		$('#checkcodebyvalidate_img').trigger('click');
+		$(this).unbind('click');
+		});
+
+    // 回复层主
+    $('.replyInfo-3').delegate('.reply-btn', 'click', function(){
+    	var $this = $(this);
+    	
+        $reply({
+            appendTo: $this.parent(),
+            btn: $this,
+            success: function(value){
+            	var nodeId = +(new Date());
+            	$('#replied_' + $this.attr('data-timekey')).append('<li class="replied-item">'+
+                        '<div class="clearfix">'+
+                        '<div class="replyListHead">'+
+                            '<a href="javascript:;"><img onerror="this.src=\'http:\/\/item.misuland.com\/images\/head.jpg\'" src="//item.misuland.com/head/'+ userInfo.timeKey +'.jpg" class="userHead"></a>'+
+                        '</div>'+
+                        '<div class="repliedContent">'+
+                            '<div class="d1"><a href="javascript:;">'+userInfo.userName+': </a><span id="id_' + nodeId + '"></span></div>'+
+                            '<div class="d2">发表于：刚刚</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</li>');
+            	$('#id_' + nodeId).text(value)
+            }
+        });
+    });
+})

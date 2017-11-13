@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/6d278427b18b -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; http://*.jianshu.com https://*.jianshu.com http://*.jianshu.io https://*.jianshu.io http://api.geetest.com https://api.geetest.com http://static.geetest.com https://static.geetest.com http://dn-staticdown.qbox.me https://dn-staticdown.qbox.me http://zz.bdstatic.com https://zz.bdstatic.com http://www.google-analytics.com https://www.google-analytics.com http://hm.baidu.com https://hm.baidu.com http://push.zhanzhang.baidu.com https://push.zhanzhang.baidu.com http://res.wx.qq.com https://res.wx.qq.com http://qzonestyle.gtimg.cn https://qzonestyle.gtimg.cn http://as.alipayobjects.com https://as.alipayobjects.com ;style-src &#39;self&#39; &#39;unsafe-inline&#39; http://*.jianshu.io https://*.jianshu.io http://api.geetest.com https://api.geetest.com http://static.geetest.com https://static.geetest.com http://dn-staticdown.qbox.me https://dn-staticdown.qbox.me http://zz.bdstatic.com https://zz.bdstatic.com http://qzonestyle.gtimg.cn https://qzonestyle.gtimg.cn http://as.alipayobjects.com https://as.alipayobjects.com ;">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=http://www.jianshu.com/p/6d278427b18b">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="RecyclerView 推出了三种布局管理器：1、LinearLayoutManager 线性布局管理器，呈现线性布局的RecyclerView，实现ListView效果。 2、GridLayoutManager 网格布局管理器，呈现网格布局的RecyclerView，实现GridView效果。 3、StaggeredGridLayoutManager 交错网格布局管理器，呈现交错网格布局...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/6d278427b18b">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/6606267">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="RecyclerView 的三种LayoutManager" property="twitter:title">
+  <meta content="RecyclerView 推出了三种布局管理器：1、LinearLayoutManager 线性布局管理器，呈现线性布局的RecyclerView，实现ListView效果。 2、GridLayoutManager 网格布局管理器，呈现网格布局的RecyclerView，实现GridView效果。 3、StaggeredGridLayoutManager 交错网格布局管理器，呈现交错网格布局的RecyclerView，StaggeredGridLayoutManager 是一种特殊的GridLayoutManager ，与GridLayoutManager 的区别在于，它允许每个Item..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/6d278427b18b" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="RecyclerView 的三种LayoutManager">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/6d278427b18b">
+  <meta property="og:description" content="RecyclerView 推出了三种布局管理器：1、LinearLayoutManager 线性布局管理器，呈现线性布局的RecyclerView，实现ListView效果。 2、GridLay...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/6606267">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/6606267">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>RecyclerView 的三种LayoutManager - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="W988FHvWlnfybXpGp92u93d99tvx/XRdkLlfyEhJ6wOXuWus5rdb3osU7QcxIEvS7OQX14xYn4CnlbTBYzOEOg==">
+
+  <link rel="stylesheet" media="all" href="./RecyclerView 的三种LayoutManager - 简书_files/web-d259269868d8f4d19ebf.css">
+  
+  <link rel="stylesheet" media="all" href="./RecyclerView 的三种LayoutManager - 简书_files/entry-250f1b040daad86dac63.css">
+
+  <link href="http://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+  <script src="./RecyclerView 的三种LayoutManager - 简书_files/push.js.下载"></script><script src="./RecyclerView 的三种LayoutManager - 简书_files/hm.js.下载"></script><script async="" src="./RecyclerView 的三种LayoutManager - 简书_files/analytics.js.下载"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-35169517-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.pc-bind-phone-modal .modal-content, .pc-bind-phone-modal .modal-body {
+  overflow: visible;
+}
+.pc-bind-phone-modal .dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+.pc-bind-phone-modal .dropdown-menu .tag {
+    background-color: #efefef;
+    color: #4A4A4A;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 25px;
+    font-size: 12px;
+}
+.reader-night-mode .pc-bind-phone-modal .dropdown-menu .tag {
+  background-color: #2F2F2F;
+  color: #999999;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.recommend-note {
+  margin-bottom: 20px;
+}
+.recommend-note .meta, .recommend-note .list {
+    width: 620px;
+    margin: 0 auto;
+}
+.recommend-note .meta .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.recommend-note .meta .title .more {
+      float: right;
+      font-size: 14px;
+      color: #A0A0A0;
+}
+.recommend-note .list {
+    margin-top: 20px;
+}
+.recommend-note .list .note {
+      display: block;
+      margin-bottom: 25px;
+      padding: 0 0 25px 0;
+      border-bottom: 1px solid #DDDDDD;
+}
+.recommend-note .list .note:last-child {
+        margin-bottom: 0;
+        border: none;
+}
+.recommend-note .list .note.have-img {
+        min-height: 136px;
+}
+.recommend-note .list .note .cover {
+        float: right;
+        margin: -5px 0 0 15px;
+        width: 150px;
+        height: 120px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 6px;
+}
+.recommend-note .list .note .title {
+        display: inherit;
+        margin-bottom: 4px;
+        font-size: 18px;
+        line-height: 27px;
+        font-weight: bold;
+        color: #333333;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        white-space: nowrap;
+}
+.recommend-note .list .note .title:hover {
+          text-decoration: underline;
+}
+.recommend-note .list .note .title:visited {
+          color: #999999;
+}
+.recommend-note .list .note .description {
+        margin-bottom: 12px;
+        font-size: 13px;
+        line-height: 23px;
+        color: #333333;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+}
+.recommend-note .list .note .author .avatar {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-right: 3px;
+        border-radius: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        vertical-align: middle;
+}
+.recommend-note .list .note .author .name {
+        font-size: 13px;
+        color: #333333;
+        vertical-align: middle;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.sign-and-download-bind {
+  width: 620px;
+  margin: 0 auto;
+  font-size: 0;
+}
+.sign-and-download-bind .btn {
+    padding: 12px 0;
+    width: 305px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #d5d5d5;
+    position: relative;
+}
+.sign-and-download-bind .btn:first-of-type {
+      margin-right: 10px;
+}
+.sign-and-download-bind .btn .title {
+      font-size: 15px;
+      color: #333333;
+}
+.sign-and-download-bind .btn .subtitle {
+      margin-top: 3px;
+      font-size: 13px;
+      color: #999999;
+}
+.sign-and-download-bind .btn.btn-popover:hover .qr-box {
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+           -o-transition-delay: 0s;
+              transition-delay: 0s;
+}
+.sign-and-download-bind .btn.btn-popover .qr-box {
+      width: 182px;
+      height: 172px;
+      position: absolute;
+      top: -182px;
+      left: 50%;
+      margin-left: -91px;
+      z-index: 1060;
+      background-color: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+              box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      padding: 10px 15px;
+      -webkit-transition: 0.15s linear;
+      -o-transition: 0.15s linear;
+      transition: 0.15s linear;
+      -webkit-transition-delay: .2s;
+           -o-transition-delay: .2s;
+              transition-delay: .2s;
+}
+.sign-and-download-bind .btn.btn-popover .qr-box .qrcode {
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: url(//cdn2.jianshu.io/assets/web/download-app-qrcode-note-bottom-bind-eaebf735bdf5f70c94086f5fecc1c228.png);
+}
+.sign-and-download-bind .btn.btn-popover .qr-box .arrow {
+        border: 11px solid transparent;
+        border-top-color: rgba(0, 0, 0, 0.25);
+        bottom: -22px;
+        display: block;
+        height: 11px;
+        left: 90px;
+        margin-left: -11px;
+        position: absolute;
+        width: 22px;
+}
+.sign-and-download-bind .btn.btn-popover .qr-box .arrow:after {
+          content: '';
+          bottom: -9px;
+          margin-left: -10px;
+          border: 10px solid transparent;
+          border-top-color: #fff;
+          position: absolute;
+          display: block;
+          width: 0;
+          height: 0;
+}
+.sign-and-download-bind .popover, .sign-and-download-bind .popover .content {
+    background-color: white !important;
+}
+.reader-night-mode .sign-and-download-bind .btn {
+  background-color: #4A4A4A;
+  border-color: #2F2F2F;
+}
+.reader-night-mode .sign-and-download-bind .btn .title {
+    color: #C8C8C8;
+}
+.reader-night-mode .sign-and-download-bind .btn .subtitle {
+    color: #A0A0A0;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="http://www.jianshu.com/"><img src="./RecyclerView 的三种LayoutManager - 简书_files/logo-58fd04f6f0de908401aa561cda6a0688.png" alt="Logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="http://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="http://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="http://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="">
+              <a href="http://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="">
+              <a class="app-download-btn" href="http://www.jianshu.com/apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="http://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <div class="post">
+    <div class="article">
+        <h1 class="title">RecyclerView 的三种LayoutManager</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="http://www.jianshu.com/u/57958b98cdd9">
+            <img src="./RecyclerView 的三种LayoutManager - 简书_files/faad117eb978.png" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="http://www.jianshu.com/u/57958b98cdd9">曾经的追风少年</a></span>
+              <span class="tag">作者</span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time">2016.10.28 09:58</span>
+              <span class="wordage">字数 150</span>
+            <span class="views-count">阅读 160</span><span class="comments-count">评论 0</span><span class="likes-count">喜欢 3</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <p>RecyclerView 推出了三种布局管理器：<br>1、LinearLayoutManager 线性布局管理器，呈现线性布局的RecyclerView，实现ListView效果。</p>
+<div class="image-package">
+<img src="./RecyclerView 的三种LayoutManager - 简书_files/2787812-ced59a582fe923a0.png" data-original-src="http://upload-images.jianshu.io/upload_images/2787812-ced59a582fe923a0.png?imageMogr2/auto-orient/strip%7CimageView2/2" style="cursor: zoom-in;"><br><div class="image-caption">%N$25E()9M50BI0NRDZ9(LX.png</div>
+</div>
+<p>2、GridLayoutManager 网格布局管理器，呈现网格布局的RecyclerView，实现GridView效果。</p>
+<div class="image-package">
+<img src="./RecyclerView 的三种LayoutManager - 简书_files/2787812-a1eecd9eeaacdf90.png" data-original-src="http://upload-images.jianshu.io/upload_images/2787812-a1eecd9eeaacdf90.png?imageMogr2/auto-orient/strip%7CimageView2/2" style="cursor: zoom-in;"><br><div class="image-caption">E73ZL_}{NJCLBCAG)%Q%~)Y.png</div>
+</div>
+<p>3、StaggeredGridLayoutManager 交错网格布局管理器，呈现交错网格布局的RecyclerView，StaggeredGridLayoutManager 是一种特殊的GridLayoutManager ，与GridLayoutManager 的区别在于，它允许每个Item的长度或高度不一致，实现瀑布流效果。（可以理解为：每个item的尺寸都一样的StaggeredGridLayoutManager == GridLayoutManager）。</p>
+<div class="image-package">
+<img src="./RecyclerView 的三种LayoutManager - 简书_files/2787812-8091e08aac5284c5.png" data-original-src="http://upload-images.jianshu.io/upload_images/2787812-8091e08aac5284c5.png?imageMogr2/auto-orient/strip%7CimageView2/2" style="cursor: zoom-in;"><br><div class="image-caption">F]94EJ]DP}X6](BQ%QW91~R.png</div>
+</div>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="http://www.jianshu.com/nb/8689371">
+            <i class="iconfont ic-search-notebook"></i> <span>RecyclerView学习</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="http://www.jianshu.com/u/57958b98cdd9">
+            <img src="./RecyclerView 的三种LayoutManager - 简书_files/faad117eb978.png" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="http://www.jianshu.com/u/57958b98cdd9">曾经的追风少年</a>
+          
+        <p>写了 10726 字，被 19 人关注，获得了 92 个喜欢</p></div>
+          <div class="signature">最大的快乐就是，每天都有所得！</div>
+      </div>
+
+      <div class="support-author"><p>如果觉得我的文章对您有用，请随意赞赏。您的支持将鼓励我继续创作！</p> <div class="btn btn-pay">赞赏支持</div> <!----> <!----> <!----></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="http://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>3</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/6606267/weibo/image_8a47c52eb18c.jpg&#39;, &#39;推荐 曾经的追风少年 的文章《RecyclerView 的三种LayoutManager》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/6606267/weibo/image_8a47c52eb18c.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 曾经的追风少年 的文章《RecyclerView 的三种LayoutManager》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 曾经的追风少年 的文章《RecyclerView 的三种LayoutManager》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;RecyclerView 的三种LayoutManager&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+    <div><div id="comment-list" class="comment-list"><div><form class="new-comment"><a class="avatar"><img src="./RecyclerView 的三种LayoutManager - 简书_files/avatar_default-78d4d1f68984cd6d4379508dd94b4210.png"></a> <div class="sign-container"><a href="http://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form" class="btn btn-sign">登录</a> <span>后发表评论</span></div></form> <!----></div> <div id="normal-comment-list" class="normal-comment-list"><div><!----> <div><div class="top"><span>评论</span> <a class="close-btn" style="display: none;">关闭评论</a></div> <div class="no-comment"></div> <div class="text">
+            智慧如你，不想<a href="http://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-nocomments-text">发表一点想法</a>咩~
+          </div></div> <!----> <div class="comments-placeholder" style="display: none;"><div class="author"><div class="avatar"></div> <div class="info"><div class="name"></div> <div class="meta"></div></div></div> <div class="text"></div> <div class="text animation-delay"></div> <div class="tool-group"><i class="iconfont ic-zan-active"></i><div class="zan"></div> <i class="iconfont ic-list-comments"></i><div class="zan"></div></div></div> </div></div> <!----> <div><!----></div></div></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/6606267/weibo/image_8a47c52eb18c.jpg&#39;, &#39;推荐 曾经的追风少年 的文章《RecyclerView 的三种LayoutManager》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://cwb.assets.jianshu.io/notes/images/6606267/weibo/image_8a47c52eb18c.jpg&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-picture&quot;&gt;&lt;/i&gt;&lt;span&gt;下载长微博图片&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 曾经的追风少年 的文章《RecyclerView 的三种LayoutManager》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 曾经的追风少年 的文章《RecyclerView 的三种LayoutManager》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/6d278427b18b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;RecyclerView 的三种LayoutManager&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="http://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./RecyclerView 的三种LayoutManager - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a><a href="http://www.jianshu.com/c/da3a66cea176?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./RecyclerView 的三种LayoutManager - 简书_files/20131006151049_tNQLX.jpeg"><div class="name">Android...</div></a><a href="http://www.jianshu.com/c/aa0861de2235?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./RecyclerView 的三种LayoutManager - 简书_files/android.graphics.Bitmap_898364e.jpeg"><div class="name">Android...</div></a> <!----></div></div> <!----> <!----></div>
+  <div><div class="recommend-note"><div class="meta"><div class="title">
+        推荐阅读
+        <a target="_blank" href="http://www.jianshu.com/" class="more">
+           更多精彩内容<i class="iconfont ic-link"></i></a></div></div> <div class="list"><div class="note have-img"><a target="_blank" href="http://www.jianshu.com/p/03c2e44840dd?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="cover" style="background-image: url(&quot;//upload-images.jianshu.io/upload_images/2787812-3e815e63aaf9f5e7.png?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240&quot;);"></a> <a target="_blank" href="http://www.jianshu.com/p/03c2e44840dd?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">简单调节屏幕亮度</a> <p class="description">在Android开发中，偶尔会碰到调节屏幕亮度的需求，比如 弹出一个dialog或PopupWindow时，让背景变暗。我们可以改变Window的透明度的属性来实现。 变暗前： 变暗后： 详细代码如下： 小结：最开始的时候是准备用lp.screenBrightness属性来调节亮度，后来发现并不能实现效果，在网上找了找，发现可以使用lp.alpha属性来调节。</p> <a target="_blank" href="http://www.jianshu.com/u/57958b98cdd9?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/2787812/faad117eb978.png&quot;);"></div> <span class="name">曾经的追风少年</span></a></div><div class="note"><!----> <a target="_blank" href="http://www.jianshu.com/p/19d588c1d914?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">ArcGIS中我国常用的坐标系统WKID列表（转）</a> <p class="description">地理坐标 Geographic Coordinate System 投影坐标 Projected Coordinate System 1、Xian_1980 6度分 2、Xian_1980 3度分 3、Beijing_1954 3度分 4、Beijing_1954 6度分 5、WGS_1984 墨卡托投影 6、CGCS2000 6度分 7、CGCS2000 3度分 8、New_Beijing_Gauss 6度分 9、New_Beijing_Gauss 3度分 参考资料：http://blog.sina.com.cn/s/blog_62f9ffcd0102uw8x.html        ...</p> <a target="_blank" href="http://www.jianshu.com/u/57958b98cdd9?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/2787812/faad117eb978.png&quot;);"></div> <span class="name">曾经的追风少年</span></a></div><div class="note have-img"><a target="_blank" href="http://www.jianshu.com/p/61acf3e6d90a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="cover" style="background-image: url(&quot;//upload-images.jianshu.io/upload_images/1153971-1208e80ad7ce45ab.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240&quot;);"></a> <a target="_blank" href="http://www.jianshu.com/p/61acf3e6d90a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">大学，虚假的宿舍姐妹情</a> <p class="description">我大四了，因为还有实验课必须留校，却是极少待在宿舍。若是有人问我大学前三年最痛苦最头疼得是什么，我会毫不犹豫皱起眉头一脸焦躁嫌弃不耐烦地告诉TA，宿舍友谊。 遥想曾经还是一脸期待满怀希望的我拉着装了半箱子特产的行李箱来到这个宿舍的时候一度自以为会幸运地遇到我未来结婚典礼上接到我满载幸福的捧花的漂亮美丽大方的伴娘，果然脑洞太大太天真。 先简单介绍一下，我们宿舍四个人，我来自浙江，住下铺；我上铺是来自浙江的杨大姐；另一个上下铺分别是来自辽宁葫芦岛的刘小妹和来自辽宁大连的付姑娘。 网上盛传，东北人豪爽大气不拘小节特别容易相处吧，我绝对坚信这个道理，所以成为宿舍长的那天我沾沾自喜得意洋洋我会是几...</p> <a target="_blank" href="http://www.jianshu.com/u/c423e1721ce5?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/1153971/d729a0e5623b.jpg&quot;);"></div> <span class="name">芥子旭弥</span></a></div><div class="note have-img"><a target="_blank" href="http://www.jianshu.com/p/4a37eda7304e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="cover" style="background-image: url(&quot;//upload-images.jianshu.io/upload_images/6971332-9722810cf61304b8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240&quot;);"></a> <a target="_blank" href="http://www.jianshu.com/p/4a37eda7304e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">你没来，我也很好；你来了，就是我生命里的锦上添花</a> <p class="description">小阿丽和luke相识于高中，相恋于大学，相知于研究生阶段，相结合于今。 小阿丽是我初中时就深交的知己，个头不高，五官出挑，圆溜溜的眼睛黑漆一般，随意一转就有让人想不到的点子，她活泼俏皮、幽默风趣、大方善良、古灵精怪的，这样的她，自然男人缘、女人缘都不差。 我曾在心里想象着这样的小阿丽高中时定会遇见属于自己的一场轰烈的爱情。 而事实是不管别人的青春期如何暗潮涌动，她的高中生活，一直如平静的溪流，波澜不惊，稳步向前，她知道，自己最终是要流向大海的。 一、预告片 不会轻易的开始，开始了就要有不会轻易放弃的顽强，整个高中她在积聚自己的力量，滋养蓓蕾，如果绽放得枝繁叶茂，又何愁蝴蝶不会飞来？ 也许...</p> <a target="_blank" href="http://www.jianshu.com/u/494e8ba3e84a?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/6971332/095edf63-ba6b-4f20-807e-f989015b3e6d.jpg&quot;);"></div> <span class="name">黍小离1</span></a></div><div class="note"><!----> <a target="_blank" href="http://www.jianshu.com/p/bc51ba910837?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">异性缘好的女生，都是说话高手</a> <p class="description">绿茶婊，从来都不等于异性缘好。 前者是处处桃花，喜欢撩汉于无形，表面人畜无害，却从不手下留情。 后者是行走江湖，始于人品，终于心性；擅长说话知分寸，有趣又聪明。 △ 美貌或许是先天的，但会说话是女人的武器。 知乎上有一个高赞评论。 男生的铁哥们儿新交了个女朋友，身材超赞。男生和自己女朋友在一起时，不经意夸了那个女生一句，结果，他女朋友淡淡说道：“那又怎样，她男朋友又没有我的帅”…… 一句话机智尽显。夸了自己的男朋友，也云淡风轻中抬高了自己。 而不会说话，再漂亮的皮囊也拯救不了骨子里的无趣。 上大学的时候，同班一男同学追到了漂亮的小师妹，我们都打趣这位男同学有艳福。可正为他高兴着没俩月，却...</p> <a target="_blank" href="http://www.jianshu.com/u/ad73e614982f?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/6126137/e83c6b36-be36-4308-8ff4-41c32fc26705&quot;);"></div> <span class="name">槽值</span></a></div></div></div> <div class="sign-and-download-bind"><a href="http://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=note-bottom-bind" class="btn"><div class="title"><i class="iconfont ic-user"></i>
+        登录/注册
+      </div> <div class="subtitle">
+        为你个性化推荐内容
+      </div></a> <a href="http://www.jianshu.com/apps/download?utm_source=desktop&amp;utm_medium=click-note-bottom-bind" class="btn btn-popover"><div class="title"><i class="iconfont ic-qrcode"></i>
+        下载简书App
+      </div> <div class="subtitle">
+        随时随地发现和创作内容
+      </div> <div class="qr-box"><div class="qrcode"></div> <div class="arrow"></div></div></a></div></div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"c4ff1d37-e0bb-41ab-baf5-1fd03d456425"},"note":{"id":6606267,"slug":"6d278427b18b","user_id":2787812,"notebook_id":8689371,"commentable":true,"likes_count":3,"views_count":160,"public_wordage":150,"comments_count":0,"total_rewards_count":0,"is_author":false,"author":{"nickname":"曾经的追风少年","total_wordage":10726,"followers_count":19,"total_likes_count":92}}}</script>
+    
+    <script src="./RecyclerView 的三种LayoutManager - 简书_files/babel-polyfill-8053f0c4c81c27b7aff2.js.下载"></script>
+    <script src="./RecyclerView 的三种LayoutManager - 简书_files/web-base-1bc2712f84440ea72411.js.下载"></script>
+<script src="./RecyclerView 的三种LayoutManager - 简书_files/web-cfbfddd78c002c74f1b6.js.下载"></script>
+    
+    <script src="./RecyclerView 的三种LayoutManager - 简书_files/entry-5bd6d736e46ec0be8603.js.下载"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

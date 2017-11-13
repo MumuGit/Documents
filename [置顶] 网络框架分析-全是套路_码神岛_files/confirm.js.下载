@@ -1,0 +1,36 @@
+define(['jquery'], function(){
+    /*
+    title: '标题',
+    content: '提示文字',
+    confirmed: function(){alert('回调函数')},
+    justTip: false(默认), // 是否只是提示
+    */
+    return function(opts){
+
+        if(!opts.content){console.error('没有content字段，自动退出'); return};
+        if(!opts.title){opts.title = '提示'};
+
+        var confirmBtn = document.createElement('button');
+        var denyBtn = document.createElement('button');
+
+            confirmBtn.innerHTML = '确定';
+            confirmBtn.className = 'ok';
+            denyBtn.innerHTML = '取消';
+            denyBtn.className = 'cancel';
+
+        $('body').append('<div id="confirm" class="globalLayer">'+
+                        '<span id="close" class="close"></span>'+
+                        '<h2>'+ opts.title +'</h2>'+
+                        '<p>'+ opts.content +'</p>'+
+                        '<div id="confirmBtn"></div>'+
+                    '</div>');
+
+        $('#confirmBtn').append(confirmBtn);
+        $('#globalMask').show();
+        !opts.justTip && $('#confirmBtn').append(denyBtn);
+
+        $('#close').click(function(){$('#globalMask').trigger('click')})
+        $(denyBtn).click(function(){$('#globalMask').trigger('click')})
+        $(confirmBtn).click(function(){try{opts.confirmed()}catch(e){}; $('#globalMask').trigger('click')})
+    }
+})
