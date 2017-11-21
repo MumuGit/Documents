@@ -1,0 +1,645 @@
+function isEmpty(obj) {
+    for (var key in obj) {
+        return false;
+    }
+    return true;
+};
+function isNullObj(obj){
+    for(var i in obj){
+        if(obj.hasOwnProperty(i)){
+            return false;
+        }
+    }
+    return true;
+};
+function isExsit(obj){
+	return obj.length > 0;
+};
+Date.prototype.format = function(fmt)
+{
+    var o = {
+        "M+" : this.getMonth()+1,
+        "d+" : this.getDate(),
+        "h+" : this.getHours(),
+        "m+" : this.getMinutes(),
+        "s+" : this.getSeconds(),
+        "q+" : Math.floor((this.getMonth()+3)/3),
+        "S"  : this.getMilliseconds()
+    };
+    if(/(y+)/.test(fmt))
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    return fmt;
+};
+function format_relative_date (dt) {
+    var time = new Date().getTime();
+    var t = time-dt;
+    if(t<0){
+        return '刚刚';
+    }
+    var ret='';
+    var sec = Math.floor(t / 1000);
+    var min = Math.floor(sec/60);
+    var hour = Math.floor(min / 60);
+    var day = Math.floor(hour / 24);
+    if(day>=4){
+        var tm = new Date();
+        tm.setTime(dt);
+        ret = tm.format("yyyy-MM-dd");
+    }else if(day==3){
+        ret= '三天前';
+    }else if(day==2){
+        ret= '前日';
+    }else if(day==1){
+        ret = '昨日';
+    }else if(day==0){
+        if(hour>=1){
+            ret = hour+"小时前";
+        }else if(min>=1){
+            ret = min+"分钟前";
+        }else{
+            ret = "刚刚";
+        }
+    }
+    return ret;
+};
+function removeAllChannels(obj){
+	obj.children().each(function(i,n){
+	     var obj = $(n);
+	     var c = obj.attr('class');
+	     var idx = c.indexOf('navbar-menu-fixed');
+	     if(idx>=0){
+	    	 obj.remove()
+	     }
+	    });
+};
+function setNavbar(){
+	var navHtml =
+	'<div class="container mainViewWidth">'+
+		'<div class="row">'+
+			'<div class="col-md-12">'+
+				'<nav class="navbar navbar-default" role="navigation">'+
+					'<div class="navbar-header col-xs-12">'+
+						'<a class="navbar-brand navbar-menu-list-btn" href="javascript:void(0);" onclick="themeApp.showOrHideSideNav()"><i class="glyphicon glyphicon-align-justify"></i></a>'+
+						'<a class="navbar-brand" href="/"><img alt="十条网" src="/assets/images/icon/icon.png"></a>'+
+						'<a id="id_home" class="navbar-menu-fixed xs-hide" href="/">首页</a>'+
+						'<p class="navbar-text text-right navbar-text-info">开发者公众号大全</p>'+
+						'<search class="c-search">'+
+							'<form id="id-search" class="navbar-search col-md-8  col-sm-9 col-xs-8" role="form" accept-charset="UTF-8" style="display:inline!important;" action="/search" method="post">'+
+								'<div class="input-group  text-center">'+
+									'<input id="id-word" type="text" name="word" id="searchWord" value="" class="form-control" placeholder="搜索 技术文章或公众号">'+
+									'<input id="id-page" name="page" type="hidden" value="0">'+
+									'<input id="id-type" name="type" type="hidden" value="0">'+
+									'<span class="input-group-addon">'+
+										'<div class="btn-group">'+
+											'<button id="id-drapdown-btn" type="button" class="btn btn-default dropdown-toggle btn-xs search-sel-button" data-toggle="dropdown">'+
+										     	 '文章'+
+												'<span class="caret"></span>'+
+											'</button>'+
+											'<ul class="dropdown-menu" role="menu">'+
+												'<li><a href="javascript:void(0);" onclick="changeSearchType(this,0)">文章</a></li>'+
+												'<li><a href="javascript:void(0);" onclick="changeSearchType(this,1)">公众号</a></li>'+
+											'</ul>'+										
+										'</div>'+
+									'</span>'+
+									'<span class="input-group-addon">'+
+										'<button type="submit" class="btn btn-default search-button">'+
+											'<span class="glyphicon glyphicon-search"></span>'+
+										'</button>'+
+									'</span>'+
+								'</div>'+
+							'</form>'+
+						'</search>'+
+					'</div>'+
+				'</nav>'+
+			'</div>'+
+		'</div>'+
+	'</div>';
+	$("#id_nav").html(navHtml);
+};
+function setDefaultSideNavChannels(){
+	var sideHtml = 
+		'<div class="col-sm-1 col-xs-0 sidebar-box sidebar-cate">'+
+			'<div class="sidebar-tree">'+
+				'<ul  id="sideNav-ul">'+
+					'<li><a class="tit" href="/" data-channel="-1">最新</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=263&name=team" data-channel="263">团队号</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=272&name=mobile" data-channel="272">移动开发</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=257&name=java" data-channel="257">Java</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=268&name=python" data-channel="268">Python</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=271&name=person" data-channel="271">个人号</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=264&name=web" data-channel="264">前端</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=269&name=server" data-channel="269">后端</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=266&name=test" data-channel="266">测试</a></li>'+
+					'<li><a class="tit" href="/channel/index?type=270&name=other" data-channel="270">更多</a></li>'+
+				'</ul>'+
+			'</div>'+
+		'</div>';
+	$("#id-side-navbar").html(sideHtml);
+	var type = $('#activity-detail').attr('data-page-type');
+	if(type=='home' || type=='channel'){
+		var channel =  $('#activity-detail').attr('data-channel');
+		selSideNavChannels(channel);
+	}else if(type=='article' || type=='author'){
+		var v = $('#activity-detail').attr('data-page-version');
+		if(v>=2){
+			var channel =  $('#activity-detail').attr('data-channel');
+			selSideNavChannels(channel);
+		}
+	}
+	setSideNavMouseEnvent();
+};
+function selSideNavChannels(channel){
+	$("#sideNav-ul > li").each(function(){
+		var obja = $(this).find('a');
+		var c = obja.attr('class');
+		var dc = obja.attr('data-channel');
+		if(c.indexOf('sidebar-sel')<0 && dc == channel){
+			obja.attr('class','tit sidebar-sel');
+		}
+	});
+	setSideNavMouseEnvent();
+};
+function setSideNavMouseEnvent(){
+	$("#sideNav-ul > li").each(function(){
+		var c = $(this).find('a').attr('class');
+		if(c.indexOf('sidebar-sel')<0){
+    		$(this).mouseenter(function(){
+    			if($(this).find('a').attr('class').indexOf('sidebar-sel')<0){
+    				$(this).find('a').attr('class','tit sidebar-focus');
+    			}
+    		});
+    		$(this).mouseleave(function(){
+    			if($(this).find('a').attr('class').indexOf('sidebar-sel')<0){
+    				$(this).find('a').attr('class','tit');
+    			}
+    		});
+		}
+	});
+}
+function setArticleItemMouseEnvent(){
+//	$("article").each(function(){
+//    		$(this).click(function(){
+//    			//alert("url:"+$(this).attr('data-url'));
+//    			window.open($(this).attr('data-url'));
+//    		});
+//	});
+}
+
+function setShare(){
+	var html = 
+        '<div class="bdsharebuttonbox pull-right"  data-tag="share_1">'+
+		    '<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>'+
+		    '<a href="#" class="bds_sqq" data-cmd="sqq" title="QQ好友"></a>'+
+		    '<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>'+
+		    '<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>'+
+		    '<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>'+
+		    '<a href="#" class="bds_ty" data-cmd="ty" title="天涯社区"></a>'+
+		    '<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>'+
+		    '<a href="#" class="bds_more" data-cmd="more"></a>'+
+		'</div>'+
+		'<span class="pull-right">分享<span class="glyphicon glyphicon-share">：</span></span>';
+	$("#id_share").html(html);
+}
+
+var pre = '/img.do?url=';
+var host1 = 'mmbiz.qpic.cn/mmbiz';
+var host2 = 'mmbiz.qlogo.cn/mmbiz';
+(function ($) {
+    $.fn.scrollLoading = function (options) {
+    	var params = $.extend({}, {attr: "data-src",attr2:"src"}, options || {});
+        params.cache = [];
+        $(this).each(function () {
+            var node = this.nodeName.toLowerCase(), url = $(this).attr(params["attr"]);
+            if (!url||url.indexOf(host1)==-1&&url.indexOf(host2)==-1) {
+            	url = $(this).attr(params["attr2"]);
+            	if (!url||url.indexOf(host1)==-1&&url.indexOf(host2)==-1) {
+            		return;
+            	}
+            }
+            var data = {
+                obj: $(this),
+                tag: node,
+                url: url
+            };
+            params.cache.push(data);
+        });
+        var loading = function () {
+            var st = $(window).scrollTop(), sb = st + $(window).height();
+            $.each(params.cache, function (i, data) {
+                var o = data.obj, tag = data.tag, url = data.url;
+                if (o) {
+                    post = o.position().top; posb = post + o.height();
+                    if (!(posb < st || post > sb)) {
+                        if (tag === "img") {
+                            o.attr("src", pre+escape(url));
+                        } else {
+                            o.load(url);
+                        }
+                        data.obj = null;
+                    }
+                }
+            });
+            return false;
+        };
+        loading();
+        $(window).on("scroll", loading);
+    };
+})(jQuery);
+function getIndexPageItemHtml(bean){
+	var head = 	"";	
+	if(bean.showDay){
+		head =
+		'<h3 class="date">'+
+		    '<i class="glyphicon glyphicon-calendar"></i>'+
+		    '<span>&nbsp;'+bean.dayNumber +'精选&nbsp;</span>'+
+		    '<small>'+bean.currentDay+'</small>'+
+	    '</h3>';
+	}
+	var html = head+
+		  '<article class="post article">'+
+			'<div class="row">'+
+				'<div class="col-md-10 col-sm-9 col-sm-12">'+
+					'<div class="post-head">'+
+						'<h1 class="post-title text-left">'+
+							'<a target="_blank" href="'+bean.url+'">'+bean.title+'</a>'+
+						'</h1>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-md-2 col-sm-3 xs-hide">'+
+					'<a href="'+bean.authorUrl+'" id="id-author-head-img"> '+
+						'<img class="img-responsive img-circle center-block author-head-img" src="'+bean.headUrl+'">'+
+					'</a>'+
+				'</div>'+
+			'</div>'+
+			'<div class="row author-name">'+
+               '<div class="col-md-6 col-sm-6 col-xs-8">'+
+                   '<p class="posttime">'+bean.posttime+
+                   '<a href="'+bean.url+'#comment"><i class="glyphicon glyphicon-comment"></i><span id="'+bean.mmid+'" class="cy_cmt_count"></span></a>'+
+                   '<a href="javascript:void(0);" onclick="themeApp.addZan(this,'+bean.mmid+');"><i class="glyphicon glyphicon-thumbs-up"></i><span>'+bean.zanNum+'</span></a>'+
+                   '</p>'+
+               '</div>'+
+               '<div class="col-md-4 col-sm-3 col-xs-4 text-right">'+
+                   '<span id="id-new-number">'+bean.newNumber+'新</span>'+
+               '</div>'+
+				'<div class="col-md-2 col-sm-3 xs-hide text-center">'+
+					'<a id="id-author-name" href="'+bean.authorUrl+'">'+bean.author+'</a>'+
+				'</div>'+
+			'</div>'+
+		'</article>';
+	return html;
+};
+function getAuthorIndexPageItemHtml(bean){
+	var html =
+	'<article class="post article" id="'+bean.mmid+'">'+
+	    '<div class="row">'+
+	        '<div class="col-xs-12">'+
+	            '<div class="post-head">'+
+	                '<h1 class="post-title text-left"> <a target="_blank" href="'+bean.url +'">'+bean.title +'</a></h1>'+
+	            '</div>'+
+	        '</div>'+
+	    '</div>'+
+	    '<div class="row author-name">'+
+	    	 '<div class="col-xs-6">'+
+	         	'<p class="posttime">'+bean.posttime+
+                '<a href="'+bean.url+'#comment"><i class="glyphicon glyphicon-comment"></i><span id="'+bean.mmid+'" class="cy_cmt_count"></span></a>'+
+                '<a href="javascript:void(0);" onclick="themeApp.addZan(this,'+bean.mmid+');"><i class="glyphicon glyphicon-thumbs-up"></i><span>'+bean.zanNum+'</span></a>'+
+                '</p>'+
+	     	 '</div>'+
+//	         '<div class="col-xs-6 text-right">'+
+//	             '<span id="id-new-number"></span>'+
+//	         '</div>'+
+	 	'</div>'+
+	'</article>';
+	return html;
+};
+var homeObj={
+	isLoading:false,
+	test:1
+};
+var gloableObj={
+	isHideDownApp:false
+}
+var themeApp = {
+	setFooterPosition:function(){
+		var wh = $(window).height();
+		var footer = $('#id-footer');
+		var top = footer.offset().top;
+		if(wh-185>top){
+			footer.css({'top':wh-185,position: "absolute"});
+		}
+	},
+	showAside:function(){
+		var html = 
+		'<div class="qrcode">'+
+		'<img src="/assets/images/icon/qrcode200.png" alt="Dowload app">'+
+		'<span>开发者大全App</span>'+
+		'</div>';
+		var cObj = $('.copyright');
+		cObj.before(html);
+	},
+	showAppDownload:function(){
+		if(!gloableObj.isHideDownApp){
+			var html = 
+					'<div class="down-app" id="id-down-app">'+
+		                '下载《开发者大全》'+
+		                '<span class="content download">'+
+		                    '<a class="btn btn-default" href="/download/dev.apk">'+
+		                        '下载'+
+		                     '</a>'+
+		                '</span>'+
+		                '<a class="close-down-app pull-right" href="javascript:void(0);" onclick="themeApp.closeDownApp();"><i class="glyphicon glyphicon-remove"></i></a>'+
+		            '</div>';
+			var cObj = $('.copyright');
+			cObj.before(html);
+		}
+	},
+    backToTop: function() {
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        $('#back-to-top').on('click', function(e){
+            e.preventDefault();
+            $('html, body').animate({scrollTop : 0},1000);
+            return false;
+        });
+    },
+    showImg:function(){
+        //$("img").load(function () {
+            //$(this).hide();
+            //$(this).fadeIn(2000);
+        //});
+        $("img").scrollLoading(); 
+        $('[style*=background-image]').each(function(){
+          var bg = $(this);
+          var style = bg.attr('style');
+          var rg = "background-image.+?url.*?\\(['\"]*(.+?)['\"]*\\)"; 
+          var url = style.match(rg)[1];
+          style = style.replace(url,pre+url);
+          bg.attr('style',style);
+        });
+    },
+    showVideo:function(){
+        var iframes = $('.video_iframe');
+        iframes.each(function(){
+        	var f = $(this);
+            var pw = f.parent().width();
+            var src = f.attr('src');
+            var w = f.width();
+            var h = f.height();
+            if(pw==0){
+            	pw = w;
+            }
+            var b=false;
+            if(src.indexOf('width=')>0&&src.indexOf('height=')>0){
+            	w=/width=(\d+)[.\d+]*/.exec(src)[1];
+            	h=/height=(\d+)[.\d+]*/.exec(src)[1];
+            	b= true;
+            };
+            if(pw>670){
+                pw = 670;
+            }
+            var ph = Math.ceil(h/w*pw);
+            var ws = pw+'px';
+            var hs = ph+'px';
+            f.attr('width',ws);
+            f.attr('height',hs);
+            if(b){
+	            src = src.replace(/width=\d+[.\d+]*/,'width='+pw);
+	            src = src.replace(/height=\d+[.\d+]*/,'height='+ph);
+	            f.attr('src',src);
+          	}
+            var s = f.attr('style');
+            if(!isEmpty(s)&&s.indexOf('width:')>0&&s.indexOf('height:')>0){
+	            s= s.replace(/width:.+?;/g,'width:'+ws+" !important;");
+	            s= s.replace(/height:.+?;/,'height:'+hs+" !important;");
+	            f.attr('style',s);
+            }
+        });
+    },
+    responsiveIframe: function() {
+        $('.js_content').fitVids();
+    },
+    sidebarConfig:function() {
+        if(sidebar_left == true) {
+            $('.main-content').addClass('col-md-push-4');
+            $('.sidebar').addClass('col-md-pull-8');
+        }
+    },
+    initNavbar:function(){
+    	var type = $('#activity-detail').attr('data-page-type');
+    	if(type!='search'){
+    		setNavbar();
+    	}
+		setDefaultSideNavChannels();
+    },
+    initFooter:function(){
+    	var footerHtml =
+		'<div class="container">'+
+			'<div class="row">'+
+				'<div class="col-sm-12">'+
+					'<span>Copyright &copy; <a href="http://www.10tiao.com/">十条网</a></span>|<span><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备13010217号</a></span>|<span><a target="_blank" href="/html/aboutus/aboutus.html">关于十条</a></span>|<span><a target="_blank" href="/download/index.html">开发者大全</a></span>'+
+				'</div>'+
+			'</div>'+
+		'</div>';
+    	$('#id-footer').html(footerHtml);
+    },
+    initShare:function(){
+    	var type = $('#activity-detail').attr('data-page-type');
+    	if(type=='article'){
+    		setShare();
+    	}
+    },
+    initNumber:function(){
+    	var doc = $('#activity-detail');
+    	var type = doc.attr('data-page-type');
+    	if(type=='article'){
+    		var id=doc.attr('data-article-id');
+    		$.get('/add/read.do?id='+id);
+			$.ajax({
+			  type:'POST',
+			  url:'/article/info.do',
+			  data:{id:id},
+			  dataType:'json',
+			  success:function(data){
+			      if(!isEmpty(data)){
+			    	  var info = $('span.wxhinfo2');
+                      var h = 
+                      '<span>'+data.posttime+'</span>'+
+                      '<span>'+data.newNum+'新/'+data.allNum+'</span>'+
+                      '阅读：<span>'+data.readAll+'</span>'+
+                      '<i class="glyphicon glyphicon-thumbs-up"></i>：<span class="c_zanAll">'+data.zanAll+'</span>';
+                      info.html(h);
+                      h = 
+                      '<a href="#comment"><i class="glyphicon glyphicon-comment"></i>&nbsp;</a><a href="#comment" id="changyan_count_unit"></a>'+
+                      '&nbsp;&nbsp;<a href="javascript:void(0);" onclick="themeApp.addZan(this,'+data.id+');"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;<span class=z_'+data.id+'>'+data.zanNum+'</span></a>'+
+                      '&nbsp;&nbsp;阅读&nbsp;'+data.readNum;
+                      $('#id_articleInfo').html(h);
+                      h = 
+                      '阅读&nbsp;'+data.readNum+'</span>&nbsp;&nbsp;'+
+                      '<a href="javascript:void(0);" onclick="themeApp.addZan(this,'+data.id+');"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;<span class=z_'+data.id+'>'+data.zanNum+'</span></a>';
+                      $('#id_articleInfo2').html(h);
+			      }
+			  }
+			});
+    	}
+    },
+    loadingMore:function(){
+    	$('#id_loading_fail').hide();
+    	$('#id_loading_load').show();
+    	var doc = $('#activity-detail');
+    	var type = doc.attr('data-page-type');
+    	if(type=='home'||type=='channel' || type=='author'){
+    	      if (!homeObj.isLoading && $('#id_loading').offset().top - $(window).scrollTop() < $(window).height()-15){
+    	    	  var datatime = $('#id_loading').attr('data-datatime');
+    	    	  var mmid = $('#id_loading').attr('data-mmid');
+    	    	  homeObj.isLoading=true;
+    	    	  var u = '/home/nextPage.do';
+    	    	  var d = {datatime:datatime,mmid:mmid};
+    	    	  if(type=='channel'){
+    	    		 u = '/channel/nextPage.do';
+    	    		 var c = doc.attr('data-channel');
+    	    		 d = {datatime:datatime,mmid:mmid,type:c}
+    	    	  }else if(type=='author'){
+    	    		  u = '/author/nextPage.do';
+    	    		  var id = doc.attr('data-author-id');
+    	    		  var end = doc.attr('data-end');
+    	    		  d = {datatime:datatime,mmid:mmid,authorId:id,end:end}
+    	    	  }
+    	    	  $.ajax({
+                      type:'POST',
+                      url:u,
+                      data:d,
+                      dataType:'json',
+                      success:function(data){
+                    	  homeObj.isLoading=false;
+                          if(!isEmpty(data)){
+                        	  if(type=='home'){
+	                              for(var i = 0;i <data.homeListItemBeans.length;i++){
+		              				  $('#id_loading').before(getIndexPageItemHtml(data.homeListItemBeans[i]));
+	                              }
+                        	  }else if(type=='channel'){
+	                              for(var i = 0;i <data.channelListItemBeans.length;i++){
+		              				  $('#id_loading').before(getIndexPageItemHtml(data.channelListItemBeans[i]));
+	                              }
+                        	  }else if(type=='author'){
+                        		  var headHtml=
+	                  				'<h3 class="date">'+
+	                  					'<i class="glyphicon glyphicon-user"></i>'+
+	                  					'<span>&nbsp;'+data.authorName+'&nbsp;</span>'+
+	                  					'<small>'+data.start+'-'+data.end+'篇</small>'+
+	        					    '</h3>';
+        						  $('#id_loading').before(headHtml);
+                        		  for(var i = 0;i <data.authorIndexPageListItemBeans.length;i++){
+		              				  $('#id_loading').before(getAuthorIndexPageItemHtml(data.authorIndexPageListItemBeans[i]));
+	                              }
+                        	  }
+                        	  doc.attr('data-end',data.end);
+                              $('#id_loading').attr('data-datatime',data.datatime);
+                              $('#id_loading').attr('data-mmid',data.mmid);
+                          }else{
+                      		$('#id_loading_fail').show();
+                    		$('#id_loading_load').hide();
+                          }
+                      },
+                      error:function(XMLHttpRequest, textStatus, errorThrown) {
+                    	homeObj.isLoading=false;
+                		$('#id_loading_fail').show();
+                		$('#id_loading_load').hide();
+                      }
+                  });
+    	    	  
+    	      }  
+    	}
+    },
+    addZan:function(aObj,id){
+  	  $.ajax({
+          type:'POST',
+          url:'/add/zan.do',
+          data:{id:id},
+          dataType:'json',
+          success:function(data){
+              if(!isEmpty(data)){
+            	  $(".z_"+id).each(function(){
+            		$(this).text(data.zanNum);
+            	  });
+            	  $(".c_zanAll").each(function(){
+            		  $(this).text(data.zanAll);
+            	  });
+              }
+          }
+      });
+    },
+    showOrHideSideNav:function(){
+    	var obj=$('#id-side-navbar');
+    	var show=obj.attr('data-show');
+    	if(show!='show'){
+    		obj.show();
+    		obj.attr('data-show','show');
+    	}else{
+    		obj.hide();
+    		obj.attr('data-show','hide');
+    	}
+    },
+    closeDownApp:function(){
+    	$('.down-app').hide();
+    	gloableObj.isHideDownApp = true;
+    },
+    init: function() {
+    	themeApp.initNavbar();
+    	themeApp.initNumber();
+    	themeApp.initFooter();
+    	themeApp.initShare();
+    	themeApp:setArticleItemMouseEnvent();
+    	themeApp.showAside();
+    	themeApp.showAppDownload();
+    	themeApp.showImg();
+    	themeApp.setFooterPosition();
+        themeApp.backToTop();
+        themeApp.showVideo();
+    },
+    resize:function(){
+    	themeApp.setFooterPosition();
+    	themeApp.showVideo();
+    }
+}
+$(document).ready(function(){
+    themeApp.init();
+});
+$(window).resize(function(){
+	themeApp.resize();
+});
+$(window).scroll(function(){
+	themeApp.loadingMore();
+});
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+//畅言
+(function(){ 
+var appid = 'cysxezhCc'; 
+var conf = 'prod_a6766fdecdef83b9aa65b96f93d52023'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) {
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+//百度自动推送
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+//so
+(function(){
+   var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?c4138d6628fd469244ef6575326b84c4":"https://jspassport.ssl.qhimg.com/11.0.1.js?c4138d6628fd469244ef6575326b84c4";
+   document.write('<script src="' + src + '" id="sozz"><\/script>');
+})();

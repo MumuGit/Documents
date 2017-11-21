@@ -1,0 +1,32 @@
+var updateApp = {
+	checkVersion:function(){
+		var doc = $('#activity-detail');
+		var type = doc.attr('data-page-type');
+		var dv = doc.attr('data-page-version');
+		var src = $('#id-script').attr('src');
+    	$.ajax({
+            type:'GET',
+            url:'/version/v.do',
+            dataType:'json',
+            success:function(data){
+            	if(type=='article'&&data.dv!=dv){
+            		var id=doc.attr('data-article-id');
+            		$.get('/update/article.do?id='+id);
+            	}
+            	if(!isEmpty(src)){
+	            	var sv = src.substring(src.indexOf('v=')+2);
+	            	if(data.sv!=sv){
+	            		src=src.replace(sv,data.sv);
+	            		$('#id-script').attr('src',src);
+	            	}
+            	}
+            }
+        });
+    },
+    init: function() {
+    	updateApp.checkVersion();
+    }
+}
+$(document).ready(function(){
+	updateApp.init();
+});
