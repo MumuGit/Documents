@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/04b63de8ae23 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=http://www.jianshu.com/p/04b63de8ae23">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="需求一：很多公司的app都分成debug环境和release环境(多个接口域名)，平时开发和测试都在debug环境，打包上线的时候才切换到release环境；需求二：公司要求制作马甲包，即在原来app的基础上，只修改app的名称，图标，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是不可取的，这里我...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/04b63de8ae23">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/10467061">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="iOS app配置多环境变量和制作马甲包" property="twitter:title">
+  <meta content="需求一：很多公司的app都分成debug环境和release环境(多个接口域名)，平时开发和测试都在debug环境，打包上线的时候才切换到release环境；需求二：公司要求制作马甲包，即在原来app的基础上，只修改app的名称，图标，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是不可取的，这里我们采用Configuration来实现这两个需求。定义好不同的Configuration后，就可以分别设置 Build、Archive、Test等操作分别使用哪一个 Configuration 进行编..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/04b63de8ae23" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="iOS app配置多环境变量和制作马甲包">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/04b63de8ae23">
+  <meta property="og:description" content="需求一：很多公司的app都分成debug环境和release环境(多个接口域名)，平时开发和测试都在debug环境，打包上线的时候才切换到release环境；需求二：公司要求制作马甲包，即在原来...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/10467061">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/10467061">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>iOS app配置多环境变量和制作马甲包 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="FrG9PSzlWOKe7Xg3o7AoIZHEqHcwFGrXdx2nqZV0j2ruXO5ekOQb88R/dJflEn5YHinPgYkrGKkiy7oFDutwUw==">
+
+  <link rel="stylesheet" media="all" href="./iOS app配置多环境变量和制作马甲包 - 简书_files/web-217d166d73e7682f5e81.css">
+  
+  <link rel="stylesheet" media="all" href="./iOS app配置多环境变量和制作马甲包 - 简书_files/entry-a5d96d4884b6cddc11f7.css">
+
+  <link href="http://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+  <script src="./iOS app配置多环境变量和制作马甲包 - 简书_files/push.js.下载"></script><script src="./iOS app配置多环境变量和制作马甲包 - 简书_files/hm.js.下载"></script><script async="" src="./iOS app配置多环境变量和制作马甲包 - 简书_files/analytics.js.下载"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-35169517-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="http://www.jianshu.com/"><img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/logo-58fd04f6f0de908401aa561cda6a0688.png" alt="Logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="http://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="http://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="http://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="http://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a class="app-download-btn" href="http://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="http://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="http://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1235.5px; display: inline;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">iOS app配置多环境变量和制作马甲包</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="http://www.jianshu.com/u/a976d5a8f240">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/45ea7e6f7ba0.jpg" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="http://www.jianshu.com/u/a976d5a8f240">周焕强</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.01 10:45">2017.06.15 17:20*</span>
+              <span class="wordage">字数 1135</span>
+            <span class="views-count">阅读 1647</span><span class="comments-count">评论 15</span><span class="likes-count">喜欢 15</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <blockquote>
+<p>需求一：很多公司的app都分成debug环境和release环境(多个接口域名)，平时开发和测试都在debug环境，打包上线的时候才切换到release环境；需求二：公司要求制作马甲包，即在原来app的基础上，只修改app的名称，图标，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是不可取的，这里我们采用Configuration来实现这两个需求。定义好不同的Configuration后，就可以分别设置 Build、Archive、Test等操作分别使用哪一个 Configuration 进行编译，从而可以轻松地分离开各个环境变量的设置。（2017.12.1更新：文末有4.3处理方法）</p>
+</blockquote>
+<h2>1.新建Configuration</h2>
+<p>点击Project-&gt;Info，默认有Debug和Release两个Configuration，顾名思义Debug用于调试，Release用于发布，区别是Debug默认添加了预编译宏DEBUG=1，Release不能调试程序，并且Release编译时做了优化。点击Configurations选项卡下面的加号，分别复制一个Debug和Release的Configuration，这里我取名为Debug_a和Release_a，代表马甲包a的两个Configuration</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 381px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 34.29%;"></div>
+<div class="image-view" data-width="1111" data-height="381"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-28886043c2ea691a.png" data-original-width="1111" data-original-height="381" data-original-format="image/png" data-original-filesize="102469" class="" style="cursor: zoom-in;" src="./iOS app配置多环境变量和制作马甲包 - 简书_files/1070332-28886043c2ea691a.png"></div>
+</div>
+<div class="image-caption">新建Configuration.png</div>
+</div>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 243px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 34.57%;"></div>
+<div class="image-view" data-width="703" data-height="243"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-777f2aa3d65ea910.png" data-original-width="703" data-original-height="243" data-original-format="image/png" data-original-filesize="41491" class="" style="cursor: zoom-in;" src="./iOS app配置多环境变量和制作马甲包 - 简书_files/1070332-777f2aa3d65ea910.png"></div>
+</div>
+<div class="image-caption">马甲包aConfiguration</div>
+</div>
+<p><strong>注意</strong>：新建完Configuration之后请重新执行pod install命令</p>
+<h2>2.新建Scheme</h2>
+<p>为上一步新建的Configuration再新建Scheme，这里我新建了两个Scheme，命名为马甲包a_release和马甲包a_debug，在Manage Schemes里面把右边的Shared选项勾选，否则在git上无法同步。</p>
+<br>
+<div class="image-package">
+<div class="image-container" style="max-width: 508px; max-height: 217px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 42.72%;"></div>
+<div class="image-view" data-width="508" data-height="217"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-fc817b61402791b0.png" data-original-width="508" data-original-height="217" data-original-format="image/png" data-original-filesize="69220" class="" style="cursor: zoom-in;" src="./iOS app配置多环境变量和制作马甲包 - 简书_files/1070332-fc817b61402791b0.png"></div>
+</div>
+<div class="image-caption">新建Scheme</div>
+</div>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 466px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 56.08%;"></div>
+<div class="image-view" data-width="831" data-height="466"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-6ecd8b485feaa368.png" data-original-width="831" data-original-height="466" data-original-format="image/png" data-original-filesize="66058" class="" style="cursor: zoom-in;" src="./iOS app配置多环境变量和制作马甲包 - 简书_files/1070332-6ecd8b485feaa368.png"></div>
+</div>
+<div class="image-caption">勾选Shared</div>
+</div>
+<p>在Edit Scheme里面把Run和Archive模式改成对应新建的Build Configuration</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 337px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 46.160000000000004%;"></div>
+<div class="image-view" data-width="730" data-height="337"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-a80425aeef3615ee.png" data-original-width="730" data-original-height="337" data-original-format="image/png" data-original-filesize="53783" class="" style="cursor: zoom-in;" src="./iOS app配置多环境变量和制作马甲包 - 简书_files/1070332-a80425aeef3615ee.png"></div>
+</div>
+<div class="image-caption">QQ20170615-093232.png</div>
+</div>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 309px;">
+<div class="image-container-fill" style="padding-bottom: 42.39%;"></div>
+<div class="image-view" data-width="729" data-height="309"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-e3a66224c8f5ff44.png" data-original-width="729" data-original-height="309" data-original-format="image/png" data-original-filesize="52990" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">QQ20170615-093301.png</div>
+</div>
+<h2>3.配置AppIcon和LaunchImage</h2>
+<p>新建一个App Icon和Launch Image文件夹，重新命名，拖入图片。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 495px; max-height: 317px;">
+<div class="image-container-fill" style="padding-bottom: 64.03999999999999%;"></div>
+<div class="image-view" data-width="495" data-height="317"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-23d61c64fe1ba6f4.png" data-original-width="495" data-original-height="317" data-original-format="image/png" data-original-filesize="62874" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">新建AppIcon和LaunchImage</div>
+</div>
+<p>选择Targets-&gt;Build Settings，搜索asset，在Asset Catalog App Icon Set Name 和 Asset Catalog Launch Image Set Name 配置各个Configuration所对应的图片文件夹名称。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 602px;">
+<div class="image-container-fill" style="padding-bottom: 86.1%;"></div>
+<div class="image-view" data-width="899" data-height="774"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-0acb2b8686cfc827.png" data-original-width="899" data-original-height="774" data-original-format="image/png" data-original-filesize="145340" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">QQ20170615-093625.png</div>
+</div>
+<h2>4.配置App名称，Bundle ID 和 证书</h2>
+<h3>4.1 配置App名称</h3>
+<p>在Project-&gt;Build Settings 点击加号选择Add User-Defined Setting]，即增加用户自定义设置，添加一个App名称的设置，为不同的Configuration设置不同的App名字。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 269px;">
+<div class="image-container-fill" style="padding-bottom: 36.01%;"></div>
+<div class="image-view" data-width="747" data-height="269"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-d87c612021db4b2f.png" data-original-width="747" data-original-height="269" data-original-format="image/png" data-original-filesize="65413" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">Add User-Defined Setting</div>
+</div>
+<div class="image-package">
+<div class="image-container" style="max-width: 520px; max-height: 149px;">
+<div class="image-container-fill" style="padding-bottom: 28.65%;"></div>
+<div class="image-view" data-width="520" data-height="149"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-54bacd3a61fbc220.png" data-original-width="520" data-original-height="149" data-original-format="image/png" data-original-filesize="25627" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">屏幕快照 2017-06-15 16.32.29.png</div>
+</div>
+<p>然后在info.plist中设置Bundle display name为我们自定义的设置，${CusomAppName}。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 316px;">
+<div class="image-container-fill" style="padding-bottom: 38.58%;"></div>
+<div class="image-view" data-width="819" data-height="316"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-ef6c9d606cfcf074.png" data-original-width="819" data-original-height="316" data-original-format="image/png" data-original-filesize="103904" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">App Name.png</div>
+</div>
+<h3>4.2 配置Bundle ID和证书</h3>
+<p>不同的马甲包可能是由不同的开发者账号发布的，所以需要配置对应的bundle id 和 证书。</p>
+<p>bundle id 在Targets-&gt;Build Settings 中的Product Bundle Identifier设置。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 600px;">
+<div class="image-container-fill" style="padding-bottom: 67.49000000000001%;"></div>
+<div class="image-view" data-width="889" data-height="600"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-113ba92ea46a5b1f.png" data-original-width="889" data-original-height="600" data-original-format="image/png" data-original-filesize="98823" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">bundleID.png</div>
+</div>
+<p>证书配置如下图</p>
+<br>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 735px;">
+<div class="image-container-fill" style="padding-bottom: 105.11999999999999%;"></div>
+<div class="image-view" data-width="821" data-height="863"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-6effb0a3fd10c598.png" data-original-width="821" data-original-height="863" data-original-format="image/png" data-original-filesize="128812" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">证书配置</div>
+</div>
+<h2>5.其他配置</h2>
+<p>在Targets-&gt;Build Settings-&gt;Preprocessor Macros中，可以根据Configuration配置不同的预编译宏，根据这个预编译宏的不同，在代码里面也可以有不同的配置，比如渠道号，接口域名等。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 585px;">
+<div class="image-container-fill" style="padding-bottom: 65.8%;"></div>
+<div class="image-view" data-width="889" data-height="585"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-580ffcd17ea9981f.png" data-original-width="889" data-original-height="585" data-original-format="image/png" data-original-filesize="105831" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">Macro.png</div>
+</div>
+<pre class="hljs undefined"><code>#ifdef MaJiaA
+#define kchannelCode @"majia_1"
+#endif
+
+#ifdef DEBUG
+NSString *kServiceDomain = @"http://api.test";
+#else
+NSString *kServiceDomain = @"http://api.release";
+#endif
+</code></pre>
+<div class="image-package">
+<div class="image-container" style="max-width: 365px; max-height: 221px;">
+<div class="image-container-fill" style="padding-bottom: 60.550000000000004%;"></div>
+<div class="image-view" data-width="365" data-height="221"><img data-original-src="//upload-images.jianshu.io/upload_images/1070332-30ea1e00d0221d28.png" data-original-width="365" data-original-height="221" data-original-format="image/png" data-original-filesize="29199" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">屏幕快照 2017-06-15 17.08.37.png</div>
+</div>
+<h2>6.总结</h2>
+<p>用这种方法能比较方便地实现多环境变量的配置，<a href="https://link.jianshu.com/?t=https://github.com/zhouhuanqiang/ZhqMultiEnvironmentDemo" target="_blank" rel="nofollow">具体demo可以在github上下载</a>。</p>
+<h2>7. App被拒4.3如何处理</h2>
+<p>App被拒4.3分为两种, 一种是机器4.3, 一种是人工审核4.3</p>
+<h3>7.1.机器审核4.3</h3>
+<p>Guideline 4.3 - Design</p>
+<p>This app duplicates the content and functionality of other apps submitted by you or another developer to the App Store, which is considered a form of spam.</p>
+<p>Apps that simply duplicate content or functionality create clutter, diminish the overall experience for the end user, and reduce the ability of developers to market their apps.</p>
+<p>The next submission of this app may require a longer review time.</p>
+<p>收到这种回复基本上就是机器审核4.3</p>
+<p><strong>解决方法是改类名，方法名，文件夹的名字</strong></p>
+<p>1.将工程类前缀改成另一个更长的字符串，类的后缀用其他字符串代替,名字尽量长一点。<br>
+比如ZHQBaseViewController-&gt;ABCPrefixionBaseDirector(ABCPrefixionBaseVC等)<br>
+ZHQLoginView - &gt; ABCPrefixionRegisterSurface<br>
+其他的Category 等也一起改掉</p>
+<p>2.添加垃圾代码，文件来混淆代码，然后在现有的工程中调用</p>
+<p>这样做工程量会比较大，改类名推荐用AppCode来改，否则你会很痛苦。<br>
+AppCode下载地址：<a href="https://link.jianshu.com/?t=https://u5288736.pipipan.com/fs/5288736-229937787" target="_blank" rel="nofollow">https://u5288736.pipipan.com/fs/5288736-229937787</a></p>
+<p>二.人工审核4.3</p>
+<p>Guideline 4.3 - Design - Spam</p>
+<p>We found that your app provides the same feature set as other apps submitted to the App Store, which is not appropriate to the App Store.<br>
+加功能，改界面吧，让苹果知道你不是模仿别人的</p>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="http://www.jianshu.com/nb/3769181">
+            <i class="iconfont ic-search-notebook"></i>
+            <span>iOS开发</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="http://www.jianshu.com/u/a976d5a8f240">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/45ea7e6f7ba0.jpg" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="http://www.jianshu.com/u/a976d5a8f240">周焕强</a>
+          
+            <i class="iconfont ic-man"></i>
+        <p>写了 6391 字，被 432 人关注，获得了 555 个喜欢</p></div>
+          <div class="signature">iOS工程师，英语爱好者，杰迷。</div>
+      </div>
+
+      <div class="support-author"></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="http://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>15</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/10467061/weibo/image_f9a0d67099c5.jpg&#39;, &#39;推荐 @温州田园犬 的文章《iOS app配置多环境变量和制作马甲包》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/10467061/weibo/image_f9a0d67099c5.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 周焕强 的文章《iOS app配置多环境变量和制作马甲包》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 周焕强 的文章《iOS app配置多环境变量和制作马甲包》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;iOS app配置多环境变量和制作马甲包&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="http://www.jianshu.com/apps/download?utm_source=nbc"><img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div id="vue_comment"></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/10467061/weibo/image_f9a0d67099c5.jpg&#39;, &#39;推荐 @温州田园犬 的文章《iOS app配置多环境变量和制作马甲包》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://cwb.assets.jianshu.io/notes/images/10467061/weibo/image_f9a0d67099c5.jpg&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-picture&quot;&gt;&lt;/i&gt;&lt;span&gt;下载长微博图片&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 周焕强 的文章《iOS app配置多环境变量和制作马甲包》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 周焕强 的文章《iOS app配置多环境变量和制作马甲包》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/04b63de8ae23?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;iOS app配置多环境变量和制作马甲包&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="http://www.jianshu.com/c/85371a88f3b7?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/zhanweitu.png"><div class="name">人猿星球</div></a><a href="http://www.jianshu.com/c/a1517b1cd7b8?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/cefc1e178a82b901d88b9132798da9773912ef89.jpg"><div class="name">iOS知识大全</div></a> <!----></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="10467061"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="http://www.jianshu.com/p/83b6e781eb51?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/1194012-fa88cb2e6feceae7.png" alt="240">
+</a>          <a class="title" target="_blank" href="http://www.jianshu.com/p/83b6e781eb51?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">手把手教你给一个iOS app配置多个环境变量</a>
+          <p class="description">前言 谈到多环境，相信现在大多公司都至少有2-3个app环境了，比如Test环境，UAT(User Acceptance Test)用户验收测试环境，Release环境等等。当需要开发打多个包的时候，一般常见做法就是直接代码里面修改环境变量，改完之后Archive一下就打包...</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/12201cdd5d7a?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/e4317439b304.jpg" alt="48">
+            </div>
+            <span class="name">一缕殇流化隐半边冰霜</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="http://www.jianshu.com/p/bd9d1d0a231d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">iOS 多环境配置</a>
+          <p class="description">摘要：谈到多环境，相信现在大多公司都至少有2-3个app环境...... 前言 谈到多环境，相信现在大多公司都至少有2-3个app环境了，比如Test环境，UAT(User Acceptance Test)用户验收测试环境，Release环境等等。当需要开发打多个包的时候，...</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/602f43080ed0?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/5fca1ba3-7691-4f30-bf10-b0b8795262a9.jpg" alt="48">
+            </div>
+            <span class="name">人民重重</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="http://www.jianshu.com/p/2ace1d3030a1?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/144119-a9e31664a9012280.png" alt="240">
+</a>          <a class="title" target="_blank" href="http://www.jianshu.com/p/2ace1d3030a1?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">iOS 多环境配置</a>
+          <p class="description">看到一篇对iOS多环境配置介绍不错的文章，翻译了一下，原文链接这里: 原文链接 下面的例子展示了如何在Xcode中对多环境进行配置。 动机 在我们开发应用的时候，你可能需要不同的环境。举个例子，比如在AdHoc和Appstore两种发布方式中会用不同的URL链接。XCode...</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/e329efa45fba?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/e4d388577238.jpg" alt="48">
+            </div>
+            <span class="name">keke</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="http://www.jianshu.com/p/46fd0faecac1?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/7328262-54f7992145380c10.png" alt="240">
+</a>          <a class="title" target="_blank" href="http://www.jianshu.com/p/46fd0faecac1?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Spring Cloud</a>
+          <p class="description">Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理，服务发现，断路器，智能路由，微代理，控制总线）。分布式系统的协调导致了样板模式, 使用Spring Cloud开发人员可以快速地支持实现这些模式的服务和应用程序。他们将在任何分布式...</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/d90908cb0d85?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/2-9636b13945b9ccf345bc98d0d81074eb.jpg" alt="48">
+            </div>
+            <span class="name">卡卡罗2017</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="http://www.jianshu.com/p/9b8bc8351223?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/1748971-8d924a0586334e07.png" alt="240">
+</a>          <a class="title" target="_blank" href="http://www.jianshu.com/p/9b8bc8351223?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">用xcconfig文件配置iOS app环境变量</a>
+          <p class="description">Demo下载：XCConfig Demo app开发中通常都会涉及到多个环境，Debug、Release等。环境切换时可能就会涉及到服务器url的切换，或者一些第三方sdk的appid的切换。最初我是通过在代码中添加变量的方式来设置环境的： 然而这样做的缺陷是，每一次要切换...</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/3d7d48fbd91d?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/58ea2d1964b4.jpg" alt="48">
+            </div>
+            <span class="name">MangoMade</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="http://www.jianshu.com/p/cb6d8f9b6008?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/5889133-d717b13f2e7c3265.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="http://www.jianshu.com/p/cb6d8f9b6008?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">武汉邦德艺考：欢迎原华师一附中校长指导工作</a>
+          <p class="description">​ 绵绵细雨挡不住襄阳学子的热情，只因为校区今天迎来了一位重量级教育专家---原华师一附中校长余世平！ 余校长简介 余世平;原华师一附中党委书记副校长 中学数学特级教师，国际数学奥林匹克金牌教练，中国数学奥林匹克委员会高级竞赛教研员，长期从事高中数学教材与教法的研究和奥林匹...</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/f302af262909?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/2-9636b13945b9ccf345bc98d0d81074eb.jpg" alt="48">
+            </div>
+            <span class="name">我是原创</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="http://www.jianshu.com/p/23e0df4257c5?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">2017-10-20</a>
+          <p class="description">王者荣耀技能框美化</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/c5e4d50dd002?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/62f72316-b7e6-472d-9ff2-70c0aa690faf.jpg" alt="48">
+            </div>
+            <span class="name">吾皇少</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="http://www.jianshu.com/p/3c1ab1dd1cc6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/1067451-8c5919fa3def784b.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="http://www.jianshu.com/p/3c1ab1dd1cc6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">三月过的不容易</a>
+          <p class="description">三月的下半月，生活按部就班，甚至还算充实丰富。春暖花开，桃红柳绿，一切岁月静好的模样。每天很忙，工作正是一年中比较忙碌的时刻，生活里坚持一周两到三次的游泳，时不时见朋友，参加有趣的聚会，坚持心理学的学习，还额外报名学习一个理财课。 站在四月头回望，老老实实的坦白，这些日子过...</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/bc0373765d8f?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/9e832d8632c4.jpeg" alt="48">
+            </div>
+            <span class="name">东红菇凉</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="http://www.jianshu.com/p/6b9b8d62c7f9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/6782-eb5bd7ff722deb2c.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="http://www.jianshu.com/p/6b9b8d62c7f9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">『现在的三星就是一支翻唱乐队』[DF]</a>
+          <p class="description">作为标题的诙谐评价来自于 Dave Pell，上下文是关于三星最近发布的名为『Designing Possible』视频的评价，该视频同之前苹果关于最贵的纯金版 Apple Watch Edition 是如何设计的视频在太多地方有着惊人的相似。 也许，在幕后，三星正委屈地小...</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/oU6HWU?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/027e167c127a.jpg" alt="48">
+            </div>
+            <span class="name">做个懂科学的憨人</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="http://www.jianshu.com/p/793e33086ed0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/5677288-414b30598ed1ceae.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="http://www.jianshu.com/p/793e33086ed0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">1917-170503Day7</a>
+          <p class="description">﻿今天定内容打卡，想做一个笔记型手帐，但是只做了一个框架，没有内容。后来想了一下，如果要做得精细，还是要加入一些故事内容或者例子，但不一定是这图片里面的故事，可以自己试着用小漫画形式来说明。 下次试试。加油(^ω^)</p>
+          <a class="author" target="_blank" href="http://www.jianshu.com/u/df5664a88875?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./iOS app配置多环境变量和制作马甲包 - 简书_files/ef0ff1b8-603a-40d3-a813-ad3b1d26c325.jpg" alt="48">
+            </div>
+            <span class="name">珊_33</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"377f0fea-ae62-4ee3-8d07-de57773ec728"},"note":{"id":10467061,"slug":"04b63de8ae23","user_id":1070332,"notebook_id":3769181,"commentable":true,"likes_count":15,"views_count":1647,"public_wordage":1135,"comments_count":15,"total_rewards_count":0,"is_author":false,"author":{"nickname":"周焕强","total_wordage":6391,"followers_count":432,"total_likes_count":555}}}</script>
+    
+    <script src="./iOS app配置多环境变量和制作马甲包 - 简书_files/babel-polyfill-676833c6a4d68573b4c3.js.下载" crossorigin="anonymous"></script>
+    <script src="./iOS app配置多环境变量和制作马甲包 - 简书_files/web-base-d41dcd4b5e3f6bf4eed6.js.下载" crossorigin="anonymous"></script>
+<script src="./iOS app配置多环境变量和制作马甲包 - 简书_files/web-2bd59b9c58741c6f60e7.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./iOS app配置多环境变量和制作马甲包 - 简书_files/entry-82f36e5dc29a43c2dc42.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>
