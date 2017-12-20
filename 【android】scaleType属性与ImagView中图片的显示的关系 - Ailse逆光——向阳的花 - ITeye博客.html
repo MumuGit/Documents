@@ -1,0 +1,951 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0040)http://juliaailse.iteye.com/blog/1409317 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客</title>
+    <meta name="description" content="      关于android中ImageView的外观，即图片在其内显示出的样子，与布局文件中adjustViewBonds和scaleType  属性的关系。我进行了一些探索。现跟大家共享，欢迎各位指教。分别将adjustViewBonds设为true和false，与各种scaleType搭配，产生了不同效果。（上面的ImagView的adjstViewBonds值为false；下面的ImagV ...">
+    <meta name="keywords" content="android, ImageView, scaleType, adjustViewBonds 【android】scaleType属性与ImagView中图片的显示的关系">
+    <link rel="shortcut icon" href="http://juliaailse.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://juliaailse.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://juliaailse.iteye.com/rss" rel="alternate" title="Ailse逆光——向阳的花" type="application/rss+xml">
+    <link href="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/blue.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/pr.js.下载"></script><script type="text/javascript" async="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/jnhlkhlnbnnganmhlfgmk.js.下载"></script><script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/push.js.下载"></script><script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/hm.js.下载"></script><script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/application.js.下载" type="text/javascript"></script>    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e19a8b00cf63f716d774540875007664";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+
+
+        //自动推送工具代码
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+      <link href="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/shCoreCommon.js.下载" type="text/javascript"></script>
+<script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/hotkey.js.下载" type="text/javascript"></script>
+  <script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/code_favorites.js.下载" type="text/javascript"></script>
+<script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/weiboshare.js.下载" type="text/javascript"></script>
+
+    <!-- 请置于所有广告位代码之前 -->
+    <script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/ds.js.下载"></script>
+    <link ref="canonical" href="http://juliaailse.iteye.com/blog/1409317">
+    <script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/c.js.下载"></script><style type="text/css">.cambrian-toast-container{box-sizing:border-box}.cambrian-toast-container ._1aN93p{box-sizing:border-box;position:fixed;top:50%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);margin-top:-25px;height:50px;width:100%;text-align:center;z-index:200;transition:opacity .3s;opacity:0}.cambrian-toast-container .gFtqqq{box-sizing:border-box;display:inline-block;width:auto;margin:0 auto;height:45px;min-width:100px;padding:0 17px;font-size:18px;line-height:45px;color:#fff;font-size:14px;font-family:HanHei SC,PingHei,PingFang SC,STHeitiSC-Light,Helvetica Neue,Helvetica,Arial;background-color:rgba(0,0,0,.8);border-radius:4px}.cambrian-toast-container ._2EC2G_{opacity:1}@media screen and (max-width:320px){.cambrian-toast-container .gFtqqq{font-size:16px}}</style><style type="text/css">#cambrian0,#cambrian1,#cambrian2,#cambrian3,#cambrian4{color:#000;font-style:normal;font-weight:400;letter-spacing:normal;word-spacing:normal;white-space:normal}#cambrian0,#cambrian0 div,#cambrian0 img,#cambrian1,#cambrian1 div,#cambrian1 img,#cambrian2,#cambrian2 div,#cambrian2 img,#cambrian3,#cambrian3 div,#cambrian3 img,#cambrian4,#cambrian4 div,#cambrian4 img{width:auto;height:auto;margin:0;padding:0;background-color:transparent;background-position:0 0;background-size:auto;background-repeat:repeat;background-origin:padding-box;background-clip:border-box;background-attachment:scroll;background-image:none;border:none;outline:medium none invert;color:inherit;direction:ltr;letter-spacing:inherit;line-height:normal;text-align:left;text-decoration:none;text-indent:0;text-transform:none;white-space:inherit;word-spacing:normal;font-size:12px;font-family:HanHei SC,PingHei,PingFang SC,STHeitiSC-Light,Helvetica Neue,Helvetica,Arial,sans-serif;font-size-adjust:none;font-stretch:normal;font-style:inherit;font-variant:normal;font-weight:inherit;visibility:visible;overflow:visible;list-style:none;float:none;clear:none;display:block;position:static;top:auto;left:auto;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}#cambrian0 a,#cambrian0 b,#cambrian0 em,#cambrian0 img,#cambrian0 span,#cambrian0 strong,#cambrian1 a,#cambrian1 b,#cambrian1 em,#cambrian1 img,#cambrian1 span,#cambrian1 strong,#cambrian2 a,#cambrian2 b,#cambrian2 em,#cambrian2 img,#cambrian2 span,#cambrian2 strong,#cambrian3 a,#cambrian3 b,#cambrian3 em,#cambrian3 img,#cambrian3 span,#cambrian3 strong,#cambrian4 a,#cambrian4 b,#cambrian4 em,#cambrian4 img,#cambrian4 span,#cambrian4 strong{display:inline}</style><style type="text/css">#cambrian0 .R2CNzl,#cambrian1 .R2CNzl,#cambrian2 .R2CNzl,#cambrian3 .R2CNzl,#cambrian4 .R2CNzl{width:57px;padding:8px 0;text-align:center;font-weight:300;font-size:12px;line-height:12px;vertical-align:middle;display:inline-block;color:#fff;background:#3897f0;border-radius:3px;-webkit-tap-highlight-color:transparent}#cambrian0 .R2CNzl:active,#cambrian1 .R2CNzl:active,#cambrian2 .R2CNzl:active,#cambrian3 .R2CNzl:active,#cambrian4 .R2CNzl:active{background-color:rgba(56,151,240,.2)}#cambrian0 .j4z1dH,#cambrian1 .j4z1dH,#cambrian2 .j4z1dH,#cambrian3 .j4z1dH,#cambrian4 .j4z1dH{color:#666;background-color:#fff;position:relative;z-index:0;border-radius:2px}#cambrian0 .j4z1dH:after,#cambrian1 .j4z1dH:after,#cambrian2 .j4z1dH:after,#cambrian3 .j4z1dH:after,#cambrian4 .j4z1dH:after{content:"";position:absolute;box-sizing:border-box;top:0;left:0;border:1px solid #ccc;border-radius:4px;width:200%;height:200%;z-index:-1;transform:scale(.5);-webkit-transform:scale(.5);transform-origin:left top;-webkit-transform-origin:left top}#cambrian0 .j4z1dH:active,#cambrian1 .j4z1dH:active,#cambrian2 .j4z1dH:active,#cambrian3 .j4z1dH:active,#cambrian4 .j4z1dH:active{background-color:#fff}#cambrian0 ._1hqmP7,#cambrian1 ._1hqmP7,#cambrian2 ._1hqmP7,#cambrian3 ._1hqmP7,#cambrian4 ._1hqmP7{width:120px}#cambrian0 ._1hqmP7:active,#cambrian1 ._1hqmP7:active,#cambrian2 ._1hqmP7:active,#cambrian3 ._1hqmP7:active,#cambrian4 ._1hqmP7:active{background-color:rgba(56,151,240,.2)}#cambrian0 ._3VoMI3,#cambrian1 ._3VoMI3,#cambrian2 ._3VoMI3,#cambrian3 ._3VoMI3,#cambrian4 ._3VoMI3{padding:8px 0;width:120px;background-color:#fff;color:#666;position:relative;z-index:0;border-radius:3px}#cambrian0 ._3VoMI3:after,#cambrian1 ._3VoMI3:after,#cambrian2 ._3VoMI3:after,#cambrian3 ._3VoMI3:after,#cambrian4 ._3VoMI3:after{content:"";position:absolute;box-sizing:border-box;top:0;left:0;border:1px solid #eee;border-radius:6px;width:200%;height:200%;z-index:-1;transform:scale(.5);-webkit-transform:scale(.5);transform-origin:left top;-webkit-transform-origin:left top}#cambrian0 ._3VoMI3:active,#cambrian1 ._3VoMI3:active,#cambrian2 ._3VoMI3:active,#cambrian3 ._3VoMI3:active,#cambrian4 ._3VoMI3:active{background-color:#fff}</style><style type="text/css">#cambrian0 .tH6Qv7,#cambrian1 .tH6Qv7,#cambrian2 .tH6Qv7,#cambrian3 .tH6Qv7,#cambrian4 .tH6Qv7{background-color:#fff;overflow:hidden;-webkit-tap-highlight-color:transparent}#cambrian0 .tH6Qv7 ._1NMJVn,#cambrian1 .tH6Qv7 ._1NMJVn,#cambrian2 .tH6Qv7 ._1NMJVn,#cambrian3 .tH6Qv7 ._1NMJVn,#cambrian4 .tH6Qv7 ._1NMJVn{padding-top:2px;float:right}#cambrian0 .tH6Qv7 ._26Hteq,#cambrian1 .tH6Qv7 ._26Hteq,#cambrian2 .tH6Qv7 ._26Hteq,#cambrian3 .tH6Qv7 ._26Hteq,#cambrian4 .tH6Qv7 ._26Hteq{margin-right:60px;overflow:hidden}#cambrian0 .tH6Qv7 ._26Hteq ._1UhIYm,#cambrian1 .tH6Qv7 ._26Hteq ._1UhIYm,#cambrian2 .tH6Qv7 ._26Hteq ._1UhIYm,#cambrian3 .tH6Qv7 ._26Hteq ._1UhIYm,#cambrian4 .tH6Qv7 ._26Hteq ._1UhIYm{float:left;font-size:0;position:relative}#cambrian0 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ,#cambrian1 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ,#cambrian2 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ,#cambrian3 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ,#cambrian4 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ{margin:0 8px 0 0;width:35px;height:35px;border-radius:50%;border:1px solid #eee;box-sizing:border-box}#cambrian0 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-,#cambrian1 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-,#cambrian2 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-,#cambrian3 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-,#cambrian4 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-{white-space:nowrap;overflow:hidden;position:relative;font-size:0}#cambrian0 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra,#cambrian1 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra,#cambrian2 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra,#cambrian3 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra,#cambrian4 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra{display:inline-block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;font-size:16px;color:#000;font-weight:300;line-height:16px;max-width:60%}#cambrian0 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY,#cambrian1 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY,#cambrian2 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY,#cambrian3 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY,#cambrian4 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY{font-size:12px;color:#999;margin-top:5px;font-weight:300;line-height:14px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}#cambrian0 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO,#cambrian1 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO,#cambrian2 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO,#cambrian3 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO,#cambrian4 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO{display:inline-block;overflow:hidden;box-sizing:content-box;height:10px;padding:1px 2px;font-size:10px;font-weight:400;font-style:normal;line-height:11px;vertical-align:middle;text-decoration:none;border-radius:2px;border:1px solid #b3d4f3;color:#2b99ff;position:absolute;top:1px;margin-left:5px}</style><style type="text/css">#cambrian0 ._2OGhYs,#cambrian1 ._2OGhYs,#cambrian2 ._2OGhYs,#cambrian3 ._2OGhYs,#cambrian4 ._2OGhYs{position:relative;background-color:#fff}#cambrian0 ._2RPsC2,#cambrian1 ._2RPsC2,#cambrian2 ._2RPsC2,#cambrian3 ._2RPsC2,#cambrian4 ._2RPsC2{padding:15px 0;background-color:#fff}#cambrian0 ._3YzkLk,#cambrian1 ._3YzkLk,#cambrian2 ._3YzkLk,#cambrian3 ._3YzkLk,#cambrian4 ._3YzkLk{position:relative;z-index:0;position:absolute;top:0;left:0;right:0;z-index:-1}#cambrian0 ._3YzkLk:after,#cambrian1 ._3YzkLk:after,#cambrian2 ._3YzkLk:after,#cambrian3 ._3YzkLk:after,#cambrian4 ._3YzkLk:after{content:"";position:absolute;box-sizing:border-box;top:0;left:0;border-bottom:1px solid #ddd;width:200%;height:200%;z-index:-1;transform:scale(.5);-webkit-transform:scale(.5);transform-origin:left top;-webkit-transform-origin:left top}#cambrian0 ._3YzkLk ._1ZN5uE,#cambrian1 ._3YzkLk ._1ZN5uE,#cambrian2 ._3YzkLk ._1ZN5uE,#cambrian3 ._3YzkLk ._1ZN5uE,#cambrian4 ._3YzkLk ._1ZN5uE{padding:15px 17px;background-color:#fff}</style><style type="text/css">#cambrian0 ._1PnZXZ,#cambrian1 ._1PnZXZ,#cambrian2 ._1PnZXZ,#cambrian3 ._1PnZXZ,#cambrian4 ._1PnZXZ{display:block;position:fixed;z-index:2147483646;top:0;left:0;right:0;background:#fff}</style><style type="text/css">#cambrian0 ._1zbmp3,#cambrian1 ._1zbmp3,#cambrian2 ._1zbmp3,#cambrian3 ._1zbmp3,#cambrian4 ._1zbmp3{margin:0}</style><style type="text/css">#cambrian0 ._12SnTy,#cambrian1 ._12SnTy,#cambrian2 ._12SnTy,#cambrian3 ._12SnTy,#cambrian4 ._12SnTy{padding:15px 0;background-color:#fff}</style><style type="text/css">#cambrian0 .PypvUY,#cambrian1 .PypvUY,#cambrian2 .PypvUY,#cambrian3 .PypvUY,#cambrian4 .PypvUY{background-color:#fff;margin:20px 0;position:relative;z-index:0;border-radius:4px;overflow:hidden;-webkit-tap-highlight-color:transparent}#cambrian0 .PypvUY:after,#cambrian1 .PypvUY:after,#cambrian2 .PypvUY:after,#cambrian3 .PypvUY:after,#cambrian4 .PypvUY:after{content:"";position:absolute;box-sizing:border-box;top:0;left:0;border:1px solid #ddd;border-radius:8px;width:200%;height:200%;z-index:-1;transform:scale(.5);-webkit-transform:scale(.5);transform-origin:left top;-webkit-transform-origin:left top}#cambrian0 .PypvUY ._2SJWnA,#cambrian1 .PypvUY ._2SJWnA,#cambrian2 .PypvUY ._2SJWnA,#cambrian3 .PypvUY ._2SJWnA,#cambrian4 .PypvUY ._2SJWnA{text-align:center}#cambrian0 .PypvUY ._2SJWnA ._2UyMHm,#cambrian1 .PypvUY ._2SJWnA ._2UyMHm,#cambrian2 .PypvUY ._2SJWnA ._2UyMHm,#cambrian3 .PypvUY ._2SJWnA ._2UyMHm,#cambrian4 .PypvUY ._2SJWnA ._2UyMHm{width:67px;height:67px;border:1px solid transparent;border-radius:50%;margin-top:26px}#cambrian0 .PypvUY ._2jUmr0,#cambrian1 .PypvUY ._2jUmr0,#cambrian2 .PypvUY ._2jUmr0,#cambrian3 .PypvUY ._2jUmr0,#cambrian4 .PypvUY ._2jUmr0{margin-top:10px;text-align:center;line-height:16px;font-size:16px;color:#333;font-weight:600}#cambrian0 .PypvUY ._1ag27m,#cambrian1 .PypvUY ._1ag27m,#cambrian2 .PypvUY ._1ag27m,#cambrian3 .PypvUY ._1ag27m,#cambrian4 .PypvUY ._1ag27m{width:78%;margin:auto;margin-top:10px;text-align:center;font-size:13px;color:#999;line-height:17px;font-weight:300}#cambrian0 .PypvUY .py4pLD,#cambrian1 .PypvUY .py4pLD,#cambrian2 .PypvUY .py4pLD,#cambrian3 .PypvUY .py4pLD,#cambrian4 .PypvUY .py4pLD{text-align:center;margin:13px 0 25px}</style><style type="text/css">._3hy-Ff{position:fixed;z-index:2147483647;top:50%;transform:translateY(-50%);-webkit-transform:translateY(-50%);left:10%;right:10%;border-radius:4px}._3hy-Ff,._3sMHvW{background-color:#fff}._3sMHvW{width:100%;height:100%;min-height:260px;border:none;outline:none;border-radius:4px}._3wCh1i{position:fixed;z-index:2147483647;top:0;bottom:0;left:0;right:0;background-color:#000;opacity:.65}</style><script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/openBox.js.下载" async=""></script><style type="text/css">.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }</style></head><body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><script onload="window[&#39;cambrian_sync_loader_success1513322599786373&#39;]()" onerror="window[&#39;cambrian_sync_loader_fail_1513322599786373&#39;]()" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/main.bb981c36.js.下载"></script>
+  
+  
+    <div id="header">
+	      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://juliaailse.iteye.com/blog/1409317#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">知识库</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+	      <div id="user_nav">
+
+      <a href="http://juliaailse.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://juliaailse.iteye.com/login">登录</a>
+    <a href="http://juliaailse.iteye.com/signup" class="nobg">注册</a>
+    <!--<a href="http://passport.csdn.net/account/mobileregister?from=http://www.iteye.com">注册</a>-->
+  </div>
+
+	    
+    </div>
+
+    <div id="page">
+        <div id="branding" class="clearfix" style="overflow: hidden;background: none;padding:0 0 2px;">
+          <!-- 广告位：PC端-iteye博客详情页顶部banner-960*90 -->
+          <script>
+              (function() {
+                  var s = "_" + Math.random().toString(36).slice(2);
+                  document.write('<div id="' + s + '"></div>');
+                  (window.slotbydup=window.slotbydup || []).push({
+                      id: '4773198',
+                      container: s,
+                      size: '960,60',
+                      display: 'inlay-fix'
+                  });
+              })();
+          </script><div id="_c537byi03bj"></div><script charset="utf-8" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/ycfm"></script>
+        </div>
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://juliaailse.iteye.com/">Ailse逆光——向阳的花</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://juliaailse.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://juliaailse.iteye.com/weibo">微博</a></li>
+            <li><a href="http://juliaailse.iteye.com/album">相册</a></li>
+            <li><a href="http://juliaailse.iteye.com/link">收藏</a></li>
+            <li><a href="http://juliaailse.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://juliaailse.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://juliaailse.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://juliaailse.iteye.com/" class="p-author" target="_blank">JuliaAilse</a>
+</div>
+
+
+<div class="blog_main">
+  <script type="application/ld+json">
+    {
+        "@context": "https://zhanzhang.baidu.com/contexts/cambrian.jsonld",
+        "@id": "http://juliaailse.iteye.com/blog/1409317",
+        "title": "【android】scaleType属性与ImagView中图片的显示的关系",
+        "images": [],
+        "description": "",
+        "pubDate": "2012-02-17T11:38:53"
+    }
+  </script>
+  <div class="blog_title">
+    <h3>
+      <a href="http://juliaailse.iteye.com/blog/1409317">【android】scaleType属性与ImagView中图片的显示的关系</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://juliaailse.iteye.com/category/205889">学习笔记</a></li> </ul>
+        <div class="news_tag"><a href="http://www.iteye.com/blogs/tag/android">android</a><a href="http://www.iteye.com/blogs/tag/ImageView">ImageView</a><a href="http://www.iteye.com/blogs/tag/scaleType">scaleType</a><a href="http://www.iteye.com/blogs/tag/adjustViewBonds">adjustViewBonds</a>&nbsp;</div>
+    	  
+    	
+    	
+  		
+      </div>
+
+  <div id="blog_content" class="blog_content">
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 关于android中ImageView的外观，即图片在其内显示出的样子，与布局文件中adjustViewBonds和scaleType<br>
+属性的关系。我进行了一些探索。现跟大家共享，欢迎各位指教。分别将adjustViewBonds设为true和false，与各种scaleType搭配，产生了不同效果。（上面的ImagView的adjstViewBonds值为false；下面的ImagView的adjstViewBonds值为true；两个ImagView大小相同）如下：</p>
+<p>代码：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Xml代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%3CImageView%0A%20%20%20%20%20%20%20%20android%3Aid%3D%22%40%2Bid%2FimageView1%22%0A%20%20%20%20%20%20%20%20android%3Alayout_width%3D%22fill_parent%22%0A%20%20%20%20%20%20%20%20android%3Alayout_height%3D%22200dip%22%0A%20%20%20%20%20%20%20%20android%3AadjustViewBounds%3D%22false%22%0A%20%20%20%20%20%20%20%20android%3AscaleType%3D%22centerInside%22%2F%2F%E6%AD%A4%E5%A4%84%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%94%B9%0A%20%20%20%20%20%20%20%20android%3Asrc%3D%22%40drawable%2Fic_3%22%20%2F%3E%2F%2F%E6%AD%A4%E5%A4%84%E4%B8%A4%E5%B9%85%E5%9B%BE%E9%97%B4%E6%9B%B4%E6%94%B9%EF%BC%8C%E4%B8%80%E5%89%AF%E5%9B%BE%E7%9A%84%E5%A4%A7%E5%B0%8F%E8%BE%83%E5%B0%8F%EF%BC%8C%E5%8F%A6%E4%B8%80%E5%B9%85%E7%9A%84%E8%BE%83%E5%A4%A7%E3%80%82%0A%0A%20%20%20%20%3CImageView%0A%20%20%20%20%20%20%20%20android%3Aid%3D%22%40%2Bid%2FimageView2%22%0A%20%20%20%20%20%20%20%20android%3Alayout_width%3D%22fill_parent%22%0A%20%20%20%20%20%20%20%20android%3Alayout_height%3D%22200dip%22%0A%20%20%20%20%20%20%20%20android%3AadjustViewBounds%3D%22true%22%0A%20%20%20%20%20%20%20%20android%3AscaleType%3D%22centerInside%22%2F%2F%E6%AD%A4%E5%A4%84%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%94%B9%0A%20%20%20%20%20%20%20%20android%3Asrc%3D%22%40drawable%2Fic_3%22%20%2F%3E%2F%2F%E6%AD%A4%E5%A4%84%E4%B8%A4%E5%B9%85%E5%9B%BE%E9%97%B4%E6%9B%B4%E6%94%B9%EF%BC%8C%E4%B8%80%E5%89%AF%E5%9B%BE%E7%9A%84%E5%A4%A7%E5%B0%8F%E8%BE%83%E5%B0%8F%EF%BC%8C%E5%8F%A6%E4%B8%80%E5%B9%85%E7%9A%84%E8%BE%83%E5%A4%A7%E3%80%82" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-xml"><li><span><span class="tag">&lt;</span><span class="tag-name">ImageView</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/imageView1"</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"200dip"</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:adjustViewBounds</span><span>=</span><span class="attribute-value">"false"</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:scaleType</span><span>=</span><span class="attribute-value">"centerInside"</span><span>//此处每次更改&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:src</span><span>=</span><span class="attribute-value">"@drawable/ic_3"</span><span>&nbsp;</span><span class="tag">/&gt;</span><span>//此处两幅图间更改，一副图的大小较小，另一幅的较大。&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">ImageView</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/imageView2"</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"200dip"</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:adjustViewBounds</span><span>=</span><span class="attribute-value">"true"</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:scaleType</span><span>=</span><span class="attribute-value">"centerInside"</span><span>//此处每次更改&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:src</span><span>=</span><span class="attribute-value">"@drawable/ic_3"</span><span>&nbsp;</span><span class="tag">/&gt;</span><span>//此处两幅图间更改，一副图的大小较小，另一幅的较大。&nbsp;&nbsp;</span></span></li></ol></div><pre class="xml" name="code" codeable_id="" codeable_type="BlogComment" source_url="http://juliaailse.iteye.com/blog/1409317#" pre_index="0" title="【android】scaleType属性与ImagView中图片的显示的关系" style="display: none;">&lt;ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="200dip"
+        android:adjustViewBounds="false"
+        android:scaleType="centerInside"//此处每次更改
+        android:src="@drawable/ic_3" /&gt;//此处两幅图间更改，一副图的大小较小，另一幅的较大。
+
+    &lt;ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="fill_parent"
+        android:layout_height="200dip"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"//此处每次更改
+        android:src="@drawable/ic_3" /&gt;//此处两幅图间更改，一副图的大小较小，另一幅的较大。</pre>
+<p>&nbsp;原图：<br><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/5ec0a6be-9794-340f-973f-897c26ddb00f.gif"><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/c614e7fa-7ea3-39e2-8001-436f3de9de26.jpg"><br>
+&nbsp; <br><br>
+1、scaleType=“matrix”<br>
+如图pic1、pic2.<br>
+是保持原图大小、从左上角的点开始，以矩阵形式绘图。</p>
+<p><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/4563ab80-6d91-3a15-8fde-2f4ed02dc69b.png"></p>
+<p>&nbsp;</p>
+<p>pic1<br>
+&nbsp;<br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/b5bd405e-74f1-3180-8a54-d7b2b9400102.png"></p>
+<p>pic2<br>
+&nbsp;<br>
+2、scaleType=“fitXY”<br>
+如图pic3、pic4.<br>
+是将原图进行横方向（即XY方向）的拉伸后绘制的。</p>
+<p><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/1d152b46-b876-3979-87da-fd6c34ff6e35.png"></p>
+<p>pic3<br>
+&nbsp;<br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/10901cf7-c601-3e73-b73d-07f6d651b5b7.png"></p>
+<p>pic4<br>
+&nbsp;<br>
+3、scaleType=“fitStart”<br>
+如图pic5、pic6。<br>
+是将原图沿左上角的点（即matrix方式绘图开始的点），按比例缩放原图绘制而成的。</p>
+<p><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/17ac7fa1-641c-3b1f-a5bb-fdfa9c131182.png"></p>
+<p>pic5<br>
+&nbsp;<br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/689b6640-ff87-3e8e-a280-d77d1e0bfb5d.png"></p>
+<p>pic6<br>
+&nbsp;<br>
+4、scaleType=“fitCenter”<br>
+如图pic7、pic8。<br>
+是将原图沿上方居中的点（即matrix方式绘图第一行的居中的点），按比例缩放原图绘制而成的。</p>
+<p><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/1420dd69-1155-3966-8a84-8115db03fc5a.png"></p>
+<p>pic7<br>
+&nbsp;<br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/e73ce939-6d2a-3806-a0e1-72c452c71909.jpg"></p>
+<p>pic8<br>
+&nbsp;<br>
+5、scaleType=“fitEnd”<br>
+如图pic9、pic10。、<br>
+是将原图沿下方居中的点（即matrix方式绘图最后一行的居中的点），按比例缩放原图绘制而成的。</p>
+<p><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/b543a21d-41ba-3be2-b2ad-d10adeea1d91.png"></p>
+<p>pic9<br>
+&nbsp;<br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/c256d519-5615-3c1b-b972-e4d21746c543.png"></p>
+<p>pic10<br>
+&nbsp;<br>
+6、scaleType=“Center”<br>
+如图pic11、pic12。<br>
+是保持原图大小，以原图的几何中心点和ImagView的几何中心点为基准，只绘制ImagView大小的图像。</p>
+<p><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/87fbcda8-b6a6-3302-9fef-6dea0efd87a2.png"></p>
+<p>pic11<br>
+&nbsp;<br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/2e1c2a0d-0ebb-3995-8daf-0d789e534f2a.png">
+pic12<br>
+&nbsp;<br>
+7、scaleType=“centerCrop”<br>
+如图pic13、pic14。<br>
+不保持原图大小，以原图的几何中心点和ImagView的几何中心点为基准，只绘制ImagView大小的图像（以填满<br>
+ImagView为目标，对原图进行裁剪）。</p>
+<p><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/c49ab572-e827-3baf-a705-40d903aa98fe.png"></p>
+<p>pic13<br>
+&nbsp;<br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/bd8a82d3-6676-3b8e-9508-f94885d25f4a.png"></p>
+<p>pic14<br>
+&nbsp;<br>
+8、scaleType=“centerInside”<br>
+如图pic15、pic16.<br>
+不保持原图大小，以原图的几何中心点和ImagView的几何中心点为基准，只绘制ImagView大小的图像（以显示<br>
+完整图片为目标，对原图进行缩放）。</p>
+<p><br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/1181d059-8f09-33ae-abfe-e64113c074d0.png"></p>
+<p>pic15<br>
+&nbsp;<br><img alt="" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/dc2a7ef4-5f2f-3f05-bc9e-ea54f68d6e41.png"></p>
+<p>pic16<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (事实证明，adjustViewBonds单独设置无影响。)<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 依本人之见，scaletype的种类分为三类matrix（默认）、fit-X类、和center类。matrix就不多说。fit-X类中，<br>
+fitStart、fitCenter和fitEnd之间的都是根据需要使原图改变对ImgView进行适应，按matrix进行绘制，但它们<br>
+的区别在于基准不同。fitStart的基准为最上角的点（即matrix方式开始的点）fitCenter的基准点为中间的点<br>
+（matrix方式中可以使图片居中的点），而fitEnd的基准点为右下角的点（即matrix方式最后绘制点）。center类<br>
+中，center、centerCrop、centerInside都是以原图的几何中心点和ImagView的几何中心点为基准，且只绘制<br>
+ImagView大小的图像，不同的是是否保持原图大小和绘图的目标不同、采取的手段不同。</p>
+  </div>
+
+  
+  <div class="attachments">
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3485/5ec0a6be-9794-340f-973f-897c26ddb00f.gif" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/5ec0a6be-9794-340f-973f-897c26ddb00f-thumb.gif" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 30.5 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3487/c614e7fa-7ea3-39e2-8001-436f3de9de26.jpg" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/c614e7fa-7ea3-39e2-8001-436f3de9de26-thumb.jpg" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 38.1 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3489/4563ab80-6d91-3a15-8fde-2f4ed02dc69b.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/4563ab80-6d91-3a15-8fde-2f4ed02dc69b-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 38.4 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3491/b5bd405e-74f1-3180-8a54-d7b2b9400102.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/b5bd405e-74f1-3180-8a54-d7b2b9400102-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 125.2 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3493/1d152b46-b876-3979-87da-fd6c34ff6e35.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/1d152b46-b876-3979-87da-fd6c34ff6e35-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 119.1 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3495/10901cf7-c601-3e73-b73d-07f6d651b5b7.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/10901cf7-c601-3e73-b73d-07f6d651b5b7-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 132.7 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3497/17ac7fa1-641c-3b1f-a5bb-fdfa9c131182.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/17ac7fa1-641c-3b1f-a5bb-fdfa9c131182-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 73 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3499/689b6640-ff87-3e8e-a280-d77d1e0bfb5d.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/689b6640-ff87-3e8e-a280-d77d1e0bfb5d-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 82.8 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3501/1420dd69-1155-3966-8a84-8115db03fc5a.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/1420dd69-1155-3966-8a84-8115db03fc5a-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 75 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3503/e73ce939-6d2a-3806-a0e1-72c452c71909.jpg" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/e73ce939-6d2a-3806-a0e1-72c452c71909-thumb.jpg" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 46.6 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3505/b543a21d-41ba-3be2-b2ad-d10adeea1d91.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/b543a21d-41ba-3be2-b2ad-d10adeea1d91-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 74.2 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3507/c256d519-5615-3c1b-b972-e4d21746c543.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/c256d519-5615-3c1b-b972-e4d21746c543-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 84.5 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3509/87fbcda8-b6a6-3302-9fef-6dea0efd87a2.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/87fbcda8-b6a6-3302-9fef-6dea0efd87a2-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 40.8 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3511/2e1c2a0d-0ebb-3995-8daf-0d789e534f2a.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/2e1c2a0d-0ebb-3995-8daf-0d789e534f2a-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 135.5 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3513/c49ab572-e827-3baf-a705-40d903aa98fe.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/c49ab572-e827-3baf-a705-40d903aa98fe-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 132.5 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3515/bd8a82d3-6676-3b8e-9508-f94885d25f4a.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/bd8a82d3-6676-3b8e-9508-f94885d25f4a-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 122.6 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3517/1181d059-8f09-33ae-abfe-e64113c074d0.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/1181d059-8f09-33ae-abfe-e64113c074d0-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 39.4 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0063/3519/dc2a7ef4-5f2f-3f05-bc9e-ea54f68d6e41.png" target="_blank"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/dc2a7ef4-5f2f-3f05-bc9e-ea54f68d6e41-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 88.7 KB</li>
+        </ul>
+      
+    
+    
+      <ul>
+        <li><a href="http://juliaailse.iteye.com/blog/1409317#" onclick="$$(&#39;div.attachments ul&#39;).invoke(&#39;show&#39;);$(this).up(1).hide();return false;">查看图片附件</a></li>
+      </ul>
+    
+  </div>
+
+
+  <div>
+    <!-- 广告位：PC端-iteye博客详情页底部banner2-728*90 -->
+    <script>
+        (function() {
+            var s = "_" + Math.random().toString(36).slice(2);
+            document.write('<div id="' + s + '"></div>');
+            (window.slotbydup=window.slotbydup || []).push({
+                id: '4774193',
+                container: s,
+                size: '728,90',
+                display: 'inlay-fix'
+            });
+        })();
+    </script><div id="_vk585ohivc8"></div><script charset="utf-8" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/ycfm(1)"></script><div id="_gvjptjiplf5"><iframe width="728" frameborder="0" height="90" scrolling="no" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/s.html"></iframe></div><script type="text/javascript" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/togxxxgpurvpq.js.下载"></script>
+  </div>
+
+
+
+  <div id="bottoms" class="clearfix">
+    <div id="digg_bottom" class="clearfix"><div class="digged"><strong>9</strong> <br>顶</div><div class="digged"><strong>0</strong> <br>踩</div></div>
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://juliaailse.iteye.com/blog/1439866" class="next" title="【设计模式】单实例模式">【设计模式】单实例模式</a>
+      |
+      <a href="http://juliaailse.iteye.com/blog/1345215" class="pre" title="在学习“通信”过程中的小感悟和理解">在学习“通信”过程中的小感悟和理解</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2012-02-17 11:38</li>
+      <li>浏览 130214</li>
+      <li><a href="http://juliaailse.iteye.com/blog/1409317#comments">评论(7)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/language">编程语言</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/1409317" target="_blank" class="more">查看更多</a></li>
+    </ul>    
+  </div>
+
+	
+    
+    
+<div class="boutique-curr-box blog_comment">
+	  <div class="boutique-curr clearfix">
+	    <h5 class="h3titles">相关资源推荐</h5>
+			<ul style="margin-top: 15px">
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/q454684431/article/details/52872928" target="_blank" title="unix系列系统镜像下载">unix系列系统镜像下载</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/zzwworld/2492582" target="_blank" title="Unix操作系统设计（中文版）">Unix操作系统设计（中文版）</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/l_l_laaa/9578749" target="_blank" title="SUN的UNIX操作系统">SUN的UNIX操作系统</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/ni_ever4/173115" target="_blank" title="UNIX操作系统设计">UNIX操作系统设计</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/a562193679/10134590" target="_blank" title="现代操作系统-中文-pdf">现代操作系统-中文-pdf</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/Truong/article/details/11799707" target="_blank" title="DB2 v8.2,v9.1,v9.5,v9.7下载地址及详细安装图解">DB2 v8.2,v9.1,v9.5,v9.7下载地址及详细安装图解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/dreaming123/1523154" target="_blank" title="IBM DB2 通用数据库 在64位平台上使用DB2 通用数据库.rar">IBM DB2 通用数据库 在64位平台上使用DB2 通用数据库.rar</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/liuyuzhu111/article/details/77871737" target="_blank" title="db2数据库免费版限制下载地址">db2数据库免费版限制下载地址</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/lijw2009/5088586" target="_blank" title="DB2数据库管理软件 - db2mon v1.0">DB2数据库管理软件 - db2mon v1.0</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/wzx01072010/2531031" target="_blank" title="DB2   数据库 快速入门（IBM官方资料简体中文版）">DB2   数据库 快速入门（IBM官方资料简体中文版）</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/followideal/9501732" target="_blank" title="DB2全套学习资料">DB2全套学习资料</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/luyangever/4089749" target="_blank" title="DB2数据库odbc驱动">DB2数据库odbc驱动</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/owuguanfengyue123/9138241" target="_blank" title="任意数据库转换系统 DB2DB 1.8">任意数据库转换系统 DB2DB 1.8</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/u013717268/6941671" target="_blank" title="java入门123">java入门123</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/chenxh/6" target="_blank" title="封装了DAO对象用于直接操纵access数据库 ">封装了DAO对象用于直接操纵access数据库&nbsp;</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/li602318885/10012646" target="_blank" title="WebDriver的Firefox-0.19.0驱动器">WebDriver的Firefox-0.19.0驱动器</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/chencheng126/article/details/43191573" target="_blank" title="谈谈网络编程（基于C++）">谈谈网络编程（基于C++）</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/daoming1112/article/details/54698466" target="_blank" title="C++网络编程">C++网络编程</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/sinat_20265495/article/details/51761554" target="_blank" title="C/C++ socket网络编程扫盲篇">C/C++ socket网络编程扫盲篇</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/jazzy511/9463969" target="_blank" title="C++ Socket网络编程">C++ Socket网络编程</a>
+						</li>
+				
+			</ul>
+	  </div>
+</div>
+
+		
+<div class="boutique-curr-box blog_comment">
+	  <div class="boutique-curr clearfix">
+	    <h5 class="h3titles">参考知识库</h5>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/android"><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/1455589744328_328.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/android" classs="title">Android知识库</a>
+              <span>
+                 <em>38888</em>&nbsp;&nbsp;关注 <i>|</i> <em>3162</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	  </div>
+</div>
+
+      
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    <div id="bc2343730">
+  <div class="comment_title">
+    7 楼
+    <a href="http://baiqiuhanzb.iteye.com/" target="_blank" title="baiqiuhanzb">baiqiuhanzb</a>
+    2014-03-28&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">我试验了多次<br>fitCenter跟centerInside没看出有什么区别</div>
+</div>
+
+<div id="bc2310545">
+  <div class="comment_title">
+    6 楼
+    <a href="http://work-asdf.iteye.com/" target="_blank" title="work_asdf">work_asdf</a>
+    2013-05-08&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">不错，学习了</div>
+</div>
+
+<div id="bc2296228">
+  <div class="comment_title">
+    5 楼
+    <a href="http://faithmy509.iteye.com/" target="_blank" title="faithmy509">faithmy509</a>
+    2013-01-05&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">非常不错，thx</div>
+</div>
+
+<div id="bc2292204">
+  <div class="comment_title">
+    4 楼
+    <a href="http://284772894.iteye.com/" target="_blank" title="284772894">284772894</a>
+    2012-12-03&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">学习了，不错</div>
+</div>
+
+<div id="bc2288011">
+  <div class="comment_title">
+    3 楼
+    <a href="http://doctorkkkk.iteye.com/" target="_blank" title="doctorkkkk">doctorkkkk</a>
+    2012-11-05&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">谢谢 受教了</div>
+</div>
+
+<div id="bc2280999">
+  <div class="comment_title">
+    2 楼
+    <a href="http://yangdeli.iteye.com/" target="_blank" title="yangdeli">yangdeli</a>
+    2012-09-10&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">赞一个！真心不错！~<br></div>
+</div>
+
+<div id="bc2280100">
+  <div class="comment_title">
+    1 楼
+    <a href="http://yinidiots11.iteye.com/" target="_blank" title="yinIdiots11">yinIdiots11</a>
+    2012-09-04&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">赞&nbsp; 实践证明一切</div>
+</div>
+
+
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://juliaailse.iteye.com/login" style="background-color:white;"> <img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://juliaailse.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1409317;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', '【android】scaleType属性与ImagView中图片的显示的关系');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', '【android】scaleType属性与ImagView中图片的显示的关系');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://juliaailse.iteye.com/"><img alt="JuliaAilse的博客" class="logo" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/a0f824d6-c41e-3847-bd0f-b0a67028f74c.jpg" title="JuliaAilse的博客: Ailse逆光——向阳的花" width=""></a></div>
+  <div id="blog_owner_name">JuliaAilse</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 145977 次</li>
+              <li>性别: <img alt="Icon_minigender_2" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/icon_minigender_2.gif" title="女"></li>
+              <li>来自: 长沙</li>
+              <li><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://juliaailse.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://wzxwww.iteye.com/" target="_blank"><img alt="wzxwww的博客" class="logo" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/user-logo-thumb.gif" title="wzxwww的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://wzxwww.iteye.com/" target="_blank" title="wzxwww">wzxwww</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://jianhua216216.iteye.com/" target="_blank"><img alt="jianhua216216的博客" class="logo" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/user-logo-thumb.gif" title="jianhua216216的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://jianhua216216.iteye.com/" target="_blank" title="jianhua216216">jianhua216216</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://szy09619105.iteye.com/" target="_blank"><img alt="ice特仑苏的博客" class="logo" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/user-logo-thumb.gif" title="ice特仑苏的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://szy09619105.iteye.com/" target="_blank" title="ice特仑苏">ice特仑苏</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://384383819.iteye.com/" target="_blank"><img alt="追风浪子66的博客" class="logo" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/user-logo-thumb.gif" title="追风浪子66的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://384383819.iteye.com/" target="_blank" title="追风浪子66">追风浪子66</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://juliaailse.iteye.com/">全部博客 (16)</a></li>
+                
+                  <li><a href="http://juliaailse.iteye.com/category/184092">足迹 (7)</a></li>
+                
+                  <li><a href="http://juliaailse.iteye.com/category/184094">仰望生活 (5)</a></li>
+                
+                  <li><a href="http://juliaailse.iteye.com/category/205889">学习笔记 (4)</a></li>
+                
+                  <li><a href="http://juliaailse.iteye.com/category/184138">遍地撷英 (0)</a></li>
+                
+                  <li><a href="http://juliaailse.iteye.com/category/217208">产品之路 (0)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://juliaailse.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://juliaailse.iteye.com/blog/post">我的论坛</a> (0)
+                </li>
+                <li><a href="http://juliaailse.iteye.com/blog/answered_problems">我的问答</a> (0)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://juliaailse.iteye.com/blog/monthblog/2012-05">2012-05</a> (1)</li>
+                
+                  <li><a href="http://juliaailse.iteye.com/blog/monthblog/2012-03">2012-03</a> (9)</li>
+                
+                  <li><a href="http://juliaailse.iteye.com/blog/monthblog/2012-02">2012-02</a> (1)</li>
+                
+                <li><a href="http://juliaailse.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://baiqiuhanzb.iteye.com/" target="_blank" title="baiqiuhanzb">baiqiuhanzb</a>： 
+                  我试验了多次fitCenter跟centerInside没看出 ...<br>
+                  <a href="http://juliaailse.iteye.com/blog/1409317#bc2343730">【android】scaleType属性与ImagView中图片的显示的关系</a>
+                </li>
+                
+                <li>
+                  <a href="http://work-asdf.iteye.com/" target="_blank" title="work_asdf">work_asdf</a>： 
+                  不错，学习了<br>
+                  <a href="http://juliaailse.iteye.com/blog/1409317#bc2310545">【android】scaleType属性与ImagView中图片的显示的关系</a>
+                </li>
+                
+                <li>
+                  <a href="http://faithmy509.iteye.com/" target="_blank" title="faithmy509">faithmy509</a>： 
+                  非常不错，thx<br>
+                  <a href="http://juliaailse.iteye.com/blog/1409317#bc2296228">【android】scaleType属性与ImagView中图片的显示的关系</a>
+                </li>
+                
+                <li>
+                  <a href="http://284772894.iteye.com/" target="_blank" title="284772894">284772894</a>： 
+                  学习了，不错<br>
+                  <a href="http://juliaailse.iteye.com/blog/1409317#bc2292204">【android】scaleType属性与ImagView中图片的显示的关系</a>
+                </li>
+                
+                <li>
+                  <a href="http://doctorkkkk.iteye.com/" target="_blank" title="doctorkkkk">doctorkkkk</a>： 
+                  谢谢 受教了<br>
+                  <a href="http://juliaailse.iteye.com/blog/1409317#bc2288011">【android】scaleType属性与ImagView中图片的显示的关系</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+
+        <div id="nav_show_top_stop" style="height: 500px; z-index: 1000; margin-top: 10px; float: left; clear: left; position: fixed; top: 0px;">
+          <div>
+            <!-- 广告位：PC端-iteye博客详情页左侧Button1-200*200 -->
+            <script>
+                (function() {
+                    var s = "_" + Math.random().toString(36).slice(2);
+                    document.write('<div id="' + s + '"></div>');
+                    (window.slotbydup=window.slotbydup || []).push({
+                        id: '4773203',
+                        container: s,
+                        size: '200,200',
+                        display: 'inlay-fix'
+                    });
+                })();
+            </script><div id="_1h0o7rakoo8"></div><script charset="utf-8" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/ycfm(2)"></script><div id="_lfptp9qznd" style=""><iframe width="200" frameborder="0" height="200" scrolling="no" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/s(1).html"></iframe></div><script type="text/javascript" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/sncoctctcqum.js.下载"></script>
+          </div>
+          <div>
+            <!-- 广告位：PC端-iteye博客详情页左侧Button2-200*200 -->
+            <script>
+                (function() {
+                    var s = "_" + Math.random().toString(36).slice(2);
+                    document.write('<div id="' + s + '"></div>');
+                    (window.slotbydup=window.slotbydup || []).push({
+                        id: '4773205',
+                        container: s,
+                        size: '200,200',
+                        display: 'inlay-fix'
+                    });
+                })();
+            </script><div id="_857w1dnyo4f"></div><script charset="utf-8" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/ycfm(3)"></script><div style="width: 100%;"><iframe width="200" frameborder="0" height="200" scrolling="no" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/s(2).html"></iframe></div><script type="text/javascript" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/dyqegnhxubfhnqu.js.下载"></script>
+          </div>
+        </div>
+        <script>
+
+            setTimeout(function () {
+                var naviga_offsetTop = 0;
+
+                function onload_function() {
+                    naviga_offsetTop = jQuery("#nav_show_top_stop").position().top;
+                    jQuery(window).bind("scroll", naviga_stay_top);
+                    jQuery(window).bind("mousewheel", naviga_stay_top);
+                    jQuery(document).bind("scroll", naviga_stay_top);
+                    jQuery(document).bind("mousewheel", naviga_stay_top);
+                }
+                function naviga_stay_top() {
+
+                    var scrollTop = jQuery(document).scrollTop();
+                    if (scrollTop > (naviga_offsetTop+250)) {
+                        jQuery("#nav_show_top_stop").css({ "position": "fixed" });
+                        jQuery("#nav_show_top_stop").css({ "top": "0px" });
+                    } else {
+                        jQuery("#nav_show_top_stop").css({ "position": "fixed" });
+                        jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop+250 - scrollTop + "px" }); }
+                }
+                jQuery(document).ready(onload_function());
+            }, 200);
+
+        </script>
+      </div>    
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2017 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+        <div id="ad_pop">
+          <div class="J_adv" data-view="true" data-mod="ad_popu_64" data-mtp="62" data-order="21" data-con="ad_content_2070">
+            <script id="popuLayer_js_q" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/popuLayer.js.下载" defer="" type="text/javascript"></script>
+            <div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px;">
+              <div onclick="jQuery(&#39;#ad_abc&#39;).hide();jQuery(&#39;.J_close&#39;).hide();" class="J_close layer_close" style="display:block;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">
+                关闭
+              </div>
+              <div id="ad_abc">
+                <!-- 广告位：PC端-iteye博客详情右侧弹窗-300*250 -->
+                <script>
+                    (function() {
+                        var s = "_" + Math.random().toString(36).slice(2);
+                        document.write('<div id="' + s + '"></div>');
+                        (window.slotbydup=window.slotbydup || []).push({
+                            id: '4756560',
+                            container: s,
+                            size: '300,250',
+                            display: 'inlay-fix'
+                        });
+                    })();
+                </script><div id="_zbe1qs99dk"></div><script charset="utf-8" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/ycfm(4)"></script><div id="_r01jgi38jsq" style=""><iframe width="300" frameborder="0" height="250" scrolling="no" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/s(3).html"></iframe></div><script type="text/javascript" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/avnebexunycx.js.下载"></script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/saved_resource" width="0" height="0">
+
+
+
+    
+    
+    <script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/jquery-1.11.1.min.js.下载" type="text/javascript"></script>
+<script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/tracking-1.0.1.js.下载" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/async-1.0.1.js.下载"></script>
+<script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/tracking-1.0.3.js.下载" type="text/javascript"></script>
+<script type="text/javascript">var $csdn_iteye_jq = jQuery.noConflict();// 解决jq与prototype.js命名空间冲突的问题</script>
+    
+	    
+	    <script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/web-storage-cache.min.js.下载" type="text/javascript"></script>
+	    <script src="./【android】scaleType属性与ImagView中图片的显示的关系 - Ailse逆光——向阳的花 - ITeye博客_files/replace.min.js.下载" type="text/javascript"></script>
+    
+    
+  
+
+</body></html>

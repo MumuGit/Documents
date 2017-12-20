@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html -->
+<html class="no-js bg" lang="zh-cmn-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!--IE 8浏览器的页面渲染方式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <!--默认使用极速内核：针对国内浏览器产商-->
+    <meta name="renderer" content="webkit">
+    <!--chrome Android 地址栏颜色-->
+        <meta name="theme-color" content="#3a3f51">
+    
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+    <title>RecyclerView的滚动事件研究 - DevWiki</title>
+            <link rel="icon" type="image/ico" href="http://7xjhi6.com1.z0.glb.clouddn.com/logo/devwiki_96.jpg">
+        <meta name="description" content="列表滚动过程开始之前,我们想一下一个列表的滚动过程是怎样的?列表的滚动一般分为两种:手指按下 -&amp;gt; 手指拖拽列表移动 -&amp;gt; 手指停止拖拽 -&amp;gt; 抬起手指手指按下 -&amp;gt; 手...">
+<meta name="keywords" content="RecyclerView">
+<meta name="generator" content="Typecho 1.1/17.10.30">
+<meta name="template" content="handsome">
+<link rel="pingback" href="http://blog.devwiki.net/index.php/action/xmlrpc">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.devwiki.net/index.php/action/xmlrpc?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.devwiki.net/index.php/action/xmlrpc?wlw">
+<link rel="alternate" type="application/rss+xml" title="RecyclerView的滚动事件研究 » DevWiki » RSS 2.0" href="http://blog.devwiki.net/index.php/feed/2016/06/13/RecyclerView-Scroll-Listener.html">
+<link rel="alternate" type="application/rdf+xml" title="RecyclerView的滚动事件研究 » DevWiki » RSS 1.0" href="http://blog.devwiki.net/index.php/feed/rss/2016/06/13/RecyclerView-Scroll-Listener.html">
+<link rel="alternate" type="application/atom+xml" title="RecyclerView的滚动事件研究 » DevWiki » ATOM 1.0" href="http://blog.devwiki.net/index.php/feed/atom/2016/06/13/RecyclerView-Scroll-Listener.html">
+<script src="./RecyclerView的滚动事件研究 - DevWiki_files/hm.js.下载"></script><script type="text/javascript" src="./RecyclerView的滚动事件研究 - DevWiki_files/shCore.min.js.下载"></script>
+<script type="text/javascript" src="./RecyclerView的滚动事件研究 - DevWiki_files/shAutoloader.js.下载"></script>
+<link rel="stylesheet" type="text/css" href="./RecyclerView的滚动事件研究 - DevWiki_files/shCoreDefault.css">
+
+        <!-- 第三方CDN加载CSS -->
+        <link href="./RecyclerView的滚动事件研究 - DevWiki_files/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- 本地css静态资源 -->
+    <link rel="stylesheet" href="./RecyclerView的滚动事件研究 - DevWiki_files/function.min.css" type="text/css">
+    <link rel="stylesheet" href="./RecyclerView的滚动事件研究 - DevWiki_files/handsome.min.css" type="text/css">
+
+
+    <!--主题组件css文件加载-->
+    <link rel="stylesheet" href="./RecyclerView的滚动事件研究 - DevWiki_files/jquery.fancybox.min.css" type="text/css">
+
+
+    <!--引入英文字体文件-->
+        <link rel="stylesheet" href="./RecyclerView的滚动事件研究 - DevWiki_files/font.css" type="text/css">
+    
+    <style type="text/css">
+        
+        html.bg{
+                   background-image:
+               -moz-radial-gradient(-20% 140%, ellipse ,  rgba(143,192,193,.6) 30%,rgba(255,255,227,0) 50%),
+               -moz-radial-gradient(60% 40%,ellipse,   #d9e3e5 10%,rgba(44,70,76,.0) 60%),
+               -moz-linear-gradient(-45deg,  rgba(143,181,158,.8) -10%,rgba(213,232,211,.8) 80% )
+           ;
+           background-image:
+               -o-radial-gradient(-20% 140%, ellipse ,  rgba(143,192,193,.6) 30%,rgba(255,255,227,0) 50%),
+               -o-radial-gradient(60% 40%,ellipse,   #d9e3e5 10%,rgba(44,70,76,.0) 60%),
+               -o-linear-gradient(-45deg,  rgba(143,181,158,.8) -10%,rgba(213,232,211,.8) 80% )
+           ;
+           background-image:
+               -ms-radial-gradient(-20% 140%, ellipse ,  rgba(143,192,193,.6) 30%,rgba(255,255,227,0) 50%),
+               -ms-radial-gradient(60% 40%,ellipse,   #d9e3e5 10%,rgba(44,70,76,.0) 60%),
+               -ms-linear-gradient(-45deg,  rgba(143,181,158,.8) -10%,rgba(213,232,211,.8) 80% )
+           ;
+           background-image:
+               -webkit-radial-gradient(-20% 140%, ellipse ,  rgba(143,192,193,.6) 30%,rgba(255,255,227,0) 50%),
+               -webkit-radial-gradient(60% 40%,ellipse,   #d9e3e5 10%,rgba(44,70,76,.0) 60%),
+               -webkit-linear-gradient(-45deg,  rgba(143,181,158,.8) -10%,rgba(213,232,211,.8) 80% )
+               ;
+        }
+            </style>
+
+    <!--全站jquery-->
+    <script src="./RecyclerView的滚动事件研究 - DevWiki_files/jquery.min.js.下载"></script>
+
+    <!--网站统计代码-->
+    <script data-no-instant="" type="text/javascript">
+    var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?eb112e8eb8f4c42efdd6354e7071d3dc";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();    </script>
+
+<style type="text/css"></style></head>
+
+<body id="body">
+    <div id="alllayout" class="app app-aside-fixed container app-header-fixed">    <!-- header -->
+        <header id="header" class="app-header navbar" role="menu">
+      <!-- navbar header（交集处） -->
+        <div class="navbar-header bg-dark">
+        <button class="pull-right visible-xs dk" ui-toggle-class="show" target=".navbar-collapse">
+          <i class="fa fa-gear text-lg"></i>
+        </button>
+        <button class="pull-right visible-xs" ui-toggle-class="off-screen" target=".app-aside" ui-scroll="app">
+          <i class="fa fa-menu text-lg"></i>
+        </button>
+        <!-- brand -->
+        <a href="http://blog.devwiki.net/" class="navbar-brand text-lt">
+          <i class="iconfont icon-shouyeshouye"></i>
+          <span class="hidden-folded m-l-xs">DevWiki's Blog</span>
+        </a>
+        <!-- / brand -->
+      </div>
+      <!-- / navbar header -->
+
+      <!-- navbar collapse（顶部导航栏） -->
+    <div class="collapse pos-rlt navbar-collapse box-shadow bg-dark">        <!-- buttons -->
+        <div class="nav navbar-nav hidden-xs">
+          <a data-no-instant="" href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#" class="btn no-shadow navbar-btn" ui-toggle-class="app-aside-folded" target=".app">
+            <i class="fa fa-dedent text icon-fw"></i>
+            <i class="fa fa-indent icon-fw text-active"></i>
+          </a>
+          <a href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#" class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user">
+            <i class="iconfont icon-user icon-fw"></i>
+          </a>
+        </div>
+        <!-- / buttons -->
+
+
+        <!-- search form -->
+        <form id="searchform" class="navbar-form navbar-form-sm navbar-left shift" method="post" role="search">
+          <div class="form-group">
+            <div class="input-group">
+              <input data-instant="" id="keyword" type="search" name="s" class="form-control input-sm bg-light no-border rounded padder" required="" placeholder="输入关键词搜索…">
+              <span class="input-group-btn">
+                  <button data-instant="" type="submit" class="btn btn-sm bg-light rounded"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </div>
+        </form>
+          <a href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html" style="display: none" id="searchUrl"></a>
+        <!-- / search form -->
+                <ul class="nav navbar-nav navbar-right">
+                        <li class="music-box hidden-xs hidden-sm">
+                <div id="skPlayer">
+            <audio class="skPlayer-source" preload="auto"><source src="https://m8.music.126.net/20171220152038/a662a9758414a270890265b659983e17/ymusic/6840/c187/db71/051b8679a86b4912ec4e35f36bf61e88.mp3" type="audio/mpeg"></audio>
+            <div class="skPlayer-picture">
+                <img class="skPlayer-cover" src="./RecyclerView的滚动事件研究 - DevWiki_files/5823013580839602.jpg" id="music-img">
+                <a href="javascript:;" class="skPlayer-play-btn">
+                    <span class="skPlayer-left"></span>
+                    <span class="skPlayer-right"></span>
+                </a>
+            </div>
+            <div class="skPlayer-control">
+                <p class="skPlayer-name">ぼーっとリコーダー</p>
+   <div class="playController"><div onclick="lastMusic();" class="lastMusic  music-off "><i class="fa fa-angle-double-left"></i></div> &nbsp;&nbsp;
+ <div class="runMusic  music-off "><i onclick="playMusic();" class="fa fa-play-circle-o runMusicIcon"></i></div>&nbsp;&nbsp; 
+ <div onclick="nextMusic();" class="nextMusic  music-off "><i class="fa fa-angle-double-right"></i></div></div> 
+             <p class="skPlayer-author">水谷広実</p>
+                <div class="skPlayer-percent">
+                    <div class="skPlayer-line-loading"></div>
+                    <div class="skPlayer-line"></div>
+                </div>
+                <p class="skPlayer-time">
+                    <span class="skPlayer-cur">00:00</span>/<span class="skPlayer-total">00:00</span>
+                </p>
+                <div class="skPlayer-volume" style="">
+                    <i class="skPlayer-icon"></i>
+                    <div class="skPlayer-percent">
+                        <div class="skPlayer-line"></div>
+                    </div>
+                </div>
+                              </div><div class="skPlayer-list-switch"></div>
+                <i class="skPlayer-mode"></i>
+            
+            <ul class="skPlayer-list">
+        
+                <li data-index="0" class="skPlayer-curMusic">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">1</span>
+                    <span class="skPlayer-list-name" title="ぼーっとリコーダー">ぼーっとリコーダー</span>
+                    <span class="skPlayer-list-author" title="水谷広実">水谷広実</span>
+                </li>
+            
+                <li data-index="1">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">2</span>
+                    <span class="skPlayer-list-name" title="真正的王">真正的王</span>
+                    <span class="skPlayer-list-author" title="高铭">高铭</span>
+                </li>
+            
+                <li data-index="2">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">3</span>
+                    <span class="skPlayer-list-name" title="梦回还">梦回还</span>
+                    <span class="skPlayer-list-author" title="呦猫UNEKO">呦猫UNEKO</span>
+                </li>
+            
+                <li data-index="3">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">4</span>
+                    <span class="skPlayer-list-name" title="旭丘分校校歌">旭丘分校校歌</span>
+                    <span class="skPlayer-list-author" title="小岩井ことり">小岩井ことり</span>
+                </li>
+            
+                <li data-index="4">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">5</span>
+                    <span class="skPlayer-list-name" title="ピカピカなのん">ピカピカなのん</span>
+                    <span class="skPlayer-list-author" title="小岩井ことり">小岩井ことり</span>
+                </li>
+            
+                <li data-index="5">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">6</span>
+                    <span class="skPlayer-list-name" title="こだまことだま">こだまことだま</span>
+                    <span class="skPlayer-list-author" title="nano.RIPE">nano.RIPE</span>
+                </li>
+            
+                <li data-index="6">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">7</span>
+                    <span class="skPlayer-list-name" title="おかえり">おかえり</span>
+                    <span class="skPlayer-list-author" title="小岩井ことり">小岩井ことり</span>
+                </li>
+            
+                <li data-index="7">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">8</span>
+                    <span class="skPlayer-list-name" title="PSI-missing">PSI-missing</span>
+                    <span class="skPlayer-list-author" title="川田まみ">川田まみ</span>
+                </li>
+            
+                <li data-index="8">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">9</span>
+                    <span class="skPlayer-list-name" title="Valkyrie-戦乙女-">Valkyrie-戦乙女-</span>
+                    <span class="skPlayer-list-author" title="和楽器バンド">和楽器バンド</span>
+                </li>
+            
+                <li data-index="9">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">10</span>
+                    <span class="skPlayer-list-name" title="Re:Call">Re:Call</span>
+                    <span class="skPlayer-list-author" title="i☆Ris">i☆Ris</span>
+                </li>
+            
+                <li data-index="10">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">11</span>
+                    <span class="skPlayer-list-name" title="Hide &amp; Seek">Hide &amp; Seek</span>
+                    <span class="skPlayer-list-author" title="GIRLFRIEND">GIRLFRIEND</span>
+                </li>
+            
+                <li data-index="11">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">12</span>
+                    <span class="skPlayer-list-name" title="sync">sync</span>
+                    <span class="skPlayer-list-author" title="lol">lol</span>
+                </li>
+            
+                <li data-index="12">
+                    <i class="skPlayer-list-sign"></i>
+                    <span class="skPlayer-list-index">13</span>
+                    <span class="skPlayer-list-name" title="LEVEL5 -judgelight-">LEVEL5 -judgelight-</span>
+                    <span class="skPlayer-list-author" title="fripSide">fripSide</span>
+                </li>
+            
+            </ul>
+        </div>
+            </li>
+            <li class="dropdown "><a class="skPlayer-list-switch dropdown-toggle"><i class="fa fa-headphones"></i><span class="visible-xs-inline"></span></a></li>
+                                              <!--闲言碎语-->
+          <li class="dropdown">
+            <a href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#" data-toggle="dropdown" class="dropdown-toggle">
+              <i class="fa fa-bell icon-fw"></i>
+              <span class="visible-xs-inline">
+              闲言碎语              </span>
+              <span class="badge badge-sm up bg-danger pull-right-xs"></span>
+            </a>
+            <!-- dropdown -->
+            <div class="dropdown-menu w-xl animated fadeInUp">
+              <div class="panel bg-white">
+                <div class="panel-heading b-light bg-light">
+                  <strong>
+              闲言碎语                  </strong>
+                </div>
+                <div class="list-group" id="smallRecording">
+                  <a href="http://blog.devwiki.net/index.php/cross.html" class="list-group-item"><span class="clear block m-b-none words_contents">今天切换到新的主题~<br><small class="text-muted">2017-12-16 16:47:24</small></span></a>                </div>
+              </div>
+            </div>
+          </li>
+          <!--/闲言碎语-->
+                                  <!--登录管理-->
+          <li class="dropdown" id="easyLogin">
+            <a onclick="return false" data-toggle="dropdown" class="dropdown-toggle clear">
+                        <span class="text">登录</span>
+                        <b class="caret"></b><!--下三角符号-->
+            </a>
+            <!-- dropdown(已经登录) -->
+                      <div class="dropdown-menu w-lg wrapper bg-white" aria-labelledby="navbar-login-dropdown">
+            <form id="Login_form" action="http://blog.devwiki.net/index.php/action/login?_=8fcb7bd9659a14cf57599e389a7aba5c" method="post">
+              <div class="form-group">
+                <label for="navbar-login-user">用户名</label>
+                <input type="text" name="name" id="navbar-login-user" class="form-control" placeholder="用户名或电子邮箱"></div>
+              <div class="form-group">
+                <label for="navbar-login-password">密码</label>
+                <input type="password" name="password" id="navbar-login-password" class="form-control" placeholder="密码"></div>
+              <button type="submit" id="login-submit" name="submitLogin" class="btn btn-block btn-primary">
+              <span class="text">登录</span>
+              <span class="text-active">登录中...</span>
+                  <span class="banLogin_text">刷新页面后登录</span>
+              <i class="animate-spin  fa fa-spinner hide" id="spin-login"></i>
+                  <i class="animate-spin fa fa-refresh hide" id="ban-login"></i>
+              </button>
+              
+              <input type="hidden" name="referer" value="http://blog.devwiki.net" data-current-url="value"></form>
+          </div>
+                    </li>
+          <!--/登录管理-->
+                    </ul>
+      </div>
+      <!-- / navbar collapse -->
+  </header>
+    <!-- / header -->
+	<!-- aside -->
+	    <!--选择侧边栏的颜色-->
+  <aside id="aside" class="app-aside hidden-xs bg-light">      <div class="aside-wrap">
+        <div class="navi-wrap">
+          <!-- user -->
+                  <div class="clearfix hidden-xs text-center hide show" id="aside-user">
+                    <div class="dropdown wrapper">
+                          <a href="http://blog.devwiki.net/index.php/cross.html">
+                            <span class="thumb-lg w-auto-folded avatar m-t-sm">
+                  <img src="./RecyclerView的滚动事件研究 - DevWiki_files/devwiki_250.jpg" class="img-full">
+                </span>
+              </a>
+              <a href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+                <span class="clear">
+                  <span class="block m-t-sm">
+                    <strong class="font-bold text-lt">DevWiki</strong>
+                    <b class="caret"></b>
+                  </span>
+                  <span class="text-muted text-xs block">DevWiki</span>
+                </span>
+              </a>
+              <!-- dropdown -->
+              <ul class="dropdown-menu animated fadeInRight w hidden-folded">
+                <li class="wrapper b-b m-b-sm bg-info m-t-n-xs">
+                  <span class="arrow top hidden-folded arrow-info"></span>
+                  <div>
+                                                  <p>下午好，是时候打个盹了</p>
+                                  </div>
+                  <div class="progress progress-xs m-b-none dker">
+                    <div class="progress-bar bg-white" data-toggle="tooltip" data-original-title="58.33%" style="width: 58.33%"></div>
+                  </div>
+                </li>
+              <!--文章RSS订阅-->
+              <li>
+                <a href="http://blog.devwiki.net/index.php/feed/" data-toggle="tooltip" title="" data-original-title="订阅文章 Feed 源">
+                  <i style="position: relative;width: 30px;margin: -11px -10px;margin-right: 0px;overflow: hidden;line-height: 30px;text-align: center;" class="fa fa-rss"></i><span>文章RSS</span>
+                </a>
+              </li>
+              <!--评论RSS订阅-->
+              <li>
+                <a href="http://blog.devwiki.net/index.php/feed/comments/" data-toggle="tooltip" title="" data-original-title="订阅评论 Feed 源"><i style="position: relative;width: 30px;margin: -11px -10px;margin-right: 0px;overflow: hidden;line-height: 30px;text-align: center;" class="fa fa-rss-square"></i><span>评论RSS</span></a>
+              </li>
+              <li class="divider"></li>
+                                              <li>
+                <a data-no-instant="" href="http://blog.devwiki.net/admin/login.php">登录</a>
+              </li>
+                                              </ul>
+              <!-- / dropdown -->
+            </div>
+            <div class="line dk hidden-folded"></div>
+          </div>
+          <!-- / user -->
+
+          <!-- nav -->
+          <nav ui-nav="" class="navi clearfix">
+            <ul class="nav">
+             <!--index-->
+              <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                <span>导航</span>
+              </li>
+                                          <!--主页-->
+              <li>
+                <a href="http://blog.devwiki.net/" class="auto">
+                  <i class="fa fa-home icon text-md"></i>
+                  <span>首页</span>
+                </a>
+              </li>
+              <!-- /主页 -->
+                                          <li class="line dk"></li>
+			<!--Components-->
+              <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                <span>组成</span>
+              </li>
+              <!--分类category-->
+              <li>
+                <a data-no-instant="" class="auto">
+                  <span class="pull-right text-muted">
+                    <i class="fa icon-fw fa-angle-right text"></i>
+                    <i class="fa icon-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="iconfont icon-c-classification"></i>
+                  <span>分类</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <a data-no-instant="">
+                      <span>分类</span>
+                    </a>
+                  </li><!--不会显示出来-->
+                  <!--循环输出分类-->
+                <li><a href="http://blog.devwiki.net/index.php/category/android/"><span>Android</span></a></li><li><a href="http://blog.devwiki.net/index.php/category/java/"><span>Java</span></a></li><li><a href="http://blog.devwiki.net/index.php/category/database/"><span>数据库</span></a></li><li><a href="http://blog.devwiki.net/index.php/category/Network/"><span>网络</span></a></li><li><a href="http://blog.devwiki.net/index.php/category/OpenLib/"><span>开源库</span></a></li><li><a href="http://blog.devwiki.net/index.php/category/linux/"><span>Linux</span></a></li><li><a href="http://blog.devwiki.net/index.php/category/tools/"><span>Tools</span></a></li><li><a href="http://blog.devwiki.net/index.php/category/groovy/"><span>Groovy</span></a></li>                </ul>
+              </li>
+              <!--独立页面pages-->
+              <li>
+                <a data-no-instant="" class="auto">
+                  <span class="pull-right text-muted">
+                    <i class="fa icon-fw fa-angle-right text"></i>
+                    <i class="fa icon-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="iconfont icon-176pages"></i>
+                  <span>页面</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <a data-no-instant="">
+                      <span>页面</span>
+                    </a>
+                  </li><!--这个字段不会被显示出来-->
+                  <!--循环输出独立页面-->
+                                                         <li><a href="http://blog.devwiki.net/index.php/cross.html"><span>时光机</span></a></li>
+                                       <li><a href="http://blog.devwiki.net/index.php/archives.html"><span>归档</span></a></li>
+                                       <li><a href="http://blog.devwiki.net/index.php/links.html"><span>链接</span></a></li>
+                                       <li><a href="http://blog.devwiki.net/index.php/guestbook.html"><span>留言</span></a></li>
+                                       <li><a href="http://blog.devwiki.net/index.php/about.html"><span>关于</span></a></li>
+                                   </ul>
+              </li>
+              <!--友情链接-->
+              <li>
+                <a data-no-instant="" class="auto">
+                  <span class="pull-right text-muted">
+                    <i class="fa icon-fw fa-angle-right text"></i>
+                    <i class="fa icon-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="iconfont icon-pengyouquan"></i>
+                  <span>友链</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <a data-no-instant="">
+                      <span>友链</span>
+                    </a>
+                  </li>
+                  <!--使用links插件，输出全站友链-->
+                 <li><a href="http://miku01qaq.xyz/" target="_blank" title="一个初中的小男孩~"><span>miku01qaq</span></a></li><li><a href="http://blog.csdn.net/ouyang_peng" target="_blank" title="欧神的博客"><span>欧阳鹏</span></a></li><li><a href="http://www.woshipm.com/u/80505" target="_blank" title="当时青春年少，我们相爱恨早。"><span>小蚂蚁</span></a></li><li><a href="http://www.koffuxu.com/" target="_blank" title="可夫小子的个人工作室"><span>可夫嵌入式</span></a></li><li><a href="https://wangxs.cn/" target="_blank" title=""><span>王雪松</span></a></li><li><a href="https://coding.ee/" target="_blank" title=""><span>编程日志</span></a></li><li><a href="https://www.lkxin.cn/" target="_blank" title=""><span>聆听苏音</span></a></li>                </ul>
+              </li>
+
+            </ul>
+          </nav>
+          <!-- nav -->
+
+
+        </div>
+      </div>
+  </aside>
+<!-- content -->
+<div id="content" class="app-content">
+	<!-- / aside -->
+
+<!-- <div id="content" class="app-content"> -->
+        <div id="loadingbar" class="butterbar hide">
+            <span class="bar"></span>
+        </div>
+   <a class="off-screen-toggle hide"></a>
+   <main class="app-content-body">
+    <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!--文章-->
+     <div class="col">
+    <!--标题下的一排功能信息图标：作者/时间/浏览次数/评论数/分类-->
+      
+        <header id="small_widgets" class="bg-light lter b-b wrapper-md">
+             <h1 class="entry-title m-n font-thin h3 text-black l-h">RecyclerView的滚动事件研究</h1>       <!--文章标题下面的小部件-->
+       <ul class="entry-meta text-muted list-inline m-b-none small">
+       <!--作者-->
+        <li class="meta-author"><i class="fa fa-user" aria-hidden="true"></i><span class="sr-only">博主：</span> <a class="meta-value" href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html" rel="author"> </a></li>
+        <!--发布时间-->
+        <li class="meta-date"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;<span class="sr-only">发布时间：</span><time class="meta-value">2016 年 06 月 13 日</time></li>
+        <!--浏览数-->
+        <li class="meta-views"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;<span class="meta-value">10166&nbsp;次浏览</span></li>
+                   <!--评论数-->
+        <li class="meta-comments"><i class="iconfont icon-comments" aria-hidden="true"></i>&nbsp;<a class="meta-value" href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#comments">&nbsp;1 条评论</a></li>
+                   <!--分类-->
+        <li class="meta-categories"><i class="fa fa-tags" aria-hidden="true"></i> <span class="sr-only">分类：</span> <span class="meta-value"><a href="http://blog.devwiki.net/index.php/category/android/">Android</a></span></li>
+       </ul>
+      </header>
+      <div class="wrapper-md" id="post-panel">
+	   <ol class="breadcrumb bg-white b-a" itemscope=""><li>
+                 <a href="http://blog.devwiki.net/" itemprop="breadcrumb" title="" data-toggle="tooltip" data-original-title="返回首页"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;首页</a>
+             </li><li class="active">正文&nbsp;&nbsp;</li>
+              <div style="float:right;">
+   分享到：
+   <style>
+   i.iconfont.icon-qzone:after {
+    padding: 0 0px 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+    }
+   </style>
+   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html&amp;title=RecyclerView%E7%9A%84%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6%E7%A0%94%E7%A9%B6&amp;site=http://blog.devwiki.net/" itemprop="breadcrumb" target="_blank" title="" data-toggle="tooltip" data-original-title="分享到QQ空间" onclick="window.open(this.href, &#39;qzone-share&#39;, &#39;width=550,height=335&#39;);return false;"><i style="font-size:15px;" class="iconfont icon-qzone" aria-hidden="true"></i></a>
+   <a href="http://service.weibo.com/share/share.php?url=http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html&amp;title=RecyclerView%E7%9A%84%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6%E7%A0%94%E7%A9%B6" target="_blank" itemprop="breadcrumb" title="" data-toggle="tooltip" data-original-title="分享到微博" onclick="window.open(this.href, &#39;weibo-share&#39;, &#39;width=550,height=335&#39;);return false;"><i style="font-size:15px;" class="fa fa-weibo" aria-hidden="true"></i></a>
+  </div></ol>       <!--博客文章样式 begin with .blog-post-->
+       <div id="postpage" class="blog-post">
+        <article class="panel">
+        <!--文章页面的头图-->
+                 <!--文章内容-->
+         <div id="post-content" class="wrapper-lg">
+          <div class="entry-content l-h-2x">
+          <div name="列表滚动过程" data-unique="列表滚动过程"></div><h2>列表滚动过程</h2><p>开始之前,我们想一下一个列表的滚动过程是怎样的?</p><p>列表的滚动一般分为两种:</p><ol><li>手指按下 -&gt; 手指拖拽列表移动 -&gt; 手指停止拖拽 -&gt; 抬起手指</li><li>手指按下 -&gt; 手指快速拖拽后抬起手指 -&gt; 列表继续滚动 -&gt; 停止滚动</li></ol><!--more--><p>从上面可以看出,滚动状态分为:</p><div><div id="highlighter_820339" class="syntaxhighlighter  plain"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">|--静止</code></div><div class="line number2 index1 alt1"><code class="plain plain">|--滚动</code></div><div class="line number3 index2 alt2"><code class="plain spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain plain">|--被迫拖拽移动</code></div><div class="line number4 index3 alt1"><code class="plain spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain plain">|--自己滚动</code></div></div></td></tr></tbody></table></div></div></div><p>上面的过程的状态变化如下:</p><ol><li>静止 -&gt; 被迫拖拽移动 -&gt; 静止</li><li>静止 -&gt; 被迫拖拽移动 -&gt; 自己滚动 -&gt; 静止</li></ol><!--more--><div name="监听RecyclerView的滚动" data-unique="监听RecyclerView的滚动"></div><h2>监听RecyclerView的滚动</h2><p>好了,我们分析完滚动的过程,再看看如何监听RecyclerView的滚动.查看源码是最好的方法.</p><div name="看源码" data-unique="看源码"></div><h3>看源码</h3><p>查看RecyclerView的源码,我们可以看到以下代码:</p><div><div id="highlighter_293129" class="syntaxhighlighter  java"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java preprocessor">/**</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;</code><code class="java preprocessor">* Set a listener that will be notified of any changes in scroll state or position.</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;</code><code class="java preprocessor">* @param listener Listener to set or null to clear</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;</code><code class="java preprocessor">* @deprecated Use {@link #addOnScrollListener(OnScrollListener)} and</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;</code><code class="java preprocessor">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {@link #removeOnScrollListener(OnScrollListener)}</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;</code><code class="java preprocessor">*/</code></div><div class="line number7 index6 alt2"><code class="java color1">@Deprecated</code></div><div class="line number8 index7 alt1"><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">setOnScrollListener(OnScrollListener listener) {</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">mScrollListener = listener;</code></div><div class="line number10 index9 alt1"><code class="java plain">}</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="java preprocessor">/**</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;</code><code class="java preprocessor">* Add a listener that will be notified of any changes in scroll state or position.</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;</code><code class="java preprocessor">* &lt;p&gt;Components that add a listener should take care to remove it when finished.</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;</code><code class="java preprocessor">* Other components that take ownership of a view may call {@link #clearOnScrollListeners()}</code></div><div class="line number16 index15 alt1"><code class="java spaces">&nbsp;</code><code class="java preprocessor">* to remove all attached listeners.&lt;/p&gt;</code></div><div class="line number17 index16 alt2"><code class="java spaces">&nbsp;</code><code class="java preprocessor">* @param listener listener to set or null to clear</code></div><div class="line number18 index17 alt1"><code class="java spaces">&nbsp;</code><code class="java preprocessor">*/</code></div><div class="line number19 index18 alt2"><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">addOnScrollListener(OnScrollListener listener) {</code></div><div class="line number20 index19 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code> <code class="java plain">(mScrollListeners == </code><code class="java keyword">null</code><code class="java plain">) {</code></div><div class="line number21 index20 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">mScrollListeners = </code><code class="java keyword">new</code> <code class="java plain">ArrayList&lt;&gt;();</code></div><div class="line number22 index21 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number23 index22 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">mScrollListeners.add(listener);</code></div><div class="line number24 index23 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div></div><p>也就是说有两种方式可以监听滚动事件:</p><ol><li><code>setOnScrollListener()</code></li><li><code>addOnScrollListener()</code></li></ol><p>其中 setOnScrollListener 已经过时(<code>@deprecated</code>),建议使用 addOnScrollListener.如果在源码中没有 addOnScrollListener 方法,可能你的版本过旧,请升级recyclerview包.</p><p>设置的监听器源码如下:</p><div><div id="highlighter_721056" class="syntaxhighlighter  java"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">public</code> <code class="java keyword">abstract</code> <code class="java keyword">static</code> <code class="java keyword">class</code> <code class="java plain">OnScrollListener {</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">/**</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* Callback method to be invoked when RecyclerView's scroll state changes.</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* @param recyclerView The RecyclerView whose scroll state has changed.</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* @param newState&nbsp;&nbsp;&nbsp;&nbsp; The updated scroll state. One of {@link #SCROLL_STATE_IDLE},</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {@link #SCROLL_STATE_DRAGGING} or {@link #SCROLL_STATE_SETTLING}.</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">*/</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">onScrollStateChanged(RecyclerView recyclerView, </code><code class="java keyword">int</code> <code class="java plain">newState){}</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">/**</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* Callback method to be invoked when the RecyclerView has been scrolled. This will be</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* called after the scroll has completed.</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* &lt;p&gt;</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* This callback will also be called if visible item range changes after a layout</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* calculation. In that case, dx and dy will be 0.</code></div><div class="line number16 index15 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">*</code></div><div class="line number17 index16 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* @param recyclerView The RecyclerView which scrolled.</code></div><div class="line number18 index17 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* @param dx The amount of horizontal scroll.</code></div><div class="line number19 index18 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">* @param dy The amount of vertical scroll.</code></div><div class="line number20 index19 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java preprocessor">*/</code></div><div class="line number21 index20 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">onScrolled(RecyclerView recyclerView, </code><code class="java keyword">int</code> <code class="java plain">dx, </code><code class="java keyword">int</code> <code class="java plain">dy){}</code></div><div class="line number22 index21 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div></div><p>在滚动过程中,此监听器会回调两个方法.</p><blockquote><p>onScrollStateChanged : 滚动状态变化时回调<br>onScrolled : 滚动时回调</p></blockquote><p>这两者的区别在于: <strong>状态与过程</strong></p><div name="举例子" data-unique="举例子"></div><h3>举例子</h3><p>注 : 以下源码可在最后的地址中找到.</p><div><div id="highlighter_514821" class="syntaxhighlighter  java"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java plain">demoRv = (RecyclerView) findViewById(R.id.demo_rv);</code></div><div class="line number2 index1 alt1"><code class="java plain">layoutManager = </code><code class="java keyword">new</code> <code class="java plain">LinearLayoutManager(</code><code class="java keyword">this</code><code class="java plain">);</code></div><div class="line number3 index2 alt2"><code class="java plain">demoRv.setLayoutManager(layoutManager);</code></div><div class="line number4 index3 alt1"><code class="java plain">demoRv.addItemDecoration(</code><code class="java keyword">new</code> <code class="java plain">DividerItemDecoration(</code><code class="java keyword">this</code><code class="java plain">, DividerItemDecoration.VERTICAL_LIST));</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="java plain">bookAdapter = </code><code class="java keyword">new</code> <code class="java plain">BookAdapter();</code></div><div class="line number7 index6 alt2"><code class="java plain">bookAdapter.fillList(MockService.getBookList());</code></div><div class="line number8 index7 alt1"><code class="java plain">demoRv.setAdapter(bookAdapter);</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="java plain">demoRv.addOnScrollListener(</code><code class="java keyword">new</code> <code class="java plain">RecyclerView.OnScrollListener() {</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java color1">@Override</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">onScrollStateChanged(RecyclerView recyclerView, </code><code class="java keyword">int</code> <code class="java plain">newState) {</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">super</code><code class="java plain">.onScrollStateChanged(recyclerView, newState);</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Log.i(TAG, </code><code class="java string">"-----------onScrollStateChanged-----------"</code><code class="java plain">);</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Log.i(TAG, </code><code class="java string">"newState: "</code> <code class="java plain">+ newState);</code></div><div class="line number16 index15 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number17 index16 alt2">&nbsp;</div><div class="line number18 index17 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java color1">@Override</code></div><div class="line number19 index18 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">onScrolled(RecyclerView recyclerView, </code><code class="java keyword">int</code> <code class="java plain">dx, </code><code class="java keyword">int</code> <code class="java plain">dy) {</code></div><div class="line number20 index19 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">super</code><code class="java plain">.onScrolled(recyclerView, dx, dy);</code></div><div class="line number21 index20 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Log.i(TAG, </code><code class="java string">"-----------onScrolled-----------"</code><code class="java plain">);</code></div><div class="line number22 index21 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Log.i(TAG, </code><code class="java string">"dx: "</code> <code class="java plain">+ dx);</code></div><div class="line number23 index22 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Log.i(TAG, </code><code class="java string">"dy: "</code> <code class="java plain">+ dy);</code></div><div class="line number24 index23 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Log.i(TAG, </code><code class="java string">"CHECK_SCROLL_UP: "</code> <code class="java plain">+ recyclerView.canScrollVertically(TAG_CHECK_SCROLL_UP));</code></div><div class="line number25 index24 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Log.i(TAG, </code><code class="java string">"CHECK_SCROLL_DOWN: "</code> <code class="java plain">+ recyclerView.canScrollVertically(TAG_CHECK_SCROLL_DOWN));</code></div><div class="line number26 index25 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number27 index26 alt2"><code class="java plain">});</code></div></div></td></tr></tbody></table></div></div></div><p>以上代码中输出了主要个几个信息:</p><ol><li>newState : 目前的状态</li><li>dx : 水平滚动距离</li><li>dy : 垂直滚动距离</li></ol><div name="onScrollStateChanged方法" data-unique="onScrollStateChanged方法"></div><h4>onScrollStateChanged 方法</h4><p>在<code>void onScrollStateChanged(RecyclerView recyclerView, int newState)</code>中回调两个变量:</p><ol><li>recyclerView : 当前在滚动的RecyclerView</li><li>newState : 当前滚动状态.</li></ol><p>其中newState有三种值:</p><div><div id="highlighter_710187" class="syntaxhighlighter  plain "><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">//静止,没有滚动</code></div><div class="line number2 index1 alt1"><code class="plain plain">public static final int SCROLL_STATE_IDLE = 0;</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="plain plain">//正在被外部拖拽,一般为用户正在用手指滚动</code></div><div class="line number5 index4 alt2"><code class="plain plain">public static final int SCROLL_STATE_DRAGGING = 1;</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="plain plain">//自动滚动开始</code></div><div class="line number8 index7 alt1"><code class="plain plain">public static final int SCROLL_STATE_SETTLING = 2;</code></div></div></td></tr></tbody></table></div></div></div><div name="onScrolled方法" data-unique="onScrolled方法"></div><h4>onScrolled 方法</h4><p>在<code>void onScrolled(RecyclerView recyclerView, int dx, int dy)</code>方法中回调了三个变量:</p><ol><li>recyclerView : 当前滚动的view</li><li>dx : 水平滚动距离</li><li>dy : 垂直滚动距离</li></ol><div name="真机实践" data-unique="真机实践"></div><h3>真机实践</h3><div name="运行代码" data-unique="运行代码"></div><h4>运行代码</h4><p>运行以上代码,然后按照上面的滚动过程分别进行两种滚动.</p><p>第一种方式缓慢滚动结果如下:</p><div><div id="highlighter_362293" class="syntaxhighlighter  plain"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">I/MainActivity: -----------onScrollStateChanged-----------</code></div><div class="line number2 index1 alt1"><code class="plain plain">I/MainActivity: newState: 1</code></div><div class="line number3 index2 alt2"><code class="plain plain">I/MainActivity: -----------onScrolled-----------</code></div><div class="line number4 index3 alt1"><code class="plain plain">I/MainActivity: dx: 0</code></div><div class="line number5 index4 alt2"><code class="plain plain">I/MainActivity: dy: -6</code></div><div class="line number6 index5 alt1"><code class="plain plain">I/MainActivity: CHECK_SCROLL_UP: true</code></div><div class="line number7 index6 alt2"><code class="plain plain">I/MainActivity: CHECK_SCROLL_DOWN: true</code></div><div class="line number8 index7 alt1"><code class="plain plain">------------------------n个onScrolled--------------------</code></div><div class="line number9 index8 alt2"><code class="plain plain">I/MainActivity: -----------onScrolled-----------</code></div><div class="line number10 index9 alt1"><code class="plain plain">I/MainActivity: dx: 0</code></div><div class="line number11 index10 alt2"><code class="plain plain">I/MainActivity: dy: -2</code></div><div class="line number12 index11 alt1"><code class="plain plain">I/MainActivity: CHECK_SCROLL_UP: true</code></div><div class="line number13 index12 alt2"><code class="plain plain">I/MainActivity: CHECK_SCROLL_DOWN: false</code></div><div class="line number14 index13 alt1"><code class="plain plain">I/MainActivity: -----------onScrollStateChanged-----------</code></div><div class="line number15 index14 alt2"><code class="plain plain">I/MainActivity: newState: 0</code></div></div></td></tr></tbody></table></div></div></div><p>第二种快速滚动结果如下:</p><div><div id="highlighter_977544" class="syntaxhighlighter  plain"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">I/MainActivity: -----------onScrollStateChanged-----------</code></div><div class="line number2 index1 alt1"><code class="plain plain">I/MainActivity: newState: 1</code></div><div class="line number3 index2 alt2"><code class="plain plain">I/MainActivity: -----------onScrolled-----------</code></div><div class="line number4 index3 alt1"><code class="plain plain">I/MainActivity: dx: 0</code></div><div class="line number5 index4 alt2"><code class="plain plain">I/MainActivity: dy: 59</code></div><div class="line number6 index5 alt1"><code class="plain plain">I/MainActivity: CHECK_SCROLL_UP: true</code></div><div class="line number7 index6 alt2"><code class="plain plain">I/MainActivity: CHECK_SCROLL_DOWN: true</code></div><div class="line number8 index7 alt1"><code class="plain plain">--------------------------n个onScrolled-------------------</code></div><div class="line number9 index8 alt2"><code class="plain plain">I/MainActivity: -----------onScrolled-----------</code></div><div class="line number10 index9 alt1"><code class="plain plain">I/MainActivity: dx: 0</code></div><div class="line number11 index10 alt2"><code class="plain plain">I/MainActivity: dy: 54</code></div><div class="line number12 index11 alt1"><code class="plain plain">I/MainActivity: CHECK_SCROLL_UP: true</code></div><div class="line number13 index12 alt2"><code class="plain plain">I/MainActivity: CHECK_SCROLL_DOWN: true</code></div><div class="line number14 index13 alt1"><code class="plain plain">I/MainActivity: -----------onScrollStateChanged-----------</code></div><div class="line number15 index14 alt2"><code class="plain plain">I/MainActivity: newState: 2</code></div><div class="line number16 index15 alt1"><code class="plain plain">I/MainActivity: -----------onScrolled-----------</code></div><div class="line number17 index16 alt2"><code class="plain plain">I/MainActivity: dx: 0</code></div><div class="line number18 index17 alt1"><code class="plain plain">I/MainActivity: dy: 56</code></div><div class="line number19 index18 alt2"><code class="plain plain">I/MainActivity: CHECK_SCROLL_UP: true</code></div><div class="line number20 index19 alt1"><code class="plain plain">I/MainActivity: CHECK_SCROLL_DOWN: true</code></div><div class="line number21 index20 alt2"><code class="plain plain">--------------------------n个onScrolled-------------------</code></div><div class="line number22 index21 alt1"><code class="plain plain">I/MainActivity: -----------onScrolled-----------</code></div><div class="line number23 index22 alt2"><code class="plain plain">I/MainActivity: dx: 0</code></div><div class="line number24 index23 alt1"><code class="plain plain">I/MainActivity: dy: 14</code></div><div class="line number25 index24 alt2"><code class="plain plain">I/MainActivity: CHECK_SCROLL_UP: true</code></div><div class="line number26 index25 alt1"><code class="plain plain">I/MainActivity: CHECK_SCROLL_DOWN: true</code></div><div class="line number27 index26 alt2"><code class="plain plain">I/MainActivity: -----------onScrolled-----------</code></div><div class="line number28 index27 alt1"><code class="plain plain">I/MainActivity: dx: 0</code></div><div class="line number29 index28 alt2"><code class="plain plain">I/MainActivity: dy: 1</code></div><div class="line number30 index29 alt1"><code class="plain plain">I/MainActivity: CHECK_SCROLL_UP: true</code></div><div class="line number31 index30 alt2"><code class="plain plain">I/MainActivity: CHECK_SCROLL_DOWN: true</code></div><div class="line number32 index31 alt1"><code class="plain plain">I/MainActivity: -----------onScrollStateChanged-----------</code></div><div class="line number33 index32 alt2"><code class="plain plain">I/MainActivity: newState: 0</code></div></div></td></tr></tbody></table></div></div></div><div name="分析结果" data-unique="分析结果"></div><h4>分析结果</h4><p>且在滚动过程中发现:</p><p><strong>1.滚动方向</strong></p><blockquote><p><strong>dy &gt; 0 时为手指向上滚动,列表滚动显示下面的内容</strong><br><strong>dy &lt; 0 时为手指向下滚动,列表滚动显示上面的内容</strong></p></blockquote><p><strong>2.回调过程</strong></p><p><strong>缓慢拖拽回调过程:</strong></p><div><div id="highlighter_845850" class="syntaxhighlighter  plain"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">1. newState = RecyclerView.SCROLL_STATE_DRAGGING;</code></div><div class="line number2 index1 alt1"><code class="plain plain">2. dy 多次改变</code></div><div class="line number3 index2 alt2"><code class="plain plain">3. newState = RecyclerView.SCROLL_STATE_IDLE</code></div></div></td></tr></tbody></table></div></div></div><p><strong>快速滚动回调过程:</strong></p><div><div id="highlighter_346158" class="syntaxhighlighter  plain"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">1. newState = RecyclerView.SCROLL_STATE_DRAGGING;</code></div><div class="line number2 index1 alt1"><code class="plain plain">2. dy 多次改变</code></div><div class="line number3 index2 alt2"><code class="plain plain">3. newState = RecyclerView.SCROLL_STATE_SETTLING;</code></div><div class="line number4 index3 alt1"><code class="plain plain">4. dy 多次改变</code></div><div class="line number5 index4 alt2"><code class="plain plain">5. newState = RecyclerView.SCROLL_STATE_IDLE;</code></div></div></td></tr></tbody></table></div></div></div><p><strong>3.顶端与底部</strong></p><p>以上信息中还打印了<code>canScrollVertically</code>的信息,其中:</p><blockquote><p><code>RecyclerView.canScrollVertically(1)</code>的值表示是否能向下滚动，false表示已经滚动到底部<br><code>RecyclerView.canScrollVertically(-1)</code>的值表示是否能向上滚动，false表示已经滚动到顶部</p></blockquote><div name="封装" data-unique="封装"></div><h3>封装</h3><p>基于以上,我们可以封装一个可以回调滚动状态和方向的RecyclerView.</p><p>先建立事件监听的接口<code>OnScrollCallback</code>,代码如下:</p><div><div id="highlighter_950230" class="syntaxhighlighter  java"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">public</code> <code class="java keyword">interface</code> <code class="java plain">OnScrollCallback {</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">void</code> <code class="java plain">onStateChanged(ScrollRecycler recycler, </code><code class="java keyword">int</code> <code class="java plain">state);</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">void</code> <code class="java plain">onScrollUp(ScrollRecycler recycler, </code><code class="java keyword">int</code> <code class="java plain">dy);</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">void</code> <code class="java plain">onScrollToBottom();</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">void</code> <code class="java plain">onScrollDown(ScrollRecycler recycler, </code><code class="java keyword">int</code> <code class="java plain">dy);</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">void</code> <code class="java plain">onScrollToTop();</code></div><div class="line number12 index11 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div></div><p>再写一个类<code>ScrollRecycler</code>继承<code>RecyclerView</code>,在类中添加以下方法:</p><div><div id="highlighter_129671" class="syntaxhighlighter  java"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java plain">addOnScrollListener(</code><code class="java keyword">new</code> <code class="java plain">OnScrollListener() {</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java color1">@Override</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">onScrollStateChanged(RecyclerView recyclerView, </code><code class="java keyword">int</code> <code class="java plain">newState) {</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">super</code><code class="java plain">.onScrollStateChanged(recyclerView, newState);</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">callback.onStateChanged(ScrollRecycler.</code><code class="java keyword">this</code><code class="java plain">, newState);</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code> <code class="java plain">(newState == RecyclerView.SCROLL_STATE_IDLE) {</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code> <code class="java plain">(!recyclerView.canScrollVertically(</code><code class="java value">1</code><code class="java plain">)) {</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">callback.onScrollToBottom();</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code> <code class="java plain">(!recyclerView.canScrollVertically(-</code><code class="java value">1</code><code class="java plain">)) {</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">callback.onScrollToTop();</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java color1">@Override</code></div><div class="line number17 index16 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">onScrolled(RecyclerView recyclerView, </code><code class="java keyword">int</code> <code class="java plain">dx, </code><code class="java keyword">int</code> <code class="java plain">dy) {</code></div><div class="line number18 index17 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">super</code><code class="java plain">.onScrolled(recyclerView, dx, dy);</code></div><div class="line number19 index18 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code> <code class="java plain">(dy &gt; </code><code class="java value">0</code><code class="java plain">) {</code></div><div class="line number20 index19 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">callback.onScrollDown(ScrollRecycler.</code><code class="java keyword">this</code><code class="java plain">, dy);</code></div><div class="line number21 index20 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">} </code><code class="java keyword">else</code> <code class="java plain">{</code></div><div class="line number22 index21 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">callback.onScrollUp(ScrollRecycler.</code><code class="java keyword">this</code><code class="java plain">, dy);</code></div><div class="line number23 index22 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number24 index23 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number25 index24 alt2"><code class="java plain">});</code></div></div></td></tr></tbody></table></div></div></div><p>测试以下是否可行,下面直接给出测试结果:</p><div><div id="highlighter_348909" class="syntaxhighlighter  plain"><div class="table-responsive"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">I/MainActivity: onStateChanged: state:1</code></div><div class="line number2 index1 alt1"><code class="plain plain">I/MainActivity: onScrollUp: -11</code></div><div class="line number3 index2 alt2"><code class="plain plain">I/MainActivity: onScrollUp: -10</code></div><div class="line number4 index3 alt1"><code class="plain plain">I/MainActivity: onScrollUp: -14</code></div><div class="line number5 index4 alt2"><code class="plain plain">I/MainActivity: onScrollUp: -22</code></div><div class="line number6 index5 alt1"><code class="plain plain">I/MainActivity: onStateChanged: state:2</code></div><div class="line number7 index6 alt2"><code class="plain plain">I/MainActivity: onStateChanged: state:0</code></div><div class="line number8 index7 alt1"><code class="plain plain">I/MainActivity: onScrollToTop:</code></div></div></td></tr></tbody></table></div></div></div><p>完毕,以上就是对RecyclerView的滚动的简单研究,项目代码地址如下:<a href="https://github.com/Dev-Wiki/RecyclerScroll" target="_blank">Dev-Wiki/RecyclerScroll: RecyclerView滚动的Demo</a></p><p>更多文章请移步我的博客:<a href="http://blog.devwiki.net/" target="_blank">DevWiki&nbsp;Blog</a></p><p><strong>重要说明</strong></p><p>想随时获取最新博客文章更新,请关注公共账号DevWiki,或扫描下面的二维码:</p><p><a data-fancybox="gallery" no-pjax="" data-type="image" href="./RecyclerView的滚动事件研究 - DevWiki_files/WeiXin-DevWiki-Common.jpg" class="light-link"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/WeiXin-DevWiki-Common.jpg" alt="微信公共号" title="微信公共号"></a></p>          </div>
+                          <!--文章的页脚部件：打赏和其他信息的输出-->
+             
+             <div class="show-foot">
+                 <div class="notebook">
+                     <i class="fa fa-clock-o"></i>
+                     <span>最后修改：2017 年 05 月 29 日 04 : 25  PM</span>
+                 </div>
+                 <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并注明转载地址"><span>© 著作权归作者所有</span>
+                 </div>
+             </div>
+                                      <!--打赏模块-->
+                 
+             <div class="support-author">
+                 <button data-toggle="modal" data-target="#myModal" class="btn btn-pay btn-danger"><i class="fa fa-gratipay" aria-hidden="true"></i>&nbsp;赞赏支持</button>
+                 <div class="mt20 text-center article__reward-info">
+                     <span class="mr10">如果觉得我的文章对你有用，请随意赞赏</span>
+                 </div>
+             </div>
+             <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                 <div class="modal-dialog modal-sm" role="document">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                             <h4 class="modal-title">赞赏作者</h4>
+                         </div>
+                         <div class="modal-body">
+                             <p class="text-center"> <strong class="article__reward-text">扫一扫支付</strong> </p>
+                             <div class="tab-content">
+                                 <img nogallery="" aria-labelledby="alipay-tab" class="pay-img tab-pane fade in active" id="alipay_author" role="tabpanel" src="./RecyclerView的滚动事件研究 - DevWiki_files/dev-wiki-alipay-250.png">
+                                 <img nogallery="" aria-labelledby="wechatpay-tab" class="pay-img tab-pane fade" id="wechatpay_author" role="tabpanel" src="./RecyclerView的滚动事件研究 - DevWiki_files/dev-wiki-wxpay-250.png">
+                             </div>
+                             <div class="article__reward-border mb20 mt10"></div>
+
+                             <div class="text-center" role="tablist">
+                                 <div class="pay-button" role="presentation"><button href="#alipay_author" id="alipay-tab" aria-controls="alipay_author" role="tab" data-toggle="tab" class="btn m-b-xs btn-info"><i class="iconfont icon-alipay" aria-hidden="true"></i><span>&nbsp;支付宝支付</span></button>
+                                 </div>
+                                 <div class="pay-button" role="presentation"><button href="#wechatpay_author" id="wechatpay-tab" aria-controls="wechatpay_author" role="tab" data-toggle="tab" class="btn m-b-xs btn-success"><i class="iconfont icon-wechatpay" aria-hidden="true"></i><span>&nbsp;微信支付</span></button>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+                                  <!--/文章的页脚部件：打赏和其他信息的输出-->
+         </div>
+        </article>
+       </div>
+       <!--上一篇&下一篇-->
+       <nav class="m-t-lg m-b-lg">
+        <ul class="pager">
+        <li class="next"> <a href="http://blog.devwiki.net/index.php/2016/06/04/Reactive-Programming-you-ve-been-missing.html" title="" data-toggle="tooltip" data-original-title="那些年我们错过的响应式编程"> 下一篇 </a></li>   <li class="previous"> <a href="http://blog.devwiki.net/index.php/2016/06/29/retrofit-test-api.html" title="" data-toggle="tooltip" data-original-title="Retrofit测试接口"> 上一篇 </a></li>
+        </ul>
+       </nav>
+       <!--评论-->
+        
+            <style>
+            textarea#comment{
+                background-image: url('https://ww4.sinaimg.cn/large/a15b4afegy1fkjxbstyknj20vy0b0my0');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: right;
+                background-color: #fafdff;
+            }
+        </style>
+    
+    
+    <div id="comments">
+                            <h4 class="comments-title m-t-lg m-b">1 条评论</h4>
+        <ol class="comment-list">
+        <!--自定义评论代码结构-->
+
+        <li data-no-instant="" id="comment-11" class="comment-body comment-parent comment-odd">
+            <div id="div-comment-11" class="comment-body">
+
+                <a class="pull-left thumb-sm">
+                    <img nogallery="" src="./RecyclerView的滚动事件研究 - DevWiki_files/53d81f4211f3dd895e2cc47207a41a00" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">                </a>
+                <div class="m-b m-l-xxl">
+                    <div class="comment-meta">
+            <span class="comment-author vcard">
+              <b class="fn"><a href="https://github.com/toumubaoqiong" target="_blank" rel="external nofollow">vince</a></b>              </span>
+                        <div class="comment-metadata">
+                            <time class="format_time text-muted text-xs block m-t-xs" pubdate="pubdate" datetime="2016-08-17T11:58:16+01:00">August 17th, 2016 at 11:58 am</time>
+                        </div>
+                    </div>
+                    <!--回复内容-->
+                    <div class="comment-content m-t-sm">
+                        <span class="comment-author-at"><b></b></span><span class="comment-content-true"><p>封装的挺好</p></span>
+                    </div>
+                    <!--回复按钮-->
+                    <div class="comment-reply m-t-sm">
+                        <a href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html/comment-page-1?replyTo=11#respond-post-53" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-11&#39;, 11);">回复</a>                    </div>
+                </div>
+
+            </div>
+            <!-- 单条评论者信息及内容 -->
+             <!-- 是否嵌套评论判断结束 -->
+        </li><!--匹配`自定义评论的代码结构`下面的li标签-->
+    </ol>            <nav class="text-center m-t-lg m-b-lg" role="navigation">
+                            </nav>
+                        <!--如果允许评论，会出现评论框和个人信息的填写-->
+                    <div id="respond-post-53" class="respond comment-respond">
+
+                <h4 id="reply-title" class="comment-reply-title m-t-lg m-b">发表评论                    <small data-no-instant="" class="cancel-comment-reply">
+                        <a id="cancel-comment-reply-link" href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#respond-post-53" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消回复</a>                    </small>
+                </h4>
+                <form id="comment_form" method="post" action="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html/comment" class="comment-form" role="form">
+                    <div class="comment-form-comment form-group">
+                        <label for="comment">评论                            <span class="required text-danger">*</span></label>
+                        <textarea id="comment" class="textarea form-control OwO-textarea" name="text" rows="5" placeholder="说点什么吧……" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById(&#39;submit&#39;).click();return false};"></textarea>
+                        <div class="OwO">
+            <div class="OwO-logo"><i class="fa fa-emo-tongue face"></i><span class="OwOlogotext">表情</span></div>
+            <div class="OwO-body" style="width: 100%"><div class="OwO-title"><span>OwO</span></div>
+                <ul class="OwO-items OwO-items-emoticon OwO-items-show" style="max-height: 167px;">
+                    <li class="OwO-item" title="Author: DIYgod">OωO</li>
+                    <li class="OwO-item" title="Hi">|´・ω・)ノ</li>
+                    <li class="OwO-item" title="开心">ヾ(≧∇≦*)ゝ</li>
+                    <li class="OwO-item" title="星星眼">(☆ω☆)</li>
+                    <li class="OwO-item" title="掀桌">（╯‵□′）╯︵┴─┴</li>
+                    <li class="OwO-item" title="流口水">￣﹃￣</li>
+                    <li class="OwO-item" title="捂脸">(/ω＼)</li>
+                    <li class="OwO-item" title="给跪">∠( ᐛ 」∠)＿</li>
+                    <li class="OwO-item" title="Hi">(๑•̀ㅁ•́ฅ)</li>
+                    <li class="OwO-item" title="斜眼">→_→</li>
+                    <li class="OwO-item" title="加油">୧(๑•̀⌄•́๑)૭</li>
+                    <li class="OwO-item" title="有木有WiFi">٩(ˊᗜˋ*)و</li>
+                    <li class="OwO-item" title="前方高能预警">(ノ°ο°)ノ</li>
+                    <li class="OwO-item" title="我从未见过如此厚颜无耻之人">(´இ皿இ｀)</li>
+                    <li class="OwO-item" title="吓死宝宝惹">⌇●﹏●⌇</li>
+                    <li class="OwO-item" title="已阅留爪">(ฅ´ω`ฅ)</li>
+                    <li class="OwO-item" title="去吧大师球">(╯°A°)╯︵○○○</li>
+                    <li class="OwO-item" title="太萌惹">φ(￣∇￣o)</li>
+                    <li class="OwO-item" title="咦咦咦">ヾ(´･ ･｀｡)ノ"</li>
+                    <li class="OwO-item" title="气呼呼">( ง ᵒ̌皿ᵒ̌)ง⁼³₌₃</li>
+                    <li class="OwO-item" title="我受到了惊吓">(ó﹏ò｡)</li>
+                    <li class="OwO-item" title="什么鬼">Σ(っ °Д °;)っ</li>
+                    <li class="OwO-item" title="摸摸头">( ,,´･ω･)ﾉ"(´っω･｀｡)</li>
+                    <li class="OwO-item" title="无奈">╮(╯▽╰)╭ </li>
+                    <li class="OwO-item" title="脸红">o(*////▽////*)q </li>
+                    <li class="OwO-item" title="">＞﹏＜</li>
+                    <li class="OwO-item" title="">( ๑´•ω•) "(ㆆᴗㆆ)</li>
+                    <li class="OwO-item" title="">(｡•ˇ‸ˇ•｡)</li>
+                </ul>
+                <ul class="OwO-items OwO-items-image" style="max-height: 167px;">
+                    <li class="OwO-item" title="face1"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhueqq7j202702ft8h"></li>
+                    <li class="OwO-item" title="face2"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhtst77j201q028we9"></li>
+                    <li class="OwO-item" title="face3"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhuiqflj202401r0sh"></li>
+                    <li class="OwO-item" title="face4"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhviscyj202a01ya9t"></li>
+                    <li class="OwO-item" title="face5"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhvwnvpj203c02p0si"></li>
+                    <li class="OwO-item" title="face6"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhwtenoj203902g743"></li>
+                    <li class="OwO-item" title="face7"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhxgf4ij2034030jr7"></li>
+                    <li class="OwO-item" title="face8"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhy4n5yj202k03kmwx"></li>
+                    <li class="OwO-item" title="face9"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhyzy1sj202s02hjra"></li>
+                    <li class="OwO-item" title="face10"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqhzikudj201x021t8h"></li>
+                    <li class="OwO-item" title="face11"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqi06snoj202001zq2p"></li>
+                    <li class="OwO-item" title="face12"><img src="./RecyclerView的滚动事件研究 - DevWiki_files/a15b4afegy1fcgqi1558gj201j026t8r"></li>
+                </ul>
+                <div class="OwO-bar">
+                    <ul class="OwO-packages">
+                        <li class="OwO-package-active"><span>颜文字</span></li>
+                        <li><span>斗图</span></li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+                    </div>
+                    <!--判断是否登录-->
+                                                                <div id="author_info" class="row row-sm">
+                                                        <div class="comment-form-author form-group col-sm-6 col-md-4">
+                                <label for="author">名称                                    <span class="required text-danger">*</span></label>
+                                <input id="author" class="form-control" name="author" type="text" value="" maxlength="245" placeholder="姓名或昵称">
+                            </div>
+
+                            <div class="comment-form-email form-group col-sm-6 col-md-4">
+                                <label for="email">邮箱                                    <span class="required text-danger">*</span>
+                                </label>
+                                <input type="text" name="mail" id="mail" class="form-control" placeholder="邮箱 (必填,将保密)" value="">
+                                <input type="hidden" name="receiveMail" id="receiveMail" value="yes">
+                            </div>
+
+                            <div class="comment-form-url form-group col-sm-12 col-md-4">
+                                <label for="url">地址</label>
+                                <input id="url" class="form-control" name="url" type="url" value="" maxlength="200" placeholder="网站或博客"></div>
+                        </div>
+                                                <!--提交按钮-->
+                        <div class="form-group">
+                            <button type="submit" name="submit" id="submit" class="submit btn btn-success padder-lg">
+                                <span class="text">发表评论</span>
+                                <span class="text-active">提交中...</span>
+                            </button>
+                            <i class="animate-spin fa fa-spinner hide" id="spin"></i>
+                            <input type="hidden" name="comment_post_ID" value="448" id="comment_post_ID">
+                            <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                        </div>
+                </form>
+            </div>
+            </div>
+
+
+      </div>
+     </div>
+     <!--文章右侧边栏开始-->
+           <aside class="asideBar col w-md bg-white-only b-l bg-auto no-border-xs" role="complementary">
+     <div id="sidebar">
+      <section id="tabs-4" class="widget widget_tabs clear">
+       <div class="nav-tabs-alt no-js-hide">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+         <li class="active" role="presentation"> <a href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#widget-tabs-4-hots" role="tab" aria-controls="widget-tabs-4-hots" aria-expanded="true" data-toggle="tab"> <i class="glyphicon glyphicon-fire text-md text-muted wrapper-sm" aria-hidden="true"></i> <span class="sr-only">热门文章</span> </a></li>
+                     <li role="presentation"> <a href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#widget-tabs-4-comments" role="tab" aria-controls="widget-tabs-4-comments" aria-expanded="false" data-toggle="tab"> <i class="glyphicon glyphicon-comment text-md text-muted wrapper-sm" aria-hidden="true"></i> <span class="sr-only">最新评论</span> </a></li>
+                     <li role="presentation"> <a href="http://blog.devwiki.net/index.php/2016/06/13/RecyclerView-Scroll-Listener.html#widget-tabs-4-random" role="tab" aria-controls="widget-tabs-4-random" aria-expanded="false" data-toggle="tab"> <i class="glyphicon glyphicon-transfer text-md text-muted wrapper-sm" aria-hidden="true"></i> <span class="sr-only">随机文章</span> </a></li>
+        </ul>
+       </div>
+       <div class="tab-content">
+       <!--热门文章-->
+        <div id="widget-tabs-4-hots" class="tab-pane wrapper-md active" role="tabpanel">
+         <h3 class="widget-title m-t-none text-md">热门文章</h3>
+         <ul class="list-group no-bg no-borders pull-in m-b-none">
+          <li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2016/08/21/android-background-send-log-mail.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/15.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2016/08/21/android-background-send-log-mail.html" title="Android后台发送邮件进行日志反馈"> Android后台发送邮件进行日志反馈 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">14</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">4141</span>
+                    </span>
+                    </small>
+                    </div>
+            </li><li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/10.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html" title="三种方式实现RecyclerView的Item点击事件"> 三种方式实现RecyclerView的Item点击事件 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">12</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">12193</span>
+                    </span>
+                    </small>
+                    </div>
+            </li><li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2016/07/17/Recycler-View-Adapter-ViewHolder-optimized.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/3.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2016/07/17/Recycler-View-Adapter-ViewHolder-optimized.html" title="RecyclerView的ViewHolder和Adapter的封装优化"> RecyclerView的ViewHolder和Adapter的封装优化 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">5</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">7673</span>
+                    </span>
+                    </small>
+                    </div>
+            </li><li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2016/08/04/butterknife-8-use-guide.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/4.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2016/08/04/butterknife-8-use-guide.html" title="ButterKnife8使用指南"> ButterKnife8使用指南 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">3</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">19839</span>
+                    </span>
+                    </small>
+                    </div>
+            </li><li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2017/11/02/bbk-hr.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/5.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2017/11/02/bbk-hr.html" title="步步高教育电子招聘"> 步步高教育电子招聘 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">3</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">554</span>
+                    </span>
+                    </small>
+                    </div>
+            </li>         </ul>
+        </div>
+                   <!--最新评论-->
+        <div id="widget-tabs-4-comments" class="tab-pane wrapper-md no-js-show" role="tabpanel">
+         <h3 class="widget-title m-t-none text-md">最新评论</h3>
+         <ul class="list-group no-borders pull-in auto m-b-none">
+                              <li class="list-group-item">
+
+              <a href="http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html/comment-page-1#comment-590" class="pull-left thumb-sm avatar m-r">
+                  <img nogallery="" src="./RecyclerView的滚动事件研究 - DevWiki_files/0cff198180f9a4d76de6fc5687ecfc1f" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">              </a>
+              <a href="http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html/comment-page-1#comment-590" class="text-muted">
+                  <i class="fa fa-comment-o pull-right m-t-sm text-sm" title="" aria-hidden="true" data-toggle="tooltip" data-placement="auto left" data-original-title="详情"></i>
+                  <span class="sr-only">评论详情</span>
+              </a>
+              <div class="clear">
+                  <div class="text-ellipsis">
+                      <a href="http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html/comment-page-1#comment-590" title="Edward"> Edward </a>
+                  </div>
+                  <small class="text-muted"><span>删掉&amp; &amp;gestureDetector.onTouchEve...</span>
+                  </small>
+              </div>
+          </li>
+                    <li class="list-group-item">
+
+              <a href="http://blog.devwiki.net/index.php/2017/11/02/bbk-hr.html/comment-page-1#comment-588" class="pull-left thumb-sm avatar m-r">
+                  <img nogallery="" src="./RecyclerView的滚动事件研究 - DevWiki_files/80f5b5ea531072d8a3f1ddc150082c66" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">              </a>
+              <a href="http://blog.devwiki.net/index.php/2017/11/02/bbk-hr.html/comment-page-1#comment-588" class="text-muted">
+                  <i class="fa fa-comment-o pull-right m-t-sm text-sm" title="" aria-hidden="true" data-toggle="tooltip" data-placement="auto left" data-original-title="详情"></i>
+                  <span class="sr-only">评论详情</span>
+              </a>
+              <div class="clear">
+                  <div class="text-ellipsis">
+                      <a href="http://blog.devwiki.net/index.php/2017/11/02/bbk-hr.html/comment-page-1#comment-588" title="sandy"> sandy </a>
+                  </div>
+                  <small class="text-muted"><span>朋友给我推介了一个女生，似乎是有android硬件方面基础和兴...</span>
+                  </small>
+              </div>
+          </li>
+                    <li class="list-group-item">
+
+              <a href="http://blog.devwiki.net/index.php/2017/11/02/bbk-hr.html/comment-page-1#comment-587" class="pull-left thumb-sm avatar m-r">
+                  <img nogallery="" src="./RecyclerView的滚动事件研究 - DevWiki_files/g" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">              </a>
+              <a href="http://blog.devwiki.net/index.php/2017/11/02/bbk-hr.html/comment-page-1#comment-587" class="text-muted">
+                  <i class="fa fa-comment-o pull-right m-t-sm text-sm" title="" aria-hidden="true" data-toggle="tooltip" data-placement="auto left" data-original-title="详情"></i>
+                  <span class="sr-only">评论详情</span>
+              </a>
+              <div class="clear">
+                  <div class="text-ellipsis">
+                      <a href="http://blog.devwiki.net/index.php/2017/11/02/bbk-hr.html/comment-page-1#comment-587" title="test"> test </a>
+                  </div>
+                  <small class="text-muted"><span>呃，能力不够！</span>
+                  </small>
+              </div>
+          </li>
+                    <li class="list-group-item">
+
+              <a href="http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html/comment-page-1#comment-586" class="pull-left thumb-sm avatar m-r">
+                  <img nogallery="" src="./RecyclerView的滚动事件研究 - DevWiki_files/e676c82e848804b4685b65db335958ea" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">              </a>
+              <a href="http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html/comment-page-1#comment-586" class="text-muted">
+                  <i class="fa fa-comment-o pull-right m-t-sm text-sm" title="" aria-hidden="true" data-toggle="tooltip" data-placement="auto left" data-original-title="详情"></i>
+                  <span class="sr-only">评论详情</span>
+              </a>
+              <div class="clear">
+                  <div class="text-ellipsis">
+                      <a href="http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html/comment-page-1#comment-586" title="eve"> eve </a>
+                  </div>
+                  <small class="text-muted"><span>不錯,學到不少</span>
+                  </small>
+              </div>
+          </li>
+                    <li class="list-group-item">
+
+              <a href="http://blog.devwiki.net/index.php/2016/08/21/android-background-send-log-mail.html/comment-page-1#comment-581" class="pull-left thumb-sm avatar m-r">
+                  <img nogallery="" src="./RecyclerView的滚动事件研究 - DevWiki_files/g(1)" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">              </a>
+              <a href="http://blog.devwiki.net/index.php/2016/08/21/android-background-send-log-mail.html/comment-page-1#comment-581" class="text-muted">
+                  <i class="fa fa-comment-o pull-right m-t-sm text-sm" title="" aria-hidden="true" data-toggle="tooltip" data-placement="auto left" data-original-title="详情"></i>
+                  <span class="sr-only">评论详情</span>
+              </a>
+              <div class="clear">
+                  <div class="text-ellipsis">
+                      <a href="http://blog.devwiki.net/index.php/2016/08/21/android-background-send-log-mail.html/comment-page-1#comment-581" title="zhaoweihao"> zhaoweihao </a>
+                  </div>
+                  <small class="text-muted"><span>已经找到了</span>
+                  </small>
+              </div>
+          </li>
+                   </ul>
+        </div>
+                   <!--随机文章-->
+        <div id="widget-tabs-4-random" class="tab-pane wrapper-md no-js-show" role="tabpanel">
+         <h3 class="widget-title m-t-none text-md">随机文章</h3>
+         <ul class="list-group no-bg no-borders pull-in m-b-none">
+          <li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2016/03/03/Gradle-Get-SVN-Version-Code.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/15.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2016/03/03/Gradle-Get-SVN-Version-Code.html" title="Gradle中获取SVN版本号和Jenkins的Build号"> Gradle中获取SVN版本号和Jenkins的Build号 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">2</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">1519</span>
+                    </span>
+                    </small>
+                    </div>
+            </li><li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2017/09/26/cnetos6-install-glibc-2-14.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/10.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2017/09/26/cnetos6-install-glibc-2-14.html" title="centos6 install glibc-2.14"> centos6 install glibc-2.14 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">0</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">170</span>
+                    </span>
+                    </small>
+                    </div>
+            </li><li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2017/07/18/git-flow-use-record-01.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/3.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2017/07/18/git-flow-use-record-01.html" title="Git flow 工作流使用记录-认识git flow工作流"> Git flow 工作流使用记录-认识git flow工作流 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">0</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">6213</span>
+                    </span>
+                    </small>
+                    </div>
+            </li><li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2016/03/02/Retrofit-Use-Course-1.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/4.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2016/03/02/Retrofit-Use-Course-1.html" title="Retrofit使用教程(一)"> Retrofit使用教程(一) </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">0</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">823</span>
+                    </span>
+                    </small>
+                    </div>
+            </li><li class="list-group-item">
+                <a href="http://blog.devwiki.net/index.php/2017/10/16/gradle-wiki-mind-manager.html" class="pull-left thumb-sm m-r">
+                <img style="height: 40px!important;width: 40px!important;" src="./RecyclerView的滚动事件研究 - DevWiki_files/5.jpg" class="img-circle wp-post-image">
+                </a>
+                <div class="clear">
+                    <h4 class="h5 l-h"> <a href="http://blog.devwiki.net/index.php/2017/10/16/gradle-wiki-mind-manager.html" title="Gradle学习思维导图"> Gradle学习思维导图 </a></h4>
+                    <small class="text-muted">
+                    <span class="meta-views"> <i class="iconfont icon-comments" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">0</span>
+                    </span>
+                    <span class="meta-date m-l-sm"> <i class="fa fa-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">302</span>
+                    </span>
+                    </small>
+                    </div>
+            </li>         </ul>
+        </div>
+       </div>
+      </section>
+      <!--循环输出分类列表-->
+      <section id="categories-2" class="widget widget_categories wrapper-md clear">
+       <h3 class="widget-title m-t-none text-md">分类</h3>
+       <ul class="list-group">
+        <li class="list-group-item"> <a href="http://blog.devwiki.net/index.php/category/android/"> <span class="badge pull-right">28</span>Android</a></li><li class="list-group-item"> <a href="http://blog.devwiki.net/index.php/category/java/"> <span class="badge pull-right">4</span>Java</a></li><li class="list-group-item"> <a href="http://blog.devwiki.net/index.php/category/database/"> <span class="badge pull-right">0</span>数据库</a></li><li class="list-group-item"> <a href="http://blog.devwiki.net/index.php/category/Network/"> <span class="badge pull-right">3</span>网络</a></li><li class="list-group-item"> <a href="http://blog.devwiki.net/index.php/category/OpenLib/"> <span class="badge pull-right">9</span>开源库</a></li><li class="list-group-item"> <a href="http://blog.devwiki.net/index.php/category/linux/"> <span class="badge pull-right">8</span>Linux</a></li><li class="list-group-item"> <a href="http://blog.devwiki.net/index.php/category/tools/"> <span class="badge pull-right">26</span>Tools</a></li><li class="list-group-item"> <a href="http://blog.devwiki.net/index.php/category/groovy/"> <span class="badge pull-right">1</span>Groovy</a></li>       </ul>
+      </section>
+                  <!--在文章页面输出目录，在其他页面输出标签云-->
+                              <section id="tag_toc" class="widget widget_categories wrapper-md clear fixed" style="top: 50px;">
+                  <h3 class="widget-title m-t-none text-md">文章目录</h3>
+                  <div class="tags l-h-2x">
+                      <div id="toc" class="tocify"><ul id="tocify-header0" class="tocify-header nav nav-list"><li class="tocify-item" data-unique="列表滚动过程"><a>列表滚动过程</a></li></ul><ul id="tocify-header1" class="tocify-header nav nav-list"><li class="tocify-item" data-unique="监听RecyclerView的滚动"><a>监听RecyclerView的滚动</a></li><ul class="tocify-subheader nav nav-list" data-tag="3" style="display: block;"><li class="tocify-item" data-unique="看源码"><a>看源码</a></li><li class="tocify-item" data-unique="举例子"><a>举例子</a></li><ul class="tocify-subheader nav nav-list" data-tag="4" style="display: none;"><li class="tocify-item" data-unique="onScrollStateChanged方法"><a>onScrollStateChanged 方法</a></li><li class="tocify-item" data-unique="onScrolled方法"><a>onScrolled 方法</a></li></ul><li class="tocify-item" data-unique="真机实践"><a>真机实践</a></li><ul class="tocify-subheader nav nav-list" data-tag="4" style="display: block;"><li class="tocify-item" data-unique="运行代码"><a>运行代码</a></li><li class="tocify-item active" data-unique="分析结果"><a>分析结果</a></li></ul><li class="tocify-item" data-unique="封装"><a>封装</a></li></ul></ul></div>
+                  </div>
+              </section>
+                  </div>
+     </aside>
+     <!--文章右侧边栏结束-->
+    </div>
+   </main>
+
+    <!-- footer -->
+	<script type="text/javascript">
+(function () {
+    window.TypechoComment = {
+        dom : function (id) {
+            return document.getElementById(id);
+        },
+    
+        create : function (tag, attr) {
+            var el = document.createElement(tag);
+        
+            for (var key in attr) {
+                el.setAttribute(key, attr[key]);
+            }
+        
+            return el;
+        },
+
+        reply : function (cid, coid) {
+            var comment = this.dom(cid), parent = comment.parentNode,
+                response = this.dom('respond-post-53'), input = this.dom('comment-parent'),
+                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                textarea = response.getElementsByTagName('textarea')[0];
+
+            if (null == input) {
+                input = this.create('input', {
+                    'type' : 'hidden',
+                    'name' : 'parent',
+                    'id'   : 'comment-parent'
+                });
+
+                form.appendChild(input);
+            }
+
+            input.setAttribute('value', coid);
+
+            if (null == this.dom('comment-form-place-holder')) {
+                var holder = this.create('div', {
+                    'id' : 'comment-form-place-holder'
+                });
+
+                response.parentNode.insertBefore(holder, response);
+            }
+
+            comment.appendChild(response);
+            this.dom('cancel-comment-reply-link').style.display = '';
+
+            if (null != textarea && 'text' == textarea.name) {
+                textarea.focus();
+            }
+
+            return false;
+        },
+
+        cancelReply : function () {
+            var response = this.dom('respond-post-53'),
+            holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+            if (null != input) {
+                input.parentNode.removeChild(input);
+            }
+
+            if (null == holder) {
+                return true;
+            }
+
+            this.dom('cancel-comment-reply-link').style.display = 'none';
+            holder.parentNode.insertBefore(response, holder);
+            return false;
+        }
+    };
+})();
+</script>
+<script type="text/javascript">
+var registCommentEvent = function() {
+    var event = document.addEventListener ? {
+        add: 'addEventListener',
+        focus: 'focus',
+        load: 'DOMContentLoaded'
+    } : {
+        add: 'attachEvent',
+        focus: 'onfocus',
+        load: 'onload'
+    };
+    var r = document.getElementById('respond-post-53');
+        
+    if (null != r) {
+        var forms = r.getElementsByTagName('form');
+        if (forms.length > 0) {
+            var f = forms[0], textarea = f.getElementsByTagName('textarea')[0], added = false;
+
+            if (null != textarea && 'text' == textarea.name) {
+                textarea[event.add](event.focus, function () {
+                    if (!added) {
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = '_';
+                            input.value = (function () {
+    var _hsY = '12W'//'12W'
++//'P'
+'8fc'+'b'//'T'
++'p'//'p'
++''///*'ns'*/'ns'
++//'c'
+'7b'+'d'//'n'
++//'i1'
+'96'+//'M'
+'59'+'a1'//'15b'
++'4cf'//'gIj'
++'57'//'iJ'
++'5'//'T'
++//'q'
+'q'+'99'//'oK'
++''///*'W17'*/'W17'
++'e'//'W'
++'00y'//'00y'
++//'4Fh'
+'3'+//'w'
+'89'+'a7a'//'OY'
++//'jXL'
+'ba'+//'3T'
+'5'+'c'//'P7'
+, _EhN = [[0,3],[4,5],[19,20],[22,25]];
+    
+    for (var i = 0; i < _EhN.length; i ++) {
+        _hsY = _hsY.substring(0, _EhN[i][0]) + _hsY.substring(_EhN[i][1]);
+    }
+
+    return _hsY;
+})();
+                    
+                        f.appendChild(input);
+                        
+                        input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'checkReferer';
+                        input.value = 'false';
+                        
+                        f.appendChild(input);
+                        
+
+                        added = true;
+                    }
+                });
+            }
+        }
+    }
+};
+</script></div>
+<!-- /content -->
+  <footer id="footer" class="app-footer" role="footer">
+    <div class="wrapper b-t bg-light">
+      <span class="pull-right hidden-xs">
+            Powered by <a target="blank" href="http://www.typecho.org/">Typecho</a>&nbsp;|&nbsp;Theme by <a target="blank" href="https://www.ihewro.com/archives/489/">handsome</a>
+      </span>
+      ©&nbsp;2017 Copyright&nbsp;    </div>
+      <!--希望保留版权信息，谢谢-->
+            <script type="text/template" id="tmpl-customizer">
+          <div class="settings panel panel-default setting_body_panel" aria-hidden="true">
+              <button class="btn btn-default no-shadow pos-abt" data-toggle="tooltip" data-placement="left" data-original-title="设置" data-toggle-class=".settings=active, .settings-icon=animate-spin">
+                  <i class="fa fa-gear settings-icon"></i>
+              </button>
+              <div class="panel-heading">
+                  <button class="pull-right btn btn-xs btn-rounded btn-danger" name="reset" data-toggle="tooltip" data-placement="top" data-original-title="恢复默认值" >重置</button>
+                  设置		</div>
+              <div class="setting_body">
+              <div class="panel-body">
+                  <# for ( var keys = _.keys( data.sections.settings ), i = 0, name; keys.length > i; ++i ) { #>
+                      <div<# if ( i !== ( keys.length - 1 ) ) print( ' class="m-b-sm"' ); #>>
+                          <label class="i-switch bg-info pull-right">
+                              <input type="checkbox" name="{{ keys[i] }}" value="1"<# if ( data.defaults[keys[i]] ) print( ' checked="checked"' ); #> />
+                                  <i></i>
+                          </label>
+                          {{ data.sections.settings[keys[i]] }}
+              </div>
+              <# } #>
+          </div>
+          <div class="wrapper b-t b-light bg-light lter r-b">
+              <div class="row row-sm">
+                  <div class="col-xs-6">
+                      <#
+                              _.each( data.sections.colors, function( color, i ) {
+                              var newColumnBefore = ( i % 7 ) === 6;
+                              #>
+                          <label class="i-checks block<# if ( !newColumnBefore ) print( ' m-b-sm' ); #>">
+                              <input type="radio" name="color" value="{{ i }}"<# if ( data.defaults['color'] === i ) print( ' checked="checked"' ); #> />
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="{{ color.navbarHeader }} header"></b>
+								<b class="{{ color.navbarCollapse }} header"></b>
+								<b class="{{ color.aside.replace( ' b-r', '' ) }}"></b>
+							</span>
+                          </label>
+                          <#
+                                  if ( newColumnBefore && ( i + 1 ) < data.sections.colors.length )
+                          print( '</div><div class="col-xs-6">' );
+                              } );
+                              #>
+                          </div>
+                  </div>
+              </div>
+          </div>
+          </div>
+      </script>
+      
+      <div class="topButton panel panel-default">
+          <button id="goToTop" class="btn btn-default no-shadow pos-abt">
+              <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+          </button>
+      </div>
+  </footer>
+  </div><!--end of .app app-header-fixed-->
+
+        <script type="text/javascript">
+            if (typeof(SyntaxHighlighter) !== undefined) {
+                var preList = document.getElementsByTagName('pre');
+                for (var i = 0; i < preList.length; i ++) {
+                    var children = preList[i].getElementsByTagName('code');
+                    if (children.length > 0) {
+                        var language = 'plain';
+                        var code = children[0], className = code.className;
+                        if (!!className) {
+                            var match = XRegExp.exec(className, XRegExp('^(lang|language)-(?<language>.*)$'));
+                            if (match && match.language) {
+                                language = match.language;
+                            }
+                        }
+                        preList[i].className = 'brush: ' + language;
+                        preList[i].innerHTML = code.innerHTML;
+                    }
+                }
+                SyntaxHighlighter.autoloader(
+                        'applescript           http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushAppleScript.js',
+                        'ahk autohotkey        http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushAhk.js',
+                        'actionscript3 as3     http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushAS3.js',
+                        'bash shell            http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushBash.js',
+                        'bat cmd batch         http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushBat.js',
+                        'coldfusion cf         http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushColdFusion.js',
+                        'cpp c                 http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushCpp.js',
+                        'c# c-sharp csharp     http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushCSharp.js',
+                        'css                   http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushCss.js',
+                        'delphi pascal pas     http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushDelphi.js',
+                        'diff patch            http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushDiff.js',
+                        'erl erlang            http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushErlang.js',
+                        'groovy                http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushGroovy.js',
+                        'java                  http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushJava.js',
+                        'jfx javafx            http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushJavaFX.js',
+                        'js jscript javascript http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushJScript.js',
+                        'perl pl               http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushPerl.js',
+                        'php                   http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushPhp.js',
+                        'text plain            http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushPlain.js',
+                        'powershell ps         http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushPowerShell.js',
+                        'py python             http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushPython.js',
+                        'ruby rails ror rb     http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushRuby.js',
+                        'sass scss             http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushSass.js',
+                        'scala                 http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushScala.js',
+                        'sql                   http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushSql.js',
+                        'vb vbnet              http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushVb.js',
+                        'xml xhtml xslt html   http://blog.devwiki.net/usr/plugins/SyntaxHighlighter/scripts/shBrushXml.js'
+                        );
+                SyntaxHighlighter.defaults['auto-links'] = true;
+                SyntaxHighlighter.defaults['collapse'] = false;
+                SyntaxHighlighter.defaults['gutter'] = true;
+                SyntaxHighlighter.defaults['smart-tabs'] = false;
+                SyntaxHighlighter.defaults['tab-size'] = 4;
+                SyntaxHighlighter.defaults['toolbar'] = false;
+                SyntaxHighlighter.all();
+            }
+        </script>
+
+    <!--定义全局变量-->
+    <script type="text/javascript">
+        window['LocalConst'] = {
+            COMMENT_NAME_INFO: '必须填写昵称或姓名',
+            COMMENT_EMAIL_INFO: '必须填写电子邮箱地址',
+            COMMENT_EMAIL_LEGAL_INFO: '邮箱地址不合法',
+            COMMENT_CONTENT_INFO: '必须填写评论内容',
+            COMMENT_SUBMIT_ERROR: '提交失败，请重试！',
+            COMMENT_CONTENT_LEGAL_INFO: '提交失败,您的输入内容不符合规则！',
+
+            LOGIN_USERNAME_INFO: '必须填写用户名',
+            LOGIN_PASSWORD_INFO: '请填写密码',
+            LOGIN_SUBMIT_ERROR: '登录失败，请重新登录',
+            LOGIN_SUBMIT_INFO: '用户名或者密码错误，请重试',
+            LOGIN_SUBMIT_SUCCESS: '登录成功',
+            LOGOUT_SUCCESS_REFRESH: '退出成功，正在刷新当前页面',
+
+            LOGOUT_ERROR: '退出失败，请重试',
+            LOGOUT_SUCCESS: '退出成功',
+
+            SUBMIT_PASSWORD_INFO: '密码错误，请重试',
+
+            ChANGYAN_APP_KEY: '',
+            CHANGYAN_CONF: '',
+
+            COMMENT_SYSTEM: '0',
+            COMMENT_SYSTEM_ROOT: '0',
+            COMMENT_SYSTEM_CHANGYAN: '1',
+            COMMENT_SYSTEM_OTHERS: '2',
+            EMOJI: '表情',
+            IS_PJAX: '1',
+            IS_PAJX_COMMENT: '1',
+            BASE_SCRIPT_URL: 'http://blog.devwiki.net/usr/themes/handsome/',
+            THEME_COLOR: '8',
+            THEME_HEADER_FIX: '1',
+            THEME_ASIDE_FIX: '1',
+            THEME_ASIDE_FOLDED: '',
+            THEME_ASIDE_DOCK: '',
+            THEME_CONTAINER_BOX: '1',
+            THEME_HIGHLIGHT_CODE: '1',
+            THEME_TOC: '1',
+            TOC_TITLE: '文章目录',
+            HEADER_FIX: '固定头部',
+            ASIDE_FIX: '固定导航',
+            ASIDE_FOLDED: '折叠导航',
+            ASIDE_DOCK: '置顶导航',
+            CONTAINER_BOX: '盒子模型',
+            OFF_SCROLL_HEIGHT: '50',
+            COMMENT_REJECT_PLACEHOLDER: '居然什么也不说，哼',
+            COMMENT_PLACEHOLDER: '说点什么吧……',
+            SHOW_SETTING_BUTTON: '1'
+        };
+    </script>
+
+<!--CDN加载-->
+<script src="./RecyclerView的滚动事件研究 - DevWiki_files/bootstrap.min.js.下载"></script>
+
+
+    <script src="./RecyclerView的滚动事件研究 - DevWiki_files/jquery.pjax.min.js.下载" type="text/javascript"></script>
+    <script>
+        $(document).pjax('a[href^="http://blog.devwiki.net/"]:not(a[target="_blank"], a[no-pjax])', {
+            container: '#content',
+            fragment: '#content',
+            timeout: 8000
+        }).on('pjax:send', function() {
+            window['Page'].doPJAXClickAction();
+
+        }).on('pjax:complete', function() {
+            window['Page'].doPJAXCompleteAction();
+                                })
+    </script>
+
+
+<!--主题组件js加载-->
+
+
+    <script src="./RecyclerView的滚动事件研究 - DevWiki_files/SmoothScroll.js.下载"></script>
+<!--lightgallery必备组件-->
+<script src="./RecyclerView的滚动事件研究 - DevWiki_files/jquery.fancybox.min.js.下载"></script>
+<!--component/comments.php 页面必需js（只有选择了原生评论的时候才会加载）-->
+    <script src="./RecyclerView的滚动事件研究 - DevWiki_files/OwO.min.js.下载"></script>
+<!--component/comments.php 必需js结束-->
+
+<script src="./RecyclerView的滚动事件研究 - DevWiki_files/music.min.js.下载"></script>
+<script>
+        var player = new skPlayer({"autoplay":false,"listshow":false,"mode":"listloop","music":{"type":"cloud","source":"546907125","media":"netease"}});
+</script>
+
+
+<!--主题组件js加载结束-->
+
+    <script src="./RecyclerView的滚动事件研究 - DevWiki_files/function.min.js.下载"></script>
+    <script src="./RecyclerView的滚动事件研究 - DevWiki_files/core.min.js.下载"></script>
+
+    <script data-no-instant="" type="text/javascript">
+            </script>
+
+
+
+  	<!-- / footer -->
+<div class="settings panel panel-default setting_body_panel" aria-hidden="true">
+              <button class="btn btn-default no-shadow pos-abt" data-toggle="tooltip" data-placement="left" data-original-title="设置" data-toggle-class=".settings=active, .settings-icon=animate-spin">
+                  <i class="fa fa-gear settings-icon"></i>
+              </button>
+              <div class="panel-heading">
+                  <button class="pull-right btn btn-xs btn-rounded btn-danger" name="reset" data-toggle="tooltip" data-placement="top" data-original-title="恢复默认值">重置</button>
+                  设置		</div>
+              <div class="setting_body">
+              <div class="panel-body">
+                  
+                      <div class="m-b-sm">
+                          <label class="i-switch bg-info pull-right">
+                              <input type="checkbox" name="header-fixed" value="1" checked="checked">
+                                  <i></i>
+                          </label>
+                          固定头部
+              </div>
+              
+                      <div class="m-b-sm">
+                          <label class="i-switch bg-info pull-right">
+                              <input type="checkbox" name="aside-fixed" value="1" checked="checked">
+                                  <i></i>
+                          </label>
+                          固定导航
+              </div>
+              
+                      <div class="m-b-sm">
+                          <label class="i-switch bg-info pull-right">
+                              <input type="checkbox" name="aside-folded" value="1">
+                                  <i></i>
+                          </label>
+                          折叠导航
+              </div>
+              
+                      <div class="m-b-sm">
+                          <label class="i-switch bg-info pull-right">
+                              <input type="checkbox" name="aside-dock" value="1">
+                                  <i></i>
+                          </label>
+                          置顶导航
+              </div>
+              
+                      <div>
+                          <label class="i-switch bg-info pull-right">
+                              <input type="checkbox" name="layout-boxed" value="1" checked="checked">
+                                  <i></i>
+                          </label>
+                          盒子模型
+              </div>
+              
+          </div>
+          <div class="wrapper b-t b-light bg-light lter r-b">
+              <div class="row row-sm">
+                  <div class="col-xs-6">
+                      
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="0">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-black header"></b>
+								<b class="bg-white-only header"></b>
+								<b class="bg-black"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="1">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-dark header"></b>
+								<b class="bg-white-only header"></b>
+								<b class="bg-dark"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="2">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-white-only header"></b>
+								<b class="bg-white-only header"></b>
+								<b class="bg-black"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="3">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-primary header"></b>
+								<b class="bg-white-only header"></b>
+								<b class="bg-dark"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="4">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-info header"></b>
+								<b class="bg-white-only header"></b>
+								<b class="bg-black"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="5">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-success header"></b>
+								<b class="bg-white-only header"></b>
+								<b class="bg-dark"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block">
+                              <input type="radio" name="color" value="6">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-danger header"></b>
+								<b class="bg-white-only header"></b>
+								<b class="bg-dark"></b>
+							</span>
+                          </label>
+                          </div><div class="col-xs-6">
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="7">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-black header"></b>
+								<b class="bg-black header"></b>
+								<b class="bg-white"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="8">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-dark header"></b>
+								<b class="bg-dark header"></b>
+								<b class="bg-light"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="9">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-info dker header"></b>
+								<b class="bg-info dker header"></b>
+								<b class="bg-light dker"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="10">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-primary header"></b>
+								<b class="bg-primary header"></b>
+								<b class="bg-dark"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="11">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-info dker header"></b>
+								<b class="bg-info dk header"></b>
+								<b class="bg-black"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block m-b-sm">
+                              <input type="radio" name="color" value="12">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-success header"></b>
+								<b class="bg-success header"></b>
+								<b class="bg-dark"></b>
+							</span>
+                          </label>
+                          
+                          <label class="i-checks block">
+                              <input type="radio" name="color" value="13">
+                                  <span class="block bg-light clearfix pos-rlt">
+								<span class="active pos-abt w-full h-full bg-black-opacity text-center">
+									<i class="fa fa-check text-md text-white m-t-xs"></i>
+								</span>
+								<b class="bg-danger dker bg-gd header"></b>
+								<b class="bg-danger dker bg-gd header"></b>
+								<b class="bg-dark"></b>
+							</span>
+                          </label>
+                          
+                          </div>
+                  </div>
+              </div>
+          </div>
+          </div><div style="clear: both;"></div></body><!--#body end--></html>
