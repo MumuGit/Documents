@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>详解Java Swing中添加鼠标事件的两种方式 - 爱专集</title>
+<meta name="description" content="详解Java Swing中添加鼠标事件的两种方式 今天和一个正在培训java的同学聊天,说起Java Swing中添加事件监听的两种方式.在此就给大家具体说说. Java Swing中对事件监听有两种方式 1.添加内部监听(也叫匿名内部类方式),实现代码如下: import java.awt.event.MouseEvent; import java.awt.event.MouseListener; import javax.swing.JFrame; import javax.swing.JPanel; import javax.swing.">
+<link rel='stylesheet' id='wellington-stylesheet-css'  href='/static/style.css?ver=1.0.6' type='text/css' media='all' />
+
+<link rel='stylesheet' id='genericons-css'  href='/static/css/genericons/genericons.css?ver=3.4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='wellington-default-fonts-css'  href='//fonts.googleapis.com/css?family=Gudea%3A400%2C400italic%2C700%2C700italic%7CMagra%3A400%2C400italic%2C700%2C700italic&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<script type='text/javascript' src='/static/js/html5shiv.min.js?ver=3.7.3'></script>
+<![endif]-->
+<script type='text/javascript' src='/static/js/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='/static/js/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wellington_menu_title = "Navigation";
+/* ]]> */
+</script>
+<script type='text/javascript' src='/static/js/navigation.js?ver=20160719'></script>
+
+</head>
+
+<body class="home blog post-layout-one-column">
+
+	<div id="header-top" class="header-bar-wrap"></div>
+
+	<div id="page" class="hfeed site">
+
+		<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+		<header id="masthead" class="site-header clearfix" role="banner">
+
+			<div class="header-main container clearfix">
+
+				<div id="logo" class="site-branding clearfix">				
+			<div class="site-title"><a href="http://www.aizhuanji.com/" rel="home">爱专集</a></div>
+				</div><!-- .site-branding -->
+				<div class="header-widgets clearfix">
+				</div><!-- .header-widgets -->
+
+			</div><!-- .header-main -->
+
+			<div id="main-navigation-wrap" class="primary-navigation-wrap">
+
+				<nav id="main-navigation" class="primary-navigation navigation container clearfix" role="navigation">
+					<ul id="menu-0" class="main-navigation-menu"><li id="menu-item-125" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-125"><a href="/">首页</a></li>
+<li id="menu-item-11" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11"><a href="/category/boke/">博客</a></li>
+<li id="menu-item-12" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12"><a href="/category/wenzhang/">文章</a></li>
+<li id="menu-item-13" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-13"><a href="/category/jishu/">技术</a></li>
+</ul>				</nav><!-- #main-navigation -->
+
+			</div>
+
+		</header><!-- #masthead -->		<div id="content" class="site-content container clearfix">
+
+	<section id="primary" class="content-single content-area">
+		<main id="main" class="site-main" role="main">
+				
+<article id="post-0" class="post-0 post type-post status-publish format-standard hentry">
+
+	
+	<header class="entry-header">
+
+		<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/1VJ5K2Rw.html" rel="bookmark"><time class="entry-date published updated">08月22日</time></a></span><span class="meta-author"> <span class="author vcard"><a class="url fn n" href="#" title="View all posts by admin" rel="author">admin</a></span></span></div>
+		<h1 class="entry-title">详解Java Swing中添加鼠标事件的两种方式</h1>
+	</header><!-- .entry-header -->
+<div style="font-size:11px;color:#ccc">Advertisement</div>
+<script type="text/javascript">
+    google_ad_client = "ca-pub-3045664370548562";
+    google_ad_slot = "4929880339";
+    google_ad_width = 728;
+    google_ad_height = 90;
+</script>
+<!-- top -->
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+
+	<div class="entry-content clearfix">
+<p>今天和一个正在培训java的同学聊天，说起Java Swing中添加事件监听的两种方式。在此就给大家具体说说。</p>
+<p>Java Swing中对事件监听有两种方式</p>
+<p><strong>1.添加内部监听（也叫匿名内部类方式），实现代码如下：</strong></p>
+<p>import java.awt.event.MouseEvent; import java.awt.event.MouseListener; import javax.swing.JFrame; import javax.swing.JPanel; import javax.swing.JButton; import javax.swing.JOptionPane; /* * Java Swing添加事件监听（一）匿名内部类方式 * */ public class ActionListennerOne { public static void main(String[] args) { //1.创建一个JFrame：myFrame JFrame myFrame = new JFrame(); //2.设置myFrame的属性：可见、大小 myFrame.setVisible(true); myFrame.setSize(200, 200); //3.创建一个JPanel：myPanel JPanel myPanel = new JPanel(); //4.把myPanel放置在myFrame上 myFrame.add(myPanel); //5.创建一个JButton：myButton JButton myButton = new JButton("按钮1"); //6。把myButton放置在myPanel上 myPanel.add(myButton); //7.给myButton添加事件监听：内部类方式（仔细看，特别是标点符号） myButton.addMouseListener(new MouseListener() { public void mouseReleased(MouseEvent e) {} public void mousePressed(MouseEvent e) {} public void mouseExited(MouseEvent e) {} public void mouseEntered(MouseEvent e) {} public void mouseClicked(MouseEvent e) { //一个弹框，此处不细说其语法 JOptionPane.showMessageDialog(null,"内部类事件监听监听","注意",0,null); } }); } }</p>
+<p><strong>2.第二种（没有什么标准叫法），实现代码如下：</strong></p>
+<p>import java.awt.event.ActionEvent; import java.awt.event.ActionListener; import java.awt.event.MouseEvent; import java.awt.event.MouseListener; import javax.swing.JFrame; import javax.swing.JPanel; import javax.swing.JButton; import javax.swing.JOptionPane; /* * Java Swing添加事件监听（二） * */ public class ActionListennerTwo { public static void main(String[] args) { ActionFrame test = new ActionFrame(); } } class ActionFrame implements ActionListener{ JButton myButton; public ActionFrame(){ //1.创建一个JFrame：myFrame JFrame myFrame = new JFrame(); //2.设置myFrame的属性：可见、大小 myFrame.setVisible(true); myFrame.setSize(200, 200); //3.创建一个JPanel：myPanel JPanel myPanel = new JPanel(); //4.把myPanel放置在myFrame上 myFrame.add(myPanel); //5.创建一个JButton：myButton myButton = new JButton("按钮2"); //6.把myButton放置在myPanel上 myPanel.add(myButton); //7.myButton添加事件监听（一定注意这句话） myButton.addActionListener(this); } public void actionPerformed(ActionEvent e) { if(e.getSource()==myButton){ JOptionPane.showMessageDialog(null,"非内部类事件监听","注意",0,null); } } }</p>
+<p>关于这两种方法的好坏：</p>
+<p>当然就易于维护方法来讲还是第二种方法好，十分清晰。但有时第一种方法很方法，具体什么时候用什么方法，真的看情况。原则上我们是能用第二种方法时我们就用第二种方法。如果感觉第一种方法更方便的地方，再用第一种方法。</p><h3>Similar Posts:</h3>
+<ul class="similar-posts">
+<li><a href="http://www.aizhuanji.com/a/DwP3g7Xx.html" rel="bookmark" title="详解JAVA语言中的访问控制">详解JAVA语言中的访问控制</a>
+<p>详解JAVA语言中的访问控制 JAVA中的访问控制包括两个方面:类的访问控制.类成员(方法和域)的访问控制.也就是说,其他类是否能够访问定义了访问控制级别的类或类成员.即定义了访问控制级别的类或类成员对其他类的可见性怎样. 每一个类和每一个类成员,都有唯一一个访问控制级别.它们是: 1. public:任意类都可以访问 2. protected:包内非子类访问.包内子类访问.包外子类访问 3. 默认(无访问控制修饰符):包内非子类访问.包内子类访问 4. private:本类访问 对于类来说,只</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/AWbjYjGW.html" rel="bookmark" title="Android中信息交互大致有两种方式&colon;">Android中信息交互大致有两种方式&colon;</a>
+<p>Android中信息交互大致有两种方式: 1. 使用intent在service和activity之间不停地传递信息 2. 使用bindService实现, 这里有两种实现方式, 在重写service当中的onBind方法是,一种方式是通过实现一个Binder接口, 通过在这个接口中的实现一个getService方法返回service.this实现,另一种方法是使用aidl这种接口来实现. 现在截取部分代码: 第一种实现方式 Service中代码 class MBinder extends Bi</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/qW4nzRBw.html" rel="bookmark" title="用excel高级筛选中选择不重复记录两种方式的差异图解">用excel高级筛选中选择不重复记录两种方式的差异图解</a>
+<p>excel中高级筛选中选择不重复记录两种方式的差异 高级筛选分为两种方式 在原有区域显示筛选结果 将筛选结果复制到其他位置 在原有区域显示筛选结果被筛选掉的行只是被隐藏了 第二种方式 将筛选结果复制到其他位置 被筛选掉的行已经是被删除的 选中数据区域 观察这个数据区域中有两个行是有重复的 并且分别出现过两次 而且是挨着的 鼠标点按a1单元格 拖动鼠标到e25单元格 松开鼠标 点击菜单栏 数据 筛选 高级筛选命令 在弹出的高级筛选对话框的方式 选择为将筛选结果复制到其他位置 点击复制位置后面的空白</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/gx1BopOw.html" rel="bookmark" title="java application 应用程序 使用JDBC proxool 两种方式连接数据库 测试程序代码">java application 应用程序 使用JDBC proxool 两种方式连接数据库 测试程序代码</a>
+<p>新建java project,名称为ProxoolTest,在根目录下新建src文件夹,并在src文件夹下新建test类和proxool.xml文件 [java] view plaincopy //test.java文件 package src; import java.sql.Connection; import java.sql.DriverManager; import java.sql.ResultSet; import java.sql.SQLException; import jav</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/0VaGqp7x.html" rel="bookmark" title="java开发之&mdash;&mdash;遍历⽂文件夹的两种⽅方式">java开发之&mdash;&mdash;遍历⽂文件夹的两种⽅方式</a>
+<p>在java中遍历⼀一个⽂文件夹⾥里边的所有⽂文件,可以有两种⽅方式: ⼀一.递归遍历,通常也是开发者第⼀一时间能想到的⽅方法,递归遍历的优点是:实现起来相对简 单,代码量相对较少,执⾏行效率较⾼高,缺点是:⽐比较吃内存,对硬件要求较⾼高;具体算法如 下: // 递归遍历 private void getDirectory(File file) { File flist[] = file.listFiles(); if (flist == null || flist.length == 0) {</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/dxENKPJw.html" rel="bookmark" title="servlet调用spring容器中的bean，的两种方式一种注解一种xml配置">servlet调用spring容器中的bean，的两种方式一种注解一种xml配置</a>
+<p>最近由于项目中出现了Servlet调用Spring的bean,由于整个项目中所有的bean均是注解方式完成,如@Service,@Repository,@Resource等,但是Spring的容器管理是不识别Servlet和filter的,所以无法使用注解方式引用,在网上查了资料后看到如下的代码: 第一种方式:在Servlet的init方法中来完成bean的实例化,初始化后可以在servlet中调用bean中的方法 WebApplicationContext cont = WebApplicat</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/DwP3YdXx.html" rel="bookmark" title="详解Java编程中对象的序列化">详解Java编程中对象的序列化</a>
+<p>1. 什么是Java对象序列化 Java平台允许我们在内存中创建可复用的Java对象,但一般情况下,只有当JVM处于运行时,这些对象才可能存在,即,这些对象的生命周期不会比JVM的生命周期更长.但在现实应用中,就可能要求在JVM停止运行之后能够保存(持久化)指定的对象,并在将来重新读取被保存的对象.Java对象序列化就能够帮助我们实现该功能. 使用Java对象序列化,在保存对象时,会把其状态保存为一组字节,在未来,再将这些字节组装成对象.必须注意地是,对象序列化保存的是对象的&quot;状态&quot;,</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/Lx32KglW.html" rel="bookmark" title="详解Java编程中向量&lpar;Vector&rpar;的应用">详解Java编程中向量&lpar;Vector&rpar;的应用</a>
+<p>Vector(向量)是 java.util 包中的一个类,该类实现了类似动态数组的功能. 向量和数组相似,都可以保存一组数据(数据列表).但是数组的大小是固定的,一旦指定,就不能改变,而向量却提供了一种类似于&quot;动态数组&quot;的功能,向量与数组的重要区别之一就是向量的容量是可变的. 可以在向量的任意位置插入不同类型的对象,无需考虑对象的类型,也无需考虑向量的容量. 向量和数组分别适用于不同的场合,一般来说,下列场合更适合于使用向量: 如果需要频繁进行对象的插入和删除工作,或者因为需要处理的对</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/Xw71BE8W.html" rel="bookmark" title="详解Java的Struts2框架的结构及其数据转移方式">详解Java的Struts2框架的结构及其数据转移方式</a>
+<p>Struts2的结构 1.为什么要使用框架? (1)框架自动完成了很多琐屑的任务 对于Struts2来说,它帮助我们方便地完成了数据类型转换.数据验证.国际化等等 Web开发中常见的任务.还有Spring中大量使用的Template模式,都是在让我们的开发 过程更加自动化.智能化.使用框架就是避免重新发明轮子,重新复制这些模板代码. 框架让我们将精力更多地放在更高级别的问题上,而不是常见工作流和基础任务上. (2)使用框架就是优雅地继承了框架背后的架构 框架背后的架构通常定义了一系列的工作流程,</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/dxENB6Yw.html" rel="bookmark" title="Cocos2d-x中添加显示文字的三种方式 LabelTTF 、LabelBMFont 和 LabelAtlas">Cocos2d-x中添加显示文字的三种方式 LabelTTF 、LabelBMFont 和 LabelAtlas</a>
+<p>在 cocos2d-x 中有三个类可以在层或精灵中添加文字: LabelTTF LabelBMFont LabelAtlas LabelTTF 直接支持使用 TTF 字库,可以支持全部的中文,但是效率稍低.LabelBMFont 适合显示特定的文字,通过预先将文字生成图片,提高了效率,但是不能支持全部中文.如果使用的文字不多,组合多,但是文字的编码是连续的,比如数字,或者英文字符,那么 LabelAtlas 更加适合你. LabelTTF 先说 LabelTTF , TTF(TrueType F</p>
+</li>
+</ul>
+<p></p>
+
+		
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<div class="entry-categories clearfix">
+			<span class="meta-categories"></span>
+		</div><!-- .entry-categories -->
+	</footer><!-- .entry-footer -->
+
+</article>
+
+<div id="comments" class="comments-area">
+
+</div><!-- #comments -->
+		
+		</main><!-- #main -->
+	</section><!-- #primary -->
+	<section id="secondary" class="sidebar widget-area clearfix" role="complementary">
+
+				<aside id="recent-posts-6" class="widget widget_recent_entries clearfix">		<div class="widget-header"><h3 class="widget-title">近期文章</h3></div>		<ul>
+					<li><a href="http://www.aizhuanji.com/a/ewyXOnyx.html">今遇到硬盘分区空无一物，却占一半空间30G</a></li>
+					<li><a href="http://www.aizhuanji.com/a/OVY9YqpV.html">canvas arcTo&lpar;&rpar;用法详解 &ndash; CodePlayer</a></li>
+					<li><a href="http://www.aizhuanji.com/a/oWnezQ6V.html">XP VPN网络网关问题</a></li>
+					<li><a href="http://www.aizhuanji.com/a/EVNjNyRV.html">我内疚，但我没道歉</a></li>
+					<li><a href="http://www.aizhuanji.com/a/oWn3lXRx.html">几篇关于学术研究生涯规划方面的文章</a></li>
+					<li><a href="http://www.aizhuanji.com/a/qW4QQlBx.html">浅析蜂窝定位技术及位置服务</a></li>
+					<li><a href="http://www.aizhuanji.com/a/DwPN4E2W.html">使用pyinstaller生成可执行文件出现UnicodeDecodeError&colon; &amp;amp&semi;amp&semi;&num;39&semi;ascii&amp;amp&semi;amp&semi;&num;39&semi; codec can&amp;amp&semi;amp&semi;</a></li>
+					<li><a href="http://www.aizhuanji.com/a/1wGD1e1V.html">From Hexun&colon; 世界公认最佳健康食品</a></li>
+					<li><a href="http://www.aizhuanji.com/a/0VaZ6N7W.html">更换San交换机识别盘阵问题</a></li>
+					<li><a href="http://www.aizhuanji.com/a/OWeJ8NRx.html">老赵 MSDN Webcast ASP&period;NET MVC框架开发系列课程</a></li>
+				</ul>
+		</aside>		<aside id="tag_cloud-4" class="widget widget_tag_cloud clearfix"><div class="widget-header"><h3 class="widget-title">标签</h3></div><div class="tagcloud"><a href="http://www.aizhuanji.com/topic/os100.html" title="os 100">os 100</a><a href="http://www.aizhuanji.com/topic/rediszidingyipaixu.html" title="redis 自定义排序">redis 自定义排序</a><a href="http://www.aizhuanji.com/topic/lcpb.html" title="LCPB">LCPB</a><a href="http://www.aizhuanji.com/topic/xiugaimonpgwarnmaxperosd.html" title="修改 mon&lowbar;pg&lowbar;warn&lowbar;max&lowbar;per&lowbar;osd">修改 mon&lowbar;pg&lowbar;warn&lowbar;max&lowbar;per&lowbar;osd</a><a href="http://www.aizhuanji.com/topic/gfoq.html" title="GFOQ">GFOQ</a><a href="http://www.aizhuanji.com/topic/downtoearth.html" title="Down to Earth">Down to Earth</a><a href="http://www.aizhuanji.com/topic/2012r2shuangjirebei.html" title="2012r2双机热备">2012r2双机热备</a><a href="http://www.aizhuanji.com/topic/a1ov.html" title="A1OV">A1OV</a><a href="http://www.aizhuanji.com/topic/6ozi.html" title="6OZI">6OZI</a><a href="http://www.aizhuanji.com/topic/oracle11gyujushenjiyujuxuanxiang.html" title="oracle 11g语句审计语句选项">oracle 11g语句审计语句选项</a><a href="http://www.aizhuanji.com/topic/insidethelabel.html" title="Inside The Label">Inside The Label</a><a href="http://www.aizhuanji.com/topic/2brq.html" title="2BRQ">2BRQ</a><a href="http://www.aizhuanji.com/topic/64rv.html" title="64RV">64RV</a><a href="http://www.aizhuanji.com/topic/71kx.html" title="71KX">71KX</a><a href="http://www.aizhuanji.com/topic/freshbeatbandofspies.html" title="Fresh Beat Band of Spies">Fresh Beat Band of Spies</a></div>
+</aside><aside id="wellington-magazine-posts-columns-4" class="widget wellington-magazine-columns-widget clearfix">
+		<div class="widget-magazine-posts-columns widget-magazine-posts clearfix">
+
+			<div class="widget-magazine-posts-content clearfix">
+
+				
+		<div class="magazine-posts-column-left magazine-posts-columns clearfix">
+
+			<div class="magazine-posts-columns-content clearfix">
+
+				<div class="widget-header"><h3 class="widget-title">推荐</h3></div>
+				<div class="magazine-posts-columns-post-list clearfix">
+	
+<article id="post-0" class="small-post clearfix post-0 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/2wmgpD3W.html" rel="bookmark"><time class="entry-date published updated">06/05</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/2wmgpD3W.html" rel="bookmark">ldd3 scull 编译</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-1" class="small-post clearfix post-1 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/gV6YXbnw.html" rel="bookmark"><time class="entry-date published updated">01/22</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/gV6YXbnw.html" rel="bookmark">QEMU的PCI总线与设备</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-2" class="small-post clearfix post-2 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/2wmgDzdW.html" rel="bookmark"><time class="entry-date published updated">04/23</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/2wmgDzdW.html" rel="bookmark">北风网IT视频教程五一全场八折，可折上折</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-3" class="small-post clearfix post-3 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/BVgdR94W.html" rel="bookmark"><time class="entry-date published updated">01/19</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/BVgdR94W.html" rel="bookmark">java多线程控制</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-4" class="small-post clearfix post-4 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/0VaZ1boW.html" rel="bookmark"><time class="entry-date published updated">07/23</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/0VaZ1boW.html" rel="bookmark">ASP&period;NET网页打印&lpar;只打印相关内容&sol;自写功能&rpar;</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="magazine-posts-column-right magazine-posts-columns clearfix">
+
+			<div class="magazine-posts-columns-content clearfix">
+
+				<div class="widget-header"><h3 class="widget-title">热门</h3></div>
+				<div class="magazine-posts-columns-post-list clearfix">
+	
+<article id="post-0" class="small-post clearfix post-0 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/MxrjAXxY.html" rel="bookmark"><time class="entry-date published updated">04/28</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/MxrjAXxY.html" rel="bookmark">计算WEB服务器的最大负载量</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-1" class="small-post clearfix post-1 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/GV84bBVv.html" rel="bookmark"><time class="entry-date published updated">12/08</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/GV84bBVv.html" rel="bookmark">如何使用geolocation来修改下面代码&quest;</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-2" class="small-post clearfix post-2 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/vVKEmkZx.html" rel="bookmark"><time class="entry-date published updated">12/21</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/vVKEmkZx.html" rel="bookmark">SAP的校验和替代&lpar;validations and substitutions&rpar;&lbrack;转&rsqb;</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-3" class="small-post clearfix post-3 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/QVAkoJjx.html" rel="bookmark"><time class="entry-date published updated">10/19</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/QVAkoJjx.html" rel="bookmark">&lbrack;FreeBSD&rsqb;apache2 &lpar;worker&rpar; &plus; PHP5&period;2&period;6 &plus; mod&lowbar;fastcgi</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-4" class="small-post clearfix post-4 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/vVKkl5bV.html" rel="bookmark"><time class="entry-date published updated">04/21</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/vVKkl5bV.html" rel="bookmark">velocity生成文件的中文问题</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+				</div>
+
+			</div>
+
+		</div>
+
+		
+			</div>
+
+		</div>
+
+		</aside>
+	</section><!-- #secondary -->
+
+
+
+	</div><!-- #content -->
+
+	
+	<div id="footer" class="footer-wrap">
+		<footer id="colophon" class="site-footer container clearfix" role="contentinfo">
+			<div id="footer-text" class="site-info">
+				
+	<span class="credit-link">
+		Powered by <a href="http://www.aizhuanji.com/">爱专集</a>.	</span>
+
+				</div><!-- .site-info -->
+
+		</footer><!-- #colophon -->
+	</div>
+
+</div><!-- #page -->
+<div style="display: none">
+<script src="/static/count.js"></script>
+</div>
+</body>
+</html>

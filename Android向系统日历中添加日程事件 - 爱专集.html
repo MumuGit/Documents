@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://www.aizhuanji.com/a/Xw7kDbKw.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Android向系统日历中添加日程事件 - 爱专集</title>
+<meta name="keywords" content="Android, 时间, Android开发, calendar, 日历, 日程">
+<meta name="description" content="Android向系统日历中添加日程事件 总结 在项目开发中,我们有预约提醒.定时提醒需求时,可以使用系统日历来辅助提醒: 通过向系统日历中写入事件.设置提醒方式(闹钟),实现到时间自动提醒的功能: 好处:由于提醒功能是交付给系统日历来做,不会出现应用被杀情况,会准时提醒: 坏处:系统日历在提醒时,不能直接再跳转回我们自己的app,只有在提醒文案中加入url,通过调用浏览器来中转: 一般来说实现向系统日历中读写事件: 1.需要有读写日历权限 2.如果没有日历账户需要先创建账户 3.实现日历事件增删改查.提醒功能 申请权限 为了实现在项目">
+<link rel="stylesheet" id="wellington-stylesheet-css" href="./Android向系统日历中添加日程事件 - 爱专集_files/style.css" type="text/css" media="all">
+
+<link rel="stylesheet" id="genericons-css" href="./Android向系统日历中添加日程事件 - 爱专集_files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="wellington-default-fonts-css" href="./Android向系统日历中添加日程事件 - 爱专集_files/css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<script type='text/javascript' src='/static/js/html5shiv.min.js?ver=3.7.3'></script>
+<![endif]-->
+<script type="text/javascript" src="./Android向系统日历中添加日程事件 - 爱专集_files/jquery.js.下载"></script>
+<script type="text/javascript" src="./Android向系统日历中添加日程事件 - 爱专集_files/jquery-migrate.min.js.下载"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wellington_menu_title = "Navigation";
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Android向系统日历中添加日程事件 - 爱专集_files/navigation.js.下载"></script>
+
+</head>
+
+<body class="home blog post-layout-one-column">
+
+	<div id="header-top" class="header-bar-wrap"></div>
+
+	<div id="page" class="hfeed site">
+
+		<a class="skip-link screen-reader-text" href="http://www.aizhuanji.com/a/Xw7kDbKw.html#content">Skip to content</a>
+
+		<header id="masthead" class="site-header clearfix" role="banner">
+
+			<div class="header-main container clearfix">
+
+				<div id="logo" class="site-branding clearfix">				
+			<div class="site-title"><a href="http://www.aizhuanji.com/" rel="home">爱专集</a></div>
+				</div><!-- .site-branding -->
+				<div class="header-widgets clearfix">
+				</div><!-- .header-widgets -->
+
+			</div><!-- .header-main -->
+
+			<div id="main-navigation-wrap" class="primary-navigation-wrap">
+
+				<button id="main-navigation-toggle" class="main-navigation-toggle">Navigation</button><nav id="main-navigation" class="primary-navigation navigation container clearfix" role="navigation">
+					<ul id="menu-0" class="main-navigation-menu"><li id="menu-item-125" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-125"><a href="http://www.aizhuanji.com/">首页</a></li>
+<li id="menu-item-11" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11"><a href="http://www.aizhuanji.com/category/boke/">博客</a></li>
+<li id="menu-item-12" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12"><a href="http://www.aizhuanji.com/category/wenzhang/">文章</a></li>
+<li id="menu-item-13" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-13"><a href="http://www.aizhuanji.com/category/jishu/">技术</a></li>
+</ul>				</nav><!-- #main-navigation -->
+
+			</div>
+
+		</header><!-- #masthead -->		<div id="content" class="site-content container clearfix">
+
+	<section id="primary" class="content-single content-area">
+		<main id="main" class="site-main" role="main">
+				
+<article id="post-0" class="post-0 post type-post status-publish format-standard hentry">
+
+	
+	<header class="entry-header">
+
+		<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/Xw7kDbKw.html" rel="bookmark"><time class="entry-date published updated">11月17日</time></a></span><span class="meta-author"> <span class="author vcard"><a class="url fn n" href="http://www.aizhuanji.com/a/Xw7kDbKw.html#" title="View all posts by admin" rel="author">admin</a></span></span></div>
+		<h1 class="entry-title">Android向系统日历中添加日程事件</h1>
+	</header><!-- .entry-header -->
+<div style="font-size:11px;color:#ccc">Advertisement</div>
+<script type="text/javascript">
+    google_ad_client = "ca-pub-3045664370548562";
+    google_ad_slot = "4929880339";
+    google_ad_width = 728;
+    google_ad_height = 90;
+</script>
+<!-- top -->
+<script type="text/javascript" src="./Android向系统日历中添加日程事件 - 爱专集_files/show_ads.js.下载">
+</script>
+
+
+	<div class="entry-content clearfix">
+<h2>总结</h2>
+<p>在项目开发中，我们有预约提醒、定时提醒需求时，可以使用系统日历来辅助提醒； <br>
+通过向系统日历中写入事件、设置提醒方式（闹钟），实现到时间自动提醒的功能；</p>
+<p>好处：由于提醒功能是交付给系统日历来做，不会出现应用被杀情况，会准时提醒； <br>
+坏处：系统日历在提醒时，不能直接再跳转回我们自己的app，只有在提醒文案中加入url，通过调用浏览器来中转；</p>
+<p>一般来说实现向系统日历中读写事件： <br>
+1.需要有读写日历权限 <br>
+2.如果没有日历账户需要先创建账户 <br>
+3.实现日历事件增删改查、提醒功能</p>
+<h2>申请权限</h2>
+<p>为了实现在项目中调用系统日历和插入日程事件，我们首先在AndroidManifest.xml文件中添加相关权限，如下：</p>
+<pre><code>&lt;uses-permission android:name="android.permission.READ_CALENDAR" /&gt;
+&lt;uses-permission android:name="android.permission.WRITE_CALENDAR" /&gt;</code></pre>
+<h2>添加日历相关的uri</h2>
+<p>系统calendar content provider相关的uri，以下为Android2.2版本以后的uri，之前的就不写了</p>
+<pre><code>private static String CALANDER_URL = "content://com.android.calendar/calendars";
+private static String CALANDER_EVENT_URL = "content://com.android.calendar/events";
+private static String CALANDER_REMIDER_URL = "content://com.android.calendar/reminders";</code></pre>
+<h2>检查并添加日历账户</h2>
+<p>1.检查是否有现有存在的账户。存在则返回账户id，否则返回-1</p>
+<pre><code>private static int checkCalendarAccount(Context context) {
+        Cursor userCursor = context.getContentResolver().query(Uri.parse(CALANDER_URL), null, null, null, null);
+        try {
+            if (userCursor == null)//查询返回空值
+                return -1;
+            int count = userCursor.getCount();
+            if (count &gt; 0) {//存在现有账户，取第一个账户的id返回
+                userCursor.moveToFirst();
+                return userCursor.getInt(userCursor.getColumnIndex(CalendarContract.Calendars._ID));
+            } else {
+                return -1;
+            }
+        } finally {
+            if (userCursor != null) {
+                userCursor.close();
+            }
+        }
+}</code></pre>
+<p>2.添加账户。账户创建成功则返回账户id，否则返回-1</p>
+<pre><code>private static String CALENDARS_NAME = "test";
+private static String CALENDARS_ACCOUNT_NAME = "test@gmail.com";
+private static String CALENDARS_ACCOUNT_TYPE = "com.android.exchange";
+private static String CALENDARS_DISPLAY_NAME = "测试账户";
+
+private static long addCalendarAccount(Context context) {
+        TimeZone timeZone = TimeZone.getDefault();
+        ContentValues value = new ContentValues();
+        value.put(CalendarContract.Calendars.NAME, CALENDARS_NAME);
+
+        value.put(CalendarContract.Calendars.ACCOUNT_NAME, CALENDARS_ACCOUNT_NAME);
+        value.put(CalendarContract.Calendars.ACCOUNT_TYPE, CALENDARS_ACCOUNT_TYPE);
+        value.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, CALENDARS_DISPLAY_NAME);
+        value.put(CalendarContract.Calendars.VISIBLE, 1);
+        value.put(CalendarContract.Calendars.CALENDAR_COLOR, Color.BLUE);
+        value.put(CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL, CalendarContract.Calendars.CAL_ACCESS_OWNER);
+        value.put(CalendarContract.Calendars.SYNC_EVENTS, 1);
+        value.put(CalendarContract.Calendars.CALENDAR_TIME_ZONE, timeZone.getID());
+        value.put(CalendarContract.Calendars.OWNER_ACCOUNT, CALENDARS_ACCOUNT_NAME);
+        value.put(CalendarContract.Calendars.CAN_ORGANIZER_RESPOND, 0);
+
+        Uri calendarUri = Uri.parse(CALANDER_URL);
+        calendarUri = calendarUri.buildUpon()
+                .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
+                .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_NAME, CALENDARS_ACCOUNT_NAME)
+                .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_TYPE, CALENDARS_ACCOUNT_TYPE)
+                .build();
+
+        Uri result = context.getContentResolver().insert(calendarUri, value);
+        long id = result == null ? -1 : ContentUris.parseId(result);
+        return id;
+    }</code></pre>
+<p>3.获取账户。如果账户不存在则先创建账户，账户存在获取账户id；获取账户成功返回账户id，否则返回-1</p>
+<pre><code>//检查是否已经添加了日历账户，如果没有添加先添加一个日历账户再查询
+private static int checkAndAddCalendarAccount(Context context){
+        int oldId = checkCalendarAccount(context);
+        if( oldId &gt;= 0 ){
+            return oldId;
+        }else{
+            long addId = addCalendarAccount(context);
+            if (addId &gt;= 0) {
+                return checkCalendarAccount(context);
+            } else {
+                return -1;
+            }
+        }
+}</code></pre>
+<h2>添加日历事件、日程</h2>
+<pre><code>public static void addCalendarEvent(Context context,String title, String description, long beginTime){
+        // 获取日历账户的id
+        int calId = checkAndAddCalendarAccount(context);
+        if (calId &lt; 0) {
+            // 获取账户id失败直接返回，添加日历事件失败
+            return;
+        }
+
+        ContentValues event = new ContentValues();
+        event.put("title", title);
+        event.put("description", description);
+        // 插入账户的id
+        event.put("calendar_id", calId);
+
+        Calendar mCalendar = Calendar.getInstance();
+        mCalendar.setTimeInMillis(beginTime);//设置开始时间
+        long start = mCalendar.getTime().getTime();
+        mCalendar.setTimeInMillis(start + ONE_HOUR);//设置终止时间
+        long end = mCalendar.getTime().getTime();
+
+        event.put(CalendarContract.Events.DTSTART, start);
+        event.put(CalendarContract.Events.DTEND, end);
+        event.put(CalendarContract.Events.HAS_ALARM, 1);//设置有闹钟提醒
+        event.put(CalendarContract.Events.EVENT_TIMEZONE, "Asia/Shanghai");  //这个是时区，必须有，
+        //添加事件
+        Uri newEvent = context.getContentResolver().insert(Uri.parse(CALANDER_EVENT_URL), event);
+        if (newEvent == null) {
+            // 添加日历事件失败直接返回
+            return;
+        }
+        //事件提醒的设定
+        ContentValues values = new ContentValues();
+        values.put(CalendarContract.Reminders.EVENT_ID, ContentUris.parseId(newEvent));
+        // 提前10分钟有提醒
+        values.put(CalendarContract.Reminders.MINUTES, 10);
+        values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+        Uri uri = context.getContentResolver().insert(Uri.parse(CALANDER_REMIDER_URL), values);
+        if(uri == null) {
+            // 添加闹钟提醒失败直接返回
+            return;
+        }
+}</code></pre>
+<h2>删除日历事件、日程</h2>
+<p>根据设置的title来查找并删除</p>
+<pre><code>public static void deleteCalendarEvent(Context context,String title){
+        Cursor eventCursor = context.getContentResolver().query(Uri.parse(CALANDER_EVENT_URL), null, null, null, null);
+        try {
+            if (eventCursor == null)//查询返回空值
+                return;
+            if (eventCursor.getCount() &gt; 0) {
+                //遍历所有事件，找到title跟需要查询的title一样的项
+                for (eventCursor.moveToFirst(); !eventCursor.isAfterLast(); eventCursor.moveToNext()) {
+                    String eventTitle = eventCursor.getString(eventCursor.getColumnIndex("title"));
+                    if (!TextUtils.isEmpty(title) &amp;&amp; title.equals(eventTitle)) {
+                        int id = eventCursor.getInt(eventCursor.getColumnIndex(CalendarContract.Calendars._ID));//取得id
+                        Uri deleteUri = ContentUris.withAppendedId(Uri.parse(CALANDER_EVENT_URL), id);
+                        int rows = context.getContentResolver().delete(deleteUri, null, null);
+                        if (rows == -1) {
+                            //事件删除失败
+                            return;
+                        }
+                    }
+                }
+            }
+        } finally {
+            if (eventCursor != null) {
+                eventCursor.close();
+            }
+        }
+    }</code></pre>
+<p>至此，我们就能向系统日历中 查找、添加账户，添加、删除、更新日程事件，添加提醒方式，来实现提醒用户的需求。 <br>
+再次说明一点，当系统日历弹出提醒的时候并不能直接跳转回自己的app，需要在设置description字段的文本中添加一个html，用户点击html时调用浏览器，由页面中转回自己得app。</p><h3>Similar Posts:</h3>
+<ul class="similar-posts">
+<li><a href="http://www.aizhuanji.com/a/gV62Lg9V.html" rel="bookmark" title="转：android在文本TextView中添加超链接">转：android在文本TextView中添加超链接</a>
+<p>在TextView中使用超级连接有几种方式: 1.在属性中设置: &lt;TextView android:id="@+id/testweb" android:layout_width="fill_parent" android:layout_height="wrap_content" android:autoLink="web" //是将文本的web网址解释成超链接 android:text="@string/li</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/1VJ5K2Rw.html" rel="bookmark" title="详解Java Swing中添加鼠标事件的两种方式">详解Java Swing中添加鼠标事件的两种方式</a>
+<p>今天和一个正在培训java的同学聊天,说起Java Swing中添加事件监听的两种方式.在此就给大家具体说说. Java Swing中对事件监听有两种方式 1.添加内部监听(也叫匿名内部类方式),实现代码如下: import java.awt.event.MouseEvent; import java.awt.event.MouseListener; import javax.swing.JFrame; import javax.swing.JPanel; import javax.swing.</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/1VJ7oLBW.html" rel="bookmark" title="在Android的源码中添加LOG">在Android的源码中添加LOG</a>
+<p>想在Opencore代码中添加打印信息,但是使用OpenCore自带的PVLOGGER,有一定的局限,因为只能在创建对象调用相应的ThreadLogon()后才能使用.所以不能实现在任何函数中添加.于是通过添加Log.h的方法来添加. 首先转下别人的经验(http://blog.163.com/binghaitao@126/blog/static/3383532520099309366435/) 我试了下还是出先undefined reference to `__android_log_writ</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/1VJ8apJx.html" rel="bookmark" title="VC 向windows系统菜单中添加菜单项---Windows shell扩展编程">VC 向windows系统菜单中添加菜单项---Windows shell扩展编程</a>
+<p>vs2008的方法和vc6.0做法几乎一样.下面是转载一位新浪博客-丢丢的. 打开VC6,新建一个工程,选ATL COM APPWIZARD,工程名写BlogTest.然后OK.如果要用到MFC,那把Support MFC打上勾,然后按完成. 新工程生成完毕后,在Class View里根结点按右键,选New Atl Object...,再选Simple Object,在short name里填上类名(起的类型不要和工程名重了),我填Blog,其他会自动填写完毕,OK 在Blog.h文件头上先添加</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/Mxr7E5Rw.html" rel="bookmark" title="Android: 如何向系统设置中添加自己的配置选项及配置页面">Android: 如何向系统设置中添加自己的配置选项及配置页面</a>
+<p>需要为自己的Codec添加新的配置属性页,经过研究并在模拟器中实验: 需要修改如下文件,以增加新的配置选项: ./packages/apps/Settings/res/xml/sound_settings.xml ./packages/apps/Settings/res/values/strings.xml 并且需要添加如下文件,实现新的配置页面: ./packages/apps/Settings/res/layout/BeatsAudioPreference.xml ./packages/ap</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/rw0G3OQx.html" rel="bookmark" title="WIN7系统VC6中添加OCX出现“不支持此接口” 问题的解决方法">WIN7系统VC6中添加OCX出现“不支持此接口” 问题的解决方法</a>
+<p>1:在对话框上直接右键 "Insert ActiveX Control...", 这个时候类视图中还没有所添加OCX的类文件: 2:然后选中所添加的OCX,用向导添加变量,这样VC6会为程序添加这个OCX对应的类文件了: 3: 删除刚添加的OCX关联的变量也没问题了.</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/QVALEBAw.html" rel="bookmark" title="我的Android进阶之旅------&amp;gt;android之向Gallery中添加倒影3D效果">我的Android进阶之旅------&amp;gt;android之向Gallery中添加倒影3D效果</a>
+<p>在上一篇Android之Gallery和GridView两种方式与ImageSwitcher实现带预览的和幻灯片方式的两种图片浏览器后,偶然看到了一些介绍Gallery 3D效果的事例,学习了一下,现在将事例写出来,供大家分享. 大家可看http://blog.csdn.net/leehong2005/article/details/8070538和http://android.tgbus.com/Android/tutorial/201108/362438.shtml学习学习好了,说了这么多</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/7WMvQOax.html" rel="bookmark" title="android studio 在项目中添加项目库">android studio 在项目中添加项目库</a>
+<p>项目-右键-new module-Android Library-module name和package name 应该与要引进的库相同. 然后在文件目录中replace新建的library 在gradle中的dependencies添加compile project(':库名') 另外在复制资源文件(res)时,可能会发生R文件错误,这是因为替换一些文件之后,旧文件中原本的一些属性找不到,从而发生错误,无法生成R文件. 所以应该尽量采用"添加不替换"的原则.</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/7w27ddmV.html" rel="bookmark" title="【Qt入门之Button】Button中添加longpress事件">【Qt入门之Button】Button中添加longpress事件</a>
+<p>Qt中默认的qpushbutton没有longpress事件,当需要相应btn的longpress事件的时候,就需要重载一下qpushbutton的press和release事件. DycPushButton.h &lt;pre name="code" class="cpp"&gt;#ifndef DYCPUSHBUTTON_H #define DYCPUSHBUTTON_H #include "qpushbutton.h" #include &amp;</p>
+</li>
+<li><a href="http://www.aizhuanji.com/a/oWnL1Lew.html" rel="bookmark" title="在服务器控件DropDownList中添加Onchange事件">在服务器控件DropDownList中添加Onchange事件</a>
+<p>说明:设置不允许填写大于现在月份(e.g. 现在是07年4月,不允许用户选择07年5月) 页面脚本: &lt;script lang="javascript"&gt; function BindMonthByYear(myYear,idMonthControl) { var time = new Date(); var currentYear = time.getYear(); var currentMonth = time.getMonth(); var monthList = do</p>
+</li>
+</ul>
+<p></p>
+
+		
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<div class="entry-categories clearfix">
+			<span class="meta-categories"></span>
+		</div><!-- .entry-categories -->
+	</footer><!-- .entry-footer -->
+
+</article>
+
+<div id="comments" class="comments-area">
+
+</div><!-- #comments -->
+		
+		</main><!-- #main -->
+	</section><!-- #primary -->
+	<section id="secondary" class="sidebar widget-area clearfix" role="complementary">
+
+				<aside id="recent-posts-6" class="widget widget_recent_entries clearfix">		<div class="widget-header"><h3 class="widget-title">近期文章</h3></div>		<ul>
+					<li><a href="http://www.aizhuanji.com/a/2wmqP8qw.html">[置顶]
+
+        常规功能和模块自定义系统 (cfcmms)—031开发日志(创建ManyToMany的column6)</a></li>
+					<li><a href="http://www.aizhuanji.com/a/QVAPoQGw.html">ERP系统</a></li>
+					<li><a href="http://www.aizhuanji.com/a/Lx3R7opW.html">[转]Trie树优化算法：Double Array Trie 双数组Trie</a></li>
+					<li><a href="http://www.aizhuanji.com/a/7w226QMw.html">Open Source ERP</a></li>
+					<li><a href="http://www.aizhuanji.com/a/BxvybBDW.html">Serial console</a></li>
+					<li><a href="http://www.aizhuanji.com/a/Lx3NYDnW.html">检查表单的提交来源</a></li>
+					<li><a href="http://www.aizhuanji.com/a/OWeNng3x.html">UvaLive 6441 Horrible Quiz 贪心</a></li>
+					<li><a href="http://www.aizhuanji.com/a/BVgNzA8w.html">小区物业收费管理系统的实习报告</a></li>
+					<li><a href="http://www.aizhuanji.com/a/QVAGZd5x.html">图书管理系统毕业论文</a></li>
+					<li><a href="http://www.aizhuanji.com/a/MVdyP2RW.html">浅谈【齿轮减速电机】的未来发展方向</a></li>
+				</ul>
+		</aside>		<aside id="tag_cloud-4" class="widget widget_tag_cloud clearfix"><div class="widget-header"><h3 class="widget-title">标签</h3></div><div class="tagcloud"><a href="http://www.aizhuanji.com/topic/qtfuzhicanshucuowu.html" title="qt 复制参数错误">qt 复制参数错误</a><a href="http://www.aizhuanji.com/topic/linuxudftiquanzongjie.html" title="linux udf 提权 总结">linux udf 提权 总结</a><a href="http://www.aizhuanji.com/topic/sdiozongxian.html" title="SDIO 总线">SDIO 总线</a><a href="http://www.aizhuanji.com/topic/sourceinsightzhongwenlujing.html" title="Source Insight 中文路径">Source Insight 中文路径</a><a href="http://www.aizhuanji.com/topic/grubnosuchpartition.html" title="grub no such partition">grub no such partition</a><a href="http://www.aizhuanji.com/topic/jsxialaliebiaoxiangyingshijian.html" title="js下拉列表响应事件">js下拉列表响应事件</a><a href="http://www.aizhuanji.com/topic/n9vs.html" title="N9VS">N9VS</a><a href="http://www.aizhuanji.com/topic/hps8.html" title="HPS8">HPS8</a><a href="http://www.aizhuanji.com/topic/haskellxinzi.html" title="haskell 薪资">haskell 薪资</a><a href="http://www.aizhuanji.com/topic/qbbb.html" title="QBBB">QBBB</a><a href="http://www.aizhuanji.com/topic/2r0a.html" title="2R0A">2R0A</a><a href="http://www.aizhuanji.com/topic/xeod.html" title="XEOD">XEOD</a><a href="http://www.aizhuanji.com/topic/matlabanzhuangchazhaoanzhuangleishichucuo.html" title="MATLAB 安装 查找安装类时出错">MATLAB 安装 查找安装类时出错</a><a href="http://www.aizhuanji.com/topic/vdbenchbaogao.html" title="vdbench 报告">vdbench 报告</a><a href="http://www.aizhuanji.com/topic/nzei.html" title="NZEI">NZEI</a></div>
+</aside><aside id="wellington-magazine-posts-columns-4" class="widget wellington-magazine-columns-widget clearfix">
+		<div class="widget-magazine-posts-columns widget-magazine-posts clearfix">
+
+			<div class="widget-magazine-posts-content clearfix">
+
+				
+		<div class="magazine-posts-column-left magazine-posts-columns clearfix">
+
+			<div class="magazine-posts-columns-content clearfix">
+
+				<div class="widget-header"><h3 class="widget-title">推荐</h3></div>
+				<div class="magazine-posts-columns-post-list clearfix">
+	
+<article id="post-0" class="small-post clearfix post-0 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/PxD11mwY.html" rel="bookmark"><time class="entry-date published updated">05/06</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/PxD11mwY.html" rel="bookmark">本地yum库制作及本地安装Docker</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-1" class="small-post clearfix post-1 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/qW40O8Wr.html" rel="bookmark"><time class="entry-date published updated">03/17</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/qW40O8Wr.html" rel="bookmark">解决naigos+pnp4nagios部分不出图的问题</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-2" class="small-post clearfix post-2 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/7xj7zmqw.html" rel="bookmark"><time class="entry-date published updated">04/06</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/7xj7zmqw.html" rel="bookmark">Scott Mitchell 的ASP.NET 2.0数据教程之第55: 在Data Web控件显示二进制数据</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-3" class="small-post clearfix post-3 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/GV8MY0QW.html" rel="bookmark"><time class="entry-date published updated">08/23</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/GV8MY0QW.html" rel="bookmark">树与二叉树：选择题50个</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-4" class="small-post clearfix post-4 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/AWbMbNGV.html" rel="bookmark"><time class="entry-date published updated">11/24</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/AWbMbNGV.html" rel="bookmark">计量系统与DCS系统</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="magazine-posts-column-right magazine-posts-columns clearfix">
+
+			<div class="magazine-posts-columns-content clearfix">
+
+				<div class="widget-header"><h3 class="widget-title">热门</h3></div>
+				<div class="magazine-posts-columns-post-list clearfix">
+	
+<article id="post-0" class="small-post clearfix post-0 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/Lx3R6NJW.html" rel="bookmark"><time class="entry-date published updated">08/28</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/Lx3R6NJW.html" rel="bookmark">UVa - 12451 - Let&amp;#39;s call SPaDe a SPaDe</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-1" class="small-post clearfix post-1 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/oWnjnNNW.html" rel="bookmark"><time class="entry-date published updated">04/06</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/oWnjnNNW.html" rel="bookmark">一个简单的JDBC程序</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-2" class="small-post clearfix post-2 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/ewy9y3mw.html" rel="bookmark"><time class="entry-date published updated">10/11</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/ewy9y3mw.html" rel="bookmark">鼠标移到表格的行上，行高亮</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-3" class="small-post clearfix post-3 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/1VJv0KJV.html" rel="bookmark"><time class="entry-date published updated">12/14</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/1VJv0KJV.html" rel="bookmark">quartz例子</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+	
+<article id="post-4" class="small-post clearfix post-4 post type-post status-publish format-standard hentry">
+	<div class="post-content clearfix">
+
+		<header class="entry-header">
+
+			<div class="entry-meta"><span class="meta-date"><a href="http://www.aizhuanji.com/a/rV9nKOaW.html" rel="bookmark"><time class="entry-date published updated">10/04</time></a></span></div>
+			<h2 class="entry-title"><a href="http://www.aizhuanji.com/a/rV9nKOaW.html" rel="bookmark">搜索引擎过程研究</a></h2>
+		</header><!-- .entry-header -->
+
+	</div>
+
+</article>
+				</div>
+
+			</div>
+
+		</div>
+
+		
+			</div>
+
+		</div>
+
+		</aside>
+	</section><!-- #secondary -->
+
+
+
+	</div><!-- #content -->
+
+	
+	<div id="footer" class="footer-wrap">
+		<footer id="colophon" class="site-footer container clearfix" role="contentinfo">
+			<div id="footer-text" class="site-info">
+				
+	<span class="credit-link">
+		Powered by <a href="http://www.aizhuanji.com/">爱专集</a>.	</span>
+
+				</div><!-- .site-info -->
+
+		</footer><!-- #colophon -->
+	</div>
+
+</div><!-- #page -->
+<div style="display: none">
+<script src="./Android向系统日历中添加日程事件 - 爱专集_files/email-decode.min.js.下载"></script><script src="./Android向系统日历中添加日程事件 - 爱专集_files/count.js.下载"></script><script language="javascript" type="text/javascript" src="./Android向系统日历中添加日程事件 - 爱专集_files/19168910.js.下载"></script><a href="https://www.51.la/?19168910" target="_blank" title="51.La 网站流量统计系统">网站统计</a>
+
+</div>
+<script type="text/javascript" src="./Android向系统日历中添加日程事件 - 爱专集_files/su.js.下载"></script>
+
+</body></html>

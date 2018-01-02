@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://www.voidcn.com/relative/p-cmgshbuz-vd.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android获取手机的UserAgent 相关文章 - 程序园</title>
+    <meta name="keywords" content="android,获取,手机,useragent">
+    <meta name="description" content="Android在做HTTP请求的时候要用到UserAgent，但是蛮多人不知道怎么获取本手机的UserAgent，去参照电脑的浏览器的UserAgent或者不知道哪里弄一堆不太准确的；我推荐一种比较活的方法，就是动态获取手机UserAgent，目前我所知道的可以适应所有手机，这里可以作为一个InetUtil类来使用，应用启动的时候初始化这个initUserAgent就可以了，以后随时可以使用">
+    <meta name="google-site-verification" content="eVo932LL8QghamZXYXdbvMxZcdr2v6nNXj2f7mfA1cw">
+    
+    <link rel="shortcut icon" href="http://static02.voidcn.com/voidcn/favicon.ico" type="image/x-icon">
+    <link href="./Android获取手机的UserAgent 相关文章 - 程序园_files/pub.min.css" rel="stylesheet">
+    <link href="./Android获取手机的UserAgent 相关文章 - 程序园_files/application.min.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="./Android获取手机的UserAgent 相关文章 - 程序园_files/font-awesome.css" rel="stylesheet">
+    
+    <script src="./Android获取手机的UserAgent 相关文章 - 程序园_files/ca-pub-6208739752673518.js.下载"></script><script src="./Android获取手机的UserAgent 相关文章 - 程序园_files/hm.js.下载"></script><script src="./Android获取手机的UserAgent 相关文章 - 程序园_files/pub.js.下载" type="text/javascript"></script>
+    <script src="./Android获取手机的UserAgent 相关文章 - 程序园_files/application.js.下载" type="text/javascript"></script>
+    
+<link rel="preload" href="./Android获取手机的UserAgent 相关文章 - 程序园_files/integrator.js.下载" as="script"><script type="text/javascript" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/integrator.js.下载"></script><link rel="preload" href="./Android获取手机的UserAgent 相关文章 - 程序园_files/integrator.js(1).下载" as="script"><script type="text/javascript" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/integrator.js(1).下载"></script></head>
+
+<body class="  pace-done"><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+
+<div id="header" class="navbar-fixed-top">
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a href="http://www.voidcn.com/" class="brand">程序园</a>
+                <nav class="nav-collapse collapse">
+                    <ul class="nav navbar primary-nav">
+                        <li class="">
+                            <a href="http://www.voidcn.com/column">栏目</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.voidcn.com/tag">标签</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.voidcn.com/cata">分类</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.voidcn.com/course">教程</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.voidcn.com/code">代码</a>
+                        </li>
+                    </ul>
+                    <form class="navbar-search pull-left" action="http://www.voidcn.com/gsearch">
+						<input type="text" class="search-query span2" name="q" placeholder="搜索">
+					</form>
+                    <ul class="nav pull-right">
+                        <li><a href="javascript:void()"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>    
+<div class="container-fluid">
+    <div class="row-fluid">
+
+<div class="span9 contant">
+    <div id="topic_head">
+        <div class="topic_head_logo">
+        		<img class="round_img" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/1.png" alt="Android获取手机的UserAgent">
+        </div>
+        <div class="topic_head_name">
+            <span>Android获取手机的UserAgent 相关文章</span>
+            <div class="desc">
+            	<div style="margin-bottom: 2px;"> 原文信息 ：<a href="http://www.voidcn.com/article/p-cmgshbuz-vd.html" target="_blank" title="Android获取手机的UserAgent">Android获取手机的UserAgent</a></div>
+            	<div style="margin-bottom: 2px;margin-top:8px;">
+			         	标签
+							<a target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E7%9A%84UserAgen" title="Android获取手机的UserAgen"> <em class="new-label" style="font-style: normal">Android获取手机的UserAgen</em></a>
+						栏目
+						<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <em class="new-label" style="font-style: normal">Android</em></a>
+            	</div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="javascript:void()">全部</a>
+            </li>
+        </ul>
+    </div>
+    
+    <div id="list_article" class="list_article home_list_article">
+    	<div><div>
+<script async="" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/adsbygoogle.js.下载"></script>
+<!-- 首页及栏目页广告 -->
+<ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-6208739752673518" data-ad-slot="5171151513" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><iframe width="852" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:852px;height:90px;" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/saved_resource.html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></div>
+
+<div style="margin-top:10px;">
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/OC%E8%8E%B7%E5%8F%96UserAgent" title="OC获取UserAgent"> <span class="new-label">OC获取UserAgent</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E7%9A%84UserAgen" title="Android获取手机的UserAgen"> <span class="new-label">Android获取手机的UserAgen</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E4%BF%A1%E6%81%AF" title="android获取手机信息"> <span class="new-label">android获取手机信息</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E6%96%B9%E5%90%91" title="Android获取手机方向"> <span class="new-label">Android获取手机方向</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%9B%BE%E7%89%87" title="android获取手机图片"> <span class="new-label">android获取手机图片</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%8F%B7%E7%A0%81" title="Android获取手机号码"> <span class="new-label">Android获取手机号码</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/PHP%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA" title="PHP获取手机"> <span class="new-label">PHP获取手机</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%8F%B7" title="获取手机号"> <span class="new-label">获取手机号</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA%E5%8F%B7%E8%8E%B7%E5%8F%96" title="手机号获取"> <span class="new-label">手机号获取</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BAIP" title="获取手机IP"> <span class="new-label">获取手机IP</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/5766045" title="Android 手机信息获取"> <span class="new-label">Android 手机信息获取</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/2652949" title="UserAgent"> <span class="new-label">UserAgent</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1197576" title="useragent"> <span class="new-label">useragent</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1177746" title="随机获取"> <span class="new-label">随机获取</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1647083" title="获取"> <span class="new-label">获取</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1266036" title="获取"> <span class="new-label">获取</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1869339" title="获取"> <span class="new-label">获取</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1087438" title="android_获取手机信息"> <span class="new-label">android_获取手机信息</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/2142275" title="IOS获取手机号"> <span class="new-label">IOS获取手机号</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/2142267" title="iOS 获取手机的型号"> <span class="new-label">iOS 获取手机的型号</span></a>
+			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+</div>
+	<style>
+		#searchService{
+			display:block;
+			float:left;
+			width:120px;
+			height:40px;
+			line-height:40px;
+			font-size:17px;
+		}
+		
+		#searchInput{
+			display:block;
+			float:left;
+			width:42%;
+			min-width:210px;
+		}
+		
+		.searchBtn{
+			display:block;
+			float:left;
+			margin-left:30px;
+			text-align:center;
+			width:80px;
+			height:40px;
+			line-height:40px;
+			background-color:#0aa284;
+			font-size:17px;
+			color: #fff;
+			border-top-left-radius: 4px;
+		    border-top-right-radius: 4px;
+		    border-bottom-right-radius: 4px;
+		    border-bottom-left-radius: 4px;
+		    cursor:pointer;
+		}
+		
+		.searchBtn:hover{
+			background-color:#0ab392;
+		}
+		
+		.searchDiv form{
+			margin : 0px;
+		}
+		
+		.searchDiv input{
+			margin: 0px;
+		}
+	</style>
+
+
+    <div style="margin-top: 10px;" class="searchDiv">
+    	
+    	<span id="searchService">
+    		更多相关搜索:
+    	</span>
+    
+    	<span id="searchInput">
+    		<form action="http://www.voidcn.com/gsearch" id="sform_one">
+            	<input type="text" style="height:30px;line-height:30px;width:98%;" class="sec-input" name="q" id="sinput_one" maxlength="100" autocomplete="off" value="Android获取手机的UserAgent" placeholder="请输入关键词">
+            </form>
+        </span>
+        
+        <span id="sbtn_one" class="searchBtn">
+        	搜索
+        </span>
+    </div>
+    
+    <script>
+    	$("#sbtn_one").click(function(){
+	    	var query = $("#sinput_one").val();
+	    	if(query == null || query == ""){
+	    		return;
+	    	}
+	    	$("#sform_one").submit();
+	    });
+    </script>
+    
+    <div class="clear"></div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-qjmbiuov-sy.html" class="article-list-title" target="_blank" title="WEBVIEW 获取userAgent">WEBVIEW 获取userAgent</a>
+        </div>
+        <div class="tip">
+            <span>2014-06-25</span>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-nlsrsupb-kx.html" class="article-list-title" target="_blank" title="获取webbrowser的useragent">获取webbrowser的useragent</a>
+        </div>
+        <div class="tip">
+            <span>2013-05-05</span>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-uurzbeiw-pw.html" class="article-list-title" target="_blank" title="手机端userAgent">手机端userAgent</a>
+        </div>
+        <div class="tip">
+            <span>2012-08-29</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/iphone" title="iphone"> <span class="new-label">iphone</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%B5%8F%E8%A7%88%E5%99%A8" title="浏览器"> <span class="new-label">浏览器</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/os" title="os"> <span class="new-label">os</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/safari" title="safari"> <span class="new-label">safari</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/windows" title="windows"> <span class="new-label">windows</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/iphone" title="iPhone"> <span class="new-label">iPhone</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-nkoytsuz-po.html" class="article-list-title" target="_blank" title="常见的手机Useragent">常见的手机Useragent</a>
+        </div>
+        <div class="tip">
+            <span>2013-11-05</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/UserAgent" title="UserAgent"> <span class="new-label">UserAgent</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-ojisdcjs-vc.html" class="article-list-title" target="_blank" title="android手机获取手机号">android手机获取手机号</a>
+        </div>
+        <div class="tip">
+            <span>2016-08-24</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				<div><script async="" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; height: 97px;" data-ad-format="fluid" data-ad-layout-key="-hm-t-9-6v+mm" data-ad-client="ca-pub-6208739752673518" data-ad-slot="9612648871" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:97px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:97px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><iframe width="852" height="97" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:852px;height:97px;" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/saved_resource(1).html"></iframe></ins></ins></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-dfleptko-sn.html" class="article-list-title" target="_blank" title="Android 获取手机信息">Android 获取手机信息</a>
+        </div>
+        <div class="tip">
+            <span>2013-03-20</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-rghhhfsm-tb.html" class="article-list-title" target="_blank" title="Android 获取手机号码">Android 获取手机号码</a>
+        </div>
+        <div class="tip">
+            <span>2012-09-24</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8" title="服务器"> <span class="new-label">服务器</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/string" title="string"> <span class="new-label">string</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/service" title="service"> <span class="new-label">service</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E7%BD%91%E7%BB%9C" title="网络"> <span class="new-label">网络</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-wmhedaum-s.html" class="article-list-title" target="_blank" title="android获取手机信息">android获取手机信息</a>
+        </div>
+        <div class="tip">
+            <span>2012-04-17</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/string" title="string"> <span class="new-label">string</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/service" title="service"> <span class="new-label">service</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/import" title="import"> <span class="new-label">import</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/button" title="button"> <span class="new-label">button</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-slgsfhcv-eg.html" class="article-list-title" target="_blank" title="android 获取手机信息">android 获取手机信息</a>
+        </div>
+        <div class="tip">
+            <span>2012-04-25</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/network" title="network"> <span class="new-label">network</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E7%BD%91%E7%BB%9C" title="网络"> <span class="new-label">网络</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/service" title="service"> <span class="new-label">service</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E7%BB%88%E7%AB%AF" title="终端"> <span class="new-label">终端</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-vuvdzwel-hx.html" class="article-list-title" target="_blank" title="android获取手机ip">android获取手机ip</a>
+        </div>
+        <div class="tip">
+            <span>2012-12-09</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				<div><script async="" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; height: 97px;" data-ad-format="fluid" data-ad-layout-key="-hm-t-9-6v+mm" data-ad-client="ca-pub-6208739752673518" data-ad-slot="9612648871" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:97px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:97px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><iframe width="852" height="97" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:852px;height:97px;" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/saved_resource(2).html"></iframe></ins></ins></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-vpsjpixp-bao.html" class="article-list-title" target="_blank" title="android获取手机时间">android获取手机时间</a>
+        </div>
+        <div class="tip">
+            <span>2016-10-08</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%97%B6%E9%97%B4" title="时间"> <span class="new-label">时间</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-pccmvpns-bkg.html" class="article-list-title" target="_blank" title="Android获取手机密度">Android获取手机密度</a>
+        </div>
+        <div class="tip">
+            <span>2013-07-10</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-vludnlfk-bkm.html" class="article-list-title" target="_blank" title="Android获取手机号码">Android获取手机号码</a>
+        </div>
+        <div class="tip">
+            <span>2015-04-13</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%8F%B7%E7%A0%81" title="Android获取手机号码"> <span class="new-label">Android获取手机号码</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-cyhsysfb-bhx.html" class="article-list-title" target="_blank" title="Android 获取手机串号">Android 获取手机串号</a>
+        </div>
+        <div class="tip">
+            <span>2014-01-08</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-utoyblqw-qk.html" class="article-list-title" target="_blank" title="android 手机铃声获取">android 手机铃声获取</a>
+        </div>
+        <div class="tip">
+            <span>2010-09-09</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/system" title="system"> <span class="new-label">system</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/service" title="service"> <span class="new-label">service</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%96%87%E6%A1%A3" title="文档"> <span class="new-label">文档</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E9%9F%B3%E4%B9%90" title="音乐"> <span class="new-label">音乐</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				<div><script async="" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; height: 97px;" data-ad-format="fluid" data-ad-layout-key="-hm-t-9-6v+mm" data-ad-client="ca-pub-6208739752673518" data-ad-slot="9612648871" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:97px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><ins id="aswift_3_anchor" style="display:block;border:none;height:97px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><iframe width="852" height="97" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;width:852px;height:97px;" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/saved_resource(3).html"></iframe></ins></ins></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-xsvkbtld-du.html" class="article-list-title" target="_blank" title="获取android手机版本">获取android手机版本</a>
+        </div>
+        <div class="tip">
+            <span>2015-08-07</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-alzyuugf-bx.html" class="article-list-title" target="_blank" title="Android获取手机方向">Android获取手机方向</a>
+        </div>
+        <div class="tip">
+            <span>2015-08-12</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E6%96%B9%E5%90%91" title="Android获取手机方向"> <span class="new-label">Android获取手机方向</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-aciauqqd-tp.html" class="article-list-title" target="_blank" title="Android 手机获取时区">Android 手机获取时区</a>
+        </div>
+        <div class="tip">
+            <span>2013-09-06</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-unnzacdo-ud.html" class="article-list-title" target="_blank" title="Android获取手机信息">Android获取手机信息</a>
+        </div>
+        <div class="tip">
+            <span>2012-10-17</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/build" title="build"> <span class="new-label">build</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/service" title="service"> <span class="new-label">service</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/string" title="string"> <span class="new-label">string</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/java" title="java"> <span class="new-label">java</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-gohjlamy-bgo.html" class="article-list-title" target="_blank" title="Android 获取手机IMEI">Android&nbsp;获取手机IMEI</a>
+        </div>
+        <div class="tip">
+            <span>2015-07-14</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-howiqqwr-hn.html" class="article-list-title" target="_blank" title="获取android手机信息">获取android手机信息</a>
+        </div>
+        <div class="tip">
+            <span>2013-12-05</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-vjvxtvhi-to.html" class="article-list-title" target="_blank" title="Android 获取手机电量">Android 获取手机电量</a>
+        </div>
+        <div class="tip">
+            <span>2013-07-09</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/Android" title="Android"> <span class="new-label">Android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E7%94%B5%E9%87%8F" title="获取手机电量"> <span class="new-label">获取手机电量</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-afaeapxv-bgs.html" class="article-list-title" target="_blank" title="Android获取手机内存">Android获取手机内存</a>
+        </div>
+        <div class="tip">
+            <span>2014-06-10</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96" title="获取"> <span class="new-label">获取</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA%E5%86%85%E5%AD%98" title="手机内存"> <span class="new-label">手机内存</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-xagcftzs-pt.html" class="article-list-title" target="_blank" title="Android获取手机应用">Android获取手机应用</a>
+        </div>
+        <div class="tip">
+            <span>2015-10-12</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-wiwmjlog-gk.html" class="article-list-title" target="_blank" title="android获取手机Imei码">android获取手机Imei码</a>
+        </div>
+        <div class="tip">
+            <span>2015-06-12</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/imei" title="imei"> <span class="new-label">imei</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-qpdggahi-rh.html" class="article-list-title" target="_blank" title="android 获取手机号码">android 获取手机号码</a>
+        </div>
+        <div class="tip">
+            <span>2015-02-03</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%8F%B7%E7%A0%81" title="获取手机号码"> <span class="new-label">获取手机号码</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-mdyhyfdf-baw.html" class="article-list-title" target="_blank" title="android获取手机号">android获取手机号</a>
+        </div>
+        <div class="tip">
+            <span>2012-07-23</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA" title="手机"> <span class="new-label">手机</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8" title="中国移动"> <span class="new-label">中国移动</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8" title="服务器"> <span class="new-label">服务器</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E5%AD%98%E5%82%A8" title="存储"> <span class="new-label">存储</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E7%94%B5%E8%AF%9D" title="电话"> <span class="new-label">电话</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/608_26a_460_thumb.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-pcbfsibp-bed.html" class="article-list-title" target="_blank" title="Android 获取手机号">Android 获取手机号</a>
+        </div>
+        <div class="tip">
+            <span>2016-03-21</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/Android" title="Android"> <span class="new-label">Android</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/TelephonyManager" title="TelephonyManager"> <span class="new-label">TelephonyManager</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%8F%B7" title="获取手机号"> <span class="new-label">获取手机号</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-tpwqkcet-bgs.html" class="article-list-title" target="_blank" title="Android手机获取时区">Android手机获取时区</a>
+        </div>
+        <div class="tip">
+            <span>2014-06-10</span>
+					<a target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96%E6%97%B6%E5%8C%BA" title="获取时区"> <span class="new-label">获取时区</span></a>
+					<a target="_blank" href="http://www.voidcn.com/tag/android" title="android"> <span class="new-label">android</span></a>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+				
+
+    
+<div class="list_article_item">
+    <div class="article_thumb_image">
+    		<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/default_content_cover.jpg">
+    </div>
+    <div class="aricle_item_info">
+        <div class="title">
+        		<a href="http://www.voidcn.com/article/p-gsbkjhbd-bkc.html" class="article-list-title" target="_blank" title="android获取手机IMSI号">android获取手机IMSI号</a>
+        </div>
+        <div class="tip">
+            <span>2015-03-26</span>
+				<a target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+    <div style="margin-top: 10px;" class="searchDiv">
+    	
+    	<span id="searchService">
+    		更多相关搜索:
+    	</span>
+    
+    	<span id="searchInput">
+    		<form action="http://www.voidcn.com/gsearch" id="sform_two">
+            	<input type="text" style="height:30px;line-height:30px;width:98%;" class="sec-input" name="q" id="sinput_two" maxlength="100" autocomplete="off" value="Android获取手机的UserAgent" placeholder="请输入关键词">
+            </form>
+        </span>
+        
+        <span id="sbtn_two" class="searchBtn">
+        	搜索
+        </span>
+    </div>
+    
+    <script>
+    	$("#sbtn_two").click(function(){
+	    	var query = $("#sinput_two").val();
+	    	if(query == null || query == ""){
+	    		return;
+	    	}
+	    	$("#sform_two").submit();
+	    });
+    </script>
+    
+    <div class="clear"></div>
+
+        <div class="margin-top-20"></div>
+	    <div><div>
+<script async="" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/adsbygoogle.js.下载"></script>
+<!-- 首页及栏目页广告 -->
+<ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-6208739752673518" data-ad-slot="5171151513" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_4_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><ins id="aswift_4_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:852px;background-color:transparent;"><iframe width="852" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;width:852px;height:90px;" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/saved_resource(4).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></div>
+    </div>
+
+	<div class="margin-top-20"></div>
+
+</div>
+<div class="span3 article_right_side">
+	<div class="right_top">
+		<div id="right_site_articles" class="article_detail_bg">
+    <div class="article-part-title">
+        <span>每日一句</span>
+    </div>
+    <ul class="side_article_list">
+    	每一个你不满意的现在，都有一个你没有努力的曾经。
+    </ul>
+</div><script async="" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/adsbygoogle.js.下载"></script>
+<!-- 侧边栏 自适应 -->
+<ins class="adsbygoogle" style="display: block; height: 600px;" data-ad-client="ca-pub-6208739752673518" data-ad-slot="8798382113" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_5_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:277px;background-color:transparent;"><ins id="aswift_5_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:277px;background-color:transparent;"><iframe width="277" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_5" name="aswift_5" style="left:0;position:absolute;top:0;width:277px;height:600px;" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/saved_resource(5).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    <div id="right_site_articles">
+        <div class="article-part-title">
+            <span>最新文章</span>
+        </div>
+        <ul class="side_article_list">
+	                <li class="side_article_list_item">1.
+	                    <a href="http://www.voidcn.com/article/p-pyzfpgpe-bro.html" target="_blank" title="android第二次点击应用,就报App isn&#39;t installed 解决方法"> android第二次点击应用,就报App isn't installed 解决方法 </a>
+	                </li>
+	                <li class="side_article_list_item">2.
+	                    <a href="http://www.voidcn.com/article/p-gepihjpe-brn.html" target="_blank" title="DNS原理入门"> DNS原理入门 </a>
+	                </li>
+	                <li class="side_article_list_item">3.
+	                    <a href="http://www.voidcn.com/article/p-pqbptoxn-brn.html" target="_blank" title="c++计时遇到错误：error LNK2001:无法解析的外部符号_imp_timeGetTime"> c++计时遇到错误：error LNK2001:无法解析的外部符号_imp_timeGetTime </a>
+	                </li>
+	                <li class="side_article_list_item">4.
+	                    <a href="http://www.voidcn.com/article/p-eerigmho-bro.html" target="_blank" title="项目实战13—企业级虚拟化Virtualization - KVM技术"> 项目实战13—企业级虚拟化Virtualization - KVM技术 </a>
+	                </li>
+	                <li class="side_article_list_item">5.
+	                    <a href="http://www.voidcn.com/article/p-gwdqpjro-brn.html" target="_blank" title="SSD-tensorflow 训练自己的数据"> SSD-tensorflow 训练自己的数据 </a>
+	                </li>
+	                <li class="side_article_list_item">6.
+	                    <a href="http://www.voidcn.com/article/p-xerhkhom-brn.html" target="_blank" title="496. Next Greater Element I"> 496. Next Greater Element I </a>
+	                </li>
+	                <li class="side_article_list_item">7.
+	                    <a href="http://www.voidcn.com/article/p-sagrfhyp-brn.html" target="_blank" title="设计模式--单例模式"> 设计模式--单例模式 </a>
+	                </li>
+	                <li class="side_article_list_item">8.
+	                    <a href="http://www.voidcn.com/article/p-vybtpwas-brn.html" target="_blank" title="五、Jenkins系列_使用scp命令进行远程文件复制遇到的坑"> 五、Jenkins系列_使用scp命令进行远程文件复制遇到的坑 </a>
+	                </li>
+	                <li class="side_article_list_item">9.
+	                    <a href="http://www.voidcn.com/article/p-uwzkacjk-brn.html" target="_blank" title="U3D-UGUI-虚拟摇杆"> U3D-UGUI-虚拟摇杆 </a>
+	                </li>
+	                <li class="side_article_list_item">10.
+	                    <a href="http://www.voidcn.com/article/p-wumxxjwl-brn.html" target="_blank" title="Android Studio 出现 idea Cannot find declaration to go to"> Android Studio 出现 idea Cannot find declaration to go to </a>
+	                </li>
+        </ul>
+        
+        
+    </div>
+
+
+	<div id="right_site_articles">
+        <div class="article-part-title">
+            <span>相关搜索</span>
+        </div>
+	    <ul class="side_article_list">
+		    	<li class="side_article_list_item">1. <a href="http://www.voidcn.com/search/azzuik" target="_blank" title="android获取手机系统"> android获取手机系统 </a>
+	            </li>
+		    	<li class="side_article_list_item">2. <a href="http://www.voidcn.com/search/techso" target="_blank" title="android 获取手机属性"> android 获取手机属性 </a>
+	            </li>
+		    	<li class="side_article_list_item">3. <a href="http://www.voidcn.com/search/qrjaxp" target="_blank" title="android 获取手机系统"> android 获取手机系统 </a>
+	            </li>
+		    	<li class="side_article_list_item">4. <a href="http://www.voidcn.com/search/wpspdq" target="_blank" title="android 获取手机系列"> android 获取手机系列 </a>
+	            </li>
+		    	<li class="side_article_list_item">5. <a href="http://www.voidcn.com/search/hlqwwd" target="_blank" title="android 手机 MEID获取"> android 手机 MEID获取 </a>
+	            </li>
+		    	<li class="side_article_list_item">6. <a href="http://www.voidcn.com/search/muyxnz" target="_blank" title="android获取手机名称"> android获取手机名称 </a>
+	            </li>
+		    	<li class="side_article_list_item">7. <a href="http://www.voidcn.com/search/ozqpje" target="_blank" title="android 获取手机信息"> android 获取手机信息 </a>
+	            </li>
+		    	<li class="side_article_list_item">8. <a href="http://www.voidcn.com/search/unwdwp" target="_blank" title="获取手机MEID"> 获取手机MEID </a>
+	            </li>
+		    	<li class="side_article_list_item">9. <a href="http://www.voidcn.com/search/hkuecn" target="_blank" title="android获取手机信息的软件"> android获取手机信息的软件 </a>
+	            </li>
+		    	<li class="side_article_list_item">10. <a href="http://www.voidcn.com/search/divknl" target="_blank" title="android 手机的序列号获取"> android 手机的序列号获取 </a>
+	            </li>
+		</ul>
+	</div>
+
+<style>
+	.side-relative-a span{
+		margin: 4px 4px 4px 4px;
+	}
+</style>
+
+	<div id="right_site_articles">
+	    <div class="article-part-title">
+	        <span>相关标签</span>
+	    </div>
+	    <ul class="side_article_list">
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/OC%E8%8E%B7%E5%8F%96UserAgent" title="OC获取UserAgent"> <span class="new-label">OC获取UserAgent</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E7%9A%84UserAgen" title="Android获取手机的UserAgen"> <span class="new-label">Android获取手机的UserAgen</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E4%BF%A1%E6%81%AF" title="android获取手机信息"> <span class="new-label">android获取手机信息</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E6%96%B9%E5%90%91" title="Android获取手机方向"> <span class="new-label">Android获取手机方向</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%9B%BE%E7%89%87" title="android获取手机图片"> <span class="new-label">android获取手机图片</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/Android%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%8F%B7%E7%A0%81" title="Android获取手机号码"> <span class="new-label">Android获取手机号码</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/PHP%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA" title="PHP获取手机"> <span class="new-label">PHP获取手机</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%8F%B7" title="获取手机号"> <span class="new-label">获取手机号</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/%E6%89%8B%E6%9C%BA%E5%8F%B7%E8%8E%B7%E5%8F%96" title="手机号获取"> <span class="new-label">手机号获取</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/tag/%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BAIP" title="获取手机IP"> <span class="new-label">获取手机IP</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/5766045" title="Android 手机信息获取"> <span class="new-label">Android 手机信息获取</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/2652949" title="UserAgent"> <span class="new-label">UserAgent</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1197576" title="useragent"> <span class="new-label">useragent</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1177746" title="随机获取"> <span class="new-label">随机获取</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1647083" title="获取"> <span class="new-label">获取</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1266036" title="获取"> <span class="new-label">获取</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1869339" title="获取"> <span class="new-label">获取</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/1087438" title="android_获取手机信息"> <span class="new-label">android_获取手机信息</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/2142275" title="IOS获取手机号"> <span class="new-label">IOS获取手机号</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/cata/2142267" title="iOS 获取手机的型号"> <span class="new-label">iOS 获取手机的型号</span></a>
+        			<a class="side-relative-a" target="_blank" href="http://www.voidcn.com/column/android" title="Android"> <span class="new-label">Android</span></a>
+		</ul>
+	</div>
+	</div>
+	
+	<div class="operate_zone" style="position: inherit; top: 0px; width: 277px;">
+<div id="right_site_articles" class="article_detail_bg margin-top10">
+    <div class="article-part-title">
+        <span><a href="http://www.voidcn.com/contact" target="_blank">本站公众号</a></span>
+    </div>
+    <div class="side_article_list user-head">
+    	<span style="color: #5ba607;font-size:14px;">&nbsp;&nbsp;&nbsp;欢迎关注本站公众号,获取更多程序园信息</span><br>
+    	<img src="./Android获取手机的UserAgent 相关文章 - 程序园_files/code" alt="开发小院">
+    </div>
+</div>	</div>
+</div>    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-inner" style="padding-top: 50px;padding-bottom: 50px">
+        <a href="http://www.voidcn.com/contact" target="_blank">意见反馈</a>
+        <a href="http://www.voidcn.com/search">最近搜索</a>
+        <a href="http://www.voidcn.com/recent">最新文章</a>
+       	<script src="./Android获取手机的UserAgent 相关文章 - 程序园_files/z_stat.php" language="JavaScript"></script><script src="./Android获取手机的UserAgent 相关文章 - 程序园_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1258680759" target="_blank" title="站长统计">站长统计</a>
+       	
+    </div>
+    <div style="display:none;">
+		<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?05fb07b91f60527211b85c9c9b431b73";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+		</script>
+	</div>
+</div>
+
+<script type="text/javascript" src="./Android获取手机的UserAgent 相关文章 - 程序园_files/tip.js.下载" async=""></script>
+
+
+<div class="return" title="返回顶部" style="display: block;"></div></body></html>

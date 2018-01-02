@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)http://dalufan.com/2016/12/02/android-recycleview-useage-issues/ -->
+<html lang="zh-Hans" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="大路">
+
+
+
+<meta name="description" content="控制Item的宽度在布局中存在某个item占用一行，而有的一行会有多个item，及类似于listview和gridview的混合，这时可以通过下面的方法来设置：
+12345678910GridLayoutManager layoutManager = new GridLayoutManager(this, 3);layoutManager.setSpanSizeLookup(new GridLay">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RecycleView的使用及坑">
+<meta property="og:url" content="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/index.html">
+<meta property="og:site_name" content="道听途说">
+<meta property="og:description" content="控制Item的宽度在布局中存在某个item占用一行，而有的一行会有多个item，及类似于listview和gridview的混合，这时可以通过下面的方法来设置：
+12345678910GridLayoutManager layoutManager = new GridLayoutManager(this, 3);layoutManager.setSpanSizeLookup(new GridLay">
+<meta property="og:updated_time" content="2016-12-02T10:44:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RecycleView的使用及坑">
+<meta name="twitter:description" content="控制Item的宽度在布局中存在某个item占用一行，而有的一行会有多个item，及类似于listview和gridview的混合，这时可以通过下面的方法来设置：
+12345678910GridLayoutManager layoutManager = new GridLayoutManager(this, 3);layoutManager.setSpanSizeLookup(new GridLay">
+
+<link rel="apple-touch-icon" href="http://dalufan.com/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="http://dalufan.com/atom.xml" title="道听途说" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="http://dalufan.com/favicon.png">
+
+
+
+    <link href="./RecycleView的使用及坑 _ 道听途说_files/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="./RecycleView的使用及坑 _ 道听途说_files/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="./RecycleView的使用及坑 _ 道听途说_files/hm.js.下载"></script><script src="./RecycleView的使用及坑 _ 道听途说_files/pace.min.js.下载"></script>
+    <link href="./RecycleView的使用及坑 _ 道听途说_files/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="./RecycleView的使用及坑 _ 道听途说_files/style.css">
+
+
+
+<link href="./RecycleView的使用及坑 _ 道听途说_files/font-awesome.min.css" rel="stylesheet">
+
+
+<title>RecycleView的使用及坑 | 道听途说</title>
+
+<script src="./RecycleView的使用及坑 _ 道听途说_files/jquery.min.js.下载"></script>
+<script src="./RecycleView的使用及坑 _ 道听途说_files/clipboard.min.js.下载"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?d139b23707f5aa48a2430a8a9e8977ba";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+<script src="./RecycleView的使用及坑 _ 道听途说_files/share.js.下载"></script><script src="http://static.duoshuo.com/embed.js" async="" charset="UTF-8"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="main" src="./RecycleView的使用及坑 _ 道听途说_files/main.js.下载"></script><link rel="stylesheet" href="./RecycleView的使用及坑 _ 道听途说_files/share_style0_24.css"><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/js/pc.js" src="./RecycleView的使用及坑 _ 道听途说_files/pc.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js" src="./RecycleView的使用及坑 _ 道听途说_files/jquery.fancybox.min.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="toc" src="./RecycleView的使用及坑 _ 道听途说_files/toc.js.下载"></script><style type="text/css">.fancybox-margin{margin-right:10px;}</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/js/search.js" src="./RecycleView的使用及坑 _ 道听途说_files/search.js.下载"></script></head>
+<body class="  pace-done" style="background: url(&quot;/background/bg-1.jpg&quot;) 0% 0% / cover fixed;"><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay" style="background-color: rgb(145, 133, 151); opacity: 0.3;"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="http://dalufan.com/" class="profilepic">
+            <img src="./RecycleView的使用及坑 _ 道听途说_files/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="http://dalufan.com/">大路</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://dalufan.com/">主页</a></li>
+                        
+                            <li><a href="http://dalufan.com/archives/">所有文章</a></li>
+                        
+                            <li><a href="http://dalufan.com/tags/">标签云</a></li>
+                        
+                            <li><a href="http://dalufan.com/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:dalufine@163.com" title="Email" target="_blank"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/dalufine" title="GitHub" target="_blank"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link color5 color3" href="http://dalufan.com/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link color0 color2" href="http://dalufan.com/tags/AlarmManager/">AlarmManager</a></li><li class="tag-list-item"><a class="tag-list-link color1 color6" href="http://dalufan.com/tags/AtomicInteger/">AtomicInteger</a></li><li class="tag-list-item"><a class="tag-list-link color4" href="http://dalufan.com/tags/Bitmap/">Bitmap</a></li><li class="tag-list-item"><a class="tag-list-link color1 color3" href="http://dalufan.com/tags/BroadcastReceiver/">BroadcastReceiver</a></li><li class="tag-list-item"><a class="tag-list-link color6 color1" href="http://dalufan.com/tags/ContentObserver/">ContentObserver</a></li><li class="tag-list-item"><a class="tag-list-link color0 color2" href="http://dalufan.com/tags/ContentProvider/">ContentProvider</a></li><li class="tag-list-item"><a class="tag-list-link color4 color6" href="http://dalufan.com/tags/Context/">Context</a></li><li class="tag-list-item"><a class="tag-list-link color0 color3" href="http://dalufan.com/tags/DownloadManager/">DownloadManager</a></li><li class="tag-list-item"><a class="tag-list-link color2 color1" href="http://dalufan.com/tags/Drawable/">Drawable</a></li><li class="tag-list-item"><a class="tag-list-link color0 color1" href="http://dalufan.com/tags/Enum/">Enum</a></li><li class="tag-list-item"><a class="tag-list-link color4 color5" href="http://dalufan.com/tags/EventBus/">EventBus</a></li><li class="tag-list-item"><a class="tag-list-link color6 color3" href="http://dalufan.com/tags/Fragment/">Fragment</a></li><li class="tag-list-item"><a class="tag-list-link color5 color0" href="http://dalufan.com/tags/Generics/">Generics</a></li><li class="tag-list-item"><a class="tag-list-link color6" href="http://dalufan.com/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link color3 color2" href="http://dalufan.com/tags/Handler/">Handler</a></li><li class="tag-list-item"><a class="tag-list-link color0" href="http://dalufan.com/tags/HttpClient/">HttpClient</a></li><li class="tag-list-item"><a class="tag-list-link color4 color2" href="http://dalufan.com/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link color3 color0" href="http://dalufan.com/tags/Intent/">Intent</a></li><li class="tag-list-item"><a class="tag-list-link color3 color2" href="http://dalufan.com/tags/ListView/">ListView</a></li><li class="tag-list-item"><a class="tag-list-link color4" href="http://dalufan.com/tags/MediaPlayer/">MediaPlayer</a></li><li class="tag-list-item"><a class="tag-list-link color3 color2" href="http://dalufan.com/tags/MediaRecorder/">MediaRecorder</a></li><li class="tag-list-item"><a class="tag-list-link color1 color2" href="http://dalufan.com/tags/MotionEvent/">MotionEvent</a></li><li class="tag-list-item"><a class="tag-list-link color0 color2" href="http://dalufan.com/tags/RecycleView/">RecycleView</a></li><li class="tag-list-item"><a class="tag-list-link color6 color3" href="http://dalufan.com/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link color0 color2" href="http://dalufan.com/tags/Serializable/">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link color6" href="http://dalufan.com/tags/Service/">Service</a></li><li class="tag-list-item"><a class="tag-list-link color3 color6" href="http://dalufan.com/tags/Smali/">Smali</a></li><li class="tag-list-item"><a class="tag-list-link color3 color4" href="http://dalufan.com/tags/SparseArray/">SparseArray</a></li><li class="tag-list-item"><a class="tag-list-link color5 color3" href="http://dalufan.com/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link color1" href="http://dalufan.com/tags/StringBuffer/">StringBuffer</a></li><li class="tag-list-item"><a class="tag-list-link color5 color4" href="http://dalufan.com/tags/Sublime/">Sublime</a></li><li class="tag-list-item"><a class="tag-list-link color0" href="http://dalufan.com/tags/TextView/">TextView</a></li><li class="tag-list-item"><a class="tag-list-link color6 color2" href="http://dalufan.com/tags/ThreadPoolExecutor/">ThreadPoolExecutor</a></li><li class="tag-list-item"><a class="tag-list-link color6 color0" href="http://dalufan.com/tags/UIImageView/">UIImageView</a></li><li class="tag-list-item"><a class="tag-list-link color3 color2" href="http://dalufan.com/tags/Uri/">Uri</a></li><li class="tag-list-item"><a class="tag-list-link color5 color6" href="http://dalufan.com/tags/View/">View</a></li><li class="tag-list-item"><a class="tag-list-link color3 color1" href="http://dalufan.com/tags/ViewPager/">ViewPager</a></li><li class="tag-list-item"><a class="tag-list-link color4" href="http://dalufan.com/tags/WebView/">WebView</a></li><li class="tag-list-item"><a class="tag-list-link color3 color1" href="http://dalufan.com/tags/Xutils/">Xutils</a></li><li class="tag-list-item task-list check"><a class="tag-list-link color3 color6" href="http://dalufan.com/tags/Zxing/">Zxing</a></li><li class="tag-list-item"><a class="tag-list-link color5" href="http://dalufan.com/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link color0 color6" href="http://dalufan.com/tags/animator/">animator</a></li><li class="tag-list-item"><a class="tag-list-link color5 color0" href="http://dalufan.com/tags/app/">app</a></li><li class="tag-list-item"><a class="tag-list-link color4 color3" href="http://dalufan.com/tags/as/">as</a></li><li class="tag-list-item"><a class="tag-list-link color3 color4" href="http://dalufan.com/tags/autolayout/">autolayout</a></li><li class="tag-list-item"><a class="tag-list-link color3 color2" href="http://dalufan.com/tags/canvas/">canvas</a></li><li class="tag-list-item"><a class="tag-list-link color5 color1" href="http://dalufan.com/tags/cookie/">cookie</a></li><li class="tag-list-item"><a class="tag-list-link color0 color4" href="http://dalufan.com/tags/dex/">dex</a></li><li class="tag-list-item"><a class="tag-list-link color3" href="http://dalufan.com/tags/diff/">diff</a></li><li class="tag-list-item"><a class="tag-list-link color3 color1" href="http://dalufan.com/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link color3 color2" href="http://dalufan.com/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link color5 color2" href="http://dalufan.com/tags/error/">error</a></li><li class="tag-list-item task-list check"><a class="tag-list-link color6 color3" href="http://dalufan.com/tags/example/">example</a></li><li class="tag-list-item task-list check"><a class="tag-list-link color3 color5" href="http://dalufan.com/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link color3 color6" href="http://dalufan.com/tags/final/">final</a></li><li class="tag-list-item"><a class="tag-list-link color2 color0" href="http://dalufan.com/tags/gc/">gc</a></li><li class="tag-list-item"><a class="tag-list-link color5 color3" href="http://dalufan.com/tags/issues/">issues</a></li><li class="tag-list-item"><a class="tag-list-link color1 color0" href="http://dalufan.com/tags/join/">join</a></li><li class="tag-list-item"><a class="tag-list-link color4 color2" href="http://dalufan.com/tags/knowledge/">knowledge</a></li><li class="tag-list-item"><a class="tag-list-link color2 color6" href="http://dalufan.com/tags/mat/">mat</a></li><li class="tag-list-item"><a class="tag-list-link color5 color0" href="http://dalufan.com/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link color0" href="http://dalufan.com/tags/net/">net</a></li><li class="tag-list-item"><a class="tag-list-link color6 color1" href="http://dalufan.com/tags/note/">note</a></li><li class="tag-list-item"><a class="tag-list-link color5 color6" href="http://dalufan.com/tags/optimization/">optimization</a></li><li class="tag-list-item"><a class="tag-list-link color5 color1" href="http://dalufan.com/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link color4 color2" href="http://dalufan.com/tags/process/">process</a></li><li class="tag-list-item"><a class="tag-list-link color1 color0" href="http://dalufan.com/tags/ragment/">ragment</a></li><li class="tag-list-item"><a class="tag-list-link color6 color3" href="http://dalufan.com/tags/reconsitution/">reconsitution</a></li><li class="tag-list-item"><a class="tag-list-link color3 color4" href="http://dalufan.com/tags/reflect/">reflect</a></li><li class="tag-list-item"><a class="tag-list-link color4 color0" href="http://dalufan.com/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link color3 color1" href="http://dalufan.com/tags/rn/">rn</a></li><li class="tag-list-item"><a class="tag-list-link color3" href="http://dalufan.com/tags/scrollView/">scrollView</a></li><li class="tag-list-item"><a class="tag-list-link color1 color4" href="http://dalufan.com/tags/sec/">sec</a></li><li class="tag-list-item"><a class="tag-list-link color3 color0" href="http://dalufan.com/tags/session/">session</a></li><li class="tag-list-item"><a class="tag-list-link color6 color3" href="http://dalufan.com/tags/setCompoundDrawables/">setCompoundDrawables</a></li><li class="tag-list-item"><a class="tag-list-link color3 color2" href="http://dalufan.com/tags/shutdown/">shutdown</a></li><li class="tag-list-item"><a class="tag-list-link color1 color3" href="http://dalufan.com/tags/so/">so</a></li><li class="tag-list-item"><a class="tag-list-link color5" href="http://dalufan.com/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link color6 color5" href="http://dalufan.com/tags/startActivityForResult/">startActivityForResult</a></li><li class="tag-list-item"><a class="tag-list-link color4 color1" href="http://dalufan.com/tags/static/">static</a></li><li class="tag-list-item"><a class="tag-list-link color5 color3" href="http://dalufan.com/tags/swift/">swift</a></li><li class="tag-list-item"><a class="tag-list-link color2" href="http://dalufan.com/tags/thread/">thread</a></li><li class="tag-list-item"><a class="tag-list-link color2 color0" href="http://dalufan.com/tags/uml/">uml</a></li><li class="tag-list-item"><a class="tag-list-link color0 color6" href="http://dalufan.com/tags/usagestats/">usagestats</a></li><li class="tag-list-item"><a class="tag-list-link color1" href="http://dalufan.com/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link color5 color6" href="http://dalufan.com/tags/workflow/">workflow</a></li><li class="tag-list-item task-list check"><a class="tag-list-link color6" href="http://dalufan.com/tags/xcode/">xcode</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://wangrong.xyz/" target="_blank">WR</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">我们走在大路上</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay" style="background-color: rgb(145, 133, 151); opacity: 0.7;">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="http://dalufan.com/" title="回到主页">大路</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="http://dalufan.com/" class="profilepic">
+                <img src="./RecycleView的使用及坑 _ 道听途说_files/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="http://dalufan.com/" title="回到主页">大路</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://dalufan.com/">主页</a></li>
+                
+                    <li><a href="http://dalufan.com/archives/">所有文章</a></li>
+                
+                    <li><a href="http://dalufan.com/tags/">标签云</a></li>
+                
+                    <li><a href="http://dalufan.com/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:dalufine@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/dalufine" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-android-recycleview-useage-issues" class="article article-type-post" itemscope="" itemprop="blogPost" style="opacity: 1;">
+  
+    <div class="article-meta">
+      <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/" class="article-date">
+      <time datetime="2016-12-02T10:44:12.000Z" itemprop="datePublished">2016-12-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RecycleView的使用及坑
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="color0" href="http://dalufan.com/categories/android/">android</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link color3 color5" href="http://dalufan.com/tags/RecycleView/">RecycleView</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="控制Item的宽度"><a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#%E6%8E%A7%E5%88%B6Item%E7%9A%84%E5%AE%BD%E5%BA%A6" class="headerlink" title="控制Item的宽度"></a>控制Item的宽度</h3><p>在布局中存在某个item占用一行，而有的一行会有多个item，及类似于listview和gridview的混合，这时可以通过下面的方法来设置：</p>
+<figure class="highlight java"><div class="table-area"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">GridLayoutManager layoutManager = <span class="keyword">new</span> GridLayoutManager(<span class="keyword">this</span>, <span class="number">3</span>);</div><div class="line">layoutManager.setSpanSizeLookup(<span class="keyword">new</span> GridLayoutManager.SpanSizeLookup() {</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSpanSize</span><span class="params">(<span class="keyword">int</span> position)</span> </span>{</div><div class="line">                <span class="comment">//如果isSection(position)，那么这个条目将占用SpanCount()这么多的列数，也就是3</span></div><div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        <span class="comment">//而如果不是，就占用1列即可</span></div><div class="line">                <span class="keyword">return</span> isSection(position) ? layoutManager.getSpanCount() : <span class="number">1</span>;</div><div class="line">            }</div><div class="line">        });</div><div class="line">recycleview.setLayoutManager(layoutManager);</div></pre></td></tr></tbody></table></div></figure>
+<a id="more"></a>
+<h3 id="滑动停止刷新数据"><a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#%E6%BB%91%E5%8A%A8%E5%81%9C%E6%AD%A2%E5%88%B7%E6%96%B0%E6%95%B0%E6%8D%AE" class="headerlink" title="滑动停止刷新数据"></a>滑动停止刷新数据</h3><p>判断是否正在滑动的方法是getScrollState(),如果它等于RecyclerView.SCROLL_STATE_IDLE说明不在滑动,判断有没有在计算layout的方法是isComputingLayout(),取否就可以得到不在计算的时候,通过这两个条件来决定是否刷新数据</p>
+<figure class="highlight java"><div class="table-area"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!recyclerView.isComputingLayout() &amp;&amp; RecyclerView.SCROLL_STATE_IDLE == recyclerView.getScrollState()) {</div><div class="line">            mAdapter.notifyDataSetChanged();</div><div class="line">        }</div></pre></td></tr></tbody></table></div></figure>
+<h3 id="getPosition-getLayoutPosition-getAdapterPosition"><a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#getPosition-getLayoutPosition-getAdapterPosition" class="headerlink" title="getPosition getLayoutPosition getAdapterPosition"></a>getPosition getLayoutPosition getAdapterPosition</h3><ul>
+<li>getPosition(); 查阅资料后发现[已弃用]</li>
+<li>getLayoutPosition(); [条目在最新布局计算中的位置]</li>
+<li>getAdapterPosition(); [条目在是适配器中的位置]</li>
+</ul>
+<p><code>getLayoutPosition</code>、<code>getAdapterPosition</code>这两种类型的位置是等同的，除非在分发adapter.notify*事件和更新布局时。</p>
+<p>adapter和layout的位置会有时间差(&lt;16ms), 如果你改变了Adapter的数据然后刷新视图, layout需要过一段时间才会更新视图, 在这段时间里面, 这两个方法返回的position会不一样.</p>
+<p>在notifyDataSetChanged之后并不能马上获取Adapter中的position, 要等布局结束之后才能获取到.</p>
+<p>而对于Layout的position, 在notifyItemInserted之后, Layout不能马上获取到新的position, 因为布局还没更新(需要&lt;16ms的时间刷新视图), 所以只能获取到旧的, 但是Adapter中的position就可以马上获取到最新的position.</p>
+<p>返回布局位置的方法使用最近一次布局运算后的位置，如getLayoutPosition()和findViewHolderForLayoutPosition(int)。这些位置包含了最近一次布局运算后的变化。你可以根据这些位置来与用户正在屏幕上看到的保持一致。比如，你有一个条目列表，当用户请求第5个条目时，你可以使用这些方法来匹配用户看到的。</p>
+<p>另外一系列方法与AdapterPosition关联，比如getAdapterPosition()和findViewHolderForAdapterPosition(int)。当你想获得条目在更新后的适配器中的位置使用这些方法，即使这些位置变化还没反映到布局中。比如，你想访问适配器中条目的位置时，就应该使用getAdapterPosition()。注意，如果notifyDataSetChanged()已经被调用而且还没计算新布局，这些方法或许不能够计算适配器位置。所以，你要小心处理这些方法返回NO_POSITION和null的情况。</p>
+<p>总之，当使用RecycleView.LayoutManager时使用getLayoutPosition布局位置。使用RecycleView.Adapter时，使用getAdapterPosition适配器位置。</p>
+<h3 id="pointToPosition"><a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#pointToPosition" class="headerlink" title="pointToPosition"></a>pointToPosition</h3><p>在AbsListView（listview、gridview）中，有个根据屏幕位置获取pos的方法：<code>pointToPosition</code>，但在recycleview中没有这个方法，可以通过下面方法来达到相同的效果</p>
+<figure class="highlight java"><div class="table-area"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">View targetView = recyclerView.findChildViewUnder(x, y);</div><div class="line">recyclerView.getChildAdapterPosition(targetView);</div></pre></td></tr></tbody></table></div></figure>
+<h3 id="OnContextMenuListener"><a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#OnContextMenuListener" class="headerlink" title="OnContextMenuListener"></a>OnContextMenuListener</h3><p><a href="http://stackoverflow.com/questions/26466877/how-to-create-context-menu-for-recyclerview" target="_blank" rel="external">http://stackoverflow.com/questions/26466877/how-to-create-context-menu-for-recyclerview</a></p>
+<p>ContextMenuRecyclerView.java</p>
+<figure class="highlight java"><div class="table-area"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContextMenuRecyclerView</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span> </span>{</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ContextMenuRecyclerView</span><span class="params">(Context context)</span> </span>{</div><div class="line">        <span class="keyword">super</span>(context);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ContextMenuRecyclerView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>{</div><div class="line">        <span class="keyword">super</span>(context, attrs);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ContextMenuRecyclerView</span><span class="params">(Context arg0, AttributeSet arg1, <span class="keyword">int</span> arg2)</span> </span>{</div><div class="line">        <span class="keyword">super</span>(arg0, arg1, arg2);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">private</span> RecyclerViewContextMenuInfo mContextMenuInfo;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> ContextMenu.<span class="function">ContextMenuInfo <span class="title">getContextMenuInfo</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">return</span> mContextMenuInfo;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">showContextMenuForChild</span><span class="params">(View originalView)</span> </span>{</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> longPressPosition = getChildAdapterPosition(originalView);</div><div class="line">        <span class="keyword">if</span> (longPressPosition &gt;= <span class="number">0</span>) {</div><div class="line">            <span class="keyword">final</span> <span class="keyword">long</span> longPressId = getAdapter().getItemId(longPressPosition);</div><div class="line">            mContextMenuInfo = <span class="keyword">new</span> RecyclerViewContextMenuInfo(longPressPosition, longPressId);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.showContextMenuForChild(originalView);</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RecyclerViewContextMenuInfo</span> <span class="keyword">implements</span> <span class="title">ContextMenu</span>.<span class="title">ContextMenuInfo</span> </span>{</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">RecyclerViewContextMenuInfo</span><span class="params">(<span class="keyword">int</span> position, <span class="keyword">long</span> id)</span> </span>{</div><div class="line">            <span class="keyword">this</span>.position = position;</div><div class="line">            <span class="keyword">this</span>.id = id;</div><div class="line">        }</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">public</span> <span class="keyword">int</span> position;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">public</span> <span class="keyword">long</span> id;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></tbody></table></div></figure>
+<p>In your Fragment (or Activity):<br></p><figure class="highlight java"><div class="table-area"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewCreated</span><span class="params">(View view, @Nullable Bundle savedInstanceState)</span> </span>{</div><div class="line">    <span class="keyword">super</span>.onViewCreated(view, savedInstanceState);</div><div class="line">    mRecyclerView = view.findViewById(R.id.recyclerview);</div><div class="line">    registerForContextMenu(mRecyclerView);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreateContextMenu</span><span class="params">(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)</span> </span>{</div><div class="line">    <span class="keyword">super</span>.onCreateContextMenu(menu, v, menuInfo);</div><div class="line">    <span class="comment">// inflate menu</span></div><div class="line">    MenuInflater inflater = getActivity().getMenuInflater();</div><div class="line">    inflater.inflate(R.menu.my_context_menu, menu);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onContextItemSelected</span><span class="params">(MenuItem item)</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onContextItemSelected(item);</div><div class="line">    RecyclerViewContextMenuInfo info = (RecyclerViewContextMenuInfo) item.getMenuInfo();</div><div class="line">    <span class="comment">// handle menu item here</span></div><div class="line">}</div></pre></td></tr></tbody></table></div></figure><p></p>
+<p>ViewHolder<br></p><figure class="highlight java"><div class="table-area"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">View</span>.<span class="title">ViewHolder</span> </span>{</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">onLongClick</span><span class="params">()</span> </span>{</div><div class="line">        itemView.showContextMenu();</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></tbody></table></div></figure><p></p>
+<h3 id="getChildAt-is-null"><a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#getChildAt-is-null" class="headerlink" title="getChildAt is null"></a>getChildAt is null</h3><p>使用下面两个方法代替<br></p><figure class="highlight java"><div class="table-area"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1</span></div><div class="line">findViewHolderForAdapterPosition</div><div class="line"><span class="comment">//2</span></div><div class="line">View viewItem = recycleView.getLayoutManager().findViewByPosition(position);</div><div class="line">View icon = viewItem.findViewById(R.id.view);</div></pre></td></tr></tbody></table></div></figure><p></p>
+<h3 id="notifyitemchanged方法会回到顶部"><a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#notifyitemchanged%E6%96%B9%E6%B3%95%E4%BC%9A%E5%9B%9E%E5%88%B0%E9%A1%B6%E9%83%A8" class="headerlink" title="notifyitemchanged方法会回到顶部"></a>notifyitemchanged方法会回到顶部</h3><p>当点击某个item的时候，RecyclerView回到顶部.<br>解决办法。使用<code>setHasFixedSize(true)</code>方法。</p>
+<p>下面是RecyclerView单选点击实现:<br></p><figure class="highlight java"><div class="table-area"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">categories.get(lastPosition).setSelected(<span class="keyword">false</span>);</div><div class="line">categoryAdapter.notifyItemChanged(lastPosition);</div><div class="line">categories.get(position).setSelected(<span class="keyword">true</span>);</div><div class="line">categoryAdapter.notifyItemChanged(position);</div><div class="line">lastPosition=position;</div></pre></td></tr></tbody></table></div></figure><p></p>
+<hr>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/">RecycleView的使用及坑</a></p>
+        <p><span>文章作者:</span><a href="http://dalufan.com/" title="回到主页">大路</a></p>
+        <p><span>发布时间:</span>2016-12-02, 18:44:12</p>
+        <p><span>最后更新:</span>2016-12-02, 18:44:12</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/" title="RecycleView的使用及坑">http://dalufan.com/2016/12/02/android-recycleview-useage-issues/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://dalufan.com/2016/12/02/android-recycleview-useage-issues/　　作者: 大路" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="http://dalufan.com/2017/01/08/java-singleton-good-write/">
+                    Java更好的单例写法
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="http://dalufan.com/2016/11/03/android-click-icon-restart/">
+                    防止App在后台运行，点击应用桌面图标重新启动
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#%E6%8E%A7%E5%88%B6Item%E7%9A%84%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">控制Item的宽度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#%E6%BB%91%E5%8A%A8%E5%81%9C%E6%AD%A2%E5%88%B7%E6%96%B0%E6%95%B0%E6%8D%AE"><span class="toc-number">2.</span> <span class="toc-text">滑动停止刷新数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#getPosition-getLayoutPosition-getAdapterPosition"><span class="toc-number">3.</span> <span class="toc-text">getPosition getLayoutPosition getAdapterPosition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#pointToPosition"><span class="toc-number">4.</span> <span class="toc-text">pointToPosition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#OnContextMenuListener"><span class="toc-number">5.</span> <span class="toc-text">OnContextMenuListener</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#getChildAt-is-null"><span class="toc-number">6.</span> <span class="toc-text">getChildAt is null</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#notifyitemchanged%E6%96%B9%E6%B3%95%E4%BC%9A%E5%9B%9E%E5%88%B0%E9%A1%B6%E9%83%A8"><span class="toc-number">7.</span> <span class="toc-text">notifyitemchanged方法会回到顶部</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox bdshare-button-style0-24" data-bd-bind="1514194504742">
+            <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"RecycleView的使用及坑　| 道听途说　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/12/02/android-recycleview-useage-issues/" data-title="RecycleView的使用及坑" data-url="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"dalufan"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="http://dalufan.com/2017/01/08/java-singleton-good-write/" title="上一篇: Java更好的单例写法">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="http://dalufan.com/2016/11/03/android-click-icon-restart/" title="下一篇: 防止App在后台运行，点击应用桌面图标重新启动">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list toc-article"><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2017/11/16/gradle-learn/" target="_blank">Gradle的介绍及使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2017/11/07/android-startActivityForResult-FragmentActivity-Fragment/" target="_blank">彻底搞懂startActivityForResult在FragmentActivity和Fragment中的异同</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2017/02/03/android-dynamicicon-example/" target="_blank">android动态更新APP图标和label</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2017/01/28/android-ViewPager-Fragment-LazyLoad/" target="_blank">ViewPager+Fragment LazyLoad 最优解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2017/01/08/java-singleton-good-write/" target="_blank">Java更好的单例写法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/" target="_blank">RecycleView的使用及坑</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/11/03/android-click-icon-restart/" target="_blank">防止App在后台运行，点击应用桌面图标重新启动</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/11/02/android-some-little-knowledge/" target="_blank">Android的一些开发细节</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/10/30/mysql-join-usage/" target="_blank">图解SQL的Join</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/10/26/swift-string-create-class/" target="_blank">Swift:通过字符串创建类对象&nbsp;&nbsp;</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/10/25/android-fragment-backpress/" target="_blank">Fragment监听返回键事件</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/10/08/ios-constraint-autolayout-autoresizing/" target="_blank">autolayout和autoresizing的使用注意事项</a></li><li class="post-list-item task-list check"><a class="post-list-link" href="http://dalufan.com/2016/09/09/xcode-eclipse-key-xcodeKit/" target="_blank">xcode中快速删除拷贝一行，like eclipse</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/09/09/ios-imageNamed-imageWithContentsOfFile-diff/" target="_blank">imageNamed和imageWithContentsOfFile的使用和区别</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/09/07/android-rotate-imageview/" target="_blank">Android 自定义可旋转的ImageView</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/08/19/mysql-case-when-and-left-join-demo/" target="_blank">mysql中UNIQUE、判断、组合查找的使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/07/27/android-fragment-state-saving-best-practices/" target="_blank">fragment状态保存最佳实践</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/07/21/android-valueanimator-in-diy-view/" target="_blank">ValueAnimator在自定义View中的使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/07/03/mysql-base-usage-03/" target="_blank">《mysql 必知必会》读书笔记三（21-30）</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/06/30/mysql-base-usage-02/" target="_blank">《mysql 必知必会》读书笔记二（13-20）</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/06/28/mysql-base-usage-01/" target="_blank">《mysql 必知必会》读书笔记一（1-12）</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/06/21/android-listview-usage/" target="_blank">android listview的一些技巧</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/06/11/android-react-native-learn-day02/" target="_blank">react-native学习笔记二</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/05/26/android-react-native-learn-day01/" target="_blank">react-native学习笔记一</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/05/17/android-widget-imageview-1/" target="_blank">自定义ImageView系列第一版</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/04/26/web-maven-springmvc-start-learn/" target="_blank">使用maven配置springmvc的过程中遇到的问题</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/04/23/java-uml-learn/" target="_blank">UML中的五种关系</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/03/17/android-art-of-android-deveopment-note-2/" target="_blank">《Android 开发艺术探索》读书笔记--第二章 IPC机制</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/03/13/effective-java-learn-note-10-01/" target="_blank">《Effective Java》读书笔记--第十章 并发（一）</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/02/20/android-art-of-android-deveopment-note-12/" target="_blank">《Android 开发艺术探索》读书笔记--第十二章 Bitmap 第十五章 性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/02/11/thinking-of-getting-the-current-activity-in-android/" target="_blank">如何获取当前Activity</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/02/08/workflow-feature-branch-Pull-Request/" target="_blank">WorkFlow--功能分支工作流(Pull Requests)</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/02/02/workflow-Pull-Request/" target="_blank">Pull Requests的使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/01/20/android-art-of-android-deveopment-note-10/" target="_blank">《Android 开发艺术探索》读书笔记--第十章Android的消息机制</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/01/11/android-art-of-android-deveopment-note-4/" target="_blank">《Android 开发艺术探索》读书笔记--第四章 View的工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/01/08/workflow-centralized-git-rebase/" target="_blank">WorkFlow--集中式工作流(git rebase)</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/01/03/android-activity-onActivityResult/" target="_blank">Activity中onActivityResult存在的坑</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2016/01/01/android-sec-AndroidManifest/" target="_blank">AndroidManifest Ambiguity方案原理及代码</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/12/22/android-webview-upload-file/" target="_blank">Webview中上传文件支持全解析</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/12/20/android-webview-issues/" target="_blank">Webview中的问题及解决</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/12/18/android-art-of-android-deveopment-note-3/" target="_blank">《Android 开发艺术探索》读书笔记--第三章View事件体系</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/12/02/java-JSONObject-Stub/" target="_blank">java工程中调用Android库出现“Stub!”错误</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/30/android-open-eventbus-usage/" target="_blank">android中EventBus的使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/30/android-TextView-show-scrollbar/" target="_blank">android TextView始终显示滚动条的方法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/30/android-network-type/" target="_blank">Android判断用户的网络类型(2/3/4G、wifi)</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/30/android-ScrollView-fill/" target="_blank">android中ScrollView不能被完全填充</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/30/android-optimization-thread-ThreadPoolExecutor/" target="_blank">android性能优化--使用线程池处理异步任务</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/26/android-View-LinearGradient/" target="_blank">android中使用LinearGradient实现文字闪烁的效果</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/24/android-Activity-launch-learn/" target="_blank">Activity启动过程全解析</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/23/android-DownloadManager-usage/" target="_blank">android中使用DownloadManager来下载</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/22/android-context-learn/" target="_blank">Android Context完全解析</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/21/android-reconstruction-achievement/" target="_blank">Android项目重构的整理-实现篇</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/21/android-reconstruction-view/" target="_blank">Android项目重构的整理-界面篇</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/21/android-reconstruction-architecture/" target="_blank">Android项目重构的整理-架构篇</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/20/android-webview-js-safe-message/" target="_blank">Webview与Js之间的另一种交互</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/20/android-error-UncaughtExceptionHandler/" target="_blank">android中处理崩溃的一般方法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/18/android-mat-usage/" target="_blank">MAT的一般使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/17/android-gc-leak/" target="_blank">android 内存泄露以及GC的相关知识</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/12/android-onSaveInstanceState-learn/" target="_blank">Activity和Fragement中onSaveInstanceState()的使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/11/07/app-hearsay/" target="_blank">道听途说</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/10/20/android-error-cannot-create-handler-inside/" target="_blank">android运行提示java.lang.RuntimeException: Can't create handler inside thread that has not</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/10/20/android-view-issues/" target="_blank">android中view相关的问题及解决</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/09/18/android-dex-inject-learn/" target="_blank">android dex注入实现详解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/09/17/android-canvas-draw/" target="_blank">android中canvas的一些属性和用法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/09/11/android-onTouchEvent/" target="_blank">Android触摸事件的响应机制</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/09/10/free-mail-mailinator/" target="_blank">mailinator 免费邮箱的使用说明</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/09/08/android-setOnPageChangeListener/" target="_blank">ViewPager的setOnPageChangeListener方法详解 </a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/09/08/android-Activity-ActionBarActivity-AppCompatActivity/" target="_blank">android中关于Activity/ActionBarActivity/AppCompatActivity的区分与理解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/09/07/android-BitmapFactory-OutOfMemoryError/" target="_blank">android BitmapFactory的OutOfMemoryError的解决方案 </a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/09/03/git-android-as/" target="_blank">在android Studio 和 Eclipse 的 git 插件操作'代码提交'以及'代码冲突' </a></li><li class="post-list-item task-list check"><a class="post-list-link" href="http://dalufan.com/2015/09/01/android-QR-changesize/" target="_blank">Zxing二维码扫描框大小修改</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/08/28/android-Scrollview-RelativeLayout/" target="_blank">ScrollView中RelativeLayout设置match_parent无法填充满屏幕</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/08/28/retrofit-usage/" target="_blank">Retrofit 中文文档</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/08/28/git-reset-soft-mixed-hard/" target="_blank">Difference between git reset soft, mixed and hard</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/08/28/android-handler-gc/" target="_blank">Handler的内存泄露及解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/08/27/android-so-usage/" target="_blank">关于android的.so文件你所需要知道的</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/08/26/android-EmailAutoCompleteTextView/" target="_blank">android 邮箱地址自动补全</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/08/24/android-setCompoundDrawables-setCompoundDrawablesWithIntrinsicBounds/" target="_blank">android setCompoundDrawables与setCompoundDrawablesWithIntrinsicBounds的区别</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/08/20/android-Drawable-usage/" target="_blank">android Drawable 那些不为人知的高效用法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/07/29/hello-world/" target="_blank">Hexo的使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/07/10/eclipse-cannot-open-git-upload-pack/" target="_blank">eclipse git push和pull出错</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/07/01/android-listview-ontouchevent/" target="_blank">android中对GridView， ListView等滚动控件的Touch事件onInterceptTouchEvent，onTouchEvent理解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/06/29/android-javascript-exchange/" target="_blank">Android与Javascript交互概要</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/05/21/android-performance-optimization-SparseArray/" target="_blank">android应用性能优化中使用SparseArray替代HashMap</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/05/12/java-regex-useage/" target="_blank">Java正则表达式的一般使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/05/05/android-motionevent/" target="_blank">MotionEvent中getX()、getRawX()等位置说明</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/04/26/android-service-download-singlethread/" target="_blank">android中Service断点下载-单线程</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/04/18/service-not-be-killed/" target="_blank">android保证Service不被杀掉的方法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/04/12/android-Intent-PendingIntent/" target="_blank">android中Intent和PendingIntent的区别</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/04/10/android-AlarmManager/" target="_blank">android中AlarmManager的说明例子</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/03/30/android-handler-learn/" target="_blank">android中Handler的使用Tips</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/03/14/android-sqlite-err/" target="_blank">sqlite遇到的问题</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/02/14/android-sqlite-learn/" target="_blank">sqlite的使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/02/11/android-thread-volatile-synchronized-final/" target="_blank">进程通信中volatile, synchronized, final的使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/01/17/java-Process/" target="_blank">java.lang.Process 阻塞问题 &amp; Runtime.exec()的陷阱</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/01/16/android-excel/" target="_blank">android操作Excel文件</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/01/14/android-Smail-learn/" target="_blank">Smail语法</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/01/12/android-BroadCast-Security/" target="_blank">android广播中的安全问题</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2015/01/12/android-ContentObserver-learn/" target="_blank">android中ContentObserver类详解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/30/android-app-usagestats/" target="_blank">android 获取各应用的运行时间</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/29/ubuntu-android-driver/" target="_blank">ubuntu下解决不能识别android设备</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/25/android-View-learn-three/" target="_blank">android中简单自定义view③</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/25/android-DownloadManager/" target="_blank">android DownloadManager广播事件：下载完成、通知栏点击事件</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/23/android-View-learn-two/" target="_blank">android中View的使用及解释②</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/23/android-View-learn-one/" target="_blank">android中View的使用及解释①</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/21/android-ContentProvider-learn/" target="_blank">android ContentProvider基本使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/21/android-Uri-learn/" target="_blank">android中Uri的使用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/12/20/android-mediaplayer-usage/" target="_blank">android MediaPlayer基本使用方式</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/30/net-get-post/" target="_blank">GET请求和POST请求的区别</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/28/android-sec-commonly/" target="_blank">android一些安全事项</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/27/android-Intent/" target="_blank">android中Intent使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/27/android-BroadcastReceiver/" target="_blank">android中BroadcastReceiver应用详解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/26/android-Service/" target="_blank">android中Service的详细使用说明</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/26/android-activity-task/" target="_blank">android中Activity的task</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/25/android-activity-launchMode/" target="_blank">android中Activity的四种launchMode</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/18/android-permission/" target="_blank">android声明和使用权限</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/14/android-view-IllegalArgumentException/" target="_blank">View not attached to window manager</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/12/httpclient-learn-conclusion/" target="_blank">httpclient使用总结</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/11/10/android-MediaRecorder-stop-error/" target="_blank">android录音时stop出错</a></li><li class="post-list-item task-list check"><a class="post-list-link" href="http://dalufan.com/2014/11/08/android-xutils-http-learn/" target="_blank">xutils中HttpUtils模块分析①</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/10/20/android-error/" target="_blank">android异常/错误集</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/30/java-Generics/" target="_blank">java中泛型Generics的说明</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/26/java-ThreadPoolExecutor/" target="_blank">android里面ThreadPoolExecutor的说明</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/24/java-volatile-static/" target="_blank">java中volatile和static的区别 </a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/21/java-shutdown/" target="_blank">线程池shutdown()方法和shutdownNow()区别</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/19/java-volatile/" target="_blank">java 里面volatile的说明</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/19/java-AtomicInteger/" target="_blank">java 里面AtomicInteger的说明</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/07/java-string-format/" target="_blank">java中string.format方法使用介绍</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/06/java-Serializable/" target="_blank">java 里面Serializable的说明</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/05/eclipse-git-merge/" target="_blank">eclipse中git解决冲突</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/04/java-enum-final/" target="_blank">java中枚举和常量定义的区别</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/09/03/java-enum/" target="_blank">java中enum的用法详解</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/05/17/git-api/" target="_blank">git常用命令及思维导图</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/03/25/session-cookie/" target="_blank">详解COOKIE与SESSION的区别</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/03/25/java-trans/" target="_blank">java是传值还是传引用</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2014/02/16/string-stringbuffer/" target="_blank">String和StringBuffer的区别</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2013/08/24/java-reflection/" target="_blank">Java反射Demo</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2013/05/17/ubuntu_order/" target="_blank">ubuntu命令学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="http://dalufan.com/2013/05/17/sublime-text-2/" target="_blank">Sublime Text 2使用简介</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2013-2017 大路
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display: inline;">
+                        <span id="site-visit">本站到访数: 
+                            <span id="busuanzi_value_site_uv">17016</span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display: inline;">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv">1422</span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="./RecycleView的使用及坑 _ 道听途说_files/require.min.js.下载"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 6;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="http://dalufan.com/2016/12/02/android-recycleview-useage-issues/#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async="" src="./RecycleView的使用及坑 _ 道听途说_files/busuanzi.pure.mini.js.下载">
+</script>
+  </div>
+
+</body></html>
