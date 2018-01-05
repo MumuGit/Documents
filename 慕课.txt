@@ -1,1 +1,4 @@
 1、阿里巴巴矢量图标库
+2.Gogs
+3.简化的构造者模式可以看alertDialog的源码
+1.第三方托管 coding.net
