@@ -1,0 +1,1337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0060)http://blog.csdn.net/wangkai0681080/article/details/50772721 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/pr.js.下载"></script>          
+            <link rel="canonical" href="http://blog.csdn.net/wangkai0681080/article/details/50772721"> 
+
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#">
+
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848"> 
+       
+    <title>RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客</title>
+    
+    <meta name="description" content="doOnNext的使用我对doOnNext的使用是存在疑惑的，按照官方文档  The doOnNext operator is much like doOnEach(Action1) except that the Action that you pass it as a parameter does not accept a Notification but instead simply acc">
+
+    <meta name="keywords" content="RxJava">
+    <script src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/hm.js.下载"></script><script type="text/javascript" async="" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/tnrvrka.js.下载"></script><script src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/blog_static_head.min.js.下载" type="text/javascript"></script>
+
+
+    <link rel="Stylesheet" type="text/css" href="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/wangkai0681080/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/default.css">
+ 
+
+
+
+    <link href="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet">
+     
+         <link rel="stylesheet" href="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/csdn_blog_detail.min.css">
+
+    <!-- 璇风疆浜庢墍鏈夊箍鍛婁綅浠ｇ爜涔嬪墠 --> 
+            <script src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ds.js.下载"></script>
+
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style></head>
+
+    
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;"><symbol id="icon-xiajiantou" viewBox="0 0 1024 1024"><path d="M328.208 346.062h368.494c20.393 0 36.887 16.366 36.887 36.757 0 9.484-3.637 18.056-9.483 24.55L541.873 650.522c-12.211 16.105-35.2 19.484-51.438 7.275-2.859-2.08-5.324-4.547-7.274-7.275L298.853 404.772c-12.08-16.106-8.83-39.225 7.404-51.306 6.626-5.066 14.289-7.404 21.95-7.404z"></path></symbol><symbol id="icon-shouji" viewBox="0 0 1024 1024"><path d="M537.754 795.889c-26.41 0-47.893 21.478-47.893 47.892s21.484 47.893 47.893 47.893 47.892-21.479 47.892-47.893-21.483-47.892-47.892-47.892z"></path><path d="M774.697 42.071H300.815c-39.864 0-72.3 32.43-72.3 72.3v795.264c0 39.869 32.43 72.3 72.3 72.3h473.872c39.87 0 72.3-32.431 72.3-72.3v-795.27c0.004-39.864-32.426-72.294-72.29-72.294zM300.815 90.266h473.872a24.125 24.125 0 0 1 24.1 24.1v595.809H276.72v-595.81a24.125 24.125 0 0 1 24.094-24.1z m473.882 843.463H300.815a24.125 24.125 0 0 1-24.1-24.1V762.501h522.072V909.63a24.115 24.115 0 0 1-24.09 24.1z"></path></symbol><symbol id="icon-tianxie" viewBox="0 0 1024 1024"><path d="M121.905 780.19h780.19v97.524h-780.19V780.19zM823.296 298.496l-68.974-68.974-344.795 344.796-34.475 103.448 103.424-34.475zM875.008 246.76l17.237-17.238-68.949-68.949-17.262 17.237-17.237 17.238 68.974 68.973z"></path></symbol><symbol id="icon-sousuo" viewBox="0 0 1024 1024"><path d="M1023.972002 964.002812l-59.981188 59.981189-271.443276-271.459276c-166.600191 136.489602-412.812649 126.986048-568.309361-28.494664-165.624236-165.624236-165.624236-434.187647 0-599.859881 165.624236-165.592238 434.187647-165.592238 599.827883 0 155.52871 155.52871 164.984266 401.789166 28.462666 568.389356L1023.972002 964.002812zM663.364906 184.007375c-132.585785-132.585785-347.327719-132.761777-479.705514-0.43198-132.329797 132.345796-132.121807 347.119729 0.463978 479.705514s347.375717 132.793775 479.705514 0.41598c132.329797-132.281799 132.169805-347.10373-0.463978-479.689514z"></path></symbol><symbol id="icon-guanbi" viewBox="0 0 1024 1024"><path d="M1002.211316 933.90818c24.46369 24.46369 29.007633 59.583246 10.159871 78.447007-18.863761 18.863761-53.983317 14.303819-78.447007-10.159871L21.807724 90.09486C-2.655966 65.631169-7.199909 30.495614 11.647853 11.647853c18.863761-18.863761 53.983317-14.303819 78.447007 10.159871L1002.211316 933.90818z"></path><path d="M933.92418 21.807724C958.38787-2.655966 993.507426-7.199909 1012.371187 11.647853c18.863761 18.863761 14.303819 53.983317-10.159871 78.447007L90.09486 1002.211316c-24.46369 24.46369-59.583246 29.007633-78.447007 10.159871-18.847761-18.863761-14.303819-53.983317 10.159871-78.463007L933.92418 21.807724z"></path></symbol><symbol id="icon-caidan" viewBox="0 0 1024 1024"><path d="M0 132.8a48.496 48.496 0 0 0 48.496 48.496h927.008a48.496 48.496 0 1 0 0-96.992H48.496A48.496 48.496 0 0 0 0 132.8s0-26.784 0 0zM0 512.016a48.48 48.48 0 0 0 48.48 48.48h927.04a48.48 48.48 0 0 0 0-96.96H48.48A48.48 48.48 0 0 0 0 512.016s0-26.784 0 0zM0 891.2a48.496 48.496 0 0 0 48.496 48.496h927.008a48.496 48.496 0 1 0 0-96.992H48.496A48.496 48.496 0 0 0 0 891.2s0-26.784 0 0z"></path></symbol><symbol id="icon-yonghudenglu" viewBox="0 0 1024 1024"><path d="M1022.26704 962.432c-43.888-157.584-162.16-281.216-312.064-340.144 92.8-61.376 153.92-164.496 153.92-281.168C864.12304 153.04 706.04304 0 511.70704 0 317.35504 0 159.19504 153.04 159.19504 341.136c0 116.704 61.152 219.84 154.064 281.184C164.13904 681.024 46.18704 803.792 1.80304 960.16c-7.344 26.016 8.464 52.864 35.36 60.032a52.016 52.016 0 0 0 38.4-4.608 49.072 49.072 0 0 0 23.712-29.568c50.768-178.96 220.352-303.92 412.448-303.92 193.04 0 362.848 125.712 412.944 305.744 7.296 26.048 34.992 41.456 61.952 34.48 26.912-7.04 42.88-33.824 35.648-59.888zM260.25104 341.136c0-134.256 112.816-243.424 251.472-243.424 138.576 0 251.328 109.184 251.328 243.424 0 133.904-112.768 242.864-251.328 242.864-138.672 0-251.472-108.976-251.472-242.864z m0 0"></path></symbol><symbol id="toolbar-csdnlogo" viewBox="0 0 1024 1024"><path d="M533.941333 419.264c14.709333-1.621333 37.290667-3.264 68.352-3.264 51.872 0 93.802667 9.152 119.776 28.416 23.338667 17.952 38.858667 47.008 34.56 89.130667-3.978667 39.189333-24.042667 66.634667-53.312 83.594666C676.544 633.152 642.837333 640 592.106667 640c-29.888 0-58.421333-1.642667-80.106667-4.896l21.941333-215.84z m42.869334 172.938667c4.981333 0.992 11.562667 1.973333 24.533333 1.973333 51.882667 0 88.469333-25.877333 92.16-62.24 5.333333-52.554667-27.125333-70.944-81.802667-70.624-7.072 0-16.917333 0-22.133333 0.970667L576.8 592.213333h0.010667z m223.498666-164.704c210.954667-39.872 229.162667 31.776 222.645334 95.189333L1010.656 640h-66.944l11.210667-106.986667c2.421333-23.562667 17.504-69.653333-55.338667-67.914666-25.184 0.608-37.706667 4.064-37.706667 4.064s-2.186667 28.469333-4.832 49.514666L844.32 640H778.666667l13.024-119.573333" fill="#231916"></path><path d="M226.634667 632.682667c-12.373333 4.341333-38.037333 7.317333-73.909334 7.317333C49.6 640-6.048 590.933333 0.522667 526.090667 8.416 448.810667 90.858667 405.333333 181.141333 405.333333c34.976 0 55.552 2.858667 74.858667 7.637334l-6.208 52.064c-12.821333-4.384-42.890667-8.405333-67.232-8.405334-53.141333 0-98.250667 16.042667-103.424 66.762667-4.608 45.354667 27.061333 67.04 86.816 67.04 20.8 0 51.477333-3.018667 65.653333-7.370667l-4.992 49.6 0.021334 0.021334z" fill="#C92027"></path><path d="M272.714667 580.021333c19.285333 6.762667 59.488 13.504 92 13.504 35.029333 0 54.528-9.333333 56.096-23.797333 1.418667-13.205333-12.928-14.986667-52.490667-24.010667-54.666667-12.896-89.546667-32.842667-86.133333-64.704C286.176 443.989333 337.685333 416 416.725333 416c38.56 0 75.914667 2.613333 95.274667 8.714667l-6.656 46.666666c-12.565333-4.202667-60.672-10.037333-93.205333-10.037333-32.992 0-50.069333 9.973333-51.253334 20.917333-1.493333 13.845333 15.658667 14.485333 58.528 25.450667 58.026667 14.154667 83.402667 34.090667 80.085334 64.992C495.605333 609.109333 449.258667 640 356.714667 640c-38.528 0-71.744-6.762667-90.048-13.525333l6.048-46.453334z" fill="#231916"></path></symbol><symbol id="icon-morentouxiang" viewBox="0 0 1024 1024"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#A0C3FF"></path><path d="M691.2 887.466667c-55.466667-25.6-123.733333-51.2-123.733333-51.2v-38.4c68.266667-25.6 119.466667-89.6 132.266666-166.4 12.8-4.266667 38.4-17.066667 46.933334-55.466667l8.533333-46.933333s4.266667-59.733333-42.666667-46.933334c4.266667-38.4 4.266667-81.066667 4.266667-115.2-4.266667-64-89.6-98.133333-89.6-98.133333l12.8-17.066667s-42.666667-12.8-59.733333-4.266666l12.8-29.866667s-85.333333 0-132.266667 38.4h-4.266667v-17.066667s-145.066667 21.333333-140.8 243.2c-46.933333-12.8-42.666667 46.933333-42.666666 46.933334l8.533333 46.933333c4.266667 38.4 29.866667 51.2 46.933333 55.466667 12.8 81.066667 64 145.066667 132.266667 166.4v38.4s-68.266667 29.866667-123.733333 51.2c-29.866667 12.8-59.733333 34.133333-81.066667 59.733333 68.266667 51.2 157.866667 76.8 256 76.8s187.733333-25.6 264.533333-72.533333c-21.333333-29.866667-51.2-46.933333-85.333333-64z" fill="#4374E0"></path></symbol><symbol id="icon-icon_boke" viewBox="0 0 1024 1024"><path d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m298.667-256H213.333v42.667h597.334V768z m-21.334-448L704 234.667 341.333 597.333l-42.666 128 128-42.666L789.333 320z"></path></symbol><symbol id="icon-icon_gitchatx" viewBox="0 0 1024 1024"><path d="M810.667 533.333v-64h-384v85.334h298.666v128h85.334V533.333zM256 810.667h426.667v-85.334h-384V298.667h426.666V384h85.334V213.333H213.333v597.334H256zM512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m213.333-298.667v85.334h85.334v-85.334h-85.334z"></path></symbol><symbol id="icon-guanbi1" viewBox="0 0 1024 1024"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024z m160-768L512 416 352 256l-96 96 160 160-160 160 96 96 160-160 160 160 96-96-160-160 160-160-96-96z"></path></symbol></svg><div id="MathJax_Message" style="display: none;"></div><div class="csdn-toolbar csdn-toolbar tb_disnone">        <div class="container row center-block ">          <ul class="pull-left left-menu clearfix">            <li>              <a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank">              <svg class="icon" aria-hidden="true">                  <use xlink:href="#toolbar-csdnlogo"></use>              </svg>                </a>            </li>            <li><a href="http://blog.csdn.net/?ref=toolbar" class="toolbar_to_feed" title="博客" target="_blank" style="position: relative;">博客<div class="toolbar_speck"></div></a></li>            <li><a href="http://edu.csdn.net/?ref=toolbar" title="学院" target="_blank">学院</a></li>            <li><a href="http://download.csdn.net/?ref=toolbar" title="下载" target="_blank">下载</a></li>            <li><a href="http://gitbook.cn/?ref=csdn" title="GitChat" target="_blank">GitChat</a></li>            <li class="tb_is1150hide"><a href="http://bbs.csdn.net/?ref=toolbar" title="论坛" target="_blank">论坛</a></li>            <li class="tb_is1210hide"><a href="http://ask.csdn.net/?ref=toolbar" title="问答" target="_blank">问答</a></li>            <li class="tb_is1270hide"><a href="http://mall.csdn.net/?ref=toolbar" title="商城" target="_blank">商城</a></li>            <li class="show-more">            <a href="javascript:;" class="show-more-a"><svg width="22" height="4" xmlns="http://www.w3.org/2000/svg"><path d="M2 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#4F4F4F" fill-rule="evenodd"></path></svg></a>              <div class="more">                <div class="tb_is1150show"><a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></div>                <div class="tb_is1210show"><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">问答</a></div>                <div class="tb_is1270show"><a href="http://mall.csdn.net/?ref=toolbar" target="_blank">商城</a></div>                <div><a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></div>                <div><a href="https://gitee.com/?utm_source=csdn_toolbar" target="_blank">码云</a></div>                <div><a href="http://www.iteye.com/?ref=toolbar" target="_blank">ITeye</a></div>                <div><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></div>              </div>            </li>          </ul>          <div class="pull-right login-wrap ">            <ul class="btns">            <li class="toolbar-tracking csdn-tracking-statistics tracking-click" data-mod="popu_369"><a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#" style="padding:0"></a></li>              <li>                <div class="search_bar csdn-tracking-statistics tracking-click" data-mod="popu_366">                  <input type="text" class="input_search" name="">                  <a href="http://so.csdn.net/so/" target="_blank" class="btn-nobg-noborder btn-search"><i class="iconfont-toolbar toolbar-sousuo"></i></a>                </div>              </li>              <li class="write-bolg-btn csdn-tracking-statistics tracking-click" data-mod="popu_370"><a class="" href="http://mp.blog.csdn.net/postedit?ref=toolbar" target="_blank"><i class="iconfont-toolbar toolbar-icon_boke"></i><span>写博客</span></a></li>              <li class="gitChat"><a class="" href="http://gitbook.cn/new/gitchat/activity?utm_source=csdnblog1" target="_blank"><i class="iconfont-toolbar toolbar-icon_gitchatx"></i><span>发Chat</span></a></li>              <li class="userinfo"><a href="https://passport.csdn.net/account/login?ref=toolbar">登录</a><span></span><a href="https://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">注册</a></li>              <li class="userLogin">                <div class="loginCenter"><a href="http://my.csdn.net/?ref=toolbar" target="_blank"><img class="login_img" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/2_daoye2011.jpg"><div class="toolbar-circle" style="display: block;"></div></a></div>                <div class="userControl">                  <div><a href="http://blog.csdn.net/daoye2011?ref=toolbar" target="_blank">我的博客</a></div>                  <div><a class="xiaoxi" href="http://msg.csdn.net/?ref=toolbar" target="_blank">消息<span class="toolbar-newsL" style="margin-left: 4px; display: inline;">(7)</span></a></div>                  <div><a href="http://my.csdn.net/my/account/changepwd?ref=toolbar" target="_blank">设置</a></div>                  <div><a href="http://bbs.csdn.net/forums/Service?ref=toolbar" target="_blank">反馈</a></div>                  <div><a href="http://oldblog.csdn.net/home/help.html" target="_blank">帮助</a></div>                  <div><a href="http://passport.csdn.net/account/logout?ref=toolbar">退出</a></div>                </div>              </li>            </ul>          </div>        </div>    </div><script class="toolbar-s" type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/iconfont.js.下载"></script>
+        <div class="tracking-ad" data-view="true" data-mod="ad_popu_72" data-mtp="62" data-order="40" data-con="ad_content_2072">
+                     <script id="popuLayer_js_q" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/popuLayer.js.下载" defer="defer" type="text/javascript"></script>
+                <div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px;">
+    	                <div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">鍏抽棴</div><!-- 骞垮憡鍗犱綅瀹瑰櫒 -->
+                    <div id="cpro_u2895327">
+                        <!-- 鎶曟斁浠ｇ爜 -->
+                        <script src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ds.js.下载"></script>
+                       <!-- 骞垮憡浣嶏細PC绔?鍗氬璇︽儏椤靛彸渚у脊绐?300*250 -->
+                            <script>
+                                (function () {
+                                    var s = "_" + Math.random().toString(36).slice(2);
+                                    document.write('<div id="' + s + '"></div>');
+                                    (window.slotbydup = window.slotbydup || []).push({
+                                        id: '4740870',
+                                        container: s,
+                                        size: '300,250',
+                                        display: 'inlay-fix'
+                                    });
+                                })();
+                            </script><div id="_sjjfuc401h"></div><script charset="utf-8" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ucjm"></script><div id="_3vocpcx05ai"><div><iframe width="300" frameborder="0" height="250" scrolling="no" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/s.html"></iframe><ins style="width:0px;height:0px;"></ins></div></div><script type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ojylrgbykmqybf.js.下载"></script>
+                    </div></div>
+                <script>  document.getElementById("popuLayer_js_q").onload = function () {
+      var styObjd = styObj = { width: "300px", "height": parseInt(250) + 28 };
+      window.CSDN.Layer.PopuLayer("#layerd", { storageName: "layerd", styleObj: styObjd, total: 50, expoire: 1000 * 60 });
+  }</script>
+            
+     
+        </div>
+
+       
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/content_toolbar.js.下载" type="text/javascript" domain="http://blog.csdn.net"></script>
+
+    <link rel="stylesheet" href="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/content_toolbar.css">
+     <!--new top-->
+    <div id="container">
+        
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/wangkai0681080">kyleada的专栏</a></h2>
+            <h3>- 在大连 - Android -</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+    
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/wangkai0681080?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/wangkai0681080?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/wangkai0681080/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ico_rss.gif">订阅</span></a></li>                   
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "wangkai0681080";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/wangkai0681080";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "daoye2011";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://blog.csdn.net/turingbooks/article/details/78475571">
+<font color="red"><strong>图灵赠书——程序员11月书单</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://edu.csdn.net/topic/python2?utm_source=blog4">
+<font color="blue"><strong>【思考】Python这么厉害的原因竟然是！</strong></font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/epubit17/article/details/78606519">
+<font color="blue"><strong>感恩节赠书：《深度学习》等异步社区优秀图书和作译者评选启动！</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://blog.csdn.net/broadview2006/article/details/78603363">
+<font color="red"><strong>每周荐书：京东架构、Linux内核、Python全栈</strong></font></a>
+
+
+
+</div>
+                        </div>
+
+                        
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/category.js.下载"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+      var isBole = false; 
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=RxJava%e9%87%8cdoOnNext%e7%9a%84%e4%bd%bf%e7%94%a8%e5%92%8c%e7%ba%bf%e7%a8%8b%e5%a4%84%e7%90%86&u=http://blog.csdn.net/wangkai0681080/article/details/50772721"
+    </script>
+<div id="article_details" class="details">
+    
+<div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/wangkai0681080/article/details/50772721">
+        RxJava里doOnNext的使用和线程处理        
+           
+        </a>
+        </span>
+
+         
+    </h1>
+</div>
+
+   
+
+    
+    <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/RxJava" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">RxJava</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2016-03-01 15:08</span>
+            <span class="link_view" title="阅读次数">13447人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(3)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;RxJava%e9%87%8cdoOnNext%e7%9a%84%e4%bd%bf%e7%94%a8%e5%92%8c%e7%ba%bf%e7%a8%8b%e5%a4%84%e7%90%86&#39;,&#39;50772721&#39;);return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#report" onclick="javascript:report(50772721,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;2473567&#39;,&#39;wangkai0681080&#39;,&#39;top&#39;,&#39;50772721&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Android<em>（18）</em></span>
+                      <img class="arrow-down" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/wangkai0681080/article/category/2473567" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2473567">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+
+
+
+<div id="article_content" class="article_content tracking-ad" data-mod="popu_307" data-dsm="post">
+        <div class="markdown_views"><h2 id="doonnext的使用">doOnNext的使用</h2>
+
+<p>我对doOnNext的使用是存在疑惑的，按照官方文档</p>
+
+<blockquote>
+  <p>The doOnNext operator is much like doOnEach(Action1) except that the Action that you pass it as a parameter does not accept a Notification but instead simply accepts the emitted item.</p>
+</blockquote>
+
+<p>更多的文档里说明do系列的作用是side effect,当onNext发生时，它被调用，不改变数据流。我做的测试代码：  </p>
+
+<p>2017.9.28增加修正： <br>
+首先要理解什么是副作用：方法执行的时候，产生了外部可以观察到的变化就是产生了副作用。 <br>
+那些文档的意思是说，不要在doOnNext做能发生副作用的方法，也就是不要去改变数据流</p>
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering">Observable.create(<span class="hljs-keyword">new</span> Observable.OnSubscribe&lt;Person&gt;() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">call</span>(Subscriber&lt;? <span class="hljs-keyword">super</span> Person&gt; subscriber) {
+                Person person = <span class="hljs-keyword">new</span> Person(<span class="hljs-number">201</span>);
+                subscriber.onNext(person);
+            }
+        }).doOnNext(<span class="hljs-keyword">new</span> Action1&lt;Person&gt;() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">call</span>(Person person) {
+                person.age = <span class="hljs-number">301</span>;
+            }
+        }).subscribe(<span class="hljs-keyword">new</span> Action1&lt;Person&gt;() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">call</span>(Person person) {
+                Log.d(TAG, <span class="hljs-string">"call: "</span> + person.age);<span class="hljs-comment">//输出301</span>
+            }
+        });</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li></ul></pre>
+
+<p>可见，doOnNext是改变了流里的数据的，所以并不明白不改变数据流是什么意思。 <br>
+从github上<a href="https://github.com/ZhaoKaiQiang/JianDanRxJava" target="_blank">很多项目</a>和<a href="http://codecloud.net/rxjavas-side-effect-methods-6628.html" target="_blank">这篇文章</a>来看，do系列的作用</p>
+
+<ul>
+<li>使用doOnNext()来调试 </li>
+<li>在flatMap()里使用doOnError()作为错误处理。</li>
+<li><p>使用doOnNext()去保存/缓存网络结果</p>
+
+<p>按照我的测试</p></li>
+</ul>
+
+<pre class="prettyprint" name="code"><code class="hljs lasso has-numbering">   final SimpleDateFormat sDateFormat    <span class="hljs-subst">=</span>   <span class="hljs-literal">new</span>   SimpleDateFormat(<span class="hljs-string">"yyyy-MM-dd    hh:mm:ss"</span>);
+        Observable<span class="hljs-built_in">.</span>create(<span class="hljs-literal">new</span> Observable<span class="hljs-built_in">.</span>OnSubscribe<span class="hljs-subst">&lt;</span>Person<span class="hljs-subst">&gt;</span>() {
+            @Override
+            <span class="hljs-keyword">public</span> <span class="hljs-literal">void</span> call(Subscriber<span class="hljs-subst">&lt;?</span> super Person<span class="hljs-subst">&gt;</span> subscriber) {
+                <span class="hljs-built_in">String</span>    <span class="hljs-built_in">date</span>    <span class="hljs-subst">=</span>    sDateFormat<span class="hljs-built_in">.</span>format(<span class="hljs-literal">new</span>    <span class="hljs-built_in">Date</span>());
+                System<span class="hljs-built_in">.</span>out<span class="hljs-built_in">.</span>println(<span class="hljs-built_in">date</span> <span class="hljs-subst">+</span> <span class="hljs-string">" call "</span> <span class="hljs-subst">+</span> <span class="hljs-keyword">Thread</span><span class="hljs-built_in">.</span>currentThread()<span class="hljs-built_in">.</span>getName());
+                Person person <span class="hljs-subst">=</span> <span class="hljs-literal">new</span> Person(<span class="hljs-number">201</span>);
+                subscriber<span class="hljs-built_in">.</span>onNext(person);
+            }
+        })<span class="hljs-built_in">.</span>subscribeOn(Schedulers<span class="hljs-built_in">.</span>io()) <span class="hljs-comment">//指定耗时进程</span>
+                <span class="hljs-built_in">.</span>observeOn(Schedulers<span class="hljs-built_in">.</span>newThread()) <span class="hljs-comment">//指定doOnNext执行线程是新线程</span>
+                <span class="hljs-built_in">.</span>doOnNext(<span class="hljs-literal">new</span> Action1<span class="hljs-subst">&lt;</span>Person<span class="hljs-subst">&gt;</span>() {
+            @Override
+            <span class="hljs-keyword">public</span> <span class="hljs-literal">void</span> call(Person person) {
+                <span class="hljs-built_in">String</span>    <span class="hljs-built_in">date</span>    <span class="hljs-subst">=</span>    sDateFormat<span class="hljs-built_in">.</span>format(<span class="hljs-literal">new</span>    <span class="hljs-built_in">Date</span>());
+                System<span class="hljs-built_in">.</span>out<span class="hljs-built_in">.</span>println(<span class="hljs-built_in">date</span> <span class="hljs-subst">+</span> <span class="hljs-string">" call "</span> <span class="hljs-subst">+</span> <span class="hljs-keyword">Thread</span><span class="hljs-built_in">.</span>currentThread()<span class="hljs-built_in">.</span>getName());
+                person<span class="hljs-built_in">.</span>age <span class="hljs-subst">=</span> <span class="hljs-number">301</span>;
+                try {
+                    <span class="hljs-keyword">Thread</span><span class="hljs-built_in">.</span>sleep(<span class="hljs-number">2000</span>);
+                } catch (Exception e) {
+                    e<span class="hljs-built_in">.</span>printStackTrace();
+                }
+            }
+        })<span class="hljs-built_in">.</span>observeOn(AndroidSchedulers<span class="hljs-built_in">.</span>mainThread())<span class="hljs-comment">//指定最后观察者在主线程</span>
+                <span class="hljs-built_in">.</span>subscribe(<span class="hljs-literal">new</span> Action1<span class="hljs-subst">&lt;</span>Person<span class="hljs-subst">&gt;</span>() {
+            @Override
+            <span class="hljs-keyword">public</span> <span class="hljs-literal">void</span> call(Person person) {
+                <span class="hljs-built_in">String</span>    <span class="hljs-built_in">date</span>    <span class="hljs-subst">=</span>    sDateFormat<span class="hljs-built_in">.</span>format(<span class="hljs-literal">new</span>    <span class="hljs-built_in">Date</span>());
+                System<span class="hljs-built_in">.</span>out<span class="hljs-built_in">.</span>println(<span class="hljs-built_in">date</span> <span class="hljs-subst">+</span> <span class="hljs-string">" call "</span> <span class="hljs-subst">+</span> <span class="hljs-keyword">Thread</span><span class="hljs-built_in">.</span>currentThread()<span class="hljs-built_in">.</span>getName());
+                <span class="hljs-keyword">Log</span><span class="hljs-built_in">.</span>d(<span class="hljs-built_in">TAG</span>, <span class="hljs-string">"call: "</span> <span class="hljs-subst">+</span> person<span class="hljs-built_in">.</span>age);
+            }
+        });</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li></ul></pre>
+
+<p>执行结果</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs avrasm has-numbering"><span class="hljs-number">03</span>-<span class="hljs-number">01</span> <span class="hljs-number">14</span>:<span class="hljs-number">49</span>:<span class="hljs-number">29.897</span> <span class="hljs-number">23442</span>-<span class="hljs-number">24145</span>/<span class="hljs-keyword">com</span><span class="hljs-preprocessor">.example</span><span class="hljs-preprocessor">.myrxlearn</span> I/System<span class="hljs-preprocessor">.out</span>: <span class="hljs-number">2016</span>-<span class="hljs-number">03</span>-<span class="hljs-number">01</span>    <span class="hljs-number">02</span>:<span class="hljs-number">49</span>:<span class="hljs-number">29</span> <span class="hljs-keyword">call</span> RxCachedThreadScheduler-<span class="hljs-number">2</span>
+<span class="hljs-number">03</span>-<span class="hljs-number">01</span> <span class="hljs-number">14</span>:<span class="hljs-number">49</span>:<span class="hljs-number">29.907</span> <span class="hljs-number">23442</span>-<span class="hljs-number">24144</span>/<span class="hljs-keyword">com</span><span class="hljs-preprocessor">.example</span><span class="hljs-preprocessor">.myrxlearn</span> I/System<span class="hljs-preprocessor">.out</span>: <span class="hljs-number">2016</span>-<span class="hljs-number">03</span>-<span class="hljs-number">01</span>    <span class="hljs-number">02</span>:<span class="hljs-number">49</span>:<span class="hljs-number">29</span> <span class="hljs-keyword">call</span> RxNewThreadScheduler-<span class="hljs-number">2</span>
+<span class="hljs-number">03</span>-<span class="hljs-number">01</span> <span class="hljs-number">14</span>:<span class="hljs-number">49</span>:<span class="hljs-number">31.907</span> <span class="hljs-number">23442</span>-<span class="hljs-number">23442</span>/<span class="hljs-keyword">com</span><span class="hljs-preprocessor">.example</span><span class="hljs-preprocessor">.myrxlearn</span> I/System<span class="hljs-preprocessor">.out</span>: <span class="hljs-number">2016</span>-<span class="hljs-number">03</span>-<span class="hljs-number">01</span>    <span class="hljs-number">02</span>:<span class="hljs-number">49</span>:<span class="hljs-number">31</span> <span class="hljs-keyword">call</span> main</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li></ul></pre>
+
+<p>也就是说直到doOnNext里的方法在新线程执行完毕，subscribe里的call才有机会在主线程执行。</p>
+
+<p>一直没看到有合适的方法解决这个问题，因为缓存的时间不应该去阻碍主线程里数据的显示。</p>
+
+<p>今天做回顾时看到了<a href="https://github.com/yuxingxin/RxJava-Essentials-CN/blob/master/chapter7/nonblocking_io_operations.md" target="_blank">这篇文章</a></p>
+
+<p>非阻塞I/O操作</p>
+
+<blockquote>
+  <p>现在我们可以使用Schedulers.io()创建非阻塞的版本：</p>
+  
+  <p><code>public static void storeBitmap(Context context, Bitmap bitmap, <br>
+  String filename) { <br>
+      Schedulers.io().createWorker().schedule(() -&gt; { <br>
+          blockingStoreBitmap(context, bitmap, filename); <br>
+      });  }</code></p>
+</blockquote>
+
+<p>然后想起来一直存在的这个问题。只需要把上面的代码改成</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs java has-numbering">.doOnNext(<span class="hljs-keyword">new</span> Action1&lt;Person&gt;() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">call</span>(Person person) {
+                String    date    =    sDateFormat.format(<span class="hljs-keyword">new</span>    Date());
+                System.out.println(date + <span class="hljs-string">" call "</span> + Thread.currentThread().getName());
+                person.age = <span class="hljs-number">301</span>;
+                Schedulers.io().createWorker().schedule(<span class="hljs-keyword">new</span> Action0() {
+                    <span class="hljs-annotation">@Override</span>
+                    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">call</span>() {
+                        <span class="hljs-keyword">try</span> {
+                            Thread.sleep(<span class="hljs-number">2000</span>);
+                        } <span class="hljs-keyword">catch</span> (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        })</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li></ul></pre>
+
+<p>不需要在用observeOn指定在新线程就可以实现</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs avrasm has-numbering"><span class="hljs-number">03</span>-<span class="hljs-number">01</span> <span class="hljs-number">14</span>:<span class="hljs-number">55</span>:<span class="hljs-number">02.307</span> <span class="hljs-number">30368</span>-<span class="hljs-number">30406</span>/<span class="hljs-keyword">com</span><span class="hljs-preprocessor">.example</span><span class="hljs-preprocessor">.myrxlearn</span> I/System<span class="hljs-preprocessor">.out</span>: <span class="hljs-number">2016</span>-<span class="hljs-number">03</span>-<span class="hljs-number">01</span>    <span class="hljs-number">02</span>:<span class="hljs-number">55</span>:<span class="hljs-number">02</span> <span class="hljs-keyword">call</span> RxCachedThreadScheduler-<span class="hljs-number">1</span>
+<span class="hljs-number">03</span>-<span class="hljs-number">01</span> <span class="hljs-number">14</span>:<span class="hljs-number">55</span>:<span class="hljs-number">02.307</span> <span class="hljs-number">30368</span>-<span class="hljs-number">30406</span>/<span class="hljs-keyword">com</span><span class="hljs-preprocessor">.example</span><span class="hljs-preprocessor">.myrxlearn</span> I/System<span class="hljs-preprocessor">.out</span>: <span class="hljs-number">2016</span>-<span class="hljs-number">03</span>-<span class="hljs-number">01</span>    <span class="hljs-number">02</span>:<span class="hljs-number">55</span>:<span class="hljs-number">02</span> <span class="hljs-keyword">call</span> RxCachedThreadScheduler-<span class="hljs-number">1</span>
+<span class="hljs-number">03</span>-<span class="hljs-number">01</span> <span class="hljs-number">14</span>:<span class="hljs-number">55</span>:<span class="hljs-number">02.347</span> <span class="hljs-number">30368</span>-<span class="hljs-number">30368</span>/<span class="hljs-keyword">com</span><span class="hljs-preprocessor">.example</span><span class="hljs-preprocessor">.myrxlearn</span> I/System<span class="hljs-preprocessor">.out</span>: <span class="hljs-number">2016</span>-<span class="hljs-number">03</span>-<span class="hljs-number">01</span>    <span class="hljs-number">02</span>:<span class="hljs-number">55</span>:<span class="hljs-number">02</span> <span class="hljs-keyword">call</span> main</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li></ul></pre>
+
+<p>这样doOnNext可以方便的用来调试，用来缓存。 <br>
+奈何，我还是没能明白副作用，期待指点。</p>
+
+<blockquote>
+  <p>doOnNext is for side-effects: you want to react (eg. log) to item <br>
+  emissions in an intermediate step of your stream, for example before <br>
+  the stream is filtered, for transverse behavior like logging, but you <br>
+  still want the value to propagate down the stream.</p>
+  
+  <p>onNext is more final, it consumes the value.</p>
+</blockquote></div>
+        <script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+   
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        <div id="digg" articleid="50772721">
+            <dl id="btnDigg" class="digg digg_enable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_enable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>3</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);">&nbsp;</a></div>
+    <script type="text/javascript">
+        function btndigga() {
+            $(".tracking-ad[data-mod='popu_222'] a").click();
+        }
+        function btnburya() {
+            $(".tracking-ad[data-mod='popu_223'] a").click();
+        }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;http://blog.csdn.net/wangkai0681080/article/details/50696759&#39;;">上一篇</span><a href="http://blog.csdn.net/wangkai0681080/article/details/50696759" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">Git命令</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;http://blog.csdn.net/wangkai0681080/article/details/50778365&#39;;">下一篇</span><a href="http://blog.csdn.net/wangkai0681080/article/details/50778365" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">一个奇怪的子线程更新UI问题</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article">
+                    <h4></h4>
+                    <div class="similar_c" style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36" style="max-height:250px">                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/idaretobe/article/details/53790747" title="RxJava线程切换原理" strategy="BlogCommendFromQuerySearch_0" target="_blank">RxJava线程切换原理</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=blog7" title="MySQL在微信支付下的高可用运营--莫晓东" strategy="undefined" target="_blank">MySQL在微信支付下的高可用运营--莫晓东</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/xiaoping0915/article/details/62422185" title="【RxJava】RxJava响应式带来的好处" strategy="BlogCommendFromQuerySearch_1" target="_blank">【RxJava】RxJava响应式带来的好处</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="容器技术在58同城的实践--姚远" strategy="undefined" target="_blank">容器技术在58同城的实践--姚远</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/lizhi3186575/article/details/8991296" title="[C# 线程处理系列]专题二：线程的详细使用" strategy="BlogCommendFromCsdn_2" target="_blank">[C# 线程处理系列]专题二：线程的详细使用</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="SDCC 2017之容器技术实战线上峰会" strategy="undefined" target="_blank">SDCC 2017之容器技术实战线上峰会</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/jiangqq781931404/article/details/49518299" title="【FastDev4Android框架开发】AndroidAnnnotations注入框架使用之线程处理Threading(十二)" strategy="BlogCommendFromCsdn_3" target="_blank">【FastDev4Android框架开发】AndroidAnnnotations注入框架使用之线程处理Threading(十二)</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=blog7" title="SDCC 2017之数据库技术实战线上峰会" strategy="undefined" target="_blank">SDCC 2017之数据库技术实战线上峰会</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/monkey646812329/article/details/78329438" title="ＲxJava２的do系列操作符之doOnNext和doFinally" strategy="BlogCommendFromCsdn_4" target="_blank">ＲxJava２的do系列操作符之doOnNext和doFinally</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="腾讯云容器服务架构实现介绍--董晓杰" strategy="undefined" target="_blank">腾讯云容器服务架构实现介绍--董晓杰</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/jdsjlzx/article/details/51499066" title="RxJava操作符doOnNext" strategy="BlogCommendFromCsdn_5" target="_blank">RxJava操作符doOnNext</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=home7" title="微博热点事件背后的数据库运维心得--张冬洪" strategy="undefined" target="_blank">微博热点事件背后的数据库运维心得--张冬洪</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://download.csdn.net/download/huangdaihu/10167544" title="应用线程处理，经典小例子。可运行。" strategy="BlogCommendFromCsdn_6" target="_blank">应用线程处理，经典小例子。可运行。</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://download.csdn.net/download/MobilityFans/2111025" title="MFC线程处理概述.doc" strategy="BlogCommendFromCsdn_7" target="_blank">MFC线程处理概述.doc</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://download.csdn.net/download/cyp900509/8141915" title="基于任务线程处理例子" strategy="BlogCommendFromCsdn_8" target="_blank">基于任务线程处理例子</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://download.csdn.net/download/zhlongfj/3563160" title="工作线程处理后台范例" strategy="BlogCommendFromCsdn_9" target="_blank">工作线程处理后台范例</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+   
+      
+</div>
+
+     <div>
+           
+
+       
+                           
+            <!-- 广告位：PC端-博客内容页-banner1-960*90 --> 
+           
+         <!-- 广告位：PC端-博客详情页底部banner-960*90 -->
+            <script>
+                (function() {
+                    var s = "_" + Math.random().toString(36).slice(2);
+                    document.write('<div id="' + s + '"></div>');
+                    (window.slotbydup=window.slotbydup || []).push({
+                        id: '4770928',
+                        container: s,
+                        size: '960,90',
+                        display: 'inlay-fix'
+                    });
+                })();
+            </script><div id="_2neuhvrepn"></div><script charset="utf-8" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ucjm(1)"></script><div style="width: 100%;"><iframe width="960" frameborder="0" height="90" scrolling="no" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/s(1).html"></iframe></div><script type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/kfunnhoouimhnlou.js.下载"></script>
+    </div>
+
+<div id="suggest">
+
+
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/wangkai0681080/svc/GetSuggestContent/50772721",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+
+
+            
+                                    
+            
+                                    
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_6731051"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/busyboxs" target="_blank">LittleCococ</a> <span class="ptime">2017-04-05 17:11发表</span>  <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6731051" username="busyboxs"> <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/busyboxs" target="_blank"><img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/3_busyboxs.jpg" width="40" height="40"></a></dd><dd class="comment_body">doOnNext 不是说 不能改变数据流，而是说不要去改变数据流。<br> 整个数据流是为了避免副作用的，do开头的方法，才允许副作用</dd></dl><dl class="comment_item comment_topic" id="comment_item_6653598"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/m13666368773" target="_blank">朱勇Ray</a> <span class="ptime">2017-03-06 21:10发表</span>  <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6653598" username="m13666368773"> <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/m13666368773" target="_blank"><img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/3_m13666368773.jpg" width="40" height="40"></a></dd><dd class="comment_body">整个Observable的事件传递处理就像是在一条流水线上完成的，虽然可以通过observeOn来指定子线程去处理耗时操作，但是只有等这条子线程完成了更新数据库的任务后事件才会继续往后传递，这样就阻塞了更新UI的操作。</dd></dl><dl class="comment_item comment_topic" id="comment_item_6121124"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/fullfree" target="_blank">fullfree</a> <span class="ptime">2016-07-08 13:45发表</span>  <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6121124" username="fullfree"> <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/fullfree" target="_blank"><img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/3_fullfree.jpg" width="40" height="40"></a></dd><dd class="comment_body">应该是指不消耗item也不生成item吧，至于改变item的内部数据，由于item本身并不变（起码地址不变），所以叫“不改变数据流”</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><a name="commentbox"></a><a name="reply"></a><a name="quote"></a><form action="http://blog.csdn.net/wangkai0681080/comment/submit?id=50772721" method="post" onsubmit="return subform(this);"><div class="commentform"><div class="panel_head">发表评论</div><ul><li class="left">用 户 名：</li><li class="right">daoye2011</li></ul><ul><li class="left">评论内容：</li><li class="right" style="position:relative;"><div id="ubbtools"><a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#insertcode" code="code"><img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/code.gif" border="0" alt="插入代码" title="插入代码"></a></div><div id="lang_list" style="position: absolute; top: 28px; left: 0px; display: none;"><a class="long_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#html">HTML/XML</a><a class="long_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#objc">objective-c</a><a class="zhong_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#delphi">Delphi</a><a class="zhong_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#ruby">Ruby</a><a href="http://blog.csdn.net/wangkai0681080/article/details/50772721#php">PHP</a><a class="duan_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#csharp">C#</a><a style=" border-right: none;" class="duan_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#cpp">C++</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#javascript">JavaScript</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#vb">Visual Basic</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#python">Python</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#java">Java</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#css">CSS</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#sql">SQL</a><a style="border:none;" class="duan_name" href="http://blog.csdn.net/wangkai0681080/article/details/50772721#plain">其它</a></div><textarea class="comment_content" name="comment_content" id="comment_content" style="width: 400px; height: 200px;"></textarea></li></ul><ul><input type="hidden" id="comment_replyId" name="comment_replyId"><input type="hidden" id="comment_userId" name="comment_userId" value="521203"><input type="hidden" id="commentId" name="commentId" value=""><input type="submit" class="comment_btn" value="提交">&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span></ul></div></form></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '50772721';
+    var commentscount = 3;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='RxJava里doOnNext的使用和线程处理';
+
+</script>
+
+
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+
+    <div class="side">
+
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/wangkai0681080" target="_blank">
+    <img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/1_wangkai0681080.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/wangkai0681080" class="user_name" target="_blank">kyleada_dl</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=wangkai0681080&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>194871次</span></li>
+    <li>积分：<span>1909</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/blog4.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：1909 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>33篇</span></li>
+    <li>转载：<span>18篇</span></li>
+    <li>译文：<span>1篇</span></li>
+    <li>评论：<span>50条</span></li>
+</ul>
+</ul>
+</div>
+
+
+     
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" class="form_search csdn-tracking-statistics" target="_blank" data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            var url = "/" + username + "?q=" + encodeURIComponent($("#inputSearch").val());
+            window.location.href = url;
+        }   
+    });
+</script> 
+<div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1257748" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">C++/C</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1266105" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Database</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1268321" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Image Processing</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1276235" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Java</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1279577" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">UML</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1296800" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">JavaScript</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1300041" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Web综合</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1300233" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Spring</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/1331828" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">生活</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/2473567" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android</a><span>(19)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/6121942" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">J2EE</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/6814136" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">ios开发</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/wangkai0681080/article/category/7070525" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">android逆向</a><span>(2)</span>
+                </li>
+</ul>
+</div>
+<div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2017/09">2017年09月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2017/08">2017年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2017/07">2017年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2017/03">2017年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2017/02">2017年02月</a><span>(3)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2017/01">2017年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2016/06">2016年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2016/03">2016年03月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2016/02">2016年02月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2016/01">2016年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2015/12">2015年12月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2015/11">2015年11月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2014/12">2014年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2014/08">2014年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2013/01">2013年01月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2012/12">2012年12月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2012/11">2012年11月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/wangkai0681080/article/month/2012/10">2012年10月</a><span>(5)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+
+<div id="hotarticls" class="panel tracking-ad" data-mod="popu_340">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/8500074" title="jQuery中$是什么意思">jQuery中$是什么意思</a><span>(34433)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50082825" title="RecyclerView里notifyItemRemoved的坑">RecyclerView里notifyItemRemoved的坑</a><span>(20609)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/8175971" title="UML类图关系（泛化 、继承、实现、依赖、关联、聚合、组合）">UML类图关系（泛化 、继承、实现、依赖、关联、聚合、组合）</a><span>(17154)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50178507" title="Webview里JS跳转到Activity页面">Webview里JS跳转到Activity页面</a><span>(15297)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50772721" title="RxJava里doOnNext的使用和线程处理">RxJava里doOnNext的使用和线程处理</a><span>(13434)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/8274544" title="侵入式和非侵入式的区别">侵入式和非侵入式的区别</a><span>(12677)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50790640" title="给REST接口做鉴权认证:OAuth">给REST接口做鉴权认证:OAuth</a><span>(12009)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/8447916" title="annotation-config, annotation-driven, compont-scan 区别">annotation-config, annotation-driven, compont-scan 区别</a><span>(9950)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50295043" title="RxJava学习笔记2：基于RxJava+okHttp的Rest Cas登录实现">RxJava学习笔记2：基于RxJava+okHttp的Rest Cas登录实现</a><span>(7971)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50433738" title="使用响应式编程（RxJava）开发Android App">使用响应式编程（RxJava）开发Android App</a><span>(5700)</span>
+</li>
+</ul>
+</div>
+
+<div id="hotarticls2" class="panel tracking-ad" data-mod="popu_341" "="">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50082825" title="RecyclerView里notifyItemRemoved的坑">RecyclerView里notifyItemRemoved的坑</a><span>(15)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50178507" title="Webview里JS跳转到Activity页面">Webview里JS跳转到Activity页面</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/8500074" title="jQuery中$是什么意思">jQuery中$是什么意思</a><span>(7)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50772721" title="RxJava里doOnNext的使用和线程处理">RxJava里doOnNext的使用和线程处理</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/8175971" title="UML类图关系（泛化 、继承、实现、依赖、关联、聚合、组合）">UML类图关系（泛化 、继承、实现、依赖、关联、聚合、组合）</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50527680" title="Glide加载需要权限验证的图片Url">Glide加载需要权限验证的图片Url</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/8447916" title="annotation-config, annotation-driven, compont-scan 区别">annotation-config, annotation-driven, compont-scan 区别</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50295043" title="RxJava学习笔记2：基于RxJava+okHttp的Rest Cas登录实现">RxJava学习笔记2：基于RxJava+okHttp的Rest Cas登录实现</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/8493319" title="为什么类的静态成员变量要在类外初始化">为什么类的静态成员变量要在类外初始化</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wangkai0681080/article/details/50433738" title="使用响应式编程（RxJava）开发Android App">使用响应式编程（RxJava）开发Android App</a><span>(1)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4" style="height:250px;">
+    <div id="cpro_u2734133" style="text-align:center;">
+        <!-- 投放代码 -->
+        <!-- 请置于所有广告位代码之前 -->
+        <script src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ds.js.下载"></script>
+
+        <!-- 广告位：PC端-博客详情页-左侧button1-250*250 -->
+        <script>
+            (function ()
+            {
+                var s = "_" + Math.random().toString(36).slice(2);
+                document.write('<div id="' + s + '"></div>');
+                (window.slotbydup = window.slotbydup || []).push({
+                    id: '4740887',
+                    container: s,
+                    size: '250,250',
+                    display: 'inlay-fix'
+                });
+            })();
+        </script><div id="_ssjirco320c"></div><script charset="utf-8" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ucjm(2)"></script><div id="_kp5l65tp3nh" style="width: 100%;"><iframe width="250" frameborder="0" height="250" scrolling="no" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/s(2).html"></iframe></div><script type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/bwlxosfoozdec.js.下载"></script>
+
+    </div>
+
+
+</div>
+
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/8500074#comments">jQuery中$是什么意思</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/fjj15732621696" class="user_name">DD_Davina</a>:
+感谢博主分享
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/8500074#comments">jQuery中$是什么意思</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/Sunboy_2050" class="user_name">阳光岛主</a>:
+总结的很赞，米扑博客感谢博主
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/8500074#comments">jQuery中$是什么意思</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/czbkhhh" class="user_name">czbkhhh</a>:
+哦哦，，还是有点没有看懂
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/50178507#comments">Webview里JS跳转到Activity页面</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/mybookmonk" class="user_name">mybookmonk</a>:
+11111111111111111111111111111111111111111111111111...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/50178507#comments">Webview里JS跳转到Activity页面</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u014330323" class="user_name">boyceboy</a>:
+收藏备用
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/50178507#comments">Webview里JS跳转到Activity页面</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/huanzhixianxian" class="user_name">郭 松 涛</a>:
+谢谢博主
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/50082825#comments">RecyclerView里notifyItemRemoved的坑</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/iamdingruihaha" class="user_name">QQ群661614986</a>:
+@lt1123527133:终极解决办法http://blog.csdn.net/iamdingru...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/50082825#comments">RecyclerView里notifyItemRemoved的坑</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/iamdingruihaha" class="user_name">QQ群661614986</a>:
+@qq_28298287:终极解决办法http://blog.csdn.net/iamdingrui...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/50082825#comments">RecyclerView里notifyItemRemoved的坑</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/iamdingruihaha" class="user_name">QQ群661614986</a>:
+@u011181236:终极解决办法http://blog.csdn.net/iamdingruih...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wangkai0681080/article/details/8274544#comments">侵入式和非侵入式的区别</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/z15732621582" class="user_name">赵尽朝</a>:
+轻量级框架
+    </p>
+    </li>
+</ul>
+</div>
+
+    </div>
+    <div class="clear">
+    </div>
+
+                   <div class="tracking-ad" data-view="true" data-mod="ad_popu_189" data-mtp="63" data-order="40" data-con="ad_content_1259" style="width: 250px; height: 250px;">
+                        <div id="nav_show_top_stop" style="width: 250px;height: 250px;z-index:1000">
+                       
+                            <div id="cpro_u3031286" style="text-align:center;">
+                                 <!-- 鎶曟斁浠ｇ爜 -->
+                               
+                                <!-- 璇风疆浜庢墍鏈夊箍鍛婁綅浠ｇ爜涔嬪墠 -->
+                                <script src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ds.js.下载"></script>
+
+                                <!-- 骞垮憡浣嶏細PC绔?鍗氬璇︽儏椤?宸︿晶Button2-250*250 -->
+                                <script>
+                                    (function () {
+                                        var s = "_" + Math.random().toString(36).slice(2);
+                                        document.write('<div id="' + s + '"></div>');
+                                        (window.slotbydup = window.slotbydup || []).push({
+                                            id: '4740890',
+                                            container: s,
+                                            size: '250,250',
+                                            display: 'inlay-fix'
+                                        });
+                                    })();
+                                </script><div id="_8h44hew1svu"></div><script charset="utf-8" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/ucjm(3)"></script><div id="_wwn0wmomwh" style=""><iframe width="250" frameborder="0" height="250" scrolling="no" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/s(3).html"></iframe></div><script type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/bwocoflyvzdec.js.下载"></script>
+
+
+
+                            </div></div>
+                   </div>
+                    <script>
+
+                        setTimeout(function () {
+                            var naviga_offsetTop = 0; function naviga_stay_top() {
+                                var scrollTop = jQuery(document).scrollTop();
+                                if (scrollTop > naviga_offsetTop) {
+                                    jQuery("#nav_show_top_stop").css({ "position": "fixed" });
+                                    jQuery("#nav_show_top_stop").css({ "top": "0px" });
+                                } else { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop - scrollTop + "px" }); }
+                            }
+                            function onload_function() {
+                                naviga_offsetTop = jQuery("#nav_show_top_stop").position().top;
+                                jQuery(window).bind("scroll", naviga_stay_top); jQuery(window).bind("mousewheel", naviga_stay_top);
+                                jQuery(document).bind("scroll", naviga_stay_top); jQuery(document).bind("mousewheel", naviga_stay_top);
+                            } jQuery(document).ready(onload_function);
+                        }, 200);
+
+                    </script>
+
+           </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+     
+
+
+       <script type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/MathJax.js.下载"></script>   
+    
+    <script src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/csdn_blog_detail.min.js.下载" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/notify.js.下载"></script><input type="hidden" id="aa_g_data_ids">
+        
+    <script type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/csdn_public_blog_detail.min.js.下载"></script>
+
+    <script type="text/javascript" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/showblogmedal.ashx"></script>
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/52b5334.js.下载"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+          
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            鏀惰棌鍔╂墜
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./RxJava里doOnNext的使用和线程处理 - kyleada的专栏 - CSDN博客_files/saved_resource.html" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function () {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            //$(".toc a[target='_blank']").attr("target", "");
+
+            setTimeout(function () {
+                $(".toc a[target='_blank']").attr("target", "");
+            }, 500);
+
+        </script>
+
+
+   
+</body></html>

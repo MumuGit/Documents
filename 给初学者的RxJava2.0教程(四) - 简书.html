@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/bb58571cdb64 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/bb58571cdb64">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="Outline [TOC] 前言 在上一节中, 我们提到了Flowable 和Backpressure背压,  本来这一节的确是想讲这两个东西的，可是写到一半感觉还是差点火候，感觉时机未到， 因此，这里先来做个准备工作， 先带大家学习zip这个操作符, 这个操作符也是比较牛逼的东西了， 涉及到的东西也比较多， 主要是一些细节上的东西太多， 通过学习这个操作符，可以为我们下一节的Backpre...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/bb58571cdb64">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/7539647">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="给初学者的RxJava2.0教程(四)" property="twitter:title">
+  <meta content="Outline [TOC] 前言 在上一节中, 我们提到了Flowable 和Backpressure背压,  本来这一节的确是想讲这两个东西的，可是写到一半感觉还是差点火候，感觉时机未到， 因此，这里先来做个准备工作， 先带大家学习zip这个操作符, 这个操作符也是比较牛逼的东西了， 涉及到的东西也比较多， 主要是一些细节上的东西太多， 通过学习这个操作符，可以为我们下一节的Backpressure 做个铺垫. 正题 照惯例我们还是先贴上一下比较正式的解释吧. Zip通过一个函数将多个Observable发送的事件结合到一起，然后发送这些组合到一起的事件. 它按照严格的顺序应用这个函数..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/bb58571cdb64" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="给初学者的RxJava2.0教程(四)">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/bb58571cdb64">
+  <meta property="og:description" content="Outline [TOC] 前言 在上一节中, 我们提到了Flowable 和Backpressure背压,  本来这一节的确是想讲这两个东西的，可是写到一半感觉还是差点火候，感觉时机未到， 因...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/7539647">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/7539647">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>给初学者的RxJava2.0教程(四) - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="pAEA8oedRXlU738X+YfxwQAM6PXfWdjkCLh6kU2pqWhVvohKw+EgKd1mEYB86k6KU+omTueI7MamY/DEDZBB2A==">
+
+  <link rel="stylesheet" media="all" href="./给初学者的RxJava2.0教程(四) - 简书_files/web-b70e536b9a4f551070c5.css">
+  
+  <link rel="stylesheet" media="all" href="./给初学者的RxJava2.0教程(四) - 简书_files/entry-56eca86786f1d757e500.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./给初学者的RxJava2.0教程(四) - 简书_files/push.js.下载"></script><script src="./给初学者的RxJava2.0教程(四) - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1245px;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">给初学者的RxJava2.0教程(四)</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/c50b715ccaeb">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/74cbca711744.jpg" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/c50b715ccaeb">Season_zlc</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.05 01:00">2016.12.09 16:35*</span>
+              <span class="wordage">字数 1423</span>
+            <span class="views-count">阅读 24623</span><span class="comments-count">评论 140</span><span class="likes-count">喜欢 288</span><span class="rewards-count ">赞赏 16</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <p><em>Outline</em></p>
+<p>[TOC]</p>
+<h2>前言</h2>
+<p>在上一节中, 我们提到了<code>Flowable</code> 和<code>Backpressure</code>背压,  本来这一节的确是想讲这两个东西的，可是写到一半感觉还是差点火候，感觉时机未到， 因此，这里先来做个准备工作， 先带大家学习<code>zip</code>这个操作符, 这个操作符也是比较牛逼的东西了， 涉及到的东西也比较多， 主要是一些细节上的东西太多， 通过学习这个操作符，可以为我们下一节的<code>Backpressure</code> 做个铺垫.</p>
+<h2>正题</h2>
+<p>照惯例我们还是先贴上一下比较正式的解释吧.</p>
+<p><code>Zip</code>通过一个函数将多个Observable发送的事件结合到一起，然后发送这些组合到一起的事件. 它按照严格的顺序应用这个函数。它只发射与发射数据项最少的那个Observable一样多的数据。</p>
+<p>我们再用通俗易懂的图片来解释一下:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 633px; max-height: 500px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 78.99000000000001%;"></div>
+<div class="image-view" data-width="633" data-height="500"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-e11e9d75b1775e4e.png" data-original-width="633" data-original-height="500" data-original-format="image/png" data-original-filesize="25431" class="" style="cursor: zoom-in;" src="./给初学者的RxJava2.0教程(四) - 简书_files/1008453-e11e9d75b1775e4e.png"></div>
+</div>
+<div class="image-caption">zip.png</div>
+</div>
+<p>从这个图中可以看见,  这次上游和以往不同的是, 我们有两根水管了.</p>
+<p>其中一根水管负责发送<code>圆形事件</code> , 另外一根水管负责发送<code>三角形事件</code> , 通过Zip操作符, 使得<code>圆形事件</code> 和<code>三角形事件</code> 合并为了一个<code>矩形事件</code> .</p>
+<p>下面我们再来看看分解动作：</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 648px; max-height: 949px;">
+<div class="image-container-fill" style="padding-bottom: 135.65%;"></div>
+<div class="image-view" data-width="648" data-height="879"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-08f91b634493eae0.png" data-original-width="648" data-original-height="879" data-original-format="image/png" data-original-filesize="56921" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">zip1.png</div>
+</div>
+<p>通过分解动作我们可以看出:</p>
+<ul>
+<li>组合的过程是<code>分别从</code> 两根水管里<code>各取出一个事件</code> 来进行组合, 并且一个事件<code>只能被使用一次,</code>  组合的顺序是严格<code>按照事件发送的顺利</code> 来进行的, 也就是说不会出现<code>圆形1</code> 事件和<code>三角形B</code> 事件进行合并, 也不可能出现<code>圆形2</code> 和<code>三角形A</code> 进行合并的情况.</li>
+<li>最终<code>下游收到的事件数量</code> 是和<code>上游中发送事件最少的那一根水管的事件数量</code> 相同.  这个也很好理解, 因为是从<code>每一根水管</code> 里取一个事件来进行合并, <code>最少的</code> 那个肯定就<code>最先取完</code> , 这个时候其他的水管<code>尽管还有事件</code> , 但是已经没有足够的事件来组合了, 因此下游就不会收到剩余的事件了.</li>
+</ul>
+<p>分析了大概的原理, 我们还是劳逸结合, 先来看看实际中的代码怎么写吧:</p>
+<pre class="hljs java"><code class="java">Observable&lt;Integer&gt; observable1 = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {            
+    <span class="hljs-meta">@Override</span>                                                                                         
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{                      
+        Log.d(TAG, <span class="hljs-string">"emit 1"</span>);                                                                         
+        emitter.onNext(<span class="hljs-number">1</span>);                                                                            
+        Log.d(TAG, <span class="hljs-string">"emit 2"</span>);                                                                         
+        emitter.onNext(<span class="hljs-number">2</span>);                                                                            
+        Log.d(TAG, <span class="hljs-string">"emit 3"</span>);                                                                         
+        emitter.onNext(<span class="hljs-number">3</span>);                                                                            
+        Log.d(TAG, <span class="hljs-string">"emit 4"</span>);                                                                         
+        emitter.onNext(<span class="hljs-number">4</span>);                                                                            
+        Log.d(TAG, <span class="hljs-string">"emit complete1"</span>);                                                                 
+        emitter.onComplete();                                                                         
+    }                                                                                                 
+});                                                                   
+                                                                                                      
+Observable&lt;String&gt; observable2 = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;String&gt;() {              
+    <span class="hljs-meta">@Override</span>                                                                                         
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;String&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{                       
+        Log.d(TAG, <span class="hljs-string">"emit A"</span>);                                                                         
+        emitter.onNext(<span class="hljs-string">"A"</span>);                                                                          
+        Log.d(TAG, <span class="hljs-string">"emit B"</span>);                                                                         
+        emitter.onNext(<span class="hljs-string">"B"</span>);                                                                          
+        Log.d(TAG, <span class="hljs-string">"emit C"</span>);                                                                         
+        emitter.onNext(<span class="hljs-string">"C"</span>);                                                                          
+        Log.d(TAG, <span class="hljs-string">"emit complete2"</span>);                                                                 
+        emitter.onComplete();                                                                         
+    }                                                                                                 
+});                                                                     
+                                                                                                      
+Observable.zip(observable1, observable2, <span class="hljs-keyword">new</span> BiFunction&lt;Integer, String, String&gt;() {                  
+    <span class="hljs-meta">@Override</span>                                                                                         
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">apply</span><span class="hljs-params">(Integer integer, String s)</span> <span class="hljs-keyword">throws</span> Exception </span>{                                 
+        <span class="hljs-keyword">return</span> integer + s;                                                                           
+    }                                                                                                 
+}).subscribe(<span class="hljs-keyword">new</span> Observer&lt;String&gt;() {                       
+    <span class="hljs-meta">@Override</span>                                                                                         
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSubscribe</span><span class="hljs-params">(Disposable d)</span> </span>{                                                           
+        Log.d(TAG, <span class="hljs-string">"onSubscribe"</span>);                                                                    
+    }                                                                                                 
+                                                                                                      
+    <span class="hljs-meta">@Override</span>                                                                                         
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNext</span><span class="hljs-params">(String value)</span> </span>{                                                                
+        Log.d(TAG, <span class="hljs-string">"onNext: "</span> + value);                                                               
+    }                                                                                                 
+                                                                                                      
+    <span class="hljs-meta">@Override</span>                                                                                         
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Throwable e)</span> </span>{                                                                
+        Log.d(TAG, <span class="hljs-string">"onError"</span>);                                                                        
+    }                                                                                                 
+                                                                                                      
+    <span class="hljs-meta">@Override</span>                                                                                         
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onComplete</span><span class="hljs-params">()</span> </span>{                                                                        
+        Log.d(TAG, <span class="hljs-string">"onComplete"</span>);                                                                     
+    }                                                                                                 
+});                                                                                                   
+</code></pre>
+<p>我们分别创建了两个上游水管, 一个发送1,2,3,4,Complete, 另一个发送A,B,C,Complete, 接着用Zip把发出的事件组合, 来看看运行结果吧:</p>
+<pre class="hljs java"><code class="java">D/TAG: onSubscribe     
+D/TAG: emit <span class="hljs-number">1</span>          
+D/TAG: emit <span class="hljs-number">2</span>          
+D/TAG: emit <span class="hljs-number">3</span>          
+D/TAG: emit <span class="hljs-number">4</span>          
+D/TAG: emit complete1  
+D/TAG: emit A          
+D/TAG: onNext: <span class="hljs-number">1</span>A      
+D/TAG: emit B          
+D/TAG: onNext: <span class="hljs-number">2</span>B      
+D/TAG: emit C          
+D/TAG: onNext: <span class="hljs-number">3</span>C      
+D/TAG: emit complete2  
+D/TAG: onComplete      
+</code></pre>
+<p>结果似乎是对的... 但是总感觉什么地方不对劲...</p>
+<p>哪儿不对劲呢, 为什么感觉是水管一发送完了之后, 水管二才开始发送啊?  到底是不是呢, 我们来验证一下:</p>
+<pre class="hljs java"><code class="java">Observable&lt;Integer&gt; observable1 = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {           
+    <span class="hljs-meta">@Override</span>                                                                                        
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{                     
+        Log.d(TAG, <span class="hljs-string">"emit 1"</span>);                                                                        
+        emitter.onNext(<span class="hljs-number">1</span>);                                                                           
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                          
+
+        Log.d(TAG, <span class="hljs-string">"emit 2"</span>);                                                                        
+        emitter.onNext(<span class="hljs-number">2</span>);                                                                           
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                          
+
+        Log.d(TAG, <span class="hljs-string">"emit 3"</span>);                                                                        
+        emitter.onNext(<span class="hljs-number">3</span>);                                                                           
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                          
+
+        Log.d(TAG, <span class="hljs-string">"emit 4"</span>);                                                                        
+        emitter.onNext(<span class="hljs-number">4</span>);                                                                           
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                          
+
+        Log.d(TAG, <span class="hljs-string">"emit complete1"</span>);                                                                
+        emitter.onComplete();                                                                        
+    }                                                                                                
+});                                                                                                  
+
+Observable&lt;String&gt; observable2 = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;String&gt;() {             
+    <span class="hljs-meta">@Override</span>                                                                                        
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;String&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{                      
+        Log.d(TAG, <span class="hljs-string">"emit A"</span>);                                                                        
+        emitter.onNext(<span class="hljs-string">"A"</span>);                                                                         
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                          
+                                                                                                     
+        Log.d(TAG, <span class="hljs-string">"emit B"</span>);                                                                        
+        emitter.onNext(<span class="hljs-string">"B"</span>);                                                                         
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                          
+                                                                                                     
+        Log.d(TAG, <span class="hljs-string">"emit C"</span>);                                                                        
+        emitter.onNext(<span class="hljs-string">"C"</span>);                                                                         
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                          
+                                                                                                     
+        Log.d(TAG, <span class="hljs-string">"emit complete2"</span>);                                                                
+        emitter.onComplete();                                                                        
+    }                                                                                                
+});                                                                                                  
+
+Observable.zip(observable1, observable2, <span class="hljs-keyword">new</span> BiFunction&lt;Integer, String, String&gt;() {                 
+    <span class="hljs-meta">@Override</span>                                                                                        
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">apply</span><span class="hljs-params">(Integer integer, String s)</span> <span class="hljs-keyword">throws</span> Exception </span>{                                
+        <span class="hljs-keyword">return</span> integer + s;                                                                          
+    }                                                                                                
+}).subscribe(<span class="hljs-keyword">new</span> Observer&lt;String&gt;() {                                                                
+    <span class="hljs-meta">@Override</span>                                                                                        
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSubscribe</span><span class="hljs-params">(Disposable d)</span> </span>{                                                          
+        Log.d(TAG, <span class="hljs-string">"onSubscribe"</span>);                                                                   
+    }                                                                                                
+
+    <span class="hljs-meta">@Override</span>                                                                                        
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNext</span><span class="hljs-params">(String value)</span> </span>{                                                               
+        Log.d(TAG, <span class="hljs-string">"onNext: "</span> + value);                                                              
+    }                                                                                                
+
+    <span class="hljs-meta">@Override</span>                                                                                        
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Throwable e)</span> </span>{                                                               
+        Log.d(TAG, <span class="hljs-string">"onError"</span>);                                                                       
+    }                                                                                                
+
+    <span class="hljs-meta">@Override</span>                                                                                        
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onComplete</span><span class="hljs-params">()</span> </span>{                                                                       
+        Log.d(TAG, <span class="hljs-string">"onComplete"</span>);                                                                    
+    }                                                                                                
+});                                                                                                  
+</code></pre>
+<p>这次我们在每发送一个事件之后加入了一秒钟的延时, 来看看运行结果吧, 注意这是个GIF图:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 491px;">
+<div class="image-container-fill" style="padding-bottom: 64.61%;"></div>
+<div class="image-view" data-width="760" data-height="491"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-f5b4ec7ccd7be92e.gif" data-original-width="760" data-original-height="491" data-original-format="image/gif" data-original-filesize="87248" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">zip.gif</div>
+</div>
+<p>(贴心的我怕大家看不清楚, 特意调成了老年字体呢)</p>
+<p>阿西吧, 好像真的是先发送的水管一再发送的水管二呢, 为什么会有这种情况呢? 因为我们两根水管都是运行在同一个线程里, 同一个线程里执行代码肯定有先后顺序呀.</p>
+<p>因此我们来稍微改一下, 不让他们在同一个线程, 不知道怎么切换线程的, 请掉头看前面几节.</p>
+<pre class="hljs java"><code class="java">Observable&lt;Integer&gt; observable1 = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {         
+    <span class="hljs-meta">@Override</span>                                                                                      
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{                   
+        Log.d(TAG, <span class="hljs-string">"emit 1"</span>);                                                                      
+        emitter.onNext(<span class="hljs-number">1</span>);                                                                         
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                        
+                                                                                                   
+        Log.d(TAG, <span class="hljs-string">"emit 2"</span>);                                                                      
+        emitter.onNext(<span class="hljs-number">2</span>);                                                                         
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                        
+                                                                                                   
+        Log.d(TAG, <span class="hljs-string">"emit 3"</span>);                                                                      
+        emitter.onNext(<span class="hljs-number">3</span>);                                                                         
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                        
+                                                                                                   
+        Log.d(TAG, <span class="hljs-string">"emit 4"</span>);                                                                      
+        emitter.onNext(<span class="hljs-number">4</span>);                                                                         
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                        
+                                                                                                   
+        Log.d(TAG, <span class="hljs-string">"emit complete1"</span>);                                                              
+        emitter.onComplete();                                                                      
+    }                                                                                              
+}).subscribeOn(Schedulers.io());                                                                   
+                                                                                                   
+Observable&lt;String&gt; observable2 = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;String&gt;() {           
+    <span class="hljs-meta">@Override</span>                                                                                      
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;String&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{                    
+        Log.d(TAG, <span class="hljs-string">"emit A"</span>);                                                                      
+        emitter.onNext(<span class="hljs-string">"A"</span>);                                                                       
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                        
+                                                                                                   
+        Log.d(TAG, <span class="hljs-string">"emit B"</span>);                                                                      
+        emitter.onNext(<span class="hljs-string">"B"</span>);                                                                       
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                        
+                                                                                                   
+        Log.d(TAG, <span class="hljs-string">"emit C"</span>);                                                                      
+        emitter.onNext(<span class="hljs-string">"C"</span>);                                                                       
+        Thread.sleep(<span class="hljs-number">1000</span>);                                                                        
+                                                                                                   
+        Log.d(TAG, <span class="hljs-string">"emit complete2"</span>);                                                              
+        emitter.onComplete();                                                                      
+    }                                                                                              
+}).subscribeOn(Schedulers.io());                                                                   
+                                                                                                   
+Observable.zip(observable1, observable2, <span class="hljs-keyword">new</span> BiFunction&lt;Integer, String, String&gt;() {               
+    <span class="hljs-meta">@Override</span>                                                                                      
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">apply</span><span class="hljs-params">(Integer integer, String s)</span> <span class="hljs-keyword">throws</span> Exception </span>{                              
+        <span class="hljs-keyword">return</span> integer + s;                                                                        
+    }                                                                                              
+}).subscribe(<span class="hljs-keyword">new</span> Observer&lt;String&gt;() {                    
+    <span class="hljs-meta">@Override</span>                                                                                      
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSubscribe</span><span class="hljs-params">(Disposable d)</span> </span>{                                                        
+        Log.d(TAG, <span class="hljs-string">"onSubscribe"</span>);                                                                 
+    }                                                                                              
+                                                                                                   
+    <span class="hljs-meta">@Override</span>                                                                                      
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNext</span><span class="hljs-params">(String value)</span> </span>{                                                             
+        Log.d(TAG, <span class="hljs-string">"onNext: "</span> + value);                                                            
+    }                                                                                              
+                                                                                                   
+    <span class="hljs-meta">@Override</span>                                                                                      
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Throwable e)</span> </span>{                                                             
+        Log.d(TAG, <span class="hljs-string">"onError"</span>);                                                                     
+    }                                                                                              
+                                                                                                   
+    <span class="hljs-meta">@Override</span>                                                                                      
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onComplete</span><span class="hljs-params">()</span> </span>{                                                                     
+        Log.d(TAG, <span class="hljs-string">"onComplete"</span>);                                                                  
+    }                                                                                              
+});                                                                                                
+</code></pre>
+<p>好了, 这次我们让水管都在IO线程里发送事件, 再来看看运行结果:</p>
+<pre class="hljs java"><code class="java">D/TAG: onSubscribe    
+D/TAG: emit A         
+D/TAG: emit <span class="hljs-number">1</span>         
+D/TAG: onNext: <span class="hljs-number">1</span>A     
+D/TAG: emit B         
+D/TAG: emit <span class="hljs-number">2</span>         
+D/TAG: onNext: <span class="hljs-number">2</span>B     
+D/TAG: emit C         
+D/TAG: emit <span class="hljs-number">3</span>         
+D/TAG: onNext: <span class="hljs-number">3</span>C     
+D/TAG: emit complete2 
+D/TAG: onComplete     
+</code></pre>
+<p>GIF图:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 491px;">
+<div class="image-container-fill" style="padding-bottom: 64.61%;"></div>
+<div class="image-view" data-width="760" data-height="491"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-514681d29180e811.gif" data-original-width="760" data-original-height="491" data-original-format="image/gif" data-original-filesize="66352" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">zip_io.gif</div>
+</div>
+<p>诶! 这下就对了嘛, 两根水管同时开始发送, 每发送一个, Zip就组合一个, 再将组合结果发送给下游.</p>
+<p>不对呀! 可能细心点的朋友又看出端倪了, 第一根水管明明发送了四个数据+一个Complete, 之前明明还有的, 为啥到这里没了呢?</p>
+<p>这是因为我们之前说了, zip发送的事件数量跟上游中发送事件最少的那一根水管的事件数量是有关的, 在这个例子里我们第二根水管只发送了三个事件然后就发送了Complete, 这个时候尽管第一根水管还有<code>事件4</code> 和事件<code>Complete</code> 没有发送, 但是它们发不发送还有什么意义呢? 所以本着节约是美德的思想, 就干脆打断它的狗腿, 不让它发了.</p>
+<p>至于前面的例子为什么会发送, 刚才不是已经说了是！在！同！一！个！线！程！里！吗！！！！再问老子打死你！</p>
+<p>有好事的程序员可能又要问了， 那我不发送Complete呢？ 答案是显然的, 上游会继续发送事件, 但是下游仍然收不到那些多余的事件. 不信你可以试试.</p>
+<h2>实践</h2>
+<p>学习了Zip的基本用法, 那么它在Android有什么用呢, 其实很多场景都可以用到Zip. 举个例子.</p>
+<p>比如一个界面需要展示用户的一些信息, 而这些信息分别要从两个服务器接口中获取, 而只有当两个都获取到了之后才能进行展示, 这个时候就可以用Zip了:</p>
+<p>首先分别定义这两个请求接口:</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Api</span> </span>{
+    <span class="hljs-meta">@GET</span>
+    <span class="hljs-function">Observable&lt;UserBaseInfoResponse&gt; <span class="hljs-title">getUserBaseInfo</span><span class="hljs-params">(@Body UserBaseInfoRequest request)</span></span>;
+
+    <span class="hljs-meta">@GET</span>
+    <span class="hljs-function">Observable&lt;UserExtraInfoResponse&gt; <span class="hljs-title">getUserExtraInfo</span><span class="hljs-params">(@Body UserExtraInfoRequest request)</span></span>;
+
+}
+</code></pre>
+<p>接着用Zip来打包请求:</p>
+<pre class="hljs java"><code class="java">Observable&lt;UserBaseInfoResponse&gt; observable1 =                                            
+        api.getUserBaseInfo(<span class="hljs-keyword">new</span> UserBaseInfoRequest()).subscribeOn(Schedulers.io());      
+                                                                                          
+Observable&lt;UserExtraInfoResponse&gt; observable2 =                                           
+        api.getUserExtraInfo(<span class="hljs-keyword">new</span> UserExtraInfoRequest()).subscribeOn(Schedulers.io());    
+                                                                                          
+Observable.zip(observable1, observable2,                                                  
+        <span class="hljs-keyword">new</span> BiFunction&lt;UserBaseInfoResponse, UserExtraInfoResponse, UserInfo&gt;() {         
+            <span class="hljs-meta">@Override</span>                                                                     
+            <span class="hljs-function"><span class="hljs-keyword">public</span> UserInfo <span class="hljs-title">apply</span><span class="hljs-params">(UserBaseInfoResponse baseInfo,                          
+                                  UserExtraInfoResponse extraInfo)</span> <span class="hljs-keyword">throws</span> Exception </span>{     
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> UserInfo(baseInfo, extraInfo);                                 
+            }                                                                             
+        }).observeOn(AndroidSchedulers.mainThread())                                      
+        .subscribe(<span class="hljs-keyword">new</span> Consumer&lt;UserInfo&gt;() {                                             
+            <span class="hljs-meta">@Override</span>                                                                     
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(UserInfo userInfo)</span> <span class="hljs-keyword">throws</span> Exception </span>{                      
+                <span class="hljs-comment">//do something;                                                           </span>
+            }                                                                             
+        });                                                                               
+</code></pre>
+<p>好了, 本次的教程就到这里吧. 又到周末鸟, 下周见.</p>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="https://www.jianshu.com/nb/2051181">
+            <i class="iconfont ic-search-notebook"></i>
+            <span>Android小记</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/c50b715ccaeb">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/74cbca711744.jpg" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/c50b715ccaeb">Season_zlc</a>
+          
+            <i class="iconfont ic-man"></i>
+        <p>写了 19593 字，被 5308 人关注，获得了 4084 个喜欢</p></div>
+          <div class="signature">会写点代码
+
+公众号「码个蛋」特约作者</div>
+      </div>
+
+      <div class="support-author"></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>288</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(四)》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/7539647/weibo/image_23afadf15533.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(四)》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(四)》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;给初学者的RxJava2.0教程(四)&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div id="vue_comment"></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style="display: none;"><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(四)》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(四)》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(四)》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;给初学者的RxJava2.0教程(四)&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a><a href="https://www.jianshu.com/c/d1591c322c89?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/android.graphics.Bitmap_15f127c2.jpeg"><div class="name">Android开发</div></a><a href="https://www.jianshu.com/c/58b4c20abf2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/android.graphics.Bitmap_1329dce8.jpeg"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/a904f328163d?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/1-160106013A9345.png"><div class="name">RxJava</div></a><a href="https://www.jianshu.com/c/bDHhpK?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/首页投稿.png"><div class="name">首页投稿</div></a><a href="https://www.jianshu.com/c/299d0a51fdd4?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/android.graphics.Bitmap_14d316e3.jpeg"><div class="name">RxJava2.x</div></a><a href="https://www.jianshu.com/c/a95d8caf5629?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(四) - 简书_files/android.graphics.Bitmap_4f6cb9a.jpeg"><div class="name">Android...</div></a> <a class="show-more">
+        展开更多
+        <i class="iconfont ic-show"></i></a></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="7539647"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/9da04136b5f6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/4316638-c84bfb8a871f8058.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/9da04136b5f6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(四)</a>
+          <p class="description">特此声明：本文为转载文章！尊重原创的劳动果实，严禁剽窃本文转载于：http://www.jianshu.com/p/bb58571cdb64出自于：【Season_zlc】 前言 在上一节中, 我们提到了 Flowable和Backpressure背压, 本来这一节的确是想...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d512e2781e94?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/cbc4cf12-8584-49a8-a284-0bfe560e7e84.jpg" alt="48">
+            </div>
+            <span class="name">社会你鹏哥</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/931fcf9c23f6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/4316638-a86bd97b59944ab3.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/931fcf9c23f6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(五)</a>
+          <p class="description">特此声明：本文为转载文章！尊重原创的劳动果实，严禁剽窃本文转载于：http://www.jianshu.com/p/0f2d6c2387c9出自于：【Season_zlc】 前言 大家喜闻乐见的Backpressure来啦. 这一节中我们将来学习Backpressure. ...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d512e2781e94?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/cbc4cf12-8584-49a8-a284-0bfe560e7e84.jpg" alt="48">
+            </div>
+            <span class="name">社会你鹏哥</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/b3a63548514e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">RxJava 2.x 学习（转载）</a>
+          <p class="description">转载自：https://xiaobailong24.me/2017/03/18/Android-RxJava2.x/ 前言最近学习了一下RxJava，发现是个好东西，有点相见恨晚的感觉，一开始学习了RxJava 1.x，看了很多国内的博客，有点理解了，后来发现现在都 2.x...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/64cccdaa9204?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/12-aeeea4bedf10f2a12c0d50d626951489.jpg" alt="48">
+            </div>
+            <span class="name">Young1657</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/1008453-fd6a756f8eecaa68.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(五)</a>
+          <p class="description">Outline [TOC] 前言 大家喜闻乐见的Backpressure来啦. 这一节中我们将来学习Backpressure. 我看好多吃瓜群众早已坐不住了, 别急, 我们先来回顾一下上一节讲的Zip. 正题 上一节中我们说到Zip可以将多个上游发送的事件组合起来发送给下游...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/c50b715ccaeb?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/74cbca711744(1).jpg" alt="48">
+            </div>
+            <span class="name">Season_zlc</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/d55d62e3fcd3?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/2418828-eeba196a404b2b7f.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/d55d62e3fcd3?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(一)</a>
+          <p class="description">前言 RxJava2版发布了，但目前国内的资料还比较少，以前使用过RxJava1只需要看看更新文档就知道怎么使用了，但还有一些以前没用过RxJava的朋友可能就不知道怎么办了，不知道该看RxJava1还是直接跳到RxJava2。所以写下这个教程， 帮助那些没有用过RxJav...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/9cf706d012ac?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/7-0993d41a595d6ab6ef17b19496eb2f21.jpg" alt="48">
+            </div>
+            <span class="name">CHSmile</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/31f7c0095436?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/4120050-8081c2d62f4518e7.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/31f7c0095436?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">iOS10.3怎么改变app 的icon图标</a>
+          <p class="description">iOS10.3新增了可以让开发者去更改app的icon，接下来看看怎么更改。 这里需要注意两点： 1.当前设备的系统版本。这里的所有api都是10.3才能使用的。 2.当前app是否支持备用icon。使用supportsAlertnateIcons属性判断。只有为true的...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/06c4ffbfd0c1?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/aad0f551edf0.png" alt="48">
+            </div>
+            <span class="name">爱钓鱼的码农</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/16de8adfe327?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">努力，没你想的那么简单</a>
+          <p class="description">如果恰好失眠，如果半夜恰好手机振动，而我想也不用想，就知道肯定是那几个“拼命三娘”刚发完文。自从加入了写作群，让我见识了身边真正叫做努力的人。 当初加入写作组，就是为了重拾自己的爱好，并且坚持下来。但并不是笔耕不辍，只是闲来就写，有灵感就写，很随意，也从未把这个当成一个死磕...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/0ed1e7dfc239?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/1b54639343e6" alt="48">
+            </div>
+            <span class="name">王玬锦</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/2ce4f3a51b40?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/1327076-63fd24728cf4efd5.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/2ce4f3a51b40?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">偷得平生半日闲，漫游红顶商人胡雪岩故居</a>
+          <p class="description">胡光墉(1823-1885)，字雪岩，中国近代著名红顶商人，富可敌国的晚清著名徽商，政治家;幼名顺官，字雪岩。开办胡庆馀堂中药店。 胡雪岩故居，位于杭州市河坊街、大井巷历史文化保护区东部的元宝街，建于清同治十一年(1872年)，胡雪岩事业的颠峰时期，当时豪宅工程历时3年，于...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/88d2c5c5d4bc?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/5ecd77b1-9216-4276-80c5-394b615b8737.jpg" alt="48">
+            </div>
+            <span class="name">健康畅游户外</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/d30e6289f0ed?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/79058-065da5577e814a72.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/d30e6289f0ed?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">ACG+HiFi，盘点那些二次元属性的 HiFi 「神物」</a>
+          <p class="description">说起 HiFi ，人们脑中的印象也许是随身带着笨重捆绑器材，耳里插着助听器般塞子的随身党，亦或是从地板布局电压稳定研究起的老学究般的室内党，其实 HiFi 圈也有其活泼的一面，一些加入ACG 元素的对于御宅族的吸引力可是不小，下面就由我来盘点一下吧！ Sony MDR-1A...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/2d0b7b39c322?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/fd82f051bd5e.jpg" alt="48">
+            </div>
+            <span class="name">西鹤</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/2c93446d86bd?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(四) - 简书_files/664334-fa53043130a7d5fd" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/2c93446d86bd?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation"> Aspects源码解析</a>
+          <p class="description">A delightful, simple library for aspect oriented programming 关键字：面向切片编程、OC动态性、消息转发、类型编码、Swizzle... 使用场景：1.统一处理逻辑2.在不改变源码的情况下，插入代码（如无侵染更改第...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/4728ad18770b?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(四) - 简书_files/f0357178-5ae8-4c53-bd76-d18ff433ce2f.jpg" alt="48">
+            </div>
+            <span class="name">纸简书生</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"64f9d818-6629-4cd2-bbf6-8c463f2a9328"},"note":{"id":7539647,"slug":"bb58571cdb64","user_id":1008453,"notebook_id":2051181,"commentable":true,"likes_count":288,"views_count":24623,"public_wordage":1423,"comments_count":140,"total_rewards_count":16,"is_author":false,"author":{"nickname":"Season_zlc","total_wordage":19593,"followers_count":5308,"total_likes_count":4084}}}</script>
+    
+    <script src="./给初学者的RxJava2.0教程(四) - 简书_files/babel-polyfill-e27dec85eeb94683dfc7.js.下载" crossorigin="anonymous"></script>
+    <script src="./给初学者的RxJava2.0教程(四) - 简书_files/web-base-5c699f96d666687b5311.js.下载" crossorigin="anonymous"></script>
+<script src="./给初学者的RxJava2.0教程(四) - 简书_files/web-7795af4d6c20f15476d0.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./给初学者的RxJava2.0教程(四) - 简书_files/entry-9e28293f23f7fa89210f.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

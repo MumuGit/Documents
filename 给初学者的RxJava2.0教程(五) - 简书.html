@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/0f2d6c2387c9 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/0f2d6c2387c9">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="Outline [TOC] 前言 大家喜闻乐见的Backpressure来啦. 这一节中我们将来学习Backpressure. 我看好多吃瓜群众早已坐不住了, 别急, 我们先来回顾一下上一节讲的Zip. 正题 上一节中我们说到Zip可以将多个上游发送的事件组合起来发送给下游, 那大家有没有想过一个问题,  如果其中一个水管A发送事件特别快, 而另一个水管B 发送事件特别慢,  那就可能出现这...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/0f2d6c2387c9">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/7626754">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="给初学者的RxJava2.0教程(五)" property="twitter:title">
+  <meta content="Outline [TOC] 前言 大家喜闻乐见的Backpressure来啦. 这一节中我们将来学习Backpressure. 我看好多吃瓜群众早已坐不住了, 别急, 我们先来回顾一下上一节讲的Zip. 正题 上一节中我们说到Zip可以将多个上游发送的事件组合起来发送给下游, 那大家有没有想过一个问题,  如果其中一个水管A发送事件特别快, 而另一个水管B 发送事件特别慢,  那就可能出现这种情况, 发得快的水管A 已经发送了1000个事件了, 而发的慢的水管B 才发一个出来,  组合了一个之后水管A 还剩999个事件, 这些事件需要继续等待水管B 发送事件出来组合, 那么这么多的事件是..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/0f2d6c2387c9" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="给初学者的RxJava2.0教程(五)">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/0f2d6c2387c9">
+  <meta property="og:description" content="Outline [TOC] 前言 大家喜闻乐见的Backpressure来啦. 这一节中我们将来学习Backpressure. 我看好多吃瓜群众早已坐不住了, 别急, 我们先来回顾一下上一节讲的...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/7626754">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/7626754">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>给初学者的RxJava2.0教程(五) - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="JXWFQxbxE8X6ygUkt9Y+gyXrWLi1RlO2C4OU1OVl/KfUyg37Uo12lXNDa7Myu4HIdg2WA42XZ5SlWB6BpVwUFw==">
+
+  <link rel="stylesheet" media="all" href="./给初学者的RxJava2.0教程(五) - 简书_files/web-b70e536b9a4f551070c5.css">
+  
+  <link rel="stylesheet" media="all" href="./给初学者的RxJava2.0教程(五) - 简书_files/entry-56eca86786f1d757e500.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./给初学者的RxJava2.0教程(五) - 简书_files/push.js.下载"></script><script src="./给初学者的RxJava2.0教程(五) - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.pc-bind-phone-modal .modal-content, .pc-bind-phone-modal .modal-body {
+  overflow: visible;
+}
+.pc-bind-phone-modal .dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+.pc-bind-phone-modal .dropdown-menu .tag {
+    background-color: #efefef;
+    color: #4A4A4A;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 25px;
+    font-size: 12px;
+}
+.reader-night-mode .pc-bind-phone-modal .dropdown-menu .tag {
+  background-color: #2F2F2F;
+  color: #999999;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.tips-card-loading[data-v-f3bf5228], .tips-card[data-v-f3bf5228] {
+  width: 460px;
+  position: relative;
+  left: 0;
+  top: 0;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d9d9d9;
+}
+.tips-card-loading[data-v-f3bf5228] {
+  height: 200px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+.tips-card-loading div[data-v-f3bf5228] {
+    background-color: #EAEAEA;
+}
+.tips-card-loading .avatar[data-v-f3bf5228] {
+    width: 72px !important;
+    height: 72px !important;
+    border-radius: 50%;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+.tips-card-loading .name[data-v-f3bf5228] {
+    width: 120px;
+    height: 20px;
+    position: absolute;
+    left: 110px;
+    top: 31px;
+}
+.tips-card-loading .content[data-v-f3bf5228] {
+    position: absolute;
+    left: 110px;
+    top: 62px;
+    width: 238px;
+    height: 39.2px;
+    background-color: transparent;
+}
+.tips-card-loading .content .text[data-v-f3bf5228], .tips-card-loading .content .text-delay[data-v-f3bf5228] {
+      height: 14px;
+      position: absolute;
+      left: 0;
+      width: 100%;
+}
+.tips-card-loading .content .text[data-v-f3bf5228] {
+      top: 2px;
+      -webkit-animation: loading-data-v-f3bf5228 1s ease-in-out infinite;
+      animation: loading-data-v-f3bf5228 1s ease-in-out infinite;
+}
+.tips-card-loading .content .text-delay[data-v-f3bf5228] {
+      bottom: 3px;
+      -webkit-animation: loading-data-v-f3bf5228 1s ease-in-out -0.5s infinite;
+      animation: loading-data-v-f3bf5228 1s ease-in-out -0.5s infinite;
+}
+@keyframes loading-data-v-f3bf5228 {
+0% {
+    width: 60%;
+}
+50% {
+    width: 100%;
+}
+100% {
+    width: 60%;
+}
+}
+@-webkit-keyframes loading {
+0% {
+    width: 60%;
+}
+50% {
+    width: 100%;
+}
+100% {
+    width: 60%;
+}
+}
+.tips-card-loading .meta[data-v-f3bf5228] {
+    width: 30px;
+    height: 42px;
+    position: absolute;
+    bottom: 20px;
+    background-color: transparent;
+}
+.tips-card-loading .meta.meta-1[data-v-f3bf5228] {
+      left: 30px;
+}
+.tips-card-loading .meta.meta-2[data-v-f3bf5228] {
+      left: 90px;
+}
+.tips-card-loading .meta.meta-3[data-v-f3bf5228] {
+      left: 150px;
+}
+.tips-card-loading .meta .count[data-v-f3bf5228], .tips-card-loading .meta .type[data-v-f3bf5228] {
+      position: absolute;
+}
+.tips-card-loading .meta .count[data-v-f3bf5228] {
+      left: -5px;
+      top: 6px;
+      height: 18px;
+      width: 40px;
+}
+.tips-card-loading .meta .type[data-v-f3bf5228] {
+      left: 1px;
+      bottom: 2px;
+      height: 13px;
+      width: 28px;
+}
+.tips-card-loading .button[data-v-f3bf5228] {
+    position: absolute;
+    bottom: 17px;
+    width: 90px;
+    height: 40px;
+    border-radius: 40px;
+}
+.tips-card-loading .message[data-v-f3bf5228] {
+    right: 120px;
+}
+.tips-card-loading .follow[data-v-f3bf5228] {
+    right: 17px;
+}
+.tips-card[data-v-f3bf5228] {
+  z-index: 10;
+}
+.tips-card .card-content[data-v-f3bf5228] {
+    padding: 20px 20px 0 20px;
+}
+.tips-card .card-content .summary[data-v-f3bf5228] {
+      padding: 8px 0 20px 90px;
+      min-height: 92px;
+      position: relative;
+}
+.tips-card .card-content .summary .avatar[data-v-f3bf5228] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 72px;
+        height: 72px;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #EAEAEA;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+.tips-card .card-content .summary .name[data-v-f3bf5228] {
+        height: 26px;
+        margin-right: 3px;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-pack: start;
+        -webkit-justify-content: flex-start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+}
+.tips-card .card-content .summary .name .nickname[data-v-f3bf5228] {
+          color: #333333;
+          font-size: 19px;
+          font-weight: bold;
+          overflow: hidden;
+          -o-text-overflow: ellipsis;
+             text-overflow: ellipsis;
+          white-space: nowrap;
+          cursor: pointer;
+}
+.tips-card .card-content .summary .name .sex[data-v-f3bf5228], .tips-card .card-content .summary .name .badge[data-v-f3bf5228] {
+          -webkit-flex-shrink: 0;
+              -ms-flex-negative: 0;
+                  flex-shrink: 0;
+          display: inline-block;
+}
+.tips-card .card-content .summary .name .sex[data-v-f3bf5228] {
+          font-size: 19px;
+          width: 19px;
+          margin: 0 4px;
+}
+.tips-card .card-content .summary .intro[data-v-f3bf5228] {
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin-bottom: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333333;
+}
+.tips-card .card-content .summary .intro.block[data-v-f3bf5228] {
+          color: #999999;
+}
+.tips-card .card-content .summary .list .item[data-v-f3bf5228] {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 13px;
+        color: #999999;
+        cursor: pointer;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        white-space: nowrap;
+}
+.tips-card .card-content .summary .list .item i[data-v-f3bf5228] {
+          margin-right: 2px;
+}
+.tips-card .card-footer[data-v-f3bf5228] {
+    border-top: 1px solid #F0F0F0;
+    padding: 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    overflow: hidden;
+    _zoom: 1;
+}
+.tips-card .card-footer .profile[data-v-f3bf5228] {
+      width: 198px;
+      overflow: hidden;
+      _zoom: 1;
+      float: left;
+}
+.tips-card .card-footer .profile div[data-v-f3bf5228] {
+        float: left;
+        width: 60px;
+        height: 44px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+}
+.tips-card .card-footer .profile div span[data-v-f3bf5228] {
+          display: block;
+          width: 100%;
+          text-align: center;
+}
+.tips-card .card-footer .profile div .type[data-v-f3bf5228] {
+          font-size: 13px;
+          color: #999999;
+}
+.tips-card .card-footer .profile div .count[data-v-f3bf5228] {
+          font-size: 18px;
+          color: #333333;
+}
+.tips-card .card-footer .social[data-v-f3bf5228] {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+          -ms-flex-pack: end;
+              justify-content: flex-end;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      float: right;
+      overflow: hidden;
+      _zoom: 1;
+}
+.tips-card .card-footer .social .message[data-v-f3bf5228] {
+        border: 1px solid rgba(59, 194, 29, 0.7);
+        color: #42C02E;
+        margin: 0 10px 0 16px;
+        font-size: 15px;
+        padding: 8px 0;
+        width: 90px;
+        border-radius: 40px;
+        text-align: center;
+        cursor: pointer;
+        float: left;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+}
+.tips-card .card-footer .social .message[data-v-f3bf5228]:hover {
+          border: 1px solid #42C02E;
+          color: #42C02E;
+          background-color: rgba(59, 194, 29, 0.05);
+}
+.tips-card .card-footer .social .user-follow-button[data-v-f3bf5228] {
+        font-size: 15px;
+        padding: 8px 0;
+        width: 100px;
+}
+.arrow[data-v-f3bf5228] {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  left: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+.arrow i[data-v-f3bf5228] {
+    position: absolute;
+    left: 50%;
+    margin: 0;
+    margin-left: -10px;
+    border-width: 10px;
+    border-color: transparent;
+    padding: 0;
+}
+.arrow em[data-v-f3bf5228] {
+    display: block;
+    position: absolute;
+    left: -9px;
+    border-width: 9px;
+    border-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+.arrow-type-top[data-v-f3bf5228] {
+  bottom: 1px;
+}
+.arrow-type-top i[data-v-f3bf5228] {
+    border-top-color: #d9d9d9;
+    border-style: solid dashed dashed;
+    top: 0;
+}
+.arrow-type-top em[data-v-f3bf5228] {
+    border-style: solid dashed dashed;
+    border-top-color: #ffffff;
+    top: -10px;
+}
+.arrow-type-bottom[data-v-f3bf5228] {
+  top: 1px;
+}
+.arrow-type-bottom i[data-v-f3bf5228] {
+    border-bottom-color: #d9d9d9;
+    border-style: dashed dashed solid;
+    top: -10px;
+}
+.arrow-type-bottom em[data-v-f3bf5228] {
+    border-style: dashed dashed solid;
+    border-bottom-color: #ffffff;
+    top: -8px;
+}
+.reader-night-mode .tips-card-loading[data-v-f3bf5228] {
+  background-color: #3F3F3F;
+  border-color: #2F2F2F;
+}
+.reader-night-mode .tips-card-loading .avatar[data-v-f3bf5228], .reader-night-mode .tips-card-loading .name[data-v-f3bf5228], .reader-night-mode .tips-card-loading .text[data-v-f3bf5228], .reader-night-mode .tips-card-loading .text-delay[data-v-f3bf5228], .reader-night-mode .tips-card-loading .count[data-v-f3bf5228], .reader-night-mode .tips-card-loading .type[data-v-f3bf5228], .reader-night-mode .tips-card-loading .button[data-v-f3bf5228] {
+    background-color: #545454;
+}
+.reader-night-mode .tips-card[data-v-f3bf5228] {
+  background-color: #3F3F3F;
+  border-color: #2F2F2F;
+}
+.reader-night-mode .tips-card .card-content .summary .name .nickname[data-v-f3bf5228] {
+    color: #C8C8C8;
+}
+.reader-night-mode .tips-card .card-content .summary .name .nickname[data-v-f3bf5228]:hover {
+      color: #ffffff;
+}
+.reader-night-mode .tips-card .card-content .summary .intro[data-v-f3bf5228] {
+    color: #C8C8C8;
+}
+.reader-night-mode .tips-card .card-footer[data-v-f3bf5228] {
+    border-top-color: #2F2F2F;
+}
+.reader-night-mode .tips-card .card-footer .profile div .count[data-v-f3bf5228] {
+      color: #C8C8C8;
+}
+.reader-night-mode .arrow.arrow-type-top em[data-v-f3bf5228] {
+  border-top-color: #3F3F3F;
+}
+.reader-night-mode .arrow.arrow-type-top i[data-v-f3bf5228] {
+  border-top-color: #2F2F2F;
+}
+.reader-night-mode .arrow.arrow-type-bottom em[data-v-f3bf5228] {
+  border-bottom-color: #3F3F3F;
+}
+.reader-night-mode .arrow.arrow-type-bottom i[data-v-f3bf5228] {
+  border-bottom-color: #2F2F2F;
+}
+</style><style type="text/css">
+.v-tooltip-container,
+.v-tooltip-content {
+  display: inline-block;
+}
+.v-tooltip-container {
+  position: relative;
+}
+.v-tooltip-container .v-tooltip-content {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+.v-tooltip-container .v-tooltip-wrap {
+    position: absolute;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top {
+      bottom: 100%;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom {
+      top: 100%;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left {
+      top: 50%;
+      right: 100%;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right {
+      top: 50%;
+      left: 100%;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+      padding-left: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top-start {
+      bottom: 100%;
+      left: 0;
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top-end {
+      bottom: 100%;
+      right: 0;
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom-start {
+      top: 100%;
+      left: 0;
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom-end {
+      top: 100%;
+      right: 0;
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left-start {
+      top: 0;
+      right: 100%;
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left-end {
+      bottom: 0;
+      right: 100%;
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right-start {
+      top: 0;
+      left: 100%;
+      padding-left: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right-end {
+      bottom: 0;
+      left: 100%;
+      padding-left: 10px;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1245px; display: block;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">给初学者的RxJava2.0教程(五)</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/c50b715ccaeb">
+            <img src="./给初学者的RxJava2.0教程(五) - 简书_files/74cbca711744.jpg" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/c50b715ccaeb">Season_zlc</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.05 01:38">2016.12.13 12:19*</span>
+              <span class="wordage">字数 1489</span>
+            <span class="views-count">阅读 19991</span><span class="comments-count">评论 75</span><span class="likes-count">喜欢 280</span><span class="rewards-count ">赞赏 15</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <p><em>Outline</em></p>
+<p>[TOC]</p>
+<h2>前言</h2>
+<p>大家喜闻乐见的<code>Backpressure</code>来啦.</p>
+<p>这一节中我们将来学习<code>Backpressure</code>. 我看好多吃瓜群众早已坐不住了, 别急, 我们先来回顾一下上一节讲的<code>Zip</code>.</p>
+<h2>正题</h2>
+<p>上一节中我们说到Zip可以将多个上游发送的事件组合起来发送给下游, 那大家有没有想过一个问题,  如果其中一个<code>水管A</code>发送事件特别快, 而另一个<code>水管B</code> 发送事件特别慢,  那就可能出现这种情况, 发得快的<code>水管A</code> 已经发送了1000个事件了, 而发的慢的<code>水管B</code> 才发一个出来,  组合了一个之后<code>水管A</code> 还剩999个事件, 这些事件需要继续等待<code>水管B</code> 发送事件出来组合, 那么这么多的事件是放在哪里的呢? 总有一个地方保存吧?  没错, Zip给我们的每一根水管都弄了一个<code>水缸</code> , 用来保存这些事件, 用通俗易懂的图片来表示就是:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 497px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 69.51%;"></div>
+<div class="image-view" data-width="715" data-height="497"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-fd6a756f8eecaa68.png" data-original-width="715" data-original-height="497" data-original-format="image/png" data-original-filesize="34754" class="" style="cursor: zoom-in;" src="./给初学者的RxJava2.0教程(五) - 简书_files/1008453-fd6a756f8eecaa68.png"></div>
+</div>
+<div class="image-caption">zip2.png</div>
+</div>
+<p>如图中所示, 其中蓝色的框框就是<code>zip</code>给我们的<code>水缸</code>!  它将每根水管发出的事件保存起来, 等两个水缸都有事件了之后就分别从水缸中取出一个事件来组合,  当其中一个水缸是空的时候就处于等待的状态.</p>
+<p>题外话: 大家来分析一下这个水缸有什么特点呢? 它是按顺序保存的, 先进来的事件先取出来, 这个特点是不是很熟悉呀? 没错, 这就是我们熟知的队列,  这个水缸在Zip内部的实现就是用的队列, 感兴趣的可以翻看源码查看.</p>
+<p>好了回到正题上来,  这个水缸有大小限制吗? 要是一直往里存会怎样? 我们来看个例子:</p>
+<pre class="hljs java"><code class="java">Observable&lt;Integer&gt; observable1 = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {    
+    <span class="hljs-meta">@Override</span>                                                                          
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{       
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; ; i++) {   <span class="hljs-comment">//无限循环发事件                                                    </span>
+            emitter.onNext(i);                                                         
+        }                                                                              
+    }                                                                                  
+}).subscribeOn(Schedulers.io());    
+                                                                                
+Observable&lt;String&gt; observable2 = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;String&gt;() {      
+    <span class="hljs-meta">@Override</span>                                                                          
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;String&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{        
+        emitter.onNext(<span class="hljs-string">"A"</span>);                                                           
+    }                                                                                  
+}).subscribeOn(Schedulers.io());    
+                                                               
+Observable.zip(observable1, observable2, <span class="hljs-keyword">new</span> BiFunction&lt;Integer, String, String&gt;() {                 
+    <span class="hljs-meta">@Override</span>                                                                          
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">apply</span><span class="hljs-params">(Integer integer, String s)</span> <span class="hljs-keyword">throws</span> Exception </span>{                  
+        <span class="hljs-keyword">return</span> integer + s;                                                            
+    }                                                                                  
+}).observeOn(AndroidSchedulers.mainThread()).subscribe(<span class="hljs-keyword">new</span> Consumer&lt;String&gt;() {                               
+    <span class="hljs-meta">@Override</span>                                                                          
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(String s)</span> <span class="hljs-keyword">throws</span> Exception </span>{                                    
+        Log.d(TAG, s);                                                                 
+    }                                                                                  
+}, <span class="hljs-keyword">new</span> Consumer&lt;Throwable&gt;() {                                                         
+    <span class="hljs-meta">@Override</span>                                                                          
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Throwable throwable)</span> <span class="hljs-keyword">throws</span> Exception </span>{                         
+        Log.w(TAG, throwable);                                                         
+    }                                                                                  
+});                                                                                    
+</code></pre>
+<p>在这个例子中, 我们分别创建了两根水管, 第一根水管用机器指令的执行速度来无限循环发送事件, 第二根水管随便发送点什么,  由于我们没有发送<code>Complete</code>事件, 因此第一根水管会一直发事件到它对应的水缸里去, 我们来看看运行结果是什么样.</p>
+<p>运行结果GIF图:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 566px; max-height: 239px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 42.230000000000004%;"></div>
+<div class="image-view" data-width="566" data-height="239"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-74d7f8d475fc73c8.gif" data-original-width="566" data-original-height="239" data-original-format="image/gif" data-original-filesize="332497" class="" style="cursor: zoom-in;" src="./给初学者的RxJava2.0教程(五) - 简书_files/1008453-74d7f8d475fc73c8.gif"></div>
+</div>
+<div class="image-caption">zip2.gif</div>
+</div>
+<p>我勒个草, 内存占用以斜率为1的直线迅速上涨,  几秒钟就300多M , 最终报出了OOM:</p>
+<pre class="hljs java"><code class="java">zlc.season.rxjava2demo W/art: Throwing OutOfMemoryError <span class="hljs-string">"Failed to allocate a 28 byte allocation with
+4194304 free bytes and 8MB until OOM; 
+zlc.season.rxjava2demo W/art: "</span>main<span class="hljs-string">" prio=5 tid=1 Runnable      
+zlc.season.rxjava2demo W/art:   | group="</span>main<span class="hljs-string">" sCount=0 dsCount=0 obj=0x75188710 self=0x7fc0efe7ba00   
+zlc.season.rxjava2demo W/art:   | sysTid=32686 nice=0 cgrp=default sched=0/0 handle=0x7fc0f37dc200    
+zlc.season.rxjava2demo W/art:   | state=R schedstat=( 0 0 0 ) utm=948 stm=120 core=1 HZ=100         
+zlc.season.rxjava2demo W/art:   | stack=0x7fff971e8000-0x7fff971ea000 stackSize=8MB         
+zlc.season.rxjava2demo W/art:   | held mutexes= "</span>mutator lock<span class="hljs-string">"(shared held)    
+zlc.season.rxjava2demo W/art:     at java.lang.Integer.valueOf(Integer.java:742)                                                            
+</span></code></pre>
+<p>出现这种情况肯定是我们不想看见的,  这里就可以引出我们的<code>Backpressure</code>了, 所谓的<code>Backpressure</code>其实就是为了控制流量,  水缸存储的能力毕竟有限, 因此我们还得从<code>源头</code>去解决问题, 既然你发那么快, 数据量那么大, 那我就想办法不让你发那么快呗.</p>
+<p>那么这个<code>源头</code>到底在哪里, 究竟什么时候会出现这种情况, 这里只是说的Zip这一个例子, 其他的地方会出现吗?  带着这个问题我们来探究一下.</p>
+<p>我们让事情变得简单一点, 从一个单一的<code>Observable</code>说起.</p>
+<p>来看段代码:</p>
+<pre class="hljs java"><code class="java">Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {                         
+    <span class="hljs-meta">@Override</span>                                                                    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{ 
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; ; i++) {   <span class="hljs-comment">//无限循环发事件                                              </span>
+            emitter.onNext(i);                                                   
+        }                                                                        
+    }                                                                            
+}).subscribe(<span class="hljs-keyword">new</span> Consumer&lt;Integer&gt;() {                                           
+    <span class="hljs-meta">@Override</span>                                                                    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer integer)</span> <span class="hljs-keyword">throws</span> Exception </span>{                       
+        Thread.sleep(<span class="hljs-number">2000</span>);                                                      
+        Log.d(TAG, <span class="hljs-string">""</span> + integer);                                                
+    }                                                                            
+});                                                                              
+</code></pre>
+<p>这段代码很简单, 上游同样无限循环的发送事件, 在下游每次接收事件前延时2秒.  上下游工作在<code>同一个线程</code>里, 来看下运行结果:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 648px; max-height: 463px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 71.45%;"></div>
+<div class="image-view" data-width="648" data-height="463"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-38a38001bfcd1c4a.gif" data-original-width="648" data-original-height="463" data-original-format="image/gif" data-original-filesize="207488" class="" style="cursor: zoom-in;" src="./给初学者的RxJava2.0教程(五) - 简书_files/1008453-38a38001bfcd1c4a.gif"></div>
+</div>
+<div class="image-caption"> peace.gif</div>
+</div>
+<p>哎卧槽, 怎么如此平静, 感觉像是走错了片场.</p>
+<p>为什么呢, 因为上下游工作在<code>同一个线程</code>呀骚年们!  这个时候上游每次调用<code>emitter.onNext(i)</code>其实就相当于直接调用了Consumer中的:</p>
+<pre class="hljs java"><code class="java">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer integer)</span> <span class="hljs-keyword">throws</span> Exception </span>{                       
+        Thread.sleep(<span class="hljs-number">2000</span>);                                                      
+        Log.d(TAG, <span class="hljs-string">""</span> + integer);                                                
+   }     
+</code></pre>
+<p>所以这个时候其实就是上游每延时2秒发送一次. 最终的结果也说明了这一切.</p>
+<p>那我们加个线程呢, 改成这样:</p>
+<pre class="hljs java"><code class="java">Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {                            
+    <span class="hljs-meta">@Override</span>                                                                       
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{    
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; ; i++) {    <span class="hljs-comment">//无限循环发事件                                                     </span>
+            emitter.onNext(i);                                                      
+        }                                                                           
+    }                                                                               
+}).subscribeOn(Schedulers.io())                                                    
+        .observeOn(AndroidSchedulers.mainThread())                                  
+        .subscribe(<span class="hljs-keyword">new</span> Consumer&lt;Integer&gt;() {                                        
+            <span class="hljs-meta">@Override</span>                                                               
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer integer)</span> <span class="hljs-keyword">throws</span> Exception </span>{                  
+                Thread.sleep(<span class="hljs-number">2000</span>);                                                 
+                Log.d(TAG, <span class="hljs-string">""</span> + integer);                                           
+            }                                                                       
+        });                                                                         
+</code></pre>
+<p>这个时候把上游切换到了IO线程中去, 下游到主线程去接收, 来看看运行结果呢:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 648px; max-height: 463px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 71.45%;"></div>
+<div class="image-view" data-width="648" data-height="463"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-d150aedb85231d9d.gif" data-original-width="648" data-original-height="463" data-original-format="image/gif" data-original-filesize="344696" class="" style="cursor: zoom-in;" src="./给初学者的RxJava2.0教程(五) - 简书_files/1008453-d150aedb85231d9d.gif"></div>
+</div>
+<div class="image-caption">violence.gif</div>
+</div>
+<p>可以看到, 给上游加了个线程之后, 它就像脱缰的野马一样, 内存又爆掉了.</p>
+<p>为什么不加线程和加上线程区别这么大呢, 这就涉及了<code>同步</code>和<code>异步</code>的知识了.</p>
+<p>当上下游工作在<code>同一个线程</code>中时, 这时候是一个<code>同步</code>的订阅关系, 也就是说<code>上游</code>每发送一个事件<code>必须</code>等到<code>下游</code>接收处理完了以后才能接着发送下一个事件.</p>
+<p>当上下游工作在<code>不同的线程</code>中时, 这时候是一个<code>异步</code>的订阅关系, 这个时候<code>上游</code>发送数据<code>不需要</code>等待<code>下游</code>接收, 为什么呢, 因为两个线程并不能直接进行通信, 因此上游发送的事件并不能直接到下游里去, 这个时候就需要一个田螺姑娘来帮助它们俩, 这个田螺姑娘就是我们刚才说的<code>水缸</code> ! 上游把事件发送到水缸里去, 下游从水缸里取出事件来处理,  因此, 当上游发事件的速度太快, 下游取事件的速度太慢, 水缸就会迅速装满, 然后溢出来, 最后就OOM了.</p>
+<p>这两种情况用图片来表示如下:</p>
+<p>同步:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 580px; max-height: 325px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 56.03%;"></div>
+<div class="image-view" data-width="580" data-height="325"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-3cb28e0f4f3ac788.png" data-original-width="580" data-original-height="325" data-original-format="image/png" data-original-filesize="16551" class="" style="cursor: zoom-in;" src="./给初学者的RxJava2.0教程(五) - 简书_files/1008453-3cb28e0f4f3ac788.png"></div>
+</div>
+<div class="image-caption">同步.png</div>
+</div>
+<p>异步:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 607px; max-height: 414px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 68.2%;"></div>
+<div class="image-view" data-width="607" data-height="414"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-785506a07f98d30a.png" data-original-width="607" data-original-height="414" data-original-format="image/png" data-original-filesize="20692" class="" style="cursor: zoom-in;" src="./给初学者的RxJava2.0教程(五) - 简书_files/1008453-785506a07f98d30a.png"></div>
+</div>
+<div class="image-caption">异步.png</div>
+</div>
+<p>从图中我们可以看出, <code>同步和异步</code>的区别仅仅在于是否有<code>水缸</code>.</p>
+<p>相信通过这个例子大家对线程之间的通信也有了比较清楚的认知和理解.</p>
+<p>源头找到了, 只要有<code>水缸</code>,  就会出现上下游发送事件速度不平衡的情况,  因此当我们以后遇到这种情况时, 仔细思考一下水缸在哪里, 找到水缸, 你就找到了解决问题的办法.</p>
+<p>既然源头找到了, 那么下一节我们就要来学习如何去解决了. 下节见.</p>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="https://www.jianshu.com/nb/2051181">
+            <i class="iconfont ic-search-notebook"></i>
+            <span>Android小记</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/c50b715ccaeb">
+            <img src="./给初学者的RxJava2.0教程(五) - 简书_files/74cbca711744.jpg" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/c50b715ccaeb">Season_zlc</a>
+          
+            <i class="iconfont ic-man"></i>
+        <p>写了 19593 字，被 5305 人关注，获得了 4083 个喜欢</p></div>
+          <div class="signature">会写点代码
+
+公众号「码个蛋」特约作者</div>
+      </div>
+
+      <div class="support-author"><p>打赏功能还是要有的, 万一谁手抖了呢</p> <div class="btn btn-pay">赞赏支持</div> <div class="supporter"><ul class="support-list"><li><a target="_blank" href="https://www.jianshu.com/u/fcaf0a74f6d7" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/6-fd30f34c8641f6f32f5494df5d6b8f3c.jpg"></a></li><li><a target="_blank" href="https://www.jianshu.com/u/defb1f03cad3" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/7-0993d41a595d6ab6ef17b19496eb2f21.jpg"></a></li><li><a target="_blank" href="javascript:void(0)" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/wechat-771371d5741b0c32cd805caeb48ad6c0.png"></a></li><li><a target="_blank" href="https://www.jianshu.com/u/84a12485d008" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/62a56346-fa87-4c72-aebb-7af60e500aef.jpg"></a></li><li><a target="_blank" href="https://www.jianshu.com/u/686f99bfb5af" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/14-0651acff782e7a18653d7530d6b27661.jpg"></a></li><li><a target="_blank" href="javascript:void(0)" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/wechat-771371d5741b0c32cd805caeb48ad6c0.png"></a></li><li><a target="_blank" href="https://www.jianshu.com/u/0890a38aa073" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/fd75b523e03a.jpg"></a></li></ul> <span id="reward_user">等15人</span></div> <!----> <!----></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>280</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(五)》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/7626754/weibo/image_70ccf03ba1d7.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(五)》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(五)》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;给初学者的RxJava2.0教程(五)&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div><div id="comment-list" class="comment-list"><div><form class="new-comment"><a class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/avatar_default-78d4d1f68984cd6d4379508dd94b4210.png"></a> <div class="sign-container"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form" class="btn btn-sign">登录</a> <span>后发表评论</span></div></form> <!----></div> <div id="normal-comment-list" class="normal-comment-list"><div><div><div class="top-title"><span>75条评论</span> <a class="author-only">只看作者</a> <a class="close-btn" style="display: none;">关闭评论</a> <div class="pull-right"><a class="active">按喜欢排序</a><a class="">按时间正序</a><a class="">按时间倒序</a></div></div></div> <!----> <!----> <div class="comments-placeholder" style="display: none;"><div class="author"><div class="avatar"></div> <div class="info"><div class="name"></div> <div class="meta"></div></div></div> <div class="text"></div> <div class="text animation-delay"></div> <div class="tool-group"><i class="iconfont ic-zan-active"></i><div class="zan"></div> <i class="iconfont ic-list-comments"></i><div class="zan"></div></div></div> <div id="comment-11805469" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/48ec44a1710a" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/4-3397163ecdb3855a0a4139c34a695885.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/48ec44a1710a" target="_blank" class="name">emoji_lucky</a> <!----> <!----> <div class="meta"><span>27楼 · 2017.06.14 17:10</span></div></div></div> <div class="comment-wrap"><p>rxjava2.x的Observable是不存在背压的概念的，首先博主都没有完全理解什么是背压，背压是下游控制上游流速的一种手段。在rxjava1.x的时代，上游会给下游set一个producer，下游通过producer向上游请求n个数据，这样上游就有记录下游请求了多少个数据，然后下游请求多少个上游就给多少个，这个就是背压。一般来讲，每个节点都有缓存，比如说缓存的大小是64，这个时候下游可以一次性向上游request 64个数据。rxjava1.x的有些操作符不支持背压，也就是说这些操作符不会给下游set一个producer，也就是上游根本不理会下游的请求，一直向下游丢数据，如果下游的缓存爆了，那么下游就会抛出MissingBackpressureException，也就是背压失效了。在rxjava2.x时代，上述的背压逻辑全部挪到Flowable里了，所以说Flowable支持背压。而2.x时代的Observable是没有背压的概念的，Observable如果来不及消费会死命的缓存直到OOM，所以rxjava2.x的官方文档里面有讲，大数据流用Flowable，小数据流用Observable</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>21人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-12175332" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/e979a8a00c84" target="_blank">唐诗淳</a>：
+            </div> <!----></div> <span>老哥，你先把博主这系列看完再来喷好吗~</span></p> <div class="sub-tool-group"><span>2017.06.25 23:51</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12695460" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/cde131ae7ab0" target="_blank">我是高手</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/e979a8a00c84" class="maleskine-author" target="_blank" data-user-slug="e979a8a00c84">@唐诗淳</a> 人家没喷啊，首先博主写的文章很好，但rxjava 2.0 observable确实没有背压的概念，你可以看看其他文章</span></p> <div class="sub-tool-group"><span>2017.07.10 17:16</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12944890" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/923b3cd71955" target="_blank">我的QQ宠物</a>：
+            </div> <!----></div> <span>这是学术的课堂，不要什么喷不喷的就上来了</span></p> <div class="sub-tool-group"><span>2017.07.17 19:54</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <span class="line-warp">
+          还有9条评论，
+          <a>展开查看</a></span> <!----> <!----></div> <!----></div></div><div id="comment-6628531" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/cde86b15d3d6" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/4aacf3b2bb67"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/cde86b15d3d6" target="_blank" class="name">沒亊偸著樂</a> <!----> <!----> <div class="meta"><span>10楼 · 2016.12.23 14:41</span></div></div></div> <div class="comment-wrap"><p>额  打赏都出现bug了<br></p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>3人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-6629044" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/c50b715ccaeb" target="_blank">Season_zlc</a>：
+            </div> <!----></div> <span> <a href="https://www.jianshu.com/users/cde86b15d3d6" class="maleskine-author" target="_blank" data-user-slug="cde86b15d3d6">@沒亊偸著樂</a> 骗人！😂</span></p> <div class="sub-tool-group"><span>2016.12.23 15:02</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-6629576" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/cde86b15d3d6" target="_blank">沒亊偸著樂</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/c50b715ccaeb" class="maleskine-author" target="_blank" data-user-slug="c50b715ccaeb">@Season_zlc</a>   木有骗你啊</span></p> <div class="sub-tool-group"><span>2016.12.23 15:26</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-7910773" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/d8184ca3c970" target="_blank">d8184ca3c970</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/cde86b15d3d6" class="maleskine-author" target="_blank" data-user-slug="cde86b15d3d6">@沒亊偸著樂</a> 为什么我没有bug啊<br></span></p> <div class="sub-tool-group"><span>2017.02.11 14:12</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-6415333" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/067d829266d9" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/125e29b392d6"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/067d829266d9" target="_blank" class="name">小小小池</a> <!----> <!----> <div class="meta"><span>7楼 · 2016.12.14 17:13</span></div></div></div> <div class="comment-wrap"><p>楼主，2.0 Flowable 取消订阅这块怎么弄？1.x  subscrible 订阅是会返回一个Subscription，然后mCompositeSubscription.add(Subscription), 在 Activity 退出时取消订阅  mCompositeSubscription.unsubscribe()，2.x，subscrible订阅 返回值是 void 了，2.0把Subscription 放到 onSubscribe(Subscription s)中去了，那现在是直接在onSubscribe(Subscription s)方法中在  s.request(1)后s.cancel()？ </p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>2人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-6418651" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/067d829266d9" target="_blank">小小小池</a>：
+            </div> <!----></div> <span> <a href="https://www.jianshu.com/users/067d829266d9" class="maleskine-author" target="_blank" data-user-slug="067d829266d9">@小小小池</a> 楼主，我的问题另外一个大神帮解决了。以下是他的回答:Flowable 提供了 subscribeWith 方法可以返回当前订阅的观察者，并且通过 ResourceSubscriber 这种类来提供 Disposable 接口 按照你之前的做法，现在应该是这样 CompositeDisposable composite2 = new CompositeDisposable(); composite2.add(Flowable.range(1, 5).subscribeWith(subscriber)); subscriber 应该是 ResourceSubscriber 或者 DisposableSubscriber 的实例</span></p> <div class="sub-tool-group"><span>2016.12.14 19:28</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-6405696" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/5246e1822cf5" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/66c3a86b-e03c-435a-a4b6-e8853268703e.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/5246e1822cf5" target="_blank" class="name">junerver</a> <!----> <!----> <div class="meta"><span>6楼 · 2016.12.14 10:24</span></div></div></div> <div class="comment-wrap"><p>楼主我恨你，天天跟追小说似地等更新 <img src="./给初学者的RxJava2.0教程(五) - 简书_files/disappointed_relieved.png" alt=":disappointed_relieved:" title=":disappointed_relieved:" class="emoji" width="20" height="20"> </p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-6407080" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/c50b715ccaeb" target="_blank">Season_zlc</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/5246e1822cf5" class="maleskine-author" target="_blank" data-user-slug="5246e1822cf5">@junerver</a> 哈哈, 就是喜欢看你们着急的样子~\(≧▽≦)/~</span></p> <div class="sub-tool-group"><span>2016.12.14 11:20</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-10838557" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/8cb49b5ad78b" target="_blank">追风917</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/c50b715ccaeb" class="maleskine-author" target="_blank" data-user-slug="c50b715ccaeb">@Season_zlc</a> 撩的一手好妹<img src="./给初学者的RxJava2.0教程(五) - 简书_files/grin.png" alt=":grin:" title=":grin:" class="emoji" width="20" height="20"> </span></p> <div class="sub-tool-group"><span>2017.05.13 12:44</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-7982969" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/d8184ca3c970" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/59f92744-b3a9-4569-b436-fd6670ea4cb3"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/d8184ca3c970" target="_blank" class="name">d8184ca3c970</a> <!----> <!----> <div class="meta"><span>14楼 · 2017.02.14 07:59</span></div></div></div> <div class="comment-wrap"><p>求楼主建群</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-7984867" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/c50b715ccaeb" target="_blank">Season_zlc</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/d8184ca3c970" class="maleskine-author" target="_blank" data-user-slug="d8184ca3c970">@d8184ca3c970</a> 你可以加我RxDownload的讨论群603610731</span></p> <div class="sub-tool-group"><span>2017.02.14 09:17</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-11193221" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/8a1a8ed656e8" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/e87bdee4-c4e2-4f85-9aa4-ba599dde0da8.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/8a1a8ed656e8" target="_blank" class="name">KingJA</a> <!----> <!----> <div class="meta"><span>23楼 · 2017.05.25 09:52</span></div></div></div> <div class="comment-wrap"><p>博主的无限发送事件的过程中怎么没进行垃圾自动回收？我测试过程中会经常性被JVM回收，内存不会直线上升</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-19055025" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/8d31dba9b5c4" target="_blank">王蛋蛋的father</a>：
+            </div> <!----></div> <span>我也没有oom<img src="./给初学者的RxJava2.0教程(五) - 简书_files/disappointed_relieved(1).png" alt=":disappointed_relieved:" title=":disappointed_relieved:" class="emoji" width="20" height="20"></span></p> <div class="sub-tool-group"><span>2017.12.30 14:30</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-6390078" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/89e34b9ce1d4" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/12-aeeea4bedf10f2a12c0d50d626951489.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/89e34b9ce1d4" target="_blank" class="name">小新GG</a> <!----> <!----> <div class="meta"><span>2楼 · 2016.12.13 17:41</span></div></div></div> <div class="comment-wrap"><p>楼主讲的很详细,,,,希望速度快点啊,,,,,还有希望深入一点 针对Flowable 和Rxbus 多写点啊</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-6390179" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/c50b715ccaeb" target="_blank">Season_zlc</a>：
+            </div> <!----></div> <span> <a href="https://www.jianshu.com/users/89e34b9ce1d4" class="maleskine-author" target="_blank" data-user-slug="89e34b9ce1d4">@zhouxin1233</a> 我每天还要上班呀，都是抽空写的，还要画图，各位多多理解。😂</span></p> <div class="sub-tool-group"><span>2016.12.13 17:45</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-10838541" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/8cb49b5ad78b" target="_blank">追风917</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/c50b715ccaeb" class="maleskine-author" target="_blank" data-user-slug="c50b715ccaeb">@Season_zlc</a> 图画的相当棒啊,小学生都看明白了,嘿嘿</span></p> <div class="sub-tool-group"><span>2017.05.13 12:43</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-17603941" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/3124e231c257" target="_blank">Sun_951d</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/c50b715ccaeb" class="maleskine-author" target="_blank" data-user-slug="c50b715ccaeb">@Season_zlc</a> 请问一下，这个是什么画图工具？好nice的样子</span></p> <div class="sub-tool-group"><span>2017.11.20 16:32</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <span class="line-warp">
+          还有1条评论，
+          <a>展开查看</a></span> <!----> <!----></div> <!----></div></div><div id="comment-6400897" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/9acf5e154ab0" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/8b3dcaa530d5.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/9acf5e154ab0" target="_blank" class="name">小爨</a> <!----> <!----> <div class="meta"><span>3楼 · 2016.12.14 01:49</span></div></div></div> <div class="comment-wrap"><p>不错</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-6403245" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/067d829266d9" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/125e29b392d6"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/067d829266d9" target="_blank" class="name">小小小池</a> <!----> <!----> <div class="meta"><span>4楼 · 2016.12.14 08:47</span></div></div></div> <div class="comment-wrap"><p>楼主，快更新啊，吃不饱啊，多更新些Flowable 啊</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-6403361" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/c50b715ccaeb" target="_blank">Season_zlc</a>：
+            </div> <!----></div> <span> <a href="https://www.jianshu.com/users/067d829266d9" class="maleskine-author" target="_blank" data-user-slug="067d829266d9">@小小小池</a> 哼，你们给的赞太少了，本宝宝生气😡</span></p> <div class="sub-tool-group"><span>2016.12.14 08:52</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-10838551" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/8cb49b5ad78b" target="_blank">追风917</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/c50b715ccaeb" class="maleskine-author" target="_blank" data-user-slug="c50b715ccaeb">@Season_zlc</a> 哈哈哈哈, 撒娇,,</span></p> <div class="sub-tool-group"><span>2017.05.13 12:43</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-6404530" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/7fd1c374bf10" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/4132a50e-00e1-4755-a68c-664a674cabae.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/7fd1c374bf10" target="_blank" class="name">starCoder</a> <!----> <!----> <div class="meta"><span>5楼 · 2016.12.14 09:38</span></div></div></div> <div class="comment-wrap"><p>一直跟着看，讲的不错</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-6527958" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/d2ab3859e18f" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/76d7c2daba0d.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/d2ab3859e18f" target="_blank" class="name">墨痕坊</a> <!----> <!----> <div class="meta"><span>8楼 · 2016.12.19 14:33</span></div></div></div> <div class="comment-wrap"><p>猝不及防，结尾卖的一手好萌</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-6531556" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/c50b715ccaeb" target="_blank">Season_zlc</a>：
+            </div> <!----></div> <span> <a href="https://www.jianshu.com/users/d2ab3859e18f" class="maleskine-author" target="_blank" data-user-slug="d2ab3859e18f">@墨痕坊</a> 😂</span></p> <div class="sub-tool-group"><span>2016.12.19 17:42</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-6597116" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/c31d01cd6aff" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/b95ad01d-1e64-4583-a2e8-608630b9d7dd.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/c31d01cd6aff" target="_blank" class="name">久山崎</a> <!----> <!----> <div class="meta"><span>9楼 · 2016.12.22 10:09</span></div></div></div> <div class="comment-wrap"><p> <img src="./给初学者的RxJava2.0教程(五) - 简书_files/no_mouth.png" alt=":no_mouth:" title=":no_mouth:" class="emoji" width="20" height="20"> 看到结尾....</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-7694713" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44e85cc61626" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/81a79b8da9a1"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/44e85cc61626" target="_blank" class="name">Iyangc</a> <!----> <!----> <div class="meta"><span>11楼 · 2017.02.04 16:06</span></div></div></div> <div class="comment-wrap"><p>实在太好了 给楼主打赏了下，感谢楼主的好文章，我接着往下看...还有，楼主我在前面问了一个问题  你空了看到 指点一下我啦。<img src="./给初学者的RxJava2.0教程(五) - 简书_files/clap.png" alt=":clap:" title=":clap:" class="emoji" width="20" height="20"> </p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-7817156" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/8741fa1e0393" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/064f1f14-a85b-400e-b1b8-825ce57aa388.png"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/8741fa1e0393" target="_blank" class="name">kuwork</a> <!----> <!----> <div class="meta"><span>12楼 · 2017.02.08 15:12</span></div></div></div> <div class="comment-wrap"><p>写得好，很详细。TOC无效，加一个目录形式的链接就更好了</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-7886103" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44dd2c2ff016" target="_blank" class="avatar"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/5fc21dfb-33ba-4bad-8c75-4d002a4b8878.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/44dd2c2ff016" target="_blank" class="name">ling9400</a> <!----> <!----> <div class="meta"><span>13楼 · 2017.02.10 17:23</span></div></div></div> <div class="comment-wrap"><p>楼主，最后的异步发送的，我测试了内存也不会直接爆表啊！感觉还是逐步递增的，不知道是哪里的问题？</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div></div></div> <!----> <div><ul class="pagination"><!---->  <li><a href="javascript:void(null)" class="active">1</a></li> <li><a>2</a></li><li><a>3</a></li> <li><a>下一页</a></li></ul></div></div></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(五)》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(五)》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(五)》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/0f2d6c2387c9?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;给初学者的RxJava2.0教程(五)&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/299d0a51fdd4?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/android.graphics.Bitmap_14d316e3.jpeg"><div class="name">RxJava2.x</div></a><a href="https://www.jianshu.com/c/a904f328163d?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/1-160106013A9345.png"><div class="name">RxJava</div></a><a href="https://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a><a href="https://www.jianshu.com/c/d1591c322c89?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/android.graphics.Bitmap_15f127c2.jpeg"><div class="name">Android开发</div></a><a href="https://www.jianshu.com/c/58b4c20abf2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/android.graphics.Bitmap_1329dce8.jpeg"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/bDHhpK?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/首页投稿.png"><div class="name">首页投稿</div></a><a href="https://www.jianshu.com/c/b5617afad677?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(五) - 简书_files/1466310899.jpg"><div class="name">Android...</div></a> <a class="show-more">
+        展开更多
+        <i class="iconfont ic-show"></i></a></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="7626754"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/931fcf9c23f6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(五) - 简书_files/4316638-a86bd97b59944ab3.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/931fcf9c23f6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(五)</a>
+          <p class="description">特此声明：本文为转载文章！尊重原创的劳动果实，严禁剽窃本文转载于：http://www.jianshu.com/p/0f2d6c2387c9出自于：【Season_zlc】 前言 大家喜闻乐见的Backpressure来啦. 这一节中我们将来学习Backpressure. ...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d512e2781e94?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/cbc4cf12-8584-49a8-a284-0bfe560e7e84.jpg" alt="48">
+            </div>
+            <span class="name">社会你鹏哥</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/f4ed455de5f0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(五) - 简书_files/4316638-81df50b7ede26c0f.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/f4ed455de5f0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(七)</a>
+          <p class="description">特此声明：本文为转载文章！尊重原创的劳动果实，严禁剽窃本文转载于：http://www.jianshu.com/p/9b1304435564出自于：【Season_zlc】 前言 上一节里我们学习了只使用Observable如何去解决上下游流速不均衡的问题, 之所以学习这个...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d512e2781e94?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/cbc4cf12-8584-49a8-a284-0bfe560e7e84.jpg" alt="48">
+            </div>
+            <span class="name">社会你鹏哥</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/b3a63548514e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">RxJava 2.x 学习（转载）</a>
+          <p class="description">转载自：https://xiaobailong24.me/2017/03/18/Android-RxJava2.x/ 前言最近学习了一下RxJava，发现是个好东西，有点相见恨晚的感觉，一开始学习了RxJava 1.x，看了很多国内的博客，有点理解了，后来发现现在都 2.x...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/64cccdaa9204?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/12-aeeea4bedf10f2a12c0d50d626951489(1).jpg" alt="48">
+            </div>
+            <span class="name">Young1657</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/9da04136b5f6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(五) - 简书_files/4316638-c84bfb8a871f8058.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/9da04136b5f6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(四)</a>
+          <p class="description">特此声明：本文为转载文章！尊重原创的劳动果实，严禁剽窃本文转载于：http://www.jianshu.com/p/bb58571cdb64出自于：【Season_zlc】 前言 在上一节中, 我们提到了 Flowable和Backpressure背压, 本来这一节的确是想...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d512e2781e94?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/cbc4cf12-8584-49a8-a284-0bfe560e7e84.jpg" alt="48">
+            </div>
+            <span class="name">社会你鹏哥</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(五) - 简书_files/1008453-e11e9d75b1775e4e.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/bb58571cdb64?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(四)</a>
+          <p class="description">Outline [TOC] 前言 在上一节中, 我们提到了Flowable 和Backpressure背压,  本来这一节的确是想讲这两个东西的，可是写到一半感觉还是差点火候，感觉时机未到， 因此，这里先来做个准备工作， 先带大家学习zip这个操作符, 这个操作符也是比较牛...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/c50b715ccaeb?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/74cbca711744(1).jpg" alt="48">
+            </div>
+            <span class="name">Season_zlc</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/c374e06df87c?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Southfields</a>
+          <p class="description">August30, 2007 其实回来也有两三天了，我住在伦敦西南部靠近温布尔登的小镇Southfields，一片非常宁静美丽的地方，寓所叫Struan House，是天主教的修女管辖的产业，这座三层尖顶小楼里住的全是女孩子，因为修女中很多人说西班牙语的缘故，当中的大部分女...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/9c8b7850cf4a?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/7d917fd81af4" alt="48">
+            </div>
+            <span class="name">seg</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/053b066f94e0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(五) - 简书_files/7097828-5b05e3406689ea8a.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/053b066f94e0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">三十岁女人丰胸是一种什么体验？</a>
+          <p class="description">其实我小时候，就没太注意这种东西，但是后来慢慢的就发现自己这方面不太好，女孩子吗，都是爱美的，也对这些事情敏感，眼看着人家发育的都比我好，心里就不是滋味，但也不知道到底是啥原因，它就是不长了。到底该如何丰胸呢？ 乳房的发育和全身发育一样，都是需要给胸部补充到营养，才能让胸部...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/17e841b2549c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/15-a7ac401939dd4df837e3bbf82abaa2a8.jpg" alt="48">
+            </div>
+            <span class="name">一人行者丨</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/ecbaccb0abf0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">“政治”杂谈        2017/1/22 星期日 19:36</a>
+          <p class="description">（一）今天写的日记是有题目的，也就说明今天的这篇日记我想写一些东西，而非像之前的一样仅仅是记录，记录当然是有用的，以后可以从中得到想法啊，教训啊或者启示，写东西也很重要，就像以前的知识分子写的一些诗词，表达自己的情感，宣誓决心啊，等等。   （先说明一点，下文都是在“穷则思...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/afd44853f115?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/cec7ac86ae16.jpg" alt="48">
+            </div>
+            <span class="name">LeBronZames</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/38b1f2da857c?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(五) - 简书_files/3442235-021e6d3d2dd671f8" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/38b1f2da857c?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">销售高手支招：“小恩小惠”助你开单</a>
+          <p class="description">销售高手包里总是装着外国香烟和日本美食，见了男的就是烟熊火燎，见了女的就是糖衣炮弹。正所谓：吃人的嘴短，拿人的手短。他吃了你的东西或者是拿了你的东西，他总得对你有点表示啊。这是我们中国多少年形成的国情，所以谁也别对此反感后者排斥，没用！想赚钱就得遵守游戏规则啊~职场上不是我...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/c07010d894b9?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/bc3435469a4c.jpg" alt="48">
+            </div>
+            <span class="name">骑毛驴儿上京</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/a6d9ea81185e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">因为喜欢，我变成了嗤之以鼻的那种自己</a>
+          <p class="description">有种说法是，姑娘说的分手都是在抗议“你还不够爱我”。 桃子的身边有好多对，分分合合无数次，却至今在一起。她曾经对这种类型的情侣嗤之以鼻，幼稚、没事找事，此类的标签被无情地贴在他们身上。桃子或许是个有些自负的姑娘，这种自负或来自中上水平的智商，或来自还不错的学历，或是些其他的...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/a4cde10a40b8?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(五) - 简书_files/02ecd1c86519.jpg" alt="48">
+            </div>
+            <span class="name">Cynthiaaaaaa</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"8566ac94-05f0-49a2-8d04-a198c0b1a7cb"},"note":{"id":7626754,"slug":"0f2d6c2387c9","user_id":1008453,"notebook_id":2051181,"commentable":true,"likes_count":280,"views_count":19991,"public_wordage":1489,"comments_count":75,"total_rewards_count":15,"is_author":false,"author":{"nickname":"Season_zlc","total_wordage":19593,"followers_count":5305,"total_likes_count":4083}}}</script>
+    
+    <script src="./给初学者的RxJava2.0教程(五) - 简书_files/babel-polyfill-e27dec85eeb94683dfc7.js.下载" crossorigin="anonymous"></script>
+    <script src="./给初学者的RxJava2.0教程(五) - 简书_files/web-base-e056c0e10ebf681f9aae.js.下载" crossorigin="anonymous"></script>
+<script src="./给初学者的RxJava2.0教程(五) - 简书_files/web-bd89e05c1be6b4b0f6e7.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./给初学者的RxJava2.0教程(五) - 简书_files/entry-9e28293f23f7fa89210f.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

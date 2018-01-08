@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/8818b98c44e2 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/8818b98c44e2">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="Outline [TOC] 前言 上一节教程讲解了最基本的RxJava2的使用, 在本节中, 我们将学习RxJava强大的线程控制. 正题 还是以之前的例子, 两根水管: 正常情况下, 上游和下游是工作在同一个线程中的, 也就是说上游在哪个线程发事件, 下游就在哪个线程接收事件. 怎么去理解呢, 以Android为例, 一个Activity的所有动作默认都是在主线程中运行的, 比如我们在on...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/8818b98c44e2">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/7436931">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="给初学者的RxJava2.0教程(二)" property="twitter:title">
+  <meta content="Outline [TOC] 前言 上一节教程讲解了最基本的RxJava2的使用, 在本节中, 我们将学习RxJava强大的线程控制. 正题 还是以之前的例子, 两根水管: 正常情况下, 上游和下游是工作在同一个线程中的, 也就是说上游在哪个线程发事件, 下游就在哪个线程接收事件. 怎么去理解呢, 以Android为例, 一个Activity的所有动作默认都是在主线程中运行的, 比如我们在onCreate中打出当前线程的名字: 结果便是: 回到RxJava中, 当我们在主线程中去创建一个上游Observable来发送事件, 则这个上游默认就在主线程发送事件. 当我们在主线程去创建一个下游O..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/8818b98c44e2" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="给初学者的RxJava2.0教程(二)">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/8818b98c44e2">
+  <meta property="og:description" content="Outline [TOC] 前言 上一节教程讲解了最基本的RxJava2的使用, 在本节中, 我们将学习RxJava强大的线程控制. 正题 还是以之前的例子, 两根水管: 正常情况下, 上游和下...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/7436931">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/7436931">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>给初学者的RxJava2.0教程(二) - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="866ZkOuGbU4MklekJr+vUwv7k9aPiMavNC8Va+14Z/UCEREor/oIHoUbOTOj0hAYWB1dbbdZ8o2a9J8+rUGPRQ==">
+
+  <link rel="stylesheet" media="all" href="./给初学者的RxJava2.0教程(二) - 简书_files/web-b70e536b9a4f551070c5.css">
+  
+  <link rel="stylesheet" media="all" href="./给初学者的RxJava2.0教程(二) - 简书_files/entry-56eca86786f1d757e500.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./给初学者的RxJava2.0教程(二) - 简书_files/push.js.下载"></script><script src="./给初学者的RxJava2.0教程(二) - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1245px;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">给初学者的RxJava2.0教程(二)</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/c50b715ccaeb">
+            <img src="./给初学者的RxJava2.0教程(二) - 简书_files/74cbca711744.jpg" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/c50b715ccaeb">Season_zlc</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.04 23:27">2016.12.06 11:16*</span>
+              <span class="wordage">字数 1679</span>
+            <span class="views-count">阅读 47048</span><span class="comments-count">评论 163</span><span class="likes-count">喜欢 422</span><span class="rewards-count ">赞赏 13</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <p><em>Outline</em></p>
+<p>[TOC]</p>
+<h2>前言</h2>
+<p>上一节教程讲解了最基本的RxJava2的使用, 在本节中, 我们将学习RxJava强大的线程控制.</p>
+<h2>正题</h2>
+<p>还是以之前的例子, 两根水管:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 580px; max-height: 325px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 56.03%;"></div>
+<div class="image-view" data-width="580" data-height="325"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-27af762b477dd586.png" data-original-width="580" data-original-height="325" data-original-format="image/png" data-original-filesize="15133" class="" style="cursor: zoom-in;" src="./给初学者的RxJava2.0教程(二) - 简书_files/1008453-27af762b477dd586.png"></div>
+</div>
+<div class="image-caption">RxJava</div>
+</div>
+<p>正常情况下, 上游和下游是工作在同一个线程中的, 也就是说上游在哪个线程发事件, 下游就在哪个线程接收事件.</p>
+<p>怎么去理解呢, 以Android为例, 一个Activity的所有动作默认都是在主线程中运行的, 比如我们在onCreate中打出当前线程的名字:</p>
+<pre class="hljs java"><code class="java">    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>{
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Log.d(TAG, Thread.currentThread().getName());
+    }
+</code></pre>
+<p>结果便是:</p>
+<pre class="hljs java"><code class="java">D/TAG: main
+</code></pre>
+<p>回到RxJava中, 当我们在主线程中去创建一个上游Observable来发送事件, 则这个上游默认就在主线程发送事件.</p>
+<p>当我们在主线程去创建一个下游Observer来接收事件, 则这个下游默认就在主线程中接收事件, 来看段代码:</p>
+<pre class="hljs java"><code class="java"><span class="hljs-meta">@Override</span>                                                                                       
+<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>{                                            
+    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);                                                         
+    setContentView(R.layout.activity_main);                                                     
+                                                                          
+    Observable&lt;Integer&gt; observable = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {   
+        <span class="hljs-meta">@Override</span>                                                                               
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{            
+            Log.d(TAG, <span class="hljs-string">"Observable thread is : "</span> + Thread.currentThread().getName());           
+            Log.d(TAG, <span class="hljs-string">"emit 1"</span>);                                                               
+            emitter.onNext(<span class="hljs-number">1</span>);                                                                  
+        }                                                                                       
+    });                                                                                         
+                                                                                                
+    Consumer&lt;Integer&gt; consumer = <span class="hljs-keyword">new</span> Consumer&lt;Integer&gt;() {                                      
+        <span class="hljs-meta">@Override</span>                                                                               
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer integer)</span> <span class="hljs-keyword">throws</span> Exception </span>{                                  
+            Log.d(TAG, <span class="hljs-string">"Observer thread is :"</span> + Thread.currentThread().getName());              
+            Log.d(TAG, <span class="hljs-string">"onNext: "</span> + integer);                                                   
+        }                                                                                       
+    };                                                                                          
+                                                                                                
+    observable.subscribe(consumer);                                                             
+}                                                                                                                                                                   
+</code></pre>
+<p>在主线程中分别创建上游和下游, 然后将他们连接在一起, 同时分别打印出它们所在的线程, 运行结果为:</p>
+<pre class="hljs java"><code class="java">D/TAG: Observable thread is : main
+D/TAG: emit <span class="hljs-number">1</span>                     
+D/TAG: Observer thread is :main   
+D/TAG: onNext: <span class="hljs-number">1</span>                  
+</code></pre>
+<p>这就验证了刚才所说, 上下游默认是在同一个线程工作.</p>
+<p>这样肯定是满足不了我们的需求的, 我们更多想要的是这么一种情况, 在子线程中做耗时的操作, 然后回到主线程中来操作UI, 用图片来描述就是下面这个图片:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 580px; max-height: 325px;">
+<div class="image-container-fill" style="padding-bottom: 56.03%;"></div>
+<div class="image-view" data-width="580" data-height="325"><img data-original-src="//upload-images.jianshu.io/upload_images/1008453-c6712bd320b8caf1.png" data-original-width="580" data-original-height="325" data-original-format="image/png" data-original-filesize="14552" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">thread.png</div>
+</div>
+<p>在这个图中, 我们用黄色水管表示子线程, 深蓝色水管表示主线程.</p>
+<p>要达到这个目的, 我们需要先改变上游发送事件的线程, 让它去子线程中发送事件, 然后再改变下游的线程, 让它去主线程接收事件. 通过RxJava内置的线程调度器可以很轻松的做到这一点. 接下来看一段代码:</p>
+<pre class="hljs java"><code class="java"><span class="hljs-meta">@Override</span>                                                                                       
+<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>{                                            
+    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);                                                         
+    setContentView(R.layout.activity_main);                                                     
+                                                                                                
+    Observable&lt;Integer&gt; observable = Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {   
+        <span class="hljs-meta">@Override</span>                                                                               
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{            
+            Log.d(TAG, <span class="hljs-string">"Observable thread is : "</span> + Thread.currentThread().getName());           
+            Log.d(TAG, <span class="hljs-string">"emit 1"</span>);                                                               
+            emitter.onNext(<span class="hljs-number">1</span>);                                                                  
+        }                                                                                       
+    });                                                                                         
+                                                                                                
+    Consumer&lt;Integer&gt; consumer = <span class="hljs-keyword">new</span> Consumer&lt;Integer&gt;() {                                      
+        <span class="hljs-meta">@Override</span>                                                                               
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer integer)</span> <span class="hljs-keyword">throws</span> Exception </span>{                                  
+            Log.d(TAG, <span class="hljs-string">"Observer thread is :"</span> + Thread.currentThread().getName());              
+            Log.d(TAG, <span class="hljs-string">"onNext: "</span> + integer);                                                   
+        }                                                                                       
+    };                                                                                          
+                                                                                                
+    observable.subscribeOn(Schedulers.newThread())                                              
+            .observeOn(AndroidSchedulers.mainThread())                                          
+            .subscribe(consumer);                                                               
+}                                                                                               
+</code></pre>
+<p>还是刚才的例子, 只不过我们太添加了一点东西, 先来看看运行结果:</p>
+<pre class="hljs java"><code class="java"> D/TAG: Observable thread is : RxNewThreadScheduler-<span class="hljs-number">2</span>  
+ D/TAG: emit <span class="hljs-number">1</span>                                         
+ D/TAG: Observer thread is :main                       
+ D/TAG: onNext: <span class="hljs-number">1</span>                                      
+</code></pre>
+<p>可以看到, 上游发送事件的线程的确改变了, 是在一个叫  <code>RxNewThreadScheduler-2</code>的线程中发送的事件, 而下游仍然在主线程中接收事件, 这说明我们的目的达成了, 接下来看看是如何做到的.</p>
+<p>和上一段代码相比,这段代码只不过是增加了两行代码:</p>
+<pre class="hljs java"><code class="java">.subscribeOn(Schedulers.newThread())                                              
+.observeOn(AndroidSchedulers.mainThread())   
+</code></pre>
+<p>作为一个初学者的入门教程, 并不会贴出一大堆源码来分析, 因此只需要让大家记住几个要点,  已达到如何正确的去使用这个目的才是我们的目标.</p>
+<p>简单的来说, <code>subscribeOn()</code> 指定的是上游发送事件的线程, <code>observeOn()</code> 指定的是下游接收事件的线程.</p>
+<p>多次指定上游的线程只有第一次指定的有效, 也就是说多次调用<code>subscribeOn()</code> 只有第一次的有效, 其余的会被忽略.</p>
+<p>多次指定下游的线程是可以的, 也就是说每调用一次<code>observeOn()</code> , 下游的线程就会切换一次.</p>
+<p>举个例子:</p>
+<pre class="hljs java"><code class="java"> observable.subscribeOn(Schedulers.newThread())     
+         .subscribeOn(Schedulers.io())              
+         .observeOn(AndroidSchedulers.mainThread()) 
+         .observeOn(Schedulers.io())                
+         .subscribe(consumer);                      
+</code></pre>
+<p>这段代码中指定了两次上游发送事件的线程, 分别是newThread和IO线程, 下游也指定了两次线程,分别是main和IO线程. 运行结果为:</p>
+<pre class="hljs java"><code class="java">D/TAG: Observable thread is : RxNewThreadScheduler-<span class="hljs-number">3</span>
+D/TAG: emit <span class="hljs-number">1</span>                                       
+D/TAG: Observer thread is :RxCachedThreadScheduler-<span class="hljs-number">1</span>
+D/TAG: onNext: <span class="hljs-number">1</span>                                    
+</code></pre>
+<p>可以看到, 上游虽然指定了两次线程, 但只有第一次指定的有效, 依然是在<code>RxNewThreadScheduler</code> 线程中, 而下游则跑到了<code>RxCachedThreadScheduler</code> 中, 这个CacheThread其实就是IO线程池中的一个.</p>
+<p>为了更清晰的看到下游的线程切换过程, 我们加点log:</p>
+<pre class="hljs java"><code class="java">     observable.subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(<span class="hljs-keyword">new</span> Consumer&lt;Integer&gt;() {
+                    <span class="hljs-meta">@Override</span>
+                    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer integer)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+                        Log.d(TAG, <span class="hljs-string">"After observeOn(mainThread), current thread is: "</span> + Thread.currentThread().getName());
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .doOnNext(<span class="hljs-keyword">new</span> Consumer&lt;Integer&gt;() {
+                    <span class="hljs-meta">@Override</span>
+                    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer integer)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+                        Log.d(TAG, <span class="hljs-string">"After observeOn(io), current thread is : "</span> + Thread.currentThread().getName());
+                    }
+                })
+                .subscribe(consumer);                                                
+</code></pre>
+<p>我们在下游线程切换之后, 把当前的线程打印出来, 运行结果:</p>
+<pre class="hljs java"><code class="java">D/TAG: Observable thread is : RxNewThreadScheduler-<span class="hljs-number">1</span>                                             
+D/TAG: emit <span class="hljs-number">1</span>                                                                                    
+D/TAG: <span class="hljs-function">After <span class="hljs-title">observeOn</span><span class="hljs-params">(mainThread)</span>, current thread is: main                                      
+D/TAG: After <span class="hljs-title">observeOn</span><span class="hljs-params">(io)</span>, current thread is : RxCachedThreadScheduler-2                        
+D/TAG: Observer thread is :RxCachedThreadScheduler-2                                             
+D/TAG: onNext: 1                                 
+</span></code></pre>
+<p>可以看到, 每调用一次<code>observeOn()</code> 线程便会切换一次, 因此如果我们有类似的需求时, 便可知道如何处理了.</p>
+<p>在RxJava中, 已经内置了很多线程选项供我们选择, 例如有</p>
+<ul>
+<li>Schedulers.io() 代表io操作的线程, 通常用于网络,读写文件等io密集型的操作</li>
+<li>Schedulers.computation() 代表CPU计算密集型的操作, 例如需要大量计算的操作</li>
+<li>Schedulers.newThread() 代表一个常规的新线程</li>
+<li>AndroidSchedulers.mainThread()  代表Android的主线程</li>
+</ul>
+<p>这些内置的Scheduler已经足够满足我们开发的需求, 因此我们应该使用内置的这些选项, 在RxJava内部使用的是线程池来维护这些线程, 所有效率也比较高.</p>
+<h2>实践</h2>
+<p>对于我们Android开发人员来说, 经常会将一些耗时的操作放在后台, 比如网络请求或者读写文件,操作数据库等等,等到操作完成之后回到主线程去更新UI, 有了上面的这些基础, 那么现在我们就可以轻松的去做到这样一些操作.</p>
+<p>下面来举几个常用的场景.</p>
+<h3>网络请求</h3>
+<p>Android中有名的网络请求库就那么几个, Retrofit能够从中脱颖而出很大原因就是因为它支持RxJava的方式来调用, 下面简单讲解一下它的基本用法.</p>
+<p>要使用Retrofit,先添加Gradle配置:</p>
+<pre class="hljs groovy"><code class="groovy">    <span class="hljs-comment">//retrofit</span>
+    compile <span class="hljs-string">'com.squareup.retrofit2:retrofit:2.1.0'</span>
+    <span class="hljs-comment">//Gson converter</span>
+    compile <span class="hljs-string">'com.squareup.retrofit2:converter-gson:2.1.0'</span>
+    <span class="hljs-comment">//RxJava2 Adapter</span>
+    compile <span class="hljs-string">'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'</span>
+    <span class="hljs-comment">//okhttp</span>
+    compile <span class="hljs-string">'com.squareup.okhttp3:okhttp:3.4.1'</span>
+    compile <span class="hljs-string">'com.squareup.okhttp3:logging-interceptor:3.4.1'</span>
+</code></pre>
+<p>随后定义Api接口:</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Api</span> </span>{
+    <span class="hljs-meta">@GET</span>
+    <span class="hljs-function">Observable&lt;LoginResponse&gt; <span class="hljs-title">login</span><span class="hljs-params">(@Body LoginRequest request)</span></span>;
+
+    <span class="hljs-meta">@GET</span>
+    <span class="hljs-function">Observable&lt;RegisterResponse&gt; <span class="hljs-title">register</span><span class="hljs-params">(@Body RegisterRequest request)</span></span>;
+}
+</code></pre>
+<p>接着创建一个Retrofit客户端:</p>
+<pre class="hljs java"><code class="java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Retrofit <span class="hljs-title">create</span><span class="hljs-params">()</span> </span>{
+            OkHttpClient.Builder builder = <span class="hljs-keyword">new</span> OkHttpClient().newBuilder();
+            builder.readTimeout(<span class="hljs-number">10</span>, TimeUnit.SECONDS);
+            builder.connectTimeout(<span class="hljs-number">9</span>, TimeUnit.SECONDS);
+
+            <span class="hljs-keyword">if</span> (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor interceptor = <span class="hljs-keyword">new</span> HttpLoggingInterceptor();
+                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                builder.addInterceptor(interceptor);
+            }
+
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Retrofit.Builder().baseUrl(ENDPOINT)
+                    .client(builder.build())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+}
+</code></pre>
+<p>发起请求就很简单了:</p>
+<pre class="hljs java"><code class="java">        Api api = retrofit.create(Api.class);
+        api.login(request)
+             .subscribeOn(Schedulers.io())               <span class="hljs-comment">//在IO线程进行网络请求</span>
+             .observeOn(AndroidSchedulers.mainThread())  <span class="hljs-comment">//回到主线程去处理请求结果</span>
+            .subscribe(<span class="hljs-keyword">new</span> Observer&lt;LoginResponse&gt;() {
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSubscribe</span><span class="hljs-params">(Disposable d)</span> </span>{}
+
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNext</span><span class="hljs-params">(LoginResponse value)</span> </span>{}
+
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Throwable e)</span> </span>{
+                    Toast.makeText(mContext, <span class="hljs-string">"登录失败"</span>, Toast.LENGTH_SHORT).show();
+                }
+
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onComplete</span><span class="hljs-params">()</span> </span>{
+                    Toast.makeText(mContext, <span class="hljs-string">"登录成功"</span>, Toast.LENGTH_SHORT).show();
+                }
+            });
+</code></pre>
+<p>看似很完美, 但我们忽略了一点, 如果在请求的过程中Activity已经退出了, 这个时候如果回到主线程去更新UI, 那么APP肯定就崩溃了, 怎么办呢, 上一节我们说到了<code>Disposable</code> , 说它是个开关, 调用它的<code>dispose()</code>方法时就会切断水管, 使得下游收不到事件, 既然收不到事件, 那么也就不会再去更新UI了. 因此我们可以在Activity中将这个<code>Disposable</code> 保存起来, 当Activity退出时, 切断它即可.</p>
+<p>那如果有多个<code>Disposable</code> 该怎么办呢, RxJava中已经内置了一个容器<code>CompositeDisposable</code>, 每当我们得到一个<code>Disposable</code>时就调用<code>CompositeDisposable.add()</code>将它添加到容器中, 在退出的时候, 调用<code>CompositeDisposable.clear()</code> 即可切断所有的水管.</p>
+<h3>读写数据库</h3>
+<p>上面说了网络请求的例子, 接下来再看看读写数据库, 读写数据库也算一个耗时的操作, 因此我们也最好放在IO线程里去进行, 这个例子就比较简单, 直接上代码:</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> Observable&lt;List&lt;Record&gt;&gt; readAllRecords() {
+        <span class="hljs-keyword">return</span> Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;List&lt;Record&gt;&gt;() {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;List&lt;Record&gt;&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+                Cursor cursor = <span class="hljs-keyword">null</span>;
+                <span class="hljs-keyword">try</span> {
+                    cursor = getReadableDatabase().rawQuery(<span class="hljs-string">"select * from "</span> + TABLE_NAME, <span class="hljs-keyword">new</span> String[]{});
+                    List&lt;Record&gt; result = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+                    <span class="hljs-keyword">while</span> (cursor.moveToNext()) {
+                        result.add(Db.Record.read(cursor));
+                    }
+                    emitter.onNext(result);
+                    emitter.onComplete();
+                } <span class="hljs-keyword">finally</span> {
+                    <span class="hljs-keyword">if</span> (cursor != <span class="hljs-keyword">null</span>) {
+                        cursor.close();
+                    }
+                }
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+</code></pre>
+<p>好了本次的教程就到这里吧, 后面的教程将会教大家如何使用RxJava中强大的操作符. 通过使用这些操作符可以很轻松的做到各种吊炸天的效果. 敬请期待.</p>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="https://www.jianshu.com/nb/2051181">
+            <i class="iconfont ic-search-notebook"></i>
+            <span>Android小记</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/c50b715ccaeb">
+            <img src="./给初学者的RxJava2.0教程(二) - 简书_files/74cbca711744.jpg" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/c50b715ccaeb">Season_zlc</a>
+          
+            <i class="iconfont ic-man"></i>
+        <p>写了 19593 字，被 5304 人关注，获得了 4082 个喜欢</p></div>
+          <div class="signature">会写点代码
+
+公众号「码个蛋」特约作者</div>
+      </div>
+
+      <div class="support-author"></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>422</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(二)》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/7436931/weibo/image_031650a4a621.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(二)》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(二)》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;给初学者的RxJava2.0教程(二)&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div id="vue_comment"></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(二)》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(二)》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Season_zlc 的文章《给初学者的RxJava2.0教程(二)》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/8818b98c44e2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;给初学者的RxJava2.0教程(二)&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/a904f328163d?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/1-160106013A9345.png"><div class="name">RxJava</div></a><a href="https://www.jianshu.com/c/58b4c20abf2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/android.graphics.Bitmap_1329dce8.jpeg"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/d1591c322c89?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/android.graphics.Bitmap_15f127c2.jpeg"><div class="name">Android开发</div></a><a href="https://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a><a href="https://www.jianshu.com/c/299d0a51fdd4?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/android.graphics.Bitmap_14d316e3.jpeg"><div class="name">RxJava2.x</div></a><a href="https://www.jianshu.com/c/b5617afad677?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/1466310899.jpg"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/a95d8caf5629?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./给初学者的RxJava2.0教程(二) - 简书_files/android.graphics.Bitmap_4f6cb9a.jpeg"><div class="name">Android...</div></a> <a class="show-more">
+        展开更多
+        <i class="iconfont ic-show"></i></a></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="7436931"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/d785d1e4d368?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(二) - 简书_files/5757771-766070ed502d78a3.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/d785d1e4d368?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(二)</a>
+          <p class="description">本文转载自http://www.jianshu.com/p/8818b98c44e2 前言 上一节教程讲解了最基本的RxJava2的使用, 在本节中, 我们将学习RxJava强大的线程控制.正题还是以之前的例子, 两根水管: 正常情况下, 上游和下游是工作在同一个线程中的,...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/4e577623e3f8?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/5006d955-e152-4f70-a39d-fbbc17096b9f.jpg" alt="48">
+            </div>
+            <span class="name">庞哈哈哈12138</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/475c1e51f02d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(二) - 简书_files/4316638-055e3fb1c9b5b950.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/475c1e51f02d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(二)</a>
+          <p class="description">特此声明：本文为转载文章！尊重原创的劳动果实，严禁剽窃本文转载于：http://www.jianshu.com/p/8818b98c44e2出自于：【Season_zlc】 前言 上一节教程讲解了最基本的RxJava2的使用, 在本节中, 我们将学习RxJava强大的线程控...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d512e2781e94?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/cbc4cf12-8584-49a8-a284-0bfe560e7e84.jpg" alt="48">
+            </div>
+            <span class="name">社会你鹏哥</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/222cc4a1adfe?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(二) - 简书_files/2418828-87e71725fdf1e4ce.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/222cc4a1adfe?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">给初学者的RxJava2.0教程(二)</a>
+          <p class="description">正题 还是以之前的例子, 两根水管: 正常情况下, 上游和下游是工作在同一个线程中的, 也就是说上游在哪个线程发事件, 下游就在哪个线程接收事件. 怎么去理解呢, 以Android为例, 一个Activity的所有动作默认都是在主线程中运行的, 比如我们在onCreate中...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/9cf706d012ac?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/7-0993d41a595d6ab6ef17b19496eb2f21.jpg" alt="48">
+            </div>
+            <span class="name">CHSmile</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/b3a63548514e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">RxJava 2.x 学习（转载）</a>
+          <p class="description">转载自：https://xiaobailong24.me/2017/03/18/Android-RxJava2.x/ 前言最近学习了一下RxJava，发现是个好东西，有点相见恨晚的感觉，一开始学习了RxJava 1.x，看了很多国内的博客，有点理解了，后来发现现在都 2.x...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/64cccdaa9204?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/12-aeeea4bedf10f2a12c0d50d626951489.jpg" alt="48">
+            </div>
+            <span class="name">Young1657</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/f73193dccc69?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">RxJava 2.x 学习2（转载）</a>
+          <p class="description">怎么如此平静, 感觉像是走错了片场.为什么呢, 因为上下游工作在同一个线程呀骚年们! 这个时候上游每次调用emitter.onNext(i)其实就相当于直接调用了Consumer中的: public void accept(Integer integer) throws E...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/64cccdaa9204?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/12-aeeea4bedf10f2a12c0d50d626951489.jpg" alt="48">
+            </div>
+            <span class="name">Young1657</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/d3bafed1b37d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">合同诈骗罪中“以非法占有为目的”的认定</a>
+          <p class="description">【合同诈骗罪中“以非法占有为目的”的认定】 【合同诈骗罪 非法占有目的】 【浙江省温州市人民检察院诉吴联大合同诈骗案（判决时间：2002年3月12日，二审法院：浙江省高级人民法院） 裁判摘要：行为人在签订和履行合同过程的一些行为具有一定的欺骗性，但其主观上不具有以欺骗的手段...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/ef5b4ce8f923?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/21ac26eae193.jpg" alt="48">
+            </div>
+            <span class="name">问道刑事团队</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/2404472ba558?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(二) - 简书_files/7851894-8aeac3b6cb059c91.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/2404472ba558?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">我的“小绿球”</a>
+          <p class="description">    我家里有一个绿绿的小刺球，它其实是仙人球，我给它起了个名字叫小绿球，我会一个星期给它浇一次水。     这个小家伙的生命力可强了，有一次暑假假期我去姥姥家，过了一个星期，然后接着又去小姨家过了一个星期，这下我想小绿球应该干死了吧，我就问妈妈，仙人球会不会死，妈妈说不...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d2eb7d2a72a2?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/3cf55e09-c11b-4c3e-818f-d8520f202a7a.jpg" alt="48">
+            </div>
+            <span class="name">lily绿茶丽丽</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/75d4e0e54c86?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(二) - 简书_files/4233672-20c978fadece1c6e.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/75d4e0e54c86?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">在路上的..是青春么</a>
+          <p class="description">最近又萌生了几时不出现的想法， 就想着一人一包走天涯， 想标记自己逝去的青春。 虽不曾惊天动地，却光怪陆离。 幻想一花一世界，一树一菩提般的昙花生活。 总觉得自己欠自己点什么..... 也许就是一场说走就走的旅行吧。 看看天空，嗅嗅花香，简单平淡。 本计划着去见见玉龙雪山，...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/dcf1f08f4f7a?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/20300549703d" alt="48">
+            </div>
+            <span class="name">y3m糊糊</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/5e3745d3f24d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">学英语之前先明白这些问题</a>
+          <p class="description">最近在整理英语学习的一些列文章，看了很多关于英语学习的文章，以及结合自己的经历，在学英语之前，我们需要先理清这三个问题。 1、学好英语到底有什么用？ 2、英文水平在没有达到一定程度时候，对我们来说她是没有任何用的。 3、你到底是为什么学英语，有没有明确的动因。 在三个问题在...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/0af511e4a75e?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/2f78f9ee5ff0" alt="48">
+            </div>
+            <span class="name">萧牧寒</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/88961e22ba60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./给初学者的RxJava2.0教程(二) - 简书_files/3435323-85708ed26fa2f215.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/88961e22ba60?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">感动和心动仅一字之差，却隔了一个世纪。</a>
+          <p class="description">文/卖真心的小女孩 我这个人有个缺点，执拗，特别执拗。 我喜欢你的时候，是真的喜欢你。我不喜欢你的时候，是真的不喜欢了，但你不能否定我喜欢你时的真心。 两个人在一起一定要步调一致，快一步慢一步都不行，很容易走散，而我们，就是这样走散的。 刚开始恋爱的两个人，是渴望了解彼此，...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/9707ebd9cebb?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./给初学者的RxJava2.0教程(二) - 简书_files/23321849-fb0e-4e89-ac30-cdf5e3ab94cf.jpg" alt="48">
+            </div>
+            <span class="name">卖真心的小女孩</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"8962cfb3-b8ee-4a8a-9bc5-42e98127a9a6"},"note":{"id":7436931,"slug":"8818b98c44e2","user_id":1008453,"notebook_id":2051181,"commentable":true,"likes_count":422,"views_count":47048,"public_wordage":1679,"comments_count":163,"total_rewards_count":13,"is_author":false,"author":{"nickname":"Season_zlc","total_wordage":19593,"followers_count":5304,"total_likes_count":4082}}}</script>
+    
+    <script src="./给初学者的RxJava2.0教程(二) - 简书_files/babel-polyfill-e27dec85eeb94683dfc7.js.下载" crossorigin="anonymous"></script>
+    <script src="./给初学者的RxJava2.0教程(二) - 简书_files/web-base-cd9d0052e3e6838df1aa.js.下载" crossorigin="anonymous"></script>
+<script src="./给初学者的RxJava2.0教程(二) - 简书_files/web-162b34642c100de6dffb.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./给初学者的RxJava2.0教程(二) - 简书_files/entry-9e28293f23f7fa89210f.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>
