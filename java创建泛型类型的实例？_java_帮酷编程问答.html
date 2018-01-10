@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://ask.helplib.com/java/post_71851 -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>java创建泛型类型的实例？_java_帮酷编程问答</title><meta http-equiv="Content-Language" content="zh-cn"><meta name="keywords" content="java,generics"><meta name="description" content="在Java中创建泛型类型的实例有可能？ 我想根据我看过答案是 no ( 由于类型擦除 ), 但我感兴趣的,如果任何人都可以看到我丢失的�"><meta name="author" content="帮酷"><meta name="Copyright" content="帮酷版权所有"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="renderer" content="webkit|ie-comp|ie-stand"><meta name="applicable-device" content="pc,mobile"><!--360.com 摘要  --><meta property="og:type" content="bbs"><meta property="og:image" content=""><meta property="og:release_date" content="15年06月29日"><meta property="og:title" content=" java创建泛型类型的实例？"><meta property="og:description" content="在Java中创建泛型类型的实例有可能？ 我想根据我看过答案是 no ( 由于类型擦除 ), 但我感兴趣的,如果任何人都可以看到我丢失的� "><meta property="og:author" content="John Woo"><meta property="og:bbs:replay" content="23"><!--360.com  end --><link rel="icon" href="https://www.helplib.com/favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="https://www.helplib.com/favicon.ico" type="image/x-icon"><link type="text/css" rel="stylesheet" href="./java创建泛型类型的实例？_java_帮酷编程问答_files/qa-styles.css"><link type="text/css" rel="stylesheet" href="./java创建泛型类型的实例？_java_帮酷编程问答_files/jquery.qtip.min.css"><link media="only screen and (max-device-width: 768px)" href="./java创建泛型类型的实例？_java_帮酷编程问答_files/mob.css" type="text/css" rel="stylesheet"><link rel="alternate" hreflang="zh-hans" href="https://ask.helplib.com/java/post_71851"><link rel="alternate" hreflang="zh-hant" href="http://hant.ask.helplib.com/java/post_71851"><link rel="canonical" href="https://ask.helplib.com/71851"><link rel="alternate" media="handheld, only screen and (max-width: 640px)" href="https://ask.helplib.com/"><script src="./java创建泛型类型的实例？_java_帮酷编程问答_files/ca-pub-1467695179275159.js.下载"></script><script src="./java创建泛型类型的实例？_java_帮酷编程问答_files/hm.js.下载"></script><script type="text/javascript"><!--	
+	var qa_root='.\/';	
+	var qa_request='questions';	
+	//--></script><script type="text/javascript"><!--	
+	//if (qa_wysiwyg_editor_config)	
+	//qa_wysiwyg_editor_config.skin="kama";	
+	//--></script><script src="./java创建泛型类型的实例？_java_帮酷编程问答_files/share.js.下载"></script><link rel="stylesheet" type="text/css" href="./java创建泛型类型的实例？_java_帮酷编程问答_files/doxy.css"><link rel="preload" href="./java创建泛型类型的实例？_java_帮酷编程问答_files/integrator.js.下载" as="script"><script type="text/javascript" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/integrator.js.下载"></script><link rel="preload" href="./java创建泛型类型的实例？_java_帮酷编程问答_files/integrator.js(1).下载" as="script"><script type="text/javascript" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/integrator.js(1).下载"></script><link rel="stylesheet" href="./java创建泛型类型的实例？_java_帮酷编程问答_files/share_style0_16.css"></head><body class="qa-template-questions qa-body-js-on"><script type="text/javascript"><!--	
+var b=document.getElementsByTagName('body')[0];	
+b.className=b.className.replace('qa-body-js-off', 'qa-body-js-on');
+//--></script><div id="qa-login-bar"><div id="qa-login-group"><div class="qa-nav-user"><ul class="qa-nav-user-list"><a href="http://hant.ask.helplib.com/java/post_71851">繁體版</a>      
+      </ul><div class="qa-nav-user-clear"></div></div><div class="qa-search"><form method="get" action="http://www.bing.com/search"><input type="text" name="q" value="" class="qa-search-field"><input type="hidden" name="q1" value="site:ask.helplib.com"><input type="submit" value="搜索" class="qa-search-button"></form></div></div></div><div class="qa-body-wrapper"><div class="qa-header"><div class="qa-logo"><a href="https://ask.helplib.com/" class="qa-logo-link">帮酷编程问答</a></div><div class="qa-header-clear">        
+    </div><div class="top_ad_code" style="padding-left:250px;"><script async="" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-1467695179275159" data-ad-slot="1706817006" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent;"><iframe width="468" height="60" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:468px;height:60px;" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/saved_resource.html"></iframe></ins></ins></ins>
+<script>(adsbygoogle =window.adsbygoogle ||[]).push({});</script>
+</div>    
+  </div><!-- END qa-header --><script type="text/javascript">var is_superuser=0;
+ </script><div class="qa-main-shadow" itemscope="" itemtype="http://schema.org/Question"><div class="qa-main-wrapper"><div class="qa-nav-main"><ul class="qa-nav-main-list"><li class="qa-nav-main-item qa-nav-main-questions"><a href="https://ask.helplib.com/" class="qa-nav-main-link qa-nav-main-selected">问题</a></li><li class="qa-nav-main-item qa-nav-main-tag"><a href="https://ask.helplib.com/tags" class="qa-nav-main-link">标签</a></li><li class="qa-nav-main-item qa-nav-main-custom-1"><a href="https://www.helplib.com/" class="qa-nav-main-link" target="_blank">文章</a></li><li class="qa-nav-main-item qa-nav-main-custom-2"><a href="https://doc.helplib.com/" class="qa-nav-main-link" target="_blank">文档库</a></li></ul><div class="qa-nav-main-clear"></div></div><style>.ftlink0{}
+.ftlink1{color:#90F; background-color:#CCF;}
+.ftlink2{color:#C36;background-color:#FCF;}
+.ftlink3{color:#00F;background-color:#0FF;}
+.ftlink4{color:#060;background-color:#FF9;}
+.ftlink5{color:#F00;background-color:#EFDFD6;}</style><div class="qa-sidepanel hide_mob"><div class="qa-widgets-side qa-widgets-side-top"> 	
+          <div class="qa-widget-side qa-widget-side-top"><div class="qa-related-qs">        	 <!-- BD SHARE Button BEGIN --><div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1515562815654"><a href="https://ask.helplib.com/java/post_71851#" class="bds_more" data-cmd="more"></a><a href="https://ask.helplib.com/java/post_71851#" class="bds_weixin" data-cmd="weixin" data-hasqtip="0" oldtitle="分享到微信" title="分享到微信"></a><a href="https://ask.helplib.com/java/post_71851#" class="bds_tsina" data-cmd="tsina" data-hasqtip="1" oldtitle="分享到新浪微博" title="分享到新浪微博"></a><a href="https://ask.helplib.com/java/post_71851#" class="bds_qzone" data-cmd="qzone" data-hasqtip="2" oldtitle="分享到QQ空间" title="分享到QQ空间"></a><a href="https://ask.helplib.com/java/post_71851#" class="bds_evernotecn" data-cmd="evernotecn" data-hasqtip="3" oldtitle="分享到印象笔记" title="分享到印象笔记"></a><a href="https://ask.helplib.com/java/post_71851#" class="bds_douban" data-cmd="douban" data-hasqtip="4" oldtitle="分享到豆瓣网" title="分享到豆瓣网"></a><a href="https://ask.helplib.com/java/post_71851#" class="bds_sqq" data-cmd="sqq" data-hasqtip="5" oldtitle="分享到QQ好友" title="分享到QQ好友"></a></div><script>        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script><!-- BD Button END --><h2 style="margin-top:0; padding-top:0;"> 相关问题 </h2><ul class="qa-related-q-list">     		             
+              </ul><h2 style="margin-top:0; padding-top:0;"> 问题链接 </h2><ul class="qa-related-q-list">     		             
+              </ul>              
+            </div></div><div class="qa-widget-side qa-widget-side-top"><h2 style="margin-top:0; padding-top:0;"> 最受欢迎标签 </h2>            
+            <div style="font-size:12px;"> 
+              <a rel="tag" href="https://ask.helplib.com/tag/Javascript" class="ftlink5" style="font-size:32.0px; vertical-align:baseline;">Javascript</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/JAVA" class="ftlink5" style="font-size:30.9px; vertical-align:baseline;">JAVA</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/C#" class="ftlink5" style="font-size:29.3px; vertical-align:baseline;">C#</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/PHP" class="ftlink5" style="font-size:27.0px; vertical-align:baseline;">PHP</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Node.js" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Node.js</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/GIT" class="ftlink4" style="font-size:12px; vertical-align:baseline;">GIT</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Windows" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Windows</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Html5" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Html5</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Excel" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Excel</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Spring" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Spring</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/%E5%A4%9A%E8%BF%9B%E7%A8%8B" class="ftlink4" style="font-size:12px; vertical-align:baseline;">多进程</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Wordpress" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Wordpress</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/String" class="ftlink4" style="font-size:12px; vertical-align:baseline;">String</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/%E5%9B%BE%E5%83%8F" class="ftlink4" style="font-size:12px; vertical-align:baseline;">图像</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/%E8%A1%A8%E5%8D%95" class="ftlink4" style="font-size:12px; vertical-align:baseline;">表单</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Apache" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Apache</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Ruby%20On%20Rails%203" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Ruby On Rails 3</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/%E7%AE%97%E6%B3%95" class="ftlink4" style="font-size:12px; vertical-align:baseline;">算法</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/OSX" class="ftlink4" style="font-size:12px; vertical-align:baseline;">OSX</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Winforms" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Winforms</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/%E6%80%A7%E8%83%BD" class="ftlink4" style="font-size:12px; vertical-align:baseline;">性能</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/.htaccess" class="ftlink4" style="font-size:12px; vertical-align:baseline;">.htaccess</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Facebook" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Facebook</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Entity%20Framework" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Entity Framework</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Oracle" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Oracle</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/BASH" class="ftlink4" style="font-size:12px; vertical-align:baseline;">BASH</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Twitter%20Bootstrap" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Twitter Bootstrap</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Hibernate" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Hibernate</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Mongodb" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Mongodb</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/LINQ" class="ftlink4" style="font-size:12px; vertical-align:baseline;">LINQ</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/VBA" class="ftlink4" style="font-size:12px; vertical-align:baseline;">VBA</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Postgresql" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Postgresql</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Visual%20Studio" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Visual Studio</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Matlab" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Matlab</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/CSS3" class="ftlink4" style="font-size:12px; vertical-align:baseline;">CSS3</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Swift" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Swift</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Visual%20Studio%202010" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Visual Studio 2010</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Scala" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Scala</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Asp.net%20Mvc%203" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Asp.net Mvc 3</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Web%E6%9C%8D%E5%8A%A1" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Web服务</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Sql%20Server%202008" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Sql Server 2008</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/QT" class="ftlink4" style="font-size:12px; vertical-align:baseline;">QT</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Sqlite" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Sqlite</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Codeigniter" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Codeigniter</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/WCF" class="ftlink4" style="font-size:12px; vertical-align:baseline;">WCF</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/REST" class="ftlink4" style="font-size:12px; vertical-align:baseline;">REST</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Uitableview" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Uitableview</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Shell" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Shell</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/%E6%96%87%E4%BB%B6" class="ftlink4" style="font-size:12px; vertical-align:baseline;">文件</a>           
+             <a rel="tag" href="https://ask.helplib.com/tag/Swing" class="ftlink4" style="font-size:12px; vertical-align:baseline;">Swing</a>           
+                          </div></div></div>     
+        <div class="qa-sidebar"><script async="" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; height: 1496px;" data-ad-format="autorelaxed" data-ad-client="ca-pub-1467695179275159" data-ad-slot="6555072516" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:1496px;margin:0;padding:0;position:relative;visibility:visible;width:435px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:1496px;margin:0;padding:0;position:relative;visibility:visible;width:435px;background-color:transparent;"><iframe width="435" height="1496" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:435px;height:1496px;" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/saved_resource(1).html"></iframe></ins></ins></ins>
+<script>(adsbygoogle =window.adsbygoogle ||[]).push({});</script>       
+         </div></div>    
+    <div id="debug"></div><div class="qa-main view_contents_mob"><h1><span class="qa-favoriting hide_mob"> 
+        </span> 
+        <span class="title single-title entry-title"><a class="main_title" href="https://ask.helplib.com/java/post_71851" itemprop="name" data-hasqtip="6" oldtitle="Create instance of generic type in Java?" title="">java - java创建泛型类型的实例？</a>          
+        </span></h1><span class="sub-title" style="float:right; "><a href="http://hant.ask.helplib.com/java/post_71851"><img src="./java创建泛型类型的实例？_java_帮酷编程问答_files/zh-hant.gif"></a>&nbsp;&nbsp;<a href="https://ask.helplib.com/c/71851" rel="nofollow"><img src="./java创建泛型类型的实例？_java_帮酷编程问答_files/mutilan_cn.gif" alt="显示原文与译文双语对照的内容"></a>         
+        </span> 
+      <!-- 问题---><div class="qa-q-view question" id="q71851"><div class="qa-voting qa-voting-net hide_mob" id="voting_71851"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71851" onclick="return do_user_vote(71851,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="7" oldtitle="点击投赞成票" title=""><input id="do_vote2_71851" onclick="return do_user_vote(71851,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="8" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71851" itemprop="upvoteCount">0</span> 
+          <span class="votes-down" id="votes-down-71851">            0            </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-q-view-main"><div class="qa-q-view-content"> 
+             <input id="do_sentence71851" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"><input id="tgt_content_71851" type="hidden" value=""> 
+            <input id="ori_content_71851" type="hidden" value=""> 
+            <input id="is_show_ori_status_71851" type="hidden" value="1">                           
+            <a name="71851"></a><div class="entry-content" itemprop="text" id="qcontent_71851"><div id="yf_71851" class="yf_trans_block_cn"><p>在Java中创建泛型类型的实例有可能？ 我想根据我看过答案是 <code>no</code> ( 由于类型擦除 <em>), 但我感兴趣的,如果任何人都可以看到我丢失的东西:</em></p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">class</span><span class="pln"> </span><span class="typ">SomeContainer</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+ E createContents</span><span class="pun">()</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> what</span><span class="pun">???</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre><p>编辑:原来<a href="http://www.artima.com/weblogs/viewpost.jsp?thread=208860" rel="nofollow">超级类型标记</a>可以用来解决我的问题,但它需要大量的reflection-based代码,如下的一些答案表示。</p><p>我将离开这一会儿,看看任何人开放提出了任何显著不同的伊恩•<a href="http://www.artima.com/weblogs/viewpost.jsp?thread=208860" rel="nofollow">罗伯逊Artima文章</a> 。</p></div></div><script async="" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 200px;" data-ad-format="fluid" data-ad-layout="in-article" data-ad-client="ca-pub-1467695179275159" data-ad-slot="8105360933" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:1113px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:1113px;background-color:transparent;"><iframe width="1113" height="200" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:1113px;height:200px;" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/saved_resource(2).html"></iframe></ins></ins></ins>
+<script>(adsbygoogle =window.adsbygoogle ||[]).push({});</script>
+</div><div class="qa-q-view-tags"><ul class="qa-q-view-tag-list"><li class="qa-q-item-tag-item"><a href="https://ask.helplib.com/tag/java" class="qa-tag-link" rel="tag">                java                </a></li><li class="qa-q-item-tag-item"><a href="https://ask.helplib.com/tag/generics" class="qa-tag-link" rel="tag">                generics                </a></li>               
+            </ul></div><span class="qa-q-view-avatar-meta"><span class="qa-q-view-meta"><span class="qa-q-view-what">时间:</span><span class="qa-q-view-when"><span class="qa-q-view-when-data"><span class="published"><span class="value-title"></span><time itemprop="dateCreated" datetime="">15年06月29日</time></span></span></span><span class="qa-q-view-who"><span class="qa-q-view-who-pad">原作者:</span><span class="qa-q-view-who-data" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><span class="vcard fn author"><a href="https://ask.helplib.com/user/John%20Woo" class="qa-user-link url nickname" rel="nofollow">John Woo</a></span></span> 
+          共<span itemprop="answerCount">23</span>个回答 
+          <span class="qa-q-view-who-points"></span></span></span></span><div class="qa-q-view-buttons"></div></div><!-- END qa-q-view-main --><div class="qa-q-view-clear"></div></div><!-- END qa-q-view --> 
+      <!-- 回复列表 --><h2><span id="a_list_title"></span></h2><div class="qa-a-list" id="a_list">            
+        <div class="qa-a-list-item answer" id="answer_71855" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71855"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71855" onclick="return do_user_vote(71855,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="9" oldtitle="点击投赞成票" title=""><input id="do_vote2_71855" onclick="return do_user_vote(71855,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="10" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71855" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71855">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71855" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71855" type="hidden" value=""> 
+              <input id="ori_content_71855" type="hidden" value=""><input id="is_show_ori_status_71855" type="hidden" value="1">             
+              <a name="71855"></a><div class="entry-content" itemprop="text" id="qcontent_71855"><div id="yf_71855" class="yf_trans_block_cn"><p>你是对的，你不能做"新建e"。 但是你可以把它改成</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SomeContainer</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+ E createContents</span><span class="pun">(</span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> clazz</span><span class="pun">)</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> clazz</span><span class="pun">.</span><span class="pln">newInstance</span><span class="pun">();</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre><p>这很痛苦，但它可以。 将它包装在工厂模式中可以让它更容易被接受。</p></div> 
+              </div></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/Justin%20Rudd" class="qa-user-link url nickname" itemprop="name" rel="nofollow">Justin Rudd</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item -->            
+        <div class="qa-a-list-item answer" id="answer_71861" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71861"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71861" onclick="return do_user_vote(71861,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="11" oldtitle="点击投赞成票" title=""><input id="do_vote2_71861" onclick="return do_user_vote(71861,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="12" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71861" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71861">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71861" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71861" type="hidden" value=""> 
+              <input id="ori_content_71861" type="hidden" value=""><input id="is_show_ori_status_71861" type="hidden" value="1">             
+              <a name="71861"></a><div class="entry-content" itemprop="text" id="qcontent_71861"><div id="yf_71861" class="yf_trans_block_cn"><p>不知道这是否有用，但是当你子类类型( 包括匿名) 时，类型信息可以通过反射获得。 例如,</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">abstract</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Foo</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> E instance</span><span class="pun">;</span><span class="pln"> 
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Foo</span><span class="pun">()</span><span class="pln"> throws </span><span class="typ">Exception</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ instance </span><span class="pun">=</span><span class="pln"> </span><span class="pun">((</span><span class="typ">Class</span><span class="pun">)((</span><span class="typ">ParameterizedType</span><span class="pun">)</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">
+ getGenericSuperclass</span><span class="pun">()).</span><span class="pln">getActualTypeArguments</span><span class="pun">()[</span><span class="lit">0</span><span class="pun">]).</span><span class="pln">newInstance</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">.</span><span class="pln"> </span><span class="pun">.</span><span class="pln"> </span><span class="pun">.</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre><p>因此，当你在子类中创建Foo时，你得到了 Bar e.g.的一个实例，</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="com">//notice that this in anonymous subclass of Foo</span><span class="pln">
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Foo</span><span class="pun">&lt;</span><span class="typ">Bar</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{}.</span><span class="pln">instance instanceof </span><span class="typ">Bar</span><span class="pln"> </span><span class="pun">);</span></code></pre><p>但它有很多工作，只适用于子类。 虽然很方便。</p></div> 
+              </div></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/Noah" class="qa-user-link url nickname" itemprop="name" rel="nofollow">Noah</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item -->            
+        <div class="qa-a-list-item answer" id="answer_71867" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71867"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71867" onclick="return do_user_vote(71867,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="13" oldtitle="点击投赞成票" title=""><input id="do_vote2_71867" onclick="return do_user_vote(71867,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="14" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71867" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71867">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71867" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71867" type="hidden" value=""> 
+              <input id="ori_content_71867" type="hidden" value=""><input id="is_show_ori_status_71867" type="hidden" value="1">             
+              <a name="71867"></a><div class="entry-content" itemprop="text" id="qcontent_71867"><div id="yf_71867" class="yf_trans_block_cn"><p>你需要某种类型的抽象工厂，以便将buck传递给：</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">interface</span><span class="pln"> </span><span class="typ">Factory</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ E create</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SomeContainer</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> final </span><span class="typ">Factory</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> factory</span><span class="pun">;</span><span class="pln">
+ </span><span class="typ">SomeContainer</span><span class="pun">(</span><span class="typ">Factory</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> factory</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">factory </span><span class="pun">=</span><span class="pln"> factory</span><span class="pun">;</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ E createContents</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> factory</span><span class="pun">.</span><span class="pln">create</span><span class="pun">();</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre></div> 
+              </div></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/Tom%20Hawtin%20-%20tacklin" class="qa-user-link url nickname" itemprop="name" rel="nofollow">Tom Hawtin - tacklin</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item -->            
+        <div class="qa-a-list-item answer" id="answer_71868" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71868"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71868" onclick="return do_user_vote(71868,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="15" oldtitle="点击投赞成票" title=""><input id="do_vote2_71868" onclick="return do_user_vote(71868,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="16" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71868" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71868">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71868" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71868" type="hidden" value=""> 
+              <input id="ori_content_71868" type="hidden" value=""><input id="is_show_ori_status_71868" type="hidden" value="1">             
+              <a name="71868"></a><div class="entry-content" itemprop="text" id="qcontent_71868"><div id="yf_71868" class="yf_trans_block_cn"><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">package</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">foo</span><span class="pun">.</span><span class="pln">com</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">lang</span><span class="pun">.</span><span class="pln">reflect</span><span class="pun">.</span><span class="typ">ParameterizedType</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">lang</span><span class="pun">.</span><span class="pln">reflect</span><span class="pun">.</span><span class="typ">Type</span><span class="pun">;</span><span class="pln">
+</span><span class="com">/**
+ * Basically the same answer as noah's.
+ */</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Home</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+ </span><span class="lit">@SuppressWarnings</span><span class="pln"> </span><span class="pun">(</span><span class="str">"unchecked"</span><span class="pun">)</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> getTypeParameterClass</span><span class="pun">()</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ </span><span class="typ">Type</span><span class="pln"> type </span><span class="pun">=</span><span class="pln"> getClass</span><span class="pun">().</span><span class="pln">getGenericSuperclass</span><span class="pun">();</span><span class="pln">
+ </span><span class="typ">ParameterizedType</span><span class="pln"> paramType </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">ParameterizedType</span><span class="pun">)</span><span class="pln"> type</span><span class="pun">;</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;)</span><span class="pln"> paramType</span><span class="pun">.</span><span class="pln">getActualTypeArguments</span><span class="pun">()[</span><span class="lit">0</span><span class="pun">];</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">StringHome</span><span class="pln"> extends </span><span class="typ">Home</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">StringBuilderHome</span><span class="pln"> extends </span><span class="typ">Home</span><span class="pun">&lt;</span><span class="typ">StringBuilder</span><span class="pun">&gt;</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">StringBufferHome</span><span class="pln"> extends </span><span class="typ">Home</span><span class="pun">&lt;</span><span class="typ">StringBuffer</span><span class="pun">&gt;</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln"> 
+</span><span class="com">/**
+ * This prints"String","StringBuilder" and"StringBuffer"
+ */</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> args</span><span class="pun">)</span><span class="pln"> throws </span><span class="typ">InstantiationException</span><span class="pun">,</span><span class="pln"> </span><span class="typ">IllegalAccessException</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ </span><span class="typ">Object</span><span class="pln"> object0 </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringHome</span><span class="pun">().</span><span class="pln">getTypeParameterClass</span><span class="pun">().</span><span class="pln">newInstance</span><span class="pun">();</span><span class="pln">
+ </span><span class="typ">Object</span><span class="pln"> object1 </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBuilderHome</span><span class="pun">().</span><span class="pln">getTypeParameterClass</span><span class="pun">().</span><span class="pln">newInstance</span><span class="pun">();</span><span class="pln">
+ </span><span class="typ">Object</span><span class="pln"> object2 </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StringBufferHome</span><span class="pun">().</span><span class="pln">getTypeParameterClass</span><span class="pun">().</span><span class="pln">newInstance</span><span class="pun">();</span><span class="pln">
+ </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">object0</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getSimpleName</span><span class="pun">());</span><span class="pln">
+ </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">object1</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getSimpleName</span><span class="pun">());</span><span class="pln">
+ </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">object2</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getSimpleName</span><span class="pun">());</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre></div> 
+              </div><script async="" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-1467695179275159" data-ad-slot="6593146326" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:1105px;background-color:transparent;"><ins id="aswift_3_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:1105px;background-color:transparent;"><iframe width="1105" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;width:1105px;height:90px;" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/saved_resource(3).html"></iframe></ins></ins></ins>
+<script>(adsbygoogle =window.adsbygoogle ||[]).push({});</script></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/Lars%20Bohl" class="qa-user-link url nickname" itemprop="name" rel="nofollow">Lars Bohl</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item -->            
+        <div class="qa-a-list-item answer" id="answer_71872" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71872"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71872" onclick="return do_user_vote(71872,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="17" oldtitle="点击投赞成票" title=""><input id="do_vote2_71872" onclick="return do_user_vote(71872,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="18" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71872" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71872">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71872" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71872" type="hidden" value=""> 
+              <input id="ori_content_71872" type="hidden" value=""><input id="is_show_ori_status_71872" type="hidden" value="1">             
+              <a name="71872"></a><div class="entry-content" itemprop="text" id="qcontent_71872"><div id="yf_71872" class="yf_trans_block_cn"><h2>你现在可以这么做，它不需要大量的反射代码 ！</h2><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">import</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">google</span><span class="pun">.</span><span class="pln">common</span><span class="pun">.</span><span class="pln">reflect</span><span class="pun">.</span><span class="typ">TypeToken</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> Q26289147
+</span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="pln">final </span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> args</span><span class="pun">)</span><span class="pln"> throws </span><span class="typ">IllegalAccessException</span><span class="pun">,</span><span class="pln"> </span><span class="typ">InstantiationException</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ final </span><span class="typ">StrawManParameterizedClass</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> smpc </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">StrawManParameterizedClass</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{};</span><span class="pln">
+ final </span><span class="typ">String</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">String</span><span class="pun">)</span><span class="pln"> smpc</span><span class="pun">.</span><span class="pln">type</span><span class="pun">.</span><span class="pln">getRawType</span><span class="pun">().</span><span class="pln">newInstance</span><span class="pun">();</span><span class="pln">
+ </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">format</span><span class="pun">(</span><span class="str">"string = "</span><span class="pun">%</span><span class="pln">s</span><span class="str">""</span><span class="pun">,</span><span class="kwd">string</span><span class="pun">);</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">abstract</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">StrawManParameterizedClass</span><span class="pun">&lt;</span><span class="pln">T</span><span class="pun">&gt;</span><span class="pln">
+ </span><span class="pun">{</span><span class="pln">
+ final </span><span class="typ">TypeToken</span><span class="pun">&lt;</span><span class="pln">T</span><span class="pun">&gt;</span><span class="pln"> type </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">TypeToken</span><span class="pun">&lt;</span><span class="pln">T</span><span class="pun">&gt;(</span><span class="pln">getClass</span><span class="pun">())</span><span class="pln"> </span><span class="pun">{};</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre><h3>当然，如果你需要调用需要一些反射的构造函数，但这是非常好的文档，那么这个技巧就不是 ！</h3><p>这里的<a href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/reflect/TypeToken.html" rel="nofollow">JavaDoc TypeToken</a> 。</p></div> 
+              </div></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/Jarrod%20Roberson" class="qa-user-link url nickname" itemprop="name" rel="nofollow">Jarrod Roberson</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item -->            
+        <div class="qa-a-list-item answer" id="answer_71874" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71874"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71874" onclick="return do_user_vote(71874,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="19" oldtitle="点击投赞成票" title=""><input id="do_vote2_71874" onclick="return do_user_vote(71874,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="20" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71874" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71874">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71874" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71874" type="hidden" value=""> 
+              <input id="ori_content_71874" type="hidden" value=""><input id="is_show_ori_status_71874" type="hidden" value="1">             
+              <a name="71874"></a><div class="entry-content" itemprop="text" id="qcontent_71874"><div id="yf_71874" class="yf_trans_block_cn"><p>如果你不想在实例化过程中两次输入类名，例如：</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">new</span><span class="pln"> </span><span class="typ">SomeContainer</span><span class="pun">&lt;</span><span class="typ">SomeType</span><span class="pun">&gt;(</span><span class="typ">SomeType</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">);</span></code></pre><p>你可以使用工厂方法：</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="tag">&lt;E&gt;</span><span class="pln"> SomeContainer</span><span class="tag">&lt;E&gt;</span><span class="pln"> createContainer(Class</span><span class="tag">&lt;E&gt;</span><span class="pln"> class);</span></code></pre><p>类似于：</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Container</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> </span><span class="typ">Container</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> create</span><span class="pun">(</span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> c</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Container</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;(</span><span class="pln">c</span><span class="pun">);</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> c</span><span class="pun">;</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Container</span><span class="pun">(</span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> c</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">super</span><span class="pun">();</span><span class="pln">
+ </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">c </span><span class="pun">=</span><span class="pln"> c</span><span class="pun">;</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> E createInstance</span><span class="pun">()</span><span class="pln">
+ throws </span><span class="typ">InstantiationException</span><span class="pun">,</span><span class="pln">
+ </span><span class="typ">IllegalAccessException</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> c</span><span class="pun">.</span><span class="pln">newInstance</span><span class="pun">();</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre></div> 
+              </div><script async="" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-1467695179275159" data-ad-slot="6593146326" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_4_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:1105px;background-color:transparent;"><ins id="aswift_4_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:1105px;background-color:transparent;"><iframe width="1105" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;width:1105px;height:90px;" src="./java创建泛型类型的实例？_java_帮酷编程问答_files/saved_resource(4).html"></iframe></ins></ins></ins>
+<script>(adsbygoogle =window.adsbygoogle ||[]).push({});</script></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/jb." class="qa-user-link url nickname" itemprop="name" rel="nofollow">jb.</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item -->            
+        <div class="qa-a-list-item answer" id="answer_71875" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71875"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71875" onclick="return do_user_vote(71875,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="21" oldtitle="点击投赞成票" title=""><input id="do_vote2_71875" onclick="return do_user_vote(71875,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="22" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71875" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71875">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71875" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71875" type="hidden" value=""> 
+              <input id="ori_content_71875" type="hidden" value=""><input id="is_show_ori_status_71875" type="hidden" value="1">             
+              <a name="71875"></a><div class="entry-content" itemprop="text" id="qcontent_71875"><div id="yf_71875" class="yf_trans_block_cn"><p>从 <a href="http://docs.oracle.com/javase/tutorial/java/generics/restrictions.html" rel="nofollow">Java教程- 对泛型</a>的限制：</p><p><strong><a href="http://docs.oracle.com/javase/tutorial/java/generics/restrictions.html#createObjects" rel="nofollow">无法创建类型参数</a></strong>的实例</p><p>不能创建类型参数的实例。 例如以下代码导致compile-time错误：</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> append</span><span class="pun">(</span><span class="typ">List</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> list</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ E elem </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> E</span><span class="pun">();</span><span class="com">//compile-time error</span><span class="pln">
+ list</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln">elem</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></code></pre><p>作为解决方案，你可以通过反射创建类型参数的对象：</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> append</span><span class="pun">(</span><span class="typ">List</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> list</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> cls</span><span class="pun">)</span><span class="pln"> throws </span><span class="typ">Exception</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ E elem </span><span class="pun">=</span><span class="pln"> cls</span><span class="pun">.</span><span class="pln">newInstance</span><span class="pun">();</span><span class="com">//OK</span><span class="pln">
+ list</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln">elem</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></code></pre><p>可以按如下方式调用append方法：</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> ls </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ArrayList</span><span class="pun">&lt;&gt;();</span><span class="pln">
+append</span><span class="pun">(</span><span class="pln">ls</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">);</span></code></pre></div> 
+              </div></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/Sergiy" class="qa-user-link url nickname" itemprop="name" rel="nofollow">Sergiy</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item -->            
+        <div class="qa-a-list-item answer" id="answer_71876" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71876"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71876" onclick="return do_user_vote(71876,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="23" oldtitle="点击投赞成票" title=""><input id="do_vote2_71876" onclick="return do_user_vote(71876,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="24" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71876" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71876">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71876" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71876" type="hidden" value=""> 
+              <input id="ori_content_71876" type="hidden" value=""><input id="is_show_ori_status_71876" type="hidden" value="1">             
+              <a name="71876"></a><div class="entry-content" itemprop="text" id="qcontent_71876"><div id="yf_71876" class="yf_trans_block_cn"><p>当你正在与e在编译时你不关心实际的泛型类型"E"(你使用反射或使用泛型类型的基类)e的子类提供实例。</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="typ">Abstract</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SomeContainer</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">abstract</span><span class="pln"> </span><span class="kwd">protected</span><span class="pln"> E createContents</span><span class="pun">();</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> doWork</span><span class="pun">(){</span><span class="pln">
+ E obj </span><span class="pun">=</span><span class="pln"> createContents</span><span class="pun">();</span><span class="pln">
+</span><span class="com">//Do the work with E </span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">**</span><span class="typ">BlackContainer</span><span class="pln"> extends</span><span class="pun">**</span><span class="pln"> </span><span class="typ">SomeContainer</span><span class="pun">&lt;</span><span class="typ">Black</span><span class="pun">&gt;{</span><span class="pln">
+ </span><span class="typ">Black</span><span class="pln"> createContents</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Black</span><span class="pun">();</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre></div> 
+              </div></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/Krypton" class="qa-user-link url nickname" itemprop="name" rel="nofollow">Krypton</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item -->            
+        <div class="qa-a-list-item answer" id="answer_71877" itemprop="suggestedAnswer acceptedAnswer" itemscope="" itemtype="http://schema.org/Answer"><div class="qa-voting qa-voting-net hide_mob" id="voting_71877"><div class="qa-vote-buttons qa-vote-buttons-net"><input id="do_vote1_71877" onclick="return do_user_vote(71877,1);" type="submit" value="+" class="qa-vote-first-button qa-vote-up-button" onmouseover="this.className=&#39;qa-vote-first-button qa-vote-up-hover&#39;;" onmouseout="this.className=&#39;qa-vote-first-button qa-vote-up-button&#39;;" data-hasqtip="25" oldtitle="点击投赞成票" title=""><input id="do_vote2_71877" onclick="return do_user_vote(71877,2);" type="submit" value="–" class="qa-vote-second-button qa-vote-down-button" onmouseover="this.className=&#39;qa-vote-second-button qa-vote-down-hover&#39;;" onmouseout="this.className=&#39;qa-vote-second-button qa-vote-down-button&#39;;" data-hasqtip="26" oldtitle="点击投反对票" title=""></div><div class="qa-vote-count qa-vote-count-net"><span class="qa-netvote-count"><span class="qa-netvote-count-data"><span class="votes-up" id="votes-up-71877" itemprop="upvoteCount">0</span> 
+             <span class="votes-down" id="votes-down-71877">              0              </span></span></span></div><div class="qa-vote-clear"></div></div><div class="qa-a-item-main"><div class="qa-a-selection"></div><div class="qa-a-item-content"> 
+              <input id="do_sentence71877" type="submit" class="qa-form-light-button qa-form-light-button-reopen do_ori_sentence" value="显示原文"> 
+              <input id="tgt_content_71877" type="hidden" value=""> 
+              <input id="ori_content_71877" type="hidden" value=""><input id="is_show_ori_status_71877" type="hidden" value="1">             
+              <a name="71877"></a><div class="entry-content" itemprop="text" id="qcontent_71877"><div id="yf_71877" class="yf_trans_block_cn"><p>下面是我提出的一个选项，它可能有帮助：</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Container</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> clazz</span><span class="pun">;</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Container</span><span class="pun">(</span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;</span><span class="pln"> clazz</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">clazz </span><span class="pun">=</span><span class="pln"> clazz</span><span class="pun">;</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> E createContents</span><span class="pun">()</span><span class="pln"> throws </span><span class="typ">Exception</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> clazz</span><span class="pun">.</span><span class="pln">newInstance</span><span class="pun">();</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre><p>编辑：你可以使用这里构造函数( 但它需要一个):</p><div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div><pre class="prettyprint-override prettyprinted" style=""><code><span class="lit">@SuppressWarnings</span><span class="pun">(</span><span class="str">"unchecked"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Container</span><span class="pun">(</span><span class="pln">E instance</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">clazz </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Class</span><span class="pun">&lt;</span><span class="pln">E</span><span class="pun">&gt;)</span><span class="pln"> instance</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">}</span></code></pre></div> 
+              </div></div><span class="qa-a-item-avatar-meta"><span class="qa-a-item-meta"><span class="qa-a-item-when"><span class="qa-a-item-when-data"><!--	
+             <span class="published">发布时间:
+             <span class="value-title"></span><time itemprop="dateCreated" datetime="2018-01-08">18小时前</time></span>            --></span></span><span class="qa-a-item-who"><span class="qa-a-item-who-pad">原作者:</span><span class="qa-a-item-who-data"><span class="vcard fn author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="https://ask.helplib.com/user/Mike%20Stone" class="qa-user-link url nickname" itemprop="name" rel="nofollow">Mike Stone</a></span></span><span class="qa-a-item-who-points"></span></span></span></span><div class="qa-a-item-buttons"></div><!--
+                comments 
+              --> 
+          </div><!-- END qa-a-item-main --><div class="qa-a-item-clear"></div></div><!-- END qa-a-list-item --></div><!-- END qa-a-list --> 
+      <!-- END qa-main --></div><!-- END main-wrapper --></div><!-- END main-shadow --></div><!-- END body-wrapper --><div class="qa-footer-bottom-group"><div class="qa-footer"><div class="qa-nav-footer"><ul class="qa-nav-footer-list"></ul><div class="qa-nav-footer-clear"></div> 
+    </div><div class="qa-attribution"> Copyright © 2011 HelpLib All rights reserved. &nbsp;&nbsp;  <a href="https://www.helplib.com/help/copyright.php" target="_blank" rel="nofollow">知识分享协议</a>  
+             &nbsp;|&nbsp;             
+             <a href="https://www.incasedo.cn/" target="_blank">如果智培</a>             &nbsp;|&nbsp; 
+             <a href="https://www.qeto.com/" target="_blank">酷兔英语</a>   
+             &nbsp;|&nbsp;            
+             <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备05059198号-3</a>      
+      </div><div class="qa-footer-clear"></div></div> 
+  <!-- END qa-footer --></div><!-- END footer-bottom-group --><script src="./java创建泛型类型的实例？_java_帮酷编程问答_files/jquery-1.7.2.min.js.下载" type="text/javascript"></script><script src="./java创建泛型类型的实例？_java_帮酷编程问答_files/qa-page.js.下载" type="text/javascript"></script><script src="./java创建泛型类型的实例？_java_帮酷编程问答_files/jquery.qtip.min.js.下载"></script><script src="./java创建泛型类型的实例？_java_帮酷编程问答_files/remodal.min.js.下载" type="text/javascript"></script><script type="text/javascript">$(document).ready(function()	{ 
+	//浮动条初始化
+	$('[title]').qtip({
+			position: {	my: 'bottom center',	
+			at: 'top center',	
+			adjust: {	x: 0,	y: -15 },	
+			viewport: $(window)	},	
+			show: {	
+				effect: function() {	
+					$(this).show();	
+					//$(this).slideDown();	
+				}	
+			},	
+			hide: {	
+			delay: 200,	fixed: true	
+			}	
+	}); 
+}); </script><div style="position:absolute; left:-9999px; top:-9999px;"><span id="qa-waiting-template" class="qa-waiting">...</span></div><script src="./java创建泛型类型的实例？_java_帮酷编程问答_files/clipboard.min.js.下载" type="text/javascript"></script><script type="text/javascript">$(document).ready(function(){
+	//阅读次数
+	$.ajax({                     
+			type: "GET",                           
+			url: "/func/update.php",                              
+			data: "action=view&postid=71851"
+	});	
+});//the end document 
+//投票
+function do_user_vote(postid,mode){
+		if(mode==1){//up
+			//alert($('#votes-up-'+postid).html());
+			$('#votes-up-'+postid).html(parseInt($('#votes-up-'+postid).html())+1);
+		}else{
+			$('#votes-down-'+postid).html(parseInt($('#votes-down-'+postid).html())+1);
+		}	
+		$.ajax({                     
+			type: "GET",                           
+			url: "/func/update.php",                              
+			data: "action=vote&postid="+postid+"&mode="+mode
+		});
+}</script><script type="text/javascript">$(document).ready(function() {	
+	   // Insert copy to clipboard button 
+		$('.prettyprint-override').each(function () {
+		  var btnHtml = '<div class="bd-clipboard"><button class="btn-clipboard" title="复制代码到剪贴板">复制代码</button></div>';
+		  $(this).before(btnHtml);
+		})
+		var clipboard = new Clipboard('.btn-clipboard', {
+		  target: function (trigger) {
+			return trigger.parentNode.nextElementSibling;
+		  }
+		})
+		clipboard.on('success', function (e) {
+		  $(e.trigger).html('代码复制成功');
+		  e.clearSelection();
+		})
+		clipboard.on('error', function (e) {
+		  var fallbackMsg = '复制失败,手机或者非主流浏览器请选中后复制.';
+		  alert(fallbackMsg);
+		})
+		//单条内容显示原文
+		$('.do_ori_sentence').click(function(){
+			var qid = this.id.substring(11);
+			var tgt_content = $('#tgt_content_'+qid).val();
+			var ori_content = $('#ori_content_'+qid).val();
+			var is_show_ori_status=$('#is_show_ori_status_'+qid).val();
+			if(is_show_ori_status==1){
+				$('#is_show_ori_status_'+qid).val(2);
+				if(ori_content==""){
+					this.value="载入英文..."; 
+					$.ajax({                     
+							type: "GET",                           
+							url: "/show_ori.php",
+							data: "qid="+qid+"&hash=IkcDeeDssAcd",
+							success: function(msg){
+								$('#tgt_content_'+qid).val($('#qcontent_'+qid).html());
+								$('#ori_content_'+qid).val(msg);
+								$('#qcontent_'+qid).html(msg);
+							}
+					}); 
+				}else{
+					$('#qcontent_'+qid).html(ori_content);
+				}
+				this.value="显示中文";   
+			}else{
+				$('#is_show_ori_status_'+qid).val(1);
+				this.value="显示原文"; 
+				$('#qcontent_'+qid).html(tgt_content);
+			}	
+		});	
+});//end document ready
+//百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c2953731241be63734cee39103da91ac";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div></body></html>

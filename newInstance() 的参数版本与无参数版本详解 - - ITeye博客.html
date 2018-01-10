@@ -1,0 +1,749 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0041)http://xiaohuafyle.iteye.com/blog/1607258 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>newInstance() 的参数版本与无参数版本详解 -  - ITeye博客</title>
+    <meta name="description" content="通过反射创建新的类示例，有两种方式： Class.newInstance() Constructor.newInstance() 以下对两种调用方式给以比较说明： Class.newInstance() 只能够调用无参的构造函数，即默认的构造函数； Constructor.newInstance() 可以根据传入的参数，调用任意构造构造函数。 Class.newInstance() 抛出所有由被调用 ...">
+    <meta name="keywords" content=" newInstance() 的参数版本与无参数版本详解">
+    <link rel="shortcut icon" href="http://xiaohuafyle.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://xiaohuafyle.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://xiaohuafyle.iteye.com/rss" rel="alternate" title="" type="application/rss+xml">
+    <link href="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/blue.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/pr.js.下载"></script><script type="text/javascript" async="" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/tnrvrka.js.下载"></script><script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/push.js.下载"></script><script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/hm.js.下载"></script><script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/application.js.下载" type="text/javascript"></script>    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e19a8b00cf63f716d774540875007664";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+
+
+        //自动推送工具代码
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+      <link href="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/shCoreCommon.js.下载" type="text/javascript"></script>
+<script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/hotkey.js.下载" type="text/javascript"></script>
+  <script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/code_favorites.js.下载" type="text/javascript"></script>
+<script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/weiboshare.js.下载" type="text/javascript"></script>
+
+    <!-- 请置于所有广告位代码之前 -->
+    <script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/ds.js.下载"></script>
+    <link ref="canonical" href="http://xiaohuafyle.iteye.com/blog/1607258">
+    <script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/c.js.下载"></script><style type="text/css">.cambrian-toast-container{box-sizing:border-box}.cambrian-toast-container ._1aN93p{box-sizing:border-box;position:fixed;top:50%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);margin-top:-25px;height:50px;width:100%;text-align:center;z-index:200;transition:opacity .3s;opacity:0}.cambrian-toast-container .gFtqqq{box-sizing:border-box;display:inline-block;width:auto;margin:0 auto;height:45px;min-width:100px;padding:0 17px;font-size:18px;line-height:45px;color:#fff;font-size:14px;font-family:HanHei SC,PingHei,PingFang SC,STHeitiSC-Light,Helvetica Neue,Helvetica,Arial;background-color:rgba(0,0,0,.8);border-radius:4px}.cambrian-toast-container ._2EC2G_{opacity:1}@media screen and (max-width:320px){.cambrian-toast-container .gFtqqq{font-size:16px}}</style><style type="text/css">#cambrian0,#cambrian1,#cambrian2,#cambrian3,#cambrian4{color:#000;font-style:normal;font-weight:400;letter-spacing:normal;word-spacing:normal;white-space:normal}#cambrian0,#cambrian0 div,#cambrian0 img,#cambrian1,#cambrian1 div,#cambrian1 img,#cambrian2,#cambrian2 div,#cambrian2 img,#cambrian3,#cambrian3 div,#cambrian3 img,#cambrian4,#cambrian4 div,#cambrian4 img{width:auto;height:auto;margin:0;padding:0;background-color:transparent;background-position:0 0;background-size:auto;background-repeat:repeat;background-origin:padding-box;background-clip:border-box;background-attachment:scroll;background-image:none;border:none;outline:medium none invert;color:inherit;direction:ltr;letter-spacing:inherit;line-height:normal;text-align:left;text-decoration:none;text-indent:0;text-transform:none;white-space:inherit;word-spacing:normal;font-size:12px;font-family:HanHei SC,PingHei,PingFang SC,STHeitiSC-Light,Helvetica Neue,Helvetica,Arial,sans-serif;font-size-adjust:none;font-stretch:normal;font-style:inherit;font-variant:normal;font-weight:inherit;visibility:visible;overflow:visible;list-style:none;float:none;clear:none;display:block;position:static;top:auto;left:auto;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}#cambrian0 a,#cambrian0 b,#cambrian0 em,#cambrian0 img,#cambrian0 span,#cambrian0 strong,#cambrian1 a,#cambrian1 b,#cambrian1 em,#cambrian1 img,#cambrian1 span,#cambrian1 strong,#cambrian2 a,#cambrian2 b,#cambrian2 em,#cambrian2 img,#cambrian2 span,#cambrian2 strong,#cambrian3 a,#cambrian3 b,#cambrian3 em,#cambrian3 img,#cambrian3 span,#cambrian3 strong,#cambrian4 a,#cambrian4 b,#cambrian4 em,#cambrian4 img,#cambrian4 span,#cambrian4 strong{display:inline}</style><style type="text/css">#cambrian0 .R2CNzl,#cambrian1 .R2CNzl,#cambrian2 .R2CNzl,#cambrian3 .R2CNzl,#cambrian4 .R2CNzl{width:57px;padding:8px 0;text-align:center;font-weight:300;font-size:12px;line-height:12px;vertical-align:middle;display:inline-block;color:#fff;background:#3897f0;border-radius:3px;-webkit-tap-highlight-color:transparent}#cambrian0 .R2CNzl:active,#cambrian1 .R2CNzl:active,#cambrian2 .R2CNzl:active,#cambrian3 .R2CNzl:active,#cambrian4 .R2CNzl:active{background-color:rgba(56,151,240,.2)}#cambrian0 .j4z1dH,#cambrian1 .j4z1dH,#cambrian2 .j4z1dH,#cambrian3 .j4z1dH,#cambrian4 .j4z1dH{color:#666;background-color:#fff;position:relative;z-index:0;border-radius:2px}#cambrian0 .j4z1dH:after,#cambrian1 .j4z1dH:after,#cambrian2 .j4z1dH:after,#cambrian3 .j4z1dH:after,#cambrian4 .j4z1dH:after{content:"";position:absolute;box-sizing:border-box;top:0;left:0;border:1px solid #ccc;border-radius:4px;width:200%;height:200%;z-index:-1;transform:scale(.5);-webkit-transform:scale(.5);transform-origin:left top;-webkit-transform-origin:left top}#cambrian0 .j4z1dH:active,#cambrian1 .j4z1dH:active,#cambrian2 .j4z1dH:active,#cambrian3 .j4z1dH:active,#cambrian4 .j4z1dH:active{background-color:#fff}#cambrian0 ._1hqmP7,#cambrian1 ._1hqmP7,#cambrian2 ._1hqmP7,#cambrian3 ._1hqmP7,#cambrian4 ._1hqmP7{width:120px}#cambrian0 ._1hqmP7:active,#cambrian1 ._1hqmP7:active,#cambrian2 ._1hqmP7:active,#cambrian3 ._1hqmP7:active,#cambrian4 ._1hqmP7:active{background-color:rgba(56,151,240,.2)}#cambrian0 ._3VoMI3,#cambrian1 ._3VoMI3,#cambrian2 ._3VoMI3,#cambrian3 ._3VoMI3,#cambrian4 ._3VoMI3{padding:8px 0;width:120px;background-color:#fff;color:#666;position:relative;z-index:0;border-radius:3px}#cambrian0 ._3VoMI3:after,#cambrian1 ._3VoMI3:after,#cambrian2 ._3VoMI3:after,#cambrian3 ._3VoMI3:after,#cambrian4 ._3VoMI3:after{content:"";position:absolute;box-sizing:border-box;top:0;left:0;border:1px solid #eee;border-radius:6px;width:200%;height:200%;z-index:-1;transform:scale(.5);-webkit-transform:scale(.5);transform-origin:left top;-webkit-transform-origin:left top}#cambrian0 ._3VoMI3:active,#cambrian1 ._3VoMI3:active,#cambrian2 ._3VoMI3:active,#cambrian3 ._3VoMI3:active,#cambrian4 ._3VoMI3:active{background-color:#fff}</style><style type="text/css">#cambrian0 .tH6Qv7,#cambrian1 .tH6Qv7,#cambrian2 .tH6Qv7,#cambrian3 .tH6Qv7,#cambrian4 .tH6Qv7{background-color:#fff;overflow:hidden;-webkit-tap-highlight-color:transparent}#cambrian0 .tH6Qv7 ._1NMJVn,#cambrian1 .tH6Qv7 ._1NMJVn,#cambrian2 .tH6Qv7 ._1NMJVn,#cambrian3 .tH6Qv7 ._1NMJVn,#cambrian4 .tH6Qv7 ._1NMJVn{padding-top:2px;float:right}#cambrian0 .tH6Qv7 ._26Hteq,#cambrian1 .tH6Qv7 ._26Hteq,#cambrian2 .tH6Qv7 ._26Hteq,#cambrian3 .tH6Qv7 ._26Hteq,#cambrian4 .tH6Qv7 ._26Hteq{margin-right:60px;overflow:hidden}#cambrian0 .tH6Qv7 ._26Hteq ._1UhIYm,#cambrian1 .tH6Qv7 ._26Hteq ._1UhIYm,#cambrian2 .tH6Qv7 ._26Hteq ._1UhIYm,#cambrian3 .tH6Qv7 ._26Hteq ._1UhIYm,#cambrian4 .tH6Qv7 ._26Hteq ._1UhIYm{float:left;font-size:0;position:relative}#cambrian0 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ,#cambrian1 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ,#cambrian2 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ,#cambrian3 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ,#cambrian4 .tH6Qv7 ._26Hteq ._1UhIYm ._3FeqpQ{margin:0 8px 0 0;width:35px;height:35px;border-radius:50%;border:1px solid #eee;box-sizing:border-box}#cambrian0 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-,#cambrian1 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-,#cambrian2 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-,#cambrian3 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-,#cambrian4 .tH6Qv7 ._26Hteq ._2htEKn ._3oOvK-{white-space:nowrap;overflow:hidden;position:relative;font-size:0}#cambrian0 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra,#cambrian1 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra,#cambrian2 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra,#cambrian3 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra,#cambrian4 .tH6Qv7 ._26Hteq ._2htEKn .DUXzra{display:inline-block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;font-size:16px;color:#000;font-weight:300;line-height:16px;max-width:60%}#cambrian0 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY,#cambrian1 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY,#cambrian2 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY,#cambrian3 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY,#cambrian4 .tH6Qv7 ._26Hteq ._2htEKn .ocg5pY{font-size:12px;color:#999;margin-top:5px;font-weight:300;line-height:14px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}#cambrian0 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO,#cambrian1 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO,#cambrian2 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO,#cambrian3 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO,#cambrian4 .tH6Qv7 ._26Hteq ._2htEKn ._2c3HBO{display:inline-block;overflow:hidden;box-sizing:content-box;height:10px;padding:1px 2px;font-size:10px;font-weight:400;font-style:normal;line-height:11px;vertical-align:middle;text-decoration:none;border-radius:2px;border:1px solid #b3d4f3;color:#2b99ff;position:absolute;top:1px;margin-left:5px}</style><style type="text/css">#cambrian0 ._2OGhYs,#cambrian1 ._2OGhYs,#cambrian2 ._2OGhYs,#cambrian3 ._2OGhYs,#cambrian4 ._2OGhYs{position:relative;background-color:#fff}#cambrian0 ._2RPsC2,#cambrian1 ._2RPsC2,#cambrian2 ._2RPsC2,#cambrian3 ._2RPsC2,#cambrian4 ._2RPsC2{padding:15px 0;background-color:#fff}#cambrian0 ._3YzkLk,#cambrian1 ._3YzkLk,#cambrian2 ._3YzkLk,#cambrian3 ._3YzkLk,#cambrian4 ._3YzkLk{position:relative;z-index:0;position:absolute;top:0;left:0;right:0;z-index:-1}#cambrian0 ._3YzkLk:after,#cambrian1 ._3YzkLk:after,#cambrian2 ._3YzkLk:after,#cambrian3 ._3YzkLk:after,#cambrian4 ._3YzkLk:after{content:"";position:absolute;box-sizing:border-box;top:0;left:0;border-bottom:1px solid #ddd;width:200%;height:200%;z-index:-1;transform:scale(.5);-webkit-transform:scale(.5);transform-origin:left top;-webkit-transform-origin:left top}#cambrian0 ._3YzkLk ._1ZN5uE,#cambrian1 ._3YzkLk ._1ZN5uE,#cambrian2 ._3YzkLk ._1ZN5uE,#cambrian3 ._3YzkLk ._1ZN5uE,#cambrian4 ._3YzkLk ._1ZN5uE{padding:15px 17px;background-color:#fff}</style><style type="text/css">#cambrian0 ._1PnZXZ,#cambrian1 ._1PnZXZ,#cambrian2 ._1PnZXZ,#cambrian3 ._1PnZXZ,#cambrian4 ._1PnZXZ{display:block;position:fixed;z-index:2147483646;top:0;left:0;right:0;background:#fff}</style><style type="text/css">#cambrian0 ._1zbmp3,#cambrian1 ._1zbmp3,#cambrian2 ._1zbmp3,#cambrian3 ._1zbmp3,#cambrian4 ._1zbmp3{margin:0}</style><style type="text/css">#cambrian0 ._12SnTy,#cambrian1 ._12SnTy,#cambrian2 ._12SnTy,#cambrian3 ._12SnTy,#cambrian4 ._12SnTy{padding:15px 0;background-color:#fff}</style><style type="text/css">#cambrian0 .PypvUY,#cambrian1 .PypvUY,#cambrian2 .PypvUY,#cambrian3 .PypvUY,#cambrian4 .PypvUY{background-color:#fff;margin:20px 0;position:relative;z-index:0;border-radius:4px;overflow:hidden;-webkit-tap-highlight-color:transparent}#cambrian0 .PypvUY:after,#cambrian1 .PypvUY:after,#cambrian2 .PypvUY:after,#cambrian3 .PypvUY:after,#cambrian4 .PypvUY:after{content:"";position:absolute;box-sizing:border-box;top:0;left:0;border:1px solid #ddd;border-radius:8px;width:200%;height:200%;z-index:-1;transform:scale(.5);-webkit-transform:scale(.5);transform-origin:left top;-webkit-transform-origin:left top}#cambrian0 .PypvUY ._2SJWnA,#cambrian1 .PypvUY ._2SJWnA,#cambrian2 .PypvUY ._2SJWnA,#cambrian3 .PypvUY ._2SJWnA,#cambrian4 .PypvUY ._2SJWnA{text-align:center}#cambrian0 .PypvUY ._2SJWnA ._2UyMHm,#cambrian1 .PypvUY ._2SJWnA ._2UyMHm,#cambrian2 .PypvUY ._2SJWnA ._2UyMHm,#cambrian3 .PypvUY ._2SJWnA ._2UyMHm,#cambrian4 .PypvUY ._2SJWnA ._2UyMHm{width:67px;height:67px;border:1px solid transparent;border-radius:50%;margin-top:26px}#cambrian0 .PypvUY ._2jUmr0,#cambrian1 .PypvUY ._2jUmr0,#cambrian2 .PypvUY ._2jUmr0,#cambrian3 .PypvUY ._2jUmr0,#cambrian4 .PypvUY ._2jUmr0{margin-top:10px;text-align:center;line-height:16px;font-size:16px;color:#333;font-weight:600}#cambrian0 .PypvUY ._1ag27m,#cambrian1 .PypvUY ._1ag27m,#cambrian2 .PypvUY ._1ag27m,#cambrian3 .PypvUY ._1ag27m,#cambrian4 .PypvUY ._1ag27m{width:78%;margin:auto;margin-top:10px;text-align:center;font-size:13px;color:#999;line-height:17px;font-weight:300}#cambrian0 .PypvUY .py4pLD,#cambrian1 .PypvUY .py4pLD,#cambrian2 .PypvUY .py4pLD,#cambrian3 .PypvUY .py4pLD,#cambrian4 .PypvUY .py4pLD{text-align:center;margin:13px 0 25px}</style><style type="text/css">._3hy-Ff{position:fixed;z-index:2147483647;top:50%;transform:translateY(-50%);-webkit-transform:translateY(-50%);left:10%;right:10%;border-radius:4px}._3hy-Ff,._3sMHvW{background-color:#fff}._3sMHvW{width:100%;height:100%;min-height:260px;border:none;outline:none;border-radius:4px}._3wCh1i{position:fixed;z-index:2147483647;top:0;bottom:0;left:0;right:0;background-color:#000;opacity:.65}</style><script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/openBox.js.下载" async=""></script><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style></head><body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><script onload="window[&#39;cambrian_sync_loader_success1515563716069673&#39;]()" onerror="window[&#39;cambrian_sync_loader_fail_1515563716069673&#39;]()" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/main.c27ab6f1.js.下载"></script>
+  
+  
+    <div id="header">
+	      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://xiaohuafyle.iteye.com/blog/1607258#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">知识库</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+	      <div id="user_nav">
+
+      <a href="http://xiaohuafyle.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://xiaohuafyle.iteye.com/login">登录</a>
+    <a href="http://xiaohuafyle.iteye.com/signup" class="nobg">注册</a>
+    <!--<a href="http://passport.csdn.net/account/mobileregister?from=http://www.iteye.com">注册</a>-->
+  </div>
+
+	    
+    </div>
+
+    <div id="page">
+        <div id="branding" class="clearfix" style="overflow: hidden;background: none;padding:0 0 2px;">
+          <!-- 广告位：PC端-iteye博客详情页顶部banner-960*90 -->
+          <script>
+              (function() {
+                  var s = "_" + Math.random().toString(36).slice(2);
+                  document.write('<div id="' + s + '"></div>');
+                  (window.slotbydup=window.slotbydup || []).push({
+                      id: '4773198',
+                      container: s,
+                      size: '960,60',
+                      display: 'inlay-fix'
+                  });
+              })();
+          </script><div id="_0hd3807i4rxa"></div><script charset="utf-8" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/xcum"></script><div id="_ee0ryan44og" style=""><iframe width="960" frameborder="0" height="90" scrolling="no" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/s.html"></iframe></div><script type="text/javascript" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/todpduxgxrvpq.js.下载"></script>
+        </div>
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://xiaohuafyle.iteye.com/">xiaohuafyle</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://xiaohuafyle.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://xiaohuafyle.iteye.com/weibo">微博</a></li>
+            <li><a href="http://xiaohuafyle.iteye.com/album">相册</a></li>
+            <li><a href="http://xiaohuafyle.iteye.com/link">收藏</a></li>
+            <li><a href="http://xiaohuafyle.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://xiaohuafyle.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://xiaohuafyle.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://xiaohuafyle.iteye.com/" class="p-author" target="_blank">xiaohuafyle</a>
+</div>
+
+
+<div class="blog_main">
+  <script type="application/ld+json">
+    {
+        "@context": "https://zhanzhang.baidu.com/contexts/cambrian.jsonld",
+        "@id": "http://xiaohuafyle.iteye.com/blog/1607258",
+        "title": "newInstance() 的参数版本与无参数版本详解",
+        "images": [],
+        "description": "",
+        "pubDate": "2012-07-26T00:09:40"
+    }
+  </script>
+  <div class="blog_title">
+    <h3>
+      <a href="http://xiaohuafyle.iteye.com/blog/1607258">newInstance() 的参数版本与无参数版本详解</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://xiaohuafyle.iteye.com/category/322517">Core Java</a></li> </ul>
+        <div class="news_tag">&nbsp;</div>
+    	  
+    	
+    	
+  		
+      </div>
+
+  <div id="blog_content" class="blog_content">
+    通过反射创建新的类示例，有两种方式：
+<br>Class.newInstance()
+<br>Constructor.newInstance()
+<br>
+<br>以下对两种调用方式给以比较说明：
+<br>Class.newInstance() 只能够调用无参的构造函数，即默认的构造函数；
+<br>Constructor.newInstance() 可以根据传入的参数，调用任意构造构造函数。
+<br>
+<br>Class.newInstance() 抛出所有由被调用构造函数抛出的异常。
+<br>
+<br>Class.newInstance() 要求被调用的构造函数是可见的，也即必须是public类型的; 
+<br>Constructor.newInstance() 在特定的情况下，可以调用私有的构造函数。
+<br>
+<br>Class A（被调用的示例）：
+<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=public%20class%20A%20%7B%0A%09private%20A()%20%7B%0A%09%09System.out.println(%22A&#39;s%20constructor%20is%20called.%22)%3B%0A%09%7D%0A%0A%09private%20A(int%20a%2C%20int%20b)%20%7B%0A%09%09System.out.println(%22a%3A%22%20%2B%20a%20%2B%20%22%20b%3A%22%20%2B%20b)%3B%0A%09%7D%0A%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;A&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;A()&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"A's&nbsp;constructor&nbsp;is&nbsp;called."</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;A(</span><span class="keyword">int</span><span>&nbsp;a,&nbsp;</span><span class="keyword">int</span><span>&nbsp;b)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"a:"</span><span>&nbsp;+&nbsp;a&nbsp;+&nbsp;</span><span class="string">"&nbsp;b:"</span><span>&nbsp;+&nbsp;b);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="" codeable_type="BlogComment" source_url="http://xiaohuafyle.iteye.com/blog/1607258#" pre_index="0" title="newInstance() 的参数版本与无参数版本详解" style="display: none;">public class A {
+	private A() {
+		System.out.println("A's constructor is called.");
+	}
+
+	private A(int a, int b) {
+		System.out.println("a:" + a + " b:" + b);
+	}
+}
+</pre>
+<br>Class B（调用者）：
+<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=public%20class%20B%20%7B%20%0A%09public%20static%20void%20main(String%5B%5D%20args)%20%7B%20%0A%09%09B%20b%3Dnew%20B()%3B%20%0A%09%09out.println(%22%E9%80%9A%E8%BF%87Class.NewInstance()%E8%B0%83%E7%94%A8%E7%A7%81%E6%9C%89%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%3A%22)%3B%20%0A%09%09b.newInstanceByClassNewInstance()%3B%20%0A%09%09out.println(%22%E9%80%9A%E8%BF%87Constructor.newInstance()%E8%B0%83%E7%94%A8%E7%A7%81%E6%9C%89%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%3A%22)%3B%20%0A%09%09b.newInstanceByConstructorNewInstance()%3B%20%0A%09%7D%20%0A%09%2F*%E9%80%9A%E8%BF%87Class.NewInstance()%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%B1%BB%E7%A4%BA%E4%BE%8B*%2F%20%0A%09private%20void%20newInstanceByClassNewInstance()%7B%20%0A%09%09try%20%7B%2F*%E5%BD%93%E5%89%8D%E5%8C%85%E5%90%8D%E4%B8%BAreflect%EF%BC%8C%E5%BF%85%E9%A1%BB%E4%BD%BF%E7%94%A8%E5%85%A8%E8%B7%AF%E5%BE%84*%2F%20%0A%09%09%09A%20a%3D(A)Class.forName(%22reflect.A%22).newInstance()%3B%20%0A%09%09%7D%20catch%20(Exception%20e)%20%7B%20%0A%09%09%09out.println(%22%E9%80%9A%E8%BF%87Class.NewInstance()%E8%B0%83%E7%94%A8%E7%A7%81%E6%9C%89%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%90%E5%A4%B1%E8%B4%A5%E3%80%91%22)%3B%20%0A%09%09%7D%0A%09%7D%0A%09%0A%09%2F*%E9%80%9A%E8%BF%87Constructor.newInstance()%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%B1%BB%E7%A4%BA%E4%BE%8B*%2F%20%0A%09private%20void%20newInstanceByConstructorNewInstance()%7B%20%0A%09%09try%20%7B%2F*%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%EF%BC%8C%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8C%85%E4%B8%AD%E5%8F%AF%E4%BB%A5%E4%B8%8D%E7%94%A8%E5%B8%A6%E5%8C%85%E8%B7%AF%E5%BE%84*%2F%20%0A%09%09%09Class%20c%3DClass.forName(%22A%22)%3B%20%0A%09%09%09%2F*%E4%BB%A5%E4%B8%8B%E8%B0%83%E7%94%A8%E6%97%A0%E5%8F%82%E7%9A%84%E3%80%81%E7%A7%81%E6%9C%89%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0*%2F%20%0A%09%09%09Constructor%20c0%3Dc.getDeclaredConstructor()%3B%20%0A%09%09%09c0.setAccessible(true)%3B%20%0A%09%09%09A%20a0%3D(A)c0.newInstance()%3B%20%0A%09%09%09%2F*%E4%BB%A5%E4%B8%8B%E8%B0%83%E7%94%A8%E5%B8%A6%E5%8F%82%E7%9A%84%E3%80%81%E7%A7%81%E6%9C%89%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0*%2F%20%0A%09%09%09Constructor%20c1%3Dc.getDeclaredConstructor(new%20Class%5B%5D%7Bint.class%2Cint.class%7D)%3B%20%0A%09%09%09c1.setAccessible(true)%3B%20%0A%09%09%09A%20a1%3D(A)c1.newInstance(new%20Object%5B%5D%7B5%2C6%7D)%3B%20%0A%09%09%7D%20catch%20(Exception%20e)%20%7B%20%0A%09%09%09e.printStackTrace()%3B%20%0A%09%09%7D%20%0A%09%7D%20%0A%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;B&nbsp;{&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;main(String[]&nbsp;args)&nbsp;{&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B&nbsp;b=<span class="keyword">new</span><span>&nbsp;B();&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.println(<span class="string">"通过Class.NewInstance()调用私有构造函数:"</span><span>);&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.newInstanceByClassNewInstance();&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.println(<span class="string">"通过Constructor.newInstance()调用私有构造函数:"</span><span>);&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.newInstanceByConstructorNewInstance();&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*通过Class.NewInstance()创建新的类示例*/</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;newInstanceByClassNewInstance(){&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{</span><span class="comment">/*当前包名为reflect，必须使用全路径*/</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;a=(A)Class.forName(<span class="string">"reflect.A"</span><span>).newInstance();&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(Exception&nbsp;e)&nbsp;{&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.println(<span class="string">"通过Class.NewInstance()调用私有构造函数【失败】"</span><span>);&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*通过Constructor.newInstance()创建新的类示例*/</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;newInstanceByConstructorNewInstance(){&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{</span><span class="comment">/*可以使用相对路径，同一个包中可以不用带包路径*/</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class&nbsp;c=Class.forName(<span class="string">"A"</span><span>);&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*以下调用无参的、私有构造函数*/</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor&nbsp;c0=c.getDeclaredConstructor();&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c0.setAccessible(<span class="keyword">true</span><span>);&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;a0=(A)c0.newInstance();&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*以下调用带参的、私有构造函数*/</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor&nbsp;c1=c.getDeclaredConstructor(<span class="keyword">new</span><span>&nbsp;Class[]{</span><span class="keyword">int</span><span>.</span><span class="keyword">class</span><span>,</span><span class="keyword">int</span><span>.</span><span class="keyword">class</span><span>});&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c1.setAccessible(<span class="keyword">true</span><span>);&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;a1=(A)c1.newInstance(<span class="keyword">new</span><span>&nbsp;Object[]{</span><span class="number">5</span><span>,</span><span class="number">6</span><span>});&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(Exception&nbsp;e)&nbsp;{&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="" codeable_type="BlogComment" source_url="http://xiaohuafyle.iteye.com/blog/1607258#" pre_index="1" title="newInstance() 的参数版本与无参数版本详解" style="display: none;">public class B { 
+	public static void main(String[] args) { 
+		B b=new B(); 
+		out.println("通过Class.NewInstance()调用私有构造函数:"); 
+		b.newInstanceByClassNewInstance(); 
+		out.println("通过Constructor.newInstance()调用私有构造函数:"); 
+		b.newInstanceByConstructorNewInstance(); 
+	} 
+	/*通过Class.NewInstance()创建新的类示例*/ 
+	private void newInstanceByClassNewInstance(){ 
+		try {/*当前包名为reflect，必须使用全路径*/ 
+			A a=(A)Class.forName("reflect.A").newInstance(); 
+		} catch (Exception e) { 
+			out.println("通过Class.NewInstance()调用私有构造函数【失败】"); 
+		}
+	}
+	
+	/*通过Constructor.newInstance()创建新的类示例*/ 
+	private void newInstanceByConstructorNewInstance(){ 
+		try {/*可以使用相对路径，同一个包中可以不用带包路径*/ 
+			Class c=Class.forName("A"); 
+			/*以下调用无参的、私有构造函数*/ 
+			Constructor c0=c.getDeclaredConstructor(); 
+			c0.setAccessible(true); 
+			A a0=(A)c0.newInstance(); 
+			/*以下调用带参的、私有构造函数*/ 
+			Constructor c1=c.getDeclaredConstructor(new Class[]{int.class,int.class}); 
+			c1.setAccessible(true); 
+			A a1=(A)c1.newInstance(new Object[]{5,6}); 
+		} catch (Exception e) { 
+			e.printStackTrace(); 
+		} 
+	} 
+}
+</pre>
+<br>输入结果如下：
+<br>通过Class.NewInstance()调用私有构造函数:
+<br>通过Class.NewInstance()调用私有构造函数【失败】
+<br>通过Constructor.newInstance()调用私有构造函数:
+<br>A's constructor is called.
+<br>a:5 b:6
+<br>
+<br>说明方法newInstanceByClassNewInstance调用失败，而方法newInstanceByConstructorNewInstance则调用成功。
+<br>如果被调用的类的构造函数为默认的构造函数，采用Class.newInstance()则是比较好的选择，
+<br>一句代码就OK；如果是老百姓调用被调用的类带参构造函数、私有构造函数，
+<br>就需要采用Constractor.newInstance()，两种情况视使用情况而定。
+<br>不过Java Totorial中推荐采用Constractor.newInstance()。
+<br>
+  </div>
+
+  
+
+  <div>
+    <!-- 广告位：PC端-iteye博客详情页底部banner2-728*90 -->
+    <script>
+        (function() {
+            var s = "_" + Math.random().toString(36).slice(2);
+            document.write('<div id="' + s + '"></div>');
+            (window.slotbydup=window.slotbydup || []).push({
+                id: '4774193',
+                container: s,
+                size: '728,90',
+                display: 'inlay-fix'
+            });
+        })();
+    </script><div id="_a8u8q4p083t"></div><script charset="utf-8" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/xcum(1)"></script><div><div style="width:0px;height:0px;zoom:1;"></div><iframe width="728" frameborder="0" height="90" scrolling="no" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/s(1).html"></iframe></div><script type="text/javascript" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/togxxxgpurvpq.js.下载"></script>
+  </div>
+
+
+
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://xiaohuafyle.iteye.com/blog/1613937" class="next" title="利用jdbc直接执行sql脚本文件">利用jdbc直接执行sql脚本文件</a>
+      |
+      <a href="http://xiaohuafyle.iteye.com/blog/1606538" class="pre" title="jRegistryKey读取注册表的例子及jar包下载">jRegistryKey读取注册表的例子及jar包下载</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2012-07-26 00:09</li>
+      <li>浏览 25388</li>
+      <li><a href="http://xiaohuafyle.iteye.com/blog/1607258#comments">评论(0)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/language">编程语言</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/1607258" target="_blank" class="more">查看更多</a></li>
+    </ul>    
+  </div>
+
+	
+    
+    
+<div class="boutique-curr-box blog_comment">
+	  <div class="boutique-curr clearfix">
+	    <h5 class="h3titles">相关资源推荐</h5>
+			<ul style="margin-top: 15px">
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/fei0724/article/details/39157053" target="_blank" title="newInstance() 的参数版本与无参数版本详解">newInstance() 的参数版本与无参数版本详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/qq_30175203/article/details/49666695" target="_blank" title="newInstance参数详解">newInstance参数详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/sushengmiyan/article/details/10285347" target="_blank" title="[版本构造]DCC32 命令行续，DCC32的参数详解">[版本构造]DCC32 命令行续，DCC32的参数详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/tuzi37/article/details/17593631" target="_blank" title="newInstance() 的参数版本与无参数版本详解">newInstance() 的参数版本与无参数版本详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/zsr251/article/details/50326935" target="_blank" title="new()与newInstance() 的参数版本与无参数版本详解">new()与newInstance() 的参数版本与无参数版本详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/cc198877/article/details/7639130" target="_blank" title="Git 命令参数及用法详解   &amp;  Linux编程环境下版本控制 Git使用">Git 命令参数及用法详解   &amp;  Linux编程环境下版本控制 Git使用</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/yangyinet/article/details/44409115" target="_blank" title="WEB 编程学习笔记 - uploadify3.1版本参数使用详解">WEB 编程学习笔记 - uploadify3.1版本参数使用详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/shenshouer/article/details/48974887" target="_blank" title="Go 编程语言规范(2014年11月11日版本)">Go 编程语言规范(2014年11月11日版本)</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/CSDNJACK_/article/details/46982761" target="_blank" title="互联网书籍推荐大全（编程语言，数据库，大数据，操作系统，web，版本控制）应有尽有">互联网书籍推荐大全（编程语言，数据库，大数据，操作系统，web，版本控制）应有尽有</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/CJ_Kano/article/details/42404985" target="_blank" title="【编程语言】进程中栈空间的参数返回值以及局部变量的分布">【编程语言】进程中栈空间的参数返回值以及局部变量的分布</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/zhangxingping/article/details/7832264" target="_blank" title="Objective-C 编程语言(13)远程消息---Obj-C 对远程消息的支持（指针参数、代理和拷贝）">Objective-C 编程语言(13)远程消息---Obj-C 对远程消息的支持（指针参数、代理和拷贝）</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/gdrgn/7543507" target="_blank" title="swift 编程语言中文PDF版本">swift 编程语言中文PDF版本</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/Gavin_new/article/details/53635551" target="_blank" title="URL参数对称加密---PHP语言版本">URL参数对称加密---PHP语言版本</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/qq_33528613/article/details/78168254" target="_blank" title="《Python学习手册》学习笔记（18）之第18章参数（关键词：编程语言/Python/参数）">《Python学习手册》学习笔记（18）之第18章参数（关键词：编程语言/Python/参数）</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/keplerpig/article/details/50678816" target="_blank" title="uploadify3.1版本参数使用详解">uploadify3.1版本参数使用详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/tianya900519/article/details/10147107" target="_blank" title="uploadify3.1版本参数使用详解">uploadify3.1版本参数使用详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/wlpz0528/article/details/51328985" target="_blank" title="uploadify3.1版本参数使用详解">uploadify3.1版本参数使用详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/gaoqiao1988/article/details/43733593" target="_blank" title="uploadify3.1版本参数使用详解">uploadify3.1版本参数使用详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://blog.csdn.net/ljfsm/article/details/25035409" target="_blank" title="uploadify3.1版本参数使用详解">uploadify3.1版本参数使用详解</a>
+						</li>
+				
+						<li style="width: 50%;float: left;margin: 0;line-height: 25px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+							<a href="http://download.csdn.net/download/qq187208773/8469629" target="_blank" title="航拍参数计算安卓手机版本">航拍参数计算安卓手机版本</a>
+						</li>
+				
+			</ul>
+	  </div>
+</div>
+
+		
+<div class="boutique-curr-box blog_comment">
+	  <div class="boutique-curr clearfix">
+	    <h5 class="h3titles">参考知识库</h5>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/android"><img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/1455589744328_328.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/android" classs="title">Android知识库</a>
+              <span>
+                 <em>39128</em>&nbsp;&nbsp;关注 <i>|</i> <em>3162</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/react"><img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/1465887837340_340.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/react" classs="title">React知识库</a>
+              <span>
+                 <em>3984</em>&nbsp;&nbsp;关注 <i>|</i> <em>393</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/ai"><img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/1479972981201_201.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/ai" classs="title">人工智能基础知识库</a>
+              <span>
+                 <em>18396</em>&nbsp;&nbsp;关注 <i>|</i> <em>212</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/java"><img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/1453701371636_636.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/java" classs="title">Java 知识库</a>
+              <span>
+                 <em>38398</em>&nbsp;&nbsp;关注 <i>|</i> <em>3748</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	  </div>
+</div>
+
+      
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://xiaohuafyle.iteye.com/login" style="background-color:white;"> <img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://xiaohuafyle.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1607258;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'newInstance() 的参数版本与无参数版本详解');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'newInstance() 的参数版本与无参数版本详解');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://xiaohuafyle.iteye.com/"><img alt="xiaohuafyle的博客" class="logo" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/6469a61a-d56f-3cf1-a684-bb613af73072.jpg" title="xiaohuafyle的博客: " width=""></a></div>
+  <div id="blog_owner_name">xiaohuafyle</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 222654 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 上海</li>
+              <li><img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://xiaohuafyle.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://w-wind.iteye.com/" target="_blank"><img alt="w_wind的博客" class="logo" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/user-logo-thumb.gif" title="w_wind的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://w-wind.iteye.com/" target="_blank" title="w_wind">w_wind</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://wu727957927.iteye.com/" target="_blank"><img alt="wu727957927的博客" class="logo" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/user-logo-thumb.gif" title="wu727957927的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://wu727957927.iteye.com/" target="_blank" title="wu727957927">wu727957927</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://snowyqian.iteye.com/" target="_blank"><img alt="snowyqian的博客" class="logo" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/user-logo-thumb.gif" title="snowyqian的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://snowyqian.iteye.com/" target="_blank" title="snowyqian">snowyqian</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://1156926389.iteye.com/" target="_blank"><img alt="秦汉泽的博客" class="logo" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/user-logo-thumb.gif" title="秦汉泽的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://1156926389.iteye.com/" target="_blank" title="秦汉泽">秦汉泽</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://xiaohuafyle.iteye.com/">全部博客 (68)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/267776">Linux Shell (13)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/308646">金融 (2)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322435">各种故障 (4)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322517">Core Java (24)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322518">DB (8)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322520">Framework (5)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322521">Design Pattern (1)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322522">Development Tools (7)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322523">生涯 (3)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322526">算法 (4)</a></li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/category/322529">Server configuration (3)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://xiaohuafyle.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://xiaohuafyle.iteye.com/blog/post">我的论坛</a> (5)
+                </li>
+                <li><a href="http://xiaohuafyle.iteye.com/blog/answered_problems">我的问答</a> (25)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/blog/monthblog/2014-10">2014-10</a> (4)</li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/blog/monthblog/2014-09">2014-09</a> (9)</li>
+                
+                  <li><a href="http://xiaohuafyle.iteye.com/blog/monthblog/2014-08">2014-08</a> (1)</li>
+                
+                <li><a href="http://xiaohuafyle.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://hqc20111612.iteye.com/" target="_blank" title="hqc20111612">hqc20111612</a>： 
+                   ...<br>
+                  <a href="http://xiaohuafyle.iteye.com/blog/2118508#bc2397737">Hibernate java.lang.NoClassDefFoundError: org/dom4j/DocumentException  导入dom4j依然</a>
+                </li>
+                
+                <li>
+                  <a href="http://740767554-qq-com.iteye.com/" target="_blank" title="江恂泽">江恂泽</a>： 
+                  楼主用的jRegistry是那个版本的？我下 了好多个版本Re ...<br>
+                  <a href="http://xiaohuafyle.iteye.com/blog/1543559#bc2396315">java读写注册表的两种方式,Preferences与jRegistry</a>
+                </li>
+                
+                <li>
+                  <a href="http://xander.iteye.com/" target="_blank" title="xander">xander</a>： 
+                  不错，不错&nbsp;<br>
+                  <a href="http://xiaohuafyle.iteye.com/blog/1473335#bc2363461">java String 缓冲池概念的举例说明(面试题)</a>
+                </li>
+                
+                <li>
+                  <a href="http://xiaohuafyle.iteye.com/" target="_blank" title="xiaohuafyle">xiaohuafyle</a>： 
+                  fzfz_902 写道在windows sever 2008上 ...<br>
+                  <a href="http://xiaohuafyle.iteye.com/blog/1560777#bc2361879">java 读取CD-ROM 光驱中文件</a>
+                </li>
+                
+                <li>
+                  <a href="http://fzfz-902.iteye.com/" target="_blank" title="fzfz_902">fzfz_902</a>： 
+                  在windows sever 2008上报错！<br>
+                  <a href="http://xiaohuafyle.iteye.com/blog/1560777#bc2361829">java 读取CD-ROM 光驱中文件</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+
+        <div id="nav_show_top_stop" style="height: 500px;z-index:1000;margin-top: 10px;float: left;clear: left;">
+          <div>
+            <!-- 广告位：PC端-iteye博客详情页左侧Button1-200*200 -->
+            <script>
+                (function() {
+                    var s = "_" + Math.random().toString(36).slice(2);
+                    document.write('<div id="' + s + '"></div>');
+                    (window.slotbydup=window.slotbydup || []).push({
+                        id: '4773203',
+                        container: s,
+                        size: '200,200',
+                        display: 'inlay-fix'
+                    });
+                })();
+            </script><div id="_g77jlpdef78"></div><script charset="utf-8" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/xcum(2)"></script><div style=""><span style="display:none;margin-left:0px;"></span><iframe width="200" frameborder="0" height="200" scrolling="no" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/s(2).html"></iframe></div><script type="text/javascript" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/sncoctctcqum.js.下载"></script>
+          </div>
+          <div>
+            <!-- 广告位：PC端-iteye博客详情页左侧Button2-200*200 -->
+            <script>
+                (function() {
+                    var s = "_" + Math.random().toString(36).slice(2);
+                    document.write('<div id="' + s + '"></div>');
+                    (window.slotbydup=window.slotbydup || []).push({
+                        id: '4773205',
+                        container: s,
+                        size: '200,200',
+                        display: 'inlay-fix'
+                    });
+                })();
+            </script><div id="_v1zepjp57k"></div><script charset="utf-8" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/xcum(3)"></script><div id="_6ce7gcd3fjv" style=""><iframe width="200" frameborder="0" height="200" scrolling="no" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/s(3).html"></iframe></div><script type="text/javascript" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/dyqegnhxubfhnqu.js.下载"></script>
+          </div>
+        </div>
+        <script>
+
+            setTimeout(function () {
+                var naviga_offsetTop = 0;
+
+                function onload_function() {
+                    naviga_offsetTop = jQuery("#nav_show_top_stop").position().top;
+                    jQuery(window).bind("scroll", naviga_stay_top);
+                    jQuery(window).bind("mousewheel", naviga_stay_top);
+                    jQuery(document).bind("scroll", naviga_stay_top);
+                    jQuery(document).bind("mousewheel", naviga_stay_top);
+                }
+                function naviga_stay_top() {
+
+                    var scrollTop = jQuery(document).scrollTop();
+                    if (scrollTop > (naviga_offsetTop+250)) {
+                        jQuery("#nav_show_top_stop").css({ "position": "fixed" });
+                        jQuery("#nav_show_top_stop").css({ "top": "0px" });
+                    } else {
+                        jQuery("#nav_show_top_stop").css({ "position": "fixed" });
+                        jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop+250 - scrollTop + "px" }); }
+                }
+                jQuery(document).ready(onload_function());
+            }, 200);
+
+        </script>
+      </div>    
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2018 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+        <div id="ad_pop">
+          <div class="J_adv" data-view="true" data-mod="ad_popu_64" data-mtp="62" data-order="21" data-con="ad_content_2070">
+            <script id="popuLayer_js_q" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/popuLayer.js.下载" defer="" type="text/javascript"></script>
+            <div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px;">
+              <div onclick="jQuery(&#39;#ad_abc&#39;).hide();jQuery(&#39;.J_close&#39;).hide();" class="J_close layer_close" style="display:block;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">
+                关闭
+              </div>
+              <div id="ad_abc">
+                <!-- 广告位：PC端-iteye博客详情右侧弹窗-300*250 -->
+                <script>
+                    (function() {
+                        var s = "_" + Math.random().toString(36).slice(2);
+                        document.write('<div id="' + s + '"></div>');
+                        (window.slotbydup=window.slotbydup || []).push({
+                            id: '4756560',
+                            container: s,
+                            size: '300,250',
+                            display: 'inlay-fix'
+                        });
+                    })();
+                </script><div id="_3hf0l8jca66"></div><script charset="utf-8" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/xcum(4)"></script><div id="_cpjrikpopac" style="width: 100%;"><iframe width="300" frameborder="0" height="250" scrolling="no" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/s(4).html"></iframe></div><script type="text/javascript" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/avnebexunycx.js.下载"></script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/saved_resource" width="0" height="0">
+
+
+
+    
+    
+    <script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/jquery-1.11.1.min.js.下载" type="text/javascript"></script>
+<script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/tracking-1.0.1.js.下载" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/async-1.0.1.js.下载"></script>
+<script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/tracking-1.0.3.js.下载" type="text/javascript"></script>
+<script type="text/javascript">var $csdn_iteye_jq = jQuery.noConflict();// 解决jq与prototype.js命名空间冲突的问题</script>
+    
+	    
+	    <script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/web-storage-cache.min.js.下载" type="text/javascript"></script>
+	    <script src="./newInstance() 的参数版本与无参数版本详解 - - ITeye博客_files/replace.min.js.下载" type="text/javascript"></script>
+    
+    
+  
+
+</body></html>

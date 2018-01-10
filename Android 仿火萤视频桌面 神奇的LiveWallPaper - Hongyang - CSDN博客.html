@@ -1,0 +1,1384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0058)http://blog.csdn.net/lmj623565791/article/details/72170299 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/hm.js.下载"></script>          
+            <link rel="canonical" href="http://blog.csdn.net/lmj623565791/article/details/72170299"> 
+
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/lmj623565791/article/details/72170299#">
+
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848"> 
+       
+    <title>Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客</title>
+    
+    <meta name="description" content="本文已在我的公众号hongyangAndroid原创首发。   转载请标明出处：    http://blog.csdn.net/lmj623565791/article/details/72170299    本文出自张鸿洋的博客一、概述上周我的微信公众号推送了一篇Android 实现”透明屏幕，当时我看到之后就觉得特别感兴趣，也立即联系作者要了授权~~  欢迎大家扫描左侧">
+
+    <meta name="keywords" content="android,视频桌面,wallpaper">
+    <script src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/hm.js(1).下载"></script><script src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/blog_static_head.min.js.下载" type="text/javascript"></script>
+
+
+    <link rel="Stylesheet" type="text/css" href="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/lmj623565791/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/default.css">
+ 
+
+
+
+    <link href="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet">
+     
+         <link rel="stylesheet" href="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/csdn_blog_detail.min.css">
+
+    <!-- 璇风疆浜庢墍鏈夊箍鍛婁綅浠ｇ爜涔嬪墠 --> 
+            <script src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/ds.js.下载"></script>
+
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style></head>
+
+    
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><div id="MathJax_Message" style="display: none;"></div><svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;"><symbol id="icon-xiajiantou" viewBox="0 0 1024 1024"><path d="M328.208 346.062h368.494c20.393 0 36.887 16.366 36.887 36.757 0 9.484-3.637 18.056-9.483 24.55L541.873 650.522c-12.211 16.105-35.2 19.484-51.438 7.275-2.859-2.08-5.324-4.547-7.274-7.275L298.853 404.772c-12.08-16.106-8.83-39.225 7.404-51.306 6.626-5.066 14.289-7.404 21.95-7.404z"></path></symbol><symbol id="icon-shouji" viewBox="0 0 1024 1024"><path d="M537.754 795.889c-26.41 0-47.893 21.478-47.893 47.892s21.484 47.893 47.893 47.893 47.892-21.479 47.892-47.893-21.483-47.892-47.892-47.892z"></path><path d="M774.697 42.071H300.815c-39.864 0-72.3 32.43-72.3 72.3v795.264c0 39.869 32.43 72.3 72.3 72.3h473.872c39.87 0 72.3-32.431 72.3-72.3v-795.27c0.004-39.864-32.426-72.294-72.29-72.294zM300.815 90.266h473.872a24.125 24.125 0 0 1 24.1 24.1v595.809H276.72v-595.81a24.125 24.125 0 0 1 24.094-24.1z m473.882 843.463H300.815a24.125 24.125 0 0 1-24.1-24.1V762.501h522.072V909.63a24.115 24.115 0 0 1-24.09 24.1z"></path></symbol><symbol id="icon-tianxie" viewBox="0 0 1024 1024"><path d="M121.905 780.19h780.19v97.524h-780.19V780.19zM823.296 298.496l-68.974-68.974-344.795 344.796-34.475 103.448 103.424-34.475zM875.008 246.76l17.237-17.238-68.949-68.949-17.262 17.237-17.237 17.238 68.974 68.973z"></path></symbol><symbol id="icon-sousuo" viewBox="0 0 1024 1024"><path d="M1023.972002 964.002812l-59.981188 59.981189-271.443276-271.459276c-166.600191 136.489602-412.812649 126.986048-568.309361-28.494664-165.624236-165.624236-165.624236-434.187647 0-599.859881 165.624236-165.592238 434.187647-165.592238 599.827883 0 155.52871 155.52871 164.984266 401.789166 28.462666 568.389356L1023.972002 964.002812zM663.364906 184.007375c-132.585785-132.585785-347.327719-132.761777-479.705514-0.43198-132.329797 132.345796-132.121807 347.119729 0.463978 479.705514s347.375717 132.793775 479.705514 0.41598c132.329797-132.281799 132.169805-347.10373-0.463978-479.689514z"></path></symbol><symbol id="icon-guanbi" viewBox="0 0 1024 1024"><path d="M1002.211316 933.90818c24.46369 24.46369 29.007633 59.583246 10.159871 78.447007-18.863761 18.863761-53.983317 14.303819-78.447007-10.159871L21.807724 90.09486C-2.655966 65.631169-7.199909 30.495614 11.647853 11.647853c18.863761-18.863761 53.983317-14.303819 78.447007 10.159871L1002.211316 933.90818z"></path><path d="M933.92418 21.807724C958.38787-2.655966 993.507426-7.199909 1012.371187 11.647853c18.863761 18.863761 14.303819 53.983317-10.159871 78.447007L90.09486 1002.211316c-24.46369 24.46369-59.583246 29.007633-78.447007 10.159871-18.847761-18.863761-14.303819-53.983317 10.159871-78.463007L933.92418 21.807724z"></path></symbol><symbol id="icon-caidan" viewBox="0 0 1024 1024"><path d="M0 132.8a48.496 48.496 0 0 0 48.496 48.496h927.008a48.496 48.496 0 1 0 0-96.992H48.496A48.496 48.496 0 0 0 0 132.8s0-26.784 0 0zM0 512.016a48.48 48.48 0 0 0 48.48 48.48h927.04a48.48 48.48 0 0 0 0-96.96H48.48A48.48 48.48 0 0 0 0 512.016s0-26.784 0 0zM0 891.2a48.496 48.496 0 0 0 48.496 48.496h927.008a48.496 48.496 0 1 0 0-96.992H48.496A48.496 48.496 0 0 0 0 891.2s0-26.784 0 0z"></path></symbol><symbol id="icon-yonghudenglu" viewBox="0 0 1024 1024"><path d="M1022.26704 962.432c-43.888-157.584-162.16-281.216-312.064-340.144 92.8-61.376 153.92-164.496 153.92-281.168C864.12304 153.04 706.04304 0 511.70704 0 317.35504 0 159.19504 153.04 159.19504 341.136c0 116.704 61.152 219.84 154.064 281.184C164.13904 681.024 46.18704 803.792 1.80304 960.16c-7.344 26.016 8.464 52.864 35.36 60.032a52.016 52.016 0 0 0 38.4-4.608 49.072 49.072 0 0 0 23.712-29.568c50.768-178.96 220.352-303.92 412.448-303.92 193.04 0 362.848 125.712 412.944 305.744 7.296 26.048 34.992 41.456 61.952 34.48 26.912-7.04 42.88-33.824 35.648-59.888zM260.25104 341.136c0-134.256 112.816-243.424 251.472-243.424 138.576 0 251.328 109.184 251.328 243.424 0 133.904-112.768 242.864-251.328 242.864-138.672 0-251.472-108.976-251.472-242.864z m0 0"></path></symbol><symbol id="toolbar-csdnlogo" viewBox="0 0 1024 1024"><path d="M533.941333 419.264c14.709333-1.621333 37.290667-3.264 68.352-3.264 51.872 0 93.802667 9.152 119.776 28.416 23.338667 17.952 38.858667 47.008 34.56 89.130667-3.978667 39.189333-24.042667 66.634667-53.312 83.594666C676.544 633.152 642.837333 640 592.106667 640c-29.888 0-58.421333-1.642667-80.106667-4.896l21.941333-215.84z m42.869334 172.938667c4.981333 0.992 11.562667 1.973333 24.533333 1.973333 51.882667 0 88.469333-25.877333 92.16-62.24 5.333333-52.554667-27.125333-70.944-81.802667-70.624-7.072 0-16.917333 0-22.133333 0.970667L576.8 592.213333h0.010667z m223.498666-164.704c210.954667-39.872 229.162667 31.776 222.645334 95.189333L1010.656 640h-66.944l11.210667-106.986667c2.421333-23.562667 17.504-69.653333-55.338667-67.914666-25.184 0.608-37.706667 4.064-37.706667 4.064s-2.186667 28.469333-4.832 49.514666L844.32 640H778.666667l13.024-119.573333" fill="#231916"></path><path d="M226.634667 632.682667c-12.373333 4.341333-38.037333 7.317333-73.909334 7.317333C49.6 640-6.048 590.933333 0.522667 526.090667 8.416 448.810667 90.858667 405.333333 181.141333 405.333333c34.976 0 55.552 2.858667 74.858667 7.637334l-6.208 52.064c-12.821333-4.384-42.890667-8.405333-67.232-8.405334-53.141333 0-98.250667 16.042667-103.424 66.762667-4.608 45.354667 27.061333 67.04 86.816 67.04 20.8 0 51.477333-3.018667 65.653333-7.370667l-4.992 49.6 0.021334 0.021334z" fill="#C92027"></path><path d="M272.714667 580.021333c19.285333 6.762667 59.488 13.504 92 13.504 35.029333 0 54.528-9.333333 56.096-23.797333 1.418667-13.205333-12.928-14.986667-52.490667-24.010667-54.666667-12.896-89.546667-32.842667-86.133333-64.704C286.176 443.989333 337.685333 416 416.725333 416c38.56 0 75.914667 2.613333 95.274667 8.714667l-6.656 46.666666c-12.565333-4.202667-60.672-10.037333-93.205333-10.037333-32.992 0-50.069333 9.973333-51.253334 20.917333-1.493333 13.845333 15.658667 14.485333 58.528 25.450667 58.026667 14.154667 83.402667 34.090667 80.085334 64.992C495.605333 609.109333 449.258667 640 356.714667 640c-38.528 0-71.744-6.762667-90.048-13.525333l6.048-46.453334z" fill="#231916"></path></symbol><symbol id="icon-morentouxiang" viewBox="0 0 1024 1024"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#A0C3FF"></path><path d="M691.2 887.466667c-55.466667-25.6-123.733333-51.2-123.733333-51.2v-38.4c68.266667-25.6 119.466667-89.6 132.266666-166.4 12.8-4.266667 38.4-17.066667 46.933334-55.466667l8.533333-46.933333s4.266667-59.733333-42.666667-46.933334c4.266667-38.4 4.266667-81.066667 4.266667-115.2-4.266667-64-89.6-98.133333-89.6-98.133333l12.8-17.066667s-42.666667-12.8-59.733333-4.266666l12.8-29.866667s-85.333333 0-132.266667 38.4h-4.266667v-17.066667s-145.066667 21.333333-140.8 243.2c-46.933333-12.8-42.666667 46.933333-42.666666 46.933334l8.533333 46.933333c4.266667 38.4 29.866667 51.2 46.933333 55.466667 12.8 81.066667 64 145.066667 132.266667 166.4v38.4s-68.266667 29.866667-123.733333 51.2c-29.866667 12.8-59.733333 34.133333-81.066667 59.733333 68.266667 51.2 157.866667 76.8 256 76.8s187.733333-25.6 264.533333-72.533333c-21.333333-29.866667-51.2-46.933333-85.333333-64z" fill="#4374E0"></path></symbol><symbol id="icon-icon_boke" viewBox="0 0 1024 1024"><path d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m298.667-256H213.333v42.667h597.334V768z m-21.334-448L704 234.667 341.333 597.333l-42.666 128 128-42.666L789.333 320z"></path></symbol><symbol id="icon-icon_gitchatx" viewBox="0 0 1024 1024"><path d="M810.667 533.333v-64h-384v85.334h298.666v128h85.334V533.333zM256 810.667h426.667v-85.334h-384V298.667h426.666V384h85.334V213.333H213.333v597.334H256zM512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m213.333-298.667v85.334h85.334v-85.334h-85.334z"></path></symbol><symbol id="icon-guanbi1" viewBox="0 0 1024 1024"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024z m160-768L512 416 352 256l-96 96 160 160-160 160 96 96 160-160 160 160 96-96-160-160 160-160-96-96z"></path></symbol></svg><div class="csdn-toolbar csdn-toolbar tb_disnone ">        <div class="container row center-block ">          <ul class="pull-left left-menu clearfix">            <li>              <a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank">              <svg class="icon" aria-hidden="true">                  <use xlink:href="#toolbar-csdnlogo"></use>              </svg>                </a>            </li>            <li><a href="http://blog.csdn.net/?ref=toolbar" class="toolbar_to_feed" title="博客" target="_blank" style="position: relative;">博客<div class="toolbar_speck"></div></a></li>            <li><a href="http://edu.csdn.net/?ref=toolbar" title="学院" target="_blank">学院</a></li>            <li><a href="http://download.csdn.net/?ref=toolbar" title="下载" target="_blank">下载</a></li>            <li><a href="http://gitbook.cn/?ref=csdn" title="GitChat" target="_blank">GitChat</a></li>            <li class="tb_is1090hide"><a href="http://bbs.csdn.net/?ref=toolbar" title="论坛" target="_blank">论坛</a></li>            <li class="tb_is1150hide"><a href="http://ask.csdn.net/?ref=toolbar" title="问答" target="_blank">问答</a></li>            <li class="tb_is1210hide"><a href="http://mall.csdn.net/?ref=toolbar" title="商城" target="_blank">商城</a></li>            <li class="tb_is1270hide"><a href="http://geek.csdn.net/?ref=toolbar" title="极客头条" target="_blank">头条</a></li>            <li class="show-more">            <a href="javascript:;" class="show-more-a"><svg width="22" height="4" xmlns="http://www.w3.org/2000/svg"><path d="M2 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#4F4F4F" fill-rule="evenodd"></path></svg></a>              <div class="more">                <div class="tb_is1090show"><a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></div>                <div class="tb_is1150show"><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">问答</a></div>                <div class="tb_is1210show"><a href="http://mall.csdn.net/?ref=toolbar" target="_blank">商城</a></div>                <div class="tb_is1270show"><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></div>                <div><a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></div>                <div><a href="https://gitee.com/?utm_source=csdn_toolbar" target="_blank">码云</a></div>                <div><a href="http://www.iteye.com/?ref=toolbar" target="_blank">ITeye</a></div>              </div>            </li>          </ul>          <div class="pull-right login-wrap ">            <ul class="btns">            <li class="toolbar-tracking csdn-tracking-statistics tracking-click" data-mod="popu_369"><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#" style="padding:0"></a></li>              <li>                <div class="search_bar csdn-tracking-statistics tracking-click" data-mod="popu_366">                  <input type="text" class="input_search" name="">                  <a href="http://so.csdn.net/so/" target="_blank" class="btn-nobg-noborder btn-search"><i class="iconfont-toolbar toolbar-sousuo"></i></a>                </div>              </li>              <li class="write-bolg-btn csdn-tracking-statistics tracking-click" data-mod="popu_370"><a class="" href="http://mp.blog.csdn.net/postedit?ref=toolbar" target="_blank"><i class="iconfont-toolbar toolbar-icon_boke"></i><span>写博客</span></a></li>              <li class="gitChat"><a class="" href="http://gitbook.cn/new/gitchat/activity?utm_source=csdnblog1" target="_blank"><i class="iconfont-toolbar toolbar-icon_gitchatx"></i><span>发Chat</span></a></li>              <li class="userinfo"><a href="https://passport.csdn.net/account/login?ref=toolbar">登录</a><span></span><a href="https://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">注册</a></li>              <li class="userLogin">                <div class="loginCenter"><a href="http://my.csdn.net/?ref=toolbar" target="_blank"><img class="login_img" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/2_daoye2011.jpg"><div class="toolbar-circle" style="display: block;"></div></a></div>                <div class="userControl">                  <div><a href="http://blog.csdn.net/daoye2011?ref=toolbar" target="_blank">我的博客</a></div>                  <div><a class="xiaoxi" href="http://msg.csdn.net/?ref=toolbar" target="_blank">消息<span class="toolbar-newsL" style="margin-left: 4px; display: inline;">(7)</span></a></div>                  <div><a href="http://my.csdn.net/my/account/changepwd?ref=toolbar" target="_blank">设置</a></div>                  <div><a href="http://bbs.csdn.net/forums/Service?ref=toolbar" target="_blank">反馈</a></div>                  <div><a href="http://oldblog.csdn.net/home/help.html" target="_blank">帮助</a></div>                  <div><a href="http://passport.csdn.net/account/logout?ref=toolbar">退出</a></div>                </div>              </li>            </ul>          </div>        </div>    </div><script class="toolbar-s" type="text/javascript" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/iconfont.js.下载"></script>
+
+       
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/content_toolbar.js.下载" type="text/javascript" domain="http://blog.csdn.net"></script>
+
+    <link rel="stylesheet" href="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/content_toolbar.css">
+     <!--new top-->
+    <div id="container">
+        
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/lmj623565791">Hongyang</a></h2>
+            <h3>生命不息，奋斗不止，万事起于忽微，量变引起质变</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+    
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/lmj623565791?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/lmj623565791?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/lmj623565791/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/ico_rss.gif">订阅</span></a></li>                   
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "lmj623565791";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/lmj623565791";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "daoye2011";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://blog.csdn.net/turingbooks/article/details/78475571">
+<font color="red"><strong>图灵赠书——程序员11月书单</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://edu.csdn.net/topic/python2?utm_source=blog4">
+<font color="blue"><strong>【思考】Python这么厉害的原因竟然是！</strong></font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/epubit17/article/details/78606519">
+<font color="blue"><strong>感恩节赠书：《深度学习》等异步社区优秀图书和作译者评选启动！</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://blog.csdn.net/broadview2006/article/details/78603363">
+<font color="red"><strong>每周荐书：京东架构、Linux内核、Python全栈</strong></font></a>
+
+
+
+</div>
+                        </div>
+
+                        
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="text/javascript" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/category.js.下载"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+      var isBole = false; 
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=Android+%e4%bb%bf%e7%81%ab%e8%90%a4%e8%a7%86%e9%a2%91%e6%a1%8c%e9%9d%a2+%e7%a5%9e%e5%a5%87%e7%9a%84LiveWallPaper&u=http://blog.csdn.net/lmj623565791/article/details/72170299"
+    </script>
+<div id="article_details" class="details">
+    
+<div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/lmj623565791/article/details/72170299">
+        Android 仿火萤视频桌面 神奇的LiveWallPaper        
+           
+        </a>
+        </span>
+
+         
+    </h1>
+</div>
+
+   
+
+    
+    <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/android" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">android</a><a href="http://www.csdn.net/tag/%e8%a7%86%e9%a2%91%e6%a1%8c%e9%9d%a2" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">视频桌面</a><a href="http://www.csdn.net/tag/wallpaper" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">wallpaper</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2017-05-16 09:23</span>
+            <span class="link_view" title="阅读次数">27826人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(69)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;Android+%e4%bb%bf%e7%81%ab%e8%90%a4%e8%a7%86%e9%a2%91%e6%a1%8c%e9%9d%a2+%e7%a5%9e%e5%a5%87%e7%9a%84LiveWallPaper&#39;,&#39;72170299&#39;);return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" onclick="javascript:report(72170299,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;2680597&#39;,&#39;lmj623565791&#39;,&#39;top&#39;,&#39;72170299&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">【Android 精彩案例】<em>（38）</em></span>
+                      <img class="arrow-down" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/lmj623565791/article/category/2680597" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2680597">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+
+
+
+<div style="clear:both"></div><div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;"><p style="text-align:right;margin:0;"><span style="float:left;">目录<a href="http://blog.csdn.net/lmj623565791/article/details/72170299#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#" onclick="javascript:return openct(this);" title="展开">[+]</a></p><ol style="display:none;margin-left:14px;padding-left:14px;line-height:160%;"><li><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#t0">一概述</a></li><li><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#t1">二实现</a></li><ol><li><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#t2">1 配置相关</a></li><li><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#t3">2编写代码</a></li><li><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#t4">3设置为壁纸</a></li><li><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#t5">4增加一些参数的支持</a></li></ol><li><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#t6">参考</a></li></ol></div><div style="clear:both"></div><div id="article_content" class="article_content tracking-ad" data-mod="popu_307" data-dsm="post">
+        <div class="markdown_views"><blockquote>
+  <p>本文已在我的公众号hongyangAndroid原创首发。 <br>
+  转载请标明出处：  <br>
+  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299" target="_blank">http://blog.csdn.net/lmj623565791/article/details/72170299</a>  <br>
+  本文出自<a href="http://blog.csdn.net/lmj623565791/" target="_blank">张鸿洋的博客</a></p>
+</blockquote>
+
+
+
+<h2 id="一概述"><a name="t0"></a>一、概述</h2>
+
+<p>上周我的微信公众号推送了一篇<a href="http://mp.weixin.qq.com/s/aoWMf-f8ouLENEro6L5Nug" target="_blank">Android 实现”透明屏幕</a>，当时我看到之后就觉得特别感兴趣，也立即联系作者要了授权~~</p>
+
+<blockquote>
+  <p>欢迎大家扫描左侧二维码关注我的公众号，每天7点半推送优秀技术博文。</p>
+</blockquote>
+
+<p>感兴趣的原因是，我是内涵段子的资深用户，前段时间基本被一款叫火萤视频桌面的软件（就是将视频作为桌面）给刷屏了，所以看了下作者的代码，看到了SurfaceHolder，立刻想到了，肯定可以用来播放视频实现视频桌面的效果，于是周末尝试了下，果然很简单。</p>
+
+<p>所以本篇文章无限感谢<a href="http://mp.weixin.qq.com/s/aoWMf-f8ouLENEro6L5Nug" target="_blank">Android 实现”透明屏幕</a>一文，代码也部分参考自其提供的透明相机。</p>
+
+<blockquote>
+  <p><a href="https://github.com/songixan/Wallpaper" target="_blank">https://github.com/songixan/Wallpaper</a></p>
+</blockquote>
+
+<p>效果图是这样的：</p>
+
+<p><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/20170515221703305" width="360px"></p>
+
+<blockquote>
+  <p>注：本文的测试机为小米5s ，可能不同手机会有一些兼容性问题，尝试解决下，欢迎留言。</p>
+</blockquote>
+
+
+
+<h2 id="二实现"><a name="t1"></a>二、实现</h2>
+
+
+
+<h3 id="1-配置相关"><a name="t2"></a>(1) 配置相关</h3>
+
+<p>首先编写一个xml文件，用于描述wallpaper的<code>thumbnail</code>、<code>description</code>、<code>settingsActivity</code>等，这里为了简单，仅设置了thumbnail。</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-xml hljs  has-numbering"><span class="hljs-pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">wallpaper</span> <span class="hljs-attribute">xmlns:android</span>=<span class="hljs-value">"http://schemas.android.com/apk/res/android"</span>
+    <span class="hljs-attribute">android:thumbnail</span>=<span class="hljs-value">"@mipmap/ic_launcher"</span> /&gt;</span>
+</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li></ul></pre>
+
+
+
+<h3 id="2编写代码"><a name="t3"></a>（2）编写代码</h3>
+
+<p>Wallpaper需要在屏幕上一直显示，其背后其实是一个Service，所以实现一个Wallpaper需要继承自<code>WallpaperService</code>，实现其抽象方法<code>onCreateEngine</code>,如下：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VideoLiveWallpaper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WallpaperService</span> {</span>
+    <span class="hljs-keyword">public</span> Engine <span class="hljs-title">onCreateEngine</span>() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> VideoEngine();
+    }
+    <span class="hljs-comment">//...</span>
+}   </code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li></ul></pre>
+
+<p>可以看到返回值是一个Engine,Engine为WallpaperService的内部类，其内部包含<code>onSurfaceCreated</code>、<code>onSurfaceChanged</code>、<code>onSurfaceDestroyed</code>、<code>onTouchEvent</code>等方法，看到这些方法，立刻想到了SurfaceView，关于SurfaceView相关知识可以参考：</p>
+
+<ul>
+<li><a href="http://blog.csdn.net/lmj623565791/article/details/41722441" target="_blank">Android SurfaceView实战 打造抽奖转盘</a></li>
+</ul>
+
+<p>此外，大家还记得在Android播放视频吗？</p>
+
+<p>常规的做法有通过VideoView，除此以外还有通过MediaPlayer配合SurfaceView配合来实现，今天这个例子类似后者。</p>
+
+<p>我们只需要通过MediaPlayer将解码的数据不断的输送到传入的Surface中即可。</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering">class VideoEngine extends Engine {
+
+    <span class="hljs-keyword">private</span> MediaPlayer mMediaPlayer;
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSurfaceCreated</span>(SurfaceHolder holder) {
+        L.d(<span class="hljs-string">"VideoEngine#onSurfaceCreated "</span>);
+        <span class="hljs-keyword">super</span>.onSurfaceCreated(holder);
+        mMediaPlayer = <span class="hljs-keyword">new</span> MediaPlayer();
+        mMediaPlayer.setSurface(holder.getSurface());
+        <span class="hljs-keyword">try</span> {
+            AssetManager assetMg = getApplicationContext().getAssets();
+            AssetFileDescriptor fileDescriptor = assetMg.openFd(<span class="hljs-string">"test1.mp4"</span>);
+            mMediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
+                    fileDescriptor.getStartOffset(), fileDescriptor.getLength());
+            mMediaPlayer.setLooping(<span class="hljs-keyword">true</span>);
+            mMediaPlayer.setVolume(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+            mMediaPlayer.prepare();
+            mMediaPlayer.start();
+
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+     <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onVisibilityChanged</span>(<span class="hljs-keyword">boolean</span> visible) {
+        L.d(<span class="hljs-string">"VideoEngine#onVisibilityChanged visible = "</span> + visible);
+        <span class="hljs-keyword">if</span> (visible) {
+            mMediaPlayer.start();
+        } <span class="hljs-keyword">else</span> {
+            mMediaPlayer.pause();
+        }
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSurfaceDestroyed</span>(SurfaceHolder holder) {
+        L.d(<span class="hljs-string">"VideoEngine#onSurfaceDestroyed "</span>);
+        <span class="hljs-keyword">super</span>.onSurfaceDestroyed(holder);
+        mMediaPlayer.release();
+        mMediaPlayer = <span class="hljs-keyword">null</span>;
+
+    }</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li><li>42</li><li>43</li><li>44</li></ul></pre>
+
+<p>代码非常简单，在onSurfaceCreated中去初始化mMediaPlayer，核心代码即为设置setSurface方法，这里我默认设置了静音。</p>
+
+<p>onVisibilityChanged，即当桌面不可见时，我们要暂停播放，等回到桌面继续。</p>
+
+<p>当onSurfaceDestroyed时释放资源~~</p>
+
+<p>这样我们的VideoLiveWallpaper就写好了，别忘了他是个Service，需要我们去注册。</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-xml hljs  has-numbering"><span class="hljs-tag">&lt;<span class="hljs-title">service
+</span>    <span class="hljs-attribute">android:name</span>=<span class="hljs-value">".VideoLiveWallpaper"</span>
+    <span class="hljs-attribute">android:label</span>=<span class="hljs-value">"@string/app_name"</span>
+    <span class="hljs-attribute">android:permission</span>=<span class="hljs-value">"android.permission.BIND_WALLPAPER"</span>
+    <span class="hljs-attribute">android:process</span>=<span class="hljs-value">":wallpaper"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- 配置intent-filter --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">intent-filter</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">action</span> <span class="hljs-attribute">android:name</span>=<span class="hljs-value">"android.service.wallpaper.WallpaperService"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">intent-filter</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- 配置meta-data --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta-data
+</span>        <span class="hljs-attribute">android:name</span>=<span class="hljs-value">"android.service.wallpaper"</span>
+        <span class="hljs-attribute">android:resource</span>=<span class="hljs-value">"@xml/livewallpaper"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">service</span>&gt;</span></code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li></ul></pre>
+
+
+
+<h3 id="3设置为壁纸"><a name="t4"></a>（3）设置为壁纸</h3>
+
+<p>注册完成后，我们在MainActivity中添加一个按钮点击设置为桌面背景，调用代码如下</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setToWallPaper</span>(Context context) {
+    <span class="hljs-keyword">final</span> Intent intent = <span class="hljs-keyword">new</span> Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+    intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+            <span class="hljs-keyword">new</span> ComponentName(context, VideoLiveWallpaper.class));
+    context.startActivity(intent);
+}
+</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li></ul></pre>
+
+<p>这样就完成了代码的初步编写啦~~</p>
+
+
+
+<h3 id="4增加一些参数的支持"><a name="t5"></a>（4）增加一些参数的支持</h3>
+
+<p>刚才我们设置了默认是静音，可能有时候我们会希望能够动态去控制视频桌面的参数，正常应该尝试去使用<code>settingsActivity</code>，不过我觉得其实广播也挺合适的，无非就是Service（可能在独立的进程）和Activity等通信嘛~~</p>
+
+<p>这里我们增加一个复选框，支持设置开启声音or关闭声音。</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String VIDEO_PARAMS_CONTROL_ACTION = <span class="hljs-string">"com.zhy.livewallpaper"</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String KEY_ACTION = <span class="hljs-string">"action"</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> ACTION_VOICE_SILENCE = <span class="hljs-number">110</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> ACTION_VOICE_NORMAL = <span class="hljs-number">111</span>;
+
+class VideoEngine extends Engine {
+    <span class="hljs-comment">// 省略其他代码</span>
+    <span class="hljs-keyword">private</span> BroadcastReceiver mVideoParamsControlReceiver;
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span>(SurfaceHolder surfaceHolder) {
+        <span class="hljs-keyword">super</span>.onCreate(surfaceHolder);
+        IntentFilter intentFilter = <span class="hljs-keyword">new</span> IntentFilter(VIDEO_PARAMS_CONTROL_ACTION);
+        registerReceiver(mVideoParamsControlReceiver = <span class="hljs-keyword">new</span> BroadcastReceiver() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onReceive</span>(Context context, Intent intent) {
+                L.d(<span class="hljs-string">"onReceive"</span>);
+                <span class="hljs-keyword">int</span> action = intent.getIntExtra(KEY_ACTION, -<span class="hljs-number">1</span>);
+
+                <span class="hljs-keyword">switch</span> (action) {
+                    <span class="hljs-keyword">case</span> ACTION_VOICE_NORMAL:
+                        mMediaPlayer.setVolume(<span class="hljs-number">1.0</span>f, <span class="hljs-number">1.0</span>f);
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> ACTION_VOICE_SILENCE:
+                        mMediaPlayer.setVolume(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+                        <span class="hljs-keyword">break</span>;
+                }
+            }
+        }, intentFilter);
+    }
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onDestroy</span>() {
+        unregisterReceiver(mVideoParamsControlReceiver);
+        <span class="hljs-keyword">super</span>.onDestroy();
+
+    }
+}
+</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li></ul></pre>
+
+<p>Engine还有onCreate和onDestroy声明周期方法，可以在onCreate中注册动态广播，当接受到发送的action为<code>ACTION_VOICE_NORMAL</code>则开启声音；接收到发送的<code>ACTION_VOICE_SILENCE</code>则为静音状态。</p>
+
+<p>最后直接在VideoLiveWallpaper中添加两个静态方法用于发送广播即可：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">voiceSilence</span>(Context context) {
+    Intent intent = <span class="hljs-keyword">new</span> Intent(VideoLiveWallpaper.VIDEO_PARAMS_CONTROL_ACTION);
+    intent.putExtra(VideoLiveWallpaper.KEY_ACTION, VideoLiveWallpaper.ACTION_VOICE_SILENCE);
+    context.sendBroadcast(intent);
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">voiceNormal</span>(Context context) {
+    Intent intent = <span class="hljs-keyword">new</span> Intent(VideoLiveWallpaper.VIDEO_PARAMS_CONTROL_ACTION);
+    intent.putExtra(VideoLiveWallpaper.KEY_ACTION, VideoLiveWallpaper.ACTION_VOICE_NORMAL);
+    context.sendBroadcast(intent);
+}
+</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li></ul></pre>
+
+<p>在Actiivty中：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> {</span>
+    <span class="hljs-keyword">private</span> CheckBox mCbVoice;
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span>(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mCbVoice = (CheckBox) findViewById(R.id.id_cb_voice);
+
+        mCbVoice.setOnCheckedChangeListener(
+                <span class="hljs-keyword">new</span> CompoundButton.OnCheckedChangeListener() {
+                    <span class="hljs-annotation">@Override</span>
+                    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCheckedChanged</span>(
+                            CompoundButton buttonView, <span class="hljs-keyword">boolean</span> isChecked) {
+                        <span class="hljs-keyword">if</span> (isChecked) {
+                            <span class="hljs-comment">// 静音</span>
+                            VideoLiveWallpaper.voiceSilence(getApplicationContext());
+                        } <span class="hljs-keyword">else</span> {
+                            VideoLiveWallpaper.voiceNormal(getApplicationContext());
+                        }
+                    }
+                });
+    }
+}</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li></ul></pre>
+
+<p>监听一下CheckBox状态，发送广播即可。</p>
+
+<p>ok，这样一个简单的视频桌面就完成啦~~</p>
+
+<p>源码地址：</p>
+
+<ul>
+<li><a href="https://github.com/WanAndroid/LiveWallPaper/tree/master/hongyang/MagicWallPaper" target="_blank">https://github.com/WanAndroid/LiveWallPaper/tree/master/hongyang/MagicWallPaper</a></li>
+</ul>
+
+<p>直接将这个目录以项目形式导入。</p>
+
+<hr>
+
+<p>支持我的话可以关注下我的公众号，每天都会推送新知识~</p>
+
+<blockquote>
+  <p>欢迎关注我的微信公众号：hongyangAndroid  <br>
+  （可以给我留言你想学习的文章，支持投稿）  <br>
+  <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/1422600516_2905.jpg" width="180px"></p>
+</blockquote>
+
+
+
+<h2 id="参考"><a name="t6"></a>参考</h2>
+
+<ul>
+<li><a href="http://www.vogella.com/tutorials/AndroidLiveWallpaper/article.html" target="_blank">http://www.vogella.com/tutorials/AndroidLiveWallpaper/article.html</a></li>
+<li><a href="http://www.jianshu.com/u/befb61deec9c" target="_blank">http://www.jianshu.com/u/befb61deec9c</a></li>
+</ul></div>
+        <script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+   
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        <div id="digg" articleid="72170299">
+            <dl id="btnDigg" class="digg digg_enable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>29</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_enable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>2</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);">&nbsp;</a></div>
+    <script type="text/javascript">
+        function btndigga() {
+            $(".tracking-ad[data-mod='popu_222'] a").click();
+        }
+        function btnburya() {
+            $(".tracking-ad[data-mod='popu_223'] a").click();
+        }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;http://blog.csdn.net/lmj623565791/article/details/60874334&#39;;">上一篇</span><a href="http://blog.csdn.net/lmj623565791/article/details/60874334" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">Android 热修复 Tinker 源码分析之DexDiff / DexPatch</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;http://blog.csdn.net/lmj623565791/article/details/72667669&#39;;">下一篇</span><a href="http://blog.csdn.net/lmj623565791/article/details/72667669" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">Android 热修复 Tinker Gradle Plugin解析</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article">
+                    <h4></h4>
+                    <div class="similar_c" style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36" style="max-height:250px">                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/w630886916/article/details/60780371" title="Android视频背景,动态背景，Android用视频做背景的轻松实现" strategy="BlogCommendFromBaidu_0" target="_blank">Android视频背景,动态背景，Android用视频做背景的轻松实现</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=blog7" title="MySQL在微信支付下的高可用运营--莫晓东" strategy="undefined" target="_blank">MySQL在微信支付下的高可用运营--莫晓东</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/shaoyezhangliwei/article/details/51280852" title="android用视频当做背景" strategy="BlogCommendFromBaidu_1" target="_blank">android用视频当做背景</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="容器技术在58同城的实践--姚远" strategy="undefined" target="_blank">容器技术在58同城的实践--姚远</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://download.csdn.net/download/godpower888/5634999" title="Android动态桌面LiveWallpaper源代码" strategy="BlogCommendFromCsdn_2" target="_blank">Android动态桌面LiveWallpaper源代码</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="SDCC 2017之容器技术实战线上峰会" strategy="undefined" target="_blank">SDCC 2017之容器技术实战线上峰会</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://download.csdn.net/download/qq_35066663/9529271" title="Android仿百度桌面源码" strategy="BlogCommendFromBaidu_3" target="_blank">Android仿百度桌面源码</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=blog7" title="SDCC 2017之数据库技术实战线上峰会" strategy="undefined" target="_blank">SDCC 2017之数据库技术实战线上峰会</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/King1425/article/details/72236225" title="ffmpeg实战教程（十）ffmpeg/camera实现最近很火的视频壁纸，相机壁纸" strategy="BlogCommendFromQuerySearch_4" target="_blank">ffmpeg实战教程（十）ffmpeg/camera实现最近很火的视频壁纸，相机壁纸</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="腾讯云容器服务架构实现介绍--董晓杰" strategy="undefined" target="_blank">腾讯云容器服务架构实现介绍--董晓杰</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/linsoiler1/article/details/31794769" title="android 锁屏壁纸和桌面壁纸的设置实现" strategy="BlogCommendFromQuerySearch_5" target="_blank">android 锁屏壁纸和桌面壁纸的设置实现</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=home7" title="微博热点事件背后的数据库运维心得--张冬洪" strategy="undefined" target="_blank">微博热点事件背后的数据库运维心得--张冬洪</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/true100/article/details/51315268" title="Android设置手机壁纸（WallPaper）" strategy="BlogCommendFromQuerySearch_6" target="_blank">Android设置手机壁纸（WallPaper）</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://download.csdn.net/download/yangdep/9846331" title="Android 仿火萤视频桌面 神奇的LiveWallPaper" strategy="BlogCommendFromCsdn_7" target="_blank">Android 仿火萤视频桌面 神奇的LiveWallPaper</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/hbyh632/article/details/78799668" title="Android 仿火萤视频桌面 神奇的LiveWallPaper" strategy="BlogCommendFromCsdn_8" target="_blank">Android 仿火萤视频桌面 神奇的LiveWallPaper</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/yangdep/article/details/72518256" title="Android 仿火萤视频桌面 神奇的LiveWallPaper" strategy="BlogCommendFromCsdn_9" target="_blank">Android 仿火萤视频桌面 神奇的LiveWallPaper</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+   
+      
+</div>
+
+
+<div id="suggest">
+
+
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/lmj623565791/svc/GetSuggestContent/72170299",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+
+
+            
+                                    
+            
+                                    
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_7452506"><dt class="comment_head" floor="53">53楼 <span class="user"><a class="username" href="http://blog.csdn.net/sinat_31393721" target="_blank">懵懂的金木</a> <span class="ptime">2017-12-25 15:49发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7452506" username="sinat_31393721"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sinat_31393721" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_sinat_31393721.jpg" width="40" height="40"></a></dd><dd class="comment_body">不错，支持大神</dd></dl><dl class="comment_item comment_topic" id="comment_item_7360127"><dt class="comment_head" floor="52">52楼 <span class="user"><a class="username" href="http://blog.csdn.net/qingjiao233" target="_blank">王大心不爱吃青椒</a> <span class="ptime">2017-11-22 18:23发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7360127" username="qingjiao233"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qingjiao233" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qingjiao233.jpg" width="40" height="40"></a></dd><dd class="comment_body">预览的图像会拉伸,不知道怎么解决,大神能给除解决方案吗?</dd><dl class="comment_item comment_reply" id="comment_item_7464550"><dt class="comment_head" floor="52">Re: <span class="user"><a class="username" href="http://blog.csdn.net/qq_36791265" target="_blank">WX丶SpongeBob</a> <span class="ptime">2017-12-28 15:33发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7464550" username="qq_36791265"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_36791265" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_36791265.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复qingjiao233：O(∩_∩)O哈哈~</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_7280461"><dt class="comment_head" floor="51">51楼 <span class="user"><a class="username" href="http://blog.csdn.net/a13572177095" target="_blank">a13572177095</a> <span class="ptime">2017-10-24 15:10发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7280461" username="a13572177095"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/a13572177095" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_a13572177095.jpg" width="40" height="40"></a></dd><dd class="comment_body">我运行到手机上了，提示运行成功。但是背景是黑屏，请问怎么回事，vivoX5手机牌子</dd></dl><dl class="comment_item comment_topic" id="comment_item_7257871"><dt class="comment_head" floor="50">50楼 <span class="user"><a class="username" href="http://blog.csdn.net/chenhaibin415" target="_blank">chenhaibin415</a> <span class="ptime">2017-10-12 17:19发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7257871" username="chenhaibin415"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/chenhaibin415" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_chenhaibin415.jpg" width="40" height="40"></a></dd><dd class="comment_body">请问大家如何更换视频？</dd></dl><dl class="comment_item comment_topic" id="comment_item_7178905"><dt class="comment_head" floor="49">49楼 <span class="user"><a class="username" href="http://blog.csdn.net/qq_37432575" target="_blank">Oneself0820</a> <span class="ptime">2017-09-11 11:26发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7178905" username="qq_37432575"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_37432575" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_37432575.jpg" width="40" height="40"></a></dd><dd class="comment_body">鸿洋大哥，这个图片嫂夫人看见不会生气吗？</dd></dl><dl class="comment_item comment_topic" id="comment_item_7167347"><dt class="comment_head" floor="48">48楼 <span class="user"><a class="username" href="http://blog.csdn.net/chenkai19951108" target="_blank">阿猫是只狗</a> <span class="ptime">2017-09-06 17:03发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7167347" username="chenkai19951108"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/chenkai19951108" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_chenkai19951108.jpg" width="40" height="40"></a></dd><dd class="comment_body">美滋滋</dd></dl><dl class="comment_item comment_topic" id="comment_item_7137298"><dt class="comment_head" floor="47">47楼 <span class="user"><a class="username" href="http://blog.csdn.net/gangzi14" target="_blank">quick_sword</a> <span class="ptime">2017-08-29 16:26发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7137298" username="gangzi14"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/gangzi14" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_gangzi14.jpg" width="40" height="40"></a></dd><dd class="comment_body">老哥，火萤现在后台进程杀死了，照样运行，有研究吗</dd></dl><dl class="comment_item comment_topic" id="comment_item_7127375"><dt class="comment_head" floor="46">46楼 <span class="user"><a class="username" href="http://blog.csdn.net/Strive_789" target="_blank">Strive_789</a> <span class="ptime">2017-08-26 10:50发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7127375" username="Strive_789"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/Strive_789" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_strive_789.jpg" width="40" height="40"></a></dd><dd class="comment_body">大神运行不了</dd></dl><dl class="comment_item comment_topic" id="comment_item_7117982"><dt class="comment_head" floor="45">45楼 <span class="user"><a class="username" href="http://blog.csdn.net/gangzi14" target="_blank">quick_sword</a> <span class="ptime">2017-08-23 11:04发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7117982" username="gangzi14"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/gangzi14" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_gangzi14.jpg" width="40" height="40"></a></dd><dd class="comment_body">宝塔镇河妖</dd></dl><dl class="comment_item comment_topic" id="comment_item_7111816"><dt class="comment_head" floor="44">44楼 <span class="user"><a class="username" href="http://blog.csdn.net/System_Miv" target="_blank">Laz_Y</a> <span class="ptime">2017-08-21 09:51发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7111816" username="System_Miv"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/System_Miv" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_system_miv.jpg" width="40" height="40"></a></dd><dd class="comment_body">dalao  你的视频是用什么软件剪辑的？还是本来分辨率就是1080x1920?</dd></dl><dl class="comment_item comment_topic" id="comment_item_7068028"><dt class="comment_head" floor="43">43楼 <span class="user"><a class="username" href="http://blog.csdn.net/dreams_deng" target="_blank">dreams_deng</a> <span class="ptime">2017-08-06 22:42发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7068028" username="dreams_deng"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/dreams_deng" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_dreams_deng.jpg" width="40" height="40"></a></dd><dd class="comment_body">非常不错</dd></dl><dl class="comment_item comment_topic" id="comment_item_7043654"><dt class="comment_head" floor="42">42楼 <span class="user"><a class="username" href="http://blog.csdn.net/qq_35677168" target="_blank">qq_35677168</a> <span class="ptime">2017-07-31 17:02发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7043654" username="qq_35677168"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_35677168" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_35677168.jpg" width="40" height="40"></a></dd><dd class="comment_body">原来是段友啊！</dd></dl><dl class="comment_item comment_topic" id="comment_item_7042807"><dt class="comment_head" floor="41">41楼 <span class="user"><a class="username" href="http://blog.csdn.net/android_ztz" target="_blank">ztzzmj</a> <span class="ptime">2017-07-31 16:15发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7042807" username="android_ztz"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/android_ztz" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_android_ztz.jpg" width="40" height="40"></a></dd><dd class="comment_body">内涵段子资深用户？ 馒头，馒头</dd></dl><dl class="comment_item comment_topic" id="comment_item_7003333"><dt class="comment_head" floor="40">40楼 <span class="user"><a class="username" href="http://blog.csdn.net/qq_31941235" target="_blank">qq_31941235</a> <span class="ptime">2017-07-22 13:46发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7003333" username="qq_31941235"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_31941235" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_31941235.jpg" width="40" height="40"></a></dd><dd class="comment_body">代码写的很好，就是图片资源不高雅，我是女生，不好那口，大神以后的图片资源可以小清新一点吗？</dd><dl class="comment_item comment_reply" id="comment_item_7006926"><dt class="comment_head" floor="40">Re: <span class="user"><a class="username" href="http://blog.csdn.net/lmj623565791" target="_blank">鸿洋_</a> <span class="ptime">2017-07-24 13:42发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7006926" username="lmj623565791"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/lmj623565791" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_lmj623565791.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复qq_31941235：以后用风景图~</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6963840"><dt class="comment_head" floor="39">39楼 <span class="user"><a class="username" href="http://blog.csdn.net/sfy666666" target="_blank">独钓寒江雪_</a> <span class="ptime">2017-07-05 17:22发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6963840" username="sfy666666"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sfy666666" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_sfy666666.jpg" width="40" height="40"></a></dd><dd class="comment_body">一句“果然很简单”然后就自己搞出来了！大神就是厉害</dd></dl><dl class="comment_item comment_topic" id="comment_item_6937909"><dt class="comment_head" floor="38">38楼 <span class="user"><a class="username" href="http://blog.csdn.net/qq_15527709" target="_blank">BigSweetee</a> <span class="ptime">2017-06-27 10:57发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6937909" username="qq_15527709"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_15527709" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_15527709.jpg" width="40" height="40"></a></dd><dd class="comment_body">为了这个视频源，我也要fork一下才行</dd></dl><dl class="comment_item comment_topic" id="comment_item_6917915"><dt class="comment_head" floor="37">37楼 <span class="user"><a class="username" href="http://blog.csdn.net/canglanghaizhisheng" target="_blank">canglanghaizhisheng</a> <span class="ptime">2017-06-17 11:38发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6917915" username="canglanghaizhisheng"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/canglanghaizhisheng" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_canglanghaizhisheng.jpg" width="40" height="40"></a></dd><dd class="comment_body">博主，是否有考虑过横竖屏切换的效果？如果不做处理，那么手机横屏的话，视频的图像是会被拉伸的，体验就不好了，应该要达到横屏的时候也要保持竖屏的状态，我尝试了很久都没有解决，不知博主有没有好的方法解决呢？急盼回复，谢谢。</dd></dl><dl class="comment_item comment_topic" id="comment_item_6901912"><dt class="comment_head" floor="36">36楼 <span class="user"><a class="username" href="http://blog.csdn.net/qq_29804981" target="_blank">qq_29804981</a> <span class="ptime">2017-06-13 18:06发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6901912" username="qq_29804981"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_29804981" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_29804981.jpg" width="40" height="40"></a></dd><dd class="comment_body">一个壁纸设置成功之后，换一个视频，预览正常，点击设置，然后engine就没有重新create了，，设置不成功，是为什么呢，还有如何跳过预览界面直接设置呢</dd></dl><dl class="comment_item comment_topic" id="comment_item_6899999"><dt class="comment_head" floor="35">35楼 <span class="user"><a class="username" href="http://blog.csdn.net/XiaoMu_Mu" target="_blank">XiaoMu_Mu</a> <span class="ptime">2017-06-12 22:50发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6899999" username="XiaoMu_Mu"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/XiaoMu_Mu" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_xiaomu_mu.jpg" width="40" height="40"></a></dd><dd class="comment_body">滴 滴滴</dd></dl><dl class="comment_item comment_topic" id="comment_item_6892203"><dt class="comment_head" floor="34">34楼 <span class="user"><a class="username" href="http://blog.csdn.net/a254837127" target="_blank">飞翔的泥巴</a> <span class="ptime">2017-06-08 16:55发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6892203" username="a254837127"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/a254837127" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_a254837127.jpg" width="40" height="40"></a></dd><dd class="comment_body">请问一下，如果我想选择手机sd卡上的视频作为背景，可以实现么？VideoLiveWallpaper 这个类中有intent参数的方法都无法被回调，选择好的视频地址，如何传递到VideoLiveWallpaper 中，实现播放呢？</dd></dl><dl class="comment_item comment_topic" id="comment_item_6892201"><dt class="comment_head" floor="33">33楼 <span class="user"><a class="username" href="http://blog.csdn.net/a254837127" target="_blank">飞翔的泥巴</a> <span class="ptime">2017-06-08 16:54发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6892201" username="a254837127"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/a254837127" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_a254837127.jpg" width="40" height="40"></a></dd><dd class="comment_body">请问一下，如果我想选择手机sd卡上的视频作为背景，可以实现么？VideoLiveWallpaper 这个类中有intent参数的方法都无法被回调，选择好的视频地址，如何传递到VideoLiveWallpaper 中，实现播放呢？</dd></dl><dl class="comment_item comment_topic" id="comment_item_6878576"><dt class="comment_head" floor="32">32楼 <span class="user"><a class="username" href="http://blog.csdn.net/chuwe1" target="_blank">chuwe1</a> <span class="ptime">2017-06-01 18:38发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6878576" username="chuwe1"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/chuwe1" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_chuwe1.jpg" width="40" height="40"></a></dd><dd class="comment_body">视频 很稳</dd></dl><dl class="comment_item comment_topic" id="comment_item_6878021"><dt class="comment_head" floor="31">31楼 <span class="user"><a class="username" href="http://blog.csdn.net/qq_30935059" target="_blank">卢雨寒</a> <span class="ptime">2017-06-01 15:45发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6878021" username="qq_30935059"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_30935059" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_30935059.jpg" width="40" height="40"></a></dd><dd class="comment_body">鸿神吊缠腰，滴.....滴滴。我要上鸿神老司机的车.....</dd></dl><dl class="comment_item comment_topic" id="comment_item_6872330"><dt class="comment_head" floor="30">30楼 <span class="user"><a class="username" href="http://blog.csdn.net/qq_24399225" target="_blank">qq_24399225</a> <span class="ptime">2017-05-31 12:13发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6872330" username="qq_24399225"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_24399225" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_24399225.jpg" width="40" height="40"></a></dd><dd class="comment_body">天王盖地虎~</dd><dl class="comment_item comment_reply" id="comment_item_6872332"><dt class="comment_head" floor="30">Re: <span class="user"><a class="username" href="http://blog.csdn.net/qq_24399225" target="_blank">qq_24399225</a> <span class="ptime">2017-05-31 12:14发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6872332" username="qq_24399225"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_24399225" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_24399225.jpg" width="40" height="40"></a></dd><dd class="comment_body">老表老表~</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6862995"><dt class="comment_head" floor="29">29楼 <span class="user"><a class="username" href="http://blog.csdn.net/u010347927" target="_blank">small德</a> <span class="ptime">2017-05-27 10:49发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6862995" username="u010347927"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u010347927" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_u010347927.jpg" width="40" height="40"></a></dd><dd class="comment_body">大神，请问一下，如果我想选择手机sd卡上的视频作为背景，可以实现么？VideoLiveWallpaper 这个类中有intent参数的方法都无法被回调，选择好的视频地址，如何传递到VideoLiveWallpaper 中，实现播放呢？</dd></dl><dl class="comment_item comment_topic" id="comment_item_6862155"><dt class="comment_head" floor="28">28楼 <span class="user"><a class="username" href="http://blog.csdn.net/xu961202" target="_blank">xu961202</a> <span class="ptime">2017-05-26 21:33发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6862155" username="xu961202"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xu961202" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_xu961202.jpg" width="40" height="40"></a></dd><dd class="comment_body">鸿神，为什么我的会一直正在加载动态视频中...</dd></dl><dl class="comment_item comment_topic" id="comment_item_6856219"><dt class="comment_head" floor="27">27楼 <span class="user"><a class="username" href="http://blog.csdn.net/tianliangyiqian" target="_blank">萧风4201</a> <span class="ptime">2017-05-24 17:34发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6856219" username="tianliangyiqian"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/tianliangyiqian" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_tianliangyiqian.jpg" width="40" height="40"></a></dd><dd class="comment_body">换一个视频，预览正常，点设置壁纸没有用，这是什么原因？</dd><dl class="comment_item comment_reply" id="comment_item_6901835"><dt class="comment_head" floor="27">Re: <span class="user"><a class="username" href="http://blog.csdn.net/qq_29804981" target="_blank">qq_29804981</a> <span class="ptime">2017-06-13 17:46发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6901835" username="qq_29804981"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_29804981" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_29804981.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复tianliangyiqian：我也遇到这个问题，我现在用sharepreferance来设置视频地址用来切换，预览没什么问题，但是点击设置返回之后不成功，用其他app或者系统换个壁纸之后再设置会成功，不知道怎么解决啊</dd><dl class="comment_item comment_reply" id="comment_item_7116318"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/qq_26948929" target="_blank">文明是美少年</a> <span class="ptime">2017-08-22 17:10发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7116318" username="qq_26948929"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_26948929" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_26948929.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复qq_29804981：第一次设置视频没问题，第二次更换视频我是更换了视频的URL，但是会出现几秒钟的黑屏！一直不知道怎么解决黑屏问题，想问你们第二次是怎么设置的</dd></dl></dl></dl><dl class="comment_item comment_topic" id="comment_item_6853805"><dt class="comment_head" floor="26">26楼 <span class="user"><a class="username" href="http://blog.csdn.net/TanShuaiYiSheng" target="_blank">金星_JX</a> <span class="ptime">2017-05-23 19:34发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6853805" username="TanShuaiYiSheng"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/TanShuaiYiSheng" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_tanshuaiyisheng.jpg" width="40" height="40"></a></dd><dd class="comment_body">Kotlin现在有什么好书码</dd></dl><dl class="comment_item comment_topic" id="comment_item_6853096"><dt class="comment_head" floor="25">25楼 <span class="user"><a class="username" href="http://blog.csdn.net/LdlNull" target="_blank">L_D_L</a> <span class="ptime">2017-05-23 15:25发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6853096" username="LdlNull"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/LdlNull" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_ldlnull.jpg" width="40" height="40"></a></dd><dd class="comment_body">这很骚气，我喜欢！</dd></dl><dl class="comment_item comment_topic" id="comment_item_6852413"><dt class="comment_head" floor="24">24楼 <span class="user"><a class="username" href="http://blog.csdn.net/cysion1989" target="_blank">CysionLiu</a> <span class="ptime">2017-05-23 10:52发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6852413" username="cysion1989"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/cysion1989" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_cysion1989.jpg" width="40" height="40"></a></dd><dd class="comment_body">能坚持就已经比较牛了</dd></dl><dl class="comment_item comment_topic" id="comment_item_6844682"><dt class="comment_head" floor="23">23楼 <span class="user"><a class="username" href="http://blog.csdn.net/shenshibaoma" target="_blank">布丁西西</a> <span class="ptime">2017-05-19 14:47发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6844682" username="shenshibaoma"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/shenshibaoma" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_shenshibaoma.jpg" width="40" height="40"></a></dd><dd class="comment_body">弘洋还不错，还在坚持更新博客，有些大牛，都基本不写博客了！</dd></dl><dl class="comment_item comment_topic" id="comment_item_6843473"><dt class="comment_head" floor="22">22楼 <span class="user"><a class="username" href="http://blog.csdn.net/PyFanL" target="_blank">PyFanL</a> <span class="ptime">2017-05-18 22:18发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6843473" username="PyFanL"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/PyFanL" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_pyfanl.jpg" width="40" height="40"></a></dd><dd class="comment_body">鸿洋大神你慕课网hyman的名字和英文hymen的发音很像，您要改吗？</dd><dl class="comment_item comment_reply" id="comment_item_7018105"><dt class="comment_head" floor="22">Re: <span class="user"><a class="username" href="http://blog.csdn.net/qiaoshi96_bk" target="_blank">杂树生花</a> <span class="ptime">2017-07-27 10:01发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7018105" username="qiaoshi96_bk"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qiaoshi96_bk" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qiaoshi96_bk.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复PyFanL：好强，这个都给以发现</dd><dl class="comment_item comment_reply" id="comment_item_7198432"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/thecodeis6" target="_blank">thecodeis6</a> <span class="ptime">2017-09-19 15:00发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7198432" username="thecodeis6"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/thecodeis6" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_thecodeis6.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复qiaoshi96_bk：这都发现你了</dd></dl></dl><dl class="comment_item comment_reply" id="comment_item_6966203"><dt class="comment_head" floor="22">Re: <span class="user"><a class="username" href="http://blog.csdn.net/sfy666666" target="_blank">独钓寒江雪_</a> <span class="ptime">2017-07-06 13:34发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6966203" username="sfy666666"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sfy666666" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_sfy666666.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复PyFanL：hymen是什么意思？</dd></dl><dl class="comment_item comment_reply" id="comment_item_6878572"><dt class="comment_head" floor="22">Re: <span class="user"><a class="username" href="http://blog.csdn.net/chuwe1" target="_blank">chuwe1</a> <span class="ptime">2017-06-01 18:36发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6878572" username="chuwe1"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/chuwe1" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_chuwe1.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复PyFanL：老哥 稳</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6842146"><dt class="comment_head" floor="21">21楼 <span class="user"><a class="username" href="http://blog.csdn.net/m0_37711172" target="_blank">快奔三233</a> <span class="ptime">2017-05-18 11:57发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6842146" username="m0_37711172"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/m0_37711172" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_m0_37711172.jpg" width="40" height="40"></a></dd><dd class="comment_body">自己copy写的没声音是什么问题 6.0的手机</dd></dl><dl class="comment_item comment_topic" id="comment_item_6841068"><dt class="comment_head" floor="20">20楼 <span class="user"><a class="username" href="http://blog.csdn.net/EDGJanusKun" target="_blank">EDGJanusKun</a> <span class="ptime">2017-05-17 20:20发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6841068" username="EDGJanusKun"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/EDGJanusKun" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_edgjanuskun.jpg" width="40" height="40"></a></dd><dd class="comment_body">这篇搞得我鸡冻</dd></dl><dl class="comment_item comment_topic" id="comment_item_6840638"><dt class="comment_head" floor="19">19楼 <span class="user"><a class="username" href="http://blog.csdn.net/jiweianquan" target="_blank">胡鞥们</a> <span class="ptime">2017-05-17 17:24发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6840638" username="jiweianquan"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/jiweianquan" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_jiweianquan.jpg" width="40" height="40"></a></dd><dd class="comment_body">不错  不错    学习了。</dd></dl><dl class="comment_item comment_topic" id="comment_item_6840435"><dt class="comment_head" floor="18">18楼 <span class="user"><a class="username" href="http://blog.csdn.net/www121104115" target="_blank">www121104115</a> <span class="ptime">2017-05-17 16:30发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6840435" username="www121104115"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/www121104115" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_www121104115.jpg" width="40" height="40"></a></dd><dd class="comment_body">鸿神，这安装了，被别的同事看到了，被当成猥琐男真的好尴尬！还有如何取消啊，只能卸载才能取消</dd><dl class="comment_item comment_reply" id="comment_item_6851099"><dt class="comment_head" floor="18">Re: <span class="user"><a class="username" href="http://blog.csdn.net/u010192251" target="_blank">u010192251</a> <span class="ptime">2017-05-22 19:42发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6851099" username="u010192251"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u010192251" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_u010192251.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复www121104115： 评论就服你。</dd></dl><dl class="comment_item comment_reply" id="comment_item_6843720"><dt class="comment_head" floor="18">Re: <span class="user"><a class="username" href="http://blog.csdn.net/qiuyudongjlu" target="_blank">qiuyudongjlu</a> <span class="ptime">2017-05-19 08:44发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6843720" username="qiuyudongjlu"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qiuyudongjlu" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qiuyudongjlu.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复www121104115：老铁扎心了</dd></dl><dl class="comment_item comment_reply" id="comment_item_6840666"><dt class="comment_head" floor="18">Re: <span class="user"><a class="username" href="http://blog.csdn.net/lmj623565791" target="_blank">鸿洋_</a> <span class="ptime">2017-05-17 17:33发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6840666" username="lmj623565791"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/lmj623565791" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_lmj623565791.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复www121104115：不要怕，大家都是成年人，脸皮要练起来。那个手机有设置屏保的地方，换个壁纸就好啦~</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6840218"><dt class="comment_head" floor="17">17楼 <span class="user"><a class="username" href="http://blog.csdn.net/a1sd1" target="_blank">a1sd1</a> <span class="ptime">2017-05-17 15:28发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6840218" username="a1sd1"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/a1sd1" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_a1sd1.jpg" width="40" height="40"></a></dd><dd class="comment_body">发送的广播接收不到！</dd><dl class="comment_item comment_reply" id="comment_item_6840669"><dt class="comment_head" floor="17">Re: <span class="user"><a class="username" href="http://blog.csdn.net/lmj623565791" target="_blank">鸿洋_</a> <span class="ptime">2017-05-17 17:33发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6840669" username="lmj623565791"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/lmj623565791" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_lmj623565791.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复a1sd1：排查下排查下~</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6840158"><dt class="comment_head" floor="16">16楼 <span class="user"><a class="username" href="http://blog.csdn.net/guoxiaolongonly" target="_blank">幕涩</a> <span class="ptime">2017-05-17 15:15发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6840158" username="guoxiaolongonly"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/guoxiaolongonly" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_guoxiaolongonly.jpg" width="40" height="40"></a></dd><dd class="comment_body">= =视频这么火辣。刚不住呀</dd></dl><dl class="comment_item comment_topic" id="comment_item_6839911"><dt class="comment_head" floor="15">15楼 <span class="user"><a class="username" href="http://blog.csdn.net/www121104115" target="_blank">www121104115</a> <span class="ptime">2017-05-17 14:19发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6839911" username="www121104115"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/www121104115" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_www121104115.jpg" width="40" height="40"></a></dd><dd class="comment_body">安卓菜鸟前来报道，求教各位一个问题，520表白，用安卓弄个简单的app行吗，求指导！</dd><dl class="comment_item comment_reply" id="comment_item_6841605"><dt class="comment_head" floor="15">Re: <span class="user"><a class="username" href="http://blog.csdn.net/qq_34512207" target="_blank">从规划设计师浪到安卓开发工程师</a> <span class="ptime">2017-05-18 09:05发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6841605" username="qq_34512207"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_34512207" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_qq_34512207.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复www121104115：哈哈  这个可以有</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6839555"><dt class="comment_head" floor="14">14楼 <span class="user"><a class="username" href="http://blog.csdn.net/wjb820728252" target="_blank">氵青-风</a> <span class="ptime">2017-05-17 11:08发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6839555" username="wjb820728252"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wjb820728252" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_wjb820728252.jpg" width="40" height="40"></a></dd><dd class="comment_body">又掌握一装B技能[/机智]。</dd></dl><dl class="comment_item comment_topic" id="comment_item_6839491"><dt class="comment_head" floor="13">13楼 <span class="user"><a class="username" href="http://blog.csdn.net/s13488941815" target="_blank">坠落糖梨</a> <span class="ptime">2017-05-17 10:50发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6839491" username="s13488941815"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/s13488941815" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_s13488941815.jpg" width="40" height="40"></a></dd><dd class="comment_body">mark一下</dd></dl><dl class="comment_item comment_topic" id="comment_item_6839419"><dt class="comment_head" floor="12">12楼 <span class="user"><a class="username" href="http://blog.csdn.net/jie35688" target="_blank">jie35688</a> <span class="ptime">2017-05-17 10:30发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6839419" username="jie35688"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/jie35688" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_jie35688.jpg" width="40" height="40"></a></dd><dd class="comment_body">卡在了正在装载动态墙纸界面,然后就装载不出来,点击设置为壁纸就是黑的壁纸,怎么解?</dd><dl class="comment_item comment_reply" id="comment_item_6840742"><dt class="comment_head" floor="12">Re: <span class="user"><a class="username" href="http://blog.csdn.net/www121104115" target="_blank">www121104115</a> <span class="ptime">2017-05-17 17:51发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6840742" username="www121104115"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/www121104115" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_www121104115.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复jie35688：    安卓6.0之后相机权限动态获取，已经搞定</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6839122"><dt class="comment_head" floor="11">11楼 <span class="user"><a class="username" href="http://blog.csdn.net/yalishadaa" target="_blank">平凡的LL</a> <span class="ptime">2017-05-17 09:02发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6839122" username="yalishadaa"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/yalishadaa" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_yalishadaa.jpg" width="40" height="40"></a></dd><dd class="comment_body">WOW</dd></dl><dl class="comment_item comment_topic" id="comment_item_6838928"><dt class="comment_head" floor="10">10楼 <span class="user"><a class="username" href="http://blog.csdn.net/yayun0516" target="_blank">yayun0516</a> <span class="ptime">2017-05-16 23:15发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6838928" username="yayun0516"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/yayun0516" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_yayun0516.jpg" width="40" height="40"></a></dd><dd class="comment_body">赞</dd></dl><dl class="comment_item comment_topic" id="comment_item_6838237"><dt class="comment_head" floor="9">9楼 <span class="user"><a class="username" href="http://blog.csdn.net/u014702653" target="_blank">Ruffian-痞子</a> <span class="ptime">2017-05-16 18:54发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6838237" username="u014702653"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u014702653" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_u014702653.jpg" width="40" height="40"></a></dd><dd class="comment_body">姑娘 让我们一起去喝啤酒 吃小龙虾 然后找个安静的地方探讨人生<br><br>我也是资深段友~~<br><br>说点正经的，博主能不能写一些关于性能优化的文章？（给我们这些想要进阶的技术菜鸟们一点指引）</dd><dl class="comment_item comment_reply" id="comment_item_6839184"><dt class="comment_head" floor="9">Re: <span class="user"><a class="username" href="http://blog.csdn.net/sw950729" target="_blank">我就是马云飞</a> <span class="ptime">2017-05-17 09:22发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6839184" username="sw950729"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sw950729" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_sw950729.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复u014702653：http://blog.csdn.net/sw950729/article/details/72124008  性能优化可以看看这个。</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_6838162"><dt class="comment_head" floor="8">8楼 <span class="user"><a class="username" href="http://blog.csdn.net/tsc45600" target="_blank">tsc45600</a> <span class="ptime">2017-05-16 18:15发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6838162" username="tsc45600"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/tsc45600" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_tsc45600.jpg" width="40" height="40"></a></dd><dd class="comment_body">滴~滴滴   我的天，鸿神原来是巨友啊！</dd></dl><dl class="comment_item comment_topic" id="comment_item_6838100"><dt class="comment_head" floor="7">7楼 <span class="user"><a class="username" href="http://blog.csdn.net/a940320099" target="_blank">凌恩BaZzi</a> <span class="ptime">2017-05-16 17:56发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6838100" username="a940320099"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/a940320099" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_a940320099.jpg" width="40" height="40"></a></dd><dd class="comment_body">先占位,在学习</dd></dl><dl class="comment_item comment_topic" id="comment_item_6837474"><dt class="comment_head" floor="6">6楼 <span class="user"><a class="username" href="http://blog.csdn.net/ak47985" target="_blank">ak47985</a> <span class="ptime">2017-05-16 14:57发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6837474" username="ak47985"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/ak47985" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_ak47985.jpg" width="40" height="40"></a></dd><dd class="comment_body">前排</dd></dl><dl class="comment_item comment_topic" id="comment_item_6836983"><dt class="comment_head" floor="5">5楼 <span class="user"><a class="username" href="http://blog.csdn.net/xiaole0313" target="_blank">吧主</a> <span class="ptime">2017-05-16 11:10发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6836983" username="xiaole0313"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xiaole0313" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_xiaole0313.jpg" width="40" height="40"></a></dd><dd class="comment_body">十分怀念翔哥的文章，谢谢翔哥分享干货，向翔神学习/抱拳。</dd></dl><dl class="comment_item comment_topic" id="comment_item_6836934"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/u012248099" target="_blank">jamin-it</a> <span class="ptime">2017-05-16 10:55发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6836934" username="u012248099"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u012248099" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_u012248099.jpg" width="40" height="40"></a></dd><dd class="comment_body">怒赞</dd></dl><dl class="comment_item comment_topic" id="comment_item_6836782"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/lzyang187" target="_blank">lzyang朝阳</a> <span class="ptime">2017-05-16 10:08发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6836782" username="lzyang187"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/lzyang187" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_lzyang187.jpg" width="40" height="40"></a></dd><dd class="comment_body">看到你的GitHub相关动态了</dd></dl><dl class="comment_item comment_topic" id="comment_item_6836781"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/lzyang187" target="_blank">lzyang朝阳</a> <span class="ptime">2017-05-16 10:07发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6836781" username="lzyang187"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/lzyang187" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_lzyang187.jpg" width="40" height="40"></a></dd><dd class="comment_body">占位</dd></dl><dl class="comment_item comment_topic" id="comment_item_6836639"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/u012210186" target="_blank">果然是酱</a> <span class="ptime">2017-05-16 09:26发表</span>  <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6836639" username="u012210186"> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/lmj623565791/article/details/72170299#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u012210186" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/3_u012210186.jpg" width="40" height="40"></a></dd><dd class="comment_body">终于更新了</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><a name="commentbox"></a><a name="reply"></a><a name="quote"></a><form action="http://blog.csdn.net/lmj623565791/comment/submit?id=72170299" method="post" onsubmit="return subform(this);"><div class="commentform"><div class="panel_head">发表评论</div><ul><li class="left">用 户 名：</li><li class="right">daoye2011</li></ul><ul><li class="left">评论内容：</li><li class="right" style="position:relative;"><div id="ubbtools"><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#insertcode" code="code"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/code.gif" border="0" alt="插入代码" title="插入代码"></a></div><div id="lang_list" style="position: absolute; top: 28px; left: 0px; display: none;"><a class="long_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#html">HTML/XML</a><a class="long_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#objc">objective-c</a><a class="zhong_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#delphi">Delphi</a><a class="zhong_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#ruby">Ruby</a><a href="http://blog.csdn.net/lmj623565791/article/details/72170299#php">PHP</a><a class="duan_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#csharp">C#</a><a style=" border-right: none;" class="duan_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#cpp">C++</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#javascript">JavaScript</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#vb">Visual Basic</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#python">Python</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#java">Java</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#css">CSS</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#sql">SQL</a><a style="border:none;" class="duan_name" href="http://blog.csdn.net/lmj623565791/article/details/72170299#plain">其它</a></div><textarea class="comment_content" name="comment_content" id="comment_content" style="width: 400px; height: 200px;"></textarea></li></ul><ul><input type="hidden" id="comment_replyId" name="comment_replyId"><input type="hidden" id="comment_userId" name="comment_userId" value="521203"><input type="hidden" id="commentId" name="commentId" value=""><input type="submit" class="comment_btn" value="提交">&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span></ul></div></form></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '72170299';
+    var commentscount = 69;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='Android 仿火萤视频桌面 神奇的LiveWallPaper';
+
+</script>
+
+
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+
+    <div class="side">
+
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/lmj623565791" target="_blank">
+    <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/1_lmj623565791.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/lmj623565791" class="user_name" target="_blank">鸿洋_</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attented" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=lmj623565791&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                       <div class="ico_expert" onclick="javascript:location=&#39;http://blog.csdn.net/experts/rule.html&#39;" title="CSDN认证专家" style="cursor:pointer;width:60px;height:60px;background:url(&#39;http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/bokezhuanjiamiddle.png&#39;) no-repeat"></div>
+                <div id="bms_box">
+                                            <a target="_blank">
+                                                    <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/zhuanlandaren.png" onmouseover="m_over_m(this,2)" onmouseout="m_out_m()" alt="5">
+                                            </a>
+                                            <a target="_blank">
+                                                    <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/bokezhixing.png" onmouseover="m_over_m(this,6)" onmouseout="m_out_m()" alt="2">
+                                            </a>
+               </div>
+
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>17821865次</span></li>
+    <li>积分：<span>51304</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/blog9.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：51304 </div>
+        </span>  </li>
+    <li>排名：<span>第64名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>205篇</span></li>
+    <li>转载：<span>0篇</span></li>
+    <li>译文：<span>6篇</span></li>
+    <li>评论：<span>15600条</span></li>
+</ul>
+</ul>
+</div>
+
+
+     
+
+ 
+
+<div id="custom_column_37972499" class="panel">
+<ul class="panel_head"><span>我的微信公众号</span></ul>
+<ul class="panel_body">
+<a href="https://github.com/hongyangAndroid/hongyangWeixinArticles">点击直达推送文章汇总</a><hr>
+
+长期为您推荐优秀博文、开源项目、视频等，进入还有好玩的等着你，欢迎扫一扫。
+<img style="width:95%;" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/1422600516_2905.jpg">
+</ul>
+</div>
+ 
+
+<div id="custom_column_36298017" class="panel">
+<ul class="panel_head"><span>联系方式</span></ul>
+<ul class="panel_body">
+<wb:follow-button uid="3165018720" type="red_1" width="67" height="24"><div class="WB_widget WB_follow_ex" style="width: 67px; height: 24px; overflow: hidden;"><div class="follow_btn_line" node-type="inner"><a class="follow_btn status_followed" node-type="followBtn" target="_blank" title="已关注" href="http://weibo.com/u/3165018720"><cite class="follow_btn_inner"><u class="WB_ico_logo"></u><cite class="follow_text">新动态</cite></cite></a></div></div></wb:follow-button>
+<hr>
+<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=2_3p6O7t7uzi6puqqvW4tLY" style="text-decoration:none;"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/1431844286_6921.png"></a>
+<hr>
+
+QQ群：
+<ul>
+<li style="color:red;font-size=22px;font-weight:bolder;display:none;">55032675</li>
+<li style="color:red;font-size=22px;font-weight:bolder;display:none;">423372824</li>
+<li style="color:red;font-size=22px;font-weight:bolder;">497438697</li>
+
+<li>请勿重复加群，Thx</li>
+</ul>
+</ul>
+</div> 
+<div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/3147547" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 5.x】</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2680597" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 精彩案例】</a><span>(39)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2680605" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 源码解析】</a><span>(31)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2680595" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 自定义控件实战】</a><span>(29)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2680591" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 自定义控件之起步】</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2518197" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 快速开发】</a><span>(12)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2680601" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 原生开发游戏】</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2132087" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Java 并发专题】</a><span>(15)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2210589" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【android 进阶之路】</a><span>(77)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2206597" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Java 设计模式】</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2392939" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 百度地图】</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2335135" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【html5 css3精彩案例】</a><span>(14)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2188109" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android github 控件】</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2170321" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android 基础】</a><span>(16)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2218967" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Javascript 】</a><span>(9)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/2386657" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【rabbitMQ 用法】</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/lmj623565791/article/category/6250701" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android微知识点】</a><span>(4)</span>
+                </li>
+</ul>
+</div>
+ 
+
+<div id="custom_column_37398105" class="panel">
+<ul class="panel_head"><span>友情链接</span></ul>
+<ul class="panel_body">
+<ul>
+  <li style="padding:3px;"><a target="_blank" href="http://blog.csdn.net/guolin_blog">郭霖的博客</a></li>
+ <li style="padding:3px;"><a target="_blank" href="http://blog.csdn.net/xiaanming">夏安明的博客</a></li>
+ <li style="padding:3px;"><a target="_blank" href="http://blog.csdn.net/singwhatiwanna">任玉刚的博客</a></li>
+ <li style="padding:3px;"><a target="_blank" href="http://blog.csdn.net/qibin0506">亓斌的博客</a></li>
+<li style="padding:3px;"><a target="_blank" href="https://github.com/open-android/Android">Github开源项目的配套视频</a></li>
+ <li style="padding:3px;"><a target="_blank" href="http://www.konghao.org/index">敬佩的孔老师</a></li>
+ <li style="padding:3px;"><a target="_blank" href="http://blog.csdn.net/foruok">foruok的订阅号程序视界</a></li>
+<li style="padding:3px;"><a target="_blank" href="http://blog.csdn.net/wangyaninglm">OpenCV大神shiter</a></li>
+<li style="padding:3px;"><a target="_blank" href="https://bbs.ksyun.com/forum.php">金山云</a></li>
+<li style="padding:3px;"><a target="_blank" href="http://www.jikedaohang.com/">专为Android程序员的导航</a></li>
+ <li style="padding:3px;"><a target="_blank" href="http://www.jcodecraeer.com/plus/list.php?tid=16">泡在网上的日子</a></li>
+</ul>
+</ul>
+</div>
+<div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>博客专栏</span></ul>
+    <ul class="panel_body" id="sp_column">
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/html5css3.html" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/20151123175920192" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/html5css3.html" target="_blank">HTML5 &amp; CSS3 实战</a>
+    <p>文章：11篇</p>
+    <span>阅读：244714</span>
+    </td>
+    </tr></tbody></table>
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/code-design.html" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/20151123175823567" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/code-design.html" target="_blank">设计模式融入生活</a>
+    <p>文章：10篇</p>
+    <span>阅读：139953</span>
+    </td>
+    </tr></tbody></table>
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/android110.html" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/20151123175818724" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/android110.html" target="_blank">Android 精彩案例</a>
+    <p>文章：67篇</p>
+    <span>阅读：6690785</span>
+    </td>
+    </tr></tbody></table>
+    </ul>
+</div>
+<div id="hotarticls" class="panel tracking-ad" data-mod="popu_340">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/48129405" title="Android Https相关完全解析 当OkHttp遇到Https">Android Https相关完全解析 当OkHttp遇到Https</a><span>(1617385)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/45059587" title="Android RecyclerView 使用完全解析 体验艺术般的控件">Android RecyclerView 使用完全解析 体验艺术般的控件</a><span>(831321)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/37970961" title="Android Fragment 真正的完全解析（上）">Android Fragment 真正的完全解析（上）</a><span>(778016)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/47911083" title="Android OkHttp完全解析 是时候来了解OkHttp了">Android OkHttp完全解析 是时候来了解OkHttp了</a><span>(599177)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/24252901" title="Android 自定义View (一)">Android 自定义View (一)</a><span>(378985)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/38067475" title="Android 属性动画（Property Animation） 完全解析 （上）">Android 属性动画（Property Animation） 完全解析 （上）</a><span>(321389)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/45460089" title="Android 屏幕适配方案">Android 屏幕适配方案</a><span>(310923)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/37992017" title="Android Fragment 真正的完全解析（下）">Android Fragment 真正的完全解析（下）</a><span>(265254)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/48649563" title="Android 沉浸式状态栏攻略 让你的状态栏变色吧">Android 沉浸式状态栏攻略 让你的状态栏变色吧</a><span>(256357)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/lmj623565791/article/details/38339817" title="Android 手把手教您自定义ViewGroup（一）">Android 手把手教您自定义ViewGroup（一）</a><span>(256010)</span>
+</li>
+</ul>
+</div>
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" class="form_search csdn-tracking-statistics" target="_blank" data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            var url = "/" + username + "?q=" + encodeURIComponent($("#inputSearch").val());
+            window.location.href = url;
+        }   
+    });
+</script>
+ 
+
+<div id="custom_column_40886443" class="panel">
+<ul class="panel_head"><span>统计</span></ul>
+<ul class="panel_body">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a2be8a9315245759d12f8ce94df7f7ac";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</ul>
+</div>
+ 
+
+<div id="custom_column_41351807" class="panel">
+<ul class="panel_head"><span>微信公众号</span></ul>
+<ul class="panel_body">
+<div style="position:fixed;bottom: 0; right: 0px;z-index:1000;font-weight:bold;font-size:1.3em;background-color:#fff;font-family: &#39;Microsoft YaHei&#39;;border:1px solid #aaa;">
+  <div style="text-align:center;border-bottom:1px solid #aaa;padding:4px;">
+
+  <a href="http://wanandroid.com/">~看不见我，看不见我~</a>
+  </div>
+<img width="180px" style="display:none" height="180px" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/1468942304_6791.jpg">
+
+    </div>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+
+           </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+     
+
+
+       <script type="text/javascript" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/MathJax.js.下载"></script>   
+    
+    <script src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/csdn_blog_detail.min.js.下载" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/notify.js.下载"></script><input type="hidden" id="aa_g_data_ids">
+        
+    <script type="text/javascript" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/csdn_public_blog_detail.min.js.下载"></script>
+
+    <script type="text/javascript" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/showblogmedal.ashx"></script>
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/52b5334.js.下载"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+          
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            鏀惰棌鍔╂墜
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./Android 仿火萤视频桌面 神奇的LiveWallPaper - Hongyang - CSDN博客_files/saved_resource.html" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function () {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            //$(".toc a[target='_blank']").attr("target", "");
+
+            setTimeout(function () {
+                $(".toc a[target='_blank']").attr("target", "");
+            }, 500);
+
+        </script>
+
+
+   
+</body></html>

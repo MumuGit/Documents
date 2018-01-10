@@ -1,0 +1,58 @@
+/*********************global************************/
+
+.hide_mob{
+	display:none;
+}
+.qa-main { width:100%;}	
+.qa-q-item-main {width:95%;}
+.qa-q-item-title a {
+	font-weight:300;
+}
+
+/*
+
+*/
+/*********************ques*************************/
+.qa-sidepanel {
+	width: 0px;
+	padding: 0px 0 0px 0px;
+	display: none;
+}
+.view_contents_mob{
+	padding-top:35px;
+	margin: 23px 0 24px;
+	float:left;
+}
+.qa-q-view{
+	padding-top:0px;
+	padding-left:0px;
+}
+.qa-voting {
+	width: 0px;
+	margin-right: 0px;
+}
+.qa-q-view-main{
+	width:95%;
+	float:left;
+	padding-left: 0px;
+}
+/********answer**********/
+.qa-a-list-item{
+	    padding: 20px 0px;
+}
+.qa-a-item-main{
+	width:95%;
+	float:left;
+	padding-left: 0px;
+}
+.qtip{
+	left: 0px;
+	max-width: 100%;
+}
+.taglist_mob{
+	width:95%;
+	padding-left:0px;
+}
+.qa-top-tags-label{
+	padding: 4px 3px 0 8px;
+}
