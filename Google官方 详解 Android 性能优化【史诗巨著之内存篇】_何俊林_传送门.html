@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://chuansong.me/n/1064864852870 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" charset="utf-8" async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/pa_lu_nobtn_inviewshow.app.js.下载"></script><script type="text/javascript" async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/dynamicFloat.js.下载"></script><script type="text/javascript" async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/fclm"></script><script type="text/javascript" async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/dynamicFloat.js.下载"></script>
+
+<meta name="sogou_site_verification" content="hhvxQaTyZg">
+<link href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/inspector.css" rel="stylesheet" type="text/css">
+<link href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/main.css" rel="stylesheet" type="text/css">
+<link href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/base.css" rel="stylesheet" type="text/css">
+<!--[if IE]>
+<link href="/static/css/ie.css" rel="stylesheet" type="text/css">
+<![endif]-->
+<!-- Le fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://chuansong.me/static/img/ico/apple-touch-icon-ipad3.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://chuansong.me/static/img/ico/apple-touch-icon-iphone4.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://chuansong.me/static/img/ico/apple-touch-icon-ipad.png">
+<link rel="apple-touch-icon-precomposed" href="http://chuansong.me/static/img/ico/apple-touch-icon-iphone.png">
+<link rel="shortcut icon" type="image/x-icon" href="http://chuansong.me/static/favicon.ico">
+
+<title>Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门</title>
+<meta name="keywords" content="Google官方 详解 Android 性能优化【史诗巨著之内存篇】,何俊林,传送门">
+<meta name="description" content="前言：首先感谢这两天大家的投票，SuperVideo将不再拉票，可以去魅族应用市场下载最新2.0版本私下体验">
+
+<link rel="stylesheet" type="text/css" href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/article_improve.css">
+
+<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="/static/css/article_pc.css"/> <![endif]-->
+<link media="screen and (min-width:1023px)" rel="stylesheet" type="text/css" href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/article_pc.css">
+<style>ol,ul{list-style-position:inside;}</style>
+
+
+<link rel="preload" href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/integrator.js.下载" as="script"><script src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/hm.js.下载"></script><script type="text/javascript" async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/ga.js.下载"></script><script type="text/javascript" async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/cm.js.下载"></script><script src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/ca-pub-6856158851051357.js.下载"></script><script type="text/javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/integrator.js.下载"></script><link rel="preload" href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/integrator.js(1).下载" as="script"><script type="text/javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/integrator.js(1).下载"></script><script src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/share.js.下载"></script><link rel="stylesheet" href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/share_style1_16.css"><link rel="stylesheet" href="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/share_style2_24.css"><script type="text/javascript" charset="gbk" src="http://imageplus.baidu.com/ui?dri=7&amp;is_small_pic=1&amp;src=1000&amp;k=%25E4%25BD%2595%25E4%25BF%258A%25E6%259E%2597%2520%25E5%25BE%25AE%25E4%25BF%25A1%25E4%25BA%258C%25E7%25BB%25B4%25E7%25A0%2581&amp;iurl[]=http:%2F%2Fq.chuansong.me%2FDriodDeveloper.jpg&amp;qid=kd73n71515654342184&amp;tu=2978723&amp;width=210&amp;height=210&amp;opt=1&amp;v=8&amp;cached=0&amp;pic=21&amp;explist=&amp;vn=170525&amp;pagetitle=Google%25E5%25AE%2598%25E6%2596%25B9%2520%25E8%25AF%25A6%25E8%25A7%25A3%2520Android%2520%25E6%2580%25A7%25E8%2583%25BD%25E4%25BC%2598%25E5%258C%2596%25E3%2580%2590%25E5%258F%25B2%25E8%25AF%2597%25E5%25B7%25A8%25E8%2591%2597%25E4%25B9%258B%25E5%2586%2585%25E5%25AD%2598%25E7%25AF%2587%25E3%2580%2591_%25E4%25BD%2595%25E4%25BF%258A%25E6%259E%2597_%25E4%25BC%25A0%25E9%2580%2581%25E9%2597%25A8&amp;screen_width=1903&amp;screen_height=925&amp;prot=1&amp;callback=bd__cbs__2kc6yp"></script></head>
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div>
+<div>
+<div>
+<div>
+<div class="header wrapper" id="layout_header">
+<div class="contents">
+<div class="row relative">
+<div class="logo " style="padding: 5px 10px 5px;font-size: 15px;left: -60px;margin-left: -70px;">
+<a href="http://chuansong.me/" alt="传送门"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/logo@2X.png" width="60" height="40" style="margin-top: 3px"></a>
+</div>
+<div>
+<div class=" search full_search instant_results">
+<div class="search_contents navigator">
+<form class="search_form" action="http://chuansong.me/search" method="get" name="search_form">
+<div class="search_input">
+<div class="input_wrapper ">
+<input class="question_box light" name="q" type="text" maxlength="250" placeholder="搜索账号" tabindex="1">
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div style="float: right;"><a href="http://werank.cn/" target="_blank" style="color: #666;padding: 0 8px;">排行榜</a></div>
+<div style="float: right;"><a href="http://chuansong.me/app" style="color: #666;padding: 0 8px;">客户端</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="home_page contents content">
+<div class="row">
+<div class="main e_col main_col" style="width: 700px; margin-left: -70px;">
+<div class="rich_media" id="js_article">
+
+<div class="rich_media_inner">
+<div id="page-content">
+<div class="rich_media_area_primary" id="img-content">
+<h2 class="rich_media_title" id="activity-name">
+                        Google官方 详解 Android 性能优化【史诗巨著之内存篇】 
+                    </h2>
+<div class="rich_media_meta_list">
+<span class="rich_media_meta meta_original_tag" id="copyright_logo">原创</span>
+<em class="rich_media_meta rich_media_meta_text" id="post-date">2016-11-03</em>
+<em class="rich_media_meta rich_media_meta_text">杨超凡</em>
+<a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="http://chuansong.me/account/DriodDeveloper" id="post-user">何俊林</a>
+<span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">何俊林</span>
+
+</div>
+<div class="rich_media_content " id="js_content">
+<p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;">前言：首先感谢这两天大家的投票，<span style="font-family: 微软雅黑; font-size: 14px;">SuperVideo</span><span style="font-family: 微软雅黑; font-size: 14px;">将不再拉票，可以去魅族应用市场下载最新2.0版本私下体验。有想帮投的，<span style="font-family: 微软雅黑; font-size: 14px;">上一篇文章中，有链接。</span>尤其感谢</span>鸿洋基友和明云基友，两位都有维护自己的公众号和博客，没有关注<span style="font-family: 微软雅黑; font-size: 14px;">鸿洋公众号和明云的open dev公众号的，文章下面有二维码，可关注。<span style="font-family: 微软雅黑; font-size: 14px;">鸿洋，一直更新着公众号，不管刮风还是下雪，工作日每天7：30准时推送一篇干货。csdn博客早已突破千万：blog地址为：http://blog.csdn.net/lmj623565791,做Android的，<span style="font-family: 微软雅黑; font-size: 14px;">不用我说，应该都知道。明云（张明云），知乎专栏上写了一系列的性能优化，都相当实用，open dev也会定期送上干货，不定期汇总推荐当下优秀文章）</span><span style="font-family: 微软雅黑; font-size: 14px;">今天来看下</span></span></span></p><p><span style="font-size: 14px;">杨超凡授权本公众号的Google官方的性能优化一些优化建议：点击阅读原文，可查看</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">杨超凡的原文：http://blog.csdn.net/chivalrousman/article/details/51553114，话不多说，看下正文。</span></span></p><section class="wxqq-borderBottomColor" style="font-family: 微软雅黑; border-color: rgb(245, 66, 66); margin-top: 0.5em; margin-bottom: 0.5em; width: 516px; color: rgb(62, 62, 62); line-height: 1em; overflow: hidden; border-bottom-width: 1px; border-bottom-style: solid; display: inline-block; white-space: normal; background-color: rgb(255, 255, 255); box-sizing: border-box !important;"><section class="wxqq-bg" style="padding: 0.2em; height: 2.8em; line-height: 1em; display: inline-block; max-width: 100%; background-color: rgb(245, 66, 66); box-sizing: border-box !important;"><section style="font-family: inherit; color: rgb(255, 255, 255); line-height: 1em; font-size: 2em; max-width: 100%; box-sizing: border-box !important;">1</section></section><section class="wxqq-color" style="font-family: inherit; padding: 0.2em; color: rgb(245, 66, 66); line-height: 1em; font-size: 1.2em; display: inline-block; max-width: 100%; box-sizing: border-box !important;">使用AsyncTask加载Bitmap</section></section><p><span style="font-size: 14px;">当图片资源来自网络或者硬盘的时候，最好不要直接在主线程中加载它，例如IO资源或者数据库资源都会占用CPU，CPU 要做的事情过多，Android手机会造成卡顿得现象，好在Google 提供了解决办法–AsyncTask异步加载工具</span><br></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><strong style="font-family: 微软雅黑; box-sizing: border-box;"><img data-ratio="0.6541176470588236" data-s="300,640" data-type="png" data-w="1700" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0"><br></strong>接着我们在主线程中执行它即可</p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><img data-ratio="0.1180637544273908" data-s="300,640" data-type="png" data-w="1694" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(1)"><br></p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><br></p><section class="wxqq-borderBottomColor" style="font-family: 微软雅黑; font-size: 16px; white-space: normal; border-color: rgb(245, 66, 66); margin-top: 0.5em; margin-bottom: 0.5em; width: 516px; color: rgb(62, 62, 62); line-height: 1em; overflow: hidden; border-bottom-width: 1px; border-bottom-style: solid; display: inline-block; background-color: rgb(255, 255, 255); box-sizing: border-box !important;"><section class="wxqq-bg" style="padding: 0.2em; height: 2.8em; line-height: 1em; display: inline-block; max-width: 100%; background-color: rgb(245, 66, 66); box-sizing: border-box !important;"><section style="font-family: inherit; color: rgb(255, 255, 255); line-height: 1em; font-size: 2em; max-width: 100%; box-sizing: border-box !important;">2</section></section><section class="wxqq-color" style="font-family: inherit; padding: 0.2em; color: rgb(245, 66, 66); line-height: 1em; font-size: 1.2em; display: inline-block; max-width: 100%; box-sizing: border-box !important;"><p>使用Lrucache缓存图片</p></section></section><p><strong style="color: rgb(85, 85, 85); font-family: 微软雅黑; font-size: 18px; white-space: normal; background-color: rgb(255, 255, 255); box-sizing: border-box;">1. <strong style="font-family: 微软雅黑; white-space: normal; font-size: 18px; background-color: rgb(255, 255, 255); color: rgb(85, 85, 85); box-sizing: border-box;">为什么要缓存图片？</strong></strong></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">对于如何高效的加载一张图片 ，我们似乎已经得心应手了，这里要泼一盆凉水给大家，因为我们的应用不仅只是加载一张图片这么简单，比如ListView, GridView or ViewPager，RecyclerView，需要立刻加载出大量的bitmap，滑动的过程不断加载bitmap，还要求不卡顿，内存够用，这似乎又是一件棘手的事情。</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">Google 又提供了一种解决思路：对于ListView，RecyclerView，有可见的item和不可见的item，回收不可见的item 内存，分配给可见的，这样内存得到了重复利用，避免重复创建对象，不断申请并分配新的内存空间，触发最低内存限制的危险。</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">所以我们要管理 这些 已经创建好的内存。</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><span style="font-family: 微软雅黑; font-size: 18px; box-sizing: border-box;"><strong style="box-sizing: border-box;">2. 使用内存缓存</strong><span style="box-sizing: border-box;"></span></span></p><ol class=" list-paddingleft-2" style="  ;; width: 490.188px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); font-size: 14px; background-color: rgb(255, 255, 255); "><li><p style="margin-bottom: 1.1em; line-height: 1.6em; box-sizing: border-box;">为什么优先使用内存缓存？</p><p style="margin-bottom: 1.1em; line-height: 1.6em; box-sizing: border-box;">答：相比硬盘缓存的读取速度，读取内存中的数据更快</p></li><li><p style="margin-bottom: 1.1em; line-height: 1.6em; box-sizing: border-box;">Google官方有什么建议？</p><p style="margin-bottom: 1.1em; line-height: 1.6em; box-sizing: border-box;">答：Google推荐Lrucache类，底层使用用强引用封装的LinkedHashMap，来存储最近使用的对象，它自动会回收最近使用的对象当中，使用的最少的那一个对象的内存，这一点毋庸置疑值得推荐！</p></li></ol><blockquote style="  ;; white-space: normal; box-sizing: border-box; margin-bottom: 1.1em; padding: 15px 20px; border-left-width: 10px; border-left-color: rgba(128, 128, 128, 0.0745098); background-color: rgba(128, 128, 128, 0.0470588); border-radius: 0px 5px 5px 0px; color: rgb(85, 85, 85); font-size: 14px; "><p style="font-family: 微软雅黑; line-height: 1.25; box-sizing: border-box;">一种过时的做法，是用虚引用或者弱引用来标记bitmap，这种方法在Android 3.0以后已经不提倡了，因为类似JDK1.8那样，bitmap的内存是放在本地内存中的，它的回收是不确定的，有可能导致APP挂掉，切勿使用。</p></blockquote><ol class=" list-paddingleft-2" style="  ;; width: 490.188px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); font-size: 14px; background-color: rgb(255, 255, 255); "><li><p style="margin-bottom: 1.1em; line-height: 1.6em; box-sizing: border-box;">Lrucache这么棒，我们该如何用？</p><p style="margin-bottom: 1.1em; line-height: 1.6em; box-sizing: border-box;">Lrucache就可以当作一种存储数据的结构，类似list，set，可以存储对象，获取对象，对应的有add（） 和get（）方法，它与数组一样，初始化的时候需要指定一个初始的大小。</p><p style="margin-bottom: 1.1em; line-height: 1.6em; box-sizing: border-box;">那么Lrucache实例 初始的大小该如何确定？&nbsp;<br style="box-sizing: border-box;">在计算大小之前，我们需要明确几件事情：</p></li><ul class=" list-paddingleft-2" style="font-family: 微软雅黑; width: 437.172px; box-sizing: border-box;"><li><p style="margin-top: 5px; margin-bottom: 5px; line-height: 1.6em;">我们的Activity和Application还有多少可用内存？</p></li><li><p style="margin-top: 5px; margin-bottom: 5px; line-height: 1.6em;">第一次加载的时候，需要为多少图片分配内存？可见的item数量，决定了图片的数量，图片的数量*每张图片的内存大小就是初始化需要分配的内存。</p></li><li><p style="margin-top: 5px; margin-bottom: 5px; line-height: 1.6em;">用户当前手机的屏幕尺寸和屏幕密度（为什么要这俩参数？大屏幕手机 ，初始化的时候会加载更多的item，需要的内存更大）</p></li><li><p style="margin-top: 5px; margin-bottom: 5px; line-height: 1.6em;">这张图片我们要怎样配置？图片的尺寸如何设置，颜色模式如何配置？根据不同的需求，比如是做用户头像，还是信息展示？都有各自的应用场景的要求。我们需要分类判断.</p></li><li><p style="margin-bottom: 1.1em; line-height: 1.6em; box-sizing: border-box;">cache大小是由内存大小决定的，而不是 它存储数据的个数决定</p><blockquote style="box-sizing: border-box; margin-bottom: 1.1em; padding: 15px 20px; border-left-width: 10px; border-left-color: rgba(128, 128, 128, 0.0745098); background-color: rgba(128, 128, 128, 0.0470588); border-radius: 0px 5px 5px 0px;"><p style="line-height: 1.25; box-sizing: border-box;">这让我想起一个在项目开发中常见的bug，use a bitmap which has bean recycler</p></blockquote></li></ul></ol><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><span style="font-family: 微软雅黑; font-size: 18px; box-sizing: border-box;"><strong style="box-sizing: border-box;">3. Lrucache使用实例</strong><span style="box-sizing: border-box;"></span></span></p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><img data-ratio="0.7269503546099291" data-s="300,640" data-type="png" data-w="1692" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(2)"><br></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">loadBitmap的过程很简洁：如果内存缓存中有这张bitmap，则直接刷新imageview，如果bitmap为空，则启动后台线程去加载bitmap，接着刷新imageview</p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><img data-ratio="0.2921083627797409" data-s="300,640" data-type="png" data-w="1698" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(3)"><br><span style=" background-color: rgb(255, 255, 255); color: rgb(85, 85, 85) ; ;; ">异步线程 BitmapWorkerTask</span></p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><span style=" background-color: rgb(255, 255, 255); color: rgb(85, 85, 85) ; ;; "><img data-ratio="0.3096085409252669" data-s="300,640" data-type="png" data-w="1686" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(4)"><br></span><strong style="font-size: 18px; background-color: rgb(255, 255, 255); color: rgb(85, 85, 85); box-sizing: border-box;">4. 磁盘缓存</strong><span style="font-size: 18px; background-color: rgb(255, 255, 255); color: rgb(85, 85, 85); box-sizing: border-box;">&nbsp;</span></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><span style="font-family: 微软雅黑; font-size: 18px; box-sizing: border-box;">与内存缓存相结合的还有磁盘缓存，虽然磁盘读取速度较慢，但是持久存储的，不像内存缓存那样，在内存极限情况下仍然会被清理，比如后台正在执行数据加载，突然打进来一个电话，内存不足系统可能会进行垃圾回收。缓存就没有了</span></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">Google官方提供直接DiskLruCache 类</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">为什么要使用DiskLruCache 很明了：就是解决当内存缓存不可用的情形</p><blockquote style="  ;; white-space: normal; box-sizing: border-box; margin-bottom: 1.1em; padding: 15px 20px; border-left-width: 10px; border-left-color: rgba(128, 128, 128, 0.0745098); background-color: rgba(128, 128, 128, 0.0470588); border-radius: 0px 5px 5px 0px; color: rgb(85, 85, 85); font-size: 14px; "><p style="font-family: 微软雅黑; line-height: 1.25; box-sizing: border-box;">内当需要频繁访问缓存的图片资源时，比如APP的画廊功能，可以考虑使用ContentProvider解决更为妥当。</p></blockquote><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><span style="font-size: 18px;"><strong style="font-family: 微软雅黑; box-sizing: border-box;">5.处理运行时变更的缓存</strong>&nbsp;</span><br></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">当屏幕旋转，或者其他原因导致Activity restart，这个时候难道又让我们重新创建大量的图像资源？&nbsp;<br style="font-family: 微软雅黑; box-sizing: border-box;">回答是否定的，Google提供了一种解决方案：</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">通过在Activity中使用fragment，构造Fragment时，通过设置 setRetainInstance(true))来设置缓存，&nbsp;<br style="font-family: 微软雅黑; box-sizing: border-box;">话不多说，直接上代码：</p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><img data-ratio="0.9185360094451004" data-s="300,640" data-type="png" data-w="1694" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(5)"><br></p><section class="wxqq-borderBottomColor" style="font-family: 微软雅黑; border-color: rgb(245, 66, 66); margin-top: 0.5em; margin-bottom: 0.5em; width: 516px; color: rgb(62, 62, 62); line-height: 1em; overflow: hidden; border-bottom-width: 1px; border-bottom-style: solid; display: inline-block; white-space: normal; background-color: rgb(255, 255, 255); box-sizing: border-box !important;"><section class="wxqq-bg" style="padding: 0.2em; height: 2.8em; line-height: 1em; display: inline-block; max-width: 100%; background-color: rgb(245, 66, 66); box-sizing: border-box !important;"><section style="font-family: inherit; color: rgb(255, 255, 255); line-height: 1em; font-size: 2em; max-width: 100%; box-sizing: border-box !important;">3</section></section><section class="wxqq-color" style="font-family: inherit; padding: 0.2em; color: rgb(245, 66, 66); line-height: 1em; font-size: 1.2em; display: inline-block; max-width: 100%; box-sizing: border-box !important;">RecyclerView GridView ListView</section></section><p><span style=" background-color: rgb(255, 255, 255); color: rgb(85, 85, 85) ; ;; font-size: 16px; "><img data-ratio="0.9270588235294117" data-s="300,640" data-type="png" data-w="1700" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(6)"><br><img data-ratio="0.846244131455399" data-s="300,640" data-type="png" data-w="1704" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(7)"><br></span></p><p><span style=" background-color: rgb(255, 255, 255); color: rgb(85, 85, 85) ; ;; font-size: 16px; ">下面可能是大家经常的做法：</span><br></p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><span style="  ;; background-color: rgb(255, 255, 255); color: rgb(85, 85, 85); ">看上去非常棒，对吗？但是我们如何才能做的更好？</span><br></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">如果你能发现主线程加载图片的问题，恭喜你，有一点点进步。但是重复提醒你使用AsyncTask，显然不是我写这一节的目的。</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">我们还需要警惕GridView 中的<strong style="font-family: 微软雅黑; box-sizing: border-box;">并发</strong>问题，因为iGridView 会回收子View的内存空间。</p><h3 style="  ;; white-space: normal; margin-top: 0.8em; margin-bottom: 0.8em; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><strong style="font-family: 微软雅黑; box-sizing: border-box;">并发问题</strong></h3><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">像ListView和GridView，与RecyclerView使用AsyncTask的时候，不能忽视一个问题：Android系统为了高效分配内存，这些组件都会在上下滑动的时候回收子view的内存。在滑动的时候，并不能保证AsyncTask可以完成当前任务。此外，也不能保证异步任务可以按照顺序完成。</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">Google在<a style="font-family: 微软雅黑; box-sizing: border-box; color: rgb(12, 137, 207);">&nbsp;Multithreading for Performance</a>&nbsp;提供了建议：在AsyncTask中，用弱引用来存储ImageView，通过使用弱引用来被检查ImageView是否加载完成</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">好吧，理论上是这样，我们开始行动：</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><strong style="font-family: 微软雅黑; box-sizing: border-box;">1.</strong>&nbsp;<strong style="font-family: 微软雅黑; box-sizing: border-box;">自定义Drawable去存储异步任务重的弱引用，只有这样，才能保证task执行完毕之后，ImageView才会显示图片</strong></p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><img data-ratio="0.3525264394829612" data-s="300,640" data-type="png" data-w="1702" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(8)"><br></p><p><span style="font-size: 14px;">2. 在执行BitmapWorkerTask之前，你需要创建 AsyncDrawable 并且绑定到ImageView上，通过如下代码：</span></p><p><span style="font-size: 14px;"><img data-ratio="0.23439340400471143" data-s="300,640" data-type="png" data-w="1698" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(9)"><br></span></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><strong style="font-family: 微软雅黑; box-sizing: border-box;">3. 仅仅这些代码还是不够的，Google 还引入 cancelPotentialWork（）来检查是否有其他的task任务在使用当前ImageView，如果有，就会取消当前任务，取消这个做法是不是很让人眼前一亮呢！</strong></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">这是cancelPotentialWork（）的实现</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><img data-ratio="0.4211764705882353" data-s="300,640" data-type="png" data-w="1700" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(10)"><br><strong style=" box-sizing: border-box; color: rgb(85, 85, 85) ; ;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255); ">4. 我们还需要get方法获得相关的ImageView:</strong></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><strong style=" box-sizing: border-box; color: rgb(85, 85, 85) ; ;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255); "><img data-ratio="0.2606132075471698" data-s="300,640" data-type="png" data-w="1696" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(11)"><br></strong><strong style="box-sizing: border-box;">5. 最后就是更新task中的onPostExecute（）检查任务是否取消:</strong></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><strong style="box-sizing: border-box;"><img data-ratio="0.4626334519572954" data-s="300,640" data-type="png" data-w="1686" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(12)"><br></strong>至此，我们已经了解Google 对于并发加载的解决方案，只需要在getView（）实现它们就可以啦！</p><h3 style="  ;; white-space: normal; margin-top: 0.8em; margin-bottom: 0.8em; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><strong style="font-family: 微软雅黑; box-sizing: border-box;">在GridView解决并发</strong></h3><p><strong style="font-family: 微软雅黑; box-sizing: border-box;"><img data-ratio="0.9258823529411765" data-s="300,640" data-type="png" data-w="1700" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(13)"><br><img data-ratio="0.6957547169811321" data-s="300,640" data-type="png" data-w="1696" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(14)"><br></strong></p><blockquote style="  ;; white-space: normal; box-sizing: border-box; margin-bottom: 1.1em; padding: 15px 20px; border-left-width: 10px; border-left-color: rgba(128, 128, 128, 0.0745098); background-color: rgba(128, 128, 128, 0.0470588); border-radius: 0px 5px 5px 0px; color: rgb(85, 85, 85); font-size: 14px; "><p style="font-family: 微软雅黑; line-height: 1.25; box-sizing: border-box;">这样解决并发的办法，同理适用于ListView， Recycler&nbsp;<br style="box-sizing: border-box;">这也是热门加载框架ImageLoader，Volley 的加载原理。原理还是Google提出的！</p></blockquote><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">这样就可以流畅的展示图片。</p><section class="wxqq-borderBottomColor" style="font-family: 微软雅黑; border-color: rgb(245, 66, 66); margin-top: 0.5em; margin-bottom: 0.5em; width: 516px; color: rgb(62, 62, 62); line-height: 1em; overflow: hidden; border-bottom-width: 1px; border-bottom-style: solid; display: inline-block; white-space: normal; background-color: rgb(255, 255, 255); box-sizing: border-box !important;"><section class="wxqq-bg" style="padding: 0.2em; height: 2.8em; line-height: 1em; display: inline-block; max-width: 100%; background-color: rgb(245, 66, 66); box-sizing: border-box !important;"><section style="font-family: inherit; color: rgb(255, 255, 255); line-height: 1em; font-size: 2em; max-width: 100%; box-sizing: border-box !important;">4</section></section><section class="wxqq-color" style="font-family: inherit; padding: 0.2em; color: rgb(245, 66, 66); line-height: 1em; font-size: 1.2em; display: inline-block; max-width: 100%; box-sizing: border-box !important;">View Holder设计模式</section></section><p><span style="background-color: rgb(255, 255, 255); color: rgb(85, 85, 85) ; ;; font-size: 14px;">我们的代码可能会调用findViewById（），尤其是当滑动ListView，RecyclerView，GridView的时候，会使得app性能变得糟糕。甚至Adapter会返回一个已经被Android系统回收的View，可是你仍然需要初始化加载这个view并刷新它。</span><br></p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); ">Google提出了使用 “View Holder” 设计模式</p><p style="  ;; margin-bottom: 1.1em; line-height: 1.6em; font-size: 14px; white-space: normal; box-sizing: border-box; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); "><strong style="font-family: 微软雅黑; box-sizing: border-box;">1. 首先创建 ViewHolder类，存储子View内部所有需要展示的布局</strong></p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><img data-ratio="0.1896348645465253" data-s="300,640" data-type="png" data-w="1698" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(15)"><br><strong style="color: rgb(85, 85, 85); box-sizing: border-box;">2. 接着填充ViewHolder并且存储到布局中</strong></p><p style="font-family: 微软雅黑; margin-top: 5px; margin-bottom: 5px; line-height: 1.6em; font-size: 14px; white-space: normal;"><strong style="color: rgb(85, 85, 85); box-sizing: border-box;"><img data-ratio="0.1619718309859155" data-s="300,640" data-type="png" data-w="1704" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(16)"><br></strong></p><blockquote style="  ;; white-space: normal; box-sizing: border-box; margin-bottom: 1.1em; padding: 15px 20px; border-left-width: 10px; border-left-color: rgba(128, 128, 128, 0.0745098); background-color: rgba(128, 128, 128, 0.0470588); border-radius: 0px 5px 5px 0px; color: rgb(85, 85, 85); font-size: 14px; "><p style="font-family: 微软雅黑; line-height: 1.25; box-sizing: border-box;">‘view holder’ 设计模式同样也适用于ListView，RecyclerView，GridView</p></blockquote><p style="margin-bottom: 1.1em; max-width: 100%; min-height: 1em; white-space: normal; color: rgb(62, 62, 62); font-size: 14px; line-height: 26px; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(255, 99, 71); box-sizing: border-box !important; word-wrap: break-word !important;">关注鸿洋微信公众号，扫一扫下方二维码或者长按识别二维码，即可关注。</span><img data-ratio="0.9940828402366864" data-s="300,640" data-type="png" data-w="338" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(17)" style="width: auto; height: auto;"></p><p style="margin-bottom: 1.1em; max-width: 100%; min-height: 1em; white-space: normal; color: rgb(62, 62, 62); font-size: 14px; line-height: 26px; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;"><span style="color: rgb(255, 99, 71); font-size: 14px;  background-color: rgb(255, 255, 255);">关注open Dev微信公众号，扫一扫下方二维码或者长按识别二维码，即可关注。</span></p><p style="margin-bottom: 1.1em; max-width: 100%; min-height: 1em; white-space: normal; color: rgb(62, 62, 62); font-size: 14px; line-height: 26px; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;"><img data-ratio="0.9830508474576272" data-s="300,640" data-type="png" data-w="236" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/0(18)"><br></p>
+</div>
+<div class="ct_mpda_wrp" id="js_sponsor_ad_area" style="display:none;">
+</div>
+
+<div class="rich_media_tool" id="js_toobar3">
+<a class="media_tool_meta meta_primary" csmlink="JiIFJc" href="http://chuansong.me/r/JiIFJc" id="js_view_source" rel="nofollow" target="_blank">阅读原文</a>
+
+
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+<div style=""><abbr style="width:0px;height:0px;padding-top:0px;"></abbr><iframe width="700" frameborder="0" height="260" scrolling="no" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/s.html"></iframe></div><script type="text/javascript" async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/pr.js.下载"></script><script type="text/javascript" async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/smqugb.js.下载"></script><script type="text/javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/zfdpwv1y77.js.下载"></script>
+<div style="padding:5px 5px 0px 5px;border-bottom:1px dotted #C8D8F2; height:30px;margin:5px 0px 0px 0px;border-top:1px dotted #C8D8F2;">
+<div class="bdsharebuttonbox bdshare-button-style1-16" data-tag="share_bottom" style="font-size:13px; line-height:16px; float:right;" data-bd-bind="1515654342388"><a href="http://chuansong.me/n/1064864852870#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="http://chuansong.me/n/1064864852870#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="http://chuansong.me/n/1064864852870#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="http://chuansong.me/n/1064864852870#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="http://chuansong.me/n/1064864852870#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人</a><a href="http://chuansong.me/n/1064864852870#" class="bds_twi" data-cmd="twi" title="分享到Twitter">Twitter</a><a href="http://chuansong.me/n/1064864852870#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网">豆瓣</a><a href="http://chuansong.me/n/1064864852870#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧">百度贴吧</a><a href="http://chuansong.me/n/1064864852870#" class="bds_more" data-cmd="more"></a></div>
+<div style="float:right;line-height:28px; color:#6c6c6c; font-size:12px;padding-right:15px;">觉得不错，分享给更多人看到</div>
+</div>
+<div class="RecentPosts">
+<div><a href="http://chuansong.me/account/DriodDeveloper" style="color: #19558d;">何俊林</a> 最新文章:</div>
+<div class="feed_body">
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2018-01-11</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2132813852021">再不学习人工智能，你将错过下一个风口和浪潮</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2018-01-10</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2130788352016">2018，微信公众号可能要变天了</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2018-01-09</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2128806952019">kotlin写的音视频app（已开源）</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2018-01-08</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2126599752017">刚刚，阿里发布了一个技术重磅炸弹！</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2018-01-06</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2123785952018">如何入门大数据？免费基础课程派送啦！</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2018-01-05</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2121204852512">推荐一些不错的原创公众号</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2018-01-03</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2118248352318">技术资料很多，究竟哪个才是适合我的？</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2017-12-29</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2112706352811">17年，寻找出路的一年</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2017-12-28</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2108580552425">大公司的资深工程师和小公司的Leader如何决择？</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2017-12-27</span>&nbsp;&nbsp;&nbsp;
+<a class="question_link" href="http://chuansong.me/n/2105505152319">赶在2018年前推荐十个优质技术公众号</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div style="margin: 10px auto 10px 18px;clear: both;font-size: 14px;line-height: 28px;">
+<script type="text/javascript">
+var sogou_ad_id=848702;
+var sogou_ad_height=180;
+var sogou_ad_width=700;
+</script>
+<script type="text/javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/c.js.下载"></script><script src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/ask"></script><div style="display:none">-</div> <div id="starIframe_wrapper_1" style="height:180px;"><iframe id="starIframe1" onload="document.sogou_ads1_loaded=true;" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/ct.html" width="700" height="180" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div>
+</div>
+<div style="margin: 10px auto 10px 18px;clear: both;font-size: 14px;line-height: 28px;">
+<script async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display:inline-block;width:700px;height:250px" data-ad-client="ca-pub-6856158851051357" data-ad-slot="9804737210" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:700px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:700px;background-color:transparent;"><iframe width="700" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:700px;height:250px;" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/saved_resource.html"></iframe></ins></ins></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="RecentPosts">
+<div><a href="http://chuansong.me/account/DriodDeveloper" style="color: #19558d;">何俊林</a> 热门文章:</div>
+<div class="feed_body">
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1741408052564">基于 MVP + Glide + Retrofit + RxJava2.0 + butterknife 的C9MJ TV App</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 1497/23</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1675483152214">年近30，我的职业回顾与思考</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 1269/33</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1490501952924">【文中有福利】是时候选择了，小程序到底要不要学？</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 886/50</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1724855552613">是的，我开始做这么一件事了</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 844/23</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1487501452912">用一年的时间，来改变自己</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 621/31</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1734313852815">清明，我怀念那个回不去的故乡了</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 582/26</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1325620452632">16年，悲痛又收获的一年</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 525/31</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1009222652021">我工作的这两年</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 520/24</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1627636552218">在碾压中找到自己，提升自己的思考能力</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 517/26</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1506853552512">勤能补拙 VS 思考补拙</a>
+&nbsp;&nbsp;&nbsp;<span class="timestamp" style="color: #999">阅读/点赞 : 490/27</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; height: 420px;" data-ad-format="autorelaxed" data-ad-client="ca-pub-6856158851051357" data-ad-slot="3571874813" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:420px;margin:0;padding:0;position:relative;visibility:visible;width:700px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:420px;margin:0;padding:0;position:relative;visibility:visible;width:700px;background-color:transparent;"><iframe width="700" height="420" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:700px;height:420px;" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/saved_resource(1).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="side e_col side_col w2_5" style="margin-top: 10px;width: 300px;">
+<div class="row section section_top" style="margin-bottom: 5px">
+<a style="padding: 6px" class="download-ios" href="https://itunes.apple.com/cn/app/chuan-song-men-wei-xin-gong/id969898148?ls=1&amp;mt=8" target="_blank">传送门 for iOS 下载</a>
+</div>
+<div class="section">
+<div>
+<h3>何俊林 微信二维码</h3>
+<div class="inline_editor_content">
+<span class="inline_editor_value">
+<div class="inline">
+<img width="210px" height="210px" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/DriodDeveloper.jpg" alt="何俊林 微信二维码">
+</div>
+</span>
+</div>
+</div>
+</div>
+<div class="section share_question ">
+<h3>分享这篇文章</h3>
+<div class="row share_icons_row">
+<div class="bdsharebuttonbox bdshare-button-style2-24" data-tag="share_right" data-bd-bind="1515654342393"><a href="http://chuansong.me/n/1064864852870#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="http://chuansong.me/n/1064864852870#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="http://chuansong.me/n/1064864852870#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="http://chuansong.me/n/1064864852870#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="http://chuansong.me/n/1064864852870#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="http://chuansong.me/n/1064864852870#" class="bds_tieba" data-cmd="tieba" title="分享百度贴吧"></a><a href="http://chuansong.me/n/1064864852870#" class="bds_twi" data-cmd="twi" title="分享Twitter"></a><a href="http://chuansong.me/n/1064864852870#" class="bds_more" data-cmd="more"></a></div>
+</div>
+</div>
+
+<div class="section">
+<h3>数据</h3>
+<div class="inline_editor_content">
+<span class="inline_editor_value">
+<div class="StatsRow">
+<span>阅读</span>
+<span><strong>506</strong></span>
+</div>
+<div class="StatsRow">
+<span>点赞</span>
+<span><strong>8</strong></span>
+</div>
+<div class="StatsRow">
+<span>更新</span>
+<span><strong>11月5日 0:09</strong></span>
+</div>
+</span>
+</div>
+</div>
+
+<div class="section">
+<script async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-6856158851051357" data-ad-slot="2281470411" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:300px;height:250px;" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/saved_resource(2).html"></iframe></ins></ins></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="section">
+<div>
+<h3>何俊林 最新头条文章</h3>
+<div class="inline_editor_content">
+<span class="inline_editor_value">
+<div class="inline">
+<div class="feed_body">
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2132813852021">再不学习人工智能，你将错过下一个风口和浪潮</a>
+&nbsp;<span class="timestamp" style="color: #999">2018-01-11</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2130788352016">2018，微信公众号可能要变天了</a>
+&nbsp;<span class="timestamp" style="color: #999">2018-01-10</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2128806952019">kotlin写的音视频app（已开源）</a>
+&nbsp;<span class="timestamp" style="color: #999">2018-01-09</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2126599752017">刚刚，阿里发布了一个技术重磅炸弹！</a>
+&nbsp;<span class="timestamp" style="color: #999">2018-01-08</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2123785952018">如何入门大数据？免费基础课程派送啦！</a>
+&nbsp;<span class="timestamp" style="color: #999">2018-01-06</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2121204852512">推荐一些不错的原创公众号</a>
+&nbsp;<span class="timestamp" style="color: #999">2018-01-05</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2118248352318">技术资料很多，究竟哪个才是适合我的？</a>
+&nbsp;<span class="timestamp" style="color: #999">2018-01-03</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2112706352811">17年，寻找出路的一年</a>
+&nbsp;<span class="timestamp" style="color: #999">2017-12-29</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2108580552425">大公司的资深工程师和小公司的Leader如何决择？</a>
+&nbsp;<span class="timestamp" style="color: #999">2017-12-28</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/2105505152319">赶在2018年前推荐十个优质技术公众号</a>
+&nbsp;<span class="timestamp" style="color: #999">2017-12-27</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</span>
+</div>
+</div>
+</div>
+<div class="section">
+<script async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-6856158851051357" data-ad-slot="3758203615" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><ins id="aswift_3_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;width:300px;height:250px;" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/saved_resource(3).html"></iframe></ins></ins></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="section">
+<div>
+<h3>何俊林 热门头条文章</h3>
+<div class="inline_editor_content">
+<span class="inline_editor_value">
+<div class="inline">
+<div class="feed_body">
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1741408052564">基于 MVP + Glide + Retrofit + RxJava2.0 + butterknife 的C9MJ TV App</a>
+&nbsp;<span class="timestamp" style="color: #999">1497阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1675483152214">年近30，我的职业回顾与思考</a>
+&nbsp;<span class="timestamp" style="color: #999">1269阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1490501952924">【文中有福利】是时候选择了，小程序到底要不要学？</a>
+&nbsp;<span class="timestamp" style="color: #999">886阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1724855552613">是的，我开始做这么一件事了</a>
+&nbsp;<span class="timestamp" style="color: #999">844阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1487501452912">用一年的时间，来改变自己</a>
+&nbsp;<span class="timestamp" style="color: #999">621阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1734313852815">清明，我怀念那个回不去的故乡了</a>
+&nbsp;<span class="timestamp" style="color: #999">582阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1325620452632">16年，悲痛又收获的一年</a>
+&nbsp;<span class="timestamp" style="color: #999">525阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1009222652021">我工作的这两年</a>
+&nbsp;<span class="timestamp" style="color: #999">520阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1627636552218">在碾压中找到自己，提升自己的思考能力</a>
+&nbsp;<span class="timestamp" style="color: #999">517阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="http://chuansong.me/n/1506853552512">勤能补拙 VS 思考补拙</a>
+&nbsp;<span class="timestamp" style="color: #999">490阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</span>
+</div>
+</div>
+</div>
+
+<div class="section">
+<script async="" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display: block; height: 600px;" data-ad-client="ca-pub-6856158851051357" data-ad-slot="5234936812" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_4_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><ins id="aswift_4_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><iframe width="300" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;width:300px;height:600px;" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/saved_resource(4).html"></iframe></ins></ins></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="section">
+<div id="_qc6ifpu9h9p" style="width: 300px; height: 250px; display: inline-block;"><iframe id="iframeu2984043_0" name="iframeu2984043_0" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/fclm.html" width="300" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:300px;height:250px" allowtransparency="true"></iframe></div><script type="text/javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/xedyfsx3lt.js.下载"></script>
+</div>
+<div class="section">
+<div id="_dj5txmg156l_placeholder" style="width: 300px; height: 250px; margin: 0px; padding: 0px; background: none; border: none; display: inline-block;"></div><div id="_dj5txmg156l" style="width: 300px; height: 250px; display: inline-block; z-index: 2147483646; position: fixed; left: 1156px; top: 5px;"><iframe id="iframeu2997659_0" name="iframeu2997659_0" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/fclm(1).html" width="300" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:300px;height:250px" allowtransparency="true"></iframe></div><script type="text/javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/pfdpwwzy37.js.下载"></script>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+/*自适应 创建于 2017/5/13PC图+*/
+var cpro_id = "u2978723";
+</script>
+<script type="text/javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/i.js.下载"></script>
+
+
+<div>
+<div class=" footer wrapper">
+<div class="contents">
+<div class="footer_nav row">
+<div class="e_col footer_links w8_5" style="margin-left: -70px">
+<ul class="nav_list">
+<li class="about"><a rel="nofollow" href="http://chuansong.me/about">关于</a></li>
+<li><span class="bullet"> • </span></li>
+<li class="about"><a rel="nofollow" href="http://chuansong.me/submit/account">提交</a></li>
+<li><span class="bullet"> • </span></li>
+<li class="about"><a rel="nofollow" href="http://chuansong.me/app">App</a></li>
+<li class="about" style="float: right"><a href="http://werank.cn/" target="_blank">热榜</a></li>
+
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-40292976-1']);
+_gaq.push(['_setDomainName', '.chuansong.me']);
+_gaq.push(['_setAllowLinker', true]);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script');
+ga.type = 'text/javascript';
+ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<script language="javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/jquery-1.4.2.min.js.下载"></script>
+<script language="javascript" src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/common.js.下载"></script>
+<script>window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2919864620"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":[{"tag":"share_bottom","bdSize":16},{"tag":"share_right","bdSize":24,"bdStyle":"2"}]};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+var hm = document.createElement("script");
+hm.src = "https://hm.baidu.com/hm.js?a60dba8cb25e746640878eb1b20f67eb";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<div style="position: absolute; border: 0px; margin: 0px; padding: 0px; height: 0px; overflow: visible; text-align: left; top: 511px; left: 441px; width: 670px;"><div id="f21ac82b21eeb7322631b6aa94e17f45jmb9vy"><style type="text/css" media="screen">#f21ac82b21eeb7322631b6aa94e17f45jmb9vy {position:absolute;top:0;left:0;right:auto;bottom:auto;margin:0;padding:0;border:0;width:200px;background:transparent;-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45jmb9vy div{float:left;width:144px;height:17px;line-height:17px;margin:3px 0 0 -2px;background:url(//ecma.bdimg.com/public03/imageplus/tip-back.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip-back.png');font-family:sans-serif;text-align:center;font-size:12px;color:#666;padding:8px 10px;display:none;-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45jmb9vy-icon {float:left;height:38px;width:38px;cursor:default;background:url(//ecma.bdimg.com/public03/imageplus/tip.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip.png');-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45jmb9vy-icon:hover {float:left;height:38px;width:38px;}#f21ac82b21eeb7322631b6aa94e17f45jmb9vy #f21ac82b21eeb7322631b6aa94e17f45jmb9vy-icon:hover {background:url(//ecma.bdimg.com/public03/imageplus/tip-hover.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip-hover.png');}</style><a href="javascript:void(0);" id="f21ac82b21eeb7322631b6aa94e17f45jmb9vy-icon"></a><div id="f21ac82b21eeb7322631b6aa94e17f45jmb9vy-msg">查看标识获取更多信息</div></div><style type="text/css" media="screen" id="s-f21ac82b21eeb7322631b6aa94e17f451tir08g">.baiduimageplus-s-pa{position:relative;width:100%;height:110px;overflow:hidden;cursor:default;-webkit-transition:top .5s;-moz-transition:top .5s;-ms-transition:top .5s;-o-transition:top .5s;transition:top .5s}.baiduimageplus-s-pa p{background:none}.baiduimageplus-s-pa a{outline:0;text-decoration:none}.baiduimageplus-s-pa a:hover{text-decoration:underline}.baiduimageplus-s-pa .baiduimageplus-s-pa-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}.baiduimageplus-s-pa .baiduimageplus-s-pa-ct{position:relative;z-index:2}.baiduimageplus-s-pa .baiduimageplus-s-pa-hd{height:26px;overflow:hidden;line-height:26px}.baiduimageplus-s-pa .baiduimageplus-s-pa-hd .baiduimageplus-s-pa-hd-title-cell{font-size:14px;color:#FFF;height:100%;text-align:center!important;float:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-right:1px solid #FFF}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu{position:relative;overflow:hidden;zoom:1;padding:0;margin:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper{width:90%;height:84px;float:left;overflow:hidden;position:relative;left:5px}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter{height:84px;overflow:hidden;position:absolute;left:0;-webkit-transition:all .5s;-moz-transition:all .5s;-ms-transition:all .5s;-o-transition:all .5s;transition:all .5s}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell{width:100px;height:72px;overflow:hidden;background-color:#FFF;margin:4px 5px;padding:0;float:left;border:2px solid #000;position:relative}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover{border-color:#d1111c}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover .baiduimageplus-s-pa-bd-lu-title{background-color:#d1111c}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover img{-webkit-transform:scale(1.2);-moz-transform:scale(1.2);-ms-transform:scale(1.2);-o-transform:scale(1.2);transform:scale(1.2)}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell img{width:100px;height:50px;display:block;border:0;-webkit-transition:transform .5s;-moz-transition:transform .5s;-ms-transition:transform .5s;-o-transition:transform .5s;transition:transform .5s}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell .baiduimageplus-s-pa-bd-lu-title{position:absolute;font:14px/1.5 arial,sans-serif;bottom:0;left:0;width:100%;height:22px;display:block;line-height:22px;background-color:#000;text-align:center;color:#FFF}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:first-child{margin-left:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:last-child{margin-right:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .ad-widget-imgps-sticker-html-btn{margin-top:5px;height:75px;width:20px;cursor:pointer;-webkit-transition:background .4s;-moz-transition:background .4s;-ms-transition:background .4s;-o-transition:background .4s;transition:background .4s}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_left{width:20px;float:left;background:url(http://ecmb.bdimg.com/public03/imageplus/sticker/leftbtn.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_left:hover{background:#20439d url(http://ecmb.bdimg.com/public03/sticker/leftbtn_hover.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_right{width:20px;float:right;background:url(http://ecmb.bdimg.com/public03/imageplus/sticker/rightbtn.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_right:hover{background:#20439d url(http://ecmb.bdimg.com/public03/sticker/rightbtn_hover.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-logo{position:absolute;bottom:0;right:0;z-index:3;height:18px;width:18px;text-indent:-9999px;background:url(http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png) no-repeat left top;background-position:0 0;_filter:progid:dximagetransform.microsoft.alphaimageloader(enabled=true,src="http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png",sizingMethod="crop");_background:none}
+.ad-widget-imageplus-sticker{font:12px/1.5 arial,sans-serif;position:absolute;left:0;width:100%;display:none;overflow:hidden;color:#FFF;background:transparent;-webkit-transition:height .5s,top .5s;transition:height .5s,top .5s}.ad-widget-imageplus-sticker div{background:transparent}.ad-widget-imageplus-sticker-cut{display:block}.ad-widget-imageplus-sticker-bg{position:absolute;z-index:1;left:0;top:0;width:100%;height:100%;background:#000!important;box-shadow:2px 2px 4px #000}.ad-widget-imageplus-sticker-bd{position:relative;z-index:2;left:0;top:0;width:100%;overflow:hidden}.ad-widget-imageplus-sticker-close{position:absolute;z-index:3;right:0;top:5px;width:25px;height:25px;line-height:25px;text-decoration:none;text-align:center;font-size:18px;color:#FFF!important}.ad-widget-imageplus-sticker-close:hover{background-color:#000}
+.ad-widget-imageplus-sticker-theme-white{color:#333}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-bg{background:#FFF!important;box-shadow:2px 2px 4px #FFF}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-close{color:#666!important}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-close:hover{background-color:#FFF!important}.ad-widget-imageplus-sticker-theme-none{color:#333}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-close{color:#666!important}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-close:hover{background-color:#FFF!important}.ad-widget-imageplus-sticker-theme-none-white{color:#333}
+.ad-widget-imageplus-sticker-theme-none-white .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none-white-2 .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none-white-2 .ad-widget-imageplus-sticker-close{top:0;text-indent:-9999px;background:url(http://ecma.bdimg.com/public03/imageplus/v2/dock/close.png) no-repeat 0 0 transparent}.ad-widget-imageplus-sticker-theme-v2 .ad-big-title{position:relative;top:0;opacity:1;filter:alpha(opacity=100);-webkit-transition:top .5s,opacity .6s;transition:top .5s,opacity .6s}.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-showing .ad-big-title{position:relative;top:-36px;opacity:0;filter:alpha(opacity=0)}.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-showing .ad-widget-imageplus-sticker-bg{top:26px}
+.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-close{top:0;text-indent:-9999px;background:url(http://ecma.bdimg.com/public03/imageplus/v2/dock/close.png) no-repeat 0 0 transparent}.ad-widget-imageplus-sticker-thumbnail{font:12px/1.5 arial,sans-serif;position:absolute;right:0;top:0;height:20px;width:100px;overflow:hidden;background:transparent;-webkit-transition:height .5s;-moz-transition:height .5s;-ms-transition:height .5s;-o-transition:height .5s;transition:height .5s;background-color:rgba(0,0,0,0.5);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000)}.ad-widget-imageplus-sticker-thumbnail a{float:right;width:100px;height:20px;line-height:20px;text-align:center;color:white;background:transparent;text-decoration:none}
+.ad-widget-imageplus-sticker-thumbnail i{width:12px;height:8px;margin-top:6px;margin-left:5px;display:block;float:left;background:url('http://ecma.bdimg.com/adtest/8e547549c94ab88c81b644d5ff63b0d3.png') no-repeat 0 0;background:none \9;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='http://ecma.bdimg.com/adtest/8e547549c94ab88c81b644d5ff63b0d3.png')\9}.ad-widget-imageplus-sticker-close-newstyle{top:0;text-indent:-9999px;background:url(http://ecmb.bdimg.com/public03/v2/dock/iconfont-close.png) no-repeat 0 0 transparent!important}.ad-widget-imageplus-sticker-showing .baiduimageplus-s-pa-hd{opacity:0;filter:alpha(opacity=0)}</style><div id="f21ac82b21eeb7322631b6aa94e17f451tir08g" data-rendered="true" style="margin: 0px; padding: 0px; border: none; overflow: visible; text-align: left;"><div class="ad-widget-imageplus-sticker ad-widget-imageplus-sticker-theme-v2 ad-widget-imageplus-sticker-cut" id="w-ei00kr" style="display: block; top: 329px; height: 109px;">
+<div class="ad-widget-imageplus-sticker ad-widget-imageplus-sticker-wrapper ad-widget-imageplus-sticker-box-showing" id="w-ei00kr-wrapper" style="display: block; top: 83px; height: 26px;">
+<div class="ad-widget-imageplus-sticker-bg" id="w-ei00kr-background" style="opacity: 0.75;"></div>
+<div class="ad-widget-imageplus-sticker-bd" id="w-ei00kr-body">
+<div class="baiduimageplus-s-pa" id="w-99wvo8">
+<div class="baiduimageplus-s-pa-bg" id="w-99wvo8-background"></div>
+<div class="baiduimageplus-s-pa-ct">
+<div class="baiduimageplus-s-pa-hd">
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">androidapp开发</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">数据可视化</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">人工智能课程</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">天龙八部Sf</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">九秀直播</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important; border: none !important;">新开天龙</div>
+</div>
+<div class="baiduimageplus-s-pa-bd-lu">
+<div id="w-99wvo8-left_btn" class="ad-widget-imgps-sticker-html-btn adwishbtn_left" style="display:none;"></div>
+<div id="w-99wvo8-wrapper" class="baiduimageplus-s-pa-bd-lu-wrapper" style="width: 660px !important;">
+<div id="w-99wvo8-outter" class="baiduimageplus-s-pa-bd-lu-outter" style="width: 679px !important;">
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qmy4bThqGuA7sTaNawBNKfiNaPzNKnBuonjd9UhwzUv-bmgKsFRFAFR7KFRcLFRDzFh_k5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBuonWY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-fbm-fYR-fWn-fYnhp1nqFRPjFRNjFRnkFRuKFRcsFRPaFRczFRFARvmhp1fqFRF7FRndFRfsFRR1FRfvFRckFRczFRDdFh_d5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiu_IyVG5HDhUyPsUHYdrjnYnauk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5HFBmhRsPHTsrHc3myDvnW6hTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PHRhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqrjK9nAD4mWb&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=350229014,3430694431&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qmy4bThqGuA7sTaNawBNKfiNaPzNKnBuonjd9UhwzUv-bmgKsFRFAFR7KFRcLFRDzFh_k5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBuonWY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-fbm-fYR-fWn-fYnhp1nqFRPjFRNjFRnkFRuKFRcsFRPaFRczFRFARvmhp1fqFRF7FRndFRfsFRR1FRfvFRckFRczFRDdFh_d5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiu_IyVG5HDhUyPsUHYdrjnYnauk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5HFBmhRsPHTsrHc3myDvnW6hTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PHRhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqrjK9nAD4mWb&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">androidapp开发</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRPKFRuDFRF7FRwDFRFAFRn4FRPKFRf1FRFaFR7AFh_s5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBuonHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-fbm-fYR-fWn-fYnhp1cqFRPjFRNjFRnkFRuKFRcsFRPaFRczFRFARvmhp1nqFRF7FRndFRfsFRR1FRfvFRckFRczFRDdFh_Y5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuoPHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhUZNopHYzFhdWTAYqP1ndrHnhTHY4n104rjDsr7qWTZchThcqniuzT1YkFMP-UAk-T-qGujYdFMPGujYzmhF-njRLnjbzrA79PWc3FMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn1RdFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5Hn1rHKWrjm3&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=218023967,2981160963&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRPKFRuDFRF7FRwDFRFAFRn4FRPKFRf1FRFaFR7AFh_s5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBuonHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-fbm-fYR-fWn-fYnhp1cqFRPjFRNjFRnkFRuKFRcsFRPaFRczFRFARvmhp1nqFRF7FRndFRfsFRR1FRfvFRckFRczFRDdFh_Y5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuoPHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhUZNopHYzFhdWTAYqP1ndrHnhTHY4n104rjDsr7qWTZchThcqniuzT1YkFMP-UAk-T-qGujYdFMPGujYzmhF-njRLnjbzrA79PWc3FMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn1RdFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5Hn1rHKWrjm3&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">数据可视化</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRFAFRP7FRc1FRPjFh_s5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNawBNjwiNanzNjfzuonHY-fYn-wRn-f1D-wbD-fW0-fYc-fWc-fbuHuBuonWY-fbR-f1R-wj0-wHn-wjm-fWD-fWc-fHRhp1nqFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_Y5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNjPiN7naNDniNaPiuoPHY-fWf-wWn-fYD-wbf-fbR-wDf-fWT-wjm-fYR-wWm-f1R-wH0-wjD-fWRhUZNopHY1FhdWTAYqnH03rHbsFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqnhFBuH0dP104nW99mHmzrau1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjndPiuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYsP19Wrjf3nf&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=132228391,582527220&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRFAFRP7FRc1FRPjFh_s5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNawBNjwiNanzNjfzuonHY-fYn-wRn-f1D-wbD-fW0-fYc-fWc-fbuHuBuonWY-fbR-f1R-wj0-wHn-wjm-fWD-fWc-fHRhp1nqFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_Y5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNjPiN7naNDniNaPiuoPHY-fWf-wWn-fYD-wbf-fbR-wDf-fWT-wjm-fYR-wWm-f1R-wH0-wjD-fWRhUZNopHY1FhdWTAYqnH03rHbsFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqnhFBuH0dP104nW99mHmzrau1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjndPiuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYsP19Wrjf3nf&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">人工智能课程</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRPjFRNjFRnkFRuKFRcsFRPaFRczFRFARvmhp10qFRPjFRNjFRnkFRuKFRcsFRPaFRczFRFARvmhp1DqFRF7FRndFRfsFRR1FRfvFRckFRczFRDdFh_z5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuon1Y-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhp1fqFRcYFRm1FRPKFRuDFRF7FRwDFRcLFRfvFRP7FRmvFRndFRRsFRfkFRcdFh_d5y78uZFEpyw9TZ0-fbm-fRD-fWT-fHchUZNopHYYFhdWTAYqnHmzrjbkFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqnhFBuH0dP104nW99mHmzrau1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjndPiuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYvnAmdmWmzn6&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=3264662152,3919170635&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRPjFRNjFRnkFRuKFRcsFRPaFRczFRFARvmhp10qFRPjFRNjFRnkFRuKFRcsFRPaFRczFRFARvmhp1DqFRF7FRndFRfsFRR1FRfvFRckFRczFRDdFh_z5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuon1Y-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhp1fqFRcYFRm1FRPKFRuDFRF7FRwDFRcLFRfvFRP7FRmvFRndFRRsFRfkFRcdFh_d5y78uZFEpyw9TZ0-fbm-fRD-fWT-fHchUZNopHYYFhdWTAYqnHmzrjbkFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqnhFBuH0dP104nW99mHmzrau1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjndPiuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYvnAmdmWmzn6&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">天龙八部Sf</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRF7FRndFRfsFRR1FRfvFRckFRczFRDdFh_s5iNawiNjPiNDnaN7nzNDPBNaniNanBNKPiuonHY-wj0-f1c-fbm-fRD-fYn-wRn-f1D-wbDhp1cqFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRndFRRsFRfkFRcdFh_15iNaPaNAnzNjfiNAwaNawiNDwaNaPzNDPBNjwiNAPBNjPiN7naNDniNaPiuoPjd9UhwzUv-bmgKsFRFAFR7KFRcLFRDzFh_d5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBu_IyVG5HRhUyPsUHYYrHn4riuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5HFBmhRsPHTsrHc3myDvnW6hTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PHRhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqm1fLrAfzuH6&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=401900943,2336626886&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRF7FRndFRfsFRR1FRfvFRckFRczFRDdFh_s5iNawiNjPiNDnaN7nzNDPBNaniNanBNKPiuonHY-wj0-f1c-fbm-fRD-fYn-wRn-f1D-wbDhp1cqFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRndFRRsFRfkFRcdFh_15iNaPaNAnzNjfiNAwaNawiNDwaNaPzNDPBNjwiNAPBNjPiN7naNDniNaPiuoPjd9UhwzUv-bmgKsFRFAFR7KFRcLFRDzFh_d5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBu_IyVG5HRhUyPsUHYYrHn4riuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5HFBmhRsPHTsrHc3myDvnW6hTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PHRhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqm1fLrAfzuH6&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">九秀直播</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_s5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuonHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhp1cqFRcYFRm1FRPKFRuDFRF7FRwDFRcLFRfvFRP7FRmvFRndFRRsFRfkFRcdFh_15y78uZFEpyw9TZ0-fbm-fRD-fWT-fHchp1fqFRPKFRuDFRF7FRwDFRFAFRn4FRPKFRf1FRFaFR7AFh_d5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNawBNjwiNanzNjfzu_IyVG5HmhUyPsUHYknj04njnhTHY4n104rjDsr7qWTZchThcqniuzT1YkFMP-UAk-T-qGujYdFMPGujYzmhF-njRLnjbzrA79PWc3FMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn1RdFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5HRdP103nvf4&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=673255943,2180230474&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YzrADvrAD4nWTsnjNBuHFBFh_qFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_s5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuonHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhp1cqFRcYFRm1FRPKFRuDFRF7FRwDFRcLFRfvFRP7FRmvFRndFRRsFRfkFRcdFh_15y78uZFEpyw9TZ0-fbm-fRD-fWT-fHchp1fqFRPKFRuDFRF7FRwDFRFAFRn4FRPKFRf1FRFaFR7AFh_d5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNawBNjwiNanzNjfzu_IyVG5HmhUyPsUHYknj04njnhTHY4n104rjDsr7qWTZchThcqniuzT1YkFMP-UAk-T-qGujYdFMPGujYzmhF-njRLnjbzrA79PWc3FMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn1RdFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5HRdP103nvf4&amp;c=news&amp;cf=14&amp;expid=9530_9562_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">新开天龙</a>
+</div>
+</div>
+</div>
+<div id="w-99wvo8-right_btn" class="ad-widget-imgps-sticker-html-btn adwishbtn_right" style="display:none;"></div>
+</div>
+</div>
+<a class="baiduimageplus-s-pa-logo" title="百度网盟推广" href="http://wangmeng.baidu.com/" target="_blank" data-ignore=""></a>
+<!-- 新增的推广提示 -->
+<div style="position:absolute;left:0px;bottom:0px;width:29px;height:16px;overflow:hidden;z-index:12;background: url(http://ecmb.bdimg.com/public03/imageplus/leftbottom.png) no-repeat;"></div>
+</div>
+</div>
+</div>
+<a class="ad-widget-imageplus-sticker-close " href="http://chuansong.me/n/1064864852870#" id="w-ei00kr-close" style="display: none;">X</a>
+</div>
+<div class="ad-widget-imageplus-sticker-thumbnail" id="w-ei00kr-thumbnail" style="display: none; top: 418px;">
+<a href="http://chuansong.me/n/1064864852870#" title="点击展开"><i>&nbsp;</i>图片相关信息</a>
+</div></div></div><div style="position: absolute; border: 0px; margin: 0px; padding: 0px; height: 0px; overflow: visible; text-align: left; top: 2356px; left: 441px; width: 670px;"><div id="f21ac82b21eeb7322631b6aa94e17f4549w68d"><style type="text/css" media="screen">#f21ac82b21eeb7322631b6aa94e17f4549w68d {position:absolute;top:0;left:0;right:auto;bottom:auto;margin:0;padding:0;border:0;width:200px;background:transparent;-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f4549w68d div{float:left;width:144px;height:17px;line-height:17px;margin:3px 0 0 -2px;background:url(//ecma.bdimg.com/public03/imageplus/tip-back.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip-back.png');font-family:sans-serif;text-align:center;font-size:12px;color:#666;padding:8px 10px;display:none;-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f4549w68d-icon {float:left;height:38px;width:38px;cursor:default;background:url(//ecma.bdimg.com/public03/imageplus/tip.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip.png');-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f4549w68d-icon:hover {float:left;height:38px;width:38px;}#f21ac82b21eeb7322631b6aa94e17f4549w68d #f21ac82b21eeb7322631b6aa94e17f4549w68d-icon:hover {background:url(//ecma.bdimg.com/public03/imageplus/tip-hover.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip-hover.png');}</style><a href="javascript:void(0);" id="f21ac82b21eeb7322631b6aa94e17f4549w68d-icon"></a><div id="f21ac82b21eeb7322631b6aa94e17f4549w68d-msg">查看标识获取更多信息</div></div><style type="text/css" media="screen" id="s-f21ac82b21eeb7322631b6aa94e17f452ihz00o">.baiduimageplus-s-pa{position:relative;width:100%;height:110px;overflow:hidden;cursor:default;-webkit-transition:top .5s;-moz-transition:top .5s;-ms-transition:top .5s;-o-transition:top .5s;transition:top .5s}.baiduimageplus-s-pa p{background:none}.baiduimageplus-s-pa a{outline:0;text-decoration:none}.baiduimageplus-s-pa a:hover{text-decoration:underline}.baiduimageplus-s-pa .baiduimageplus-s-pa-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}.baiduimageplus-s-pa .baiduimageplus-s-pa-ct{position:relative;z-index:2}.baiduimageplus-s-pa .baiduimageplus-s-pa-hd{height:26px;overflow:hidden;line-height:26px}.baiduimageplus-s-pa .baiduimageplus-s-pa-hd .baiduimageplus-s-pa-hd-title-cell{font-size:14px;color:#FFF;height:100%;text-align:center!important;float:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-right:1px solid #FFF}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu{position:relative;overflow:hidden;zoom:1;padding:0;margin:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper{width:90%;height:84px;float:left;overflow:hidden;position:relative;left:5px}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter{height:84px;overflow:hidden;position:absolute;left:0;-webkit-transition:all .5s;-moz-transition:all .5s;-ms-transition:all .5s;-o-transition:all .5s;transition:all .5s}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell{width:100px;height:72px;overflow:hidden;background-color:#FFF;margin:4px 5px;padding:0;float:left;border:2px solid #000;position:relative}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover{border-color:#d1111c}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover .baiduimageplus-s-pa-bd-lu-title{background-color:#d1111c}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover img{-webkit-transform:scale(1.2);-moz-transform:scale(1.2);-ms-transform:scale(1.2);-o-transform:scale(1.2);transform:scale(1.2)}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell img{width:100px;height:50px;display:block;border:0;-webkit-transition:transform .5s;-moz-transition:transform .5s;-ms-transition:transform .5s;-o-transition:transform .5s;transition:transform .5s}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell .baiduimageplus-s-pa-bd-lu-title{position:absolute;font:14px/1.5 arial,sans-serif;bottom:0;left:0;width:100%;height:22px;display:block;line-height:22px;background-color:#000;text-align:center;color:#FFF}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:first-child{margin-left:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:last-child{margin-right:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .ad-widget-imgps-sticker-html-btn{margin-top:5px;height:75px;width:20px;cursor:pointer;-webkit-transition:background .4s;-moz-transition:background .4s;-ms-transition:background .4s;-o-transition:background .4s;transition:background .4s}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_left{width:20px;float:left;background:url(http://ecmb.bdimg.com/public03/imageplus/sticker/leftbtn.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_left:hover{background:#20439d url(http://ecmb.bdimg.com/public03/sticker/leftbtn_hover.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_right{width:20px;float:right;background:url(http://ecmb.bdimg.com/public03/imageplus/sticker/rightbtn.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_right:hover{background:#20439d url(http://ecmb.bdimg.com/public03/sticker/rightbtn_hover.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-logo{position:absolute;bottom:0;right:0;z-index:3;height:18px;width:18px;text-indent:-9999px;background:url(http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png) no-repeat left top;background-position:0 0;_filter:progid:dximagetransform.microsoft.alphaimageloader(enabled=true,src="http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png",sizingMethod="crop");_background:none}
+.ad-widget-imageplus-sticker{font:12px/1.5 arial,sans-serif;position:absolute;left:0;width:100%;display:none;overflow:hidden;color:#FFF;background:transparent;-webkit-transition:height .5s,top .5s;transition:height .5s,top .5s}.ad-widget-imageplus-sticker div{background:transparent}.ad-widget-imageplus-sticker-cut{display:block}.ad-widget-imageplus-sticker-bg{position:absolute;z-index:1;left:0;top:0;width:100%;height:100%;background:#000!important;box-shadow:2px 2px 4px #000}.ad-widget-imageplus-sticker-bd{position:relative;z-index:2;left:0;top:0;width:100%;overflow:hidden}.ad-widget-imageplus-sticker-close{position:absolute;z-index:3;right:0;top:5px;width:25px;height:25px;line-height:25px;text-decoration:none;text-align:center;font-size:18px;color:#FFF!important}.ad-widget-imageplus-sticker-close:hover{background-color:#000}
+.ad-widget-imageplus-sticker-theme-white{color:#333}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-bg{background:#FFF!important;box-shadow:2px 2px 4px #FFF}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-close{color:#666!important}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-close:hover{background-color:#FFF!important}.ad-widget-imageplus-sticker-theme-none{color:#333}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-close{color:#666!important}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-close:hover{background-color:#FFF!important}.ad-widget-imageplus-sticker-theme-none-white{color:#333}
+.ad-widget-imageplus-sticker-theme-none-white .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none-white-2 .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none-white-2 .ad-widget-imageplus-sticker-close{top:0;text-indent:-9999px;background:url(http://ecma.bdimg.com/public03/imageplus/v2/dock/close.png) no-repeat 0 0 transparent}.ad-widget-imageplus-sticker-theme-v2 .ad-big-title{position:relative;top:0;opacity:1;filter:alpha(opacity=100);-webkit-transition:top .5s,opacity .6s;transition:top .5s,opacity .6s}.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-showing .ad-big-title{position:relative;top:-36px;opacity:0;filter:alpha(opacity=0)}.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-showing .ad-widget-imageplus-sticker-bg{top:26px}
+.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-close{top:0;text-indent:-9999px;background:url(http://ecma.bdimg.com/public03/imageplus/v2/dock/close.png) no-repeat 0 0 transparent}.ad-widget-imageplus-sticker-thumbnail{font:12px/1.5 arial,sans-serif;position:absolute;right:0;top:0;height:20px;width:100px;overflow:hidden;background:transparent;-webkit-transition:height .5s;-moz-transition:height .5s;-ms-transition:height .5s;-o-transition:height .5s;transition:height .5s;background-color:rgba(0,0,0,0.5);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000)}.ad-widget-imageplus-sticker-thumbnail a{float:right;width:100px;height:20px;line-height:20px;text-align:center;color:white;background:transparent;text-decoration:none}
+.ad-widget-imageplus-sticker-thumbnail i{width:12px;height:8px;margin-top:6px;margin-left:5px;display:block;float:left;background:url('http://ecma.bdimg.com/adtest/8e547549c94ab88c81b644d5ff63b0d3.png') no-repeat 0 0;background:none \9;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='http://ecma.bdimg.com/adtest/8e547549c94ab88c81b644d5ff63b0d3.png')\9}.ad-widget-imageplus-sticker-close-newstyle{top:0;text-indent:-9999px;background:url(http://ecmb.bdimg.com/public03/v2/dock/iconfont-close.png) no-repeat 0 0 transparent!important}.ad-widget-imageplus-sticker-showing .baiduimageplus-s-pa-hd{opacity:0;filter:alpha(opacity=0)}</style><div id="f21ac82b21eeb7322631b6aa94e17f452ihz00o" data-rendered="true" style="margin: 0px; padding: 0px; border: none; overflow: visible; text-align: left;"><div class="ad-widget-imageplus-sticker ad-widget-imageplus-sticker-theme-v2 ad-widget-imageplus-sticker-cut" id="w-6ygik6" style="display: block; top: 378px; height: 109px;">
+<div class="ad-widget-imageplus-sticker ad-widget-imageplus-sticker-wrapper ad-widget-imageplus-sticker-box-showing" id="w-6ygik6-wrapper" style="display: block; top: 83px; height: 26px;">
+<div class="ad-widget-imageplus-sticker-bg" id="w-6ygik6-background" style="opacity: 0.75;"></div>
+<div class="ad-widget-imageplus-sticker-bd" id="w-6ygik6-body">
+<div class="baiduimageplus-s-pa" id="w-mbw4cw">
+<div class="baiduimageplus-s-pa-bg" id="w-mbw4cw-background"></div>
+<div class="baiduimageplus-s-pa-ct">
+<div class="baiduimageplus-s-pa-hd">
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">APP开发</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">快速app开发</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">关于app开发</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">app开发吧</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">自体脂肪</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important; border: none !important;">动物标本</div>
+</div>
+<div class="baiduimageplus-s-pa-bd-lu">
+<div id="w-mbw4cw-left_btn" class="ad-widget-imgps-sticker-html-btn adwishbtn_left" style="display:none;"></div>
+<div id="w-mbw4cw-wrapper" class="baiduimageplus-s-pa-bd-lu-wrapper" style="width: 660px !important;">
+<div id="w-mbw4cw-outter" class="baiduimageplus-s-pa-bd-lu-outter" style="width: 679px !important;">
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qfNKfFRFAFR7KFRcLFRDzFh_s5R7fRaNawBNKfiNaPzNKnBuonHY-fbm-wRn-fYc-wj-9TZ0-fbm-fRD-fWT-fHchp1cqFRc4FRf3FRf1FRwKmgKsFRFAFR7KFRcLFRDzFh_15y7sTaNawBNKfiNaPzNKnBNanaNjriuoPjY-wjT-wjf-fYn-wHR-wjm-fRn-fWT-fbRhp1RqFRcvFR7AFRP7FRNAFRckFRNKFRckFRF7FhkdpvbqniuVmLKV5HDsn1R4nzuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5Hb1rjT3uH7huj9bmHRkPWbhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PWbhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqmHnzuHcsPAf&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=108872260,1751744083&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qfNKfFRFAFR7KFRcLFRDzFh_s5R7fRaNawBNKfiNaPzNKnBuonHY-fbm-wRn-fYc-wj-9TZ0-fbm-fRD-fWT-fHchp1cqFRc4FRf3FRf1FRwKmgKsFRFAFR7KFRcLFRDzFh_15y7sTaNawBNKfiNaPzNKnBNanaNjriuoPjY-wjT-wjf-fYn-wHR-wjm-fRn-fWT-fbRhp1RqFRcvFR7AFRP7FRNAFRckFRNKFRckFRF7FhkdpvbqniuVmLKV5HDsn1R4nzuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5Hb1rjT3uH7huj9bmHRkPWbhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PWbhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqmHnzuHcsPAf&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">APP开发</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qFRFAFRNjFRPaFRf4mgKsFRFAFR7KFRcLFRDzFh_s5iNawBN7fzNjfBNDry7sTaNawBNKfiNaPzNKnBuonHY-fWb-wj6-wjn-wD79TZ0-fbm-fRD-fWT-fHchp1cqmgKsFRFAFR7KFRcLFRDzFRcsFRn4Fh_15iNDPzNDPaNjfzN7PiNDPBNKfzNaPzNawiuoPjY-fWm-fRm-fYR-wRm-fWD-wRD-fWD-fbRhp1RqFRPjFRNjFRnkFRuKFRc4FR7aFRfzFRRvFRcLFRu7FhkdpvbqnBuVmLKV5HDdn1DkPiuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5Hb1rjT3uH7huj9bmHRkPWbhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PWbhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqnhnzuWcdPHc&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=3250483810,1605664115&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qFRFAFRNjFRPaFRf4mgKsFRFAFR7KFRcLFRDzFh_s5iNawBN7fzNjfBNDry7sTaNawBNKfiNaPzNKnBuonHY-fWb-wj6-wjn-wD79TZ0-fbm-fRD-fWT-fHchp1cqmgKsFRFAFR7KFRcLFRDzFRcsFRn4Fh_15iNDPzNDPaNjfzN7PiNDPBNKfzNaPzNawiuoPjY-fWm-fRm-fYR-wRm-fWD-wRD-fWD-fbRhp1RqFRPjFRNjFRnkFRuKFRc4FR7aFRfzFRRvFRcLFRu7FhkdpvbqnBuVmLKV5HDdn1DkPiuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5Hb1rjT3uH7huj9bmHRkPWbhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PWbhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqnhnzuWcdPHc&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">快速app开发</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qFRc4FRf3FRf1FRwKmgKsFRFAFR7KFRcLFRDzFh_s5iNariNDraNDnzNDfy7sTaNawBNKfiNaPzNKnBuonHd9TZ0-fbm-fRD-fWT-fHc-fW0-f1bhp1cqFRfLFRfYFRPjFRRdFRfvFR7jFRcLFRF7Fh_15iNaPBNKwBNjwiN7wBNaniN7fiNaniNawiuoPjY-fYn-wRn-f1D-wbD-fWb-fRc-wjc-wHm-fWT-wbRhp1RqFRFaFR7jFRPjFRwDFhkdpvbqnzuVmLKV5HDYPjD3niuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5Hb1rjT3uH7huj9bmHRkPWbhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PWbhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqmWbYrHRvujT&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=962900564,136934860&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qFRc4FRf3FRf1FRwKmgKsFRFAFR7KFRcLFRDzFh_s5iNariNDraNDnzNDfy7sTaNawBNKfiNaPzNKnBuonHd9TZ0-fbm-fRD-fWT-fHc-fW0-f1bhp1cqFRfLFRfYFRPjFRRdFRfvFR7jFRcLFRF7Fh_15iNaPBNKwBNjwiN7wBNaniN7fiNaniNawiuoPjY-fYn-wRn-f1D-wbD-fWb-fRc-wjc-wHm-fWT-wbRhp1RqFRFaFR7jFRPjFRwDFhkdpvbqnzuVmLKV5HDYPjD3niuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5Hb1rjT3uH7huj9bmHRkPWbhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PWbhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqmWbYrHRvujT&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">关于app开发</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qmgKsFRFAFR7KFRcLFRDzFRcsFRn4Fh_s5y7sTaNawBNKfiNaPzNKnBNanaNjriuonHY-wjT-wjf-fYn-wHR-wjm-fRn-fWT-fbRhp1cqFRcvFR7AFRP7FRNAFRckFRNKFRckFRF7Fh_15iNjfzN7fzNjniNAfiNariNKfBNDnBN7PBNaPzNAwiuoPjY-fbc-fRn-fYn-wDfhp1RqfNKfFRFAFR7KFRcLFRDzFhkdpvbqPauVmLKV5HDYrjRdniuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5Hb1rjT3uH7huj9bmHRkPWbhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PWbhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqPjm1PH9Brjm&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=95754790,2016319771&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qmgKsFRFAFR7KFRcLFRDzFRcsFRn4Fh_s5y7sTaNawBNKfiNaPzNKnBNanaNjriuonHY-wjT-wjf-fYn-wHR-wjm-fRn-fWT-fbRhp1cqFRcvFR7AFRP7FRNAFRckFRNKFRckFRF7Fh_15iNjfzN7fzNjniNAfiNariNKfBNDnBN7PBNaPzNAwiuoPjY-fbc-fRn-fYn-wDfhp1RqfNKfFRFAFR7KFRcLFRDzFhkdpvbqPauVmLKV5HDYrjRdniuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5Hb1rjT3uH7huj9bmHRkPWbhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1PWbhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqPjm1PH9Brjm&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">app开发吧</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qFRfLFRfYFRPjFRRdFRfvFR7jFRcLFRF7Fh_s5iNDPzNDPaNjfzN7PiNDPBNKfzNaPzNawiuonHY-fWm-fRm-fYR-wRm-fWD-wRD-fWD-fbRhp1cqFRPjFRNjFRnkFRuKFRc4FR7aFRfzFRRvFRcLFRu7Fh_15iNafBNKfzNjfzNDwauoPjdKR70-fbm-fRD-fWT-fHchp1RqFRFAFRNjFRPaFRf4mgKsFRFAFR7KFRcLFRDzFhkdpvbqPiuVmLKV5HmvnWmYFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqrHn3P19-nyubrAw9PHDvriu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjnvriuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYvnHm3nvwhm6&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=203426411,1857771111&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qFRfLFRfYFRPjFRRdFRfvFR7jFRcLFRF7Fh_s5iNDPzNDPaNjfzN7PiNDPBNKfzNaPzNawiuonHY-fWm-fRm-fYR-wRm-fWD-wRD-fWD-fbRhp1cqFRPjFRNjFRnkFRuKFRc4FR7aFRfzFRRvFRcLFRu7Fh_15iNafBNKfzNjfzNDwauoPjdKR70-fbm-fRD-fWT-fHchp1RqFRFAFRNjFRPaFRf4mgKsFRFAFR7KFRcLFRDzFhkdpvbqPiuVmLKV5HmvnWmYFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqrHn3P19-nyubrAw9PHDvriu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjnvriuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYvnHm3nvwhm6&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">自体脂肪</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qFRcvFR7AFRP7FRNAFRckFRNKFRckFRF7Fh_s5iNaPBNKwBNjwiN7wBNaniN7fiNaniNawiuonHY-fYn-wRn-f1D-wbD-fWb-fRc-wjc-wHm-fWT-wbRhp1cqFRFaFR7jFRPjFRwDFh_15R7fRaNawBNKfiNaPzNKnBuoPjY-fbm-wRn-fYc-wj-9TZ0-fbm-fRD-fWT-fHchp1RqFRc4FRf3FRf1FRwKmgKsFRFAFR7KFRcLFRDzFhkdpvbqPBuVmLKV5HczrH0sFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqrHn3P19-nyubrAw9PHDvriu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjnvriuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHdBmvmLPW-9P0&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=330648415,711491701&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YvrHRkuA7brj7hrAR3P1b1Fh_qFRcvFR7AFRP7FRNAFRckFRNKFRckFRF7Fh_s5iNaPBNKwBNjwiN7wBNaniN7fiNaniNawiuonHY-fYn-wRn-f1D-wbD-fWb-fRc-wjc-wHm-fWT-wbRhp1cqFRFaFR7jFRPjFRwDFh_15R7fRaNawBNKfiNaPzNKnBuoPjY-fbm-wRn-fYc-wj-9TZ0-fbm-fRD-fWT-fHchp1RqFRc4FRf3FRf1FRwKmgKsFRFAFR7KFRcLFRDzFhkdpvbqPBuVmLKV5HczrH0sFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqrHn3P19-nyubrAw9PHDvriu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjnvriuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHdBmvmLPW-9P0&amp;c=news&amp;cf=32&amp;expid=9515_9530_9574_9579&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">动物标本</a>
+</div>
+</div>
+</div>
+<div id="w-mbw4cw-right_btn" class="ad-widget-imgps-sticker-html-btn adwishbtn_right" style="display:none;"></div>
+</div>
+</div>
+<a class="baiduimageplus-s-pa-logo" title="百度网盟推广" href="http://wangmeng.baidu.com/" target="_blank" data-ignore=""></a>
+<!-- 新增的推广提示 -->
+<div style="position:absolute;left:0px;bottom:0px;width:29px;height:16px;overflow:hidden;z-index:12;background: url(http://ecmb.bdimg.com/public03/imageplus/leftbottom.png) no-repeat;"></div>
+</div>
+</div>
+</div>
+<a class="ad-widget-imageplus-sticker-close " href="http://chuansong.me/n/1064864852870#" id="w-6ygik6-close" style="display: none;">X</a>
+</div>
+<div class="ad-widget-imageplus-sticker-thumbnail" id="w-6ygik6-thumbnail" style="display: none; top: 467px;">
+<a href="http://chuansong.me/n/1064864852870#" title="点击展开"><i>&nbsp;</i>图片相关信息</a>
+</div></div></div><div style="position: absolute; border: 0px; margin: 0px; padding: 0px; height: 0px; overflow: visible; text-align: left; top: 3142px; left: 441px; width: 670px;"><div id="f21ac82b21eeb7322631b6aa94e17f45esko0x"><style type="text/css" media="screen">#f21ac82b21eeb7322631b6aa94e17f45esko0x {position:absolute;top:0;left:0;right:auto;bottom:auto;margin:0;padding:0;border:0;width:200px;background:transparent;-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45esko0x div{float:left;width:144px;height:17px;line-height:17px;margin:3px 0 0 -2px;background:url(//ecma.bdimg.com/public03/imageplus/tip-back.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip-back.png');font-family:sans-serif;text-align:center;font-size:12px;color:#666;padding:8px 10px;display:none;-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45esko0x-icon {float:left;height:38px;width:38px;cursor:default;background:url(//ecma.bdimg.com/public03/imageplus/tip.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip.png');-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45esko0x-icon:hover {float:left;height:38px;width:38px;}#f21ac82b21eeb7322631b6aa94e17f45esko0x #f21ac82b21eeb7322631b6aa94e17f45esko0x-icon:hover {background:url(//ecma.bdimg.com/public03/imageplus/tip-hover.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip-hover.png');}</style><a href="javascript:void(0);" id="f21ac82b21eeb7322631b6aa94e17f45esko0x-icon"></a><div id="f21ac82b21eeb7322631b6aa94e17f45esko0x-msg">查看标识获取更多信息</div></div><style type="text/css" media="screen" id="s-f21ac82b21eeb7322631b6aa94e17f4534315oc">.baiduimageplus-s-pa{position:relative;width:100%;height:110px;overflow:hidden;cursor:default;-webkit-transition:top .5s;-moz-transition:top .5s;-ms-transition:top .5s;-o-transition:top .5s;transition:top .5s}.baiduimageplus-s-pa p{background:none}.baiduimageplus-s-pa a{outline:0;text-decoration:none}.baiduimageplus-s-pa a:hover{text-decoration:underline}.baiduimageplus-s-pa .baiduimageplus-s-pa-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}.baiduimageplus-s-pa .baiduimageplus-s-pa-ct{position:relative;z-index:2}.baiduimageplus-s-pa .baiduimageplus-s-pa-hd{height:26px;overflow:hidden;line-height:26px}.baiduimageplus-s-pa .baiduimageplus-s-pa-hd .baiduimageplus-s-pa-hd-title-cell{font-size:14px;color:#FFF;height:100%;text-align:center!important;float:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-right:1px solid #FFF}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu{position:relative;overflow:hidden;zoom:1;padding:0;margin:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper{width:90%;height:84px;float:left;overflow:hidden;position:relative;left:5px}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter{height:84px;overflow:hidden;position:absolute;left:0;-webkit-transition:all .5s;-moz-transition:all .5s;-ms-transition:all .5s;-o-transition:all .5s;transition:all .5s}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell{width:100px;height:72px;overflow:hidden;background-color:#FFF;margin:4px 5px;padding:0;float:left;border:2px solid #000;position:relative}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover{border-color:#d1111c}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover .baiduimageplus-s-pa-bd-lu-title{background-color:#d1111c}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover img{-webkit-transform:scale(1.2);-moz-transform:scale(1.2);-ms-transform:scale(1.2);-o-transform:scale(1.2);transform:scale(1.2)}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell img{width:100px;height:50px;display:block;border:0;-webkit-transition:transform .5s;-moz-transition:transform .5s;-ms-transition:transform .5s;-o-transition:transform .5s;transition:transform .5s}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell .baiduimageplus-s-pa-bd-lu-title{position:absolute;font:14px/1.5 arial,sans-serif;bottom:0;left:0;width:100%;height:22px;display:block;line-height:22px;background-color:#000;text-align:center;color:#FFF}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:first-child{margin-left:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:last-child{margin-right:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .ad-widget-imgps-sticker-html-btn{margin-top:5px;height:75px;width:20px;cursor:pointer;-webkit-transition:background .4s;-moz-transition:background .4s;-ms-transition:background .4s;-o-transition:background .4s;transition:background .4s}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_left{width:20px;float:left;background:url(http://ecmb.bdimg.com/public03/imageplus/sticker/leftbtn.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_left:hover{background:#20439d url(http://ecmb.bdimg.com/public03/sticker/leftbtn_hover.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_right{width:20px;float:right;background:url(http://ecmb.bdimg.com/public03/imageplus/sticker/rightbtn.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_right:hover{background:#20439d url(http://ecmb.bdimg.com/public03/sticker/rightbtn_hover.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-logo{position:absolute;bottom:0;right:0;z-index:3;height:18px;width:18px;text-indent:-9999px;background:url(http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png) no-repeat left top;background-position:0 0;_filter:progid:dximagetransform.microsoft.alphaimageloader(enabled=true,src="http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png",sizingMethod="crop");_background:none}
+.ad-widget-imageplus-sticker{font:12px/1.5 arial,sans-serif;position:absolute;left:0;width:100%;display:none;overflow:hidden;color:#FFF;background:transparent;-webkit-transition:height .5s,top .5s;transition:height .5s,top .5s}.ad-widget-imageplus-sticker div{background:transparent}.ad-widget-imageplus-sticker-cut{display:block}.ad-widget-imageplus-sticker-bg{position:absolute;z-index:1;left:0;top:0;width:100%;height:100%;background:#000!important;box-shadow:2px 2px 4px #000}.ad-widget-imageplus-sticker-bd{position:relative;z-index:2;left:0;top:0;width:100%;overflow:hidden}.ad-widget-imageplus-sticker-close{position:absolute;z-index:3;right:0;top:5px;width:25px;height:25px;line-height:25px;text-decoration:none;text-align:center;font-size:18px;color:#FFF!important}.ad-widget-imageplus-sticker-close:hover{background-color:#000}
+.ad-widget-imageplus-sticker-theme-white{color:#333}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-bg{background:#FFF!important;box-shadow:2px 2px 4px #FFF}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-close{color:#666!important}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-close:hover{background-color:#FFF!important}.ad-widget-imageplus-sticker-theme-none{color:#333}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-close{color:#666!important}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-close:hover{background-color:#FFF!important}.ad-widget-imageplus-sticker-theme-none-white{color:#333}
+.ad-widget-imageplus-sticker-theme-none-white .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none-white-2 .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none-white-2 .ad-widget-imageplus-sticker-close{top:0;text-indent:-9999px;background:url(http://ecma.bdimg.com/public03/imageplus/v2/dock/close.png) no-repeat 0 0 transparent}.ad-widget-imageplus-sticker-theme-v2 .ad-big-title{position:relative;top:0;opacity:1;filter:alpha(opacity=100);-webkit-transition:top .5s,opacity .6s;transition:top .5s,opacity .6s}.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-showing .ad-big-title{position:relative;top:-36px;opacity:0;filter:alpha(opacity=0)}.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-showing .ad-widget-imageplus-sticker-bg{top:26px}
+.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-close{top:0;text-indent:-9999px;background:url(http://ecma.bdimg.com/public03/imageplus/v2/dock/close.png) no-repeat 0 0 transparent}.ad-widget-imageplus-sticker-thumbnail{font:12px/1.5 arial,sans-serif;position:absolute;right:0;top:0;height:20px;width:100px;overflow:hidden;background:transparent;-webkit-transition:height .5s;-moz-transition:height .5s;-ms-transition:height .5s;-o-transition:height .5s;transition:height .5s;background-color:rgba(0,0,0,0.5);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000)}.ad-widget-imageplus-sticker-thumbnail a{float:right;width:100px;height:20px;line-height:20px;text-align:center;color:white;background:transparent;text-decoration:none}
+.ad-widget-imageplus-sticker-thumbnail i{width:12px;height:8px;margin-top:6px;margin-left:5px;display:block;float:left;background:url('http://ecma.bdimg.com/adtest/8e547549c94ab88c81b644d5ff63b0d3.png') no-repeat 0 0;background:none \9;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='http://ecma.bdimg.com/adtest/8e547549c94ab88c81b644d5ff63b0d3.png')\9}.ad-widget-imageplus-sticker-close-newstyle{top:0;text-indent:-9999px;background:url(http://ecmb.bdimg.com/public03/v2/dock/iconfont-close.png) no-repeat 0 0 transparent!important}.ad-widget-imageplus-sticker-showing .baiduimageplus-s-pa-hd{opacity:0;filter:alpha(opacity=0)}</style><div id="f21ac82b21eeb7322631b6aa94e17f4534315oc" data-rendered="true" style="margin: 0px; padding: 0px; border: none; overflow: visible; text-align: left;"><div class="ad-widget-imageplus-sticker ad-widget-imageplus-sticker-theme-v2 ad-widget-imageplus-sticker-cut" id="w-ax7bkc" style="display: block; top: 98px; height: 109px;">
+<div class="ad-widget-imageplus-sticker ad-widget-imageplus-sticker-wrapper ad-widget-imageplus-sticker-box-showing ad-widget-imageplus-sticker-showing" id="w-ax7bkc-wrapper" style="display: block; top: -1px; height: 110px;">
+<div class="ad-widget-imageplus-sticker-bg" id="w-ax7bkc-background" style="opacity: 0.75;"></div>
+<div class="ad-widget-imageplus-sticker-bd" id="w-ax7bkc-body">
+<div class="baiduimageplus-s-pa" id="w-2y2wss">
+<div class="baiduimageplus-s-pa-bg" id="w-2y2wss-background"></div>
+<div class="baiduimageplus-s-pa-ct">
+<div class="baiduimageplus-s-pa-hd">
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">外墙一体板</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">视频播放服务器</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">选股技巧</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">谢国忠预测股市</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">uid</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important; border: none !important;">短线选股法</div>
+</div>
+<div class="baiduimageplus-s-pa-bd-lu">
+<div id="w-2y2wss-left_btn" class="ad-widget-imgps-sticker-html-btn adwishbtn_left" style="display:none;"></div>
+<div id="w-2y2wss-wrapper" class="baiduimageplus-s-pa-bd-lu-wrapper" style="width: 660px !important;">
+<div id="w-2y2wss-outter" class="baiduimageplus-s-pa-bd-lu-outter" style="width: 679px !important;">
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRPDFRRzFRnLFRFDFRfzFRFaFRPjFRRdFRcsFRRdFh_s5iNjwaN7nBNjPzNawaNDnBNafBNjfzN7PiNanaN7PiuonHY-fYD-wjn-f1m-fWR-fWc-fHR-fWT-f1R-fWT-wbR-fYR-wWD-f1m-wWThp1cqFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4Fh_15iNDnaNafBNariNAfiNDPBNDnBNDPaNKPaNanBN7nBNariNjriNjfiNDnauoPjddpyfhp1RqFRcvFRPjFRPAFRwAFRfkFRDkFRc4FRn4FRcLFRD3FhkdpvbqniuVmLKV5HDznj6Lrauk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5yfzmvRdn1b3mHIBrAubuau1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3nauYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHdbPyDYnj-hu6&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=894295382,1170888434&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRPDFRRzFRnLFRFDFRfzFRFaFRPjFRRdFRcsFRRdFh_s5iNjwaN7nBNjPzNawaNDnBNafBNjfzN7PiNanaN7PiuonHY-fYD-wjn-f1m-fWR-fWc-fHR-fWT-f1R-fWT-wbR-fYR-wWD-f1m-wWThp1cqFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4Fh_15iNDnaNafBNariNAfiNDPBNDnBNDPaNKPaNanBN7nBNariNjriNjfiNDnauoPjddpyfhp1RqFRcvFRPjFRPAFRwAFRfkFRDkFRc4FRn4FRcLFRD3FhkdpvbqniuVmLKV5HDznj6Lrauk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5yfzmvRdn1b3mHIBrAubuau1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3nauYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHdbPyDYnj-hu6&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">外墙一体板</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRPKFRf1FRnvFRcdFRczFRDdFRcLFRndFRcLFRu7FRP7FRmkFRnvFRmLFh_s5iNjfiNDnzNjPBNaPiNanBNKPiNaPzNjPiNaPzNAwiNjwiNAniNjPBNAPzuonHY-wjD-fHD-fWb-f1b-fbn-fbn-f1T-f1bhp1cqFRfsFRFaFRc4FRuKFRfvFRfzFRfYFRDYFRczFRRzFRc4FRn4FRPKFRfsFh_15gNGuauoPjY-fWm-fYn-fYm-wDm-wjD-fHD-fWb-f1b-fWT-fH6hp1RqFRc4FRf3FRFjFRujFRcYFRPKFRndFRndFRn1FRuaFRf1FRndFRFaFR7AFhkdpvbqnBuVmLKV5HDYn16kFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqujFWuHR1rH99Pvc3uhwbFMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16sFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5yu9PvubmHuB&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=959100585,1197998252&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRPKFRf1FRnvFRcdFRczFRDdFRcLFRndFRcLFRu7FRP7FRmkFRnvFRmLFh_s5iNjfiNDnzNjPBNaPiNanBNKPiNaPzNjPiNaPzNAwiNjwiNAniNjPBNAPzuonHY-wjD-fHD-fWb-f1b-fbn-fbn-f1T-f1bhp1cqFRfsFRFaFRc4FRuKFRfvFRfzFRfYFRDYFRczFRRzFRc4FRn4FRPKFRfsFh_15gNGuauoPjY-fWm-fYn-fYm-wDm-wjD-fHD-fWb-f1b-fWT-fH6hp1RqFRc4FRf3FRFjFRujFRcYFRPKFRndFRndFRn1FRuaFRf1FRndFRFaFR7AFhkdpvbqnBuVmLKV5HDYn16kFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqujFWuHR1rH99Pvc3uhwbFMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16sFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5yu9PvubmHuB&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">视频播放服务器</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4Fh_s5iNDniNKniNariNjriNafzNafzNjPzNjriuonHY-wj0-fbc-fWb-wbD-wjm-wjc-wjf-fHf-fWc-wHc-fWb-f1b-fYD-wj0hp1cqIy-bFh_15iNaPBNjfzNjwBNDwBNDniNKniNariNjriNaPzNKrauoPjY-fWb-wj6-fbn-wbn-fWf-fYD-f1R-f1R-f1n-wbc-wjn-f1R-fbc-fRmhp1RqFRPKFRuDFRF7FRwDFRcLFRfvFRP7FRmvFRn3FRNDFRFjFRu7FhkdpvbqnzuVmLKV5HTknW64FMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqujFWuHR1rH99Pvc3uhwbFMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16sFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5Hw9ujDYmWm3&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=2040497560,2798262022&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4Fh_s5iNDniNKniNariNjriNafzNafzNjPzNjriuonHY-wj0-fbc-fWb-wbD-wjm-wjc-wjf-fHf-fWc-wHc-fWb-f1b-fYD-wj0hp1cqIy-bFh_15iNaPBNjfzNjwBNDwBNDniNKniNariNjriNaPzNKrauoPjY-fWb-wj6-fbn-wbn-fWf-fYD-f1R-f1R-f1n-wbc-wjn-f1R-fbc-fRmhp1RqFRPKFRuDFRF7FRwDFRcLFRfvFRP7FRmvFRn3FRNDFRFjFRu7FhkdpvbqnzuVmLKV5HTknW64FMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqujFWuHR1rH99Pvc3uhwbFMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16sFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5Hw9ujDYmWm3&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">选股技巧</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRfsFRFaFRc4FRuKFRfvFRfzFRfYFRDYFRczFRRzFRc4FRn4FRPKFRfsFh_s5iNDnaNafBNariNAfiNDPBNDnBNDPaNKPaNanBN7nBNariNjriNjfiNDnauonHddpyfhp1cqFRcvFRPjFRPAFRwAFRfkFRDkFRc4FRn4FRcLFRD3Fh_15iNariNDraNafzNAfzNaPaNjfiNjPiNjPiNjnzNAfBNDnzNjPiNafBNKwBuoPjY-fYD-wbf-fbR-wDf-fWT-wjm-fYR-wWm-f16-wRf-fbn-wbRhp1RqFRPDFRRzFRnLFRFDFRfzFRFaFRPjFRRdFRcsFRRdFhkdpvbqPauVmLKV5HRsP16vFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqujFWuHR1rH99Pvc3uhwbFMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16sFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5ymYmvcsPWTs&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=46975223,1437203769&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRfsFRFaFRc4FRuKFRfvFRfzFRfYFRDYFRczFRRzFRc4FRn4FRPKFRfsFh_s5iNDnaNafBNariNAfiNDPBNDnBNDPaNKPaNanBN7nBNariNjriNjfiNDnauonHddpyfhp1cqFRcvFRPjFRPAFRwAFRfkFRDkFRc4FRn4FRcLFRD3Fh_15iNariNDraNafzNAfzNaPaNjfiNjPiNjPiNjnzNAfBNDnzNjPiNafBNKwBuoPjY-fYD-wbf-fbR-wDf-fWT-wjm-fYR-wWm-f16-wRf-fbn-wbRhp1RqFRPDFRRzFRnLFRFDFRfzFRFaFRPjFRRdFRcsFRRdFhkdpvbqPauVmLKV5HRsP16vFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqujFWuHR1rH99Pvc3uhwbFMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16sFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5ymYmvcsPWTs&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">谢国忠预测股市</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qIy-bFh_s5gNGuauonHY-fWm-fYn-fYm-wDm-wjD-fHD-fWb-f1b-fWT-fH6hp1cqFRc4FRf3FRFjFRujFRcYFRPKFRndFRndFRn1FRuaFRf1FRndFRFaFR7AFh_15iNjfiNAwaNawiNDwaNaPzNDPBNjwiNAPBNjraN7waNafzNAwiuoPjY-fYf-wHc-f1T-fbf-wjc-fbc-fYn-wHR-fW0-wHRhp1RqFRPKFRf1FRnvFRcdFRczFRDdFRcLFRndFRcLFRu7FRP7FRmkFRnvFRmLFhkdpvbqPiuVmLKV5HDknHT4nzuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5yfzmvRdn1b3mHIBrAubuau1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3nauYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHdWrHF9rj6dmf&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=2185165551,3004986986&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qIy-bFh_s5gNGuauonHY-fWm-fYn-fYm-wDm-wjD-fHD-fWb-f1b-fWT-fH6hp1cqFRc4FRf3FRFjFRujFRcYFRPKFRndFRndFRn1FRuaFRf1FRndFRFaFR7AFh_15iNjfiNAwaNawiNDwaNaPzNDPBNjwiNAPBNjraN7waNafzNAwiuoPjY-fYf-wHc-f1T-fbf-wjc-fbc-fYn-wHR-fW0-wHRhp1RqFRPKFRf1FRnvFRcdFRczFRDdFRcLFRndFRcLFRu7FRP7FRmkFRnvFRmLFhkdpvbqPiuVmLKV5HDknHT4nzuk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5yfzmvRdn1b3mHIBrAubuau1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3nauYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHdWrHF9rj6dmf&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">uid</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRcvFRPjFRPAFRwAFRfkFRDkFRc4FRn4FRcLFRD3Fh_s5iNaPBNjfzNjwBNDwBNDniNKniNariNjriNaPzNKrauonHY-fWb-wj6-fbn-wbn-fWf-fYD-f1R-f1R-f1n-wbc-wjn-f1R-fbc-fRmhp1cqFRPKFRuDFRF7FRwDFRcLFRfvFRP7FRmvFRn3FRNDFRFjFRu7Fh_15iNjwaN7nBNjPzNawaNDnBNafBNjfzN7PiNanaN7PiuoPjY-fYD-wjn-f1m-fWR-fWc-fHR-fWT-f1R-fWT-wbR-fYR-wWD-f1m-wWThp1RqFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4FhkdpvbqPBuVmLKV5HmvnH64FMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqujFWuHR1rH99Pvc3uhwbFMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16sFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5H64mvR1P16v&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=1598075643,2221214134&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1dbuj9hPvc3mHn4uHRzm1KbFh_qFRcvFRPjFRPAFRwAFRfkFRDkFRc4FRn4FRcLFRD3Fh_s5iNaPBNjfzNjwBNDwBNDniNKniNariNjriNaPzNKrauonHY-fWb-wj6-fbn-wbn-fWf-fYD-f1R-f1R-f1n-wbc-wjn-f1R-fbc-fRmhp1cqFRPKFRuDFRF7FRwDFRcLFRfvFRP7FRmvFRn3FRNDFRFjFRu7Fh_15iNjwaN7nBNjPzNawaNDnBNafBNjfzN7PiNanaN7PiuoPjY-fYD-wjn-f1m-fWR-fWc-fHR-fWT-f1R-fWT-wbR-fYR-wWD-f1m-wWThp1RqFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4FhkdpvbqPBuVmLKV5HmvnH64FMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqujFWuHR1rH99Pvc3uhwbFMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16sFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5H64mvR1P16v&amp;c=news&amp;cf=32&amp;expid=9530_9570_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">短线选股法</a>
+</div>
+</div>
+</div>
+<div id="w-2y2wss-right_btn" class="ad-widget-imgps-sticker-html-btn adwishbtn_right" style="display:none;"></div>
+</div>
+</div>
+<a class="baiduimageplus-s-pa-logo" title="百度网盟推广" href="http://wangmeng.baidu.com/" target="_blank" data-ignore=""></a>
+<!-- 新增的推广提示 -->
+<div style="position:absolute;left:0px;bottom:0px;width:29px;height:16px;overflow:hidden;z-index:12;background: url(http://ecmb.bdimg.com/public03/imageplus/leftbottom.png) no-repeat;"></div>
+</div>
+</div>
+</div>
+<a class="ad-widget-imageplus-sticker-close " href="http://chuansong.me/n/1064864852870#" id="w-ax7bkc-close">X</a>
+</div>
+<div class="ad-widget-imageplus-sticker-thumbnail" id="w-ax7bkc-thumbnail" style="display: none; top: 187px;">
+<a href="http://chuansong.me/n/1064864852870#" title="点击展开"><i>&nbsp;</i>图片相关信息</a>
+</div></div></div><div style="position: absolute; border: 0px; margin: 0px; padding: 0px; height: 0px; overflow: visible; text-align: left; top: 3785px; left: 441px; width: 670px;"><div id="f21ac82b21eeb7322631b6aa94e17f45mv8vgd"><style type="text/css" media="screen">#f21ac82b21eeb7322631b6aa94e17f45mv8vgd {position:absolute;top:0;left:0;right:auto;bottom:auto;margin:0;padding:0;border:0;width:200px;background:transparent;-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45mv8vgd div{float:left;width:144px;height:17px;line-height:17px;margin:3px 0 0 -2px;background:url(//ecma.bdimg.com/public03/imageplus/tip-back.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip-back.png');font-family:sans-serif;text-align:center;font-size:12px;color:#666;padding:8px 10px;display:none;-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45mv8vgd-icon {float:left;height:38px;width:38px;cursor:default;background:url(//ecma.bdimg.com/public03/imageplus/tip.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip.png');-webkit-box-sizing:content-box;box-sizing:content-box;}#f21ac82b21eeb7322631b6aa94e17f45mv8vgd-icon:hover {float:left;height:38px;width:38px;}#f21ac82b21eeb7322631b6aa94e17f45mv8vgd #f21ac82b21eeb7322631b6aa94e17f45mv8vgd-icon:hover {background:url(//ecma.bdimg.com/public03/imageplus/tip-hover.png) 0 0 no-repeat;_background:0;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='//ecma.bdimg.com/public03/imageplus/tip-hover.png');}</style><a href="javascript:void(0);" id="f21ac82b21eeb7322631b6aa94e17f45mv8vgd-icon"></a><div id="f21ac82b21eeb7322631b6aa94e17f45mv8vgd-msg">查看标识获取更多信息</div></div><style type="text/css" media="screen" id="s-f21ac82b21eeb7322631b6aa94e17f454bwkaqm">.baiduimageplus-s-pa{position:relative;width:100%;height:110px;overflow:hidden;cursor:default;-webkit-transition:top .5s;-moz-transition:top .5s;-ms-transition:top .5s;-o-transition:top .5s;transition:top .5s}.baiduimageplus-s-pa p{background:none}.baiduimageplus-s-pa a{outline:0;text-decoration:none}.baiduimageplus-s-pa a:hover{text-decoration:underline}.baiduimageplus-s-pa .baiduimageplus-s-pa-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}.baiduimageplus-s-pa .baiduimageplus-s-pa-ct{position:relative;z-index:2}.baiduimageplus-s-pa .baiduimageplus-s-pa-hd{height:26px;overflow:hidden;line-height:26px}.baiduimageplus-s-pa .baiduimageplus-s-pa-hd .baiduimageplus-s-pa-hd-title-cell{font-size:14px;color:#FFF;height:100%;text-align:center!important;float:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-right:1px solid #FFF}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu{position:relative;overflow:hidden;zoom:1;padding:0;margin:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper{width:90%;height:84px;float:left;overflow:hidden;position:relative;left:5px}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter{height:84px;overflow:hidden;position:absolute;left:0;-webkit-transition:all .5s;-moz-transition:all .5s;-ms-transition:all .5s;-o-transition:all .5s;transition:all .5s}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell{width:100px;height:72px;overflow:hidden;background-color:#FFF;margin:4px 5px;padding:0;float:left;border:2px solid #000;position:relative}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover{border-color:#d1111c}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover .baiduimageplus-s-pa-bd-lu-title{background-color:#d1111c}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:hover img{-webkit-transform:scale(1.2);-moz-transform:scale(1.2);-ms-transform:scale(1.2);-o-transform:scale(1.2);transform:scale(1.2)}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell img{width:100px;height:50px;display:block;border:0;-webkit-transition:transform .5s;-moz-transition:transform .5s;-ms-transition:transform .5s;-o-transition:transform .5s;transition:transform .5s}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell .baiduimageplus-s-pa-bd-lu-title{position:absolute;font:14px/1.5 arial,sans-serif;bottom:0;left:0;width:100%;height:22px;display:block;line-height:22px;background-color:#000;text-align:center;color:#FFF}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:first-child{margin-left:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .baiduimageplus-s-pa-bd-lu-wrapper .baiduimageplus-s-pa-bd-lu-outter .cell:last-child{margin-right:0}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .ad-widget-imgps-sticker-html-btn{margin-top:5px;height:75px;width:20px;cursor:pointer;-webkit-transition:background .4s;-moz-transition:background .4s;-ms-transition:background .4s;-o-transition:background .4s;transition:background .4s}
+.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_left{width:20px;float:left;background:url(http://ecmb.bdimg.com/public03/imageplus/sticker/leftbtn.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_left:hover{background:#20439d url(http://ecmb.bdimg.com/public03/sticker/leftbtn_hover.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_right{width:20px;float:right;background:url(http://ecmb.bdimg.com/public03/imageplus/sticker/rightbtn.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-bd-lu .adwishbtn_right:hover{background:#20439d url(http://ecmb.bdimg.com/public03/sticker/rightbtn_hover.jpg) no-repeat center center}.baiduimageplus-s-pa .baiduimageplus-s-pa-logo{position:absolute;bottom:0;right:0;z-index:3;height:18px;width:18px;text-indent:-9999px;background:url(http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png) no-repeat left top;background-position:0 0;_filter:progid:dximagetransform.microsoft.alphaimageloader(enabled=true,src="http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png",sizingMethod="crop");_background:none}
+.ad-widget-imageplus-sticker{font:12px/1.5 arial,sans-serif;position:absolute;left:0;width:100%;display:none;overflow:hidden;color:#FFF;background:transparent;-webkit-transition:height .5s,top .5s;transition:height .5s,top .5s}.ad-widget-imageplus-sticker div{background:transparent}.ad-widget-imageplus-sticker-cut{display:block}.ad-widget-imageplus-sticker-bg{position:absolute;z-index:1;left:0;top:0;width:100%;height:100%;background:#000!important;box-shadow:2px 2px 4px #000}.ad-widget-imageplus-sticker-bd{position:relative;z-index:2;left:0;top:0;width:100%;overflow:hidden}.ad-widget-imageplus-sticker-close{position:absolute;z-index:3;right:0;top:5px;width:25px;height:25px;line-height:25px;text-decoration:none;text-align:center;font-size:18px;color:#FFF!important}.ad-widget-imageplus-sticker-close:hover{background-color:#000}
+.ad-widget-imageplus-sticker-theme-white{color:#333}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-bg{background:#FFF!important;box-shadow:2px 2px 4px #FFF}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-close{color:#666!important}.ad-widget-imageplus-sticker-theme-white .ad-widget-imageplus-sticker-close:hover{background-color:#FFF!important}.ad-widget-imageplus-sticker-theme-none{color:#333}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-close{color:#666!important}.ad-widget-imageplus-sticker-theme-none .ad-widget-imageplus-sticker-close:hover{background-color:#FFF!important}.ad-widget-imageplus-sticker-theme-none-white{color:#333}
+.ad-widget-imageplus-sticker-theme-none-white .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none-white-2 .ad-widget-imageplus-sticker-bg{background:transparent!important;box-shadow:none}.ad-widget-imageplus-sticker-theme-none-white-2 .ad-widget-imageplus-sticker-close{top:0;text-indent:-9999px;background:url(http://ecma.bdimg.com/public03/imageplus/v2/dock/close.png) no-repeat 0 0 transparent}.ad-widget-imageplus-sticker-theme-v2 .ad-big-title{position:relative;top:0;opacity:1;filter:alpha(opacity=100);-webkit-transition:top .5s,opacity .6s;transition:top .5s,opacity .6s}.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-showing .ad-big-title{position:relative;top:-36px;opacity:0;filter:alpha(opacity=0)}.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-showing .ad-widget-imageplus-sticker-bg{top:26px}
+.ad-widget-imageplus-sticker-theme-v2 .ad-widget-imageplus-sticker-close{top:0;text-indent:-9999px;background:url(http://ecma.bdimg.com/public03/imageplus/v2/dock/close.png) no-repeat 0 0 transparent}.ad-widget-imageplus-sticker-thumbnail{font:12px/1.5 arial,sans-serif;position:absolute;right:0;top:0;height:20px;width:100px;overflow:hidden;background:transparent;-webkit-transition:height .5s;-moz-transition:height .5s;-ms-transition:height .5s;-o-transition:height .5s;transition:height .5s;background-color:rgba(0,0,0,0.5);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000)}.ad-widget-imageplus-sticker-thumbnail a{float:right;width:100px;height:20px;line-height:20px;text-align:center;color:white;background:transparent;text-decoration:none}
+.ad-widget-imageplus-sticker-thumbnail i{width:12px;height:8px;margin-top:6px;margin-left:5px;display:block;float:left;background:url('http://ecma.bdimg.com/adtest/8e547549c94ab88c81b644d5ff63b0d3.png') no-repeat 0 0;background:none \9;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='corp',src='http://ecma.bdimg.com/adtest/8e547549c94ab88c81b644d5ff63b0d3.png')\9}.ad-widget-imageplus-sticker-close-newstyle{top:0;text-indent:-9999px;background:url(http://ecmb.bdimg.com/public03/v2/dock/iconfont-close.png) no-repeat 0 0 transparent!important}.ad-widget-imageplus-sticker-showing .baiduimageplus-s-pa-hd{opacity:0;filter:alpha(opacity=0)}</style><div id="f21ac82b21eeb7322631b6aa94e17f454bwkaqm" data-rendered="true" style="margin: 0px; padding: 0px; border: none; overflow: visible; text-align: left;"><div class="ad-widget-imageplus-sticker ad-widget-imageplus-sticker-theme-v2 ad-widget-imageplus-sticker-cut" id="w-z1h6ed" style="display: block; top: 506px; height: 109px;">
+<div class="ad-widget-imageplus-sticker ad-widget-imageplus-sticker-wrapper ad-widget-imageplus-sticker-box-showing ad-widget-imageplus-sticker-showing" id="w-z1h6ed-wrapper" style="display: block; top: -1px; height: 110px;">
+<div class="ad-widget-imageplus-sticker-bg" id="w-z1h6ed-background" style="opacity: 0.75;"></div>
+<div class="ad-widget-imageplus-sticker-bd" id="w-z1h6ed-body">
+<div class="baiduimageplus-s-pa" id="w-vcgzgs">
+<div class="baiduimageplus-s-pa-bg" id="w-vcgzgs-background"></div>
+<div class="baiduimageplus-s-pa-ct">
+<div class="baiduimageplus-s-pa-hd">
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">it培训机构排名</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">数据可视化</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">人工智能课程</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">人工智能培训</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important;">新开天龙</div>
+<div class="baiduimageplus-s-pa-hd-title-cell" style="width: 110px !important; border: none !important;">选股技巧</div>
+</div>
+<div class="baiduimageplus-s-pa-bd-lu">
+<div id="w-vcgzgs-left_btn" class="ad-widget-imgps-sticker-html-btn adwishbtn_left" style="display:none;"></div>
+<div id="w-vcgzgs-wrapper" class="baiduimageplus-s-pa-bd-lu-wrapper" style="width: 660px !important;">
+<div id="w-vcgzgs-outter" class="baiduimageplus-s-pa-bd-lu-outter" style="width: 679px !important;">
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qpgf-f1R-wH0-wjD-fWR-fbc-wbD-fWb-fWb-f1R-f1R-f1n-wbchp10qpgf-f1R-wH0-wjD-fWR-fbc-wbD-fWb-fWb-f1R-f1R-f1n-wbchp1DqFRPKFRuDFRF7FRwDFRFAFRn4FRPKFRf1FRFaFR7AFh_z5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNawBNjwiNanzNjfzuon1Y-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhp1fqFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_d5iNDniNKniNariNjriNafzNafzNjPzNjriu_IyVG5HDhUyPsUHYkP1cYrjRhTHY4n104rjDsr7qWTZchThcqniuzT1YkFMP-UAk-T-qGujYdFMPGujYLuHmYuAcvnj--mWnvnWT1FMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16kFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5HbdPAFhuyw-&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=2838305864,1176554711&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qpgf-f1R-wH0-wjD-fWR-fbc-wbD-fWb-fWb-f1R-f1R-f1n-wbchp10qpgf-f1R-wH0-wjD-fWR-fbc-wbD-fWb-fWb-f1R-f1R-f1n-wbchp1DqFRPKFRuDFRF7FRwDFRFAFRn4FRPKFRf1FRFaFR7AFh_z5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNawBNjwiNanzNjfzuon1Y-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhp1fqFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_d5iNDniNKniNariNjriNafzNafzNjPzNjriu_IyVG5HDhUyPsUHYkP1cYrjRhTHY4n104rjDsr7qWTZchThcqniuzT1YkFMP-UAk-T-qGujYdFMPGujYLuHmYuAcvnj--mWnvnWT1FMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16kFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5HbdPAFhuyw-&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">it培训机构排名</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRPKFRuDFRF7FRwDFRFAFRn4FRPKFRf1FRFaFR7AFh_s5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBuonHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-fbm-fYR-fWn-fYnhp1cqFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRndFRRsFRfkFRcdFh_15iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuoPjY-wjD-fHD-fWb-f1b-fbn-fbn-f1T-f1bhp1RqFRfsFRFaFRc4FRuKFRfvFRfzFRfYFRDYFRczFRRzFRc4FRn4FRPKFRfsFhkdpvbqnBuVmLKV5HT1n1TYFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqPvRvPAwBPW04uyc1PWcLnzu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3niuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYzrHfLrA7Wuf&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=218023967,2981160963&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRPKFRuDFRF7FRwDFRFAFRn4FRPKFRf1FRFaFR7AFh_s5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBuonHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-fbm-fYR-fWn-fYnhp1cqFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRndFRRsFRfkFRcdFh_15iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuoPjY-wjD-fHD-fWb-f1b-fbn-fbn-f1T-f1bhp1RqFRfsFRFaFRc4FRuKFRfvFRfzFRfYFRDYFRczFRRzFRc4FRn4FRPKFRfsFhkdpvbqnBuVmLKV5HT1n1TYFMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqPvRvPAwBPW04uyc1PWcLnzu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3niuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYzrHfLrA7Wuf&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">数据可视化</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRFAFRP7FRc1FRPjFh_s5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNawBNjwiNanzNjfzuonHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhp1cqFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_15iNDniNKniNariNjriNafzNafzNjPzNjriuoPjY-wj0-fbc-fWb-wbD-wjm-wjc-wjf-fHf-fWc-wHc-fWb-f1b-fYD-wj0hp1RqFRPjFRNjFRnkFRuKFRc4FR7aFRfzFRRvFRcLFRu7FhkdpvbqnzuVmLKV5HDsrjb4nauk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5HI-PWwbmWmsryNBn1mzP1nhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1rjDhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqnvwBryc1uHT&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=132228391,582527220&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRFAFRP7FRc1FRPjFh_s5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNawBNjwiNanzNjfzuonHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-f1R-wH0-wjD-fWRhp1cqFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_15iNDniNKniNariNjriNafzNafzNjPzNjriuoPjY-wj0-fbc-fWb-wbD-wjm-wjc-wjf-fHf-fWc-wHc-fWb-f1b-fYD-wj0hp1RqFRPjFRNjFRnkFRuKFRc4FR7aFRfzFRRvFRcLFRu7FhkdpvbqnzuVmLKV5HDsrjb4nauk5Hb1njb3nH03gvPsTBuzmWYkFMF15HDhTvN_UANzgv-b5HRhTv-b5HI-PWwbmWmsryNBn1mzP1nhTLwGujYznBuY5gwsmvkGmvV-ujPxpAnhIAd15HDdnHRvPHf1rjDhIZRqIHc4P16LnWnhIHdCIZwsFHPKFHFAFHFAmv9dmy41Uv4MFHF7UyRhIWYkFhbqnvwBryc1uHT&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">人工智能课程</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRndFRRsFRfkFRcdFh_s5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNjPiN7naNDniNaPiuonHY-wj0-f1c-fbm-fRD-fYn-wRn-f1D-wbDhp1cqFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4Fh_15iNDnaNafBNariNAfiNDPBNDnBNDPaNKPaNanBN7nBNariNjriNjfiNDnauoPjY-fYn-wRn-f1D-wbD-fWb-fRc-wjc-wHm-fWT-wbRhp1Rqpgf-f1R-wH0-wjD-fWR-fbc-wbD-fWb-fWb-f1R-f1R-f1n-wbchUZNopHYYFhdWTAYqnHT3PHb4FMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqPvRvPAwBPW04uyc1PWcLnzu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3niuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHY4mH0dnyubP0&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=415617443,3566590567&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRn3FRPaFRc4FRDYFRfvFRnLFRnYFRwjFRndFRRsFRfkFRcdFh_s5iNjraNjfBNariNKPaNDPBNjPzNjPaNDfzNjPiN7naNDniNaPiuonHY-wj0-f1c-fbm-fRD-fYn-wRn-f1D-wbDhp1cqFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4Fh_15iNDnaNafBNariNAfiNDPBNDnBNDPaNKPaNanBN7nBNariNjriNjfiNDnauoPjY-fYn-wRn-f1D-wbD-fWb-fRc-wjc-wHm-fWT-wbRhp1Rqpgf-f1R-wH0-wjD-fWR-fbc-wbD-fWb-fWb-f1R-f1R-f1n-wbchUZNopHYYFhdWTAYqnHT3PHb4FMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqPvRvPAwBPW04uyc1PWcLnzu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3niuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHY4mH0dnyubP0&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">人工智能培训</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_s5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuonHY-wjD-fHD-fWb-f1b-fbn-fbn-f1T-f1bhp1cqFRfsFRFaFRc4FRuKFRfvFRfzFRfYFRDYFRczFRRzFRc4FRn4FRPKFRfsFh_15iNjfzN7fzNjniNAfiNariNKfBNDnBN7PBNaPzNAwiuoPjdGIaNjPiN7naNDniNaPiNafBNAfiNariNariNjPiNjPiNjnzNAfBuoPHY-fYD-wbf-fbR-wDf-fbm-f1b-fYD-wjn-fbc-fRmhUZNopHYdFhdWTAYqnH0srH01FMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqPvRvPAwBPW04uyc1PWcLnzu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3niuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYvuAm4mWRkn6&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=673255943,2180230474&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRfsFRnzFRFAFR7KFRPjFRNjFRnkFRuKFh_s5iNDnaNjnBNawBNKfiNjfzN7fzNjniNAfiuonHY-wjD-fHD-fWb-f1b-fbn-fbn-f1T-f1bhp1cqFRfsFRFaFRc4FRuKFRfvFRfzFRfYFRDYFRczFRRzFRc4FRn4FRPKFRfsFh_15iNjfzN7fzNjniNAfiNariNKfBNDnBN7PBNaPzNAwiuoPjdGIaNjPiN7naNDniNaPiNafBNAfiNariNariNjPiNjPiNjnzNAfBuoPHY-fYD-wbf-fbR-wDf-fbm-f1b-fYD-wjn-fbc-fRmhUZNopHYdFhdWTAYqnH0srH01FMDqrHnsrH6knj9xmLKzFMFB5HDhTMnqniu1uyk_ugFxpyfqPiu1pyfqPvRvPAwBPW04uyc1PWcLnzu1IA-b5HczFMfqIZKWUA-WpvNbndqCmzuYUgnqnHRkPHmdPjn3niuYIHddnWbLrjTznzud5y9YIZ0-nYD-nbm-nbuWpZN9UMPEUhT-nbNVuiuv5HDhpHYvuAm4mWRkn6&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">新开天龙</a>
+</div>
+<div class="cell">
+<a data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4Fh_s5iNDniNKniNariNjriNafzNafzNjPzNjriuonHY-wj0-fbc-fWb-wbD-wjm-wjc-wjf-fHf-fWc-wHc-fWb-f1b-fYD-wj0hp1cqFRPjFRNjFRnkFRuKFRc4FR7aFRfzFRRvFRcLFRu7Fh_15y-YFRndFRRsFRfkFRcdFRFaFRuKFRc4FRc4FRndFRndFRn1FRuaFh_Y5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBuoPHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-fbm-fYR-fWn-fYnhUZNopHYvFhdWTAYqP1DzrjbhTHY4n104rjDsr7qWTZchThcqniuzT1YkFMP-UAk-T-qGujYdFMPGujYLuHmYuAcvnj--mWnvnWT1FMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16kFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5H04rjm1nvnz&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0"><img src="./Google官方 详解 Android 性能优化【史诗巨著之内存篇】_何俊林_传送门_files/u=2040497560,2798262022&amp;fm=76"></a>
+<a class="baiduimageplus-s-pa-bd-lu-title" data-log="2" data-mid="" target="_blank" href="https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLn1mzmWn4uHmsuAcvPjI-Fh_qFRfkFRDkFRc4FRn4FRFjFRFjFRnLFRn4Fh_s5iNDniNKniNariNjriNafzNafzNjPzNjriuonHY-wj0-fbc-fWb-wbD-wjm-wjc-wjf-fHf-fWc-wHc-fWb-f1b-fYD-wj0hp1cqFRPjFRNjFRnkFRuKFRc4FR7aFRfzFRRvFRcLFRu7Fh_15y-YFRndFRRsFRfkFRcdFRFaFRuKFRc4FRc4FRndFRndFRn1FRuaFh_Y5iNjfiNAwaNawiNDwaNawBNjriNjfiNDnzNafBNKwBuoPHY-f16-fYc-fWb-fHf-wjm-f1T-f1f-wDn-fbm-fYR-fWn-fYnhUZNopHYvFhdWTAYqP1DzrjbhTHY4n104rjDsr7qWTZchThcqniuzT1YkFMP-UAk-T-qGujYdFMPGujYLuHmYuAcvnj--mWnvnWT1FMPYpyfqnWchIjdYTAP_pyPouyf1gv9WFMwVT1YkPHDdPWRYn16kFMwd5gRzrHT3P1c1FMRqpZwYTaR1fiRzwBRzwhPCIy78Tvq8uzRzwyd-FMmqniuG5H04rjm1nvnz&amp;c=news&amp;cf=33&amp;expid=9530_9561_9574&amp;fv=9&amp;itm=0&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;mscf=600&amp;n=10&amp;ncf=0&amp;nmv=0&amp;nttp=1&amp;p=baidu&amp;ssp2=1&amp;tsf=dtp:1&amp;u=%2Fn%2F1064864852870&amp;urlid=0">选股技巧</a>
+</div>
+</div>
+</div>
+<div id="w-vcgzgs-right_btn" class="ad-widget-imgps-sticker-html-btn adwishbtn_right" style="display:none;"></div>
+</div>
+</div>
+<a class="baiduimageplus-s-pa-logo" title="百度网盟推广" href="http://wangmeng.baidu.com/" target="_blank" data-ignore=""></a>
+<!-- 新增的推广提示 -->
+<div style="position:absolute;left:0px;bottom:0px;width:29px;height:16px;overflow:hidden;z-index:12;background: url(http://ecmb.bdimg.com/public03/imageplus/leftbottom.png) no-repeat;"></div>
+</div>
+</div>
+</div>
+<a class="ad-widget-imageplus-sticker-close " href="http://chuansong.me/n/1064864852870#" id="w-z1h6ed-close">X</a>
+</div>
+<div class="ad-widget-imageplus-sticker-thumbnail" id="w-z1h6ed-thumbnail" style="display: none; top: 595px;">
+<a href="http://chuansong.me/n/1064864852870#" title="点击展开"><i>&nbsp;</i>图片相关信息</a>
+</div></div></div></body></html>
