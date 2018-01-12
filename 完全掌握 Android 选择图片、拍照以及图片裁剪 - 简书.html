@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/b1fd66721b48 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/b1fd66721b48">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="最近深入了解了关于图片的选择和裁剪部分的内容，发现还是有很多需要注意的点，需要及时的记录一下。根据使用场景的不同，需要分情况讨论。 先贴代码再分析： 场景1： 直接从图库中选择一张照片，在 onActivityResult() 中就可以通过 data.getData() 得到该图片的Uri，没什么好说的 场景2： 从图库中选择一张照片并 裁剪得到一个小图。这里为什么强调是小图，这是因为当图片...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/b1fd66721b48">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/4030419">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="完全掌握 Android 选择图片、拍照以及图片裁剪" property="twitter:title">
+  <meta content="最近深入了解了关于图片的选择和裁剪部分的内容，发现还是有很多需要注意的点，需要及时的记录一下。根据使用场景的不同，需要分情况讨论。 先贴代码再分析： 场景1： 直接从图库中选择一张照片，在 onActivityResult() 中就可以通过 data.getData() 得到该图片的Uri，没什么好说的 场景2： 从图库中选择一张照片并 裁剪得到一个小图。这里为什么强调是小图，这是因为当图片过大时（我在魅族 Pro5 上测试分辨率 300 * 300 时正常，当设为 400 * 400 就出错了，具体临界点不明）。 这里要注意几个 extra 字段，先上一个图： return-data:..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/b1fd66721b48" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="完全掌握 Android 选择图片、拍照以及图片裁剪">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/b1fd66721b48">
+  <meta property="og:description" content="最近深入了解了关于图片的选择和裁剪部分的内容，发现还是有很多需要注意的点，需要及时的记录一下。根据使用场景的不同，需要分情况讨论。 先贴代码再分析： 场景1： 直接从图库中选择一张照片，在 on...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/4030419">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/4030419">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="6+gpOUJHZo708YFVuGiykhKYzryvKO/bIOCSpFGjS705pwqaqGYTeGVZOBviZhQ7hu46u/d6owRfKPBM1nEJOQ==">
+
+  <link rel="stylesheet" media="all" href="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/web-b70e536b9a4f551070c5.css">
+  
+  <link rel="stylesheet" media="all" href="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/entry-56eca86786f1d757e500.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/push.js.下载"></script><script src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.pc-bind-phone-modal .modal-content, .pc-bind-phone-modal .modal-body {
+  overflow: visible;
+}
+.pc-bind-phone-modal .dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+.pc-bind-phone-modal .dropdown-menu .tag {
+    background-color: #efefef;
+    color: #4A4A4A;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 25px;
+    font-size: 12px;
+}
+.reader-night-mode .pc-bind-phone-modal .dropdown-menu .tag {
+  background-color: #2F2F2F;
+  color: #999999;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.tips-card-loading[data-v-f3bf5228], .tips-card[data-v-f3bf5228] {
+  width: 460px;
+  position: relative;
+  left: 0;
+  top: 0;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d9d9d9;
+}
+.tips-card-loading[data-v-f3bf5228] {
+  height: 200px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+.tips-card-loading div[data-v-f3bf5228] {
+    background-color: #EAEAEA;
+}
+.tips-card-loading .avatar[data-v-f3bf5228] {
+    width: 72px !important;
+    height: 72px !important;
+    border-radius: 50%;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+.tips-card-loading .name[data-v-f3bf5228] {
+    width: 120px;
+    height: 20px;
+    position: absolute;
+    left: 110px;
+    top: 31px;
+}
+.tips-card-loading .content[data-v-f3bf5228] {
+    position: absolute;
+    left: 110px;
+    top: 62px;
+    width: 238px;
+    height: 39.2px;
+    background-color: transparent;
+}
+.tips-card-loading .content .text[data-v-f3bf5228], .tips-card-loading .content .text-delay[data-v-f3bf5228] {
+      height: 14px;
+      position: absolute;
+      left: 0;
+      width: 100%;
+}
+.tips-card-loading .content .text[data-v-f3bf5228] {
+      top: 2px;
+      -webkit-animation: loading-data-v-f3bf5228 1s ease-in-out infinite;
+      animation: loading-data-v-f3bf5228 1s ease-in-out infinite;
+}
+.tips-card-loading .content .text-delay[data-v-f3bf5228] {
+      bottom: 3px;
+      -webkit-animation: loading-data-v-f3bf5228 1s ease-in-out -0.5s infinite;
+      animation: loading-data-v-f3bf5228 1s ease-in-out -0.5s infinite;
+}
+@keyframes loading-data-v-f3bf5228 {
+0% {
+    width: 60%;
+}
+50% {
+    width: 100%;
+}
+100% {
+    width: 60%;
+}
+}
+@-webkit-keyframes loading {
+0% {
+    width: 60%;
+}
+50% {
+    width: 100%;
+}
+100% {
+    width: 60%;
+}
+}
+.tips-card-loading .meta[data-v-f3bf5228] {
+    width: 30px;
+    height: 42px;
+    position: absolute;
+    bottom: 20px;
+    background-color: transparent;
+}
+.tips-card-loading .meta.meta-1[data-v-f3bf5228] {
+      left: 30px;
+}
+.tips-card-loading .meta.meta-2[data-v-f3bf5228] {
+      left: 90px;
+}
+.tips-card-loading .meta.meta-3[data-v-f3bf5228] {
+      left: 150px;
+}
+.tips-card-loading .meta .count[data-v-f3bf5228], .tips-card-loading .meta .type[data-v-f3bf5228] {
+      position: absolute;
+}
+.tips-card-loading .meta .count[data-v-f3bf5228] {
+      left: -5px;
+      top: 6px;
+      height: 18px;
+      width: 40px;
+}
+.tips-card-loading .meta .type[data-v-f3bf5228] {
+      left: 1px;
+      bottom: 2px;
+      height: 13px;
+      width: 28px;
+}
+.tips-card-loading .button[data-v-f3bf5228] {
+    position: absolute;
+    bottom: 17px;
+    width: 90px;
+    height: 40px;
+    border-radius: 40px;
+}
+.tips-card-loading .message[data-v-f3bf5228] {
+    right: 120px;
+}
+.tips-card-loading .follow[data-v-f3bf5228] {
+    right: 17px;
+}
+.tips-card[data-v-f3bf5228] {
+  z-index: 10;
+}
+.tips-card .card-content[data-v-f3bf5228] {
+    padding: 20px 20px 0 20px;
+}
+.tips-card .card-content .summary[data-v-f3bf5228] {
+      padding: 8px 0 20px 90px;
+      min-height: 92px;
+      position: relative;
+}
+.tips-card .card-content .summary .avatar[data-v-f3bf5228] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 72px;
+        height: 72px;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #EAEAEA;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+.tips-card .card-content .summary .name[data-v-f3bf5228] {
+        height: 26px;
+        margin-right: 3px;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-pack: start;
+        -webkit-justify-content: flex-start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+}
+.tips-card .card-content .summary .name .nickname[data-v-f3bf5228] {
+          color: #333333;
+          font-size: 19px;
+          font-weight: bold;
+          overflow: hidden;
+          -o-text-overflow: ellipsis;
+             text-overflow: ellipsis;
+          white-space: nowrap;
+          cursor: pointer;
+}
+.tips-card .card-content .summary .name .sex[data-v-f3bf5228], .tips-card .card-content .summary .name .badge[data-v-f3bf5228] {
+          -webkit-flex-shrink: 0;
+              -ms-flex-negative: 0;
+                  flex-shrink: 0;
+          display: inline-block;
+}
+.tips-card .card-content .summary .name .sex[data-v-f3bf5228] {
+          font-size: 19px;
+          width: 19px;
+          margin: 0 4px;
+}
+.tips-card .card-content .summary .intro[data-v-f3bf5228] {
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin-bottom: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333333;
+}
+.tips-card .card-content .summary .intro.block[data-v-f3bf5228] {
+          color: #999999;
+}
+.tips-card .card-content .summary .list .item[data-v-f3bf5228] {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 13px;
+        color: #999999;
+        cursor: pointer;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        white-space: nowrap;
+}
+.tips-card .card-content .summary .list .item i[data-v-f3bf5228] {
+          margin-right: 2px;
+}
+.tips-card .card-footer[data-v-f3bf5228] {
+    border-top: 1px solid #F0F0F0;
+    padding: 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    overflow: hidden;
+    _zoom: 1;
+}
+.tips-card .card-footer .profile[data-v-f3bf5228] {
+      width: 198px;
+      overflow: hidden;
+      _zoom: 1;
+      float: left;
+}
+.tips-card .card-footer .profile div[data-v-f3bf5228] {
+        float: left;
+        width: 60px;
+        height: 44px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+}
+.tips-card .card-footer .profile div span[data-v-f3bf5228] {
+          display: block;
+          width: 100%;
+          text-align: center;
+}
+.tips-card .card-footer .profile div .type[data-v-f3bf5228] {
+          font-size: 13px;
+          color: #999999;
+}
+.tips-card .card-footer .profile div .count[data-v-f3bf5228] {
+          font-size: 18px;
+          color: #333333;
+}
+.tips-card .card-footer .social[data-v-f3bf5228] {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+          -ms-flex-pack: end;
+              justify-content: flex-end;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      float: right;
+      overflow: hidden;
+      _zoom: 1;
+}
+.tips-card .card-footer .social .message[data-v-f3bf5228] {
+        border: 1px solid rgba(59, 194, 29, 0.7);
+        color: #42C02E;
+        margin: 0 10px 0 16px;
+        font-size: 15px;
+        padding: 8px 0;
+        width: 90px;
+        border-radius: 40px;
+        text-align: center;
+        cursor: pointer;
+        float: left;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+}
+.tips-card .card-footer .social .message[data-v-f3bf5228]:hover {
+          border: 1px solid #42C02E;
+          color: #42C02E;
+          background-color: rgba(59, 194, 29, 0.05);
+}
+.tips-card .card-footer .social .user-follow-button[data-v-f3bf5228] {
+        font-size: 15px;
+        padding: 8px 0;
+        width: 100px;
+}
+.arrow[data-v-f3bf5228] {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  left: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+.arrow i[data-v-f3bf5228] {
+    position: absolute;
+    left: 50%;
+    margin: 0;
+    margin-left: -10px;
+    border-width: 10px;
+    border-color: transparent;
+    padding: 0;
+}
+.arrow em[data-v-f3bf5228] {
+    display: block;
+    position: absolute;
+    left: -9px;
+    border-width: 9px;
+    border-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+.arrow-type-top[data-v-f3bf5228] {
+  bottom: 1px;
+}
+.arrow-type-top i[data-v-f3bf5228] {
+    border-top-color: #d9d9d9;
+    border-style: solid dashed dashed;
+    top: 0;
+}
+.arrow-type-top em[data-v-f3bf5228] {
+    border-style: solid dashed dashed;
+    border-top-color: #ffffff;
+    top: -10px;
+}
+.arrow-type-bottom[data-v-f3bf5228] {
+  top: 1px;
+}
+.arrow-type-bottom i[data-v-f3bf5228] {
+    border-bottom-color: #d9d9d9;
+    border-style: dashed dashed solid;
+    top: -10px;
+}
+.arrow-type-bottom em[data-v-f3bf5228] {
+    border-style: dashed dashed solid;
+    border-bottom-color: #ffffff;
+    top: -8px;
+}
+.reader-night-mode .tips-card-loading[data-v-f3bf5228] {
+  background-color: #3F3F3F;
+  border-color: #2F2F2F;
+}
+.reader-night-mode .tips-card-loading .avatar[data-v-f3bf5228], .reader-night-mode .tips-card-loading .name[data-v-f3bf5228], .reader-night-mode .tips-card-loading .text[data-v-f3bf5228], .reader-night-mode .tips-card-loading .text-delay[data-v-f3bf5228], .reader-night-mode .tips-card-loading .count[data-v-f3bf5228], .reader-night-mode .tips-card-loading .type[data-v-f3bf5228], .reader-night-mode .tips-card-loading .button[data-v-f3bf5228] {
+    background-color: #545454;
+}
+.reader-night-mode .tips-card[data-v-f3bf5228] {
+  background-color: #3F3F3F;
+  border-color: #2F2F2F;
+}
+.reader-night-mode .tips-card .card-content .summary .name .nickname[data-v-f3bf5228] {
+    color: #C8C8C8;
+}
+.reader-night-mode .tips-card .card-content .summary .name .nickname[data-v-f3bf5228]:hover {
+      color: #ffffff;
+}
+.reader-night-mode .tips-card .card-content .summary .intro[data-v-f3bf5228] {
+    color: #C8C8C8;
+}
+.reader-night-mode .tips-card .card-footer[data-v-f3bf5228] {
+    border-top-color: #2F2F2F;
+}
+.reader-night-mode .tips-card .card-footer .profile div .count[data-v-f3bf5228] {
+      color: #C8C8C8;
+}
+.reader-night-mode .arrow.arrow-type-top em[data-v-f3bf5228] {
+  border-top-color: #3F3F3F;
+}
+.reader-night-mode .arrow.arrow-type-top i[data-v-f3bf5228] {
+  border-top-color: #2F2F2F;
+}
+.reader-night-mode .arrow.arrow-type-bottom em[data-v-f3bf5228] {
+  border-bottom-color: #3F3F3F;
+}
+.reader-night-mode .arrow.arrow-type-bottom i[data-v-f3bf5228] {
+  border-bottom-color: #2F2F2F;
+}
+</style><style type="text/css">
+.v-tooltip-container,
+.v-tooltip-content {
+  display: inline-block;
+}
+.v-tooltip-container {
+  position: relative;
+}
+.v-tooltip-container .v-tooltip-content {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+.v-tooltip-container .v-tooltip-wrap {
+    position: absolute;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top {
+      bottom: 100%;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom {
+      top: 100%;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left {
+      top: 50%;
+      right: 100%;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right {
+      top: 50%;
+      left: 100%;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+      padding-left: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top-start {
+      bottom: 100%;
+      left: 0;
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top-end {
+      bottom: 100%;
+      right: 0;
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom-start {
+      top: 100%;
+      left: 0;
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom-end {
+      top: 100%;
+      right: 0;
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left-start {
+      top: 0;
+      right: 100%;
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left-end {
+      bottom: 0;
+      right: 100%;
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right-start {
+      top: 0;
+      left: 100%;
+      padding-left: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right-end {
+      bottom: 0;
+      left: 100%;
+      padding-left: 10px;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1240.5px; display: none;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">完全掌握 Android 选择图片、拍照以及图片裁剪</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/7292a88a51be">
+            <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/81fea5a7cb34" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/7292a88a51be">VitaminChen</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.03 05:38">2016.05.19 17:18*</span>
+              <span class="wordage">字数 710</span>
+            <span class="views-count">阅读 3335</span><span class="comments-count">评论 17</span><span class="likes-count">喜欢 56</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <p>最近深入了解了关于图片的选择和裁剪部分的内容，发现还是有很多需要注意的点，需要及时的记录一下。<br>
+根据使用场景的不同，需要分情况讨论。</p>
+<p>先贴代码再分析：</p>
+<pre class="hljs java"><code class="java">
+     Uri imageUri;
+    <span class="hljs-comment">/* 场景1：选择一张图片 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">gotoPickImage</span><span class="hljs-params">()</span> </span>{
+        Intent intent = <span class="hljs-keyword">new</span> Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_PICK_IMAGE);
+    }
+     
+    <span class="hljs-comment">/* 场景2：选择一张图片并裁剪获得一个小图 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">gotoPickAndCropSmallBitmap</span><span class="hljs-params">()</span> </span>{
+        Intent intent = <span class="hljs-keyword">new</span> Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType(<span class="hljs-string">"image/*"</span>);
+        intent.putExtra(<span class="hljs-string">"crop"</span>, <span class="hljs-string">"true"</span>);
+        intent.putExtra(<span class="hljs-string">"aspectX"</span>, <span class="hljs-number">1</span>);
+        intent.putExtra(<span class="hljs-string">"aspectY"</span>, <span class="hljs-number">1</span>);
+        intent.putExtra(<span class="hljs-string">"outputX"</span>, <span class="hljs-number">300</span>);
+        intent.putExtra(<span class="hljs-string">"outputY"</span>, <span class="hljs-number">300</span>);
+        intent.putExtra(<span class="hljs-string">"scale"</span>, <span class="hljs-keyword">true</span>);
+        intent.putExtra(<span class="hljs-string">"return-data"</span>, <span class="hljs-keyword">true</span>);
+        intent.putExtra(<span class="hljs-string">"outputFormat"</span>, Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra(<span class="hljs-string">"noFaceDetection"</span>, <span class="hljs-keyword">true</span>); <span class="hljs-comment">// no face detection</span>
+        startActivityForResult(intent, REQUEST_CROP_IMAGE_SMALL);
+    }
+
+    <span class="hljs-comment">/* 场景3：选择一张图片并裁剪获得一个大图 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">gotoPickAndCropBigBitmap</span><span class="hljs-params">()</span> </span>{
+        imageUri = getTmpUri();
+        Intent intent = <span class="hljs-keyword">new</span> Intent(Intent.ACTION_GET_CONTENT, <span class="hljs-keyword">null</span>);
+        intent.setType(<span class="hljs-string">"image/*"</span>);
+        intent.putExtra(<span class="hljs-string">"crop"</span>, <span class="hljs-string">"true"</span>);
+        intent.putExtra(<span class="hljs-string">"aspectX"</span>, <span class="hljs-number">1</span>);
+        intent.putExtra(<span class="hljs-string">"aspectY"</span>, <span class="hljs-number">1</span>);
+        intent.putExtra(<span class="hljs-string">"outputX"</span>, <span class="hljs-number">2000</span>);
+        intent.putExtra(<span class="hljs-string">"outputY"</span>, <span class="hljs-number">2000</span>);
+        intent.putExtra(<span class="hljs-string">"scale"</span>, <span class="hljs-keyword">true</span>);
+        intent.putExtra(<span class="hljs-string">"return-data"</span>, <span class="hljs-keyword">false</span>);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        intent.putExtra(<span class="hljs-string">"outputFormat"</span>, Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra(<span class="hljs-string">"noFaceDetection"</span>, <span class="hljs-keyword">true</span>); <span class="hljs-comment">// no face detection</span>
+        startActivityForResult(intent, REQUEST_CROP_IMAGE_BIG);
+    }
+
+    <span class="hljs-comment">/* 场景4：拍照并裁剪 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startImageCapture</span><span class="hljs-params">()</span> </span>{
+        String IMAGE_FILE_LOCATION = Environment.getExternalStorageDirectory() + <span class="hljs-string">"/"</span> + <span class="hljs-string">"posprint"</span> + <span class="hljs-string">"/tmp.jpg"</span>;<span class="hljs-comment">//temp file</span>
+
+        imageUri = Uri.fromFile(<span class="hljs-keyword">new</span> File(IMAGE_FILE_LOCATION));<span class="hljs-comment">//The Uri to store the big bitmap</span>
+        Intent intent = <span class="hljs-keyword">new</span> Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, REQUEST_CAPTURE_AND_CROP);
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onActivityResult</span><span class="hljs-params">(<span class="hljs-keyword">int</span> requestCode, <span class="hljs-keyword">int</span> resultCode, Intent data)</span> </span>{
+        <span class="hljs-keyword">if</span> (resultCode == Activity.RESULT_OK) {
+            Bitmap bitmap = <span class="hljs-keyword">null</span>;
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-keyword">switch</span> (requestCode) {
+                    <span class="hljs-keyword">case</span> REQUEST_PICK_IMAGE:
+                        <span class="hljs-comment">//选择的图片的Uri</span>
+                        imageUri = data.getData(); 
+                        bitmap = MediaStore.Images.Media.getBitmap(
+                                getContentResolver(), imageUri);
+                    <span class="hljs-keyword">case</span> REQUEST_CROP_IMAGE_SMALL:
+                        <span class="hljs-comment">//裁剪后的小图</span>
+                        bitmap = data.getParcelableExtra(<span class="hljs-string">"data"</span>);  
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> REQUEST_CROP_IMAGE_BIG:
+                        <span class="hljs-comment">//裁剪后的大图</span>
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> REQUEST_CAPTURE_AND_CROP:
+                        <span class="hljs-comment">//得到拍照后的图片并裁剪</span>
+                        cropImageUri(imageUri, REQUEST_CROP_IMAGE_BIG);
+                        <span class="hljs-keyword">break</span>;
+
+  
+                }
+            } <span class="hljs-keyword">catch</span> (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        doSomething(bitmap);
+    }
+    
+    <span class="hljs-comment">//获得临时保存图片的Uri，用当前的毫秒值作为文件名</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> Uri <span class="hljs-title">getTmpUri</span><span class="hljs-params">()</span> </span>{
+        String IMAGE_FILE_DIR = Environment.getExternalStorageDirectory() + <span class="hljs-string">"/"</span> + <span class="hljs-string">"app_name"</span>;
+        File dir = <span class="hljs-keyword">new</span> File(IMAGE_FILE_DIR);
+        File file = <span class="hljs-keyword">new</span> File(IMAGE_FILE_DIR, Long.toString(System.currentTimeMillis()));
+        <span class="hljs-comment">//非常重要！！！如果文件夹不存在必须先手动创建</span>
+        <span class="hljs-keyword">if</span> (!dir.exists()) {
+            dir.mkdirs();
+        }
+        <span class="hljs-keyword">return</span> Uri.fromFile(file);
+    }
+    
+    <span class="hljs-comment">//裁剪拍照后得到的图片</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cropImageUri</span><span class="hljs-params">(Uri uri, <span class="hljs-keyword">int</span> requestCode)</span> </span>{
+        Intent intent = <span class="hljs-keyword">new</span> Intent(<span class="hljs-string">"com.android.camera.action.CROP"</span>);
+        intent.setDataAndType(uri, <span class="hljs-string">"image/*"</span>);
+        <span class="hljs-comment">//intent.putExtra("crop", "true");</span>
+        intent.putExtra(<span class="hljs-string">"aspectX"</span>, <span class="hljs-number">1</span>);
+        intent.putExtra(<span class="hljs-string">"aspectY"</span>, <span class="hljs-number">1</span>);
+        intent.putExtra(<span class="hljs-string">"outputX"</span>, <span class="hljs-number">500</span>);
+        intent.putExtra(<span class="hljs-string">"outputY"</span>, <span class="hljs-number">500</span>);
+        intent.putExtra(<span class="hljs-string">"scale"</span>, <span class="hljs-keyword">true</span>);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra(<span class="hljs-string">"return-data"</span>, <span class="hljs-keyword">false</span>);
+        intent.putExtra(<span class="hljs-string">"outputFormat"</span>, Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra(<span class="hljs-string">"noFaceDetection"</span>, <span class="hljs-keyword">true</span>); <span class="hljs-comment">// no face detection</span>
+        intent = Intent.createChooser(intent, <span class="hljs-string">"裁剪图片"</span>);
+        startActivityForResult(intent, requestCode);
+    }
+</code></pre>
+<h4>场景1：</h4>
+<p>直接从图库中选择一张照片，在 <code>onActivityResult()</code> 中就可以通过 <code>data.getData()</code> 得到该图片的Uri，没什么好说的</p>
+<h4>场景2：</h4>
+<p>从图库中选择一张照片并 <em><strong>裁剪得到一个小图</strong></em>。这里为什么强调是小图，这是因为当图片过大时（我在魅族 Pro5 上测试分辨率 300 * 300 时正常，当设为 400 * 400 就出错了，具体临界点不明）。</p>
+<p>这里要注意几个 extra 字段，先上一个图：</p>
+<br>
+<div class="image-package">
+<div class="image-container" style="max-width: 556px; max-height: 348px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 62.59%;"></div>
+<div class="image-view" data-width="556" data-height="348"><img data-original-src="//upload-images.jianshu.io/upload_images/1423045-8e54e17b57ed0646.png" data-original-width="556" data-original-height="348" data-original-format="image/png" data-original-filesize="27188" class="" style="cursor: zoom-in;" src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/1423045-8e54e17b57ed0646.png"></div>
+</div>
+<div class="image-caption">裁剪图片的 extra 字段</div>
+</div>
+<ul>
+<li>
+<code>return-data</code>: 设为 <code>true</code> 的时候，在 <code>onActivityResult()</code> 中可以直接通过 <code>data.getParcelableExtra("data")</code> 得到裁剪后的 Bitmap 对象。但是当 Bitmap 过大时，就不能使用这种方法了，必须使用 场景3 中采用的方法。</li>
+<li>
+<code>MediaStore.EXTRA_OUTPUT</code>: 设置裁剪图片的输入 Uri。可以通过  <code>Uri.fromFile(tmpFile)</code> 获得</li>
+</ul>
+<h4>场景3：</h4>
+<p>和场景2十分类似，唯一的不同只是此时可以裁剪得到一个分辨率较高的图片。区别只在于 <code>return-data</code> 和 <code>MediaStore.EXTRA_OUTPUT</code>这两个 extra 的设置。</p>
+<p>这里把<code>return-data</code> 设为 <code>false</code> ，同时向 <code>MediaStore.EXTRA_OUTPUT</code> 设置一个临时构造的 Uri，这个 Uri 就用来保存裁剪后的大图。裁剪之后，在 <code>onActivityResult()</code> 中就可以通过 <code>MediaStore.Images.Media.getBitmap( getContentResolver(), imageUri)</code> 得到裁剪后的 Bitmap 大图。</p>
+<h4>场景4：</h4>
+<p>拍照后并裁剪，其实是分了两步。第一步拍照得到图片的 Uri，第二部把该图片的 Uri 传给裁剪图片的程序处理。<br>
+几点需要注意的地方:</p>
+<ul>
+<li>这里的的 action 变成了 <code>com.android.camera.action.CROP</code>, 并且不再需要设置 extra 字段 <code>crop</code>。</li>
+<li>
+<code>intent.setDataAndType(uri, "image/*")</code>，这里的 uri 指向拍照后得到的原图，<code>intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)</code> 裁剪后的图片也保存在这个 uri，所以原图就被覆盖了。如果想同时保存原图和裁剪后的图片，这里需要再提供另外一个 Uri 对象</li>
+<li>最终得到裁剪后的图片的方法和场景3是一样的。当然如果只是想得到一个裁剪后的小图的话，那么也可以通过场景2的方法得到。</li>
+</ul>
+<h3>注意事项：</h3>
+<ol>
+<li>注意添加读写权限及拍照权限：</li>
+</ol>
+<pre class="hljs xml"><code class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">"android.permission.CAMERA"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">"android.permission.WRITE_EXTERNAL_STORAGE"</span> /&gt;</span>
+</code></pre>
+<ol start="2">
+<li>注意 <code>getTmpUri()</code> 函数里，如果保存图片的目录不存在，需要手动创建，否则无法保存裁剪后的图片。</li>
+</ol>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="https://www.jianshu.com/nb/2905549">
+            <i class="iconfont ic-search-notebook"></i>
+            <span>Android</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/7292a88a51be">
+            <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/81fea5a7cb34" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/7292a88a51be">VitaminChen</a>
+          
+        <p>写了 24740 字，被 144 人关注，获得了 284 个喜欢</p></div>
+      </div>
+
+      <div class="support-author"><p>小礼物走一走，来简书关注我</p> <div class="btn btn-pay">赞赏支持</div> <!----> <!----> <!----></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>56</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 VitaminChen 的文章《完全掌握 Android 选择图片、拍照以及图片裁剪》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/4030419/weibo/image_3e8c2d8f1f18.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 VitaminChen 的文章《完全掌握 Android 选择图片、拍照以及图片裁剪》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 VitaminChen 的文章《完全掌握 Android 选择图片、拍照以及图片裁剪》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;完全掌握 Android 选择图片、拍照以及图片裁剪&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div><div id="comment-list" class="comment-list"><div><form class="new-comment"><a class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/avatar_default-78d4d1f68984cd6d4379508dd94b4210.png"></a> <div class="sign-container"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form" class="btn btn-sign">登录</a> <span>后发表评论</span></div></form> <!----></div> <div id="normal-comment-list" class="normal-comment-list"><div><div><div class="top-title"><span>17条评论</span> <a class="author-only">只看作者</a> <a class="close-btn" style="display: none;">关闭评论</a> <div class="pull-right"><a class="active">按喜欢排序</a><a class="">按时间正序</a><a class="">按时间倒序</a></div></div></div> <!----> <!----> <div class="comments-placeholder" style="display: none;"><div class="author"><div class="avatar"></div> <div class="info"><div class="name"></div> <div class="meta"></div></div></div> <div class="text"></div> <div class="text animation-delay"></div> <div class="tool-group"><i class="iconfont ic-zan-active"></i><div class="zan"></div> <i class="iconfont ic-list-comments"></i><div class="zan"></div></div></div> <div id="comment-2835036" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/72614cc5459c" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/bad75c55a7a5"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/72614cc5459c" target="_blank" class="name">你家鹏大大</a> <!----> <!----> <div class="meta"><span>4楼 · 2016.06.21 15:58</span></div></div></div> <div class="comment-wrap"><p>我打印了Log，当机子拍照成功后。点击确定按钮，返回的时候。onActivityResult方法接收到的resultCode = 0 。而Activity.RESULT_OK 是为 -1 的。这样根本就没有办法进入到 case REQUEST_CAPTURE_AND_CROP 这个循环中。也就是说拍完照，从相机返回的时候哪里出问题了。<br>如果可以的话。能否在GitHub上给个Demo地址~<br>我的确是Copy了的。前面三个从相册中获取，裁剪做的很好。还要谢谢你呢~</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-10579745" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/85d2064c863b" target="_blank">looooker</a>：
+            </div> <!----></div> <span>你好，请问你最后是怎么处理的？？</span></p> <div class="sub-tool-group"><span>2017.05.04 17:32</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-2843300" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/5b8db0f1c979" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/1e37c3f70250.gif"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/5b8db0f1c979" target="_blank" class="name">捡淑</a> <!----> <!----> <div class="meta"><span>5楼 · 2016.06.22 09:18</span></div></div></div> <div class="comment-wrap"><p>这种跑原生系统完全没问题，关键很多国内厂商rom改过的，适配机型的道路上各种坑</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-2862020" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/72614cc5459c" target="_blank">你家鹏大大</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/5b8db0f1c979" class="maleskine-author" target="_blank" data-user-slug="5b8db0f1c979">@AlaricNorris</a> 同感，小米坑死人。魅族又可以用。<img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/joy.png" alt=":joy:" title=":joy:" class="emoji" width="20" height="20">。开发android真是刺激。</span></p> <div class="sub-tool-group"><span>2016.06.23 17:30</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-10138668" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/dc462183decd" target="_blank">恨自己不能小清新</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/72614cc5459c" class="maleskine-author" target="_blank" data-user-slug="72614cc5459c">@你家鹏大大</a> 666刺激用得好</span></p> <div class="sub-tool-group"><span>2017.04.18 18:30</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-10581353" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/1a47e8afa34a" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/2486cac2650d.jpeg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/1a47e8afa34a" target="_blank" class="name">吧主</a> <!----> <!----> <div class="meta"><span>11楼 · 2017.05.04 18:39</span></div></div></div> <div class="comment-wrap"><p>这篇文章，我给你在公众号原创发布可以吗？公众号：杨守乐</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-10601253" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/7292a88a51be" target="_blank">VitaminChen</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/1a47e8afa34a" class="maleskine-author" target="_blank" data-user-slug="1a47e8afa34a">@吧主</a> 没问题</span></p> <div class="sub-tool-group"><span>2017.05.05 12:20</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-10601281" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/1a47e8afa34a" target="_blank">吧主</a>：
+            </div> <!----></div> <span> <a href="https://www.jianshu.com/users/7292a88a51be" class="maleskine-author" target="_blank" data-user-slug="7292a88a51be">@VitaminChen</a> 好的，谢谢你的分享精神</span></p> <div class="sub-tool-group"><span>2017.05.05 12:21</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-2459164" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/1e592c21f6de" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/1-04bbeead395d74921af6a4e8214b4f61.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/1e592c21f6de" target="_blank" class="name">imxilife</a> <!----> <!----> <div class="meta"><span>2楼 · 2016.05.20 08:45</span></div></div></div> <div class="comment-wrap"><p>写的很好，👍</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-2834248" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/72614cc5459c" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/bad75c55a7a5"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/72614cc5459c" target="_blank" class="name">你家鹏大大</a> <!----> <!----> <div class="meta"><span>3楼 · 2016.06.21 14:45</span></div></div></div> <div class="comment-wrap"><p>写的很好。。。但是我测试了拍照，裁剪功能，小米note3 和小米4 华为的机型都不成功啊。有没有做过真机测试呢？或者直接给个Demo代码也好 0.0 哈哈。如果你有时间的话</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-2834521" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/7292a88a51be" target="_blank">VitaminChen</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/72614cc5459c" class="maleskine-author" target="_blank" data-user-slug="72614cc5459c">@你家鹏大大</a> 试过魅族和华为没什么问题。不成功是什么表现能具体描述下么？代码基本上就是上面那些了，只用copy到一个activity里面加个按钮跳转就行了。</span></p> <div class="sub-tool-group"><span>2016.06.21 15:12</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-2836716" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/72614cc5459c" target="_blank">你家鹏大大</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/7292a88a51be" class="maleskine-author" target="_blank" data-user-slug="7292a88a51be">@VitaminChen</a>  <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/joy.png" alt=":joy:" title=":joy:" class="emoji" width="20" height="20"> </span></p> <div class="sub-tool-group"><span>2016.06.21 18:09</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-3091760" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/60847abe24cb" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/5f3e3d7322b3"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/60847abe24cb" target="_blank" class="name">JC_Hou</a> <!----> <!----> <div class="meta"><span>6楼 · 2016.07.12 16:05</span></div></div></div> <div class="comment-wrap"><p>为什么我裁剪小的图片不会出现裁剪区域呢</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-3826909" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/cf908b4323ca" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/814dfaae-c254-4a81-85e5-79149a72aa36.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/cf908b4323ca" target="_blank" class="name">J2A</a> <!----> <!----> <div class="meta"><span>7楼 · 2016.08.25 11:05</span></div></div></div> <div class="comment-wrap"><p>Good.赞一个</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-4098722" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/e1fed0fb341b" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/a159a302-7f09-495a-9082-d34c843ad788.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/e1fed0fb341b" target="_blank" class="name">xiasuhuei321</a> <!----> <!----> <div class="meta"><span>8楼 · 2016.09.09 15:39</span></div></div></div> <div class="comment-wrap"><p>我自己的小米4，6.0调不出来裁剪……魅族 5.0，调裁剪图片加载不出来，想放弃原生裁剪了……</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-6426075" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/62b4d3d201c1" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/73b3abd768ed"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/62b4d3d201c1" target="_blank" class="name">倔强的炉包</a> <!----> <!----> <div class="meta"><span>9楼 · 2016.12.14 23:58</span></div></div></div> <div class="comment-wrap"><p>楼主试下兼容小米手机。</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-6473056" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/8986b23a4549" target="_blank" class="avatar"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/79127643bc79"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/8986b23a4549" target="_blank" class="name">阿常521168</a> <!----> <!----> <div class="meta"><span>10楼 · 2016.12.16 23:07</span></div></div></div> <div class="comment-wrap"><p>。</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div></div></div> <!----> <div><!----></div></div></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style="display: none;"><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 VitaminChen 的文章《完全掌握 Android 选择图片、拍照以及图片裁剪》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 VitaminChen 的文章《完全掌握 Android 选择图片、拍照以及图片裁剪》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 VitaminChen 的文章《完全掌握 Android 选择图片、拍照以及图片裁剪》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/b1fd66721b48?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;完全掌握 Android 选择图片、拍照以及图片裁剪&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/5139d555c94d?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/1416528891_3612.png"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/NEt52a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/computer_guy.jpg"><div class="name">程序员</div></a><a href="https://www.jianshu.com/c/6c0f3d81452e?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/android.graphics.Bitmap_32108d41.jpeg"><div class="name">安卓Andro...</div></a><a href="https://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a><a href="https://www.jianshu.com/c/1a8b48b26f1f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/android.graphics.Bitmap_42bd1d50.jpeg"><div class="name">Android记录</div></a><a href="https://www.jianshu.com/c/1ba7a4520c65?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/android.graphics.Bitmap_8cd1eff.jpeg"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/58b4c20abf2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/android.graphics.Bitmap_1329dce8.jpeg"><div class="name">Android...</div></a> <a class="show-more">
+        展开更多
+        <i class="iconfont ic-show"></i></a></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="4030419"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/beb599d4c170?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">理解Android图像处理-拍照、单/多图选择器及图像优化</a>
+          <p class="description">如以上DEMO截图所示效果，我们对于这种类似的功能肯定不算陌生，因为这可以说是实际开发中一类非常常见的功能需求了。而关于它们的实现，其实主要涉及到的知识面应该就是 Android当中的图像处理了。简单来说就比如：图像获取（例如常见的设置头像（获取单张图片）；发布动态/朋友圈...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/a27d7c3dbf86?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/bd1757a0-0ccf-49fb-ab56-475c6d7cd61a.jpg" alt="48">
+            </div>
+            <span class="name">Machivellia</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/380e05621a8d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/3985563-a8e3f2e3bfc2e2e6.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/380e05621a8d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android拍照、照片选择以及图片裁剪完全解析</a>
+          <p class="description">Android中头像选择，图片上传等功能几乎是每一个APP必备的功能，那么关于怎么使用相机，如何进行照片选择，以及选择后的图片裁剪，这一系列的问题都需要逐一解决。这也是本篇文章的主要内容。 一、应用场景 微信朋友圈上传图片，头像上传等功能，经常就会用到以上功能。 二、业务逻...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/0fa6f5d09040?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/2607362bcd8f.jpg" alt="48">
+            </div>
+            <span class="name">Ruheng</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/df8667ac1ec6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">源码众享最新教程 - 草稿</a>
+          <p class="description">¥开启¥ 【iAPP实现进入界面执行逐一显】 〖2017-08-25 15:22:14〗 《//首先开一个线程，因为你有这么多的stop要执行，其次必须使用ufusui（）,否则可能不会显示你的字体。切记:文字必须设置“text=”,否则很尴尬，还有我这里的8,14是两个文...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/c5f2afa6ee0c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/10-e691107df16746d4a9f3fe9496fd1848.jpg" alt="48">
+            </div>
+            <span class="name">小菜c</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/5174c9ce29c5?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/1094967-1ef989f6cd544b4a.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/5174c9ce29c5?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android 调用系统功能实现图片选择器，你可能会遇到的问题汇总</a>
+          <p class="description">图片选择器在手机应用中屡见不鲜，设置头像、聊天传图等常见类似场景都需要使用。为了保持不同设备上体验的一致性和较好的兼容性，比较稳妥的做法是在应用内自实现相机拍照、相册选图和图片裁剪功能。但是，这个实现过程比较复杂，费时费力。更多时候，或者说在项目初期，我们都会选择直接调用系...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/1c40186e3248?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/d92796fb-bfd4-422d-99e4-1c8dd2b2cffd.jpg" alt="48">
+            </div>
+            <span class="name">亦枫</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/dffd7533b636?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation"> 系统相机相册获取图片并裁剪之Android N适配</a>
+          <p class="description">本篇主要对Android调用系统相机裁剪及适配Android N的总结,不习惯简书代码风格的,也可以在 Android_Note查看. 系统相机相册获取图片并裁剪Android N适配 -- 启动相机相册裁剪的隐式意图 调用系统的拍照,相册选取图片并裁剪,一般使用系统的自带...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/b2e4cf3e3202?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/3b0656bd9b3f.jpg" alt="48">
+            </div>
+            <span class="name">Showdy</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/50739b14885b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">退休日倒计时</a>
+          <p class="description">今天距离俺退休还有二百多天，人生的时光匆匆而过，1979年11月参加工作，当年的俺还没有选民资格，老辈说俺是童工。如今是骨灰级阿姨了！ 如今的社会，百姓都巴不得早早退休，提前进入社保保险箱，一天都不愿多呆。因为工作条框太多，监视太多，缠脚布太是长。 人生不如意十之八九，但是...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/24d483f7ee3b?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/13-394c31a9cb492fcb39c27422ca7d2815.jpg" alt="48">
+            </div>
+            <span class="name">米乐1124</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/e769e550555c?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/3086295-a231a9a92c06c1fd" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/e769e550555c?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">再有人问你为什么熬夜，就把这些逆天理由甩给他</a>
+          <p class="description">现代人熬夜真是一个特别严重的现象，唔哩菌几乎每天都要到零点以后才开始睡觉。但是熬夜又是一件特别伤身体的事情，不找个理由总觉得过意不去。 唔哩君在这里收集了从基础到终极，五个级别的熬夜理由，来选适合你的那一个吧！ 本期话题： 基础版 说实话——一般来说，熬夜无非就是在玩手机o...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/0bd5cef72ba3?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/9c08a9b3be2d.png" alt="48">
+            </div>
+            <span class="name">唔哩君</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/1408785675e3?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">皮囊下，你一无所有</a>
+          <p class="description">没有外在，谁会了解你的内在；纵般才华横溢，也不如好好爱自己——题记 你又分手了吗？ 今天一个高中女同学和我说她失恋了，作为没有谈过恋爱的情场高手，我除了能安慰还是安慰。 据我所知，这不是她第一次失恋，别说我记不清她失恋多少次，可能连她自己都不知道自己处过多少对象。每次失恋过...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/ab107bff31cd?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/3bdde2c8ec33.jpg" alt="48">
+            </div>
+            <span class="name">饿梦馋逗</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/45c6c98684ef?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/1628488-fd46b6bf148ce256" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/45c6c98684ef?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">“有宠”三月将有大动作！别怪我没告诉你！</a>
+          <p class="description">歌手韩红退役后的首个身份是“有宠集团联合创始人”，2016年初，有宠项目正式发布，韩老师秒变韩老板的节奏你跟上了吗？这不，三月伊始，有宠集团又有大动作了！ 既然要有大动作，就必须具备实施基地，我们的有宠旗舰店就坐落在广州珠江新城，这可是国内首家五星豪华宠物酒店！其他城市的小...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/6e36e319ba50?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/c379574161b7.png" alt="48">
+            </div>
+            <span class="name">有宠</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/a2b131c5bd22?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/3107536-997004894c1ee18f.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/a2b131c5bd22?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">【连载 】我的爱情是一场赌局 第24章 ||回来，我们结婚吧！（完结）</a>
+          <p class="description">简书连载风云录http://www.jianshu.com/p/aaf6d3d979e2 爱情真是一场赌局吗？ 爱情真能像当初决定那样赌一回吗？ 十年单身真的在尚武这里结束吗？ 将近七个月的相识、相知、相恋，不算长的爱情； 我们的爱情就在小吃店共同经历每天周而复始的工作，尽...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/07a09339ab05?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/b8c570eb2882.jpg" alt="48">
+            </div>
+            <span class="name">彦淇</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"b1c931ac-beef-4831-8b65-28891803ae24"},"note":{"id":4030419,"slug":"b1fd66721b48","user_id":1423045,"notebook_id":2905549,"commentable":true,"likes_count":56,"views_count":3335,"public_wordage":710,"comments_count":17,"total_rewards_count":0,"is_author":false,"author":{"nickname":"VitaminChen","total_wordage":24740,"followers_count":144,"total_likes_count":284}}}</script>
+    
+    <script src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/babel-polyfill-e27dec85eeb94683dfc7.js.下载" crossorigin="anonymous"></script>
+    <script src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/web-base-69e7b8a037e46a88e34f.js.下载" crossorigin="anonymous"></script>
+<script src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/web-784ab24e8750fc42f54f.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./完全掌握 Android 选择图片、拍照以及图片裁剪 - 简书_files/entry-9e28293f23f7fa89210f.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

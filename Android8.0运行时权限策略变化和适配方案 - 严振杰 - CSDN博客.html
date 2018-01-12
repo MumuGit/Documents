@@ -1,0 +1,1229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0060)http://blog.csdn.net/yanzhenjie1003/article/details/76719487 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">          
+            <link rel="canonical" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487"> 
+
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#">
+
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848"> 
+       
+    <title>Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客</title>
+    
+    <meta name="description" content="Android8.0也就是Android O即将要发布了，有很多新特性，目前我们可以通过AndroidStudio3.0 Canary版本下载Android O最新的系统映像的Developer Preview 4版本，Developer Preview4是Android O正式版推出前的最后一个预览版...">
+
+    <meta name="keywords" content="Android-O,运行时权限,Android-M">
+    <script src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/hm.js.下载"></script><script src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/blog_static_head.min.js.下载" type="text/javascript"></script>
+
+
+    <link rel="Stylesheet" type="text/css" href="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/yanzhenjie1003/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/blue_black.css">
+ 
+
+
+
+    <link href="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet">
+     
+         <link rel="stylesheet" href="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/csdn_blog_detail.min.css">
+
+    <!-- 请置于所有广告位代码之前 --> 
+            <script src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/ds.js.下载"></script>
+
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style></head>
+
+    
+<body><div id="MathJax_Message" style="display: none;"></div><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;"><symbol id="icon-xiajiantou" viewBox="0 0 1024 1024"><path d="M328.208 346.062h368.494c20.393 0 36.887 16.366 36.887 36.757 0 9.484-3.637 18.056-9.483 24.55L541.873 650.522c-12.211 16.105-35.2 19.484-51.438 7.275-2.859-2.08-5.324-4.547-7.274-7.275L298.853 404.772c-12.08-16.106-8.83-39.225 7.404-51.306 6.626-5.066 14.289-7.404 21.95-7.404z"></path></symbol><symbol id="icon-shouji" viewBox="0 0 1024 1024"><path d="M537.754 795.889c-26.41 0-47.893 21.478-47.893 47.892s21.484 47.893 47.893 47.893 47.892-21.479 47.892-47.893-21.483-47.892-47.892-47.892z"></path><path d="M774.697 42.071H300.815c-39.864 0-72.3 32.43-72.3 72.3v795.264c0 39.869 32.43 72.3 72.3 72.3h473.872c39.87 0 72.3-32.431 72.3-72.3v-795.27c0.004-39.864-32.426-72.294-72.29-72.294zM300.815 90.266h473.872a24.125 24.125 0 0 1 24.1 24.1v595.809H276.72v-595.81a24.125 24.125 0 0 1 24.094-24.1z m473.882 843.463H300.815a24.125 24.125 0 0 1-24.1-24.1V762.501h522.072V909.63a24.115 24.115 0 0 1-24.09 24.1z"></path></symbol><symbol id="icon-tianxie" viewBox="0 0 1024 1024"><path d="M121.905 780.19h780.19v97.524h-780.19V780.19zM823.296 298.496l-68.974-68.974-344.795 344.796-34.475 103.448 103.424-34.475zM875.008 246.76l17.237-17.238-68.949-68.949-17.262 17.237-17.237 17.238 68.974 68.973z"></path></symbol><symbol id="icon-sousuo" viewBox="0 0 1024 1024"><path d="M1023.972002 964.002812l-59.981188 59.981189-271.443276-271.459276c-166.600191 136.489602-412.812649 126.986048-568.309361-28.494664-165.624236-165.624236-165.624236-434.187647 0-599.859881 165.624236-165.592238 434.187647-165.592238 599.827883 0 155.52871 155.52871 164.984266 401.789166 28.462666 568.389356L1023.972002 964.002812zM663.364906 184.007375c-132.585785-132.585785-347.327719-132.761777-479.705514-0.43198-132.329797 132.345796-132.121807 347.119729 0.463978 479.705514s347.375717 132.793775 479.705514 0.41598c132.329797-132.281799 132.169805-347.10373-0.463978-479.689514z"></path></symbol><symbol id="icon-guanbi" viewBox="0 0 1024 1024"><path d="M1002.211316 933.90818c24.46369 24.46369 29.007633 59.583246 10.159871 78.447007-18.863761 18.863761-53.983317 14.303819-78.447007-10.159871L21.807724 90.09486C-2.655966 65.631169-7.199909 30.495614 11.647853 11.647853c18.863761-18.863761 53.983317-14.303819 78.447007 10.159871L1002.211316 933.90818z"></path><path d="M933.92418 21.807724C958.38787-2.655966 993.507426-7.199909 1012.371187 11.647853c18.863761 18.863761 14.303819 53.983317-10.159871 78.447007L90.09486 1002.211316c-24.46369 24.46369-59.583246 29.007633-78.447007 10.159871-18.847761-18.863761-14.303819-53.983317 10.159871-78.463007L933.92418 21.807724z"></path></symbol><symbol id="icon-caidan" viewBox="0 0 1024 1024"><path d="M0 132.8a48.496 48.496 0 0 0 48.496 48.496h927.008a48.496 48.496 0 1 0 0-96.992H48.496A48.496 48.496 0 0 0 0 132.8s0-26.784 0 0zM0 512.016a48.48 48.48 0 0 0 48.48 48.48h927.04a48.48 48.48 0 0 0 0-96.96H48.48A48.48 48.48 0 0 0 0 512.016s0-26.784 0 0zM0 891.2a48.496 48.496 0 0 0 48.496 48.496h927.008a48.496 48.496 0 1 0 0-96.992H48.496A48.496 48.496 0 0 0 0 891.2s0-26.784 0 0z"></path></symbol><symbol id="icon-yonghudenglu" viewBox="0 0 1024 1024"><path d="M1022.26704 962.432c-43.888-157.584-162.16-281.216-312.064-340.144 92.8-61.376 153.92-164.496 153.92-281.168C864.12304 153.04 706.04304 0 511.70704 0 317.35504 0 159.19504 153.04 159.19504 341.136c0 116.704 61.152 219.84 154.064 281.184C164.13904 681.024 46.18704 803.792 1.80304 960.16c-7.344 26.016 8.464 52.864 35.36 60.032a52.016 52.016 0 0 0 38.4-4.608 49.072 49.072 0 0 0 23.712-29.568c50.768-178.96 220.352-303.92 412.448-303.92 193.04 0 362.848 125.712 412.944 305.744 7.296 26.048 34.992 41.456 61.952 34.48 26.912-7.04 42.88-33.824 35.648-59.888zM260.25104 341.136c0-134.256 112.816-243.424 251.472-243.424 138.576 0 251.328 109.184 251.328 243.424 0 133.904-112.768 242.864-251.328 242.864-138.672 0-251.472-108.976-251.472-242.864z m0 0"></path></symbol><symbol id="toolbar-csdnlogo" viewBox="0 0 1024 1024"><path d="M533.941333 419.264c14.709333-1.621333 37.290667-3.264 68.352-3.264 51.872 0 93.802667 9.152 119.776 28.416 23.338667 17.952 38.858667 47.008 34.56 89.130667-3.978667 39.189333-24.042667 66.634667-53.312 83.594666C676.544 633.152 642.837333 640 592.106667 640c-29.888 0-58.421333-1.642667-80.106667-4.896l21.941333-215.84z m42.869334 172.938667c4.981333 0.992 11.562667 1.973333 24.533333 1.973333 51.882667 0 88.469333-25.877333 92.16-62.24 5.333333-52.554667-27.125333-70.944-81.802667-70.624-7.072 0-16.917333 0-22.133333 0.970667L576.8 592.213333h0.010667z m223.498666-164.704c210.954667-39.872 229.162667 31.776 222.645334 95.189333L1010.656 640h-66.944l11.210667-106.986667c2.421333-23.562667 17.504-69.653333-55.338667-67.914666-25.184 0.608-37.706667 4.064-37.706667 4.064s-2.186667 28.469333-4.832 49.514666L844.32 640H778.666667l13.024-119.573333" fill="#231916"></path><path d="M226.634667 632.682667c-12.373333 4.341333-38.037333 7.317333-73.909334 7.317333C49.6 640-6.048 590.933333 0.522667 526.090667 8.416 448.810667 90.858667 405.333333 181.141333 405.333333c34.976 0 55.552 2.858667 74.858667 7.637334l-6.208 52.064c-12.821333-4.384-42.890667-8.405333-67.232-8.405334-53.141333 0-98.250667 16.042667-103.424 66.762667-4.608 45.354667 27.061333 67.04 86.816 67.04 20.8 0 51.477333-3.018667 65.653333-7.370667l-4.992 49.6 0.021334 0.021334z" fill="#C92027"></path><path d="M272.714667 580.021333c19.285333 6.762667 59.488 13.504 92 13.504 35.029333 0 54.528-9.333333 56.096-23.797333 1.418667-13.205333-12.928-14.986667-52.490667-24.010667-54.666667-12.896-89.546667-32.842667-86.133333-64.704C286.176 443.989333 337.685333 416 416.725333 416c38.56 0 75.914667 2.613333 95.274667 8.714667l-6.656 46.666666c-12.565333-4.202667-60.672-10.037333-93.205333-10.037333-32.992 0-50.069333 9.973333-51.253334 20.917333-1.493333 13.845333 15.658667 14.485333 58.528 25.450667 58.026667 14.154667 83.402667 34.090667 80.085334 64.992C495.605333 609.109333 449.258667 640 356.714667 640c-38.528 0-71.744-6.762667-90.048-13.525333l6.048-46.453334z" fill="#231916"></path></symbol><symbol id="icon-morentouxiang" viewBox="0 0 1024 1024"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#A0C3FF"></path><path d="M691.2 887.466667c-55.466667-25.6-123.733333-51.2-123.733333-51.2v-38.4c68.266667-25.6 119.466667-89.6 132.266666-166.4 12.8-4.266667 38.4-17.066667 46.933334-55.466667l8.533333-46.933333s4.266667-59.733333-42.666667-46.933334c4.266667-38.4 4.266667-81.066667 4.266667-115.2-4.266667-64-89.6-98.133333-89.6-98.133333l12.8-17.066667s-42.666667-12.8-59.733333-4.266666l12.8-29.866667s-85.333333 0-132.266667 38.4h-4.266667v-17.066667s-145.066667 21.333333-140.8 243.2c-46.933333-12.8-42.666667 46.933333-42.666666 46.933334l8.533333 46.933333c4.266667 38.4 29.866667 51.2 46.933333 55.466667 12.8 81.066667 64 145.066667 132.266667 166.4v38.4s-68.266667 29.866667-123.733333 51.2c-29.866667 12.8-59.733333 34.133333-81.066667 59.733333 68.266667 51.2 157.866667 76.8 256 76.8s187.733333-25.6 264.533333-72.533333c-21.333333-29.866667-51.2-46.933333-85.333333-64z" fill="#4374E0"></path></symbol><symbol id="icon-icon_boke" viewBox="0 0 1024 1024"><path d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m298.667-256H213.333v42.667h597.334V768z m-21.334-448L704 234.667 341.333 597.333l-42.666 128 128-42.666L789.333 320z"></path></symbol><symbol id="icon-icon_gitchatx" viewBox="0 0 1024 1024"><path d="M810.667 533.333v-64h-384v85.334h298.666v128h85.334V533.333zM256 810.667h426.667v-85.334h-384V298.667h426.666V384h85.334V213.333H213.333v597.334H256zM512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m213.333-298.667v85.334h85.334v-85.334h-85.334z"></path></symbol><symbol id="icon-guanbi1" viewBox="0 0 1024 1024"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024z m160-768L512 416 352 256l-96 96 160 160-160 160 96 96 160-160 160 160 96-96-160-160 160-160-96-96z"></path></symbol></svg><div class="csdn-toolbar csdn-toolbar tb_disnone ">        <div class="container row center-block ">          <ul class="pull-left left-menu clearfix">            <li>              <a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank">              <svg class="icon" aria-hidden="true">                  <use xlink:href="#toolbar-csdnlogo"></use>              </svg>                </a>            </li>            <li><a href="http://blog.csdn.net/?ref=toolbar" class="toolbar_to_feed" title="博客" target="_blank">博客</a></li>            <li><a href="http://edu.csdn.net/?ref=toolbar" title="学院" target="_blank">学院</a></li>            <li><a href="http://download.csdn.net/?ref=toolbar" title="下载" target="_blank">下载</a></li>            <li><a href="http://gitbook.cn/?ref=csdn" title="GitChat" target="_blank">GitChat</a></li>            <li class="tb_is1090hide"><a href="http://bbs.csdn.net/?ref=toolbar" title="论坛" target="_blank">论坛</a></li>            <li class="tb_is1150hide"><a href="http://ask.csdn.net/?ref=toolbar" title="问答" target="_blank">问答</a></li>            <li class="tb_is1210hide"><a href="http://mall.csdn.net/?ref=toolbar" title="商城" target="_blank">商城</a></li>            <li class="tb_is1270hide"><a href="http://geek.csdn.net/?ref=toolbar" title="极客头条" target="_blank">头条</a></li>            <li class="tb_is1330hide"><a href="http://huiyi.csdn.net/?ref=toolbar" title="活动" target="_blank">活动</a></li>            <li class="tb_is1400hide"><a href="https://gitee.com/?utm_source=csdn_toolbar" title="码云" target="_blank">码云</a></li>            <li class="tb_is1400hide"><a href="http://www.iteye.com/?ref=toolbar" title="ITeye" target="_blank">ITeye</a></li>            <li class="show-more">            <a href="javascript:;" class="show-more-a"><svg width="22" height="4" xmlns="http://www.w3.org/2000/svg"><path d="M2 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#4F4F4F" fill-rule="evenodd"></path></svg></a>              <div class="more">                <div class="tb_is1090show"><a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></div>                <div class="tb_is1150show"><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">问答</a></div>                <div class="tb_is1210show"><a href="http://mall.csdn.net/?ref=toolbar" target="_blank">商城</a></div>                <div class="tb_is1270show"><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></div>                <div class="tb_is1330show"><a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></div>                <div class="tb_is1400show"><a href="https://gitee.com/?utm_source=csdn_toolbar" target="_blank">码云</a></div>                <div class="tb_is1400show"><a href="http://www.iteye.com/?ref=toolbar" target="_blank">ITeye</a></div>              </div>            </li>          </ul>          <div class="pull-right login-wrap ">            <ul class="btns">            <li class="toolbar-tracking csdn-tracking-statistics tracking-click" data-mod="popu_369"><a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#" style="padding:0"></a></li>              <li>                <div class="search_bar csdn-tracking-statistics tracking-click" data-mod="popu_366">                  <input type="text" class="input_search" name="">                  <a href="http://so.csdn.net/so/" target="_blank" class="btn-nobg-noborder btn-search"><i class="iconfont-toolbar toolbar-sousuo"></i></a>                </div>              </li>              <li class="write-bolg-btn csdn-tracking-statistics tracking-click" data-mod="popu_370"><a class="" href="http://mp.blog.csdn.net/postedit?ref=toolbar" target="_blank"><i class="iconfont-toolbar toolbar-icon_boke"></i><span>写博客</span></a></li>              <li class="gitChat"><a class="" href="http://gitbook.cn/new/gitchat/activity?utm_source=csdnblog1" target="_blank"><i class="iconfont-toolbar toolbar-icon_gitchatx"></i><span>发Chat</span></a></li>              <li class="userinfo"><a href="https://passport.csdn.net/account/login?ref=toolbar">登录</a><span></span><a href="https://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">注册</a></li>              <li class="userLogin">                <div class="loginCenter"><a href="http://my.csdn.net/?ref=toolbar" target="_blank"><img class="login_img" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/2_daoye2011.jpg"><div class="toolbar-circle" style="display: block;"></div></a></div>                <div class="userControl">                  <div><a href="http://blog.csdn.net/daoye2011?ref=toolbar" target="_blank">我的博客</a></div>                  <div><a class="xiaoxi" href="http://msg.csdn.net/?ref=toolbar" target="_blank">消息<span class="toolbar-newsL" style="margin-left: 4px; display: inline;">(7)</span></a></div>                  <div><a href="http://my.csdn.net/my/account/changepwd?ref=toolbar" target="_blank">设置</a></div>                  <div><a href="http://bbs.csdn.net/forums/Service?ref=toolbar" target="_blank">反馈</a></div>                  <div><a href="http://oldblog.csdn.net/home/help.html" target="_blank">帮助</a></div>                  <div><a href="http://passport.csdn.net/account/logout?ref=toolbar">退出</a></div>                </div>              </li>            </ul>          </div>        </div>    </div><script class="toolbar-s" type="text/javascript" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/iconfont.js.下载"></script>
+
+       
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/content_toolbar.js.下载" type="text/javascript" domain="http://blog.csdn.net"></script>
+
+    <link rel="stylesheet" href="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/content_toolbar.css">
+     <!--new top-->
+    <div id="container">
+        
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/yanzhenjie1003">严振杰</a></h2>
+            <h3>他说正直刚烈，嫉恶如仇，且有勇有谋，文武双全。</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+    
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/yanzhenjie1003?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/yanzhenjie1003?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/yanzhenjie1003/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/ico_rss.gif">订阅</span></a></li>                   
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "yanzhenjie1003";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/yanzhenjie1003";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "daoye2011";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+
+                        </div>
+
+                        
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="text/javascript" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/category.js.下载"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+      var isBole = false; 
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=Android8.0%e8%bf%90%e8%a1%8c%e6%97%b6%e6%9d%83%e9%99%90%e7%ad%96%e7%95%a5%e5%8f%98%e5%8c%96%e5%92%8c%e9%80%82%e9%85%8d%e6%96%b9%e6%a1%88&u=http://blog.csdn.net/yanzhenjie1003/article/details/76719487"
+    </script>
+<div id="article_details" class="details">
+    
+<div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487">
+        Android8.0运行时权限策略变化和适配方案        
+           
+        </a>
+        </span>
+
+         
+    </h1>
+</div>
+
+   
+
+    
+    <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/Android-O" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">Android-O</a><a href="http://www.csdn.net/tag/%e8%bf%90%e8%a1%8c%e6%97%b6%e6%9d%83%e9%99%90" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">运行时权限</a><a href="http://www.csdn.net/tag/Android-M" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">Android-M</a><a href="http://www.csdn.net/tag/Android8" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">Android8</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2017-08-05 15:04</span>
+            <span class="link_view" title="阅读次数">61804人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(16)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;Android8.0%e8%bf%90%e8%a1%8c%e6%97%b6%e6%9d%83%e9%99%90%e7%ad%96%e7%95%a5%e5%8f%98%e5%8c%96%e5%92%8c%e9%80%82%e9%85%8d%e6%96%b9%e6%a1%88&#39;,&#39;76719487&#39;);return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" onclick="javascript:report(76719487,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;2480167&#39;,&#39;yanzhenjie1003&#39;,&#39;top&#39;,&#39;76719487&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">【Android】所有<em>（39）</em></span>
+                      <img class="arrow-down" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/yanzhenjie1003/article/category/2480167" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2480167">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：转载必须注明本文转自严振杰的博客: http://blog.yanzhenjie.com</p>
+        </div>
+
+  
+
+  
+  
+     
+
+
+
+
+<div style="clear:both"></div><div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;"><p style="text-align:right;margin:0;"><span style="float:left;">目录<a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#" onclick="javascript:return openct(this);" title="展开">[+]</a></p><ol style="display:none;margin-left:14px;padding-left:14px;line-height:160%;"><li><a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#t0">Android O的运行时权限策略变化</a></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#t1">对Android O运行时权限策略变化的应对方案</a></li><ol><li><a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#t2">升级方案</a></li></ol></ol></div><div style="clear:both"></div><div id="article_content" class="article_content tracking-ad" data-mod="popu_307" data-dsm="post" style="height: 1605px; overflow: hidden;">
+        <div class="markdown_views"><blockquote>
+  <p>版权声明：转载必须注明本文转自严振杰的博客：<a href="http://blog.yanzhenjie.com/" target="_blank">http://blog.yanzhenjie.com</a></p>
+</blockquote>
+
+<p>Android8.0也就是Android O即将要发布了，有很多新特性，目前我们可以通过AndroidStudio3.0 Canary版本下载Android O最新的系统映像的Developer Preview 4版本，Developer Preview 4是Android O正式版推出前的最后一个预览版本，所以它是Android O的候选版本，我们可以使用它来完成开发和测试，让我们的应用平稳过度到Android O。</p>
+
+<p>后期会计划出一篇Android O行为变化和兼容方案的文章，本篇文章主要讲Android O行为变化的其中一点——<strong>系统运行时权限的策略变化和适配方案</strong>。</p>
+
+<p>Android系统的运行时权限是从Android 6.0（Android M）开始加入的，如果你还不知道Android运行时权限，你可以看<strong>Android 6.0 运行时权限管理最佳实践</strong>： <br>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/52503533" target="_blank">http://blog.csdn.net/yanzhenjie1003/article/details/52503533</a>  </p>
+
+<p>针对运行时权限管理，有很多开源的管理库，16年9月份时本人也开源了一个运行权限管理方案，它最大程度上兼容了国产机，当然也兼容了Android 8.0： <br>
+<a href="https://github.com/yanzhenjie/AndPermission" target="_blank">https://github.com/yanzhenjie/AndPermission</a>  </p>
+
+<p>在正式开始之前，先纠正一个问题，在网上看到有项目可以做到自定义申请授权的系统Dialog，<strong>首先要纠正</strong>就目前来看是绝对不行的，最多在调用申请的代码之前弹一个自己的Dialog提示用户要申请授权了。我快速拜读了下那个项目源码，果然如我想象的一样，在绕了一个圈子后最终还是调用了系统申请授权的代码。</p>
+
+<hr>
+
+
+
+<h1 id="android-o的运行时权限策略变化"><a name="t0"></a>Android O的运行时权限策略变化</h1>
+
+<p>如果你喜欢看Google官网的文章，你可以看这里： <br>
+<a href="https://developer.android.com/preview/behavior-changes.html#rmp" target="_blank">https://developer.android.com/preview/behavior-changes.html#rmp</a></p>
+
+<p>在 Android O 之前，如果应用在运行时请求权限并且被授予该权限，系统会错误地将属于同一权限组并且在清单中注册的其他权限也一起授予应用。</p>
+
+<p>对于针对Android O的应用，此行为已被纠正。系统只会授予应用明确请求的权限。然而一旦用户为应用授予某个权限，则所有后续对该权限组中权限的请求都将被自动批准。</p>
+
+<p>例如，假设某个应用在其清单中列出<code>READ_EXTERNAL_STORAGE</code>和<code>WRITE_EXTERNAL_STORAGE</code>。应用请求<code>READ_EXTERNAL_STORAGE</code>，并且用户授予了该权限，如果该应用针对的是API级别24或更低级别，系统还会同时授予<code>WRITE_EXTERNAL_STORAGE</code>，因为该权限也属于<code>STORAGE</code>权限组并且也在清单中注册过。如果该应用针对的是<code>Android O</code>，则系统此时仅会授予<code>READ_EXTERNAL_STORAGE</code>，不过在该应用以后申请<code>WRITE_EXTERNAL_STORAGE</code>权限时，系统会立即授予该权限，而不会提示用户。（有人私下跟我讲这跟原来没区别，明眼人应该看得出来，本组没申请的权限的状态应该是拒绝的，那么直接使用拒绝状态的权限会怎么样呢。）</p>
+
+<p>下面我们还是以<code>READ_EXTERNAL_STORAGE</code>和<code>WRITE_EXTERNAL_STORAGE</code>为例来具体分析一下，这对我们现有的代码有什么影响。</p>
+
+<p>正式开始之前，我们先约定两个方法：</p>
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-javadoc">/**
+ * 拿到没有被授权的权限。
+ */</span>
+getDeinedPermission(String... permissions);
+<span class="hljs-javadoc">/**
+ * 请求几个权限。
+ */</span>
+requestPermission(String... deinedPermissions);</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li></ul></pre>
+
+<p>权限的常量在<code>Manifest.permission</code>类中，而<code>READ_EXTERNAL_STORAGE</code>权限是在API 16之后才添加的，所以在<strong>在Android M</strong>出来后为了适配更低版本的系统，我们一般是这样申请权限的（伪代码）：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-comment">// 需要申请的权限。</span>
+String[] permissions = {
+    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    Manifest.permission.READ_SMS,
+    ...
+};
+
+String[] deniedPermissions = getDeinedPermission(permissions);
+
+<span class="hljs-keyword">if</span>(deniedPermissions.length &lt;= <span class="hljs-number">0</span>) {
+    <span class="hljs-comment">// TODO do something...</span>
+} <span class="hljs-keyword">else</span> {
+    requestPermission(deniedPermissions, callback);
+}</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li></ul></pre>
+
+<p>逻辑非常简单清晰，其中的callback是申请权限的回调，这里我们申请了<code>WRITE_EXTERNAL_STORAGE</code>权限，在Android O之前，我们同时会得到<code>READ_EXTERNAL_STORAGE</code>权限，我们在其它地方涉及到读取<strong>存储卡</strong>的操作时只需要判断有<code>WRITE_EXTERNAL_STORAGE</code>权限就去读取了。</p>
+
+<p><strong>霸特</strong>，此时应用如果安装在<code>Android O</code>的系统中我们会发现，判断了有<code>WRITE_EXTERNAL_STORAGE</code>权限后去读取<code>存储卡</code>内容时应用崩溃了，<strong>原因就是</strong>我们没有申请<code>READ_EXTERNAL_STORAGE</code>权限。</p>
+
+
+
+<h1 id="对android-o运行时权限策略变化的应对方案"><a name="t1"></a>对Android O运行时权限策略变化的应对方案</h1>
+
+<p>针对Android O的运行时权限策略的特点，为了适配各个版本的系统，我们的代码会变成如下方式（伪代码）：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-comment">// 需要申请的权限。</span>
+String[] permissions = {
+    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    Manifest.permission.READ_EXTERNAL_STORAGE,
+    Manifest.permission.READ_SMS,
+    ...
+};
+
+String[] deniedPermissions = getDeinedPermission(permissions);
+
+<span class="hljs-keyword">if</span>(deniedPermissions.length &lt;= <span class="hljs-number">0</span>) {
+    <span class="hljs-comment">// TODO do something...</span>
+} <span class="hljs-keyword">else</span> {
+    requestPermission(deniedPermissions, callback);
+}</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li></ul></pre>
+
+<p>但是这样会存在两个问题，一是有的权限组权限比较多，开发者难易全部记住；二是<code>READ_EXTERNAL_STORAGE</code>这个权限常量是在API 16时才被添加到SDK中，类似这样的权限常量还有好几个，有的甚至在Android M时才被添加到SDK中。如果我们强制写了，当APP运行在低版本的系统中时，还是会崩溃。<strong>有人就说了，我们在申请之前判断系统版本不就好啦？</strong>当然，如果你不嫌麻烦，这是完全可以的。</p>
+
+
+
+<h2 id="升级方案"><a name="t2"></a>升级方案</h2>
+
+<p><strong>因此我们总结出一个更优的方案</strong>，归根结底就是申请权限时要申请权限组，而不是单一的某个权限。所以我们按照系统权限组分类，把一个组的常量放到一个数组中，并根据系统版本为这个数组赋值，于是乎产生了这样一个类：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Permission</span> {</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] CALENDAR;   <span class="hljs-comment">// 读写日历。</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] CAMERA;     <span class="hljs-comment">// 相机。</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] CONTACTS;   <span class="hljs-comment">// 读写联系人。</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] LOCATION;   <span class="hljs-comment">// 读位置信息。</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] MICROPHONE; <span class="hljs-comment">// 使用麦克风。</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] PHONE;      <span class="hljs-comment">// 读电话状态、打电话、读写电话记录。</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] SENSORS;    <span class="hljs-comment">// 传感器。</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] SMS;        <span class="hljs-comment">// 读写短信、收发短信。</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String[] STORAGE;    <span class="hljs-comment">// 读写存储卡。</span>
+
+    <span class="hljs-keyword">static</span> {
+        <span class="hljs-keyword">if</span> (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.M) {
+            CALENDAR = <span class="hljs-keyword">new</span> String[]{};
+            CAMERA = <span class="hljs-keyword">new</span> String[]{};
+            CONTACTS = <span class="hljs-keyword">new</span> String[]{};
+            LOCATION = <span class="hljs-keyword">new</span> String[]{};
+            MICROPHONE = <span class="hljs-keyword">new</span> String[]{};
+            PHONE = <span class="hljs-keyword">new</span> String[]{};
+            SENSORS = <span class="hljs-keyword">new</span> String[]{};
+            SMS = <span class="hljs-keyword">new</span> String[]{};
+            STORAGE = <span class="hljs-keyword">new</span> String[]{};
+        } <span class="hljs-keyword">else</span> {
+            CALENDAR = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.READ_CALENDAR,
+                    Manifest.permission.WRITE_CALENDAR};
+
+            CAMERA = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.CAMERA};
+
+            CONTACTS = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.READ_CONTACTS,
+                    Manifest.permission.WRITE_CONTACTS,
+                    Manifest.permission.GET_ACCOUNTS};
+
+            LOCATION = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION};
+
+            MICROPHONE = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.RECORD_AUDIO};
+
+            PHONE = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.READ_CALL_LOG,
+                    Manifest.permission.WRITE_CALL_LOG,
+                    Manifest.permission.USE_SIP,
+                    Manifest.permission.PROCESS_OUTGOING_CALLS};
+
+            SENSORS = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.BODY_SENSORS};
+
+            SMS = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.SEND_SMS,
+                    Manifest.permission.RECEIVE_SMS,
+                    Manifest.permission.READ_SMS,
+                    Manifest.permission.RECEIVE_WAP_PUSH,
+                    Manifest.permission.RECEIVE_MMS};
+
+            STORAGE = <span class="hljs-keyword">new</span> String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        }
+    }
+
+}</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li><li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li><li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li><li>54</li><li>55</li><li>56</li><li>57</li><li>58</li><li>59</li><li>60</li><li>61</li><li>62</li><li>63</li><li>64</li><li>65</li><li>66</li><li>67</li><li>68</li></ul></pre>
+
+<p>在Android M以前使用某权限是不需要用户授权的，只要在Manifest中注册即可，在Android M之后需要注册并申请用户授权，所以我们根据系统版本在Android M以前用一个空数组作为权限组，在Android M以后用真实数组权限。 </p>
+
+<p>因为要传入多个权限组，所以我们约定的两个方法就不够用了，所以我们加两个方法：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-javadoc">/**
+ * 拿到没有被授权的权限。
+ */</span>
+String[] getDeinedPermission(String... permissions);
+<span class="hljs-javadoc">/**
+ * 请求几个权限。
+ */</span>
+<span class="hljs-keyword">void</span> requestPermission(String... deinedPermissions);
+<span class="hljs-javadoc">/**
+ * 拿到没有被授权的权限。
+ */</span>
+String[] getDeinedPermission(String[]... permissions);
+<span class="hljs-javadoc">/**
+ * 请求几个权限。
+ */</span>
+<span class="hljs-keyword">void</span> requestPermission(String[]... deinedPermissions);</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li></ul></pre>
+
+<p>于是我们申请权限的代码就简化成这样了：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="language-java hljs  has-numbering"><span class="hljs-comment">// 这方法里面判断版本，返回空数组或者没有权限的数组。</span>
+String[] deniedPermissions = getDeinedPermission(Permission.STORAGE， Permission.SMS);
+
+<span class="hljs-keyword">if</span>(deniedPermissions.length &lt;= <span class="hljs-number">0</span>) {
+    <span class="hljs-comment">// TODO do something...</span>
+} <span class="hljs-keyword">else</span> {
+    requestPermission(deniedPermissions, callback);
+}</code><ul class="pre-numbering" style=""><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li></ul></pre>
+
+<p>当然这不是最简化的，但是已经足以兼容到Android O的权限策略的变化了。</p>
+
+<p>关于Android O的运行时权限策略变化和应对方案的介绍到这里就结束了，如果还不理解的可以在博客下方留言。</p>
+
+<hr>
+
+<blockquote>
+  <p>版权声明：转载必须注明本文转自严振杰的博客：<a href="http://blog.yanzhenjie.com/" target="_blank">http://blog.yanzhenjie.com</a></p>
+</blockquote></div>
+        <script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+   
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="readall_box csdn-tracking-statistics tracking-click" data-mod="popu_596">
+        <div class="read_more_mask"></div>
+        <a class="btn btn-large btn-gray-fred read_more_btn" target="_self">阅读全文</a>
+    </div>
+
+        <div id="digg" articleid="76719487">
+            <dl id="btnDigg" class="digg digg_enable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>79</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_enable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);">&nbsp;</a></div>
+    <script type="text/javascript">
+        function btndigga() {
+            $(".tracking-ad[data-mod='popu_222'] a").click();
+        }
+        function btnburya() {
+            $(".tracking-ad[data-mod='popu_223'] a").click();
+        }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;http://blog.csdn.net/yanzhenjie1003/article/details/75949335&#39;;">上一篇</span><a href="http://blog.csdn.net/yanzhenjie1003/article/details/75949335" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">更纯粹的下拉刷新和加载更多</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;http://blog.csdn.net/yanzhenjie1003/article/details/78384725&#39;;">下一篇</span><a href="http://blog.csdn.net/yanzhenjie1003/article/details/78384725" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">Android中jsoup的混淆规则</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article">
+                    <h4></h4>
+                    <div class="similar_c" style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36" style="max-height:250px">                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/WHB20081815/article/details/75669925" title="Android  2分钟刷Android 8.0系统 和 8.0适配  完美方案" strategy="BlogCommendFromBaidu_0" target="_blank">Android  2分钟刷Android 8.0系统 和 8.0适配  完美方案</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=blog7" title="MySQL在微信支付下的高可用运营--莫晓东" strategy="undefined" target="_blank">MySQL在微信支付下的高可用运营--莫晓东</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/w7849516230/article/details/68935953" title="值得你关注的Android8.0(Android O)上的重要变化" strategy="BlogCommendFromBaidu_1" target="_blank">值得你关注的Android8.0(Android O)上的重要变化</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="容器技术在58同城的实践--姚远" strategy="undefined" target="_blank">容器技术在58同城的实践--姚远</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/hh_tom/article/details/78223485" title="android 适配android 8.0时遇到的问题" strategy="BlogCommendFromBaidu_2" target="_blank">android 适配android 8.0时遇到的问题</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="SDCC 2017之容器技术实战线上峰会" strategy="undefined" target="_blank">SDCC 2017之容器技术实战线上峰会</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/zh_qianwei/article/details/68946763" title="Android 8.0 API变化" strategy="BlogCommendFromBaidu_3" target="_blank">Android 8.0 API变化</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=blog7" title="SDCC 2017之数据库技术实战线上峰会" strategy="undefined" target="_blank">SDCC 2017之数据库技术实战线上峰会</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/fengyeNom1/article/details/77968659" title="Android8.0运行时权限策略变化和适配方案" strategy="BlogCommendFromBaidu_4" target="_blank">Android8.0运行时权限策略变化和适配方案</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/73?utm_source=blog7" title="腾讯云容器服务架构实现介绍--董晓杰" strategy="undefined" target="_blank">腾讯云容器服务架构实现介绍--董晓杰</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u013651026/article/details/77962711" title="Android8.0运行时权限策略变化和适配方案" strategy="BlogCommendFromBaidu_5" target="_blank">Android8.0运行时权限策略变化和适配方案</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://edu.csdn.net/huiyiCourse/series_detail/74?utm_source=home7" title="微博热点事件背后的数据库运维心得--张冬洪" strategy="undefined" target="_blank">微博热点事件背后的数据库运维心得--张冬洪</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/rentee/article/details/78303532" title="Android O(8.0)通知栏适配" strategy="BlogCommendFromBaidu_6" target="_blank">Android O(8.0)通知栏适配</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/tantion/article/details/78342293" title="Android 8.0新特性适配测试报告来啦！" strategy="BlogCommendFromBaidu_7" target="_blank">Android 8.0新特性适配测试报告来啦！</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/qq_15776931/article/details/67640366" title="Android 8.0 据说要来了" strategy="BlogCommendFromBaidu_8" target="_blank">Android 8.0 据说要来了</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u013651026/article/details/77996797" title="Android8.0运行时权限策略变化和适配方案" strategy="BlogCommendFromBaidu_9" target="_blank">Android8.0运行时权限策略变化和适配方案</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+   
+      
+</div>
+
+
+<div id="suggest">
+
+        <div class="mod_more_detail clearfix" style="margin-top:80px;">
+                                <h2 class="mod_more_detail_title">
+                                    <div class="mod_more_detail_left">我的更多文章</div>
+                                </h2>
+
+                                <div class="mod_more_detail_content clearfix " id="mod_more_detail_content">     
+                                                     
+                                    <div class="mod_more_detail_content_left clearfix">                                       
+<li><a href="http://blog.csdn.net/yanzhenjie1003/article/details/52503533" target="_blank">Android 6.0 运行时权限管理最佳实践  (2016-09-11 13:11:36)</a></li>                                                                
+                               </div>
+
+                                    <div class="mod_more_detail_content_right clearfix">
+          
+                                         </div>
+                                </div>
+           </div>                                            
+
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/yanzhenjie1003/svc/GetSuggestContent/76719487",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+
+
+            
+                                    
+            
+                                    
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_7505143"><dt class="comment_head" floor="14">14楼 <span class="user"><a class="username" href="http://blog.csdn.net/fengluoye2012" target="_blank">fengluoye2012</a> <span class="ptime">前天 08:38发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7505143" username="fengluoye2012"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/fengluoye2012" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_fengluoye2012.jpg" width="40" height="40"></a></dd><dd class="comment_body">大神有遇到华为8.0系统的手机，打开App，直接崩溃吗？应用运行不起来</dd></dl><dl class="comment_item comment_topic" id="comment_item_7386756"><dt class="comment_head" floor="13">13楼 <span class="user"><a class="username" href="http://blog.csdn.net/weixin_39335857" target="_blank">weixin_39335857</a> <span class="ptime">2017-11-30 11:07发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7386756" username="weixin_39335857"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/weixin_39335857" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_weixin_39335857.jpg" width="40" height="40"></a></dd><dd class="comment_body">官网确实这样介绍，但是AndroidStudio的Emulator，8.0和8.1的机器，以及真机6P刷的8.0系统，表现形式和官网介绍完全不一样。还是按照8.0之前那样，申请了Write后，Read就直接授权了。跟官网自相矛盾。不知道为什么。。。</dd></dl><dl class="comment_item comment_topic" id="comment_item_7185204"><dt class="comment_head" floor="12">12楼 <span class="user"><a class="username" href="http://blog.csdn.net/fengyeNom1" target="_blank">李时珍滴皮</a> <span class="ptime">2017-09-13 17:20发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7185204" username="fengyeNom1"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/fengyeNom1" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_fengyenom1.jpg" width="40" height="40"></a></dd><dd class="comment_body">真是好人啊，我要是不看这个，都不知道原来安卓8.0这么坑呢！</dd></dl><dl class="comment_item comment_topic" id="comment_item_7171671"><dt class="comment_head" floor="11">11楼 <span class="user"><a class="username" href="http://blog.csdn.net/wzhseu" target="_blank">wzhseu</a> <span class="ptime">2017-09-08 10:15发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7171671" username="wzhseu"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wzhseu" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_wzhseu.jpg" width="40" height="40"></a></dd><dd class="comment_body">感觉谷歌多此一举,这样的话不过是将之前同组的自动授予再多加一个步骤.</dd><dl class="comment_item comment_reply" id="comment_item_7172149"><dt class="comment_head" floor="11">Re: <span class="user"><a class="username" href="http://blog.csdn.net/yanzhenjie1003" target="_blank">严振杰</a> <span class="ptime">2017-09-08 12:58发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7172149" username="yanzhenjie1003"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/yanzhenjie1003" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_yanzhenjie1003.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复wzhseu：赞同，确实是个鸡肋，要不就分开申请，不要什么权限组，要不就权限组。</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_7155755"><dt class="comment_head" floor="10">10楼 <span class="user"><a class="username" href="http://blog.csdn.net/liuyubibn" target="_blank">14期-刘玉彬</a> <span class="ptime">2017-08-31 23:46发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7155755" username="liuyubibn"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/liuyubibn" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_liuyubibn.jpg" width="40" height="40"></a></dd><dd class="comment_body">学写了，感谢博主的分享！</dd></dl><dl class="comment_item comment_topic" id="comment_item_7086656"><dt class="comment_head" floor="9">9楼 <span class="user"><a class="username" href="http://blog.csdn.net/qq_28333203" target="_blank">qq_28333203</a> <span class="ptime">2017-08-11 15:37发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7086656" username="qq_28333203"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/qq_28333203" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_qq_28333203.jpg" width="40" height="40"></a></dd><dd class="comment_body">mark</dd></dl><dl class="comment_item comment_topic" id="comment_item_7082888"><dt class="comment_head" floor="8">8楼 <span class="user"><a class="username" href="http://blog.csdn.net/SEU_Calvin" target="_blank">SEU_Calvin</a> <span class="ptime">2017-08-10 15:42发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7082888" username="SEU_Calvin"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/SEU_Calvin" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_seu_calvin.jpg" width="40" height="40"></a></dd><dd class="comment_body">8.0 权限 mark一下</dd></dl><dl class="comment_item comment_topic" id="comment_item_7081012"><dt class="comment_head" floor="7">7楼 <span class="user"><a class="username" href="http://blog.csdn.net/ymwcwee" target="_blank">不会吸血的吸血鬼</a> <span class="ptime">2017-08-10 08:42发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7081012" username="ymwcwee"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/ymwcwee" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_ymwcwee.jpg" width="40" height="40"></a></dd><dd class="comment_body">然并卵啊，开发者并不仔细区分权限，直接申请全部权限，用户能咋办，难道还能因为某个权限而拒绝安装app？</dd></dl><dl class="comment_item comment_topic" id="comment_item_7073347"><dt class="comment_head" floor="6">6楼 <span class="user"><a class="username" href="http://blog.csdn.net/AthenaGuardian" target="_blank">AthenaGuardian</a> <span class="ptime">2017-08-08 11:48发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7073347" username="AthenaGuardian"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/AthenaGuardian" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_athenaguardian.jpg" width="40" height="40"></a></dd><dd class="comment_body">可以了解下了</dd></dl><dl class="comment_item comment_topic" id="comment_item_7071914"><dt class="comment_head" floor="5">5楼 <span class="user"><a class="username" href="http://blog.csdn.net/sky15732625340" target="_blank">书生语</a> <span class="ptime">2017-08-07 21:52发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7071914" username="sky15732625340"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sky15732625340" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_sky15732625340.jpg" width="40" height="40"></a></dd><dd class="comment_body">牛人</dd></dl><dl class="comment_item comment_topic" id="comment_item_7071036"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/gaowei_yb" target="_blank">gaowei_yb</a> <span class="ptime">2017-08-07 18:00发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7071036" username="gaowei_yb"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/gaowei_yb" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_gaowei_yb.jpg" width="40" height="40"></a></dd><dd class="comment_body">想请教各位和杰哥一个问题，就是我开发的SDK中需要引入第三方的库，其中lineSDK是以aar的方式引入的，但是当我通过GitHub将我们自己的库发布到jitpack时，再在新的项目中引入我们库时会报很多错误，我已经验证过了，是因为我通过aar引入了三方库，而以jar和compile的方式均不会错，但是lineSDK只能通过aar方式引入，希望各位能给我个思路或者解决方案，谢谢了</dd></dl><dl class="comment_item comment_topic" id="comment_item_7070487"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/u012361037" target="_blank">_JackYang</a> <span class="ptime">2017-08-07 16:28发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7070487" username="u012361037"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u012361037" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_u012361037.jpg" width="40" height="40"></a></dd><dd class="comment_body">一直听子尧说你的传奇，却无从见面。哈哈严大牛逼！</dd><dl class="comment_item comment_reply" id="comment_item_7071797"><dt class="comment_head" floor="3">Re: <span class="user"><a class="username" href="http://blog.csdn.net/yanzhenjie1003" target="_blank">严振杰</a> <span class="ptime">2017-08-07 21:27发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7071797" username="yanzhenjie1003"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/yanzhenjie1003" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_yanzhenjie1003.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复_JackYang：幸会幸会。</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_7068025"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/baidu_35255405" target="_blank">隐藏在路人中的小兵</a> <span class="ptime">2017-08-06 22:40发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7068025" username="baidu_35255405"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/baidu_35255405" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_baidu_35255405.jpg" width="40" height="40"></a></dd><dd class="comment_body">老八，好人</dd></dl><dl class="comment_item comment_topic" id="comment_item_7067326"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/myy629464" target="_blank">暗夜丿使者</a> <span class="ptime">2017-08-06 17:39发表</span>  <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7067326" username="myy629464"> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/myy629464" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/3_myy629464.jpg" width="40" height="40"></a></dd><dd class="comment_body">学写了，感谢博主的分享！</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><a name="commentbox"></a><a name="reply"></a><a name="quote"></a><form action="http://blog.csdn.net/yanzhenjie1003/comment/submit?id=76719487" method="post" onsubmit="return subform(this);"><div class="commentform"><div class="panel_head">发表评论</div><ul><li class="left">用 户 名：</li><li class="right">daoye2011</li></ul><ul><li class="left">评论内容：</li><li class="right" style="position:relative;"><div id="ubbtools"><a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#insertcode" code="code"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/code.gif" border="0" alt="插入代码" title="插入代码"></a></div><div id="lang_list" style="position: absolute; top: 28px; left: 0px; display: none;"><a class="long_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#html">HTML/XML</a><a class="long_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#objc">objective-c</a><a class="zhong_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#delphi">Delphi</a><a class="zhong_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#ruby">Ruby</a><a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#php">PHP</a><a class="duan_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#csharp">C#</a><a style=" border-right: none;" class="duan_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#cpp">C++</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#javascript">JavaScript</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#vb">Visual Basic</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#python">Python</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#java">Java</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#css">CSS</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#sql">SQL</a><a style="border:none;" class="duan_name" href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487#plain">其它</a></div><textarea class="comment_content" name="comment_content" id="comment_content" style="width: 400px; height: 200px;"></textarea></li></ul><ul><input type="hidden" id="comment_replyId" name="comment_replyId"><input type="hidden" id="comment_userId" name="comment_userId" value="521203"><input type="hidden" id="commentId" name="commentId" value=""><input type="submit" class="comment_btn" value="提交">&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span></ul></div></form></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '76719487';
+    var commentscount = 16;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='Android8.0运行时权限策略变化和适配方案';
+
+</script>
+
+
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+
+    <div class="side">
+
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/yanzhenjie1003" target="_blank">
+    <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/1_yanzhenjie1003.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/yanzhenjie1003" class="user_name" target="_blank">严振杰</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=yanzhenjie1003&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                       <div class="ico_expert" onclick="javascript:location=&#39;http://blog.csdn.net/experts/rule.html&#39;" title="CSDN认证专家" style="cursor:pointer;width:60px;height:60px;background:url(&#39;http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/bokezhuanjiamiddle.png&#39;) no-repeat"></div>
+                <div id="bms_box">
+                                            <a target="_blank">
+                                                    <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/zhuanlandaren.png" onmouseover="m_over_m(this,2)" onmouseout="m_out_m()" alt="1">
+                                            </a>
+                                            <a target="_blank">
+                                                    <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="2">
+                                            </a>
+               </div>
+
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1596976次</span></li>
+    <li>积分：<span>6497</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/blog6.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：6497 </div>
+        </span>  </li>
+    <li>排名：<span>第4250名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>52篇</span></li>
+    <li>转载：<span>0篇</span></li>
+    <li>译文：<span>1篇</span></li>
+    <li>评论：<span>1262条</span></li>
+</ul>
+</ul>
+</div>
+
+
+     
+
+ 
+
+<div id="custom_column_54870593" class="panel">
+<ul class="panel_head"><span>我的微信公众号</span></ul>
+<ul class="panel_body">
+<div>
+欢迎关注我的公众号，不定期为您推送优选博文，生活趣事！
+<img width="100%&#39;" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/20161113123016702">
+</div>
+<div class="ad_yzj_wechat" style="border-color:#000000;border:1px solid;">
+	<div class="ad_yzj_wechat_font">关注我的微信公众号</div>
+	<hr width="152px" style="height:1px;border:none;border-top:1px solid #000000;margin:0px;">
+	<img width="150px" height="150px" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/20161113123016702">
+</div>
+<div class="cnzz_blog" style="display:none;">
+<script src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/z_stat.php" language="JavaScript"></script><script src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1260557356" target="_blank" title="站长统计">站长统计</a>
+</div>
+<style>
+.ad_yzj_wechat{
+text-align:center;position:fixed;bottom:0;right:0px;z-index:1000;background-color:#FFFFFF;margin:1px;padding:0px;
+}
+.ad_yzj_wechat_font{
+font-weight:bold;font-size:15px;text-align:center;margin:10px;padding:0px;
+}
+.cnzz_blog{
+position:fixed;bottom: 0; right: 0px;z-index:1;
+}
+</style>
+</ul>
+</div>
+ 
+
+<div id="custom_column_41664335" class="panel">
+<ul class="panel_head"><span>关注我的微博</span></ul>
+<ul class="panel_body">
+<iframe width="100%" height="120" class="share_self" frameborder="0" scrolling="no" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/index.html"></iframe>
+</ul>
+</div>
+ 
+
+<div id="custom_column_41916823" class="panel">
+<ul class="panel_head"><span>友情链接</span></ul>
+<ul class="panel_body">
+<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=k_D_8v--8vny69P1-Ov_8vr-vfD8-g" style="text-decoration:none;"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/20171107092038613"></a><br><br>
+<a target="_blank" href="https://github.com/yanzhenjie">我的Github</a>
+<br><br>
+<a href="https://jq.qq.com/?_wv=1027&amp;k=48YpmHy">QQ交流群 547839514</a>
+<br><br>
+<script>
+$(document).ready(function(){
+      setInterval(function(){
+        $("#J_close layer_close").trigger("click");
+        $("#layerd").css("display","none");
+        $("#com-quick-QRcode").css("display","none");
+      }, 200);
+    });
+</script>
+</ul>
+</div>
+<div id="hotarticls" class="panel tracking-ad" data-mod="popu_340">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/52503533" title="Android 6.0 运行时权限管理最佳实践">Android 6.0 运行时权限管理最佳实践</a><span>(259137)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/50679905" title="NoHttp详解之NoHttp最基本使用（无封装）">NoHttp详解之NoHttp最基本使用（无封装）</a><span>(107862)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/70158030" title="Android结合业务请求JavaBean、List&lt;JavaBean&gt;等复杂对象">Android结合业务请求JavaBean、List&lt;JavaBean&gt;等复杂对象</a><span>(102492)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/71773950" title="Java/Android中的优先级任务队列的实践">Java/Android中的优先级任务队列的实践</a><span>(91497)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/52115566" title="RecyclerView侧滑菜单，滑动删除，长按拖拽，下拉刷新上拉加载">RecyclerView侧滑菜单，滑动删除，长按拖拽，下拉刷新上拉加载</a><span>(90242)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/71641368" title="二维码识别之Android完整编译Zbar">二维码识别之Android完整编译Zbar</a><span>(70442)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/76719487" title="Android8.0运行时权限策略变化和适配方案">Android8.0运行时权限策略变化和适配方案</a><span>(61799)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/47294705" title="Http标准协议Android网络框架——NoHttp">Http标准协议Android网络框架——NoHttp</a><span>(44972)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/52201896" title="带你重新认识：Android Splash页秒开 Activity白屏 Activity黑屏">带你重新认识：Android Splash页秒开 Activity白屏 Activity黑屏</a><span>(39562)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/yanzhenjie1003/article/details/52413226" title="Android NoHttp源码阅读指导">Android NoHttp源码阅读指导</a><span>(36635)</span>
+</li>
+</ul>
+</div>
+
+<div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>博客专栏</span></ul>
+    <ul class="panel_body" id="sp_column">
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/material-design.html" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/20160814185541604" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/material-design.html" target="_blank">Material Design</a>
+    <p>文章：6篇</p>
+    <span>阅读：78121</span>
+    </td>
+    </tr></tbody></table>
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/nohttp.html" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/20160704135937839" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/nohttp.html" target="_blank">NoHttp</a>
+    <p>文章：5篇</p>
+    <span>阅读：223743</span>
+    </td>
+    </tr></tbody></table>
+    </ul>
+</div> 
+<div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6316663" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android】MaterialDesign</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/2480167" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android】所有</a><span>(41)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6097131" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【NoHttp】所有</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6275975" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Gayhub】所有</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6347226" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Android】自定义View</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6406515" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【前端】MaterialDesign</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6441141" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【前端】所有</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6784312" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【生活/工作】感悟</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6844286" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Git】所有</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6863321" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Linux】所有</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6913367" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【JNI】所有</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6916014" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【Java】所有</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/6918246" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">【生活/工作】随笔</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/yanzhenjie1003/article/category/7328047" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">JavaSpringMVC</a><span>(1)</span>
+                </li>
+</ul>
+</div>
+<div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/12">2017年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/10">2017年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/08">2017年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/07">2017年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/05">2017年05月</a><span>(2)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/04">2017年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/03">2017年03月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/02">2017年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2017/01">2017年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/12">2016年12月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/11">2016年11月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/10">2016年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/09">2016年09月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/08">2016年08月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/07">2016年07月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/06">2016年06月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/05">2016年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/03">2016年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2016/02">2016年02月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2015/08">2015年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/yanzhenjie1003/article/month/2015/04">2015年04月</a><span>(3)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+
+    </div>
+    <div class="clear">
+    </div>
+
+
+           </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+     
+
+
+       <script type="text/javascript" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/MathJax.js.下载"></script>   
+    
+    <script src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/csdn_blog_detail.min.js.下载" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/notify.js.下载"></script><input type="hidden" id="aa_g_data_ids">
+        
+    <script type="text/javascript" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/csdn_public_blog_detail.min.js.下载"></script>
+
+    <script type="text/javascript" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/showblogmedal.ashx"></script>
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/52b5334.js.下载"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+          
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./Android8.0运行时权限策略变化和适配方案 - 严振杰 - CSDN博客_files/saved_resource.html" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function () {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            //$(".toc a[target='_blank']").attr("target", "");
+
+            setTimeout(function () {
+                $(".toc a[target='_blank']").attr("target", "");
+            }, 500);
+
+        </script>
+
+
+   
+</body></html>

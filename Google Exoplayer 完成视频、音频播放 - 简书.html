@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/e4b3cb3df0b2 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/e4b3cb3df0b2">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="最近开发的项目涉及音频、视频播放，搜索了解到 ExoPlayer 2.x可以很好的满足需求，简单翻译了一下帮助文档。开始的时候看到 ExoPlayer 的 demo 觉得太复杂了，为了图省事使用的他的封装版 ExoMedia ，后来发现这个库目前还不支持字幕，还是得用回 ExoPlayer。翻译文档的过程中，也逐渐明白了 ExoPlayer 2.x 的 使用。 原文链接：Developer ...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/e4b3cb3df0b2">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/7492923">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content=" Google Exoplayer 完成视频、音频播放" property="twitter:title">
+  <meta content="最近开发的项目涉及音频、视频播放，搜索了解到 ExoPlayer 2.x可以很好的满足需求，简单翻译了一下帮助文档。开始的时候看到 ExoPlayer 的 demo 觉得太复杂了，为了图省事使用的他的封装版 ExoMedia ，后来发现这个库目前还不支持字幕，还是得用回 ExoPlayer。翻译文档的过程中，也逐渐明白了 ExoPlayer 2.x 的 使用。 原文链接：Developer guide 在Android设备上播放音频和视频已经很流行了，Android框架提供了用于播放媒体用最少的代码的快速解决方案MediaPlayer。也提供了low-level 的  api 用于构建定..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/e4b3cb3df0b2" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content=" Google Exoplayer 完成视频、音频播放">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/e4b3cb3df0b2">
+  <meta property="og:description" content="最近开发的项目涉及音频、视频播放，搜索了解到 ExoPlayer 2.x可以很好的满足需求，简单翻译了一下帮助文档。开始的时候看到 ExoPlayer 的 demo 觉得太复杂了，为了图省事使用...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/7492923">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/7492923">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title> Google Exoplayer 完成视频、音频播放 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="7ZPd6eDNcCFSn0SdKKlQnCYzwRxwrSJdXU1/D/1sFALa7VO5w/qEDnatsPCuV+QeC4KJ6aMJpnAuALUJGOxdeg==">
+
+  <link rel="stylesheet" media="all" href="./Google Exoplayer 完成视频、音频播放 - 简书_files/web-203abe46b3c192304f14.css">
+  
+  <link rel="stylesheet" media="all" href="./Google Exoplayer 完成视频、音频播放 - 简书_files/entry-cce16e51495a87f95c7a.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./Google Exoplayer 完成视频、音频播放 - 简书_files/push.js.下载"></script><script src="./Google Exoplayer 完成视频、音频播放 - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1233px; display: none;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title"> Google Exoplayer 完成视频、音频播放</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/4b191b0f7d44">
+            <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/d6cf2250ab57.png" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/4b191b0f7d44">SavySoda</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.05 00:25">2016.12.07 20:52*</span>
+              <span class="wordage">字数 3229</span>
+            <span class="views-count">阅读 10991</span><span class="comments-count">评论 14</span><span class="likes-count">喜欢 44</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 397px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 56.79%;"></div>
+<div class="image-view" data-width="1363" data-height="774"><img data-original-src="//upload-images.jianshu.io/upload_images/634730-bf135bd330e764b7.png" data-original-width="1363" data-original-height="774" data-original-format="image/png" data-original-filesize="159563" class="" style="cursor: zoom-in;" src="./Google Exoplayer 完成视频、音频播放 - 简书_files/634730-bf135bd330e764b7.png"></div>
+</div>
+<div class="image-caption">exo_open_url.png</div>
+</div>
+<hr>
+<p>最近开发的项目涉及音频、视频播放，搜索了解到 ExoPlayer 2.x可以很好的满足需求，简单翻译了一下帮助文档。<br>
+开始的时候看到 ExoPlayer 的 demo 觉得太复杂了，为了图省事使用的他的封装版 <a href="https://link.jianshu.com/?t=https://github.com/brianwernick/ExoMedia" target="_blank" rel="nofollow">ExoMedia</a> ，后来发现这个库目前还不支持字幕，还是得用回 ExoPlayer。翻译文档的过程中，也逐渐明白了 ExoPlayer 2.x 的 使用。</p>
+<hr>
+<p>原文链接：<a href="https://link.jianshu.com/?t=https://google.github.io/ExoPlayer/guide.html" target="_blank" rel="nofollow">Developer guide</a></p>
+<p>在Android设备上播放音频和视频已经很流行了，Android框架提供了用于播放媒体用最少的代码的快速解决方案<a href="https://link.jianshu.com/?t=https://developer.android.com/reference/android/media/MediaPlayer.html" target="_blank" rel="nofollow">MediaPlayer</a>。也提供了low-level 的  api 用于构建定制媒体播放器的解决方案，例如<a href="https://link.jianshu.com/?t=https://developer.android.com/reference/android/media/MediaCodec.html" target="_blank" rel="nofollow">MediaCodec</a>， <a href="https://link.jianshu.com/?t=https://developer.android.com/reference/android/media/AudioTrack.html" target="_blank" rel="nofollow">AudioTrack</a>和<a href="https://link.jianshu.com/?t=https://developer.android.com/reference/android/media/AudioTrack.html" target="_blank" rel="nofollow">MediaDrm</a>。<br>
+ExoPlayer是建立在 Android low-level api之上的 app级开源播放器。开源项目包含 ExoPlayer库和demo。</p>
+<ul>
+<li>
+<a href="https://link.jianshu.com/?t=https://github.com/google/ExoPlayer/tree/release-v2/library" target="_blank" rel="nofollow">ExoPlayer库</a> - 类库源代码</li>
+<li>
+<a href="https://link.jianshu.com/?t=https://github.com/google/ExoPlayer/tree/release-v2/demo" target="_blank" rel="nofollow">Demo</a> - 演示类库的使用</li>
+</ul>
+<p>本文介绍了 ExoPlayer 库及其用途，使用 ExoPlayer 的利弊 ，具体的代码示例演示了如何使用，展示了如何使用ExoPlayer 播放 DASH，SmoothStreaming 和 HLS 自适应流，如 MP4，M4A，FMP4，支持 WebM，MKV，MP3，OGG，WAV，MPEG-TS，MPEG-PS，FLV 和 ADTS（ AAC）。还讨论 ExoPlayer 的事件、消息、定制和 对 DRM 的支持。</p>
+<h5>优点和缺点</h5>
+<p>相比 Android 内置的 MediaPlayer，ExoPlayer 具有许多优于优势：</p>
+<ul>
+<li>支持 Dynamic Adaptive Streaming over HTTP (DASH)  和SmoothStreaming，更多支持请参阅<a href="https://link.jianshu.com/?t=https://google.github.io/ExoPlayer/supported-formats.html" target="_blank" rel="nofollow">支持的格式</a>）详细信息页面。</li>
+<li>支持高级 HLS 功能，如正确处理 #EXT-X-DISCONTINUITY的标签。</li>
+<li>能够无缝融合，串联和循环媒体资源。</li>
+<li>支持定制和扩展，ExoPlayer是考虑到这一点而设计的，并允许许多部件与定制实现替换。</li>
+<li>更新起来更方便</li>
+<li>设备通用性更强</li>
+<li>支持在Android 4.3（API级别18）和更高的Widevine通用加密。</li>
+</ul>
+<p>需要注意的是，也有一些缺点，这一点很重要：</p>
+<ul>
+<li><strong>ExoPlayer的标准音频和视频部件依赖于Android的 MediaCodecAPI，MediaCodecAPI 在搭载Android 4.1（API级别16）发布。因此，他们不会在较早版本的 Android 的工作。Widevine 的通用加密可以在 Android 4.3（API级别18）和更高。</strong></li>
+</ul>
+<h4>Library overview</h4>
+<p>ExoPlayer库的核心是ExoPlayer接口。ExoPlayer 接口暴露了传统的 high-level 播放器中的功能，如资源缓冲，播放，暂停和拖拽等。接口的实现类对媒体的播放类型、存储位置和渲染方式做出假设，而不是笼统的加载和渲染。Exoplayer 把播放类型、存储位置和渲染方式等任务委派给不同的部件，然后在创建播放器或后台播放的时候把这些部件注入。这些部件包括：</p>
+<ul>
+<li>MediaSource - 负责装载 media，装载到MediaSource 的 media 可以被读取，MediaSource 在调用 ExoPlayer.prepare 方法时被注入。</li>
+<li>Render S - 用于渲染 media 的部件，在创建播放器时被注入</li>
+<li>TrackSelector - 从MediaSource 中选出 media 提供给可用的 Render S 来渲染，在创建播放器时被注入。</li>
+<li>LoadControl - 控制 MediaSource 缓存更多的 media，有多少 media 被缓冲。在创建播放器时被注入。</li>
+</ul>
+<p>类库提供这些部件在通常情况下的默认实现，下面有详细描述。一个 ExoPlayer 可以利用这些部件。如果标准实现不能满足需求，也可以使用自定义实现。例如，自定义LoadControl 可以改变播放器的缓冲策略，或自定义Renderer 可实现 Android 本身不支持的视频编解码器。</p>
+<p>注入的概念贯穿整个类库的实现，默认的部件实现类何以被进一步的委托注入，这让许多子部件被单独更换成自定义实现。比如，通过提供一个定制的工厂有可能从一个非标准的源或通过不同的网络协议栈加载数据。而默认的MediaSource 实现需要一个或多个 DataSource 工厂的构造函数被注入。</p>
+<h5>Getting started</h5>
+<p>开始使用 ExoPlayer 需要执行以下步骤：</p>
+<ol>
+<li>添加依赖</li>
+<li>创建一个 SimpleExoPlayer 实例</li>
+<li>将 player 和 view （用于视频输出和用户输入）关联</li>
+<li>调用 prepare 方法，注入MediaSource，准备播放</li>
+<li>播放结束释放 player</li>
+</ol>
+<p>这些步骤在下面更详细地所述。对于一个完整的示例，请参阅 PlayerActivity在ExoPlayer演示程序。</p>
+<p><strong>Add ExoPlayer as a dependency</strong></p>
+<p>确保支持 Jcenter 仓库</p>
+<blockquote>
+<p>repositories {<br>
+jcenter()<br>
+}</p>
+</blockquote>
+<p>添加依赖 - <a href="https://link.jianshu.com/?t=https://github.com/google/ExoPlayer/releases" target="_blank" rel="nofollow">版本</a></p>
+<blockquote>
+<p>compile 'com.google.android.exoplayer:exoplayer:r2.X.X'</p>
+</blockquote>
+<p><strong>Creating the playerr</strong></p>
+<p>您可以通过 ExoPlayerFactory 工厂方法创建一个 ExoPlayer 实例。 工厂提供了一系列的方法创建不同程度定制的 ExoPlayer 实例。对于绝大多数使用情况下，默认 Renderer 库提供的实现足够用。这时应该使用 ExoPlayerFactory.newSimpleInstance 方法。方法返回 SimpleExoPlayer，SimpleExoPlayer 扩展了 ExoPlayer 并添加额外的 high-level 播放功能。下面演示了如何创建一个 SimpleExoPlayer。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-comment">// 1. Create a default TrackSelector</span>
+Handler mainHandler = <span class="hljs-keyword">new</span> Handler();
+BandwidthMeter bandwidthMeter = <span class="hljs-keyword">new</span> DefaultBandwidthMeter();
+TrackSelection.Factory videoTrackSelectionFactory =
+    <span class="hljs-keyword">new</span> AdaptiveVideoTrackSelection.Factory(bandwidthMeter);
+TrackSelector trackSelector =
+    <span class="hljs-keyword">new</span> DefaultTrackSelector(mainHandler, videoTrackSelectionFactory);
+
+<span class="hljs-comment">// 2. Create a default LoadControl</span>
+LoadControl loadControl = <span class="hljs-keyword">new</span> DefaultLoadControl();
+
+<span class="hljs-comment">// 3. Create the player</span>
+SimpleExoPlayer player =
+    ExoPlayerFactory.newSimpleInstance(context, trackSelector, loadControl);
+</code></pre>
+<p><strong>Attaching the player to a view</strong></p>
+<p>ExoPlayer 库提供了 SimpleExoPlayerView ，它封装了一个 PlaybackControlView 和 Surface 用来渲染视频。一个 SimpleExoPlayerView 可以包含在布局 XML 文件中。下面演示了如何绑定 player</p>
+<blockquote>
+<p>simpleExoPlayerView.setPlayer(player);</p>
+</blockquote>
+<p>如果您需要比播放器控制和渲染视频的 Surface 上更细粒度的控制，可以给播放器设置目标 SurfaceView， TextureView，SurfaceHolder 或 Surface 直接分别使用 SimpleExoPlayer 的 setVideoSurfaceView，setVideoTextureView，setVideoSurfaceHolder 和 setVideoSurface 方法。您可以使用PlaybackControlView 作为一个独立的部件，或实现自己的 playback 直接与 player 进行交互。setTextOutput 和setId3Output可用于 playback 时接收字幕和 ID3 元数据输出。</p>
+<p><strong>Preparing the player</strong></p>
+<p>在 ExoPlayer 每一个 media 都由 MediaSource 代表。要播放 media 必须先创建一个相应的 MediaSource，然后把这个对象传递给 ExoPlayer.prepare。ExoPlayer 库提供 MediaSource 的DASH实现（实DashMediaSource），SmoothStreaming 实现（ SsMediaSource），HLS 实现（HlsMediaSource）和常规 media files 实现（ExtractorMediaSource）。这些实现在后面详细介绍。下面的代码演示如何使用 MediaSource prapare 一个适合播放 MP4 文件的 player。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-comment">// Measures bandwidth during playback. Can be null if not required.</span>
+DefaultBandwidthMeter bandwidthMeter = <span class="hljs-keyword">new</span> DefaultBandwidthMeter();
+<span class="hljs-comment">// Produces DataSource instances through which media data is loaded.</span>
+DataSource.Factory dataSourceFactory = <span class="hljs-keyword">new</span> DefaultDataSourceFactory(<span class="hljs-keyword">this</span>,
+    Util.getUserAgent(<span class="hljs-keyword">this</span>, <span class="hljs-string">"yourApplicationName"</span>), bandwidthMeter);
+<span class="hljs-comment">// Produces Extractor instances for parsing the media data.</span>
+ExtractorsFactory extractorsFactory = <span class="hljs-keyword">new</span> DefaultExtractorsFactory();
+<span class="hljs-comment">// This is the MediaSource representing the media to be played.</span>
+MediaSource videoSource = <span class="hljs-keyword">new</span> ExtractorMediaSource(mp4VideoUri,
+    dataSourceFactory, extractorsFactory, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>);
+<span class="hljs-comment">// Prepare the player with the source.</span>
+player.prepare(videoSource);
+</code></pre>
+<p>一旦 player 已经被 prepared，playback 可以通过调用播放器上的方法进行控制。例如 setPlayWhenReady 可用于启动和暂停播放，和各种 seekTo 方法可以用于改变进度。如果 player 被绑定到 SimpleExoPlayerView 或 PlaybackControlView ，那么用户与这些部件的交互将会导致 player 相应的方法被调用。</p>
+<p><strong>Releasing the player</strong></p>
+<p>不再使用的时候将 player 释放掉是非常重要的，以便腾出有限的资源，如为其他应用程序使用视频解码器。这可以通过调用  ExoPlayer.release 来完成。</p>
+<h4>MediaSource</h4>
+<p>在 ExoPlayer 每一个 media 都由 MediaSource 代表。要播放 media 必须先创建一个相应的 MediaSource，然后把这个对象传递给 ExoPlayer.prepare。ExoPlayer 库提供 MediaSource 的DASH实现（实DashMediaSource），SmoothStreaming 实现（ SsMediaSource），HLS 实现（HlsMediaSource）和常规 media files 实现（ExtractorMediaSource）。Demo app de PlayerActivity，分别演示了如何实例化以上四种 MediaSource。</p>
+<p>除了上述的 MediaSource 的实现方式，ExoPlayer 库还提供MergingMediaSource，LoopingMediaSource 和 ConcatenatingMediaSource。这些 MediaSource 实现能够通过组合能够支持更复杂的 playback 功能。下面对一些常见的用例进行说明。注意，尽管下面的实例使用的视频 playback，它们同样适用于仅有音频 playback，事实上适用于所有支持的 media types 的 playback。</p>
+<p><strong>Side-loading a subtitle file</strong></p>
+<p>给定的视频文件和一个单独的字幕文件，MergingMediaSource 可以将它们合并到用于 playback 的单一来源。</p>
+<pre class="hljs java"><code class="java">MediaSource videoSource = <span class="hljs-keyword">new</span> ExtractorMediaSource(videoUri, ...);
+MediaSource subtitleSource = <span class="hljs-keyword">new</span> SingleSampleMediaSource(subtitleUri, ...);
+<span class="hljs-comment">// Plays the video with the sideloaded subtitle.</span>
+MergingMediaSource mergedSource =
+    <span class="hljs-keyword">new</span> MergingMediaSource(videoSource, subtitleSource);
+</code></pre>
+<p><strong>Seamlessly looping a video</strong></p>
+<p>LoopingMediaSource 可以实现视频的无缝循环。下面演示了如何实现无缝循环。也可以创建一个指定循环计数的 LoopingMediaSource。</p>
+<pre class="hljs java"><code class="java">MediaSource source = <span class="hljs-keyword">new</span> ExtractorMediaSource(videoUri, ...);
+<span class="hljs-comment">// Loops the video indefinitely.</span>
+LoopingMediaSource loopingSource = <span class="hljs-keyword">new</span> LoopingMediaSource(source);
+</code></pre>
+<p>**Seamlessly playing a sequence of videos **</p>
+<p>ConcatenatingMediaSource 使得 playback 支持顺序播放两个或多个单独的 MediaSource S，下面的示例顺序播放两段视频。无缝切换资源，并且对被串联资源的格式是否相同没有要求。</p>
+<pre class="hljs java"><code class="java">MediaSource firstSource = <span class="hljs-keyword">new</span> ExtractorMediaSource(firstVideoUri, ...);
+MediaSource secondSource = <span class="hljs-keyword">new</span> ExtractorMediaSource(secondVideoUri, ...);
+<span class="hljs-comment">// Plays the first video, then the second video.</span>
+ConcatenatingMediaSource concatenatedSource =
+    <span class="hljs-keyword">new</span> ConcatenatingMediaSource(firstSource, secondSource);
+</code></pre>
+<p>**Advanced composition **</p>
+<p>可以为了更不寻常的用例进一步结合复合 MediaSourceS。给定两个视频 A 和 B，下面的例子演示了如何使用 LoopingMediaSource 和ConcatenatingMediaSource 按照（ A，A，B）的序列进行无线循环。</p>
+<pre class="hljs java"><code class="java">MediaSource firstSource = <span class="hljs-keyword">new</span> ExtractorMediaSource(firstVideoUri, ...);
+MediaSource secondSource = <span class="hljs-keyword">new</span> ExtractorMediaSource(secondVideoUri, ...);
+<span class="hljs-comment">// Plays the first video twice.</span>
+LoopingMediaSource firstSourceTwice = <span class="hljs-keyword">new</span> LoopingMediaSource(firstSource, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// Plays the first video twice, then the second video.</span>
+ConcatenatingMediaSource concatenatedSource =
+    <span class="hljs-keyword">new</span> ConcatenatingMediaSource(firstSourceTwice, secondSource);
+<span class="hljs-comment">// Loops the sequence indefinitely.</span>
+LoopingMediaSource compositeSource = <span class="hljs-keyword">new</span> LoopingMediaSource(concatenatedSource);
+</code></pre>
+<p>下面的例子是等价的，这表明实现相同的结果方式不止一个。</p>
+<pre class="hljs java"><code class="java">MediaSource firstSource = <span class="hljs-keyword">new</span> ExtractorMediaSource(firstVideoUri, ...);
+MediaSource secondSource = <span class="hljs-keyword">new</span> ExtractorMediaSource(secondVideoUri, ...);
+<span class="hljs-comment">// Plays the first video twice, then the second video.</span>
+ConcatenatingMediaSource concatenatedSource =
+    <span class="hljs-keyword">new</span> ConcatenatingMediaSource(firstSource, firstSource, secondSource);
+<span class="hljs-comment">// Loops the sequence indefinitely.</span>
+LoopingMediaSource compositeSource = <span class="hljs-keyword">new</span> LoopingMediaSource(concatenatedSource);
+</code></pre>
+<blockquote>
+<p>避免在一次 composition 中用同一个 MediaSource 实例多次，除非文档中明确允许。在上面的例子中两次使用 firstSource 的就是这样的情况，由于对 Javadoc 中 ConcatenatingMediaSource  明确规定，重复项是允许的。在一般情况下，由组合物形成的对象的曲线应该是一个树。在 composition 中使用多个等同于 MediaSource 的实例是允许的。</p>
+</blockquote>
+<p>**Player events **</p>
+<p>playback 过程中，应用程序可以监听由 ExoPlayer 生成的指示 player 全部状态的事件。可以根据这些事件来更新用户界面。许多 ExoPlayer 组件还报告它们自己特定的 low-level 的事件，可以用于性能监控。</p>
+<h6>High level events</h6>
+<p>ExoPlayer 使用 addListener 和 removeListener 添加和移除 ExoPlayer.EventListener 实例。被注册的侦听器可以发布 playback 的状态变化，以及出错时发布错误产生的原因。</p>
+<p>开发者自定义 playback 应该注册一个监听器，并根据 player 的状态变化来更新控件。如果播放失败，应用程序还应该向用户显示相应的错误。</p>
+<p>使用 SimpleExoPlayer 时，可以在 player 上设置额外的监听器。特别是 setVideoListener 允许应用程序接收与视频渲染有关的事件，该事件可以是用于调整用户界面。setVideoDebugListener 和setAudioDebugListener 可以接收调试信息。</p>
+<h6>Low level events</h6>
+<p>除了 high-level 监听器，许多由 ExoPlayer 库提供的组件，允许拥有自己的事件侦听器。通常需要传递一个 Handler 给部件，用来确定监听器方法被调用线程。在大多数情况下，Handler应与应用程序的主线程关联。</p>
+<p>**Sending messages to components **</p>
+<p>有些 ExoPlayer 组件允许在播放过程中更改配置。按照惯例，您通过使用 sendMessages 或 blockingSendMessages 方法传递变化消息给ExoPlayer 组件。这种方式可以确保两个线程安全并且使得配置更改和在 player 上的他操作执行有序。</p>
+<p>**Customization **</p>
+<p>相比 Android 内置的 MediaPlayer，ExoPlayer 的主要好处是支持定制和扩展的 player 以更好地满足开发者的实际用例。在考虑到这一点而设计ExoPlayer 库时，定义了大量接口和抽象基类帮助开发者轻松的替换类库提供的默认实现，下面展示了一些用于构建自定义组件的用例：</p>
+<ul>
+<li>Render -  实现自定义Renderer处理不是由库提供的默认实现所支持的媒体类型。</li>
+<li>Extractor -  If you need to support a container format not currently supported by the library, consider implementing a custom Extractor class, which can then be used to together with ExtractorMediaSource to play media of that type.</li>
+<li>MediaSource -  Implementing a custom MediaSource class may be appropriate if you wish to obtain media samples to feed to renderers in a custom way, or if you wish to implement custom MediaSource compositing behavior.</li>
+<li>TrackSelector - mplementing a custom TrackSelector allows an app developer to change the way in which tracks exposed by a MediaSource are selected for consumption by each of the available Renderers.</li>
+<li>DataSource - ExoPlayer’s upstream package already contains a number of DataSource implementations for different use cases. You may want to implement you own DataSource class to load data in another way, such as over a custom protocol, using a custom HTTP stack, or through a persistent cache.</li>
+</ul>
+<p><strong>Customization guidelines</strong></p>
+<ul>
+<li>如果自定义组件需要向应用程序发布事件，我们建议您一定要使用现有的 ExoPlayer 组件模型，在构造组件的时候同时传递监听器和 Handler</li>
+<li>我们建议的自定义组件使用现有 ExoPlayer 组件相同的模型，允许在playback 的过程中重新配置。要做到这一点，就需要实现ExoPlayerComponent 接口，并在 handleMessage 方法中处理接收到的配置改变信息。您的应用程序应该调用 ExoPlayer 的 sendMessages和blockingSendMessages 方法来传递改变的配置信息。</li>
+</ul>
+<p>ExoPlayer Demo 中 PlayerActivity 演示了 DrmSessionManager 如何  在初始化 player 的时候被创建和注入。</p>
+
+        </div>
+    </div>
+
+      <div class="support-author"></div>
+
+      <div class="show-foot">
+        <a class="notebook" href="https://www.jianshu.com/nb/2399284">
+          <i class="iconfont ic-search-notebook"></i>
+          <span>Work</span>
+</a>        <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+          © 著作权归作者所有
+        </div>
+        <div class="modal-wrap" data-report-note="">
+          <a id="report-modal">举报文章</a>
+        </div>
+      </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/4b191b0f7d44">
+            <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/d6cf2250ab57.png" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/4b191b0f7d44">SavySoda</a>
+          
+        <p>写了 14325 字，被 152 人关注，获得了 263 个喜欢</p></div>
+      </div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>44</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @不是兰特是普森 的文章《 Google Exoplayer 完成视频、音频播放》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/7492923/weibo/image_325622550f44.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 SavySoda 的文章《 Google Exoplayer 完成视频、音频播放》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 SavySoda 的文章《 Google Exoplayer 完成视频、音频播放》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39; Google Exoplayer 完成视频、音频播放&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div id="vue_comment"></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @不是兰特是普森 的文章《 Google Exoplayer 完成视频、音频播放》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 SavySoda 的文章《 Google Exoplayer 完成视频、音频播放》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 SavySoda 的文章《 Google Exoplayer 完成视频、音频播放》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/e4b3cb3df0b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39; Google Exoplayer 完成视频、音频播放&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a><a href="https://www.jianshu.com/c/58b4c20abf2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/android.graphics.Bitmap_1329dce8.jpeg"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/5139d555c94d?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/1416528891_3612.png"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/d1591c322c89?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/android.graphics.Bitmap_15f127c2.jpeg"><div class="name">Android开发</div></a><a href="https://www.jianshu.com/c/NEt52a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/computer_guy.jpg"><div class="name">程序员</div></a><a href="https://www.jianshu.com/c/ed672f6b57c0?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/android_1.jpg"><div class="name">android...</div></a><a href="https://www.jianshu.com/c/37efc6e9799b?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/android_tv_box.jpg"><div class="name">Android TV</div></a> <a class="show-more">
+        展开更多
+        <i class="iconfont ic-show"></i></a></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="7492923"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/dad51f6c9c4d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android - 收藏集  </a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金 Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金 相信有很多...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/e946d18f163c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/4-3397163ecdb3855a0a4139c34a695885.jpg" alt="48">
+            </div>
+            <span class="name">passiontim</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/bea68f74f3e3?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation"> iOS开发系列--音频播放、录音、视频播放、拍照、视频录制</a>
+          <p class="description">原文链接http://www.cnblogs.com/kenshincui/p/4186022.html 音频在iOS中音频播放从形式上可以分为音效播放和音乐播放。前者主要指的是一些短音频播放，通常作为点缀音频，对于这类音频不需要进行进度、循环等控制。后者指的是一些较长的音...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/ba8eafb0d9dd?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/6c5ee0c138d4.jpg" alt="48">
+            </div>
+            <span class="name">Hyman0819</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/325d0794fcd0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">awesome-android</a>
+          <p class="description">作者：snowdream微信：sn0wdr1am原文地址：https://github.com/snowdream/awesome-android awesome-android Introduction android libs from github System re...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/748f0f7e6432?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/db65013f7c43" alt="48">
+            </div>
+            <span class="name">snowdream</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/1a792b14af3b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">awesome-android</a>
+          <p class="description">afinalAfinal是一个android的ioc，orm框架 https://github.com/yangfuhai/afinal xUtils**android orm, bitmap, http, view inject... https://github.com...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/e946d18f163c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/4-3397163ecdb3855a0a4139c34a695885.jpg" alt="48">
+            </div>
+            <span class="name">passiontim</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/e1df480726be?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/7298444-cf27e5a0060dac98.PNG" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/e1df480726be?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">【转】Android 开源项目分类汇总</a>
+          <p class="description">来源：https://github.com/Trinea/android-open-project 更多：Android 开源库获取途径整理 目前包括： Android 开源项目第一篇——个性化控件(View)篇 包括ListView、ActionBar、Menu、View...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/9ceb5a99d2c7?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/ca469c70-20c8-40c1-aa18-602979f3da7f.jpg" alt="48">
+            </div>
+            <span class="name">旭川君</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/02b56ad0c13c?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/1662260-5f483da3bef153db.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/02b56ad0c13c?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">馕你个馕</a>
+          <p class="description">哦哈哈哈哈……哈哈哈……哈哈哈……允许我先大笑几声，因为决定写这篇文章的时候我自己一直在笑。作为一个土生土长的新疆妹子，又这么爱吃馕，一定要给馕写篇文章。 -01- 什么是馕？ 很多外地的朋友都不太清楚，大饼九大饼嘛，什么馕啊，你们新疆人好奇怪啊，哎，你们那个馕怎么做的啊？...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/e8066cfd08fb?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/14e4eb71-059d-4491-8b66-fb2fd6766c47.jpg" alt="48">
+            </div>
+            <span class="name">花木真</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/ad486dc62c89?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">一</a>
+          <p class="description">雨坠帘生雾， 昏云覆老天。 风吹湖面皱， 滟影跳红莲。</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/afd8957eab40?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/8da63bf9-e552-4486-92c6-fa9d1b2f8405.jpg" alt="48">
+            </div>
+            <span class="name">浮零先生</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/7cec5a969e03?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">a标签中的target属性</a>
+          <p class="description">定义和用法### a标签的target属性规定在何处打开链接文档如果在一个 a 标签内包含一个 target 属性，浏览器将会载入和显示用这个标签的 href 属性命名的、名称与这个目标吻合的框架或者窗口中的文档。如果这个指定名称或 id 的框架或者窗口不存在，浏览器将打开...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/7b3b868a79f6?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/5dce7a65-919e-4da0-9ec6-9e3bd1f28cdf.jpg" alt="48">
+            </div>
+            <span class="name">夜尽天明Gping</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/3c7a0771b67e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/2846604-8111c0d6053c375d.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/3c7a0771b67e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">TCP状态机</a>
+          <p class="description">前言 本文将会首先介绍TCP的各个状态，然后描述TCP三次握手和四次挥手时的状态变化，最后重点介绍TIME_WAIT状态。 TCP连接状态 一个TCP连接在它的生命周期内会有不同的状态。 下图说明了TCP连接可能会有的状态，以及基于事件的状态转换。事件中有的是应用程序的操作...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/bfa67ea891bf?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/791c3d109ac0.jpg" alt="48">
+            </div>
+            <span class="name">黄索远</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/65728874878a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">我们之间</a>
+          <p class="description">终于迎来了我的大学，心中万分激动。我参加了志愿者，从此认识了你。 我们之间刚开始不是那么熟，可不知为什么，突然有一段时间，我们变得超级好。我们总是一起出去玩，我走不动了，便会拉着你的书包，拉多了之后，你总会说感觉有人在拉你，可有时我并没有；因为我怕过马路，你还会主动拉我或是...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/3db65e15af18?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Google Exoplayer 完成视频、音频播放 - 简书_files/bd2c4b2eb7d6.jpeg" alt="48">
+            </div>
+            <span class="name">姚姚稀饭</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"9766d4d2-d84b-45c6-b591-f875c2ef5f85"},"note":{"id":7492923,"slug":"e4b3cb3df0b2","user_id":634730,"notebook_id":2399284,"commentable":true,"likes_count":44,"views_count":10991,"public_wordage":3229,"comments_count":14,"total_rewards_count":0,"is_author":false,"author":{"nickname":"SavySoda","total_wordage":14325,"followers_count":152,"total_likes_count":263}}}</script>
+    
+    <script src="./Google Exoplayer 完成视频、音频播放 - 简书_files/babel-polyfill-e27dec85eeb94683dfc7.js.下载" crossorigin="anonymous"></script>
+    <script src="./Google Exoplayer 完成视频、音频播放 - 简书_files/web-base-5ebaf93eeb835762c6d1.js.下载" crossorigin="anonymous"></script>
+<script src="./Google Exoplayer 完成视频、音频播放 - 简书_files/web-27e3d8946c99e6bd86e7.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./Google Exoplayer 完成视频、音频播放 - 简书_files/entry-9e28293f23f7fa89210f.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

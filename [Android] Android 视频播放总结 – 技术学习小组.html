@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://blog.qiji.tech/archives/7908 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>[Android] Android 视频播放总结 – 技术学习小组</title>
+<link rel="dns-prefetch" href="http://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="技术学习小组 » Feed" href="http://blog.qiji.tech/feed">
+<link rel="alternate" type="application/rss+xml" title="技术学习小组 » 评论Feed" href="http://blog.qiji.tech/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="技术学习小组 » [Android] Android 视频播放总结评论Feed" href="http://blog.qiji.tech/archives/7908/feed">
+		<script src="./[Android] Android 视频播放总结 – 技术学习小组_files/hm.js.下载"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/blog.qiji.tech\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8.1"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,56826,8203,55356,56819),0,0),c=j.toDataURL(),b===c&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55358,56794,8205,9794,65039),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55358,56794,8203,9794,65039),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./[Android] Android 视频播放总结 – 技术学习小组_files/wp-emoji-release.min.js.下载" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="crayon-css" href="./[Android] Android 视频播放总结 – 技术学习小组_files/crayon.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-tomorrow-night-css" href="./[Android] Android 视频播放总结 – 技术学习小组_files/tomorrow-night.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-monaco-css" href="./[Android] Android 视频播放总结 – 技术学习小组_files/monaco.css" type="text/css" media="all">
+<link rel="stylesheet" id="toc-screen-css" href="./[Android] Android 视频播放总结 – 技术学习小组_files/screen.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="theme-style-css" href="./[Android] Android 视频播放总结 – 技术学习小组_files/style.css" type="text/css" media="all">
+<style id="theme-style-inline-css" type="text/css">
+ 
+				/* Links */
+				a, 
+				a:visited { color:#a03717; }
+				a:hover, 
+				.widget a:hover,
+				#primary-nav ul a:hover,
+				#footer-nav a:hover,
+				#breadcrumbs a:hover { color:#a03717; }
+				
+				/* Theme Color */
+				#commentform #submit, 
+				.st_faq h2.active .action, 
+				.widget_categories ul span, 
+				.pagination .current, 
+				.tags a, 
+				.page-links span,
+				#comments .comment-meta .author-badge,
+				input[type="reset"],
+				input[type="submit"],
+				input[type="button"] { background: #a03717; }
+				#live-search #searchsubmit, input[type="submit"] { background-color: #a03717; }
+				.tags a:before { border-color: transparent #a03717 transparent transparent; }
+				#primary-nav { top: px; }
+
+				
+				
+				
+</style>
+<link rel="stylesheet" id="theme-font-css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700&amp;subset=latin,latin-ext" type="text/css" media="all">
+<link rel="stylesheet" id="font-awesome-css" href="./[Android] Android 视频播放总结 – 技术学习小组_files/font-awesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="shortcodes-css" href="./[Android] Android 视频播放总结 – 技术学习小组_files/shortcodes.css" type="text/css" media="all">
+<link rel="stylesheet" id="meks-author-widget-css" href="./[Android] Android 视频播放总结 – 技术学习小组_files/style(1).css" type="text/css" media="all">
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/jquery.js.下载"></script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/jquery-migrate.min.js.下载"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"http:\/\/blog.qiji.tech\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"\u4f7f\u7528 %s \u590d\u5236\uff0c\u4f7f\u7528 %s \u7c98\u8d34\u3002","minimize":"\u70b9\u51fb\u5c55\u5f00\u4ee3\u7801"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/crayon.min.js.下载"></script>
+<link rel="https://api.w.org/" href="http://blog.qiji.tech/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.qiji.tech/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.qiji.tech/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.8.1">
+<link rel="canonical" href="http://blog.qiji.tech/archives/7908">
+<link rel="shortlink" href="http://blog.qiji.tech/?p=7908">
+<link rel="alternate" type="application/json+oembed" href="http://blog.qiji.tech/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.qiji.tech%2Farchives%2F7908">
+<link rel="alternate" type="text/xml+oembed" href="http://blog.qiji.tech/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.qiji.tech%2Farchives%2F7908&amp;format=xml">
+<!--[if lt IE 9]><script src="http://blog.qiji.tech/wp-content/themes/knowhow/js/html5.js"></script><![endif]--><!--[if (gte IE 6)&(lte IE 8)]><script src="http://blog.qiji.tech/wp-content/themes/knowhow/js/selectivizr-min.js"></script><![endif]-->  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?5a58abd9d66cc31f52cce056c2975613";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+</head>
+<body class="post-template-default single single-post postid-7908 single-format-standard">
+
+<!-- #site-container -->
+<div id="site-container" class="clearfix">
+
+<!-- #primary-nav-mobile -->
+<nav id="primary-nav-mobile">
+<a class="menu-toggle clearfix" href="http://blog.qiji.tech/archives/7908#"><i class="fa fa-reorder"></i></a>
+<ul id="mobile-menu" class="clearfix"><li id="menu-item-782" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-782"><a href="http://blog.qiji.tech/">首页</a></li>
+<li id="menu-item-3785" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3785"><a href="http://blog.qiji.tech/about-us">关于我们</a></li>
+<li id="menu-item-3078" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3078"><a href="http://blog.qiji.tech/join-us">技术学习小组加入流程</a></li>
+<li id="menu-item-7243" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7243"><a href="http://blog.qiji.tech/coolcode">趣编程报名流程</a></li>
+<li id="menu-item-5311" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5311"><a href="http://blog.qiji.tech/join-project-develop">项目参与流程</a></li>
+</ul></nav>
+<!-- /#primary-nav-mobile -->
+
+<!-- #header -->
+<header id="site-header" class="clearfix" role="banner">
+<div class="container">
+
+<!-- #logo -->
+  <div id="logo">
+          <a title="技术学习小组" href="http://blog.qiji.tech/">
+            技术学习小组            </a>
+       </div>
+<!-- /#logo -->
+<!-- #primary-nav -->
+<nav id="primary-nav" role="navigation" class="clearfix">
+      <ul id="menu-header" class="nav sf-menu clearfix sf-js-enabled"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-782"><a href="http://blog.qiji.tech/">首页</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3785"><a href="http://blog.qiji.tech/about-us">关于我们</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3078"><a href="http://blog.qiji.tech/join-us">技术学习小组加入流程</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7243"><a href="http://blog.qiji.tech/coolcode">趣编程报名流程</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5311"><a href="http://blog.qiji.tech/join-project-develop">项目参与流程</a></li>
+</ul>    </nav>
+<!-- #primary-nav -->
+
+</div>
+</header>
+<!-- /#header -->
+
+<!-- #live-search -->
+    <div id="live-search">
+    <div class="container">
+    <div id="search-wrap">
+      <form role="search" method="get" id="searchform" class="clearfix" action="http://blog.qiji.tech/">
+        <input type="text" onfocus="if (this.value == &#39;输入你想了解的技术&#39;) {this.value = &#39;&#39;;}" onblur="if (this.value == &#39;&#39;)  {this.value = &#39;输入你想了解的技术&#39;;}" value="输入你想了解的技术" name="s" id="s" autocapitalize="off" autocorrect="off" autocomplete="off">
+        <i class="live-search-loading fa fa-spinner fa-spin"></i>
+        <button type="submit" id="searchsubmit">
+                <i class="fa fa-search"></i><span>Search</span>
+            </button>
+      </form>
+      </div>
+    </div>
+    </div>
+<!-- /#live-search -->
+
+<!-- #primary -->
+<div id="primary" class="sidebar-right clearfix"> 
+<!-- .container -->
+<div class="container">
+
+  <!-- #content -->
+  <section id="content" role="main">
+  
+<!-- #page-header -->
+<header id="page-header" class="clearfix">
+  <h1 class="page-title">[Android] Android 视频播放总结</h1>
+  <div id="breadcrumbs"><a href="http://blog.qiji.tech/"><icon class="fa fa-home"></icon></a><span class="sep">/</span><a href="http://blog.qiji.tech/archives/category/android" title="View all posts in Android">Android</a> <span class="sep">/</span>[Android] Android 视频播放总结</div></header>
+<!-- /#page-header --> 
+
+ 
+
+    
+  
+<ul class="entry-meta clearfix">
+
+<li class="date"> 
+    <i class="fa fa-time"></i>
+    <time datetime="2016-03-28" itemprop="datePublished">2016年3月28日</time>
+</li>
+
+<li class="author">
+    <i class="fa fa-user"></i>
+	崔飞</li>
+
+
+<li class="category">
+    <i class="fa fa-folder-close"></i>
+    <a href="http://blog.qiji.tech/archives/category/android" rel="category tag">Android</a>    </li>
+
+
+</ul>
+  
+    <article id="post-7908" class="clearfix post-7908 post type-post status-publish format-standard hentry category-android tag-android tag-340">
+    
+	<!-- .entry-header -->
+	<header class="entry-header">
+    
+        	    
+	</header>
+	<!-- /.entry-header -->
+      
+        
+        <div class="entry-content">
+          <h2 id=""><span id="i">前言</span></h2>
+<p>本篇文章主要介绍 Android 原生 VideoView，Google 开源视频播放框架 ExoPlayer，Vitamio 视频播放框架以及 Bilibili 开源视频播放框架 ijkplayer 的使用方法和优缺点。</p>
+<h2 id="videoview"><span id="VideoView">VideoView</span></h2>
+<p>VideoView 的使用非常简单，播放视频的步骤：</p>
+<ol>
+<li>
+<p>在界面布局文件中定义 VideoView 组件，或在程序中创建 VideoView 组件</p>
+</li>
+<li>
+<p>调用 VideoView 的如下两个方法来加载指定的视频：</p>
+<ul>
+<li>
+<p>setVidePath(String path)：加载 path 文件代表的视频</p>
+</li>
+<li>
+<p>setVideoURI(Uri uri)：加载 uri 所对应的视频</p>
+</li>
+</ul>
+</li>
+<li>
+<p>调用 VideoView 的 start()、stop()、psuse() 方法来控制视频的播放</p>
+</li>
+</ol>
+<h2 id="exoplayer"><span id="ExoPlayer">ExoPlayer</span></h2>
+<p><a href="https://github.com/google/ExoPlayer.git">ExoPlayer Git 地址</a></p>
+<h3 id=""><span id="i-2">用法</span></h3>
+<p>ExoPlayer 开源项目包含了 library 和 示例：</p>
+<ul>
+<li>ExoPlayer library – 这部分是核心的库</li>
+<li>Demo app – 这部分是演示怎么使用 ExoPlayer 的 Demo</li>
+</ul>
+<p>ExoPlayer 库的核心类是 ExoPlayer 类。该类维护了播放器的全局状态 。比如如何获取媒体数据，如何缓冲以及是怎样的编码格式。</p>
+<p>ExoPlayer 基于 MediaCodec 和 AudioTrack 提供了默认的音视频的 TrackRenderer 实现。所有的 renderers 都需要 SampleSource 对象，ExoPlayer 从 SampleSource 获得 media samples 用于播放。下图展示了 ExoPlayer 是如何配置组合这些组件用于播放音视频的。<br>
+<a href="./[Android] Android 视频播放总结 – 技术学习小组_files/standard-model.png"><img src="./[Android] Android 视频播放总结 – 技术学习小组_files/standard-model.png" alt="standard-model" title=""></a></p>
+<p>ExoPlayer 库提供了一些不同类型的 SampleSource 实例：</p>
+<ul>
+<li>ExtractorSampleSource – 用于 MP3，M4A，WebM，MPEG-TS 和 AAC；</li>
+<li>ChunkSampleSource – 用于 DASH 和平滑流的播放；</li>
+<li>HlsSampleSource – 用于 HLS 播放；</li>
+</ul>
+<p>在 ExoPlayer 的 Dome 中使用 DemoPlayer 对 ExoPlayer 进行了封装，并提供了使用上述几种 SampleSource 构建 TrackRenderer 的 Builder。</p>
+<ul>
+<li>SmoothStreamingRendererBuilder</li>
+<li>DashRendererBuilder</li>
+<li>ExtractorRendererBuilder</li>
+</ul>
+<p>在使用的时候我们根据不同的需求创建对应的 RendererBuilder，然后将 RendererBuilder 传递给 DemoPlayer 然后调用 DemoPlayer 的 setPlayWhenReady 方法。</p>
+<h3 id=""><span id="i-3">优缺点</span></h3>
+<p>ExoPlayer 相较于 MediaPlayer 有很多很多的优点：</p>
+<ul>
+<li>支持动态的自适应流 HTTP (DASH) 和 平滑流，任何目前 MediaPlayer 支持的视频格式（同时它还支持 HTTP 直播(HLS)，MP4，MP3，WebM，M4A，MPEG-TS 和 AAC）。</li>
+<li>支持高级的 HLS 特性，例如正确处理 EXT-X-DISCONTINUITY 标签；</li>
+<li>支持自定义和扩治你的使用场景。ExoPlayer 专门为此设计；</li>
+<li>便于随着 App 的升级而升级。因为 ExoPlayer 是一个包含在你的应用中的库，对于你使用哪个版本有完全的控制权，并且你可以简单的跟随应用的升级而升级；</li>
+<li>更少的适配性问题。</li>
+</ul>
+<p>ExoPlayer 的缺点：</p>
+<ul>
+<li>ExoPlayer 的音频和视频组件依赖 Android 的 MediaCodec 接口，该接口发布于 Android4.1（API 等级 16）。因此它不能工作于之前的Android 版本。</li>
+</ul>
+<h2 id="vitamio"><span id="Vitamio">Vitamio</span></h2>
+<p><a href="https://github.com/yixia/VitamioBundle.git">Vitamio demo 地址</a></p>
+<h3 id=""><span id="i-4">用法</span></h3>
+<p>Vitamio 的使用步骤：</p>
+<p>1.下载 Vitamio 库，并作为工程依赖。</p>
+<p>2.在 Activity 的 onCreate 方法中添加如下代码，初始化 Vitamio 的解码器</p>
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a586cd893b3c182464724" class="crayon-syntax crayon-theme-tomorrow-night crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">@Override public void onCreate(Bundle icicle) {
+  super.onCreate(icicle);
+  if (!LibsChecker.checkVitamioLibs(this)) 
+  return;
+}
+</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a586cd893b3c182464724-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b3c182464724-2">2</div><div class="crayon-num" data-line="crayon-5a586cd893b3c182464724-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b3c182464724-4">4</div><div class="crayon-num" data-line="crayon-5a586cd893b3c182464724-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b3c182464724-6">6</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a586cd893b3c182464724-1"><span class="crayon-sy">@</span><span class="crayon-e">Override </span><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-e">onCreate</span><span class="crayon-sy">(</span><span class="crayon-e">Bundle </span><span class="crayon-v">icicle</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b3c182464724-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-r">super</span><span class="crayon-sy">.</span><span class="crayon-e">onCreate</span><span class="crayon-sy">(</span><span class="crayon-v">icicle</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5a586cd893b3c182464724-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-o">!</span><span class="crayon-v">LibsChecker</span><span class="crayon-sy">.</span><span class="crayon-e">checkVitamioLibs</span><span class="crayon-sy">(</span><span class="crayon-r">this</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b3c182464724-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5a586cd893b3c182464724-5"><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b3c182464724-6">&nbsp;</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0019 seconds] -->
+<p></p>
+<p>3.在 AndroidManifest.xml 中声明 InitActivity</p>
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a586cd893b4a055940009" class="crayon-syntax crayon-theme-tomorrow-night crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">&lt;activity android:name="io.vov.vitamio.activity.InitActivity" android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
+android:launchMode="singleTop" android:theme="@android:style/Theme.NoTitleBar"
+android:windowSoftInputMode="stateAlwaysHidden"/&gt;
+</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a586cd893b4a055940009-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b4a055940009-2">2</div><div class="crayon-num" data-line="crayon-5a586cd893b4a055940009-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b4a055940009-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a586cd893b4a055940009-1"><span class="crayon-o">&lt;</span><span class="crayon-e">activity </span><span class="crayon-v">android</span><span class="crayon-o">:</span><span class="crayon-v">name</span><span class="crayon-o">=</span><span class="crayon-s">"io.vov.vitamio.activity.InitActivity"</span><span class="crayon-h"> </span><span class="crayon-v">android</span><span class="crayon-o">:</span><span class="crayon-v">configChanges</span><span class="crayon-o">=</span><span class="crayon-s">"orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b4a055940009-2"><span class="crayon-v">android</span><span class="crayon-o">:</span><span class="crayon-v">launchMode</span><span class="crayon-o">=</span><span class="crayon-s">"singleTop"</span><span class="crayon-h"> </span><span class="crayon-v">android</span><span class="crayon-o">:</span><span class="crayon-v">theme</span><span class="crayon-o">=</span><span class="crayon-s">"@android:style/Theme.NoTitleBar"</span></div><div class="crayon-line" id="crayon-5a586cd893b4a055940009-3"><span class="crayon-v">android</span><span class="crayon-o">:</span><span class="crayon-v">windowSoftInputMode</span><span class="crayon-o">=</span><span class="crayon-s">"stateAlwaysHidden"</span><span class="crayon-o">/</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b4a055940009-4">&nbsp;</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p></p>
+<p>4.其余步骤和使用 Android 原生的 VideoView 是一样的。</p>
+<h3 id=""><span id="i-5">优点</span></h3>
+<ul>
+<li>强大，支持超多格式视频和网络视频播放。</li>
+<li>使用简单。调用非常简单，方便使用。</li>
+</ul>
+<p>其官方还给出了其他很多优点，但是个人觉得不足以成为优点。</p>
+<h2 id="ijkplayer"><span id="ijkplayer">ijkplayer</span></h2>
+<p><a href="https://github.com/Bilibili/ijkplayer.git">ijkplayer 项目地址</a></p>
+<h3 id=""><span id="i-6">用法</span></h3>
+<p>1.clone ijkplayer 项目到本地</p>
+<p>2.编译 ijkplayer</p>
+<p>下面是我的编译环境</p>
+<ul>
+<li>编译环境 Mac OS X 10.10.5</li>
+<li>Android
+<ul>
+<li>NDK — android-ndk-r10e</li>
+<li>Android Studio 1.3.1</li>
+<li>Gradle 2.4</li>
+</ul>
+</li>
+</ul>
+<p>编译之前要安装 homebrew, git, yasm。</p>
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a586cd893b4e650738950" class="crayon-syntax crayon-theme-tomorrow-night crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+ brew install git
+ brew install yasm
+</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a586cd893b4e650738950-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b4e650738950-2">2</div><div class="crayon-num" data-line="crayon-5a586cd893b4e650738950-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b4e650738950-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a586cd893b4e650738950-1"><span class="crayon-v">ruby</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">e</span><span class="crayon-h"> </span><span class="crayon-s">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b4e650738950-2"><span class="crayon-h"> </span><span class="crayon-e">brew </span><span class="crayon-e">install </span><span class="crayon-e">git</span></div><div class="crayon-line" id="crayon-5a586cd893b4e650738950-3"><span class="crayon-e"> </span><span class="crayon-e">brew </span><span class="crayon-e">install </span><span class="crayon-i">yasm</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b4e650738950-4">&nbsp;</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p>
+<p>配置 NDK</p>
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a586cd893b52232523532" class="crayon-syntax crayon-theme-tomorrow-night crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;"># add these lines to your ~/.bash_profile or ~/.profile
+# export ANDROID_SDK=&lt;your sdk path&gt;
+# export ANDROID_NDK=&lt;your ndk path&gt;
+</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a586cd893b52232523532-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b52232523532-2">2</div><div class="crayon-num" data-line="crayon-5a586cd893b52232523532-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b52232523532-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a586cd893b52232523532-1"><span class="crayon-p"># add these lines to your ~/.bash_profile or ~/.profile</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b52232523532-2"><span class="crayon-p"># export ANDROID_SDK=&lt;your sdk path&gt;</span></div><div class="crayon-line" id="crayon-5a586cd893b52232523532-3"><span class="crayon-p"># export ANDROID_NDK=&lt;your ndk path&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b52232523532-4">&nbsp;</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p>
+<p>clone 项目</p>
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a586cd893b55612467789" class="crayon-syntax crayon-theme-tomorrow-night crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-android
+</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a586cd893b55612467789-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b55612467789-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a586cd893b55612467789-1"><span class="crayon-e">git </span><span class="crayon-r">clone</span><span class="crayon-h"> </span><span class="crayon-v">https</span><span class="crayon-o">:</span><span class="crayon-c">//github.com/Bilibili/ijkplayer.git ijkplayer-android</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b55612467789-2">&nbsp;</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p>
+<p>编译 ffmpeg </p>
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a586cd893b58768166535" class="crayon-syntax crayon-theme-tomorrow-night crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">cd ijkplayer-android 
+./init-android.sh 
+cd config
+rm module.sh
+ln -s module-default.sh module.sh
+cd android/contrib
+./compile-ffmpeg.sh clean
+./compile-ffmpeg.sh all
+</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a586cd893b58768166535-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b58768166535-2">2</div><div class="crayon-num" data-line="crayon-5a586cd893b58768166535-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b58768166535-4">4</div><div class="crayon-num" data-line="crayon-5a586cd893b58768166535-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b58768166535-6">6</div><div class="crayon-num" data-line="crayon-5a586cd893b58768166535-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b58768166535-8">8</div><div class="crayon-num" data-line="crayon-5a586cd893b58768166535-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a586cd893b58768166535-1"><span class="crayon-e">cd </span><span class="crayon-v">ijkplayer</span><span class="crayon-o">-</span><span class="crayon-i">android</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b58768166535-2"><span class="crayon-sy">.</span><span class="crayon-o">/</span><span class="crayon-v">init</span><span class="crayon-o">-</span><span class="crayon-v">android</span><span class="crayon-sy">.</span><span class="crayon-e">sh </span></div><div class="crayon-line" id="crayon-5a586cd893b58768166535-3"><span class="crayon-e">cd </span><span class="crayon-e">config</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b58768166535-4"><span class="crayon-e">rm </span><span class="crayon-v">module</span><span class="crayon-sy">.</span><span class="crayon-e">sh</span></div><div class="crayon-line" id="crayon-5a586cd893b58768166535-5"><span class="crayon-v">ln</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">s</span><span class="crayon-h"> </span><span class="crayon-v">module</span><span class="crayon-o">-</span><span class="crayon-st">default</span><span class="crayon-sy">.</span><span class="crayon-e">sh </span><span class="crayon-v">module</span><span class="crayon-sy">.</span><span class="crayon-e">sh</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b58768166535-6"><span class="crayon-e">cd </span><span class="crayon-v">android</span><span class="crayon-o">/</span><span class="crayon-i">contrib</span></div><div class="crayon-line" id="crayon-5a586cd893b58768166535-7"><span class="crayon-sy">.</span><span class="crayon-o">/</span><span class="crayon-v">compile</span><span class="crayon-o">-</span><span class="crayon-v">ffmpeg</span><span class="crayon-sy">.</span><span class="crayon-e">sh </span><span class="crayon-i">clean</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b58768166535-8"><span class="crayon-sy">.</span><span class="crayon-o">/</span><span class="crayon-v">compile</span><span class="crayon-o">-</span><span class="crayon-v">ffmpeg</span><span class="crayon-sy">.</span><span class="crayon-e">sh </span><span class="crayon-i">all</span></div><div class="crayon-line" id="crayon-5a586cd893b58768166535-9">&nbsp;</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p></p>
+<p>ffmpeg 编译通过后，编译 ijkplayer</p>
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a586cd893b5c333768972" class="crayon-syntax crayon-theme-tomorrow-night crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">cd ..
+./compile-ijk.sh all
+</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a586cd893b5c333768972-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a586cd893b5c333768972-2">2</div><div class="crayon-num" data-line="crayon-5a586cd893b5c333768972-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a586cd893b5c333768972-1"><span class="crayon-i">cd</span><span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-sy">.</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a586cd893b5c333768972-2"><span class="crayon-sy">.</span><span class="crayon-o">/</span><span class="crayon-v">compile</span><span class="crayon-o">-</span><span class="crayon-v">ijk</span><span class="crayon-sy">.</span><span class="crayon-e">sh </span><span class="crayon-i">all</span></div><div class="crayon-line" id="crayon-5a586cd893b5c333768972-3">&nbsp;</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p>
+<p>编译通过后在 android 目录下有 ijkplayer 文件夹，这个是 ijkplayer 的 demo。导入 Android Studio 即可。ijkplayer 的 demo 中提供了 IjkVideoView 类，它封装了 Android 原生的 MediaPlayer 、ExoPlayer 和 IjkMediaPlayer。可根据需要选择。</p>
+<h3 id=""><span id="i-7">优缺点</span></h3>
+<ul>
+<li>
+<p>ijkplayer 最大的优点就是可以根据需要编译需要的解码器。在编译的时候通过 ln -s module-default.sh module.sh 选择要编译的解码器。ijkplayer 在 config 目录下提供了三种 module.sh 。也可自己修改 module.sh 。</p>
+</li>
+<li>
+<p>ijkplayer 的缺点是库太大。加入项目后会大大增加你的 APP 的大小。</p>
+</li>
+</ul>
+                  </div>
+        
+                <div class="tags"><strong>Tagged:</strong><a href="http://blog.qiji.tech/archives/tag/android" rel="tag">Android</a><a href="http://blog.qiji.tech/archives/tag/%e5%a4%9a%e5%aa%92%e4%bd%93" rel="tag">多媒体</a></div>
+		 
+</article>
+
+    
+      
+
+<div id="comments" class="comments-area">
+
+	
+	
+	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">发表评论 <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://blog.qiji.tech/archives/7908#respond" style="display:none;">取消回复</a></small></h3>			<form action="http://blog.qiji.tech/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+				<p class="comment-notes"><span id="email-notes">电子邮件地址不会被公开。</span> 必填项已用<span class="required">*</span>标注</p><p class="comment-form-comment"><label for="comment">评论</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">姓名 <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"></p>
+<p class="comment-form-email"><label for="email">电子邮件 <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required"></p>
+<p class="comment-form-url"><label for="url">站点</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="发表评论"> <input type="hidden" name="comment_post_ID" value="7908" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1e7b0750a1"></p><p style="display: none;"></p>			<input type="hidden" id="ak_js" name="ak_js" value="1515744459088"></form>
+			</div><!-- #respond -->
+	
+</div><!-- #comments .comments-area -->    
+    
+</section>
+<!-- #content -->
+
+<!-- #sidebar -->
+<aside id="sidebar" role="complementary" class="q2w3-fixed-widget-container" style="height: 1090px;">
+<!-- fixed widget --><div id="text-13_clone" class="widget widget_text clearfix q2w3-widget-clone-st_primary" style="width: 243px; top: 10px; height: 235px; visibility: hidden;">			
+		</div><div id="text-13" class="widget widget_text clearfix" style="width: 243px; top: 10px; position: fixed;">			<div class="textwidget"><a href="http://coolcode.tech/" target="_blank"><img src="./[Android] Android 视频播放总结 – 技术学习小组_files/banner.png"></a>
+
+<br><br>
+如你对文章有问题，可联系下方『文章解疑人QQ』。为避免他人反感，维护良好学习社区，联系前请先阅读『<a href="http://doc.zengrong.net/smart-questions/cn.html">提问的智慧</a>』</div>
+		</div><!-- fixed widget --><div id="mks_author_widget-7_clone" class="widget mks_author_widget clearfix q2w3-widget-clone-st_primary" style="width: 243px; top: 285px; height: 100px; visibility: hidden;">
+		
+
+	
+	
+	
+
+
+
+
+</div><div id="mks_author_widget-7" class="widget mks_author_widget clearfix" style="width: 243px; top: 285px; position: fixed;"><h4 class="widget-title"><span>崔飞</span></h4>
+	<a href="http://blog.qiji.tech/archives/author/cuifei"><img src="./[Android] Android 视频播放总结 – 技术学习小组_files/arch_coder_logo_meitu_2-64x64.png" width="64" height="64" alt="" class="avatar avatar-64 wp-user-avatar wp-user-avatar-64 photo avatar-default"></a>	
+
+	<p><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=&amp;site=qq&amp;menu=yes">点击这里联系我</a></p>
+	
+	<div class="mks_autor_link_wrap"><a href="http://blog.qiji.tech/archives/author/cuifei" class="mks_author_link">技术之旅</a></div>
+
+
+
+
+</div><!-- fixed widget --><div id="toc-widget-10_clone" class="widget toc_widget clearfix q2w3-widget-clone-st_primary" style="width: 243px; top: 425px; height: 388px; visibility: hidden;"></div><div id="toc-widget-10" class="widget toc_widget clearfix" style="width: 243px; top: 425px; position: fixed;"><h4 class="widget-title"><span>目录</span></h4><ul class="toc_widget_list no_bullets"><li><a href="http://blog.qiji.tech/archives/7908#i"><span class="toc_number toc_depth_1">1</span> 前言</a></li><li><a href="http://blog.qiji.tech/archives/7908#VideoView"><span class="toc_number toc_depth_1">2</span> VideoView</a></li><li><a href="http://blog.qiji.tech/archives/7908#ExoPlayer"><span class="toc_number toc_depth_1">3</span> ExoPlayer</a><ul><li><a href="http://blog.qiji.tech/archives/7908#i-2"><span class="toc_number toc_depth_2">3.1</span> 用法</a></li><li><a href="http://blog.qiji.tech/archives/7908#i-3"><span class="toc_number toc_depth_2">3.2</span> 优缺点</a></li></ul></li><li><a href="http://blog.qiji.tech/archives/7908#Vitamio"><span class="toc_number toc_depth_1">4</span> Vitamio</a><ul><li><a href="http://blog.qiji.tech/archives/7908#i-4"><span class="toc_number toc_depth_2">4.1</span> 用法</a></li><li><a href="http://blog.qiji.tech/archives/7908#i-5"><span class="toc_number toc_depth_2">4.2</span> 优点</a></li></ul></li><li><a href="http://blog.qiji.tech/archives/7908#ijkplayer"><span class="toc_number toc_depth_1">5</span> ijkplayer</a><ul><li><a href="http://blog.qiji.tech/archives/7908#i-6"><span class="toc_number toc_depth_2">5.1</span> 用法</a></li><li><a href="http://blog.qiji.tech/archives/7908#i-7"><span class="toc_number toc_depth_2">5.2</span> 优缺点</a></li></ul></li></ul></div><!-- fixed widget --><div id="text-21_clone" class="widget widget_text clearfix q2w3-widget-clone-st_primary" style="width: 243px; top: 853px; height: 167px; visibility: hidden;">			
+		</div><div id="text-21" class="widget widget_text clearfix" style="width: 243px; top: 853px; position: fixed;"><h4 class="widget-title"><span>推荐书籍</span></h4>			<div class="textwidget"><ol>
+  <li><a href="http://blog.qiji.tech/archives/2118" target="_blank">[Head First Java] 深入浅出 Java</a></li>
+  <li><a href="http://blog.qiji.tech/archives/2467" target="_blank">[Thinking In Java]  Java 编程思想</a></li>
+  <li><a href="http://blog.qiji.tech/archives/2474" target="_blank">Android编程权威指南</a></li>
+  <li><a href="http://blog.qiji.tech/archives/2477" target="_blank">深入浅出 Android 开发</a></li>
+</ol></div>
+		</div><!-- #sidebar -->
+</aside>
+
+</div>
+<!-- .container -->
+</div>
+<!-- /#primary -->
+
+<!-- #footer-widgets -->
+<!-- /#footer-widgets -->
+
+<!-- #site-footer -->
+<footer id="site-footer" class="clearfix" role="contentinfo">
+<div class="container">
+
+    <nav id="footer-nav" role="navigation">
+    <ul id="menu-footer" class="nav-footer clearfix"><li id="menu-item-807" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-807"><a href="http://blog.qiji.tech/archives/794">Android 入门指南</a></li>
+<li id="menu-item-804" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-804"><a href="http://blog.qiji.tech/archives/801">iOS 入门指南</a></li>
+<li id="menu-item-806" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-806"><a href="http://blog.qiji.tech/archives/796">Laravel 入门</a></li>
+<li id="menu-item-805" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-805"><a href="http://blog.qiji.tech/archives/799">奇迹框架</a></li>
+</ul>  </nav>
+  
+
+  <small id="copyright">
+    © Copyright, <a href="http://herothemes.com/">奇迹空间（北京）科技有限公司</a>    </small>
+  
+</div>
+</footer> 
+<!-- /#site-footer -->
+
+<!-- /#site-container -->
+</div>
+
+	<script type="text/javascript">
+	jQuery(document).ready(function() {
+	jQuery('#live-search #s').liveSearch({url: 'http://blog.qiji.tech/index.php?ajax=1&s='});
+	});
+	</script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/front.min.js.下载"></script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/functions.js.下载"></script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/shortcodes.js.下载"></script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/comment-reply.min.js.下载"></script>
+<script type="text/javascript">
+var q2w3_sidebar_options = new Array();
+q2w3_sidebar_options[0] = { "sidebar" : "st_primary", "margin_top" : 10, "margin_bottom" : 0, "stop_id" : "", "screen_max_width" : 0, "screen_max_height" : 0, "width_inherit" : false, "refresh_interval" : 1500, "window_load_hook" : false, "disable_mo_api" : false, "widgets" : ['text-13','mks_author_widget-7','toc-widget-10','text-21'] };
+</script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/q2w3-fixed-widget.min.js.下载"></script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/wp-embed.min.js.下载"></script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/form.js.下载"></script>
+<script type="text/javascript" src="./[Android] Android 视频播放总结 – 技术学习小组_files/jquery.livesearch.js.下载"></script>
+
+
+<!-- Dynamic page generated in 0.377 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2018-01-12 16:07:52 -->
+
+<!-- Compression = gzip --><div id="jquery-live-search" style="display: none;"></div></body></html>
