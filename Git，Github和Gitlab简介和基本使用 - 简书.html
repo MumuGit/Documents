@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/8d497989f704 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/8d497989f704">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="作者 谢恩铭 转载请注明出处公众号「程序员联盟」（微信号：ProgrammerLeague ）原文：http://www.jianshu.com/p/8d497989f704 这年头不知道Git, 还真不好意思出门跟人家打招呼!不过假如您不知道, 或者不是太清楚, 那也没关系。可以先跟我打个招呼, 看完这篇文章, 就可以跟别人去打招呼了。:P 什么是Git Git是一个版本控制系统（Vers...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/8d497989f704">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/5085725">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="Git，Github和Gitlab简介和基本使用" property="twitter:title">
+  <meta content="作者 谢恩铭 转载请注明出处公众号「程序员联盟」（微信号：ProgrammerLeague ）原文：http://www.jianshu.com/p/8d497989f704 这年头不知道Git, 还真不好意思出门跟人家打招呼!不过假如您不知道, 或者不是太清楚, 那也没关系。可以先跟我打个招呼, 看完这篇文章, 就可以跟别人去打招呼了。:P 什么是Git Git是一个版本控制系统（Version Control System，VCS）。 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 多年前，我在法国做第一个实习时（2011年），那时候自己编程还在入门阶..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/8d497989f704" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="Git，Github和Gitlab简介和基本使用">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/8d497989f704">
+  <meta property="og:description" content="作者 谢恩铭 转载请注明出处公众号「程序员联盟」（微信号：ProgrammerLeague ）原文：http://www.jianshu.com/p/8d497989f704 这年头不知道Git...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/5085725">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/5085725">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>Git，Github和Gitlab简介和基本使用 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="L8DP5N3g8v7W2K9lKaN+W5UIaOarlGnhcpi8mY/qsYPl8ZQKWastBr5RcqFKwTgKMoMNP7GkpWXpnGa/r758dg==">
+
+  <link rel="stylesheet" media="all" href="./Git，Github和Gitlab简介和基本使用 - 简书_files/web-9a426ac97f34593e6662.css">
+  
+  <link rel="stylesheet" media="all" href="./Git，Github和Gitlab简介和基本使用 - 简书_files/entry-a5d96d4884b6cddc11f7.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./Git，Github和Gitlab简介和基本使用 - 简书_files/push.js.下载"></script><script src="./Git，Github和Gitlab简介和基本使用 - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.pc-bind-phone-modal .modal-content, .pc-bind-phone-modal .modal-body {
+  overflow: visible;
+}
+.pc-bind-phone-modal .dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+.pc-bind-phone-modal .dropdown-menu .tag {
+    background-color: #efefef;
+    color: #4A4A4A;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 25px;
+    font-size: 12px;
+}
+.reader-night-mode .pc-bind-phone-modal .dropdown-menu .tag {
+  background-color: #2F2F2F;
+  color: #999999;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.tips-card-loading[data-v-f3bf5228], .tips-card[data-v-f3bf5228] {
+  width: 460px;
+  position: relative;
+  left: 0;
+  top: 0;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d9d9d9;
+}
+.tips-card-loading[data-v-f3bf5228] {
+  height: 200px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+.tips-card-loading div[data-v-f3bf5228] {
+    background-color: #EAEAEA;
+}
+.tips-card-loading .avatar[data-v-f3bf5228] {
+    width: 72px !important;
+    height: 72px !important;
+    border-radius: 50%;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+.tips-card-loading .name[data-v-f3bf5228] {
+    width: 120px;
+    height: 20px;
+    position: absolute;
+    left: 110px;
+    top: 31px;
+}
+.tips-card-loading .content[data-v-f3bf5228] {
+    position: absolute;
+    left: 110px;
+    top: 62px;
+    width: 238px;
+    height: 39.2px;
+    background-color: transparent;
+}
+.tips-card-loading .content .text[data-v-f3bf5228], .tips-card-loading .content .text-delay[data-v-f3bf5228] {
+      height: 14px;
+      position: absolute;
+      left: 0;
+      width: 100%;
+}
+.tips-card-loading .content .text[data-v-f3bf5228] {
+      top: 2px;
+      -webkit-animation: loading-data-v-f3bf5228 1s ease-in-out infinite;
+      animation: loading-data-v-f3bf5228 1s ease-in-out infinite;
+}
+.tips-card-loading .content .text-delay[data-v-f3bf5228] {
+      bottom: 3px;
+      -webkit-animation: loading-data-v-f3bf5228 1s ease-in-out -0.5s infinite;
+      animation: loading-data-v-f3bf5228 1s ease-in-out -0.5s infinite;
+}
+@keyframes loading-data-v-f3bf5228 {
+0% {
+    width: 60%;
+}
+50% {
+    width: 100%;
+}
+100% {
+    width: 60%;
+}
+}
+@-webkit-keyframes loading {
+0% {
+    width: 60%;
+}
+50% {
+    width: 100%;
+}
+100% {
+    width: 60%;
+}
+}
+.tips-card-loading .meta[data-v-f3bf5228] {
+    width: 30px;
+    height: 42px;
+    position: absolute;
+    bottom: 20px;
+    background-color: transparent;
+}
+.tips-card-loading .meta.meta-1[data-v-f3bf5228] {
+      left: 30px;
+}
+.tips-card-loading .meta.meta-2[data-v-f3bf5228] {
+      left: 90px;
+}
+.tips-card-loading .meta.meta-3[data-v-f3bf5228] {
+      left: 150px;
+}
+.tips-card-loading .meta .count[data-v-f3bf5228], .tips-card-loading .meta .type[data-v-f3bf5228] {
+      position: absolute;
+}
+.tips-card-loading .meta .count[data-v-f3bf5228] {
+      left: -5px;
+      top: 6px;
+      height: 18px;
+      width: 40px;
+}
+.tips-card-loading .meta .type[data-v-f3bf5228] {
+      left: 1px;
+      bottom: 2px;
+      height: 13px;
+      width: 28px;
+}
+.tips-card-loading .button[data-v-f3bf5228] {
+    position: absolute;
+    bottom: 17px;
+    width: 90px;
+    height: 40px;
+    border-radius: 40px;
+}
+.tips-card-loading .message[data-v-f3bf5228] {
+    right: 120px;
+}
+.tips-card-loading .follow[data-v-f3bf5228] {
+    right: 17px;
+}
+.tips-card[data-v-f3bf5228] {
+  z-index: 10;
+}
+.tips-card .card-content[data-v-f3bf5228] {
+    padding: 20px 20px 0 20px;
+}
+.tips-card .card-content .summary[data-v-f3bf5228] {
+      padding: 8px 0 20px 90px;
+      min-height: 92px;
+      position: relative;
+}
+.tips-card .card-content .summary .avatar[data-v-f3bf5228] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 72px;
+        height: 72px;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #EAEAEA;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+.tips-card .card-content .summary .name[data-v-f3bf5228] {
+        height: 26px;
+        margin-right: 3px;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-pack: start;
+        -webkit-justify-content: flex-start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+}
+.tips-card .card-content .summary .name .nickname[data-v-f3bf5228] {
+          color: #333333;
+          font-size: 19px;
+          font-weight: bold;
+          overflow: hidden;
+          -o-text-overflow: ellipsis;
+             text-overflow: ellipsis;
+          white-space: nowrap;
+          cursor: pointer;
+}
+.tips-card .card-content .summary .name .sex[data-v-f3bf5228], .tips-card .card-content .summary .name .badge[data-v-f3bf5228] {
+          -webkit-flex-shrink: 0;
+              -ms-flex-negative: 0;
+                  flex-shrink: 0;
+          display: inline-block;
+}
+.tips-card .card-content .summary .name .sex[data-v-f3bf5228] {
+          font-size: 19px;
+          width: 19px;
+          margin: 0 4px;
+}
+.tips-card .card-content .summary .intro[data-v-f3bf5228] {
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin-bottom: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333333;
+}
+.tips-card .card-content .summary .intro.block[data-v-f3bf5228] {
+          color: #999999;
+}
+.tips-card .card-content .summary .list .item[data-v-f3bf5228] {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 13px;
+        color: #999999;
+        cursor: pointer;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        white-space: nowrap;
+}
+.tips-card .card-content .summary .list .item i[data-v-f3bf5228] {
+          margin-right: 2px;
+}
+.tips-card .card-footer[data-v-f3bf5228] {
+    border-top: 1px solid #F0F0F0;
+    padding: 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    overflow: hidden;
+    _zoom: 1;
+}
+.tips-card .card-footer .profile[data-v-f3bf5228] {
+      width: 198px;
+      overflow: hidden;
+      _zoom: 1;
+      float: left;
+}
+.tips-card .card-footer .profile div[data-v-f3bf5228] {
+        float: left;
+        width: 60px;
+        height: 44px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+}
+.tips-card .card-footer .profile div span[data-v-f3bf5228] {
+          display: block;
+          width: 100%;
+          text-align: center;
+}
+.tips-card .card-footer .profile div .type[data-v-f3bf5228] {
+          font-size: 13px;
+          color: #999999;
+}
+.tips-card .card-footer .profile div .count[data-v-f3bf5228] {
+          font-size: 18px;
+          color: #333333;
+}
+.tips-card .card-footer .social[data-v-f3bf5228] {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+          -ms-flex-pack: end;
+              justify-content: flex-end;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      float: right;
+      overflow: hidden;
+      _zoom: 1;
+}
+.tips-card .card-footer .social .message[data-v-f3bf5228] {
+        border: 1px solid rgba(59, 194, 29, 0.7);
+        color: #42C02E;
+        margin: 0 10px 0 16px;
+        font-size: 15px;
+        padding: 8px 0;
+        width: 90px;
+        border-radius: 40px;
+        text-align: center;
+        cursor: pointer;
+        float: left;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+}
+.tips-card .card-footer .social .message[data-v-f3bf5228]:hover {
+          border: 1px solid #42C02E;
+          color: #42C02E;
+          background-color: rgba(59, 194, 29, 0.05);
+}
+.tips-card .card-footer .social .user-follow-button[data-v-f3bf5228] {
+        font-size: 15px;
+        padding: 8px 0;
+        width: 100px;
+}
+.arrow[data-v-f3bf5228] {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  left: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+.arrow i[data-v-f3bf5228] {
+    position: absolute;
+    left: 50%;
+    margin: 0;
+    margin-left: -10px;
+    border-width: 10px;
+    border-color: transparent;
+    padding: 0;
+}
+.arrow em[data-v-f3bf5228] {
+    display: block;
+    position: absolute;
+    left: -9px;
+    border-width: 9px;
+    border-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+.arrow-type-top[data-v-f3bf5228] {
+  bottom: 1px;
+}
+.arrow-type-top i[data-v-f3bf5228] {
+    border-top-color: #d9d9d9;
+    border-style: solid dashed dashed;
+    top: 0;
+}
+.arrow-type-top em[data-v-f3bf5228] {
+    border-style: solid dashed dashed;
+    border-top-color: #ffffff;
+    top: -10px;
+}
+.arrow-type-bottom[data-v-f3bf5228] {
+  top: 1px;
+}
+.arrow-type-bottom i[data-v-f3bf5228] {
+    border-bottom-color: #d9d9d9;
+    border-style: dashed dashed solid;
+    top: -10px;
+}
+.arrow-type-bottom em[data-v-f3bf5228] {
+    border-style: dashed dashed solid;
+    border-bottom-color: #ffffff;
+    top: -8px;
+}
+.reader-night-mode .tips-card-loading[data-v-f3bf5228] {
+  background-color: #3F3F3F;
+  border-color: #2F2F2F;
+}
+.reader-night-mode .tips-card-loading .avatar[data-v-f3bf5228], .reader-night-mode .tips-card-loading .name[data-v-f3bf5228], .reader-night-mode .tips-card-loading .text[data-v-f3bf5228], .reader-night-mode .tips-card-loading .text-delay[data-v-f3bf5228], .reader-night-mode .tips-card-loading .count[data-v-f3bf5228], .reader-night-mode .tips-card-loading .type[data-v-f3bf5228], .reader-night-mode .tips-card-loading .button[data-v-f3bf5228] {
+    background-color: #545454;
+}
+.reader-night-mode .tips-card[data-v-f3bf5228] {
+  background-color: #3F3F3F;
+  border-color: #2F2F2F;
+}
+.reader-night-mode .tips-card .card-content .summary .name .nickname[data-v-f3bf5228] {
+    color: #C8C8C8;
+}
+.reader-night-mode .tips-card .card-content .summary .name .nickname[data-v-f3bf5228]:hover {
+      color: #ffffff;
+}
+.reader-night-mode .tips-card .card-content .summary .intro[data-v-f3bf5228] {
+    color: #C8C8C8;
+}
+.reader-night-mode .tips-card .card-footer[data-v-f3bf5228] {
+    border-top-color: #2F2F2F;
+}
+.reader-night-mode .tips-card .card-footer .profile div .count[data-v-f3bf5228] {
+      color: #C8C8C8;
+}
+.reader-night-mode .arrow.arrow-type-top em[data-v-f3bf5228] {
+  border-top-color: #3F3F3F;
+}
+.reader-night-mode .arrow.arrow-type-top i[data-v-f3bf5228] {
+  border-top-color: #2F2F2F;
+}
+.reader-night-mode .arrow.arrow-type-bottom em[data-v-f3bf5228] {
+  border-bottom-color: #3F3F3F;
+}
+.reader-night-mode .arrow.arrow-type-bottom i[data-v-f3bf5228] {
+  border-bottom-color: #2F2F2F;
+}
+</style><style type="text/css">
+.v-tooltip-container,
+.v-tooltip-content {
+  display: inline-block;
+}
+.v-tooltip-container {
+  position: relative;
+}
+.v-tooltip-container .v-tooltip-content {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+.v-tooltip-container .v-tooltip-wrap {
+    position: absolute;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top {
+      bottom: 100%;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom {
+      top: 100%;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left {
+      top: 50%;
+      right: 100%;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right {
+      top: 50%;
+      left: 100%;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+      padding-left: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top-start {
+      bottom: 100%;
+      left: 0;
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-top-end {
+      bottom: 100%;
+      right: 0;
+      padding-bottom: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom-start {
+      top: 100%;
+      left: 0;
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-bottom-end {
+      top: 100%;
+      right: 0;
+      padding-top: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left-start {
+      top: 0;
+      right: 100%;
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-left-end {
+      bottom: 0;
+      right: 100%;
+      padding-right: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right-start {
+      top: 0;
+      left: 100%;
+      padding-left: 10px;
+}
+.v-tooltip-container .v-tooltip-wrap.v-tooltip-wrap-right-end {
+      bottom: 0;
+      left: 100%;
+      padding-left: 10px;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1331.5px; display: inline;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">Git，Github和Gitlab简介和基本使用</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/44339a8a9afa">
+            <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/454c504e-6572-4250-b466-b65962d6e4cb.jpg" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/44339a8a9afa">程序员联盟</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.04 00:49">2016.08.03 05:19*</span>
+              <span class="wordage">字数 2325</span>
+            <span class="views-count">阅读 41290</span><span class="comments-count">评论 35</span><span class="likes-count">喜欢 259</span><span class="rewards-count ">赞赏 1</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 500px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 55.559999999999995%;"></div>
+<div class="image-view" data-width="900" data-height="500"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-0048cd1cd2abd677.jpg" data-original-width="900" data-original-height="500" data-original-format="image/jpeg" data-original-filesize="23284" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-0048cd1cd2abd677.jpg"></div>
+</div>
+<div class="image-caption"></div>
+</div>
+<blockquote>
+<p>作者 谢恩铭 转载请注明出处<br>
+公众号「<a href="https://link.jianshu.com/?t=https://github.com/frogoscar/ProgrammerLeague/blob/master/qrcode.jpg" target="_blank" rel="nofollow">程序员联盟</a>」（微信号：ProgrammerLeague ）<br>
+原文：<a href="https://www.jianshu.com/p/8d497989f704" target="_blank">http://www.jianshu.com/p/8d497989f704</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>这年头不知道Git, 还真不好意思出门跟人家打招呼!<br>
+不过假如您不知道, 或者不是太清楚, 那也没关系。可以先跟我打个招呼, 看完这篇文章, 就可以跟别人去打招呼了。:P</p>
+</blockquote>
+<h2>什么是Git</h2>
+<hr>
+<p>Git是一个版本控制系统（Version Control System，VCS）。</p>
+<p>版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。</p>
+<p>多年前，我在法国做第一个实习时（2011年），那时候自己编程还在入门阶段，根本没听过版本控制系统。</p>
+<p>那时候真是蠢（现在也没好到哪里去），每次修改多一点的代码，就要复制、黏贴整个项目目录。因此，公司的电脑里有着几十个项目的副本（简直了）。</p>
+<p>前不久，我看到公司的一个实习生也在做和我多年前同样的事。而且我们问他，他说没听说过版本控制系统...</p>
+<p>现在，我用Git也有几年了吧。绝对是越用越爽，不用不爽；一朝使用，爱不释手。</p>
+<p>每天到公司第一件事，开电脑；第二件事，在终端中切换到项目目录，然后输入Git命令。</p>
+<p>有了版本控制系统，就可以不用担心文件丢失，不小心误修改文件等等“事故”，而且你可以随便回到历史记录的某个时刻。</p>
+<p>SVN, CVS这类早期的集中式版本控制系统，都有一个单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。</p>
+<p>它们的原理类似下图：</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 500px; max-height: 392px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 78.4%;"></div>
+<div class="image-view" data-width="500" data-height="392"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-8980fa82cabbeec1.jpg" data-original-width="500" data-original-height="392" data-original-format="image/jpeg" data-original-filesize="15253" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-8980fa82cabbeec1.jpg"></div>
+</div>
+<div class="image-caption">集中式版本控制系统</div>
+</div>
+<p>而Git或Mercurial这类分布式版本控制系统, 才是现代的首选。因为分布式的优势绝对显著。</p>
+<p>在分布式版本控制系统里，客户端并不只提取最新版本的文件快照，而是把代码仓库完整地镜像下来。</p>
+<p>这么一来，任何一处协同工作用的服务器发生故障，事后都可以用任何一个镜像出来的本地仓库恢复。因为每一次的提取操作，实际上都是一次对代码仓库的完整备份。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 500px; max-height: 563px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 112.6%;"></div>
+<div class="image-view" data-width="500" data-height="563"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-b8acd895496da35c.jpg" data-original-width="500" data-original-height="563" data-original-format="image/jpeg" data-original-filesize="19297" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-b8acd895496da35c.jpg"></div>
+</div>
+<div class="image-caption">分布式版本控制系统</div>
+</div>
+<p>现在，Google, Facebook, Microsoft等世界级公司每天在用Git。</p>
+<p>众所周知，IT界大牛很多, 但是大牛中的大牛稀少。</p>
+<p>Linus Torvalds就是其中之一。</p>
+<p>Linus Torvalds不但开创了Linux操作系统(当然了, 开源社区对Linux贡献极大, 参看我的<a href="https://link.jianshu.com/?t=http://mp.weixin.qq.com/s?__biz=MzAxMTE3MDkyMA==&amp;mid=207935330&amp;idx=1&amp;sn=194bde10392d3a9f54ce73b255a48ec3&amp;scene=21#wechat_redirect" target="_blank" rel="nofollow">【Linux探索之旅】开宗明义+第一部分第一课：什么是Linux？</a>), 而且他发明了Git版本控制系统。</p>
+<p>现在的Android系统底层就是基于更改过的Linux系统，你说Linus Torvalds是不是贡献极大。</p>
+<p>Git的诞生很有趣：</p>
+<p>2005年Linux 内核开发社区正面临严峻的挑战：他们不能继续使用 BitKeeper（一个分布式版本控制系统） 了（原因是当时Bitkeeper 著作权所有者决定收回授权，内核开发团队与其协商无果），而又没有其他的 SCM （Software Configuration Management）可满足他们的分布式系统的需求。</p>
+<p>Linux 之父 Linus Torvalds 接受了这个挑战，决定开发一个新的版本控制系统。周末他消失了，新的一周，Git 问世了。LT就是威武。</p>
+<p>Atlassian为Git做了一个10年的纪录图。</p>
+<p><a href="https://link.jianshu.com/?t=https://www.atlassian.com/git/articles/10-years-of-git/" target="_blank" rel="nofollow">https://www.atlassian.com/git/articles/10-years-of-git/</a></p>
+<h2>Git配置和常用命令</h2>
+<hr>
+<p>安装Git很简单，在Ubuntu等Debian族的Linux系统上，只要输入下面命令：</p>
+<pre class="hljs undefined"><code>sudo apt-get install git-all
+</code></pre>
+<p>关于安装Git，可以看这个链接</p>
+<p><a href="https://link.jianshu.com/?t=https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="nofollow">https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git</a></p>
+<p>安装完Git就可以对其做一些配置。</p>
+<p>Git有一个工具被称为git config，它允许你获得和设置配置变量；这些变量可以控制Git的外观和操作的各个方面。这些变量可以被存储在三个不同的位置：</p>
+<ol>
+<li><p>/etc/gitconfig 文件：包含了适用于系统所有用户和所有库的值。如果你传递参数选项’--system’ 给 git config，它将明确的读和写这个文件。</p></li>
+<li><p>~/.gitconfig 文件 ：具体到你的用户。你可以通过传递--global 选项使Git 读或写这个特定的文件。</p></li>
+<li><p>位于git目录的config文件 (也就是 .git/config) ：无论你当前在用的库是什么，特定指向该单一的库。每个级别重写前一个级别的值。因此，在.git/config中的值覆盖了在/etc/gitconfig中的同一个值。</p></li>
+</ol>
+<p>我的Git config(配置)列表:</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 659px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 52.05%;"></div>
+<div class="image-view" data-width="1266" data-height="659"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-2bc4664ac573bce3.jpg" data-original-width="1266" data-original-height="659" data-original-format="image/jpeg" data-original-filesize="112185" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-2bc4664ac573bce3.jpg"></div>
+</div>
+<div class="image-caption">我的Git config(配置)列表</div>
+</div>
+<p>这个配置就在你的个人目录的.gitconfig(有一个点哦, 不用ls -al是看不到的)文件中, 你可以用vim来打开编辑内容 (vim ~/.gitconfig), 我的内容如下</p>
+<pre class="hljs bash"><code class="bash">[user]    
+    name = Enming Xie    
+    email = enming.xie@blabla.fr
+[color]    
+    ui = auto
+[<span class="hljs-built_in">alias</span>]    
+    st = status    
+    pl = pull --ff-only    
+    ps = push    
+    co = checkout    
+    ci = commit    
+    df = difftool    
+    cp = cherry-pick    
+    ca = commit --amend    
+    br = branch    
+    l = <span class="hljs-built_in">log</span> --<span class="hljs-built_in">stat</span>    
+    last = <span class="hljs-built_in">log</span> -1    
+    lg = <span class="hljs-built_in">log</span> --color --graph --pretty=format:<span class="hljs-string">'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset'</span> --abbrev-commit    
+    up = push origin    
+    lf = <span class="hljs-built_in">log</span> --follow -p    
+    aa = ls-files --modified    
+    su = status -uno    
+    cm = commit -m    
+    uf = push origin -f    
+    cl = clean -fdx    
+    fe = fetch --prune    
+    cf = clean -fdx    
+    bd = branch -D    
+    cb = checkout -b
+[push]    
+    default = simple
+[core]    
+    editor = vim    pager = less -+F
+[diff]    
+    tool = meld
+[difftool]    
+    prompt = <span class="hljs-literal">false</span>
+[merge]    
+    tool = meld
+[init]    
+    templatedir = ~/.git_template
+</code></pre>
+<p>因为我比较喜欢偷懒（程序员需要学会偷懒好么）, git命令有几个太长的, 我就用alias(别名)来替代了, 这样平时输入git命令就快了很多, 简直飞起!</p>
+<p>我最常用的Git命令（全名，没用alias之前）:</p>
+<pre class="hljs ruby"><code class="ruby">git checkout
+
+git status
+
+git checkout -b
+
+git commit
+
+git diff
+
+git add
+
+git clean -fdx
+
+git fetch --prune
+
+git pull --ff-only
+
+git branch -D
+
+git push
+
+git merge
+
+git rm
+
+git rebase
+
+git reset
+
+git revert
+
+git push origin <span class="hljs-symbol">:yourbranch</span>
+</code></pre>
+<h2>Git必看书籍</h2>
+<hr>
+<p>Pro Git这本书（也可以看其电子版）绝对是Git入门和进深的不二选择。</p>
+<p>我的同桌说：他进公司时，被要求先读两遍这本书。</p>
+<p>英文版：</p>
+<p><a href="https://link.jianshu.com/?t=https://git-scm.com/book/en/v2" target="_blank" rel="nofollow">https://git-scm.com/book/en/v2</a></p>
+<p>中文版：</p>
+<p><a href="https://link.jianshu.com/?t=https://git-scm.com/book/zh/v2" target="_blank" rel="nofollow">https://git-scm.com/book/zh/v2</a></p>
+<h2>Github</h2>
+<hr>
+<p>Github 和 Git 是两回事。</p>
+<p>Git是版本控制系统，Github是在线的基于Git的代码托管服务。</p>
+<p>GitHub是2008年由Ruby on Rails编写而成。GitHub同时提供付费账户和免费账户。这两种账户都可以创建公开的代码仓库，但是付费账户也可以创建私有的代码仓库。</p>
+<p>为什么现在Github这么火，以至于世界顶级公司和项目的源码很多都托管在Github上，首先：</p>
+<p>颜值高！</p>
+<p>现在这世代还是得看看颜值的。你说Sourceforge等代码托管网站也年岁很久了，为什么没有Github那么火呢？</p>
+<p>关键是Github长得好看（你长这么好看，说什么都是对的）。</p>
+<p>对比Github和Sourceforge</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 652px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 64.11%;"></div>
+<div class="image-view" data-width="1017" data-height="652"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-6e895665227e1f7b.JPG" data-original-width="1017" data-original-height="652" data-original-format="image/jpeg" data-original-filesize="90304" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-6e895665227e1f7b.JPG"></div>
+</div>
+<div class="image-caption">Github</div>
+</div>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 671px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 65.34%;"></div>
+<div class="image-view" data-width="1027" data-height="671"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-2b30f07b96b2c72f.JPG" data-original-width="1027" data-original-height="671" data-original-format="image/jpeg" data-original-filesize="109155" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-2b30f07b96b2c72f.JPG"></div>
+</div>
+<div class="image-caption">Sourceforge</div>
+</div>
+<p>反正我看了Github再来看Sourceforge的主页，我已经不想用Sourceforge了。</p>
+<p>软件的颜值体现了设计者的审美观以及设计能力。</p>
+<p>2011年，Github已经取代Sourceforge，成为最活跃的代码交流社区。这意味着在Open Source Community（开源社区），Git取代了SVN已经成为事实。</p>
+<p>而且，Github现在都快成为程序员简历的一个重要加分条件了。</p>
+<p>如果你的简历里放上你的Github链接，招聘者通过你对开源项目的贡献和你自己的项目代码，就可以对你的水准了解大概（我还没把我的项目都放到Github上，慢慢来吧）。</p>
+<p>Linus Torvalds的Github页面</p>
+<p><a href="https://link.jianshu.com/?t=https://github.com/torvalds" target="_blank" rel="nofollow">https://github.com/torvalds</a></p>
+<h2>Gitlab</h2>
+<hr>
+<p>Github有个小缺陷 (也不能算是缺陷吧), 就是你的repo(repository的缩写，表示“仓库”)都需要public(公开), 如果你想要创建private(私人)的repo, 那得付钱。</p>
+<p>不过, 幸好, Gitlab解决了这个问题, 可以在上面创建免费的私人repo。</p>
+<p>比如我们公司就是用Gitlab来管理项目的(<a href="https://link.jianshu.com/?t=http://mp.weixin.qq.com/s?__biz=MzAxMTE3MDkyMA==&amp;mid=401530814&amp;idx=1&amp;sn=65d463a7d7a18743bcba1094c9798a8b&amp;scene=21#wechat_redirect" target="_blank" rel="nofollow">【程序员】项目经理如何调动组员积极性</a>)。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 407px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 31.8%;"></div>
+<div class="image-view" data-width="1280" data-height="407"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-8ec9af2950346a3f.jpg" data-original-width="1280" data-original-height="407" data-original-format="image/jpeg" data-original-filesize="38743" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-8ec9af2950346a3f.jpg"></div>
+</div>
+<div class="image-caption">我在公司的Gitlab</div>
+</div>
+<p>可以看到，我是从2015年10月12日在Ercom公司工作的，一直活跃度还不错（必须为中国人争光么，我可是组里最努力的）。</p>
+<p>再看我个人的Gitlab账户页面，至今只有几个项目，因为大部分都开源在Github上。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 214px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 16.72%;"></div>
+<div class="image-view" data-width="1280" data-height="214"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-991a19dfd5f25771.jpg" data-original-width="1280" data-original-height="214" data-original-format="image/jpeg" data-original-filesize="15158" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-991a19dfd5f25771.jpg"></div>
+</div>
+<div class="image-caption">我的个人Gitlab</div>
+</div>
+<p>要创建Gitlab的新项目很简单，和Github类似，只要点击New Project按钮，填写基本信息即可。</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 344px; max-height: 316px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 91.86%;"></div>
+<div class="image-view" data-width="344" data-height="316"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-278a57b5d14bc49c.jpg" data-original-width="344" data-original-height="316" data-original-format="image/jpeg" data-original-filesize="7257" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-278a57b5d14bc49c.jpg"></div>
+</div>
+<div class="image-caption">创建项目按钮</div>
+</div>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 634px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 49.53%;"></div>
+<div class="image-view" data-width="1280" data-height="634"><img data-original-src="//upload-images.jianshu.io/upload_images/1783214-fd7df15c1b67163c.jpg" data-original-width="1280" data-original-height="634" data-original-format="image/jpeg" data-original-filesize="43069" class="" style="cursor: zoom-in;" src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1783214-fd7df15c1b67163c.jpg"></div>
+</div>
+<div class="image-caption">填写Gitlab项目信息</div>
+</div>
+<p>可以看到，项目的默认属性是Private（私人的），当然，你也可以选择Public（公开的）或Internal（内部的）。</p>
+<p>怎么样，Github和Gitlab很酷吧。</p>
+<blockquote>
+<p>快去试试Git吧, 再不赶紧, "女神"都老了 (没关系, 用git reset或者revert或者git rebase可以重回美好时光)!</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>我是<a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">谢恩铭</a>，在巴黎奋斗的软件工程师。<br>
+热爱生活，喜欢游泳，略懂烹饪。<br>
+人生格言：「向着标杆直跑」</p>
+</blockquote>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="https://www.jianshu.com/nb/5400028">
+            <i class="iconfont ic-search-notebook"></i>
+            <span>Git</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/44339a8a9afa">
+            <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/454c504e-6572-4250-b466-b65962d6e4cb.jpg" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/44339a8a9afa">程序员联盟</a>
+          
+            <i class="iconfont ic-man"></i>
+        <p>写了 513474 字，被 18784 人关注，获得了 9165 个喜欢</p></div>
+          <div class="signature">公众号「程序员联盟」( ProgrammerLeague ) 
+
+我的知识星球：http://www.jianshu.com/p/9c3826859dd2
+
+我的慕课网视频课程：http://www.imooc.com/comment/844
+
+关于我：
+http://www.jianshu.com/p/e1c5835fee7d
+
+我已委托“维权骑士”（rightknights.com）为我的文章进行维权行动，转载请注明作者、出处、原文链接。</div>
+      </div>
+
+      <div class="support-author"><p>文章还行的话记得点个“❤”，谢谢！</p> <div class="btn btn-pay">赞赏支持</div> <div class="supporter"><ul class="support-list"><li><a target="_blank" href="https://www.jianshu.com/u/aaf9bbe9a8c9" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/99f1cee8-c9c7-4973-a14a-50774a6fe12a.jpg"></a></li></ul> <!----></div> <!----> <!----></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>259</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @程序员联盟frogoscar 的文章《Git，Github和Gitlab简介和基本使用》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/5085725/weibo/image_8a933978bb8d.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 程序员联盟 的文章《Git，Github和Gitlab简介和基本使用》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 程序员联盟 的文章《Git，Github和Gitlab简介和基本使用》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;Git，Github和Gitlab简介和基本使用&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div><div id="comment-list" class="comment-list"><div><form class="new-comment"><a class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/avatar_default-78d4d1f68984cd6d4379508dd94b4210.png"></a> <div class="sign-container"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form" class="btn btn-sign">登录</a> <span>后发表评论</span></div></form> <!----></div> <div id="normal-comment-list" class="normal-comment-list"><div><div><div class="top-title"><span>35条评论</span> <a class="author-only">只看作者</a> <a class="close-btn" style="display: none;">关闭评论</a> <div class="pull-right"><a class="active">按喜欢排序</a><a class="">按时间正序</a><a class="">按时间倒序</a></div></div></div> <!----> <!----> <div class="comments-placeholder" style="display: none;"><div class="author"><div class="avatar"></div> <div class="info"><div class="name"></div> <div class="meta"></div></div></div> <div class="text"></div> <div class="text animation-delay"></div> <div class="tool-group"><i class="iconfont ic-zan-active"></i><div class="zan"></div> <i class="iconfont ic-list-comments"></i><div class="zan"></div></div></div> <div id="comment-3720560" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/e33ed3368e62" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/526536eb-9697-4a33-9af4-2b4d02b7cc9a.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/e33ed3368e62" target="_blank" class="name">六点的太阳</a> <!----> <!----> <div class="meta"><span>5楼 · 2016.08.19 15:25</span></div></div></div> <div class="comment-wrap"><p>gitlab没有下定义啊,它和github有什么区别？</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>4人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-3721058" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/e33ed3368e62" class="maleskine-author" target="_blank" data-user-slug="e33ed3368e62">@梦开始阵痛</a> 不是说了么...</span></p> <div class="sub-tool-group"><span>2016.08.19 15:55</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-5887735" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/6f32ca927444" target="_blank">falrom</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/44339a8a9afa" class="maleskine-author" target="_blank" data-user-slug="44339a8a9afa">@程序员在法国</a> gitlab不是可以部署到自己的服务器么？是不是说，gitlab是一套基于git的框架软件，用户可以用这个在自己的服务器上搭建自己的“github”，但同时gitlab官方也提供了官方的服务器可以注册使用？求博主解答一下困惑。</span></p> <div class="sub-tool-group"><span>2016.11.23 17:58</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-5888065" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/6f32ca927444" class="maleskine-author" target="_blank" data-user-slug="6f32ca927444">@falrom</a> gitlab可以部署到自己的服务器, 不过要付钱吧, 我们公司就是用Gitlab来管理代码的。Github你如果付钱也可以用自己的私人项目目录。但Github貌似不能部署到自己的服务器吧</span></p> <div class="sub-tool-group"><span>2016.11.23 18:16</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <span class="line-warp">
+          还有7条评论，
+          <a>展开查看</a></span> <!----> <!----></div> <!----></div></div><div id="comment-3459429" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/521b2b15caba" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/6-fd30f34c8641f6f32f5494df5d6b8f3c.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/521b2b15caba" target="_blank" class="name">唐小鹏</a> <!----> <!----> <div class="meta"><span>2楼 · 2016.08.05 00:18</span></div></div></div> <div class="comment-wrap"><p>不错哦</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-3460082" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/703a94f17d27" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/b3b1de089b90.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/703a94f17d27" target="_blank" class="name">Shumin_Wu</a> <!----> <!----> <div class="meta"><span>3楼 · 2016.08.05 03:50</span></div></div></div> <div class="comment-wrap"><p>nice</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-3555028" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/5b8db0f1c979" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1e37c3f70250.gif"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/5b8db0f1c979" target="_blank" class="name">捡淑</a> <!----> <!----> <div class="meta"><span>4楼 · 2016.08.10 16:11</span></div></div></div> <div class="comment-wrap"><p>get</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-6473387" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/7b7a60f29086" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/3-9a2bcc21a5d89e21dafc73b39dc5f582.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/7b7a60f29086" target="_blank" class="name">7b7a60f29086</a> <!----> <!----> <div class="meta"><span>6楼 · 2016.12.16 23:22</span></div></div></div> <div class="comment-wrap"><p>1</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-10281432" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/6b31b8838b70" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/032914256d85"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/6b31b8838b70" target="_blank" class="name">蚁贼</a> <!----> <!----> <div class="meta"><span>7楼 · 2017.04.23 19:07</span></div></div></div> <div class="comment-wrap"><p>以前分不清</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-10287830" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span>谢谢</span></p> <div class="sub-tool-group"><span>2017.04.23 22:53</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-11015457" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/06763529fe96" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/ed41fb7f-2eb1-46b7-80e0-e847e42cc7d6"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/06763529fe96" target="_blank" class="name">坏小子_5637</a> <!----> <!----> <div class="meta"><span>8楼 · 2017.05.19 11:11</span></div></div></div> <div class="comment-wrap"><p>我想请问一下 我的gitLab上 Project和Repository的上传者是我，但是在Activity中，上传者就变成了别人，请问一下，是怎么回事呀？谢谢了。您的这篇文章也相当好呢。</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-11024384" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/06763529fe96" class="maleskine-author" target="_blank" data-user-slug="06763529fe96">@坏小子_5637</a> 不太清楚诶</span></p> <div class="sub-tool-group"><span>2017.05.19 16:59</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-11354565" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/0cc67b464bb9" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1-04bbeead395d74921af6a4e8214b4f61.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/0cc67b464bb9" target="_blank" class="name">小闷兔</a> <!----> <!----> <div class="meta"><span>9楼 · 2017.05.30 21:34</span></div></div></div> <div class="comment-wrap"><p>怎么不更新了呢</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-11373968" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/0cc67b464bb9" class="maleskine-author" target="_blank" data-user-slug="0cc67b464bb9">@小闷兔</a> 这课为什么需要更新？？</span></p> <div class="sub-tool-group"><span>2017.05.31 15:26</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-11374132" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/0cc67b464bb9" target="_blank">小闷兔</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/44339a8a9afa" class="maleskine-author" target="_blank" data-user-slug="44339a8a9afa">@程序员联盟</a> 我是说其他的</span></p> <div class="sub-tool-group"><span>2017.05.31 15:32</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-11374459" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/0cc67b464bb9" class="maleskine-author" target="_blank" data-user-slug="0cc67b464bb9">@小闷兔</a> 最近刚忙完慕课网的一门课程的视频录制：《带你开发类似Pokemon Go的AR游戏》<a href="http://www.imooc.com/learn/844" rel="nofollow" target="_blank">http://www.imooc.com/learn/844</a></span></p> <div class="sub-tool-group"><span>2017.05.31 15:44</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <span class="line-warp">
+          还有1条评论，
+          <a>展开查看</a></span> <!----> <!----></div> <!----></div></div><div id="comment-12194402" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/5752bfb52934" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/8-a356878e44b45ab268a3b0bbaaadeeb7.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/5752bfb52934" target="_blank" class="name">杰骜不驯</a> <!----> <!----> <div class="meta"><span>10楼 · 2017.06.26 15:34</span></div></div></div> <div class="comment-wrap"><p>刚刚入门的Python初学者，依旧不知道咋用。。。</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-13013476" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/3674d0183b56" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/4ece01de7df3.png"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/3674d0183b56" target="_blank" class="name">lopez66</a> <!----> <!----> <div class="meta"><span>11楼 · 2017.07.19 18:23</span></div></div></div> <div class="comment-wrap"><p>非常感谢，楼主说得浅显易懂，让不耐心的我看完了~~</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-13013955" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/3674d0183b56" class="maleskine-author" target="_blank" data-user-slug="3674d0183b56">@lopez66</a> 谢谢。加油</span></p> <div class="sub-tool-group"><span>2017.07.19 18:37</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-13014106" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/3674d0183b56" target="_blank">lopez66</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/44339a8a9afa" class="maleskine-author" target="_blank" data-user-slug="44339a8a9afa">@程序员联盟</a> <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/innocent.png" alt=":innocent:" title=":innocent:" class="emoji" width="20" height="20"> 哈哈，谢谢，这Email提醒真给力。。</span></p> <div class="sub-tool-group"><span>2017.07.19 18:43</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-13296237" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/0781fa865c11" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/59350407717e"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/0781fa865c11" target="_blank" class="name">sock</a> <!----> <!----> <div class="meta"><span>12楼 · 2017.07.27 17:41</span></div></div></div> <div class="comment-wrap"><p>gitlab 和  GitHub 怎么共存呢  私钥会覆盖</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-14870795" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/012c5479e373" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/8-a356878e44b45ab268a3b0bbaaadeeb7.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/012c5479e373" target="_blank" class="name">程序控</a> <!----> <!----> <div class="meta"><span>13楼 · 2017.09.06 16:57</span></div></div></div> <div class="comment-wrap"><p>谢谢 博主的 分享 </p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-16107745" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/e721c16c6ce6" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/6a9ff31e-2679-4924-bd03-e461003e2819.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/e721c16c6ce6" target="_blank" class="name">eosclover</a> <!----> <!----> <div class="meta"><span>14楼 · 2017.10.12 09:45</span></div></div></div> <div class="comment-wrap"><p>get</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-16120195" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span><a href="https://www.jianshu.com/users/e721c16c6ce6" class="maleskine-author" target="_blank" data-user-slug="e721c16c6ce6">@eosclover</a> git get</span></p> <div class="sub-tool-group"><span>2017.10.12 16:15</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-16121666" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/ad31e6ca3ce5" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/d7583557f071.jpg"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/ad31e6ca3ce5" target="_blank" class="name">Joey_27</a> <!----> <!----> <div class="meta"><span>15楼 · 2017.10.12 17:03</span></div></div></div> <div class="comment-wrap"><p>棒棒哒！</p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div><div id="comment-16935103" class="comment"><div><div class="author"><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/d8ceff4eefc6" target="_blank" class="avatar"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/033e53f7-8782-46be-a09f-d3e95f1a7b56.png"></a>  </div> <!----></div> <div class="info"><a href="https://www.jianshu.com/u/d8ceff4eefc6" target="_blank" class="name">Marrenzz</a> <!----> <!----> <div class="meta"><span>16楼 · 2017.11.03 18:15</span></div></div></div> <div class="comment-wrap"><p>怎么搭建自己公司的gitLab？<br></p> <div class="tool-group"><a class=""><i class="iconfont ic-zan"></i> <span>赞</span></a> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-17002913" class="sub-comment"><p><div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;"><div class="v-tooltip-content"><a href="https://www.jianshu.com/u/44339a8a9afa" target="_blank">程序员联盟</a>：
+            </div> <!----></div> <span>gitlab官网没有教程吗</span></p> <div class="sub-tool-group"><span>2017.11.05 14:53</span> <a class=""><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div></div></div> <!----> <div><!----></div></div></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @程序员联盟frogoscar 的文章《Git，Github和Gitlab简介和基本使用》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 程序员联盟 的文章《Git，Github和Gitlab简介和基本使用》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 程序员联盟 的文章《Git，Github和Gitlab简介和基本使用》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/8d497989f704?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;Git，Github和Gitlab简介和基本使用&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/acd3638cc950?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1eeef3c955646f09ec9b6777d7eb4db1.jpg"><div class="name">技术文</div></a><a href="https://www.jianshu.com/c/NEt52a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/computer_guy.jpg"><div class="name">程序员</div></a><a href="https://www.jianshu.com/c/3a9a38c0e503?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/git_logo.png"><div class="name">Git使用</div></a><a href="https://www.jianshu.com/c/bDHhpK?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/首页投稿.png"><div class="name">首页投稿</div></a><a href="https://www.jianshu.com/c/d98881f408f5?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/P60209-173140.jpg"><div class="name">iOS开发技能</div></a><a href="https://www.jianshu.com/c/8c0913317404?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1470331418.jpg"><div class="name">工具</div></a><a href="https://www.jianshu.com/c/d29fb6cb2700?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1458818724.jpg"><div class="name">程序</div></a> <a class="show-more">
+        展开更多
+        <i class="iconfont ic-show"></i></a></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="5085725"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/e8a6c4e40b58?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1459766-a73ab0138ec3bc7d.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/e8a6c4e40b58?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Git最详细篇-五星收藏</a>
+          <p class="description">目录 一、版本控制概要 1.1、什么是版本控制 1.2、常用术语 1.3、常见的版本控制器 1.4、版本控制分类 1.4.1、本地版本控制 1.4.2、集中版本控制 1.4.3、分布式版本控制 1.5、Git与SVN最主要区别 二、Git安装与配置 2.1、什么是Git 2...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/1900616abbc8?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/981f8db1fe87" alt="48">
+            </div>
+            <span class="name">NET快速开发框架</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/bfdd39260fd3?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/1760830-1f9a70303fbea8fd.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/bfdd39260fd3?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">GIT分布式版本控制系统最佳实践</a>
+          <p class="description">GIT分布式版本控制系统最佳实践 这篇文章来自于老男孩教育高级架构师班12期的徐亮偉同学。 首先感谢老男孩架构师班赵班长深入讲解Git,综合自己实践整理而来,特此在今天分享给大家。 Git诞生历史 我想大家还记得Linus torvalds在1991年时发布了Linux操作...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d1efae5b9216?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/ff941bedf596.jpeg" alt="48">
+            </div>
+            <span class="name">meng_philip123</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/e354cc83d541?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/5432446-254876aada4c57dc.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/e354cc83d541?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">git &amp; github 快速入门 </a>
+          <p class="description">本节内容 1. github介绍 2. 安装 3. 仓库创建&amp;提交代码 4. 代码回滚 5. 工作区和暂存区 6. 撤销修改 7. 删除操作 8. 远程仓库 9. 分支管理 10. 多人协作 11. github使用 12. 忽略特殊文件.gitignore 为什么要用版本...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/463741918845?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/15-a7ac401939dd4df837e3bbf82abaa2a8.jpg" alt="48">
+            </div>
+            <span class="name">luo_yayin</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/fe76f2890a14?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/2585384-8249e5c04c4c35d1.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/fe76f2890a14?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Git全面教程</a>
+          <p class="description">Git全面教程 简介 Git分布式版本管理系统。 Linus在1991年创建了开源的Linux，但是一直没有一个合适的版本管理工具，在2002年以前，世界各地的志愿者都是通过把源代码文件通过diff的方式给Linus，然后他本人通过手工的方式进行合并代码。后来在2002年B...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/b51475b6a136?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/25e7b36ea84c.jpg" alt="48">
+            </div>
+            <span class="name">关玮琳linSir</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/623fe46cf2cd?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Git使用</a>
+          <p class="description">声明：这篇文章来源于廖雪峰老师的官方网站，我仅仅是作为学习之用 Git简介 Git是什么？ Git是目前世界上最先进的分布式版本控制系统。 什么是版本控制系统？ Git的诞生 很多人知道，Linus在1991年开源了Linux，从此，Linux系统不断发展，已经成为最大的服...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/4aa2c13b7448?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/2114e15d3360.jpg" alt="48">
+            </div>
+            <span class="name">横渡</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/347e00d12a91?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">无标题文章</a>
+          <p class="description">8排12号</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/31ec3d0a31ab?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/10-e691107df16746d4a9f3fe9496fd1848.jpg" alt="48">
+            </div>
+            <span class="name">漾阿镜</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/7bf5ad019a58?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/7036570-71e60d9b264b1e4d.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/7bf5ad019a58?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">行走 ·觀山水......</a>
+          <p class="description">抽身幾日行走山水間，願青山綠水洗去身上的蕪雜，心至澄明... 我的城市在後視鏡里變得越來越小，直到消失不見。前面，是未知，是對陌生的心懷憧憬。 往西部开出500公里后，温度逐渐变得柔和，在汉源湖边的夕阳里，闻到了空气里潮湿的气味。 翌日繼續前行，在高速路上第一次見到了彝族的...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/852ab9213947?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/81c626e2-6dc0-4837-87c9-badc80419079" alt="48">
+            </div>
+            <span class="name">LEILEILL</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/8eb5726c0c1d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">状态模式</a>
+          <p class="description">我们开发项目的过程中通常会碰到一种需求，某个对象包含多种状态变化的可能性，随着状态的变化行为也执行不同的动作。 以电梯来举例：电梯最基本具备 开门、关门、上下走动、停止 这四种状态。状态与状态之间有约束的关系，比如只能在关门的情况下才能走动。所以用传统面向过程的解决方案，就...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/56ed79303092?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/a4df96d2b919.jpeg" alt="48">
+            </div>
+            <span class="name">伍阿哥</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/e3697a39d4b1?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">烦恼</a>
+          <p class="description">你现在所烦恼的 都是以后的日子里觉得很幼稚的事情 那就假装自己长大几岁吧 没有烦恼了</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/6d7d2bf64b6f?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/c9f0e69a-b646-47c7-9395-05bfc0ed1989.jpg" alt="48">
+            </div>
+            <span class="name">林怛往南</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/f9013f511496?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">我的孤獨是一支香煙</a>
+          <p class="description">我的孤獨是一支香煙， 在異鄉潮濕的枝頭飄散。 故土的水草，牛羊， 魚兒呢喃我聽不懂的語言。 我要在一個人的夜晚， 躍上最冷最枯黃的樹梢將自己風乾。 當墜落在都市泛著黑流的河， 我會狂歡，哭泣，當燈火闌珊。</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/fec0e0cf03df?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Git，Github和Gitlab简介和基本使用 - 简书_files/35b7b4c0-e149-4a3d-b25b-39b194d1a6aa.jpg" alt="48">
+            </div>
+            <span class="name">東方朝西</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"730135f5-8513-457c-9f2d-6c26cb2c3a41"},"note":{"id":5085725,"slug":"8d497989f704","user_id":1783214,"notebook_id":5400028,"commentable":true,"likes_count":259,"views_count":41290,"public_wordage":2325,"comments_count":35,"total_rewards_count":1,"is_author":false,"author":{"nickname":"程序员联盟","total_wordage":513474,"followers_count":18784,"total_likes_count":9165}}}</script>
+    
+    <script src="./Git，Github和Gitlab简介和基本使用 - 简书_files/babel-polyfill-e27dec85eeb94683dfc7.js.下载" crossorigin="anonymous"></script>
+    <script src="./Git，Github和Gitlab简介和基本使用 - 简书_files/web-base-2bc23655d1974adcd2e9.js.下载" crossorigin="anonymous"></script>
+<script src="./Git，Github和Gitlab简介和基本使用 - 简书_files/web-216a8d5fa952aa9bf571.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./Git，Github和Gitlab简介和基本使用 - 简书_files/entry-9e28293f23f7fa89210f.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>
