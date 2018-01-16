@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)https://developer.android.com/about/versions/oreo/android-8.0.html -->
+<html lang="zh-cn" itemscope="" itemtype="http://schema.org/Article"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+
+
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+
+
+
+
+
+<script async="" src="./Android 8.0 功能和 API _ Android Developers_files/async-ads.js.下载"></script><script async="" src="./Android 8.0 功能和 API _ Android Developers_files/analytics.js.下载"></script><script type="text/javascript" async="" src="./Android 8.0 功能和 API _ Android Developers_files/recaptcha__zh_cn.js.下载"></script><script>var a=window.devsite||{};window.devsite=a;a.readyCallbacks=[];window.devsite.readyCallbacks=a.readyCallbacks;a.ready=function(b){a.readyCallbacks.push(b)};window.devsite.ready=a.ready;
+</script>
+
+
+
+
+
+<meta name="xsrf_token" content="xHJkVZhtCdh8ycALuVWcj1TAaDEF3Uf4I749dfpoPS86MTUxNTU3NDI3OTQxMzEwMA">
+
+  
+    <link rel="canonical" href="https://developer.android.com/about/versions/oreo/android-8.0.html?hl=zh-cn">
+  
+
+  
+    <link rel="alternate" href="https://developer.android.com/about/versions/oreo/android-8.0.html?hl=zh-cn" hreflang="zh-Hans">
+  
+    <link rel="alternate" href="https://developer.android.com/about/versions/oreo/android-8.0.html?hl=ko" hreflang="ko">
+  
+    <link rel="alternate" href="https://developer.android.com/about/versions/oreo/android-8.0.html?hl=es-419" hreflang="es-419">
+  
+    <link rel="alternate" href="https://developer.android.com/about/versions/oreo/android-8.0.html?hl=id" hreflang="id">
+  
+    <link rel="alternate" href="https://developer.android.com/about/versions/oreo/android-8.0.html?hl=ja" hreflang="ja">
+  
+    <link rel="alternate" href="https://developer.android.com/about/versions/oreo/android-8.0.html?hl=pt-br" hreflang="pt-br">
+  
+    <link rel="alternate" href="https://developer.android.com/about/versions/oreo/android-8.0.html" hreflang="en">
+  
+    <link rel="alternate" href="https://developer.android.google.cn/about/versions/oreo/android-8.0.html?hl=zh-cn" hreflang="zh-Hans-cn">
+  
+    <link rel="alternate" href="https://developer.android.google.cn/about/versions/oreo/android-8.0.html?hl=ko" hreflang="ko-cn">
+  
+    <link rel="alternate" href="https://developer.android.google.cn/about/versions/oreo/android-8.0.html?hl=es-419" hreflang="es-419-cn">
+  
+    <link rel="alternate" href="https://developer.android.google.cn/about/versions/oreo/android-8.0.html?hl=id" hreflang="id-cn">
+  
+    <link rel="alternate" href="https://developer.android.google.cn/about/versions/oreo/android-8.0.html?hl=ja" hreflang="ja-cn">
+  
+    <link rel="alternate" href="https://developer.android.google.cn/about/versions/oreo/android-8.0.html?hl=pt-br" hreflang="pt-br-cn">
+  
+    <link rel="alternate" href="https://developer.android.google.cn/about/versions/oreo/android-8.0.html" hreflang="en-cn">
+  
+
+  <link rel="alternate" href="https://developer.android.com/about/versions/oreo/android-8.0.html" hreflang="x-default">
+
+
+
+
+<link rel="shortcut icon" href="https://developer.android.com/_static/f6e16de9fa/images/android/favicon.png">
+
+<link rel="apple-touch-icon" href="https://developer.android.com/_static/f6e16de9fa/images/android/touchicon-180.png">
+
+
+<title>
+
+  Android 8.0 功能和 API | Android Developers
+
+</title>
+
+  <meta name="description" content="Highlights of what&#39;s new for developers in Android 8.0.">
+
+
+
+  <meta itemprop="dateModified" content="2017-08-23T23:07:52.563180">
+
+
+<!-- STYLESHEETS -->
+<link rel="stylesheet" href="./Android 8.0 功能和 API _ Android Developers_files/css">
+<link rel="stylesheet" href="./Android 8.0 功能和 API _ Android Developers_files/css(1)" title="roboto">
+<link rel="stylesheet" href="./Android 8.0 功能和 API _ Android Developers_files/dac-devsite.css">
+
+
+
+
+
+
+
+<link href="./Android 8.0 功能和 API _ Android Developers_files/default.css" rel="stylesheet" type="text/css">
+<!-- JAVASCRIPT -->
+<script src="./Android 8.0 功能和 API _ Android Developers_files/android_3p-bundle.js.下载" type="text/javascript"></script>
+<script src="./Android 8.0 功能和 API _ Android Developers_files/script_foot_closure_android__zh_cn.js.下载"></script>
+<script src="./Android 8.0 功能和 API _ Android Developers_files/script_foot_android.js.下载"></script>
+
+<script type="text/javascript">
+  var toRoot = '/';
+  devsite.permissions.init({"f62218c009ec029abef196bba5aa34cf": true, "098dafe57affddc137df300142652cfd": false, "8e03e230de0bd8a6fe173fdf172e8b3f": true, "cb025a64a50094835616312f4774a53d": true, "51470233c56fc1fde50f00b73c52b216": false, "d169d485cf24243a263783dbe42029b1": true, "039e5d84b87fd75807ffb37b7f1bbf2c": true, "752953480de00a336d911a46966cc16d": false, "700def1a83e356c06c0925afb05de4b0": false, "6749dcb526ce9bde6993550c7d928d24": true});
+
+  var replaceBlog = false;
+  var replaceYouTube = false;
+  var siteDefaultLocale = 'en';
+
+  var ANDROID_LANGUAGES = [
+      'id','de','en','es','es-419','fr','pt-br','vi','tr','ru','th','ja','zh-cn','zh-tw','ko'
+  ];
+</script>
+<script src="./Android 8.0 功能和 API _ Android Developers_files/docs.js.下载" type="text/javascript"></script>
+
+
+<script src="./Android 8.0 功能和 API _ Android Developers_files/jsapi" type="text/javascript"></script><link type="text/css" href="./Android 8.0 功能和 API _ Android Developers_files/default+en.css" rel="stylesheet"><link type="text/css" href="./Android 8.0 功能和 API _ Android Developers_files/default(1).css" rel="stylesheet"><script type="text/javascript" src="./Android 8.0 功能和 API _ Android Developers_files/default+en.I.js.下载"></script><style type="text/css">.gsc-control-cse{font-family:Arial, sans-serif;border-color:#ECEFF1;background-color:#ECEFF1}.gsc-control-cse .gsc-table-result{font-family:Arial, sans-serif}input.gsc-input,.gsc-input-box,.gsc-input-box-hover,.gsc-input-box-focus{border-color:#D9D9D9}input.gsc-search-button,input.gsc-search-button:hover,input.gsc-search-button:focus{border-color:#2F5BB7;background-color:#357AE8;background-image:none;filter:none}.gsc-tabHeader.gsc-tabhInactive{border-color:#CCCCCC;background-color:#FFFFFF}.gsc-tabHeader.gsc-tabhActive{border-color:#CCCCCC;border-bottom-color:#FFFFFF;background-color:#FFFFFF}.gsc-tabsArea{border-color:#CCCCCC}.gsc-webResult.gsc-result,.gsc-results .gsc-imageResult{border-color:#ECEFF1;background-color:#ECEFF1}.gsc-webResult.gsc-result:hover,.gsc-imageResult:hover{border-color:#ECEFF1;background-color:#ECEFF1}.gs-webResult.gs-result a.gs-title:link,.gs-webResult.gs-result a.gs-title:link b,.gs-imageResult a.gs-title:link,.gs-imageResult a.gs-title:link b{color:#039BE5}.gs-webResult.gs-result a.gs-title:visited,.gs-webResult.gs-result a.gs-title:visited b,.gs-imageResult a.gs-title:visited,.gs-imageResult a.gs-title:visited b{color:#039BE5}.gs-webResult.gs-result a.gs-title:hover,.gs-webResult.gs-result a.gs-title:hover b,.gs-imageResult a.gs-title:hover,.gs-imageResult a.gs-title:hover b{color:#039BE5}.gs-webResult.gs-result a.gs-title:active,.gs-webResult.gs-result a.gs-title:active b,.gs-imageResult a.gs-title:active,.gs-imageResult a.gs-title:active b{color:#039BE5}.gsc-cursor-page{color:#039BE5}a.gsc-trailing-more-results:link{color:#039BE5}.gs-webResult .gs-snippet,.gs-imageResult .gs-snippet,.gs-fileFormatType{color:#333333}.gs-webResult div.gs-visibleUrl,.gs-imageResult div.gs-visibleUrl{color:#333333}.gs-webResult div.gs-visibleUrl-short{color:#333333}.gs-webResult div.gs-visibleUrl-short{display:none}.gs-webResult div.gs-visibleUrl-long{display:block}.gs-promotion div.gs-visibleUrl-short{display:none}.gs-promotion div.gs-visibleUrl-long{display:block}.gsc-cursor-box{border-color:#ECEFF1}.gsc-results .gsc-cursor-box .gsc-cursor-page{border-color:#CCCCCC;background-color:#ECEFF1;color:#039BE5}.gsc-results .gsc-cursor-box .gsc-cursor-current-page{border-color:#CCCCCC;background-color:#FFFFFF;color:#039BE5}.gsc-webResult.gsc-result.gsc-promotion{border-color:#F6F6F6;background-color:#F6F6F6}.gsc-completion-title{color:#039BE5}.gsc-completion-snippet{color:#333333}.gs-promotion a.gs-title:link,.gs-promotion a.gs-title:link *,.gs-promotion .gs-snippet a:link{color:#1155CC}.gs-promotion a.gs-title:visited,.gs-promotion a.gs-title:visited *,.gs-promotion .gs-snippet a:visited{color:#1155CC}.gs-promotion a.gs-title:hover,.gs-promotion a.gs-title:hover *,.gs-promotion .gs-snippet a:hover{color:#1155CC}.gs-promotion a.gs-title:active,.gs-promotion a.gs-title:active *,.gs-promotion .gs-snippet a:active{color:#1155CC}.gs-promotion .gs-snippet,.gs-promotion .gs-title .gs-promotion-title-right,.gs-promotion .gs-title .gs-promotion-title-right *{color:#666666}.gs-promotion .gs-visibleUrl,.gs-promotion .gs-visibleUrl-short{color:#039BE5}</style><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-webkit-user-select:none;white-space:nowrap}.gsst_e{opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gsq_a{padding:0}.gsq_a{padding:0}.gscsep_a{display:none}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em;-webkit-appearance:button}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gsfe_a{border:1px solid #b9b9b9;border-top-color:#a0a0a0;box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);}.gsfe_b{border:1px solid #4d90fe;outline:none;box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);}.gssb_a{padding:0 9px}.gsib_a{padding-right:8px;padding-left:8px}.gsst_a{padding-top:5.5px}.gssb_e{border:0}.gssb_l{margin:5px 0}input.gsc-input::-webkit-input-placeholder{font-size:14px}input.gsc-input:-moz-placeholder{font-size:14px}input.gsc-input::-moz-placeholder{font-size:14px}input.gsc-input:-ms-input-placeholder{font-size:14px}input.gsc-input:focus::-webkit-input-placeholder{color:transparent}input.gsc-input:focus:-moz-placeholder{color:transparent}input.gsc-input:focus::-moz-placeholder{color:transparent}input.gsc-input:focus:-ms-input-placeholder{color:transparent}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style></head>
+
+<body class="gc-documentation                                         about               preview                           dac-nav-open">
+  
+
+
+  
+    <input class="google-analytics-id-json" type="hidden" value="{&quot;dimensions&quot;: {&quot;dimension6&quot;: &quot;zh-cn&quot;, &quot;dimension4&quot;: &quot;Android&quot;, &quot;dimension5&quot;: &quot;zh-cn&quot;, &quot;dimension3&quot;: false, &quot;dimension1&quot;: &quot;Signed out&quot;, &quot;dimension8&quot;: null}, &quot;gaid&quot;: &quot;UA-49880327-2&quot;}">
+  
+    <input class="google-analytics-id-json" type="hidden" value="{&quot;dimensions&quot;: {&quot;dimension6&quot;: &quot;zh-cn&quot;, &quot;dimension4&quot;: &quot;Android&quot;, &quot;dimension5&quot;: &quot;zh-cn&quot;, &quot;dimension3&quot;: false, &quot;dimension1&quot;: &quot;Signed out&quot;, &quot;dimension8&quot;: null}, &quot;gaid&quot;: &quot;UA-5831155-1&quot;}">
+  
+
+
+
+  
+  
+    <script>
+      var dataLayer = [{"freeTrialEligibleUser": "False", "userCountry": "PH", "language": {"requested": "zh-cn", "served": "zh-cn"}, "projectName": "Android", "scriptsafe": null, "signedIn": "False", "internalUser": "False"}];
+    </script>
+  
+
+
+
+  
+  <a href="https://developer.android.com/about/versions/oreo/android-8.0.html#top" id="skip-to-main">Skip to content</a>
+  <header id="header-wrapper">
+    <div class="dac-header" id="header">
+      <div class="dac-header-inner">
+        
+        <a class="dac-nav-toggle" data-dac-toggle-nav="" href="https://developer.android.com/about/versions/oreo/android-8.0.html" title="Open navigation">
+          <span class="dac-nav-hamburger">
+            <span class="dac-nav-hamburger-top"></span>
+            <span class="dac-nav-hamburger-mid"></span>
+            <span class="dac-nav-hamburger-bot"></span>
+          </span>
+        </a>
+        
+        <a class="dac-header-logo" href="https://developer.android.com/index.html">
+          <img class="dac-header-logo-image" src="./Android 8.0 功能和 API _ Android Developers_files/android_logo.png" srcset="https://developer.android.com/static/images/android_logo_2x.png 2x" width="32" height="36" alt="Android"> Developers</a>
+        <ul class="dac-header-tabs">
+          <li>
+            <a class="dac-header-tab" href="https://developer.android.com/design/index.html" zh-tw-lang="設計" zh-cn-lang="设计" ru-lang="Проектирование" ko-lang="디자인" ja-lang="設計" es-lang="Diseñar">设计</a>
+          </li>
+          <li>
+            <a class="dac-header-tab" href="https://developer.android.com/develop/index.html" zh-tw-lang="開發" zh-cn-lang="开发" ru-lang="Разработка" ko-lang="개발" ja-lang="開発" es-lang="Desarrollar">开发</a>
+          </li>
+          <li>
+            <a class="dac-header-tab" href="https://developer.android.com/distribute/index.html" zh-tw-lang="發佈" zh-cn-lang="分发" ru-lang="Распространение" ko-lang="배포" ja-lang="配布" es-lang="Distribuir">分发</a>
+          </li>
+        </ul>
+
+
+        
+
+        <a class="dac-header-console-btn gc-analytics-event" href="https://play.google.com/apps/publish/" data-category="User" data-action="Console" data-label="Clicked">
+          
+          <img src="./Android 8.0 功能和 API _ Android Developers_files/developer-console-icon.svg" width="18" height="19" alt="">Play 控制台</a>
+        
+
+<form data-search="" class="dac-header-search">
+  <button class="dac-header-search-close" data-search-close="">
+    <i class="dac-sprite dac-back-arrow"></i>
+  </button>
+
+  <div class="dac-header-search-inner">
+    <i class="dac-sprite dac-search-white dac-header-search-icon"></i>
+    
+    <input id="search_autocomplete" type="text" value="" autocomplete="off" name="q" class="dac-header-search-input" placeholder="搜索">
+    <button class="dac-header-search-clear dac-hidden" data-search-clear="">
+      <i class="dac-sprite dac-close-black"></i>
+    </button>
+  </div>
+</form>
+
+        
+      </div><!--/.header-wrap.wrap-->
+    </div><!--/.header-->
+
+    
+
+<div id="search-results" class="dac-search-results">
+  <div id="dac-search-results-history" class="dac-search-results-history">
+    <div class="wrap dac-search-results-history-wrap">
+      <div class="cols">
+        <div class="col-1of2 col-tablet-1of2 col-mobile-1of1">
+          
+          <h2 style="padding-bottom: 0px;">Most visited</h2><hr>
+          <div class="resource-flow-layout cols" data-history-query="history:most/visited" data-maxresults="3" data-cardsizes="18x2"><div class="resource-flow-page"><div class="col-6of6"><a class="resource resource-card resource-card-18x2 resource-card-android" href="https://developer.android.com/about/versions/oreo/android-8.0.html"><div class="card-bg" style="background-image: url(&quot;/images/cards/card-o-apis_2x.png&quot;);"></div><div class="card-info"><div class="section">android</div><div class="title">Android 8.0 功能和 API</div><div class="description ellipsis" style="height: 20px;"><div class="text" style="height: auto;">Highlights of what's new for developers in Android 8.0.</div></div></div></a></div><div class="col-6of6"><a class="resource resource-card resource-card-18x2 resource-card-develop" href="https://developer.android.com/training/material/lists-cards.html"><div class="card-bg" style="background-image: url(&quot;/training/material/images/RecyclerView.png&quot;);"></div><div class="card-info"><div class="section">training</div><div class="title">创建列表与卡片</div><div class="description ellipsis" style="height: 20px;"><div class="text" style="height: auto;">To create complex lists and cards with material design styles in your apps, you can use the RecyclerView and CardView widgets. The RecyclerView widget is a more advanced and flexible version of ListView. This widget is a container for displaying large…</div></div></div></a></div><div class="col-6of6"><a class="resource resource-card resource-card-18x2 resource-card-android" href="https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html"><div class="card-bg" style="background-image: url(&quot;/images/cards/samples-new_2x.png&quot;);"></div><div class="card-info"><div class="section">versions</div><div class="title">Android 6.0 变更</div><div class="description ellipsis" style="height: 20px;"><div class="text" style="height: auto;">Along with new features and capabilities, Android 6.0 (API level 23) includes a variety of system changes and API behavior changes. This document highlights some of the key changes that you should understand and account for in your apps. If you have previously…</div></div></div></a></div></div></div>
+        </div>
+
+        <div class="col-1of2 col-tablet-1of2 col-mobile-1of1">
+          
+          <h2 style="padding-bottom: 0px;">Recently visited</h2><hr>
+          <div class="resource-flow-layout cols" data-history-query="history:recent" data-allow-duplicates="true" data-maxresults="3" data-cardsizes="18x2"><div class="resource-flow-page"><div class="col-6of6"><a class="resource resource-card resource-card-18x2 resource-card-android" href="https://developer.android.com/about/versions/oreo/android-8.0.html"><div class="card-bg" style="background-image: url(&quot;/images/cards/card-o-apis_2x.png&quot;);"></div><div class="card-info"><div class="section">android</div><div class="title">Android 8.0 功能和 API</div><div class="description ellipsis" style="height: 20px;"><div class="text" style="height: auto;">Highlights of what's new for developers in Android 8.0.</div></div></div></a></div><div class="col-6of6"><a class="resource resource-card resource-card-18x2 resource-card-develop" href="https://developer.android.com/guide/components/loaders.html"><div class="card-bg" style="background-image: url(&quot;/static/images/resource-card-default-android.jpg&quot;);"></div><div class="card-info"><div class="section">api guides</div><div class="title">加载器</div><div class="description ellipsis" style="height: 20px;"><div class="text" style="height: auto;">Introduced in Android 3.0, loaders make it easy to asynchronously load data in an activity or fragment. Loaders have these characteristics: There are multiple classes and interfaces that may be involved in using loaders in an application. They are summarized…</div></div></div></a></div><div class="col-6of6"><a class="resource resource-card resource-card-18x2 resource-card-android" href="https://developer.android.com/about/versions/oreo/android-8.0-samples.html"><div class="card-bg" style="background-image: url(&quot;/images/cards/card-o-samples_2x.png&quot;);"></div><div class="card-info"><div class="section">android</div><div class="title">Code Samples</div><div class="description ellipsis" style="height: 20px;"><div class="text" style="height: auto;">Code samples to get you started with Android 8.0 Oreo.</div></div></div></a></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dac-search-results-content" class="dac-search-results-content">
+    <div class="dac-search-results-metadata wrap">
+      <div class="dac-search-results-for">
+          <h2 style="padding-bottom: 0px;">
+          
+          Results for <span id="search-results-for"></span>
+          </h2><hr>
+      </div>
+
+      <div id="dac-search-results-hero"></div>
+
+      <div class="dac-search-results-hero cols">
+        <div id="dac-search-results-reference" class="col-6of6 col-tablet-2of2 col-mobile-1of1">
+          <div class="suggest-card reference no-display">
+            <ul class="dac-search-results-reference">
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="cols dac-search-results-cse">
+        <script src="./Android 8.0 功能和 API _ Android Developers_files/cse.js.下载" async=""></script>
+        <div id="___gcse_0"><div class="gsc-control-cse gsc-control-cse-en"><div class="gsc-control-wrapper-cse" dir="ltr" style="visibility: hidden;"><form class="gsc-search-box gsc-search-box-tools" accept-charset="utf-8" style="display: none;"><table cellspacing="0" cellpadding="0" class="gsc-search-box"><tbody><tr><td class="gsc-input"><div class="gsc-input-box" id="gsc-iw-id1"><table cellspacing="0" cellpadding="0" id="gs_id50" class="gstl_50 " style="width: 100%; padding: 0px;"><tbody><tr><td id="gs_tti50" class="gsib_a"><input autocomplete="off" type="text" size="10" class="gsc-input" name="search" title="search" id="gsc-i-id1" x-webkit-speech="" x-webkit-grammar="builtin:search" lang="en" dir="ltr" spellcheck="false" placeholder="Custom Search" style="width: 100%; padding: 0px; border: none; margin: 0px; height: auto; outline: none; background: url(&quot;https://www.google.com/cse/static/images/1x/googlelogo_lightgrey_46x16dp.png&quot;) left center no-repeat rgb(255, 255, 255); text-indent: 48px;"></td><td class="gsib_b"><div class="gsst_b" id="gs_st50" dir="ltr"><a class="gsst_a" href="javascript:void(0)" style="display: none;"><span class="gscb_a" id="gs_cb50">×</span></a></div></td></tr></tbody></table></div></td><td class="gsc-search-button"><input type="image" src="./Android 8.0 功能和 API _ Android Developers_files/search_box_icon.png" class="gsc-search-button gsc-search-button-v2" title="search"></td><td class="gsc-clear-button"><div class="gsc-clear-button" title="clear results">&nbsp;</div></td></tr></tbody></table><table cellspacing="0" cellpadding="0" class="gsc-branding"><tbody><tr><td class="gsc-branding-user-defined"></td><td class="gsc-branding-text"><div class="gsc-branding-text">powered by</div></td><td class="gsc-branding-img"><img src="./Android 8.0 功能和 API _ Android Developers_files/googlelogo_grey_46x15dp.png" class="gsc-branding-img" srcset="https://www.google.com/cse/static/images/2x/googlelogo_grey_46x15dp.png 2x"></td></tr></tbody></table></form><div class="gsc-results-wrapper-nooverlay"><div class="gsc-tabsAreaInvisible"><div class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Custom Search</div><span class="gs-spacer"> </span></div><div class="gsc-tabsAreaInvisible"></div><div class="gsc-above-wrapper-area-invisible"><table cellspacing="0" cellpadding="0" class="gsc-above-wrapper-area-container"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td><td class="gsc-orderby-container"><div class="gsc-orderby-invisible"><div class="gsc-orderby-label gsc-inline-block">Sort by:</div><div class="gsc-option-menu-container gsc-inline-block"><div class="gsc-selected-option-container gsc-inline-block"><div class="gsc-selected-option">Relevance</div><div class="gsc-option-selector"></div></div><div class="gsc-option-menu-invisible"><div class="gsc-option-menu-item gsc-option-menu-item-highlighted"><div class="gsc-option">Relevance</div></div><div class="gsc-option-menu-item"><div class="gsc-option">Date</div></div></div></div></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><table cellspacing="0" cellpadding="0" class="gsc-resultsHeader"><tbody><tr><td class="gsc-twiddleRegionCell"><div class="gsc-twiddle"><div class="gsc-title">Web</div></div><div class="gsc-stats"></div><div class="gsc-results-selector gsc-all-results-active"><div class="gsc-result-selector gsc-one-result" title="show one result">&nbsp;</div><div class="gsc-result-selector gsc-more-results" title="show more results">&nbsp;</div><div class="gsc-result-selector gsc-all-results" title="show all results">&nbsp;</div></div></td><td class="gsc-configLabelCell"></td></tr></tbody></table><div><div class="gsc-expansionArea"></div></div></div></div></div></div></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </header>
+
+  <a name="navigation" tabindex="0" class="nav-start-marker">navigation</a>
+  <nav class="dac-nav">
+    <div class="dac-nav-dimmer" data-dac-toggle-nav=""></div>
+    <div class="dac-nav-sidebar" data-swap="" data-dynamic="false" data-transition-speed="300" data-dac-nav="">
+      <div data-swap-container="">
+        
+        <a class="dac-nav-back-button dac-swap-section dac-up dac-active" tabindex="0" data-swap-button="">
+          
+          
+          <i class="dac-sprite dac-nav-back"></i> <span class="dac-nav-back-title">Android</span>
+        </a>
+
+        <div class="dac-nav-sub dac-swap-section dac-right dac-active" itemscope="" itemtype="http://schema.org/SiteNavigationElement">
+          
+          
+            
+            <ul id="nav">
+              <li class="nav-section expanded"><div class="nav-section-header"><a href="https://developer.android.com/about/versions/oreo/index.html">Oreo</a><span class="toggle-icon" tabindex="0"></span></div><ul style="display: block;"><li class="selected"><a href="https://developer.android.com/about/versions/oreo/android-8.0.html" es-lang="Información general de la API" es-419-lang="Información general de la API" id-lang="Android O untuk Pengembang" ja-lang="API の概要" ko-lang="API 개요" pt-br-lang="Visão geral da API" zh-cn-lang="API 概览">API 概览</a></li><li><a href="https://developer.android.com/about/versions/oreo/android-8.0-changes.html" es-lang="Cambios en los comportamientos" es-419-lang="Cambios en los comportamientos" id-lang="Perubahan Perilaku" ja-lang="動作の変更点" ko-lang="동작 변경" pt-br-lang="Mudanças de comportamento" zh-cn-lang="行为变更">行为变更</a></li><li><a href="https://developer.android.com/about/versions/oreo/android-8.0-migration.html" es-lang="Migración de aplicaciones a Android 8.0" es-419-lang="Migración de aplicaciones a Android 8.0" id-lang="Melakukan Migrasi Aplikasi ke Android 8.0" ja-lang="Android 8.0 へのアプリの移行" ko-lang="앱을 Android 8.0로 마이그레이션" pt-br-lang="Como migrar aplicativos para o Android 8.0" zh-cn-lang="向 Android 8.0 迁移应用">向 Android 8.0 迁移应用</a></li><li><a href="https://developer.android.com/about/versions/oreo/android-8.0-samples.html" es-lang="Ejemplos" es-419-lang="Ejemplos" id-lang="Contoh" ja-lang="サンプル" ko-lang="샘플" pt-br-lang="Exemplos" zh-cn-lang="示例">示例</a></li><li><a href="https://developer.android.com/about/versions/oreo/background.html" ja-lang="バックグラウンド実行制限" ko-lang="백그라운드 실행 제한" pt-br-lang="Limites da execução em segundo plano" zh-cn-lang="后台执行限制" es-lang="Límites de ejecución en segundo plano" es-419-lang="Límites de ejecución en segundo plano" id-lang="Batas Eksekusi Latar Belakang">后台执行限制</a></li><li><a href="https://developer.android.com/about/versions/oreo/background-location-limits.html" es-lang="Límites de ubicación en segundo plano" es-419-lang="Límites de ubicación en segundo plano" id-lang="Batas Lokasi Latar Belakang" ja-lang="バックグラウンド位置情報の制限" ko-lang="백그라운드 위치 제한" pt-br-lang="Limites da localização em segundo plano" zh-cn-lang="后台位置限制">后台位置限制</a></li><li><a href="https://developer.android.com/about/versions/oreo/android-8.1.html">Android 8.1 Features and APIs</a></li></ul></li><li class="nav-section"><div class="nav-section-header"><a href="https://developer.android.com/about/versions/nougat/index.html">Nougat</a><span class="toggle-icon" tabindex="0"></span></div><ul><li><a href="https://developer.android.com/about/versions/nougat/android-7.0.html" es-lang="Información general de la API" id-lang="Android N untuk Pengembang" ja-lang="API の概要" ko-lang="API 개요" pt-br-lang="Visão geral da API" ru-lang="Обзор API-интерфейсов" vi-lang="Android N cho Nhà phát triển" zh-cn-lang="API 概览" zh-tw-lang="API 總覽">API 概览</a></li><li><a href="https://developer.android.com/about/versions/nougat/android-7.0-changes.html" es-lang="Cambios en los comportamientos" id-lang="Perubahan Perilaku" ja-lang="動作の変更点" ko-lang="동작 변경" pt-br-lang="Mudanças de comportamento" ru-lang="Изменения в работе" vi-lang="Các thay đổi Hành vi" zh-cn-lang="行为变更" zh-tw-lang="行為變更">行为变更</a></li><li><a href="https://developer.android.com/about/versions/nougat/android-7.0-samples.html" es-lang="Ejemplos" id-lang="Contoh" ja-lang="サンプル" ko-lang="샘플" pt-br-lang="Exemplos" ru-lang="Примеры" zh-cn-lang="示例" zh-tw-lang="範例">示例</a></li><li><a href="https://developer.android.com/about/versions/nougat/android-7.1.html">Android 7.1 for Developers</a></li><li><a href="https://developer.android.com/about/versions/nougat/android-7.1-samples.html">Android 7.1 Samples</a></li></ul></li><li class="nav-section"><div class="nav-section-header"><a href="https://developer.android.com/about/versions/marshmallow/index.html">Marshmallow</a><span class="toggle-icon" tabindex="0"></span></div><ul><li><a href="https://developer.android.com/about/versions/marshmallow/android-6.0.html">Android 6.0 APIs</a></li><li><a href="https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html">Android 6.0 Changes</a></li><li><a href="https://developer.android.com/about/versions/marshmallow/android-6.0-samples.html">Android 6.0 Samples</a></li><li><a href="https://developer.android.com/about/versions/marshmallow/android-6.0-testing.html">Android 6.0 Testing</a></li></ul></li><li class="nav-section"><div class="nav-section-header"><a href="https://developer.android.com/about/versions/lollipop.html">Lollipop</a><span class="toggle-icon" tabindex="0"></span></div><ul><li><a href="https://developer.android.com/about/versions/android-5.1.html">Android 5.1 APIs</a></li><li><a href="https://developer.android.com/about/versions/android-5.0.html" es-lang="API de Android 5.0" ja-lang="Android 5.0 API" ko-lang="Android 5.0 API" ru-lang="API для Android 5.0" zh-cn-lang="Android 5.0 API" zh-tw-lang="Android 5.0 API">Android 5.0 API</a></li><li><a href="https://developer.android.com/about/versions/android-5.0-changes.html">Android 5.0 Changes</a></li></ul></li><li class="nav-section"><div class="nav-section-header"><a href="https://developer.android.com/about/versions/kitkat.html">KitKat</a><span class="toggle-icon" tabindex="0"></span></div><ul><li><a href="https://developer.android.com/about/versions/android-4.4.html">Android 4.4 APIs</a></li></ul></li><li class="nav-section"><div class="nav-section-header"><a href="https://developer.android.com/about/versions/jelly-bean.html">Jelly Bean</a><span class="toggle-icon" tabindex="0"></span></div><ul><li><a href="https://developer.android.com/about/versions/android-4.3.html">Android 4.3 APIs</a></li><li><a href="https://developer.android.com/about/versions/android-4.2.html">Android 4.2 APIs</a></li><li><a href="https://developer.android.com/about/versions/android-4.1.html">Android 4.1 APIs</a></li></ul></li><li class="nav-section"><div class="nav-section-header empty"><a href="https://developer.android.com/about/android.html">About Android</a></div></li><li class="nav-section"><div class="nav-section-header empty"><a href="https://developer.android.com/about/dashboards/index.html">Dashboards</a></div></li>
+            </ul>
+            
+          
+        </div>
+        
+        
+          
+
+
+
+<ul id="dac-main-navigation" class="dac-nav-list dac-swap-section dac-left" tabindex="0">
+  <li class="dac-nav-item home">
+    
+    <a class="dac-nav-link has-subnav" href="https://developer.android.com/index.html">首页</a>
+    <i class="dac-sprite dac-nav-sub-slider dac-expand-less-black" tabindex="0"></i>
+    <ul class="dac-nav-secondary about">
+      <li class="dac-nav-item versions">
+        
+        <a class="dac-nav-link selected" href="https://developer.android.com/about/versions/o/index.html">Android</a><span class="dac-nav-link-forward" tabindex="0"><i class="dac-sprite dac-nav-forward"></i></span>
+      </li>
+      <li class="dac-nav-item wear">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/wear/index.html">Wear</a>
+      </li>
+      <li class="dac-nav-item tv">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/tv/index.html">TV</a>
+      </li>
+      <li class="dac-nav-item auto">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/auto/index.html">Auto</a>
+      </li>
+      
+      <li class="dac-nav-item chrome-os">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/chrome-os/index.html">Chrome OS</a>
+      </li>
+      
+      <li class="dac-nav-item things">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/things/index.html">Things</a>
+      </li>
+    </ul>
+  </li>
+  <li class="dac-nav-item design">
+    <a class="dac-nav-link" href="https://developer.android.com/design/index.html" zh-tw-lang="設計" zh-cn-lang="设计" ru-lang="Проектирование" ko-lang="디자인" ja-lang="設計" es-lang="Diseñar">设计</a>
+  </li>
+  <li class="dac-nav-item develop">
+    <a class="dac-nav-link" href="https://developer.android.com/develop/index.html" zh-tw-lang="開發" zh-cn-lang="开发" ru-lang="Разработка" ko-lang="개발" ja-lang="開発" es-lang="Desarrollar">开发</a>
+    <i class="dac-sprite dac-expand-more-black dac-nav-sub-slider" tabindex="0"></i>
+    <ul class="dac-nav-secondary develop" style="display: none;">
+      <li class="dac-nav-item training">
+        <a class="dac-nav-link" href="https://developer.android.com/training/index.html" zh-tw-lang="訓練課程" zh-cn-lang="培训" ru-lang="Курсы" ko-lang="교육" ja-lang="トレーニング" es-lang="Capacitación">培训</a>
+      </li>
+      <li class="dac-nav-item guide">
+        <a class="dac-nav-link" href="https://developer.android.com/guide/index.html" zh-tw-lang="API 指南" zh-cn-lang="API 指南" ru-lang="Руководства по API" ko-lang="API 가이드" ja-lang="API ガイド" es-lang="Guías de la API">API 指南</a>
+      </li>
+      <li class="dac-nav-item reference">
+        <a class="dac-nav-link" href="https://developer.android.com/reference/packages.html" zh-tw-lang="參考資源" zh-cn-lang="参考" ru-lang="Справочник" ko-lang="참조문서" ja-lang="リファレンス" es-lang="Referencia">参考</a>
+      </li>
+      <li class="dac-nav-item samples">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/samples/index.html">示例</a>
+      </li>
+      <li class="dac-nav-item libraries">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/topic/libraries/index.html">库</a></li>
+      <li class="dac-nav-item studio">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/studio/index.html">Android Studio</a></li>
+      <li class="dac-nav-item ndk">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/ndk/index.html">Android NDK</a></li>
+      <li class="dac-nav-item google">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/google/index.html">Google Services</a>
+      </li>
+      <li class="dac-nav-item quality-guidelines">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/develop/quality-guidelines/index.html">Quality Guidelines</a>
+      </li>
+      <li class="dac-nav-item kotlin">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/kotlin/index.html">Kotlin</a>
+       </li>
+    </ul>
+  </li>
+  <li class="dac-nav-item distribute">
+    <a class="dac-nav-link" href="https://developer.android.com/distribute/index.html" zh-tw-lang="發佈" zh-cn-lang="分发" ru-lang="Распространение" ko-lang="배포" ja-lang="配布" de-lang="Vertrieb" es-lang="Distribuir" es-419-lang="Distribuye" fr-lang="Distribuer" id-lang="Distribusikan" pt-br-lang="Distribuição" th-lang="จัดจำหน่าย" tr-lang="Dağıtma" vi-lang="Phân phối">分发</a>
+    <i class="dac-sprite dac-nav-sub-slider dac-expand-less-black" tabindex="0"></i>
+    <ul class="dac-nav-secondary distribute">
+      <li class="dac-nav-item google-play">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/distribute/google-play/index.html">Google Play</a>
+      </li>
+      <li class="dac-nav-item console">
+        
+        <a class="dac-nav-link" href="https://developer.android.com/distribute/console/index.html">Play 控制台</a>
+      </li>
+      <li class="dac-nav-item best-practices">
+        <a class="dac-nav-link" href="https://developer.android.com/distribute/best-practices/index.html" es-419-lang="Recomendaciones" fr-lang="Bonnes pratiques" id-lang="Praktik terbaik" ja-lang="おすすめの方法" ko-lang="권장사항" pt-br-lang="Práticas recomendadas" ru-lang="Рекомендации" th-lang="จัดจำหน่าย" tr-lang="En iyi uygulamalar" vi-lang="Các phương pháp hay nhất" zh-cn-lang="最佳做法" zh-tw-lang="最佳做法">最佳做法</a>
+      </li>
+      <li class="dac-nav-item marketing-tools">
+        <a class="dac-nav-link" href="https://developer.android.com/distribute/marketing-tools/index.html" de-lang="Marketing-Tools" es-419-lang="Herramientas de marketing" fr-lang="Outils marketing" id-lang="Fitur pemasaran" ja-lang="マーケティング ツール" ko-lang="마케팅 도구" pt-br-lang="Ferramentas de marketing" ru-lang="Маркетинговые инструменты" th-lang="เครื่องมือการตลาด" tr-lang="Pazarlama araçları" vi-lang="Công cụ tiếp thị" zh-cn-lang="营销工具" zh-tw-lang="行銷工具">营销工具</a>
+      </li>
+      <li class="dac-nav-item policy-center">
+        
+        <a class="dac-nav-link" href="https://play.google.com/about/developer-content-policy/" target="_blank">Policy center</a>
+      </li>
+    </ul>
+  </li>
+  <li class="dac-nav-item stories">
+    
+    <a class="dac-nav-link" href="https://developer.android.com/stories/index.html">Stories</a>
+  </li>
+  
+</ul>
+
+        
+      </div>
+    </div>
+  </nav>
+
+  <a name="top" tabindex="0"></a>
+  
+  <div class="wrap clearfix" id="body-content">
+  
+    
+      
+      <div class="content-header">
+        <ul class="dac-header-crumbs dac-has-content"><li class="dac-header-crumbs-item"><a class="dac-header-crumbs-link" href="https://developer.android.com/index.html">首页</a></li><li class="dac-header-crumbs-item"><a class="dac-header-crumbs-link" href="https://developer.android.com/about/versions/o/index.html">Android</a></li><li class="dac-header-crumbs-item"><a class="dac-header-crumbs-link" href="https://developer.android.com/about/versions/oreo/index.html">Oreo</a></li></ul>
+        <!-- Breadcrumb Setup -->
+        <script>$('.dac-nav-list').dacCurrentPage().dacCrumbs();</script>
+        <h1 itemprop="name">Android 8.0 功能和 API</h1>
+      
+        
+      
+      </div>
+      
+    
+    <div class="jd-descr " itemprop="articleBody">
+      
+
+<div id="qv-wrapper">
+<div id="qv">
+  <h2>主要的开发者功能</h2>
+  <ol>
+      <ul style="list-style-type:none;">
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#ue">用户体验</a>
+           <ul>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#notifications">通知</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#af">自动填充框架</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#opip">画中画模式</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#df">可下载字体</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#fix">XML 中的字体</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#atv">自动调整 TextView 的大小</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#ai">自适应图标</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#cm">颜色管理</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#wv">WebView API</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#iapoas">固定快捷方式和小部件</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#max-aspect-ratio">最大屏幕纵横比</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#mds">多显示器支持</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#ulmp">统一的布局外边距和内边距</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#pc">指针捕获</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#category">应用类别</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#tvlauncher">Android TV 启动器</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#aset">AnimatorSet</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#ian">输入和导航</a>
+             <ul>
+               <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#kbnc">键盘导航键区</a></li>
+               <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#vdf">视图默认焦点</a></li>
+             </ul>
+          </li></ul>
+        </li>
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#sys">系统</a>
+           <ul>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#strictmode">新的 StrictMode 检测程序</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#cache">缓存数据</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#cpp">内容提供程序分页</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#crr">内容刷新请求</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#jobscheduler">JobScheduler 改进</a>
+             </li><li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#data-store">自定义数据存储</a>
+             </li><li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#fvbi-signature">findViewById() 签名变更</a></li>
+          </ul>
+        </li>
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#me">媒体增强功能</a>
+           <ul>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#media-vs">VolumeShaper</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#media-af">音频焦点增强功能</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#mm">媒体指标</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#mp">MediaPlayer</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#mr">音频录制器</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#apc">音频回放控制</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#imfa">增强的媒体文件访问功能</a></li>
+           </ul>
+        </li>
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#cs">连接</a>
+           <ul>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#aware">WLAN 感知</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#bt">蓝牙</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#cdp">配套设备配对</a></li>
+          </ul>
+        </li><li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#sh">共享</a>
+          <ul>
+            <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#smsh">智能共享</a></li>
+            <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#sts">智能文本选择</a></li>
+          </ul>
+        </li>
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#a11y">无障碍功能</a>
+           <ul>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#ab">无障碍功能按钮</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#iva">独立的音量调整</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#fg">指纹手势</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#wlh">字词级突出显示</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#sosrv">标准化单端范围值</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#ht">提示文本</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#cgd">连续的手势分派</a></li>
+          </ul>
+        </li>
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#sp">安全性与隐私</a>
+           <ul>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#perms">权限</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#naa">新的帐号访问和 Discovery API</a></li>
+              <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#sb">Google Safe Browsing API</a></li>
+          </ul>
+        </li>
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#test">测试</a>
+          <ul>
+            <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#instr">仪器测试</a></li>
+            <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#mit">用于测试的模拟 Intent</a></li>
+          </ul>
+        </li>
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#rt">运行时和工具</a>
+           <ul>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#art">平台优化</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#java">更新的 Java 支持</a></li>
+             <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#icu4j">更新的 ICU4J Android Framework API</a></li>
+          </ul>
+        </li>
+        <li><a href="https://developer.android.com/about/versions/oreo/android-8.0.html#ae">Android 企业版</a></li>
+       </ul>
+   </ol>
+</div>
+</div>
+
+<p>
+Android 8.0 为用户和开发者引入多种新功能。本文重点介绍面向开发者的新功能。 </p>
+
+<p>请务必查阅<a href="https://developer.android.com/preview/behavior-changes.html"> Android 8.0 行为变更</a>以了解平台变更可能影响您的应用的领域。
+</p>
+
+<h2 id="ux" style="padding-bottom: 0px;">用户体验</h2><hr>
+
+   <h3 id="notifications">通知</h3>
+
+<p>
+  在 Android 8.0 中，我们已重新设计通知，以便为管理通知行为和设置提供更轻松和更统一的方式。这些变更包括：
+</p>
+
+<ul>
+
+  <div style="width:275px;float:right;padding-left:3em;">
+  <img src="./Android 8.0 功能和 API _ Android Developers_files/notification-long-press.png" width="250px" alt="Android 8.0 中的通知长按菜单。" id="figure1">
+  <p class="img-caption">
+    <b>图 1. </b>用户可以长按应用启动器图标以查看 Android 8.0 中的通知。
+  </p>
+  </div>
+
+  <li>通知渠道：Android 8.0 引入了通知渠道，其允许您为要显示的每种通知类型创建用户可自定义的渠道。用户界面将通知渠道称之为通知类别。要了解如何实现通知渠道的信息，请参阅<a href="https://developer.android.com/preview/features/notification-channels.html">通知渠道</a>指南。
+  </li>
+
+  <li>通知标志：Android 8.0 引入了对在应用启动器图标上显示通知标志的支持。通知标志可反映某个应用是否存在与其关联、并且用户尚未予以清除也未对其采取行动的通知。通知标志也称为通知点。要了解如何调整通知标志，请参阅<a href="https://developer.android.com/preview/features/notification-badges.html">通知标志</a>指南。
+  </li>
+
+  <li>休眠：用户可以将通知置于休眠状态，以便稍后重新显示它。重新显示时通知的重要程度与首次显示时相同。应用可以移除或更新已休眠的通知，但更新休眠的通知并不会使其重新显示。
+  </li>
+
+  <li>通知超时：现在，使用 <code><a href="https://developer.android.com/reference/android/app/Notification.Builder.html#setTimeoutAfter(long)">setTimeoutAfter()</a></code> 创建通知时您可以设置超时。您可以使用此函数指定一个持续时间，超过该持续时间后，通知应取消。如果需要，您可以在指定的超时持续时间之前取消通知。
+  </li>
+
+  <li>通知设置：当您使用 <code><a href="https://developer.android.com/reference/android/app/Notification.html#INTENT_CATEGORY_NOTIFICATION_PREFERENCES">Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES</a></code>Intent 从通知创建指向应用通知设置的链接时，您可以调用 <code>setSettingsText()</code> 来设置要显示的文本。此系统可以提供以下 Extra 数据和 Intent，用于过滤应用必须向用户显示的设置：<code>EXTRA_CHANNEL_ID</code>、<code>NOTIFICATION_TAG</code> 和 <code>NOTIFICATION_ID</code>。
+  </li>
+
+  <li>通知清除：系统现在可区分通知是由用户清除，还是由应用移除。要查看清除通知的方式，您应实现 <code><a href="https://developer.android.com/reference/android/service/notification/NotificationListenerService.html">NotificationListenerService</a></code> 类的新 <code><a href="https://developer.android.com/reference/android/service/notification/NotificationListenerService.html#onNotificationRemoved(android.service.notification.StatusBarNotification, android.service.notification.NotificationListenerService.RankingMap, int)">onNotificationRemoved()</a></code> 函数。
+  </li>
+
+  <li>背景颜色：您现在可以设置和启用通知的背景颜色。只能在用户必须一眼就能看到的持续任务的通知中使用此功能。例如，您可以为与驾车路线或正在进行的通话有关的通知设置背景颜色。您还可以使用 <code><a href="https://developer.android.com/reference/android/app/Notification.Builder.html#setColor(int)">Notification.Builder.setColor()</a></code> 设置所需的背景颜色。这样做将允许您使用 <code><a href="https://developer.android.com/reference/android/app/Notification.Builder.html#setColorized(boolean)">Notification.Builder.setColorized()</a></code> 启用通知的背景颜色设置。
+  </li>
+
+  <li>消息样式：现在，使用 <code><a href="https://developer.android.com/reference/android/app/Notification.MessagingStyle.html">MessagingStyle</a></code> 类的通知可在其折叠形式中显示更多内容。对于与消息有关的通知，您应使用 <code><a href="https://developer.android.com/reference/android/app/Notification.MessagingStyle.html">MessagingStyle</a></code> 类。您还可以使用新的 <code><a href="https://developer.android.com/reference/android/app/Notification.MessagingStyle.html#addHistoricMessage(android.app.Notification.MessagingStyle.Message)">addHistoricMessage()</a></code> 函数，通过向与消息相关的通知添加历史消息为会话提供上下文。
+  </li>
+
+</ul>
+
+
+
+   <h3 id="af">自动填充框架</h3>
+
+   
+
+<p>
+帐号创建、登录和信用卡交易需要时间并且容易出错。在使用要求执行此类重复性任务的应用时，用户很容易遭受挫折。
+</p>
+
+<p>
+Android 8.0 通过引入自动填充框架，简化了登录和信用卡表单之类表单的填写工作。在用户选择接受自动填充之后，新老应用都可使用自动填充框架。
+</p>
+
+<p>
+您可以采取某些措施，优化您的应用使用此框架的方式。如需了解详细信息，请参阅<a href="https://developer.android.com/preview/features/autofill.html">自动填充框架概览</a>。
+</p>
+
+
+
+   <h3 id="opip">画中画模式</h3>
+
+   
+
+<p>
+Android 8.0 允许以画中画 (PIP) 模式启动操作组件。PIP 是一种特殊的多窗口模式，最常用于视频播放。目前，PIP 模式可用于 Android TV，而 Android 8.0 则让该功能可进一步用于其他 Android 设备。
+</p>
+
+<p>
+当某个 Activity 处于 PIP 模式时，它会处于暂停状态，但仍应继续显示内容。因此，您应确保您的应用在 <code><a href="https://developer.android.com/reference/android/app/Activity.html#onPause()">onPause()</a></code> 处理程序中进行处理时不会暂停播放。相反，您应在 <code><a href="https://developer.android.com/reference/android/app/Activity.html#onStop()">onStop()</a></code> 中暂停播放视频，并在 <code><a href="https://developer.android.com/reference/android/app/Activity.html#onStart()">onStart()</a></code> 中继续播放。如需了解详细信息，请参阅<a href="https://developer.android.com/guide/topics/ui/multi-window.html#lifecycle">多窗口生命周期</a>。
+</p>
+
+<p>
+要指定您的 Activity 可以使用 PIP 模式，请在清单中将 <code>android:supportsPictureInPicture</code> 设置为 true。（从 Android 8.0 开始，如果您打算在 Android TV 或其他 Android 设备上支持 PIP 模式，则无需将 <code>android:resizeableActivity</code> 设置为 true；只有在您的 Activity 支持其他多窗口模式时，才需要设置 <code>android:resizeableActivity</code>。）
+</p>
+
+
+<h4 id="pip-apic">API 变更</h4>
+
+<p>
+Android 8.0 引入一种新的对象 <code><a href="https://developer.android.com/reference/android/app/PictureInPictureParams.html">PictureInPictureParams</a></code>，您可以将该对象传递给 PIP 函数来指定某个 Activity 在其处于 PIP 模式时的行为。此对象还指定了各种属性，例如操作组件的首选纵横比。
+</p>
+
+<p>
+现在，在<a href="https://developer.android.com/training/tv/playback/picture-in-picture.html">添加画中画</a>中介绍的现有 PIP 函数可用于所有 Android 设备，而不仅限于 Android TV。此外，Android 8.0 还提供以下函数来支持 PIP 模式：
+</p>
+
+<ul>
+  <li><code><a href="https://developer.android.com/reference/android/app/Activity.html#enterPictureInPictureMode(android.app.PictureInPictureParams)">Activity.enterPictureInPictureMode(PictureInPictureParams args)</a></code>：将操作组件置于画中画模式。操作组件的纵横比和其他配置设置均由 <var>args</var> 指定。如果 <var>args</var> 中的任何字段为空，系统将使用您上次调用 <code><a href="https://developer.android.com/reference/android/app/Activity.html#setPictureInPictureParams(android.app.PictureInPictureParams)">Activity.setPictureInPictureParams()</a></code> 时所设置的值。
+
+  <p>
+  指定的操作组件被置于屏幕的一角，屏幕剩余部分则被屏幕显示的上一个操作组件填满。进入 PIP 模式的 Activity 将进入暂停状态，但仍保持已启动状态。如果用户点按此 PIP 操作组件，系统将显示一个菜单供用户操作，而在操作组件处于 PIP 状态期间，不会理会任何触摸事件。
+  </p>
+  </li>
+
+  <li> <code><a href="https://developer.android.com/reference/android/app/Activity.html#setPictureInPictureParams(android.app.PictureInPictureParams)">Activity.setPictureInPictureParams()</a></code>：更新操作组件的 PIP 配置设置。如果操作组件目前处于 PIP 模式，则会更新此设置；如果操作组件的纵横比发生变化，这非常有用。如果操作组件不处于 PIP 模式，则会使用这些配置设置，而不会考虑您调用的 <code>enterPictureInPictureMode()</code> 函数。
+  </li>
+</ul>
+
+
+   <h3 id="df">可下载字体</h3>
+
+   <p>
+  Android 8.0 和 Android 支持库 26 允许您从提供程序应用请求字体，而无需将字体绑定到 APK 中或让 APK 下载字体。此功能可减小 APK 大小，提高应用安装成功率，使多个应用可以共享同一种字体。</p>
+<p>
+  如需了解有关下载字体的详细信息，请参阅 <a href="https://developer.android.com/preview/features/downloadable-fonts.html">可下载字体</a>。
+</p>
+
+
+  <h3 id="fix">XML 中的字体</h3>
+
+   <p>
+Android 8.0 推出一项新功能，即 XML 中的字体，允许您使用字体作为资源。这意味着，不再需要以资产的形式捆绑字体。字体在 <code>R</code> 文件中编译，并且作为一种资源，可自动用于系统。然后，您可以利用一种新的资源类型 <code>font</code> 来访问这些字体。
+</p>
+<p>
+在运行 API 版本 14 及更高版本的设备中，支持库 26 对此功能提供完全支持。
+</p>
+<p>
+如需了解有关以资源形式使用字体以及检索系统字体有关的详细信息，请参阅 <a href="https://developer.android.com/preview/features/fonts-in-xml.html">XML 中的字体</a>。
+</p>
+
+
+   <h3 id="atv">自动调整 TextView 的大小</h3>
+
+   <p>
+Android 8.0 允许您根据 TextView 的大小自动设置文本展开或收缩的大小。这意味着，在不同屏幕上优化文本大小或者优化包含动态内容的文本大小比以往简单多了。如需了解有关如何在 Android 8.0 中自动调整 TextView 的大小的详细信息，请参阅<a href="https://developer.android.com/preview/features/autosizing-textview.html">自动调整 TextView 的大小</a>。
+</p><p>
+
+
+  </p><h3 id="ai">自适应图标</h3>
+
+   <p>
+  Android 8.0 引入自适应启动器图标。自适应图标支持视觉效果，可在不同设备型号上显示为各种不同的形状。要了解如何创建自适应图标，请参阅<a href="https://developer.android.com/preview/features/adaptive-icons.html">自适应图标</a>预览功能指南。
+</p>
+
+
+   <h3 id="cm">颜色管理</h3>
+
+   <p>
+图像应用的 Android 开发者现在可以利用支持广色域彩色显示的新设备。要显示广色域图像，应用需要在其清单（每个操作组件）中启用一个标志，并加载具有嵌入的广域彩色配置文件（AdobeRGB、Pro Photo RGB、DCI-P3 等）的位图。
+</p>
+
+
+   <h3 id="wv">WebView API</h3>
+
+   
+
+<p>Android 8.0 提供多种 API，帮助您管理在应用中显示网页内容的 <code><a href="https://developer.android.com/reference/android/webkit/WebView.html">WebView</a></code> 对象。这些 API 可增强应用的稳定性和安全性，它们包括：</p>
+
+<ul>
+  <li>Version API</li>
+  <li>Google SafeBrowsing API</li>
+  <li>Termination Handle API</li>
+  <li>Renderer Importance API</li>
+</ul>
+
+<p>要详细了解如何这些 API，请参阅<a href="https://developer.android.com/preview/features/managing-webview.html">管理 WebView</a>。</p>
+
+
+   <h3 id="iapoas">固定快捷方式和小部件</h3>
+
+   
+
+<p>
+  Android 8.0 引入了快捷方式和微件的应用内固定功能。在您的应用中，您可以根据用户权限为支持的启动器创建固定的快捷方式和小部件。
+</p>
+
+<p>如需了解详细信息，请参阅<a href="https://developer.android.com/preview/features/pinning-shortcuts-widgets.html">固定快捷方式和微件</a>预览功能指南。
+</p>
+
+
+  <h3 id="max-aspect-ratio">最大屏幕纵横比</h3>
+
+    以 Android 7.1（API 级别 25）或更低版本为目标平台的应用默认的最大屏幕纵横比为 1.86。针对 Android 8.0 或更高版本的应用没有默认的最大纵横比。如果您的应用需要设置最大纵横比，请使用定义您的操作组件的清单文件中的 <a href="https://developer.android.com/reference/android/R.attr.html#maxAspectRatio">maxAspectRatio</a> 属性。 
+
+  <h3 id="mds">多显示器支持</h3>
+
+    
+
+<p>
+从 Android 8.0 开始，此平台为多显示器提供增强的支持。如果 Activity 支持多窗口模式，并且在具有多显示器的设备上运行，则用户可以将 Activity 从一个显示器移动到另一个显示器。当应用启动 Activity 时，此应用可指定 Activity 应在哪个显示器上运行。
+</p>
+
+<p class="note"><strong>注：</strong>如果 Activity 支持多窗口模式，则 Android 8.0 将为该 Activity 自动启用多显示器支持。您应测试您的应用，确保它在多显示器环境下可正常运行。
+</p>
+
+<p>
+每次只有一个 Activity 可以处于继续状态，即使此应用具有多个显示器。具有焦点的 Activity 将处于继续状态，所有其他可见的 Activity 均暂停，但不会停止。如需了解有关当多个 Activity 可见时活动生命周期的详细信息，请参阅<a href="https://developer.android.com/guide/topics/ui/multi-window.html#lifecycle">多窗口生命周期</a>。
+</p>
+
+<p>
+当用户将 Activity 从一个显示器移动到另一个显示器时，系统将调整 Activity 大小，并根据需要发起运行时变更。您的 Activity 可以自行处理配置变更，或允许系统销毁包含该 Activity 的进程，并以新的尺寸重新创建它。如需了解详细信息，请参阅<a href="https://developer.android.com/guide/topics/resources/runtime-changes.html">处理配置变更</a>。
+</p>
+
+<p>
+<code><a href="https://developer.android.com/reference/android/app/ActivityOptions.html">ActivityOptions</a></code> 提供两个新函数以支持多个显示器：
+</p>
+
+<dl>
+  <dt><code><a href="https://developer.android.com/reference/android/app/ActivityOptions.html#setLaunchDisplayId(int)">setLaunchDisplayId()</a></code></dt>
+  <dd>指定 Activity 在启动后应显示在哪个显示器上。</dd>
+  <dt><code><a href="https://developer.android.com/reference/android/app/ActivityOptions.html#getLaunchDisplayId()">getLaunchDisplayId()</a></code></dt>
+  <dd>返回操作组件的当前启动显示器。</dd>
+</dl>
+
+<p>
+对 adb shell 进行了扩展，以支持多个显示器。<code>shell start</code> 命令现在可用于启动操作组件，并指定操作组件的目标显示器：
+</p>
+
+<pre class="no-pretty-print">adb shell start &lt;activity_name&gt; --display &lt;display_id&gt;
+</pre>
+
+
+   <h3 id="ulmp">统一的布局外边距和内边距</h3>
+
+   <p>Android 8.0 让您可以更轻松地指定 <code><a href="https://developer.android.com/reference/android/view/View.html">View</a></code> 元素的对边使用相同外边距和内边距的情形。具体来说，您现在可以在布局 XML 文件中使用以下属性：</p>
+
+<ul>
+  <li><a href="https://developer.android.com/reference/android/R.attr.html#layout_marginVertical"> <code>layout_marginVertical</code></a>，同时定义 <a href="https://developer.android.com/reference/android/R.attr.html#layout_marginTop"><code>layout_marginTop</code></a> 和 <a href="https://developer.android.com/reference/android/R.attr.html#layout_marginBottom"><code>layout_marginBottom</code></a>。</li>
+  <li><a href="https://developer.android.com/reference/android/R.attr.html#layout_marginHorizontal"> <code>layout_marginHorizontal</code></a>，同时定义 <a href="https://developer.android.com/reference/android/R.attr.html#layout_marginLeft"><code>layout_marginLeft</code></a> 和 <a href="https://developer.android.com/reference/android/R.attr.html#layout_marginRight"><code>layout_marginRight</code></a>。</li>
+  <li><a href="https://developer.android.com/reference/android/R.attr.html#paddingVertical"> <code>paddingVertical</code></a>，同时定义 <a href="https://developer.android.com/reference/android/R.attr.html#paddingTop"><code>paddingTop</code></a> 和 <a href="https://developer.android.com/reference/android/R.attr.html#paddingBottom"><code>paddingBottom</code></a>。</li>
+  <li><a href="https://developer.android.com/reference/android/R.attr.html#paddingHorizontal"> <code>paddingHorizontal</code></a>，同时定义 <a href="https://developer.android.com/reference/android/R.attr.html#paddingLeft"><code>paddingLeft</code></a> 和 <a href="https://developer.android.com/reference/android/R.attr.html#paddingRight"><code>paddingRight</code></a>。</li>
+</ul>
+
+<p class="note"><b>注</b>：如果您自定义应用逻辑以<a href="https://developer.android.com/training/basics/supporting-devices/languages.html">支持不同语言和文化</a>（包括文本方向），请记住，这些属性不会影响 <a href="https://developer.android.com/reference/android/R.attr.html#layout_marginStart"><code>layout_marginStart</code></a>、<a href="https://developer.android.com/reference/android/R.attr.html#layout_marginEnd"><code>layout_marginEnd</code></a>、<a href="https://developer.android.com/reference/android/R.attr.html#paddingStart"><code>paddingStart</code></a> 或 <a href="https://developer.android.com/reference/android/R.attr.html#paddingEnd"><code>paddingEnd</code></a> 的值。您可以自行设置这些值和新的垂直与水平布局属性来创建取决于文本方向的布局行为。</p>
+
+
+  <h3 id="pc">指针捕获</h3>
+
+  
+
+<p>
+某些应用（例如游戏、远程桌面和虚拟化客户端）将大大受益于鼠标指针控制。指针捕获是 Android 8.0 中的一项新功能，可以通过将所有鼠标事件传递到您的应用中焦点视图的方式提供此类控制。
+</p>
+
+<p>
+从 Android 8.0 开始，您的应用中的 <code><a href="https://developer.android.com/reference/android/view/View.html">View</a></code> 可以请求指针捕获并定义一个侦听器来处理捕获的指针事件。鼠标指针在此模式下将隐藏。如果不再需要鼠标信息，该视图可以释放指针捕获。系统也可以在视图丢失焦点时（例如，当用户打开另一个应用时）释放指针捕获。
+</p>
+
+<p>
+如需了解有关如何在您的应用中使用此功能的信息，请参阅<a href="https://developer.android.com/preview/features/pointer-capture.html">指针捕获</a>。
+</p>
+
+
+   <h3 id="category">应用类别</h3>
+
+   <p>在适当的情况下，Android 8.0 允许每个应用声明其所属的类别。这些类别用于将应用呈现给用户的用途或功能类似的应用归类在一起，例如按流量消耗、电池消耗和存储消耗将应用归类。您可以在 <code>&lt;application&gt;</code> 清单标记中设置 <code>android:appCategory</code> 属性，定义应用的类别。</p>
+
+
+
+  <h3 id="tvlauncher">Android TV 启动器</h3>
+
+   <p>Android 8.0 添加了一种以内容为中心的全新 <a href="https://developer.android.com/preview/features/tvlauncher.html">Android TV 主屏幕体验</a>，支持 Android TV 模拟器和 Nexus Player Android 8.0 设备映像。新的主屏幕在对应于频道的行中组织视频内容，这些频道在系统上通过应用填充各个节目。应用可以发布多个频道，用户可以配置他们希望在主屏幕上看到哪些频道。Android TV 也包含一个 Watch Next 行，此行根据用户的观看习惯从应用填充节目。应用也可以提供视频预览，这些预览会在用户聚焦到节目时自动播放。用于填充频道和节目的 API 属于 TvProvider API，这些 API 以 Android 支持库模块的形式随 Android 8.0 分发。</p>
+
+
+  <h3 id="aset">AnimatorSet</h3>
+
+   
+<p>
+从 Android 8.0 开始，<code><a href="https://developer.android.com/reference/android/animation/AnimatorSet.html">AnimatorSet</a></code> API 现在支持寻道和倒播功能。寻道功能允许您将动画的位置设置为指定的时间点处。如果您的应用包含可撤消的操作的动画，倒播功能会很有用。现在，您不必定义两组独立的动画，而只需反向播放同一组动画。
+</p>
+
+
+  <h3 id="ian">输入和导航</h3>
+
+<h4 id="kbnc">键盘导航键区</h4>
+
+<p>如果您的应用中，某个操作组件使用一种复杂的视图层次结构（如图 2 所示），可考虑将多组界面元素组成一个键区，简化键盘导航这些元素的操作。用户可以在 Chromebook 设备上按 Meta+Tab 或 Search+Tab，在不同键区之间导航。键区的一些范例包括：侧面板、导航栏、主内容区域和可能包含多个子元素的元素。</p>
+
+<figure id="fig-kb-nav-cluster" class="attempt-right">
+  <img src="./Android 8.0 功能和 API _ Android Developers_files/keyboard-navigation-clusters.png" width="300" alt="以一个包含五个导航键区的操作组件为例，用户可以使用键盘导航键区快捷键进行导航。键区按以下布局显示：顶部面板、左侧面板、主内容区域、底部面板和浮动操作按钮。">
+  <figcaption><b>图 2.</b> 包含 5 个键区的操作组件</figcaption>
+</figure>
+
+<p>要将一个 <code><a href="https://developer.android.com/reference/android/view/View.html">View</a></code> 或 <code><a href="https://developer.android.com/reference/android/view/ViewGroup.html">ViewGroup</a></code> 元素设置为一个键区，请在元素的布局 XML 文件中将 <a href="https://developer.android.com/reference/android/view/View.html#attr_android:keyboardNavigationCluster"> <code>android:keyboardNavigationCluster</code></a> 属性设置为 <code>true</code>，或者将 <code>true</code> 传递至应用界面逻辑中的 <code><a href="https://developer.android.com/reference/android/view/View.html#setKeyboardNavigationCluster(boolean)">setKeyboardNavigationCluster()</a></code>。</p>
+
+<p class="note"><b>注</b>：键区不能嵌套，不过，非嵌套键区可以显示在层次结构的不同层级。如果您尝试嵌套键区，框架仅会将最顶层的 <code><a href="https://developer.android.com/reference/android/view/ViewGroup.html">ViewGroup</a></code> 元素视为键区。</p>
+
+<p>在具有触摸屏的设备中，您可以将某个键区指定的 <code><a href="https://developer.android.com/reference/android/view/ViewGroup.html">ViewGroup</a></code> 对象的 <code>android:touchscreenBlocksFocus</code> 元素设置为 <code>true</code>，仅允许从键区导航进入和离开此键区。如果您将此配置应用于某个键区，用户将无法使用 Tab 键或箭头键导航进入或离开此键区，而是必须按键区导航键盘组合键。</p>
+
+<h4 id="vdf">视图默认焦点</h4>
+
+<p>在 Android 8.0 中，您可以指定在（重新）创建的操作组件继续运行并且用户按下键盘导航键（例如 Tab 键）之后应接收焦点的 <code><a href="https://developer.android.com/reference/android/view/View.html">View</a></code>。要应用“设为默认焦点”设置，请在包含界面元素的布局 XML 文件中将 <code><a href="https://developer.android.com/reference/android/view/View.html">View</a></code> 元素的 <a href="https://developer.android.com/reference/android/view/View.html#attr_android:focusedByDefault"> <code>android:focusedByDefault</code></a> 属性设置为 <code>true</code>，或者将 <code>true</code> 传递至应用界面逻辑中的 <code><a href="https://developer.android.com/reference/android/view/View.html#setFocusedByDefault(boolean)">setFocusedByDefault()</a></code>。</p>
+
+
+<h2 id="sys" style="padding-bottom: 0px;">系统</h2><hr>
+
+   <h3 id="strictmode">新的 StrictMode 检测程序</h3>
+
+   <p>Android 8.0 添加了三个新的 StrictMode 检测程序，帮助识别应用可能出现的错误：</p>
+
+<ul>
+<li><code><a href="https://developer.android.com/reference/android/os/StrictMode.ThreadPolicy.Builder.html#detectUnbufferedIo()">detectUnbufferedIo()</a></code> 将检测您的应用何时读取或写入未缓冲的数据，这可能极大影响性能。</li>
+<li><code><a href="https://developer.android.com/reference/android/os/StrictMode.VmPolicy.Builder.html#detectContentUriWithoutPermission()">detectContentUriWithoutPermission()</a></code> 将检测您的应用在其外部启动 Activity 时何时意外忘记向其他应用授予权限。</li>
+<li><code><a href="https://developer.android.com/reference/android/os/StrictMode.VmPolicy.Builder.html#detectUntaggedSockets()">detectUntaggedSockets()</a></code> 将检测您的应用何时使用网络流量，而不使用 <code><a href="https://developer.android.com/reference/android/net/TrafficStats.html#setThreadStatsTag(int)">setThreadStatsTag(int)</a></code> 将流量标记用于调试目的。</li>
+</ul>
+
+
+   <h3 id="cache">缓存数据</h3>
+
+   <p>Android 8.0 优化了缓存数据的导航和行为。现在，每个应用均获得一定的磁盘空间配额，用于存储 <code><a href="https://developer.android.com/reference/android/os/storage/StorageManager.html#getCacheQuotaBytes(java.util.UUID)">getCacheQuotaBytes(UUID)</a></code> 返回的缓存数据。</p>
+
+<p>当系统需要释放磁盘空间时，将开始从超过配额最多的应用中删除缓存文件。因此，如果将您的缓存数据量始终保持低于配额的水平，则在必须清除系统中的某些文件时，您的缓存文件将能坚持到最后。系统在决定删除您的应用中的哪些缓存文件时，将首先考虑删除最旧的文件（由修改时间确定）。</p>
+
+<p>您还可以针对每个目录启用两种新行为，以控制系统如何释放缓存数据：</p>
+
+<ul>
+<li><code>StorageManager.setCacheBehaviorAtomic()</code> 可用于指示某个目录及其所有内容应作为一个不可分割的整体进行删除。</li>
+<li><code><a href="https://developer.android.com/reference/android/os/storage/StorageManager.html#setCacheBehaviorTombstone(java.io.File, boolean)">setCacheBehaviorTombstone(File, boolean)</a></code> 可用于指示不应删除某个目录内的文件，而应将它们截断到 0 字节长度，使空文件保持完好。</li>
+</ul>
+
+<p>最后，在需要为大文件分配磁盘空间时，可考虑使用新的 <code><a href="https://developer.android.com/reference/android/os/storage/StorageManager.html#allocateBytes(java.io.FileDescriptor, long)">allocateBytes(FileDescriptor, long)</a></code> API，它将自动清除属于其他应用的缓存文件（根据需要），以满足您的请求。在确定设备是否有足够的磁盘空间保存您的新数据时，请调用 <code><a href="https://developer.android.com/reference/android/os/storage/StorageManager.html#getAllocatableBytes(java.util.UUID)">getAllocatableBytes(UUID)</a></code> 而不要使用 <code><a href="https://developer.android.com/reference/java/io/File.html#getUsableSpace()">getUsableSpace()</a></code>，因为前者会考虑系统要为您清除的任何缓存数据。</p>
+
+
+   <h3 id="cpp">内容提供程序分页</h3>
+
+   <p>
+我们已更新内容提供程序以支持加载大型数据集，每次加载一页。例如，一个具有大量图像的照片应用可查询要在页面中显示的数据的子集。内容提供程序返回的每个结果页面由一个 Cursor 对象表示。客户端和提供程序必须实现分页才能利用此功能。
+</p>
+
+<p>
+  如需了解有关内容提供程序变更的详细信息，请参阅 <code><a href="https://developer.android.com/reference/android/content/ContentProvider.html">ContentProvider</a></code> 和 <code><a href="https://developer.android.com/reference/android/content/ContentProviderClient.html">ContentProviderClient</a></code>。
+</p>
+
+
+   <h3 id="crr">内容刷新请求</h3>
+
+   <p>现在，<code><a href="https://developer.android.com/reference/android/content/ContentProvider.html">ContentProvider</a></code> 和 <code><a href="https://developer.android.com/reference/android/content/ContentResolver.html">ContentResolver</a></code> 类均包含 <code>refresh()</code> 函数，这样，客户端可以更轻松地知道所请求的信息是否为最新信息。</p>
+
+<p>您可以扩展 <code><a href="https://developer.android.com/reference/android/content/ContentProvider.html">ContentProvider</a></code> 以添加自定义的内容刷新逻辑。请务必重写 <code><a href="https://developer.android.com/reference/android/content/ContentProvider.html#refresh(android.net.Uri, android.os.Bundle, android.os.CancellationSignal)">refresh()</a></code> 函数，以返回 <code>true</code>，告知提供程序的客户端您已尝试自行刷新数据。</p>
+
+<p>您的客户端应用可通过调用另一个函数（又称 <code><a href="https://developer.android.com/reference/android/content/ContentResolver.html#refresh(android.net.Uri, android.os.Bundle, android.os.CancellationSignal)">refresh()</a></code>），显式请求已刷新的内容。在调用此函数时，传入待刷新数据的 URI。</p>
+
+<p class="note"><b>注</b>：由于您可能通过网络不断请求数据，您应仅在有明显迹象表明内容确已过时时才从客户端调用 <code><a href="https://developer.android.com/reference/android/content/ContentResolver.html#refresh(android.net.Uri, android.os.Bundle, android.os.CancellationSignal)">refresh()</a></code>。执行此类内容刷新最常见的原因是响应<a href="https://developer.android.com/training/swipe/add-swipe-interface.html">滑动刷新</a>手势，该手势显式请求当前界面显示最新内容。</p>
+
+
+   <h3 id="jobscheduler">JobScheduler 改进</h3>
+
+   
+
+<p>
+Android 8.0 引入了对 <code><a href="https://developer.android.com/reference/android/app/job/JobScheduler.html">JobScheduler</a></code> 的多项改进。由于您通常可以使用计划作业替代现在受限的后台服务或隐式广播接收器，这些改进可以让您的应用更轻松地符合新的<a href="https://developer.android.com/preview/features/background.html">后台执行限制</a>。
+</p>
+
+<p>
+<code><a href="https://developer.android.com/reference/android/app/job/JobScheduler.html">JobScheduler</a></code> 的更新包括：
+</p>
+
+<ul>
+<li>
+您现在可以将工作队列与计划作业关联。要将一个工作项添加到作业的队列中，请调用 <a href="https://developer.android.com/reference/android/app/job/JobScheduler.html#enqueue(android.app.job.JobInfo,%20android.app.job.JobWorkItem)"><code>JobScheduler.enqueue()</code></a>。当作业运行时，它可以将待定工作从队列中剥离并进行处理。这种功能可以处理之前需要启动后台服务（尤其是实现 <code><a href="https://developer.android.com/reference/android/app/IntentService.html">IntentService</a></code> 的服务）的许多用例。
+</li>
+
+<li>
+您现在可以通过调用 <a href="https://developer.android.com/reference/android/app/job/JobInfo.Builder.html#setClipData(android.content.ClipData,%20int)"><code>JobInfo.Builder.setClipData()</code></a> 的方式将 <code><a href="https://developer.android.com/reference/android/content/ClipData.html">ClipData</a></code> 与作业关联。利用此选项，您可以将 URI 权限授予与作业关联，类似于这些权限传递到 <code><a href="https://developer.android.com/reference/android/content/Context.html#startService(android.content.Intent)">Context.startService()</a></code> 的方式。您也可以将 URI 权限授予用于工作队列上的 intent。
+</li>
+
+<li>
+计划作业现在支持多个新的约束条件：
+
+<dl>
+<dt><a href="https://developer.android.com/reference/android/app/job/JobInfo.html#isRequireStorageNotLow()"><code>JobInfo.isRequireStorageNotLow()</code></a></dt>
+<dd>如果设备的可用存储空间非常低，作业将不会运行。</dd>
+
+<dt><a href="https://developer.android.com/reference/android/app/job/JobInfo.html#isRequireBatteryNotLow()"><code>JobInfo.isRequireBatteryNotLow()</code></a></dt>
+<dd>如果电池电量等于或低于临界阈值，作业将不会运行；临界阈值是指设备显示 <b>Low battery warning</b> 系统对话框的电量。</dd>
+
+<dt><a href="https://developer.android.com/reference/android/app/job/JobInfo.html#NETWORK_TYPE_METERED"><code>NETWORK_TYPE_METERED</code></a></dt>
+<dd>作业需要一个按流量计费的网络连接，比如大多数移动数据网络数据套餐。</dd>
+
+</dl>
+</li>
+
+</ul>
+
+
+   <h3 id="data-store">自定义数据存储</h3>
+
+   <p>
+  Android 8.0 允许您为首选项提供自定义数据存储，如果您的应用将首选项存储在云或本地数据库中，或者如果首选项特定于某个设备，此功能会非常有用。如需了解有关实现数据存储的详细信息，请参阅<a href="https://developer.android.com/preview/features/custom-data-store.html">自定义数据存储</a>。
+</p>
+
+
+   <h3 id="fvbi-signature">findViewById() 签名变更</h3>
+
+   
+
+<p>现在，<code>findViewById()</code> 函数的全部实例均返回 <code>
+    &lt;T extends View&gt; T</code>，而不是 <code>View</code>。此变更会带来以下影响：</p>
+
+<ul>
+  <li>例如，如果 <code>someMethod(View)</code> 和 <code>someMethod(TextView)</code> 均接受调用 <code>findViewById()</code> 的结果，这可能导致现有代码的返回类型不确定。
+  </li>
+
+  <li>在使用 Java 8 源语言时，这需要在返回类型不受限制时（例如，<code>assertNotNull(findViewById(...)).someViewMethod())</code>）显式转换为 <code>View</code>。
+  </li>
+
+  <li>重写非最终的 <code>findViewById()</code> 函数（例如，<code>Activity.findViewById()</code>）将需要更新其返回类型。
+  </li>
+</ul>
+
+
+<h2 id="me" style="padding-bottom: 0px;">媒体增强功能</h2><hr>
+
+  <h3 id="media-vs">VolumeShaper</h3>
+
+<p>有一个新的 <a href="https://developer.android.com/preview/features/volumeshaper.html">VolumeShaper</a> 类。您可以用它来执行简短的自动音量转换，例如淡入、淡出和交叉淡入淡出。</p>
+
+<h3 id="media-af">音频焦点增强功能</h3>
+
+<p>音频应用通过请求和舍弃音频焦点的方式在设备上共享音频输出。应用通过启动或停止播放或者闪避音量的方式处理处于聚焦状态的变更。有一个新的 <code>AudioFocusRequest</code> 类。对于此类，应用在处理音频焦点变化时会使用<a href="https://developer.android.com/preview/features/audiofocus.html">新功能</a>：<a href="https://developer.android.com/preview/features/audiofocus.html#automatic_ducking">自动闪避</a>和<a href="https://developer.android.com/preview/features/audiofocus.html#delayed_focus_gain">延迟聚焦</a>。
+</p>
+
+
+<h3 id="mm">媒体指标</h3>
+
+
+<p>
+新的 <code>getMetrics()</code> 函数将返回一个包含配置和性能信息的 <code><a href="https://developer.android.com/reference/android/os/PersistableBundle.html">PersistableBundle</a></code> 对象，用一个包含属性和值的地图表示。为以下媒体类定义 <code>getMetrics()</code> 函数：
+</p>
+<ul>
+  <li><code><a href="https://developer.android.com/reference/android/media/MediaPlayer.html#getMetrics()">MediaPlayer.getMetrics()</a></code></li>
+  <li><code><a href="https://developer.android.com/reference/android/media/MediaRecorder.html#getMetrics()">MediaRecorder.getMetrics()</a></code></li>
+  <li><code><a href="https://developer.android.com/reference/android/media/MediaCodec.html#getMetrics()">MediaCodec.getMetrics()</a></code></li>
+  <li><code><a href="https://developer.android.com/reference/android/media/MediaExtractor.html#getMetrics()">MediaExtractor.getMetrics()</a></code></li>
+</ul>
+
+<p>
+为每个实例单独收集指标，并持续到实例的生命周期结束为止。如果没有可用的指标，则此函数将返回 null。返回的实际指标取决于类。
+</p>
+
+<h3 id="mp">MediaPlayer</h3>
+
+<p>
+Android 8.0 为 MediaPlayer 类添加了多种新函数。这些函数可以从多个方面增强您的应用处理媒体播放的能力：
+</p>
+
+<ul>
+  <li>在<a href="https://developer.android.com/preview/features/media-player.html#seeking">搜索</a>帧时进行精细控制。</li>
+  <li>播放<a href="https://developer.android.com/preview/features/media-player.html#drm">受数字版权管理保护的</a>材料的功能。
+  </li>
+</ul>
+<p>MediaPlayer 现在支持<a href="https://developer.android.com/preview/features/media-player.html#sle">采样级加密</a>。</p>
+
+<h3 id="mr">音频录制器</h3>
+
+
+<ul>
+<li>音频录制器现在支持对流式传输有用的 MPEG2_TS 格式：
+<pre class="prettyprint"><span class="pln">mMediaRecorder</span><span class="pun">.</span><span class="pln">setOutputFormat</span><span class="pun">(</span><span class="typ">MediaRecorder</span><span class="pun">.</span><span class="typ">OutputFormat</span><span class="pun">.</span><span class="pln">MPEG_2_TS</span><span class="pun">);</span></pre>
+<p> 请参阅 <code><a href="https://developer.android.com/reference/android/media/MediaRecorder.OutputFormat.html">MediaRecorder.OutputFormat</a></code></p>
+</li>
+
+<li><code><a href="https://developer.android.com/reference/android/media/MediaMuxer.html">MediaMuxer</a></code> 现在可以处理任意数量的音频和视频流，而不再仅限于一个音频曲目和/或一个视频曲目。使用 <code><a href="https://developer.android.com/reference/android/media/MediaMuxer.html#addTrack(android.media.MediaFormat)">addTrack()</a></code> 可混录所需的任意数量的曲目。</li>
+
+<li><code><a href="https://developer.android.com/reference/android/media/MediaMuxer.html">MediaMuxer</a></code> 还可以添加一个或多个包含用户定义的每帧信息的元数据曲目。元数据的格式由您的应用定义。仅对 MP4 容器支持元数据曲目。</li>
+</ul>
+
+<p>
+元数据可以用于离线处理。例如，传感器的陀螺仪信号可以用于执行视频稳定操作。
+</p>
+
+<p>
+在添加元数据曲目时，曲目的 MIME 格式必须以前缀“application/”开头。除了数据不是来源于 <code>MediaCodec</code> 以外，写入元数据的操作与写入视频/音频数据相同。相反，应用将包含相关时间戳的 <code>ByteBuffer</code> 传递给 <code><a href="https://developer.android.com/reference/android/media/MediaMuxer.html#writeSampleData(int, java.nio.ByteBuffer, android.media.MediaCodec.BufferInfo)">writeSampleData()</a></code> 函数。时间戳必须和视频及音频曲目处于相同的时基。
+</p>
+<p>
+生成的 MP4 文件使用 ISOBMFF 的 12.3.3.2 部分定义的 <code>TextMetaDataSampleEntry</code>，指示元数据的 MIME 格式。在使用 <code><a href="https://developer.android.com/reference/android/media/MediaExtractor.html">MediaExtractor</a></code> 提取包含元数据曲目的文件时，元数据的 MIME 格式将提取到 <code><a href="https://developer.android.com/reference/android/media/MediaFormat.html">MediaFormat</a></code> 中。
+</p>
+
+<h3 id="apc">音频播放控制</h3>
+
+<p>
+Android 8.0 允许您查询和请求设备产生声音的方式。对音频播放的以下控制将让您的服务更轻松地仅在有利的设备条件下产生声音。
+</p>
+
+<h4>Google 智能助理的新音频使用类型</h4>
+
+<p>
+<code><a href="https://developer.android.com/reference/android/media/AudioAttributes.html">AudioAttributes</a></code> 类包含一种新的声音类型，即 <code><a href="https://developer.android.com/reference/android/media/AudioAttributes.html#USAGE_ASSISTANT">USAGE_ASSISTANT</a></code>，对应于 Google 智能助理在设备上的回答。
+</p>
+
+<h4>设备音频播放的变更</h4>
+
+<p>
+如果您希望自己的服务仅在特定的设备音频配置处于活动状态时开始产生声音，您可以使用 <code><a href="https://developer.android.com/reference/android/media/AudioManager.html">AudioManager</a></code> 类注册一个 <code><a href="https://developer.android.com/reference/android/media/AudioManager.AudioPlaybackCallback.html">AudioManager.AudioPlaybackCallback</a></code> 实例，后者的<code><a href="https://developer.android.com/reference/android/media/AudioManager.AudioPlaybackCallback.html#onPlaybackConfigChanged(java.util.List&lt;android.media.AudioPlaybackConfiguration&gt;)">onPlaybackConfigChanged()</a></code> 函数可以帮助您确定当前活动的音频属性集。
+</p>
+
+<h4>显式请求音频焦点</h4>
+
+<p>
+您的服务可以使用 <code><a href="https://developer.android.com/reference/android/media/AudioManager.html#requestAudioFocus(android.media.AudioFocusRequest)">requestAudioFocus()</a></code> 函数提交一个更精细的设备级音频焦点接收请求。传入一个 <code>AudioFocusRequest</code> 对象，您可以使用 <code>AudioFocusRequest.Builder</code> 创建这个对象。在这个构建类中，您可以指定以下选项：
+</p>
+
+<ul>
+  <li>您希望获得的焦点类型，例如 <code>AUDIOFOCUS_GAIN_TRANSIENT</code> 或 <code>AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK</code>。</li>
+  <li>当另一个音频服务获得设备焦点时，您的服务应以更安静的方式继续，还是完全暂停。</li>
+  <li>您的服务能否等待获得焦点，直至设备就绪。</li>
+</ul>
+
+<p class="note">
+<b>注</b>：构建您的 <code>AudioFocusRequest</code> 实例时，如果您通过调用 <code>setAcceptsDelayedFocusGain()</code> 指示您的服务可以等待产生声音，您也必须调用 <code>setOnAudioFocusChangeListener()</code>，以便您的服务了解它何时可以开始产生声音。
+</p>
+
+
+   <h3 id="imfa">增强的媒体文件访问功能</h3>
+
+   <p>
+<a href="https://developer.android.com/guide/topics/providers/document-provider.html">存储访问框架 (SAF)</a> 允许应用显示自定义 <code><a href="https://developer.android.com/reference/android/provider/DocumentsProvider.html">DocumentsProvider</a></code>，后者可以为其他应用提供访问数据源中的文件的权限。事实上，文档提供程序甚至可以提供驻留在网络存储区或使用<a href="https://en.wikipedia.org/wiki/Media_Transfer_Protocol">媒体传输协议 (MTP)</a> 等协议的文件的访问权限。
+</p>
+
+<p>
+但是，访问远程数据源中的大媒体文件面临一些挑战：</p>
+<ul>
+  <li>媒体播放器需要以寻址方式访问来自文档提供程序的文件。当大媒体文件驻留在远程数据源上时，文档提供程序必须事先提取所有数据，并创建快照文件描述符。媒体播放器无法播放没有文件描述符的文件，因此在文档提供程序完成文件下载前，无法开始播放。</li>
+  <li>照片应用等媒体集合管理器必须通过作用域文件夹遍历一系列访问 URI 才能访问存储在外部 SD 卡上的媒体。这种访问模式会让媒体上的批量操作（例如移动、复制和删除）变得非常缓慢。</li>
+  <li>媒体集合管理器无法根据文档的 URI 确定其位置。这就让这些类型的应用难以允许用户选择媒体文件的保存位置。</li>
+</ul>
+
+<p>
+Android 8.0 通过改进存储访问框架解决了各个挑战。</p>
+
+<h4>自定义文档提供程序</h4>
+
+<p>
+从 Android 8.0 开始，存储访问框架允许<a href="https://developer.android.com/guide/topics/providers/create-document-provider.html">自定义文档提供程序</a>为驻留在远程数据源中的文件创建可寻址的文件描述符。SAF 可打开文件，获取原生可寻址的文件描述符。然后 SAF 向文档提供程序提交离散字节请求。此功能使文档提供程序可以返回媒体播放器应用请求的准确字节范围，而不必事先缓存整个文件。
+</p>
+
+<p>
+要使用此功能，您需要调用新的 <code><a href="https://developer.android.com/reference/android/os/storage/StorageManager.html#openProxyFileDescriptor(int, android.os.ProxyFileDescriptorCallback, android.os.Handler)">StorageManager.openProxyFileDescriptor()</a></code> 函数。<code><a href="https://developer.android.com/reference/android/os/storage/StorageManager.html#openProxyFileDescriptor(int, android.os.ProxyFileDescriptorCallback, android.os.Handler)">openProxyFileDescriptor()</a></code> 函数可接受 <code><a href="https://developer.android.com/reference/android/os/ProxyFileDescriptorCallback.html">ProxyFileDescriptorCallback</a></code> 对象作为回调。任何时候，当客户端应用对文档提供程序返回的文件描述符执行文件操作时，SAF 都会调用回调。
+</p>
+
+<h4>直接文档访问</h4>
+
+<p>
+从 Android 8.0 开始，您可以使用 <code><a href="https://developer.android.com/reference/android/provider/MediaStore.html#getDocumentUri(android.content.Context, android.net.Uri)">getDocumentUri()</a></code> 函数获得与给定 <code>mediaUri</code> 引用相同文档的 URI。不过，由于返回的 URI 由 <code><a href="https://developer.android.com/reference/android/provider/DocumentsProvider.html">DocumentsProvider</a></code> 提供支持，媒体集合管理器可以直接访问文档，不用遍历作用域目录树。因此，媒体管理器能够以明显加快的速度对文档执行文件操作。
+</p>
+
+<p class="caution">
+<b>注意</b>：<code><a href="https://developer.android.com/reference/android/provider/MediaStore.html#getDocumentUri(android.content.Context, android.net.Uri)">getDocumentUri()</a></code> 函数仅可以定位媒体文件；无法授予应用访问这些文件的权限。要详细了解如何获取媒体文件的访问权限，请参阅参考文档。
+</p>
+
+<h4>文档路径</h4>
+
+<p>
+在 Android 8.0 中使用存储访问框架时，您可以根据文档的 ID，使用 <code>findDocumentPath()</code> 函数（存在于 <code><a href="https://developer.android.com/reference/android/provider/DocumentsContract.html#findDocumentPath(android.content.ContentResolver, android.net.Uri)">DocumentsContract</a></code> 和 <code><a href="https://developer.android.com/reference/android/provider/DocumentsProvider.html#findDocumentPath(java.lang.String, java.lang.String)">DocumentsProvider</a></code> 类中）从文件系统的根目录中确定路径。该函数将在 <code><a href="https://developer.android.com/reference/android/provider/DocumentsContract.Path.html">DocumentsContract.Path</a></code> 对象中返回此路径。如果文件系统对相同文档有多个定义的路径，该函数将返回访问具有给定 ID 的文档时最常使用的路径。
+</p>
+
+<p>
+此功能在下列情况下特别有用：
+</p>
+
+<ul>
+  <li>您的应用使用可以显示特定文档位置的“另存为”对话框。
+  </li><li>您的应用在搜索结果视图中显示文件夹并且如果用户选择某个文件夹，应用必须加载此特定文件夹内的子文档。</li>
+</ul>
+
+<p class="note">
+<b>注</b>：如果您的应用仅具有路径中某些文档的访问权限，那么 <code>findDocumentPath()</code> 的返回值将仅包含您的应用可以访问的文件夹和文档。
+</p>
+
+
+<h2 id="cs" style="padding-bottom: 0px;">连接</h2><hr>
+
+   <h3 id="aware">WLAN 感知</h3>
+
+   
+<p>
+Android 8.0 新增了对 WLAN 感知的支持，此技术基于周边感知联网 (NAN) 规范。在具有相应 WLAN 感知硬件的设备上，应用和附近设备可以通过 WLAN 进行搜索和通信，无需依赖互联网接入点。我们正在与硬件合作伙伴合作，以尽快将 WLAN 感知技术应用于设备。要了解有关如何将 WLAN 感知集成到您的应用中的信息，请参阅 <a href="https://developer.android.com/preview/features/wifi-aware.html">WLAN 感知</a>。
+</p>
+
+
+   <h3 id="bt">蓝牙</h3>
+
+   <p>
+  Android 8.0 通过增加以下功能，增强了平台对蓝牙的支持：
+</p>
+<ul>
+    <li>支持 AVRCP 1.4 标准，该标准支持音乐库浏览。
+    </li>
+    <li>支持蓝牙低功耗 (BLE) 5.0 标准。</li>
+    <li>将 Sony LDAC 编解码器集成到蓝牙堆叠中。</li>
+</ul>
+
+
+   <h3 id="cdp">配套设备配对</h3>
+
+   <p>在尝试通过蓝牙、BLE 和 WLAN 与配套设备配对时，Android 8.0 提供的 API 允许您自定义配对请求对话框。如需了解详细信息，请参阅<a href="https://developer.android.com/preview/features/companion-device-pairing.html">配套设备配对</a>。</p>
+
+<p>如需了解有关在 Android 上使用蓝牙的详细信息，请参阅<a href="https://developer.android.com/guide/topics/connectivity/bluetooth.html">蓝牙</a>指南。有关对蓝牙所作的特定于 Android 8.0 的变更，请参阅 <a href="https://developer.android.com/preview/behavior-changes.html">Android 8.0 行为变更</a>页面的<a href="https://developer.android.com/preview/behavior-changes.html#bt">蓝牙</a>部分。
+</p>
+
+
+
+<h2 id="sh" style="padding-bottom: 0px;">共享</h2><hr>
+
+   <h3 id="smsh">智能共享</h3>
+
+   
+
+<p>
+Android 8.0 了解用户的个性化分享首选项，在通过哪些应用分享各个类型的内容方面，也有着更好的把握。例如，如果用户为一张收据拍照，Android 8.0 可以建议费用跟踪应用；如果用户自拍，一款社交媒体应用可以更好地处理图像。Android 8.0 可以根据用户的个性化首选项自动学习所有这些模式。
+</p>
+
+<p>
+智能分享适用于 <code>image</code> 之外的内容类型，例如 <code>audio</code>、<code>video</code>、<code>text</code> 和 <code>URL</code> 等。
+</p>
+
+<p>
+要启用智能分享，请将具有最多三个字符串注释的 <code><a href="https://developer.android.com/reference/java/util/ArrayList.html">ArrayList</a></code> 添加到分享内容的 intent。这些注释应说明内容中的主要部分或主题。下面的代码示例显示了如何向 intent 添加注释：
+</p>
+
+<pre class="prettyprint"><span class="typ">ArrayList</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> annotations </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ArrayList</span><span class="pun">&lt;&gt;();</span><span class="pln"><br><br>annotations</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="str">"topic1"</span><span class="pun">);</span><span class="pln"><br>annotations</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="str">"topic2"</span><span class="pun">);</span><span class="pln"><br>annotations</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="str">"topic3"</span><span class="pun">);</span><span class="pln"><br><br>intent</span><span class="pun">.</span><span class="pln">putStringArrayListExtra</span><span class="pun">(</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="typ">Intent</span><span class="pun">.</span><span class="pln">EXTRA_CONTENT_ANNOTATIONS</span><span class="pun">,</span><span class="pln"><br>&nbsp; &nbsp; annotations<br></span><span class="pun">);</span></pre>
+
+<p>
+如需了解有关智能分享注释的详细信息，请参阅 <code><a href="https://developer.android.com/reference/android/content/Intent.html#EXTRA_CONTENT_ANNOTATIONS">EXTRA_CONTENT_ANNOTATIONS</a></code>。
+</p>
+
+
+   <h3 id="sts">智能文本选择</h3>
+
+   
+
+<p>
+在兼容设备上，Android 8.0 让应用可以帮助用户以更有意义的方式与文本交互。当用户长按某个<i>实体</i>中可识别格式的单词（例如某个地址或餐馆名称）时，系统会选中整个实体。用户会看到一个浮动工具栏，该工具栏包含可以处理所选文本实体的应用。例如，如果系统识别出某个地址，它可以将用户导向地图应用。
+</p>
+
+<p>
+系统识别的实体包括地址、网址、电话号码和电子邮件地址。如需了解详细信息，请参阅 <code><a href="https://developer.android.com/reference/android/view/textclassifier/TextClassifier.html">TextClassifier</a></code>。
+</p>
+
+
+<h2 id="a11y" style="padding-bottom: 0px;">无障碍功能</h2><hr>
+
+   
+
+<p>Android 8.0 支持开发者使用以下无障碍功能创建自己的无障碍服务。如需了解有关如何让您的应用更便于访问的更多信息，请参阅<a href="https://developer.android.com/guide/topics/ui/accessibility/index.html">无障碍功能</a>。</p>
+
+  <a id="ld"></a> <!-- Anchor preserved for compatibility -->
+  <h3 id="ab">无障碍功能按钮</h3>
+    <p>您的无障碍服务现在可以请求在系统的导航区域显示<em>无障碍功能按钮</em>，该按钮让用户可从其设备上的任意位置快速激活您的服务功能。要执行此操作，请在某个 <code><a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityServiceInfo.html">AccessibilityServiceInfo</a></code> 对象的 <a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityServiceInfo.html#attr_android:accessibilityFlags"> <code>android:accessibilityFlags</code></a> 属性中添加 <code><a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityServiceInfo.html#FLAG_REQUEST_ACCESSIBILITY_BUTTON">FLAG_REQUEST_ACCESSIBILITY_BUTTON</a></code> 标志。稍后，您可以使用 <code><a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityButtonController.html#registerAccessibilityButtonCallback(android.accessibilityservice.AccessibilityButtonController.AccessibilityButtonCallback)">registerAccessibilityButtonCallback()</a></code> 注册回调。</p>
+    <p class="note"><b>注</b>：此功能仅适用于提供软件渲染导航区域的设备。请始终使用 <code><a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityButtonController.html#isAccessibilityButtonAvailable()">isAccessibilityButtonAvailable()</a></code>，并通过实现 <code><a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityButtonController.AccessibilityButtonCallback.html#onAvailabilityChanged(android.accessibilityservice.AccessibilityButtonController, boolean)">onAvailabilityChanged()</a></code> 根据无障碍功能按钮的可用性来响应变更。通过该方式，用户可以始终访问您的服务功能，即使该无障碍功能按钮不受支持或变得不可用。</p>
+
+  <h3 id="iva">独立的音量调整</h3>
+  <p>Android 8.0 引入了 <code><a href="https://developer.android.com/reference/android/media/AudioManager.html#STREAM_ACCESSIBILITY">STREAM_ACCESSIBILITY</a></code> 音量类别，允许您单独控制无障碍服务音频输出的音量，而不会影响设备上的其他声音。</p>
+  <p>要使用这个新的流类型来控制无障碍服务音量，请在无障碍服务中设置 <code><a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityServiceInfo.html#FLAG_ENABLE_ACCESSIBILITY_VOLUME">FLAG_ENABLE_ACCESSIBILITY_VOLUME</a></code> 选项。然后，您可以使用 <code><a href="https://developer.android.com/reference/android/media/AudioManager.html#adjustStreamVolume(int, int, int)">adjustStreamVolume()</a></code> 更改设备的无障碍服务音频音量。
+  </p>
+
+  <h3 id="fg">指纹手势</h3>
+  <p>您的无障碍服务也可以响应替代的输入机制，即沿设备的指纹传感器按特定方向滑动（上、下、左和右）。要接收有关这些交互的回调，请完成以下一系列步骤：</p>
+  <ol>
+    <li>声明 <a href="https://developer.android.com/reference/android/Manifest.permission.html#USE_FINGERPRINT"><code>USE_FINGERPRINT</code></a> 权限和 <code><a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityServiceInfo.html#CAPABILITY_CAN_REQUEST_FINGERPRINT_GESTURES">CAPABILITY_CAN_REQUEST_FINGERPRINT_GESTURES</a></code> 功能。</li>
+    <li>在 <a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityServiceInfo.html#attr_android:accessibilityFlags"><code>android:accessibilityFlags</code></a> 属性中设置 <code><a href="https://developer.android.com/reference/android/accessibilityservice/AccessibilityServiceInfo.html#FLAG_REQUEST_FINGERPRINT_GESTURES">FLAG_REQUEST_FINGERPRINT_GESTURES</a></code> 标志。</li>
+    <li>使用 <code><a href="https://developer.android.com/reference/android/accessibilityservice/FingerprintGestureController.html#registerFingerprintGestureCallback(android.accessibilityservice.FingerprintGestureController.FingerprintGestureCallback, android.os.Handler)">registerFingerprintGestureCallback()</a></code> 注册回调。</li>
+  </ol>
+  <p>请记住，并非所有设备都包含指纹传感器。您可以使用 <code><a href="https://developer.android.com/reference/android/hardware/fingerprint/FingerprintManager.html#isHardwareDetected()">isHardwareDetected()</a></code> 函数识别设备是否支持此传感器。即使对于包含指纹传感器的设备，您的服务也只有在指纹传感器不用于身份验证目的时才可使用它。要识别此传感器何时可用，请调用 <code><a href="https://developer.android.com/reference/android/accessibilityservice/FingerprintGestureController.html#isGestureDetectionAvailable()">isGestureDetectionAvailable()</a></code> 函数并实现 <code><a href="https://developer.android.com/reference/android/accessibilityservice/FingerprintGestureController.FingerprintGestureCallback.html#onGestureDetectionAvailabilityChanged(boolean)">onGestureDetectionAvailabilityChanged()</a></code> 回调。</p>
+
+  <h3 id="wlh">字词级突出显示</h3>
+  <p>要确定 <code><a href="https://developer.android.com/reference/android/widget/TextView.html">TextView</a></code> 对象中可见字符的位置，您可以在 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html#EXTRA_DATA_TEXT_CHARACTER_LOCATION_KEY">EXTRA_DATA_TEXT_CHARACTER_LOCATION_KEY</a></code> 中将其作为第一个参数传递到 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html#refreshWithExtraData(java.lang.String, android.os.Bundle)">refreshWithExtraData()</a></code> 中。随后会更新您为 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html#refreshWithExtraData(java.lang.String, android.os.Bundle)">refreshWithExtraData()</a></code> 提供的作为第二个参数的 <code><a href="https://developer.android.com/reference/android/os/Bundle.html">Bundle</a></code> 对象，使之包含一个可打包的 <code><a href="https://developer.android.com/reference/android/graphics/Rect.html">Rect</a></code> 对象数组。每个 <code><a href="https://developer.android.com/reference/android/graphics/Rect.html">Rect</a></code> 对象代表某个特定字符的边界框。</p>
+  <p>如果您的服务使用 <code><a href="https://developer.android.com/reference/android/speech/tts/TextToSpeech.html">TextToSpeech</a></code> 对象朗读屏幕上出现的内容，您可以获取有关文本到语音转换引擎何时开始朗读单个合成字词时的准确时间信息，前提是文本到语音转换引擎提供此信息。当引擎即将开始播放特定范围文本的音频时，Text-to-Speech API 会通知您的服务，将使用 <code><a href="https://developer.android.com/reference/android/speech/tts/UtteranceProgressListener.html#onRangeStart(java.lang.String, int, int, int)">onRangeStart()</a></code> 函数开始朗读此范围的文本。</p>
+  <p>如果您创建自己的 <code><a href="https://developer.android.com/reference/android/speech/tts/TextToSpeechService.html">TextToSpeechService</a></code> 实现，您可以使用 <code><a href="https://developer.android.com/reference/android/speech/tts/SynthesisCallback.html#rangeStart(int, int, int)">rangeStart()</a></code> 函数支持这一新功能。</p>
+
+  <h3 id="sosrv">标准化单端范围值</h3>
+    <p><code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html">AccessibilityNodeInfo</a></code> 的一些实例使用 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.RangeInfo.html">AccessibilityNodeInfo.RangeInfo</a></code> 的某个实例来表明界面元素可接受一定范围的值。使用 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.RangeInfo.html#obtain(int, float, float, float)">RangeInfo.obtain()</a></code> 创建范围或使用 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.RangeInfo.html#getMin()">getMin()</a></code> 和 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.RangeInfo.html#getMax()">getMax()</a></code> 检索此范围的极值时，请注意，Android 8.0 规定了标准化单端范围：</p>
+    <ul>
+      <li>对于没有最小值的范围，<code><a href="https://developer.android.com/reference/java/lang/Float.html#NEGATIVE_INFINITY">Float.NEGATIVE_INFINITY</a></code> 表示最小值。</li>
+      <li>对于没有最大值的范围，<code><a href="https://developer.android.com/reference/java/lang/Float.html#POSITIVE_INFINITY">Float.POSITIVE_INFINITY</a></code> 表示最大值。</li>
+    </ul>
+
+  <h3 id="ht">提示文本</h3>
+  <p>Android 8.0 包含可用于与文本可编辑对象的提示文本进行交互的多个函数：</p>
+    <ul>
+      <li><code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html#isShowingHintText()">isShowingHintText()</a></code> 和 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html#setShowingHintText(boolean)">setShowingHintText()</a></code> 函数分别显示和设置节点的当前文本内容是否表示节点的提示文本。如果节点不包含可编辑文本，则它不应包含提示文本。</li>
+      <li>要访问提示文本本身，请使用 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html#getHintText()">getHintText()</a></code>。即使某个对象当前未显示提示文本，系统也能成功调用 <code><a href="https://developer.android.com/reference/android/view/accessibility/AccessibilityNodeInfo.html#getHintText()">getHintText()</a></code>。</li>
+    </ul>
+
+  <h3 id="cgd">连续的手势分派</h3>
+  <p>您的服务现在可以使用 <code><a href="https://developer.android.com/reference/android/accessibilityservice/GestureDescription.StrokeDescription.html">GestureDescription.StrokeDescription</a></code> 构造函数中的最后一个参数 <code>willContinue</code>，指定属于同一设定手势的笔划的顺序。</p>
+
+
+<h2 id="sp" style="padding-bottom: 0px;">安全性与隐私</h2><hr>
+
+  <h3 id="perms">权限</h3>
+
+  
+
+<p>Android 8.0 引入了多个与电话有关的新权限：</p>
+
+<ul>
+  <li><a href="https://developer.android.com/reference/android/Manifest.permission.html#ANSWER_PHONE_CALLS"><code>ANSWER_PHONE_CALLS</code></a> 允许您的应用通过编程方式接听呼入电话。要在您的应用中处理呼入电话，您可以使用 <code><a href="https://developer.android.com/reference/android/telecom/TelecomManager.html#acceptRingingCall()">acceptRingingCall()</a></code> 函数。</li>
+  <li><a href="https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_NUMBERS"><code>READ_PHONE_NUMBERS</code></a> 权限允许您的应用读取设备中存储的电话号码。</li>
+</ul>
+
+<p>这些权限均被划分为<a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">危险</a>类别，属于 <a href="https://developer.android.com/reference/android/Manifest.permission_group.html#PHONE"><code>PHONE</code></a> 权限组。</p>
+
+   <h3 id="naa">新的帐号访问和 Discovery API</h3>
+
+   
+
+
+<p>
+Android 8.0 对应用访问用户帐号的方式引入多项改进。对于由身份验证器管理的帐号，身份验证器在决定对应用隐藏帐号还是显示帐号时可以使用自己的策略。Android 系统跟踪可以访问特定帐号的应用。
+</p>
+
+<p>
+在以前的 Android 版本中，想要跟踪用户帐号列表的应用必须获取有关所有帐号的更新，包括具有不相关类型的帐号。Android 8.0 添加了 <code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#addOnAccountsUpdatedListener(android.accounts.OnAccountsUpdateListener, android.os.Handler, boolean, java.lang.String[])">addOnAccountsUpdatedListener(android.accounts.OnAccountsUpdateListener, android.os.Handler, boolean, java.lang.String[])</a></code> 函数，其允许应用指定应接收帐号变更的帐号类型列表。
+</p>
+
+<h4>API 变更</h4>
+
+<p>
+AccountManager 提供六个新函数以帮助身份验证器管理哪些应用可以查看某个帐号：
+</p>
+
+<ul>
+<li><code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#setAccountVisibility(android.accounts.Account, java.lang.String, int)">setAccountVisibility(android.accounts.Account, java.lang.String, int)</a></code>：针对特定用户帐号和软件包组合设置可见性级别。
+</li>
+
+<li>
+<code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#getAccountVisibility(android.accounts.Account, java.lang.String)">getAccountVisibility(android.accounts.Account, java.lang.String)</a></code>：获取特定用户帐号和软件包组合的可见性级别。
+</li>
+
+<li>
+<code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#getAccountsAndVisibilityForPackage(java.lang.String, java.lang.String)">getAccountsAndVisibilityForPackage(java.lang.String, java.lang.String)</a></code>：允许身份验证器获取帐号和给定软件包的可见性级别。
+</li>
+
+<li>
+<code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#getPackagesAndVisibilityForAccount(android.accounts.Account)">getPackagesAndVisibilityForAccount(android.accounts.Account)</a></code>：允许身份验证器获取存储的给定帐号的可见性值。
+</li>
+
+<li>
+<code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#addAccountExplicitly(android.accounts.Account, java.lang.String, android.os.Bundle, java.util.Map&lt;java.lang.String, java.lang.Integer&gt;)">addAccountExplicitly(android.accounts.Account, java.lang.String, android.os.Bundle, java.util.Map&lt;java.lang.String, java.lang.Integer&gt;)</a></code>：允许身份验证器初始化帐号的可见性值。
+</li>
+
+<li>
+<code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#addOnAccountsUpdatedListener(android.accounts.OnAccountsUpdateListener, android.os.Handler, boolean, java.lang.String[])">addOnAccountsUpdatedListener(android.accounts.OnAccountsUpdateListener, android.os.Handler, boolean, java.lang.String[])</a></code>：将 <code><a href="https://developer.android.com/reference/android/accounts/OnAccountsUpdateListener.html">OnAccountsUpdateListener</a></code> 侦听器添加到 <code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html">AccountManager</a></code> 对象。无论设备上的帐号列表何时发生变化，系统都将调用此侦听器。
+</li>
+</ul>
+
+<p>
+Android 8.0 引入两个特殊的软件包名称值，以使用 <code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#setAccountVisibility(android.accounts.Account, java.lang.String, int)">setAccountVisibility(android.accounts.Account, java.lang.String, int)</a></code> 函数指定未设置的应用的可见性级别。<code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#PACKAGE_NAME_KEY_LEGACY_VISIBLE">PACKAGE_NAME_KEY_LEGACY_VISIBLE</a></code> 可见性值应用于具有 <code><a href="https://developer.android.com/reference/android/Manifest.permission.html#GET_ACCOUNTS">GET_ACCOUNTS</a></code> 权限的应用，并且其目标 Android 版本低于 Android 8.0，或其签名与针对任意 Android 版本的身份验证器匹配。<code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#PACKAGE_NAME_KEY_LEGACY_NOT_VISIBLE">PACKAGE_NAME_KEY_LEGACY_NOT_VISIBLE</a></code> 为之前未设置的应用提供默认的可见性值，对于此类应用，<code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#PACKAGE_NAME_KEY_LEGACY_VISIBLE">PACKAGE_NAME_KEY_LEGACY_VISIBLE</a></code> 不适用。
+</p>
+
+<p>
+如需了解有关新的帐号访问和发现 API 的详细信息，请参阅 <code><a href="https://developer.android.com/reference/android/accounts/AccountManager.html">AccountManager</a></code> 和 <code><a href="https://developer.android.com/reference/android/accounts/OnAccountsUpdateListener.html">OnAccountsUpdateListener</a></code> 参考。
+</p>
+
+
+
+  <h3 id="sb">Google Safe Browsing API</h3>
+
+   <p>
+<code><a href="https://developer.android.com/reference/android/webkit/WebView.html">WebView</a></code> 类现在添加了一个 Safe Browsing API 来增强网络浏览的安全性。如需了解详细信息，请参阅 <a href="https://developer.android.com/preview/features/managing-webview.html#safe-browsing">Google Safe Browsing API</a>。
+</p>
+
+
+<h2 id="test" style="padding-bottom: 0px;">测试</h2><hr>
+
+   <h3 id="instr">仪器测试</h3>
+
+   <p>Android 8.0 为应用的仪器测试提供以下几项额外支持。</p>
+
+<h4>针对非默认应用进程运行</h4>
+
+<p>现在，您可以指定针对您的应用的默认进程以外的进程运行特定仪器测试。如果您的应用包含多个在不同进程中运行的操作组件，此配置非常有用。</p>
+
+<p>要定义非默认进程仪器测试，请导航至您的清单文件，然后导航至所需的 <a href="https://developer.android.com/guide/topics/manifest/instrumentation-element.html"> <code>&lt;instrumentation&gt;</code></a> 元素。添加 <code>android:targetProcess</code> 属性，并将它的值设置为以下值之一：</p>
+
+<ul>
+  <li>特定进程的名称。</li>
+  <li>以逗号分隔的进程名称列表。</li>
+  <li>通配符（<code>"*"</code>），允许针对任何执行 <code>android:targetPackage</code> 属性中指定的软件包中的代码的已启动进程运行仪器测试。</li>
+</ul>
+
+<p>在执行仪器测试时，您可以通过调用 <code><a href="https://developer.android.com/reference/android/app/Instrumentation.html#getProcessName()">getProcessName()</a></code> 检查正在测试哪个进程。</p>
+
+<h4>在测试过程中报告结果</h4>
+
+<p>现在，通过调用 <code><a href="https://developer.android.com/reference/android/app/Instrumentation.html#addResults(android.os.Bundle)">addResults()</a></code>，您可以在执行仪器测试时（而不用等到测试后）报告结果。</p>
+
+
+   <h3 id="mit">用于测试的模拟 Intent</h3>
+
+   <p>为了更轻松地为您应用的操作组件创建隔离、独立的界面测试，Android 8.0 引入了 <code><a href="https://developer.android.com/reference/android/app/Instrumentation.ActivityMonitor.html#onStartActivity(android.content.Intent)">onStartActivity()</a></code> 函数。要处理您的测试类调用的特定 intent，您可以在 <code><a href="https://developer.android.com/reference/android/app/Instrumentation.ActivityMonitor.html">Instrumentation.ActivityMonitor</a></code> 类的自定义子类中替换此函数。</p>
+
+<p>当您的测试类调用 intent 时，该函数将返回一个存根 <code><a href="https://developer.android.com/reference/android/app/Instrumentation.ActivityResult.html">Instrumentation.ActivityResult</a></code> 对象，而不是执行 intent 本身。通过在您的测试中使用这种模拟 intent 逻辑，您可以侧重于自己的操作组件如何准备和处理您传递到不同操作组件或完全不同的应用中的 intent。</p>
+
+
+<h2 id="rt" style="padding-bottom: 0px;">运行时和工具</h2><hr>
+
+  <h3 id="art">平台优化</h3>
+
+   <p>
+Android 8.0 为平台引入了运行时优化和其他优化，这些优化将带来多项性能改进。这些优化包括并发压缩垃圾回收、更有效的内存利用和代码区域。
+</p>
+
+<p>
+它们可以加快启动时间，并为 OS 和应用带来更好的性能。
+</p>
+
+
+   <h3 id="java">更新的 Java 支持</h3>
+
+   <p>Android 8.0 添加了对更多 OpenJDK Java API 的支持：</p>
+
+<ul>
+  <li>OpenJDK 8 中的 <code><a href="https://developer.android.com/reference/java/time/package-summary.html">java.time</a></code>。</li>
+  <li>OpenJDK 7 中的 <code><a href="https://developer.android.com/reference/java/nio/file/package-summary.html">java.nio.file</a></code> 和 <code><a href="https://developer.android.com/reference/java/lang/invoke/package-summary.html">java.lang.invoke</a></code>。</li>
+</ul>
+
+<p>要详细了解这些新添加的软件包中的类和函数，请参阅 API 参考文档。</p>
+
+<p>
+  如果您想要在 Android Studio 中<a href="https://developer.android.com/studio/preview/features/java8-support.html">使用 Java 8 语言功能</a>，您应<a href="https://developer.android.com/studio/preview/index.html">下载最新的预览版本</a>。
+</p>
+
+
+   <h3 id="icu4j">更新的 ICU4J Android Framework API</h3>
+
+   <p>Android 8.0 扩展了 <a href="https://developer.android.com/guide/topics/resources/icu4j-framework.html">ICU4J Android 框架 API</a>—，它是 ICU4J API 的子集—，供应用开发者在 <code>android.icu</code> 软件包中使用。这些 API 使用设备上具有的本地化数据。因此，您无需在 APK 中编译 ICU4J 库，从而减少 APK 占用空间。
+</p>
+
+<p class="table-caption"><strong>表 1.</strong> Android 中使用的 ICU、CLDR 和 Unicode 版本。</p>
+<table>
+    <tbody><tr>
+        <th>Android API 级别</th>
+        <th>ICU 版本</th>
+        <th>CLDR 版本</th>
+        <th>Unicode 版本</th>
+    </tr>
+    <tr>
+        <td>Android 7.0（API 级别 24），Android 7.1（API 级别 25）</td>
+        <td>56</td>
+        <td>28</td>
+        <td>8.0</td>
+    </tr>
+    <tr>
+        <td>Android 8.0</td>
+        <td>58.2</td>
+        <td>30.0.3</td>
+        <td>9.0</td>
+    </tr>
+</tbody></table>
+
+如需详细了解针对受支持的 ICU4J API 的更新，请阅读<a href="https://developer.android.com/preview/release-notes.html#icu4j">版本说明</a>。 
+
+<h2 id="ae" style="padding-bottom: 0px;">Android 企业版</h2><hr>
+
+
+
+<p>已为运行 Android 8.0 的设备引入新的企业功能和 API。重要功能包括如下：</p>
+
+<ul>
+  <li>
+    完全托管的设备中的工作资料使企业可以在管理工作数据与个人数据的同时，将它们分离开来。
+  </li>
+  <li>
+    API 委派允许设备所有者和个人资料所有者将应用管理分配给其他应用。
+  </li>
+  <li>
+    配置流程中的用户体验改进措施（包含新的自定义选项）缩短了设置时间。
+  </li>
+  <li>
+    蓝牙、WLAN、备份和安全性方面的新增控制选项使企业可以更精细地管理设备。网络操作组件日志记录可帮助企业追查问题。
+  </li>
+</ul>
+
+<p>如需详细了解上述及其他新增 Android 企业版 API 和功能，请参阅<a href="https://developer.android.com/preview/features/work.html">企业中的 Android</a>。</p>
+
+
+
+    </div>
+
+    
+
+  
+    
+  
+    
+
+
+
+
+  
+
+
+<footer class="devsite-footer-promos nocontent">
+  <nav class="devsite-full-site-width">
+    <ul class="devsite-footer-promos-list">
+      
+      <li class="devsite-footer-promo">
+        <a href="https://twitter.com/AndroidDev" class="devsite-footer-promo-title gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Twitter Promo">
+          
+          
+          <img class="devsite-footer-promo-icon" src="./Android 8.0 功能和 API _ Android Developers_files/logo-twitter.svg">
+          
+          
+            Twitter
+          
+        </a>
+        <div class="devsite-footer-promo-description">Follow @AndroidDev on Twitter</div>
+      </li>
+      
+      <li class="devsite-footer-promo">
+        <a href="https://plus.google.com/+AndroidDevelopers" class="devsite-footer-promo-title gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Google+ Promo">
+          
+          
+          <img class="devsite-footer-promo-icon" src="./Android 8.0 功能和 API _ Android Developers_files/google_plus_48dp.png">
+          
+          
+            Google+
+          
+        </a>
+        <div class="devsite-footer-promo-description">Follow Android Developers on Google+</div>
+      </li>
+      
+      <li class="devsite-footer-promo">
+        <a href="https://www.youtube.com/user/androiddevelopers" class="devsite-footer-promo-title gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer YouTube Promo">
+          
+          
+          <img class="devsite-footer-promo-icon" src="./Android 8.0 功能和 API _ Android Developers_files/youtube_48dp.png">
+          
+          
+            YouTube
+          
+        </a>
+        <div class="devsite-footer-promo-description">Check out Android Developers on YouTube</div>
+      </li>
+      
+    </ul>
+  </nav>
+</footer>
+
+
+
+<div class="wrap dac-footer-container">
+  <footer class="dac-footer ">
+    <div class="cols dac-footer-main">
+      <div class="col-1of1">
+        <div class="dac-footer-contact">
+          
+          <a class="dac-footer-contact-link" href="https://developer.android.com/newsletter/index.html" title="Newsletter">Newsletter</a>
+          
+          <a class="dac-footer-contact-link" href="https://android-developers.blogspot.com/" title="博客" target="_blank">博客</a>
+          
+          <a class="dac-footer-contact-link" href="https://developer.android.com/support.html" title="支持">支持</a>
+          
+          <a class="dac-footer-contact-link" href="https://docs.google.com/forms/d/e/1FAIpQLSf27XIxoFmNpTjTYdk-m1uKWGqEnd7_4C_E1AD5fdCfyTBWNA/viewform?usp=pp_url&amp;entry.1909689089&amp;entry.208743710&amp;entry.408796755&amp;entry.1341430893&amp;entry.594931249&amp;entry.1640656812&amp;entry.1759804042&amp;entry.1441312344=developer.android.com" title="Join user studies" target="_blank">Join user studies</a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="dac-footer-separator">
+      
+      <p class="dac-footer-copyright">
+        
+        Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/2.5/" target="_blank">Creative Commons Attribution 2.5</a>. For details and restrictions, see the <a href="https://developer.android.com/license.html">Content License</a>.
+      </p>
+    
+
+    <p class="dac-footer-links">
+      
+      <a href="https://www.android.com/" title="Android.com" target="_blank">Android.com</a>
+      
+      <a href="https://developer.android.com/" title="Android Developers">Android Developers</a>
+      
+      <a href="https://developer.android.com/studio/index.html" title="Android Studio">Android Studio</a>
+      
+      <a href="https://developer.android.com/distribute/console/index.html" title="Google Play Console">Google Play Console</a>
+      
+      <a href="https://developer.android.com/legal.html" title="Legal Notice">Legal Notice</a>
+    </p>
+
+    
+    <form class="devsite-utility-footer-language" id="setlang" action="https://developer.android.com/i18n/setlang/" method="post">
+      <input type="hidden" name="xsrf_token" value="xHJkVZhtCdh8ycALuVWcj1TAaDEF3Uf4I749dfpoPS86MTUxNTU3NDI3OTQxMzEwMA">
+      <input type="hidden" name="next" value="/about/versions/oreo/android-8.0.html">
+      <span id="language" class="locales">
+        <select class="devsite-utility-footer-language-select" name="language">
+          
+          <option value="id">
+            Bahasa Indonesia
+          </option>
+          
+          <option value="de">
+            Deutsch
+          </option>
+          
+          <option value="en">
+            English
+          </option>
+          
+          <option value="es">
+            español
+          </option>
+          
+          <option value="es-419">
+            Español (América Latina)
+          </option>
+          
+          <option value="fr">
+            français
+          </option>
+          
+          <option value="pt-br">
+            Português Brasileiro
+          </option>
+          
+          <option value="vi">
+            Tiếng Việt
+          </option>
+          
+          <option value="tr">
+            Türkçe
+          </option>
+          
+          <option value="ru">
+            Русский
+          </option>
+          
+          <option value="th">
+            ภาษาไทย
+          </option>
+          
+          <option value="ja">
+            日本語
+          </option>
+          
+          <option value="zh-cn" selected="selected">
+            简体中文
+          </option>
+          
+          <option value="zh-tw">
+            繁體中文
+          </option>
+          
+          <option value="ko">
+            한국어
+          </option>
+          
+        </select>
+      </span>
+    </form>
+  </footer>
+</div><!--/.wrap -->
+
+<div class="dac-toast-group">
+  <div class="dac-toast" data-toast="">
+    <div class="dac-toast-wrap">
+      
+      This site uses cookies to store your preferences for site-specific language and display options.
+      <button class="dac-toast-close-btn">
+        
+        <span class="dac-button dac-raised dac-primary">OK</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div data-modal="newsletter" data-newsletter-fb="" data-swap="" class="dac-modal newsletter">
+  <div class="dac-modal-container">
+    <div class="dac-modal-window">
+      <header class="dac-modal-header">
+        <div class="dac-modal-header-actions">
+          <button class="dac-modal-header-close" data-modal-toggle=""></button>
+        </div>
+        <div class="dac-swap" data-swap-container="">
+          <section class="dac-swap-section dac-active dac-down">
+            
+            <h2 class="norule dac-modal-header-title" data-t="newsletter.title">获取最新的 Android 开发者资讯和提示，助您在 Google Play 上取得成功。</h2>
+            
+            <p class="dac-modal-header-subtitle" data-t="newsletter.requiredHint">* 必填字段</p>
+          </section>
+          <section class="dac-swap-section dac-up">
+            
+            <h2 class="norule dac-modal-header-title" data-t="newsletter.successTitle">太棒了！</h2>
+          </section>
+        </div>
+      </header>
+      <div class="dac-swap" data-swap-container="">
+        <section class="dac-swap-section dac-active dac-left">
+          <form action="https://services.google.com/fb/submissions/android-developer-mailing-list/" class="dac-form" method="post">
+            <section class="dac-modal-content">
+              <fieldset class="dac-form-fieldset">
+                <div class="cols">
+                  <div class="col-1of2 newsletter-leftCol">
+                    <div class="dac-form-input-group">
+                      
+                      <label for="newsletter-full-name" class="dac-form-floatlabel" data-t="newsletter.name">全名</label>
+                      <input type="text" class="dac-form-input" name="fullname" id="newsletter-full-name" required="">
+                      <span class="dac-form-required">*</span>
+                    </div>
+                    <div class="dac-form-input-group">
+                      
+                      <label for="newsletter-email" class="dac-form-floatlabel" data-t="newsletter.email">电子邮件地址</label>
+                      <input type="email" class="dac-form-input" name="emailaddress" id="newsletter-email" required="">
+                      <span class="dac-form-required">*</span>
+                    </div>
+                  </div>
+                  <div class="col-1of2 newsletter-rightCol">
+                    <div class="dac-form-input-group">
+                      
+                      <label for="newsletter-company" class="dac-form-floatlabel" data-t="newsletter.company">公司/开发者名称</label>
+                      <input type="text" class="dac-form-input" name="companydevelopername" id="newsletter-company">
+                    </div>
+                    <div class="dac-form-input-group">
+                      
+                      <label for="newsletter-play-store" class="dac-form-floatlabel" data-t="newsletter.appUrl">您的某个 Play 商店应用网址</label>
+                      <input type="url" class="dac-form-input" name="playstoreappurls" id="newsletter-play-store">
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="dac-form-fieldset">
+                <div class="cols">
+                  
+                  <div class="col-1of2 newsletter-leftCol newsletter-interested" data-validation-message="Please check at least one item.">
+                    
+                    <legend class="dac-form-legend">What are you interested in?<span class="dac-form-required">*</span></legend>
+                    <div class="dac-form-radio-group">
+                      <input type="checkbox" class="dac-form-checkbox" name="interested" id="interested-whats-new" value="whats-new">
+                      <label for="interested-whats-new" class="dac-form-checkbox-button"></label>
+                      
+                      <label for="interested-whats-new" class="dac-form-label">What's new</label>
+                    </div>
+                    <div class="dac-form-radio-group">
+                      <input type="checkbox" class="dac-form-checkbox" name="interested" id="interested-games-updates" value="games-updates">
+                      <label for="interested-games-updates" class="dac-form-checkbox-button"></label>
+                      
+                      <label for="interested-games-updates" class="dac-form-label">Games updates</label>
+                    </div>
+                    <div class="dac-form-radio-group">
+                      <input type="checkbox" class="dac-form-checkbox" name="interested" id="interested-android-development" value="android-development">
+                      <label for="interested-android-development" class="dac-form-checkbox-button"></label>
+                      
+                      <label for="interested-android-development" class="dac-form-label">Android development</label>
+                    </div>
+                  </div>
+                  <div class="col-1of2 newsletter-rightCol newsletter-checkboxes">
+                    <div class="dac-form-input-group">
+                      
+                      <label for="newsletter-receive-in">Receive newsletter in</label>
+                      <select name="language" class="dac-form-select" id="newsletter-receive-in">
+                        <option value="en-US" selected="">English</option>
+                        <option value="ar">Arabic</option>
+                        <option value="zh">Chinese (Simplified)</option>
+                        <option value="zh-TW">Chinese (Traditional)</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="id">Indonesian (Bahasa)</option>
+                        <option value="ja">Japanese</option>
+                        <option value="ko">Korean</option>
+                        <option value="pt-BR">Portuguese (Brazilian)</option>
+                        <option value="ru">Russian</option>
+                        <option value="es-419">Spanish (Latin American)</option>
+                        <option value="th">Thai</option>
+                        <option value="tr">Turkish</option>
+                        <option value="vi">Vietnamese</option>
+                      </select>
+                    </div>
+                    <div class="dac-form-radio-group">
+                      <div class="dac-media">
+                        <div class="dac-media-figure">
+                          <input type="checkbox" class="dac-form-checkbox" name="marketingoptin" id="newsletter-add" required="" value="Add me to the mailing list.">
+                          <label for="newsletter-add" class="dac-form-checkbox-button"></label>
+                        </div>
+                        <div class="dac-media-body">
+                          <label for="newsletter-add" class="dac-form-label dac-form-aside">
+                            
+                            Add me to the mailing list.
+                            <span class="dac-form-required">*</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dac-form-radio-group">
+                      <div class="dac-media">
+                        <div class="dac-media-figure">
+                          <input type="checkbox" class="dac-form-checkbox" name="privacystatement" id="newsletter-terms" required="" value="I acknowledge that the information provided in this form will be subject to Google&#39;s privacy policy (https://www.google.com/policies/privacy/).">
+                          <label for="newsletter-terms" class="dac-form-checkbox-button"></label>
+                        </div>
+                        <div class="dac-media-body">
+                          <label for="newsletter-terms" class="dac-form-label dac-form-aside"><span data-t="newsletter.privacyPolicy" data-t-html="">我确认自己了解在此表单中提供的信息受 <a href="https://www.google.com/intl/zh-CN/policies/privacy/" target="_blank">Google</a> 隐私权政策的约束。</span>
+                          <span class="dac-form-required">*</span></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dac-form-radio-group">
+                      <script src="./Android 8.0 功能和 API _ Android Developers_files/api.js.下载"></script>
+                      <div class="g-recaptcha" data-sitekey="6Lfc9CkTAAAAAEdusoAjrREyhAgNE1ppGE1Fc5q0"><div style="width: 304px; height: 78px;"><div><iframe src="./Android 8.0 功能和 API _ Android Developers_files/anchor.html" width="304" height="78" role="presentation" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; "></textarea></div></div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </section>
+            <input type="hidden" name="referrer" value="dac">
+            <footer class="dac-modal-footer">
+              <div class="cols">
+                <div class="col-2of5">
+                </div>
+              </div>
+              <button type="submit" value="Submit" class="dac-fab dac-primary dac-large dac-modal-action"><i class="dac-sprite dac-arrow-right"></i></button>
+            </footer>
+          </form>
+        </section>
+        <section class="dac-swap-section dac-right">
+          <div class="dac-modal-content">
+            <p class="newsletter-success-message" data-t="newsletter.successDetails">您已成功订阅最新的 Android 开发者资讯和提示。</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div><!--/.dac-modal.newsletter-->
+
+<div data-modal="wechat" class="dac-modal">
+  <div class="dac-modal-container">
+    <div class="dac-modal-window">
+      <header class="dac-modal-header">
+        <div class="dac-modal-header-actions">
+          <button class="dac-modal-header-close" data-modal-toggle=""></button>
+        </div>
+        <section>
+          
+          <h2 class="norule dac-modal-header-title">在微信上关注 Google Developers</h2>
+        </section>
+      </header>
+      <section class="dac-modal-content figure-center center-img">
+        <img src="./Android 8.0 功能和 API _ Android Developers_files/qr-wechat.png">
+      </section>
+    </div>
+  </div>
+</div><!--/.dac-modal[dac-modal=wechat]-->
+
+
+<div data-modal="langform" class="dac-modal" id="langform">
+  <div class="dac-modal-container">
+    <div class="dac-modal-window">
+      <header class="dac-modal-header">
+        <div class="dac-modal-header-actions">
+          <button class="dac-modal-header-close" data-modal-toggle=""></button>
+        </div>
+        <section class="dac-swap-section dac-active dac-down">
+          <h2 class="norule dac-modal-header-title">
+            
+            Browse this site in <span class="span-target-lang">Simplified Chinese (简体中文)</span>?
+          </h2>
+        </section>
+      </header>
+      <section class="dac-swap-section dac-active dac-left">
+          <section class="dac-modal-content">
+            <fieldset class="dac-form-fieldset">
+              <div class="cols">
+                <div class="col-2of2 langform-leftCol">
+                  <p id="resetLangText">
+                    
+                    You requested a page in <span class="span-target-lang">Simplified Chinese (简体中文)</span>, but your language preference for this site is <span class="span-current-lang">Simplified Chinese (简体中文)</span>.
+                  </p>
+                  <p id="resetLangCta">
+                    
+                    Would you like to change your language preference and browse this site in <span class="span-target-lang">Simplified Chinese (简体中文)</span>? If you want to change your language preference later, use the language menu at the bottom of each page.
+                  </p>
+                </div>
+              </div>
+            </fieldset>
+          </section>
+          <footer class="dac-modal-footer" id="langfooter">
+            <div class="cols">
+              <div class="col-2of5">
+              </div>
+            </div>
+            <a href="https://developer.android.com/about/versions/oreo/android-8.0.html#" class="yes" onclick="return false;">
+              <button class="button dac-primary dac-modal-action lang yes" data-t="newsletter.resetLangButtonYes" data-modal-toggle="">Change Language</button>
+            </a>
+            <a href="https://developer.android.com/about/versions/oreo/android-8.0.html#" class="" onclick="return false;">
+              <button class="button dac-primary dac-modal-action lang no" data-t="newsletter.resetLangButtonNo" data-modal-toggle="">Not Now</button>
+            </a>
+          </footer>
+        
+      </section>
+    </div>
+  </div>
+</div><!--/.dac-modal-->
+
+
+<div data-modal="api-unavailable" class="dac-modal" id="api-unavailable">
+  <div class="dac-modal-container">
+    <div class="dac-modal-window">
+      <header class="dac-modal-header">
+        <div class="dac-modal-header-actions">
+          <button class="dac-modal-header-close" data-modal-toggle=""></button>
+        </div>
+        <section class="dac-swap-section dac-active dac-down">
+          <h2 class="norule dac-modal-header-title">
+            
+            This class requires API level <span class="api-level"></span> or higher
+          </h2>
+        </section>
+      </header>
+      <section class="dac-swap-section dac-active dac-left">
+          <section class="dac-modal-content">
+            <p>
+              
+              This doc is hidden because your selected API level for the documentation is <span class="api-level"></span>. You can change the documentation API level with the selector above the left navigation.
+            </p>
+            
+            <p>For more information about specifying the API level your app requires, read <a href="https://developer.android.com/training/basics/supporting-devices/platforms.html">Supporting Different Platform Versions</a>.</p>
+          </section>
+          <footer class="dac-modal-footer" id="langfooter">
+            <div class="cols">
+              <div class="col-2of5">
+              </div>
+            </div>
+            <a href="https://developer.android.com/about/versions/oreo/android-8.0.html#" class="ok" onclick="return false;">
+              <button class="button dac-primary dac-modal-action ok" data-modal-toggle="">
+                
+                OK, make this page visible
+              </button>
+            </a>
+          </footer>
+        
+      </section>
+    </div>
+  </div>
+</div><!--/.dac-modal#api-unavailable-->
+
+    
+  </div><!--/#body-content-->
+
+  <!-- Nav Setup -->
+  <script>$('[data-dac-nav]').dacNav();</script>
+  <script type="text/javascript">
+    $('.slideshow-container').dacSlideshow({
+        btnPrev: '.slideshow-prev',
+        btnNext: '.slideshow-next',
+        btnPause: '#pauseButton'
+    });
+
+    $(".feed").dacTabbedList({
+      nav_id: '.feed-nav',
+      frame_id: '.feed-frame'
+    });
+  </script>
+  
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/ytblogger_lists_unified.js.下载" defer=""></script>
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/android_metadata_en.js.下载" defer=""></script>
+  
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/lists.js.下载" defer=""></script>
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/gms_lists.js.下载" defer=""></script>
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/lists.js(1).下载" defer=""></script>
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/lists.js(2).下载" defer=""></script>
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/lists.js(3).下载" defer=""></script>
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/lists.js(4).下载" defer=""></script>
+  <script src="./Android 8.0 功能和 API _ Android Developers_files/saved_resource"></script>
+  <script>
+    // Load localized metadata.
+    (function(lang) {
+      if (lang === 'en') { return; }
+      document.write('<script src="https://developer.android.com/android_metadata_zh-cn.js?v=2018011008" defer></' + 'script>');
+    })(getLangPref())
+
+    // Add skip to content for accessibility.
+    $('#skip-to-main').click(function() {
+      $('a[name=top]').focus();
+    });
+
+    $('.devsite-utility-footer-language-select').each(function() {
+      $(this).change(function() {
+        changeLangPref(this.value, true)
+        $('.devsite-utility-footer-language').submit();
+      });
+    });
+  </script><script src="./Android 8.0 功能和 API _ Android Developers_files/android_metadata_zh-cn.js.下载" defer=""></script>
+
+  <script>
+    (function($) {
+      devsite.analytics.InitAnalytics();
+      devsite.navigatingRadio.init();
+      devsite.kennedy.InitializeTabbars();
+      // overflowMenu must be initialized after tabbar.
+      devsite.overflowMenu.init();
+    })(jQuery);
+  </script>
+
+  
+
+
+<div id="survey-box-wrapper">
+  <div class="material-dialog" style="width:270px">
+    <div class="material-dialog-title">
+      Take a short survey?
+    </div>
+    <div class="material-dialog-description">
+      Help us improve the Android developer experience.
+      (Dec 2017 Android Platform &amp; Tools Survey)
+    </div>
+    <div class="material-button-bar">
+      <a class="dac-button dac-primary dac-raised" target="_blank" href="https://goo.gl/UwhSLi">Okay</a>
+      <a class="dac-button" href="https://developer.android.com/about/versions/oreo/android-8.0.html#">No thanks</a>
+    </div>
+  </div>
+</div>
+
+
+
+<div style="background-color: #fff; border: 1px solid #ccc; box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2); position: absolute; left: 0px; top: -10000px; transition: visibility 0s linear 0.3s, opacity 0.3s linear; opacity: 0; visibility: hidden; z-index: 2000000000;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: #fff; opacity: 0.05;  filter: alpha(opacity=5)"></div><div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0; height: 0; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div><div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0; height: 0; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div><div style="z-index: 2000000000; position: relative;"><iframe title="recaptcha 验证" src="./Android 8.0 功能和 API _ Android Developers_files/bframe.html" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" name="v46b55hfcijq" style="width: 100%; height: 100%;"></iframe></div></div><table cellspacing="0" cellpadding="0" class="gstl_50 gssb_c" style="width: 2px; display: none; top: 3px; position: absolute; left: -1px;"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table></body></html>
