@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://tech.dianwoda.com/2016/11/08/retrofit-okhttp-request/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="http://tech.dianwoda.com/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="./Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？_files/screen.css">
+
+    <link rel="canonical" href="http://tech.dianwoda.com/2016/11/08/retrofit-okhttp-request/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="点我达技术">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？">
+    <meta property="og:description" content="&amp;emsp;Retrofit是一个非常优秀的网络库，默认支持OkHttp，Retrofit与OkHttp共同出自于Square公司，Retrofit其实就是对OkHttp做了一层封装。把网络请求都交给给了OkHttp，我们只需要通过简单的配置就能使用Retrofit来进行网络请求了。  &amp;emsp;Retrofit现在最新版本是2.1，OkHttp最新版本是3.4.1，两者相比前一代版本都有较大的改动，由于本文重点是描述如何在网络请求中获取参数，如需了解更多请关注Retrofit及OkHttp官网。下文分别以Retrofit1.x+OKHttp2.x和Retrofit2.x+OKHttp3.x进行讲解。  &amp;emsp;1、Retrofit1.x+OKHttp2.x  &amp;emsp;点我达项目由于上线已经一年多，使用的版本比较低，Retrofit版本为1.9，OKHttp版本为2.5。如需获取请求参数，为了统一处理第一想法就是通过拦截器实现，Retrofit及OkHttp都支持拦截器，但是Retrofit拦截器却没有提供获取请求参数内容的方法。...">
+    <meta property="og:url" content="http://tech.dianwoda.com/2016/11/08/retrofit-okhttp-request/">
+    <meta property="article:published_time" content="2016-11-08T06:12:00.000Z">
+    <meta property="article:modified_time" content="2016-11-08T06:21:37.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？">
+    <meta name="twitter:description" content="&amp;emsp;Retrofit是一个非常优秀的网络库，默认支持OkHttp，Retrofit与OkHttp共同出自于Square公司，Retrofit其实就是对OkHttp做了一层封装。把网络请求都交给给了OkHttp，我们只需要通过简单的配置就能使用Retrofit来进行网络请求了。  &amp;emsp;Retrofit现在最新版本是2.1，OkHttp最新版本是3.4.1，两者相比前一代版本都有较大的改动，由于本文重点是描述如何在网络请求中获取参数，如需了解更多请关注Retrofit及OkHttp官网。下文分别以Retrofit1.x+OKHttp2.x和Retrofit2.x+OKHttp3.x进行讲解。  &amp;emsp;1、Retrofit1.x+OKHttp2.x  &amp;emsp;点我达项目由于上线已经一年多，使用的版本比较低，Retrofit版本为1.9，OKHttp版本为2.5。如需获取请求参数，为了统一处理第一想法就是通过拦截器实现，Retrofit及OkHttp都支持拦截器，但是Retrofit拦截器却没有提供获取请求参数内容的方法。...">
+    <meta name="twitter:url" content="http://tech.dianwoda.com/2016/11/08/retrofit-okhttp-request/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "点我达技术",
+    "author": {
+        "@type": "Person",
+        "name": "木木",
+        "url": "http://tech.dianwoda.com/author/mu",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？",
+    "url": "http://tech.dianwoda.com/2016/11/08/retrofit-okhttp-request/",
+    "datePublished": "2016-11-08T06:12:00.000Z",
+    "dateModified": "2016-11-08T06:21:37.000Z",
+    "description": "&amp;emsp;Retrofit是一个非常优秀的网络库，默认支持OkHttp，Retrofit与OkHttp共同出自于Square公司，Retrofit其实就是对OkHttp做了一层封装。把网络请求都交给给了OkHttp，我们只需要通过简单的配置就能使用Retrofit来进行网络请求了。  &amp;emsp;Retrofit现在最新版本是2.1，OkHttp最新版本是3.4.1，两者相比前一代版本都有较大的改动，由于本文重点是描述如何在网络请求中获取参数，如需了解更多请关注Retrofit及OkHttp官网。下文分别以Retrofit1.x+OKHttp2.x和Retrofit2.x+OKHttp3.x进行讲解。  &amp;emsp;1、Retrofit1.x+OKHttp2.x  &amp;emsp;点我达项目由于上线已经一年多，使用的版本比较低，Retrofit版本为1.9，OKHttp版本为2.5。如需获取请求参数，为了统一处理第一想法就是通过拦截器实现，Retrofit及OkHttp都支持拦截器，但是Retrofit拦截器却没有提供获取请求参数内容的方法。..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="点我达技术" href="http://tech.dianwoda.com/rss/">
+<script type="text/javascript" async="" src="http://static.duoshuo.com/embed.js" charset="UTF-8"></script><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title icon-menu"><span>MENU</span></h3>
+    <a href="http://tech.dianwoda.com/2016/11/08/retrofit-okhttp-request/#" class="nav-close">
+        <span class="hidden">关闭</span>
+    </a>
+    <ul>
+            <li class="nav-" role="presentation"><a href="http://tech.dianwoda.com/">首页</a></li>
+    </ul>
+</div>
+<span class="nav-cover"></span>
+
+    <div class="site-wrapper">
+
+        
+
+
+<!-- <header class="main-header post-head " style="background-image: url()">
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="http://tech.dianwoda.com"><img src="/content/images/2015/11/QQ--20151124193349.jpg" alt="点我达技术" /></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">MENU</span></a>
+    </nav>
+    <div class="main-header-tit">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？</h1>
+            <section class="post-meta">
+                
+                <time class="post-date" datetime="2016-11-08">2016年11月08日</time>
+            </section>
+        </div>
+    </div>
+</header> -->
+<header class="about-header main-header">
+    <nav class="main-nav clearfix">
+        <a class="blog-logo" href="http://tech.dianwoda.com/"><img src="./Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？_files/logo.png" alt="点我达技术"></a>
+            <a class="menu-button icon-menu" href="http://tech.dianwoda.com/2016/11/08/retrofit-okhttp-request/#"><span class="word">MENU</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <div class="page-title-box">
+        <h1 class="page-title">Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？</h1>
+        <div class="page-author">
+            <a href="http://tech.dianwoda.com/author/mu/">木木</a>
+            <time class="post-date" datetime="2018-01-17">2018年01月17日</time>
+        </div>
+    </div>
+    <article class="post">
+
+        <section class="post-content">
+            <p> Retrofit是一个非常优秀的网络库，默认支持OkHttp，Retrofit与OkHttp共同出自于Square公司，Retrofit其实就是对OkHttp做了一层封装。把网络请求都交给给了OkHttp，我们只需要通过简单的配置就能使用Retrofit来进行网络请求了。 <br>
+ Retrofit现在最新版本是2.1，OkHttp最新版本是3.4.1，两者相比前一代版本都有较大的改动，由于本文重点是描述如何在网络请求中获取参数，如需了解更多请关注<a href="http://square.github.io/retrofit/">Retrofit</a>及<a href="http://square.github.io/okhttp/">OkHttp</a>官网。下文分别以Retrofit1.x+OKHttp2.x和Retrofit2.x+OKHttp3.x进行讲解。 <br>
+ 1、Retrofit1.x+OKHttp2.x <br>
+ 点我达项目由于上线已经一年多，使用的版本比较低，Retrofit版本为1.9，OKHttp版本为2.5。如需获取请求参数，为了统一处理第一想法就是通过拦截器实现，Retrofit及OkHttp都支持拦截器，但是Retrofit拦截器却没有提供获取请求参数内容的方法。所以如果要在Retrofit层做处理，可以采取另外一方式。Retrofit支持自定义client,我们可以继承OkClient，获取到参数进行相关的处理。相关代码如下：</p>
+
+<pre>public class MyClient extends OkClient {  
+    public MyClient(OkHttpClient client) {  
+        super(client);  
+    }  
+    @Override  
+    public Response execute(Request request) throws IOException {  
+        //在这里获取到request后就可以做任何事情了  
+        return super.execute(request);  
+    }  
+}  
+
+RestAdapter.Builder builder = new RestAdapter.Builder();  
+builder.setClient(new MyClient(new OkHttpClient()));  
+RestAdapter adapter = builder.build();  
+</pre>
+
+<p>那么在OkHttp层怎么做呢？使用拦截器，代码如下：</p>
+
+<pre>okHttpClient.networkInterceptors().add(new Interceptor() {
+    @Override
+    public Response intercept(Chain chain) throws IOException{ 
+       Request request = chain.request();
+       //在这里获取到request后就可以做任何事情了
+       return null;
+    }
+});
+</pre>
+
+<p>2、Retrofit2.x+OKHttp3.x <br>
+ 如果在项目中希望使用响应式编程，那么Retrofit就需要更新至2.x版本，同时需要更新OkHttp至3.x版本。
+Retrofit2.x有个比较大的变化点就是不再支持自定义网络client必须使用OKHttp3.x， 网络相关全部交给OKHttp，很多处理方式需要做出改动，比如只能使用OKHttp提供的拦截器。此时如需获取参数，只能在OKHttp上做文章，比如重写OKHttp或者使用拦截器。这里只介绍拦截器的方式，具体代码如下：  </p>
+
+<pre>OkHttpClient.Builder builder = new OkHttpClient.Builder();
+Interceptor myInterceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                //在这里获取到request后就可以做任何事情了  
+                Response response = chain.proceed(request);
+                return response;
+            }
+        };
+
+
+ Retrofit retrofit = new Retrofit.Builder().baseUrl(ApiService.HOST)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+</pre>
+
+<p> 通过以上方式获取参数之后，就可以对参数进行统一处理了，比如加密或者增加请求头等。
+另外Retroift和OKHttp的request也不一样，get方式都一样，post请求的时候获取参数的区别比较大，这里分别给出两者post请求获取参数的相关代码。 <br>
+ OKHttp3.x获取post请求参数body的方式：</p>
+
+<pre>RequestBody requestBody= request.body();
+Buffer buffer = new Buffer();
+requestBody.writeTo(buffer);
+Charset charset = Charset.forName("UTF-8");
+MediaType contentType = requestBody.contentType();
+if (contentType != null) {
+   charset = contentType.charset(UTF8);
+}
+String paramsStr = buffer.readString(charset);
+</pre>
+
+<p> Retrofit1.x获取post请求参数body的方式：</p>
+
+<pre>String bodyParams = "";
+TypedOutput body = request.getBody();
+if (body != null) {
+  try {
+      if (!(body instanceof TypedByteArray)) {
+         String bodyMime = body.mimeType();
+         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+         body.writeTo(baos);
+         body = new TypedByteArray(bodyMime, baos.toByteArray());
+       }
+       bodyParams = new String(((TypedByteArray) body).getBytes(),MimeUtil.parseCharset(body.mimeType()));
+   } catch (Exception e) {
+        e.printStackTrace();
+   }
+}
+</pre>
+
+<p> 对参数进行处理之后需要构建新的request，OKHttp3.x构建新的request:</p>
+
+<pre>Request.Builder requestBuilder = request.newBuilder();
+if(request.body() instanceof FormBody){
+   FormBody.Builder newFormBody = new FormBody.Builder();
+   FormBody oldFormBody = (FormBody) request.body();
+   for(int i = 0;i&lt;oldFormBody.size();i++){
+      newFormBody.addEncoded(oldFormBody.encodedName(i),oldFormBody.encodedValue(i));
+   }
+   newFormBody.add("sign","******");
+   requestBuilder.method(request.method(), newFormBody.build());
+}
+Request newRequest = requestBuilder.build();
+</pre>
+
+<p>Retrofit1.x构建新的Request：  </p>
+
+<pre>TypedOutput body = new TypedByteArray(requestType, params.getBytes());
+Request newRequest = new Request(request.getMethod(), url,request.getHeaders(), body);
+</pre>
+
+<p> 好了，Android网络请求使用Retrofit+OkHttp，获取参数以及对参数修改之后重新构建request的方法和关键代码就介绍到这里。</p>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <div class="author-body">
+                    <h4><a href="http://tech.dianwoda.com/author/mu/">木木</a></h4>
+                    <p>继续阅读此作者的<a href="http://tech.dianwoda.com/author/mu/">更多文章</a></p>
+                </div>
+            </section>
+
+        <!-- 多说评论框 start -->
+        <section class="post-comments">
+            <div class="ds-thread" data-thread-key="retrofit-okhttp-request" data-title="Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？" data-url="http://tech.dianwoda.com/2016/11/08/retrofit-okhttp-request/"></div>
+        </section>
+        <!-- 多说公共JS代码 end -->
+        </footer>
+
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="http://tech.dianwoda.com/2016/11/10/ru-he-rang-ni-de-githubxiang-mu-geng-jia-gao-da-shang/">
+        <section class="post">
+            <h2>如何让你的github项目更加高大上</h2>
+            <p>前言 昨天把这个博客网站的代码开源放在了github上，然后刚好不巧看到百度EFE写的文章前端开源项目持续集成三剑客，突然想起好多项目的ReadMe文件确实看着很酷炫，有很多的徽章，…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="http://tech.dianwoda.com/2016/11/01/shi-yong-intentservicejie-jue-dian-wo-da-qi-shou-appsheng-yin-ti-xing-ji-zhi-zhong-de-you-xian-ji-pai-xu-wen-ti/">
+        <section class="post">
+            <h2>使用IntentService解决点我达骑手APP消息提醒机制中的优先级排序问题</h2>
+            <p>最新版的点我达骑手APP对新订单消息提醒、订单信息被修改、新的可抢订单等声音及制动提醒做出了规范和优化，加入了消息提醒(包括声音及振动提醒)…</p>
+        </section>
+    </a>
+</aside>
+
+<link href="./Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？_files/tomorrow.min.css" rel="stylesheet">
+<script src="./Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？_files/highlight.min.js.下载"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    var duoshuoQuery = {short_name:"dianwoda-tech"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+            || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    <!-- 多说公共JS代码 end -->
+</script>
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://tech.dianwoda.com/">点我达技术</a> © 2018</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org/">Ghost</a> &amp; <a href="http://www.ghostchina.com/">GhostChina</a></section>
+        </footer>
+
+    </div>
+
+    
+
+    <script src="./Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？_files/jquery.min.js.下载"></script>
+    <script src="./Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？_files/jquery.fitvids.min.js.下载"></script>
+    <script src="./Android网络请求使用Retrofit+OkHttp，如何获取请求参数 ？_files/index.js.下载"></script>
+
+
+
+</body></html>

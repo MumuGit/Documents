@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/9725372c979d -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/9725372c979d">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="同时写在我的CSDN：http://blog.csdn.net/yaphetzhao/article/details/51729356 GlideCatchSimple SimpleDemo请看github https://github.com/YaphetZhao/GlideCatchSimplehttps://github.com/YaphetZhao/GlideCatchSimple/...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/9725372c979d">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/9416184">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="Android Glide获取缓存大小与清除缓存" property="twitter:title">
+  <meta content="同时写在我的CSDN：http://blog.csdn.net/yaphetzhao/article/details/51729356 GlideCatchSimple SimpleDemo请看github https://github.com/YaphetZhao/GlideCatchSimplehttps://github.com/YaphetZhao/GlideCatchSimple/blob/master/apk/app-debug.apk Glide缓存Simple 缓存路径的指定 缓存大小的获取 磁盘缓存清除(两种方法) 内存缓存清除 *可clone之后查看使用Simple ..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/9725372c979d" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="Android Glide获取缓存大小与清除缓存">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/9725372c979d">
+  <meta property="og:description" content="同时写在我的CSDN：http://blog.csdn.net/yaphetzhao/article/details/51729356 GlideCatchSimple SimpleDemo请看...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/9416184">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/9416184">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>Android Glide获取缓存大小与清除缓存 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="5lO5oyYCGu03XftVn4ehnb9hKpboD90t2Mh4baSdXiJMUNwpqiRGYYXWHjjvZYnoAnmGW5YnXqmDj+etv1QYkw==">
+
+  <link rel="stylesheet" media="all" href="./Android Glide获取缓存大小与清除缓存 - 简书_files/web-b902b38f60020358f549.css">
+  
+  <link rel="stylesheet" media="all" href="./Android Glide获取缓存大小与清除缓存 - 简书_files/entry-cce16e51495a87f95c7a.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./Android Glide获取缓存大小与清除缓存 - 简书_files/push.js.下载"></script><script src="./Android Glide获取缓存大小与清除缓存 - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1245px; display: none;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">Android Glide获取缓存大小与清除缓存</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/4f4076198161">
+            <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/3b7e36b2-9f9f-4a89-a322-c07cc2e0a28c.jpg" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/4f4076198161">赵勇Yaphet</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.06 00:02">2017.02.22 10:16*</span>
+              <span class="wordage">字数 226</span>
+            <span class="views-count">阅读 1636</span><span class="comments-count">评论 1</span><span class="likes-count">喜欢 9</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <p>同时写在我的CSDN：<a href="https://link.jianshu.com/?t=http://blog.csdn.net/yaphetzhao/article/details/51729356" target="_blank" rel="nofollow">http://blog.csdn.net/yaphetzhao/article/details/51729356</a></p>
+<h1>GlideCatchSimple</h1>
+<h3>SimpleDemo请看github</h3>
+<p><a href="https://link.jianshu.com/?t=https://github.com/YaphetZhao/GlideCatchSimple" target="_blank" rel="nofollow">https://github.com/YaphetZhao/GlideCatchSimple</a><br>
+<a href="https://link.jianshu.com/?t=https://github.com/YaphetZhao/GlideCatchSimple/blob/master/apk/app-debug.apk" target="_blank" rel="nofollow">https://github.com/YaphetZhao/GlideCatchSimple/blob/master/apk/app-debug.apk</a></p>
+<h3>Glide缓存Simple</h3>
+<ol>
+<li>缓存路径的指定</li>
+<li>缓存大小的获取</li>
+<li>磁盘缓存清除(两种方法)</li>
+<li>内存缓存清除</li>
+</ol>
+<p>*可clone之后查看使用Simple</p>
+<h3>Glide cache Simple.</h3>
+<ol>
+<li>The cache path specified</li>
+<li>The cache size</li>
+<li>The disk cache (two ways)</li>
+<li>Memory cache to clearMay</li>
+</ol>
+<p>*use Simple clone after check</p>
+<h3>GlideCatchUtil</h3>
+<p>获取Glide磁盘缓存大小</p>
+<pre class="hljs cpp"><code class="cpp"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getCacheSize</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">return</span> getFormatSize(getFolderSize(<span class="hljs-keyword">new</span> File(Application.getInstance().getCacheDir() + <span class="hljs-string">"/"</span> + GlideCatchConfig.GLIDE_CARCH_DIR)));
+    } <span class="hljs-keyword">catch</span> (Exception e) {
+        e.printStackTrace();
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"获取失败"</span>;
+    }
+}
+</code></pre>
+<p>清除Glide磁盘缓存</p>
+<pre class="hljs java"><code class="java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">cleanCatchDisk</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> deleteFolderFile(Application.getInstance().getCacheDir() + <span class="hljs-string">"/"</span> + GlideCatchConfig.GLIDE_CARCH_DIR, <span class="hljs-keyword">true</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">clearCacheDiskSelf</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">if</span> (Looper.myLooper() == Looper.getMainLooper()) {
+            <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Runnable() {
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{
+                    Glide.get(Application.getInstance()).clearDiskCache();
+                }
+            }).start();
+        } <span class="hljs-keyword">else</span> {
+            Glide.get(Application.getInstance()).clearDiskCache();
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    } <span class="hljs-keyword">catch</span> (Exception e) {
+        e.printStackTrace();
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+}
+</code></pre>
+<p>AndroidMainfest.xml and GlideConfiguration.class</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">meta-data</span>
+    <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.yaphetzhao.glidecatchsimple.glide.GlideConfiguration"</span>
+    <span class="hljs-attr">android:value</span>=<span class="hljs-string">"GlideModule"</span> /&gt;</span>
+</code></pre>
+<p>Application.class</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">android</span>.<span class="hljs-title">app</span>.<span class="hljs-title">Application</span> </span>{
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Application instance;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Application <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> instance;
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">super</span>.onCreate();
+        instance = <span class="hljs-keyword">this</span>;
+    }
+
+}
+
+&lt;application
+    android:name=<span class="hljs-string">".Application"</span>
+    more...
+</code></pre>
+<h3>About Me</h3>
+<p>YaphetZhao<br>
+<a href="https://link.jianshu.com/?t=mailto:Email:yaphetzhao@gmail.com" target="_blank" rel="nofollow">Email:yaphetzhao@gmail.com</a><br>
+<a href="https://link.jianshu.com/?t=mailto:Email_CN:yaphetzhao@foxmail.com" target="_blank" rel="nofollow">Email_CN:yaphetzhao@foxmail.com</a><br>
+GitHub:<a href="https://link.jianshu.com/?t=http://github.com/YaphetZhao/" target="_blank" rel="nofollow">http://github.com/YaphetZhao/</a><br>
+QQ:11613371<br>
+CSDN_Blog:<a href="https://link.jianshu.com/?t=http://blog.csdn.net/yaphetzhao" target="_blank" rel="nofollow">http://blog.csdn.net/yaphetzhao</a></p>
+<h3>完整工具类代码</h3>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">package</span> com.yaphetzhao.glidecatchsimple.glide;
+
+<span class="hljs-keyword">import</span> android.os.Looper;
+<span class="hljs-keyword">import</span> android.util.Log;
+
+<span class="hljs-keyword">import</span> com.bumptech.glide.Glide;
+<span class="hljs-keyword">import</span> com.yaphetzhao.glidecatchsimple.Application;
+<span class="hljs-keyword">import</span> com.yaphetzhao.glidecatchsimple.glide.config.GlideCatchConfig;
+
+<span class="hljs-keyword">import</span> java.io.File;
+<span class="hljs-keyword">import</span> java.math.BigDecimal;
+
+<span class="hljs-comment">/**
+ * Created by YaphetZhao
+ * on 2016/12/19.
+ * &lt;p&gt;
+ * QQ:11613371
+ * GitHub:https://github.com/YaphetZhao
+ * Email:yaphetzhao@foxmail.com
+ * Email_EN:yaphetzhao@gmail.com
+ * &lt;p&gt;
+ * Glide缓存工具类
+ */</span>
+<span class="hljs-meta">@SuppressWarnings</span>(<span class="hljs-string">"ResultOfMethodCallIgnored"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GlideCatchUtil</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> GlideCatchUtil instance;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> GlideCatchUtil <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == instance) {
+            instance = <span class="hljs-keyword">new</span> GlideCatchUtil();
+        }
+        <span class="hljs-keyword">return</span> instance;
+    }
+
+    <span class="hljs-comment">// 获取Glide磁盘缓存大小</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getCacheSize</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">return</span> getFormatSize(getFolderSize(<span class="hljs-keyword">new</span> File(Application.getInstance().getCacheDir() + <span class="hljs-string">"/"</span> + GlideCatchConfig.GLIDE_CARCH_DIR)));
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            e.printStackTrace();
+            <span class="hljs-keyword">return</span> <span class="hljs-string">"获取失败"</span>;
+        }
+    }
+
+    <span class="hljs-comment">// 清除Glide磁盘缓存，自己获取缓存文件夹并删除方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">cleanCatchDisk</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> deleteFolderFile(Application.getInstance().getCacheDir() + <span class="hljs-string">"/"</span> + GlideCatchConfig.GLIDE_CARCH_DIR, <span class="hljs-keyword">true</span>);
+    }
+
+    <span class="hljs-comment">// 清除图片磁盘缓存，调用Glide自带方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">clearCacheDiskSelf</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (Looper.myLooper() == Looper.getMainLooper()) {
+                <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Runnable() {
+                    <span class="hljs-meta">@Override</span>
+                    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{
+                        Glide.get(Application.getInstance()).clearDiskCache();
+                    }
+                }).start();
+            } <span class="hljs-keyword">else</span> {
+                Glide.get(Application.getInstance()).clearDiskCache();
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            e.printStackTrace();
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+    }
+
+    <span class="hljs-comment">// 清除Glide内存缓存</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">clearCacheMemory</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (Looper.myLooper() == Looper.getMainLooper()) { <span class="hljs-comment">//只能在主线程执行</span>
+                Glide.get(Application.getInstance()).clearMemory();
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            }
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            e.printStackTrace();
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+
+
+    <span class="hljs-comment">// 获取指定文件夹内所有文件大小的和</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">long</span> <span class="hljs-title">getFolderSize</span><span class="hljs-params">(File file)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+        <span class="hljs-keyword">long</span> size = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">try</span> {
+            File[] fileList = file.listFiles();
+            <span class="hljs-keyword">for</span> (File aFileList : fileList) {
+                <span class="hljs-keyword">if</span> (aFileList.isDirectory()) {
+                    size = size + getFolderSize(aFileList);
+                } <span class="hljs-keyword">else</span> {
+                    size = size + aFileList.length();
+                }
+            }
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            e.printStackTrace();
+        }
+        <span class="hljs-keyword">return</span> size;
+    }
+
+    <span class="hljs-comment">// 格式化单位</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getFormatSize</span><span class="hljs-params">(<span class="hljs-keyword">double</span> size)</span> </span>{
+        <span class="hljs-keyword">double</span> kiloByte = size / <span class="hljs-number">1024</span>;
+        <span class="hljs-keyword">if</span> (kiloByte &lt; <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> size + <span class="hljs-string">"Byte"</span>;
+        }
+        <span class="hljs-keyword">double</span> megaByte = kiloByte / <span class="hljs-number">1024</span>;
+        <span class="hljs-keyword">if</span> (megaByte &lt; <span class="hljs-number">1</span>) {
+            BigDecimal result1 = <span class="hljs-keyword">new</span> BigDecimal(Double.toString(kiloByte));
+            <span class="hljs-keyword">return</span> result1.setScale(<span class="hljs-number">2</span>, BigDecimal.ROUND_HALF_UP).toPlainString() + <span class="hljs-string">"KB"</span>;
+        }
+        <span class="hljs-keyword">double</span> gigaByte = megaByte / <span class="hljs-number">1024</span>;
+        <span class="hljs-keyword">if</span> (gigaByte &lt; <span class="hljs-number">1</span>) {
+            BigDecimal result2 = <span class="hljs-keyword">new</span> BigDecimal(Double.toString(megaByte));
+            <span class="hljs-keyword">return</span> result2.setScale(<span class="hljs-number">2</span>, BigDecimal.ROUND_HALF_UP).toPlainString() + <span class="hljs-string">"MB"</span>;
+        }
+        <span class="hljs-keyword">double</span> teraBytes = gigaByte / <span class="hljs-number">1024</span>;
+        <span class="hljs-keyword">if</span> (teraBytes &lt; <span class="hljs-number">1</span>) {
+            BigDecimal result3 = <span class="hljs-keyword">new</span> BigDecimal(Double.toString(gigaByte));
+            <span class="hljs-keyword">return</span> result3.setScale(<span class="hljs-number">2</span>, BigDecimal.ROUND_HALF_UP).toPlainString() + <span class="hljs-string">"GB"</span>;
+        }
+        BigDecimal result4 = <span class="hljs-keyword">new</span> BigDecimal(teraBytes);
+        <span class="hljs-keyword">return</span> result4.setScale(<span class="hljs-number">2</span>, BigDecimal.ROUND_HALF_UP).toPlainString() + <span class="hljs-string">"TB"</span>;
+    }
+
+    <span class="hljs-comment">// 按目录删除文件夹文件方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">deleteFolderFile</span><span class="hljs-params">(String filePath, <span class="hljs-keyword">boolean</span> deleteThisPath)</span> </span>{
+        <span class="hljs-keyword">try</span> {
+            File file = <span class="hljs-keyword">new</span> File(filePath);
+            <span class="hljs-keyword">if</span> (file.isDirectory()) {
+                File files[] = file.listFiles();
+                <span class="hljs-keyword">for</span> (File file1 : files) {
+                    deleteFolderFile(file1.getAbsolutePath(), <span class="hljs-keyword">true</span>);
+                }
+            }
+            <span class="hljs-keyword">if</span> (deleteThisPath) {
+                <span class="hljs-keyword">if</span> (!file.isDirectory()) {
+                    file.delete();
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">if</span> (file.listFiles().length == <span class="hljs-number">0</span>) {
+                        file.delete();
+                    }
+                }
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            e.printStackTrace();
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+    }
+
+}
+
+</code></pre>
+<h3>完整代码请看git</h3>
+<p><a href="https://link.jianshu.com/?t=https://github.com/YaphetZhao/GlideCatchSimple" target="_blank" rel="nofollow">https://github.com/YaphetZhao/GlideCatchSimple</a></p>
+<h3>我的更多git项目</h3>
+<p>DropDownMultiPager<br>
+仿淘宝商品详情页下拉足迹Demo<br>
+<a href="https://link.jianshu.com/?t=https://github.com/YaphetZhao/DropDownMultiPager" target="_blank" rel="nofollow">https://github.com/YaphetZhao/DropDownMultiPager</a></p>
+<p>PearGreenDAO<br>
+安卓GreenDao使用例子 Android GreenDAO Simple<br>
+<a href="https://link.jianshu.com/?t=https://github.com/YaphetZhao/PearGreenDAO" target="_blank" rel="nofollow">https://github.com/YaphetZhao/PearGreenDAO</a></p>
+<ul>
+<li>欢迎fork，感谢star</li>
+</ul>
+
+        </div>
+    </div>
+
+      <div class="support-author"></div>
+
+      <div class="show-foot">
+        <a class="notebook" href="https://www.jianshu.com/nb/10354298">
+          <i class="iconfont ic-search-notebook"></i>
+          <span>技术</span>
+</a>        <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+          © 著作权归作者所有
+        </div>
+        <div class="modal-wrap" data-report-note="">
+          <a id="report-modal">举报文章</a>
+        </div>
+      </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/4f4076198161">
+            <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/3b7e36b2-9f9f-4a89-a322-c07cc2e0a28c.jpg" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/4f4076198161">赵勇Yaphet</a>
+          
+            <i class="iconfont ic-man"></i>
+        <p>写了 28340 字，被 42 人关注，获得了 153 个喜欢</p></div>
+          <div class="signature">联系微博
+赵勇Yaphet
+http://weibo.com/zhaoyong1992</div>
+      </div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>9</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @赵勇Yaphet 的文章《Android Glide获取缓存大小与清除缓存》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/9416184/weibo/image_a89a198e8f00.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 赵勇Yaphet 的文章《Android Glide获取缓存大小与清除缓存》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 赵勇Yaphet 的文章《Android Glide获取缓存大小与清除缓存》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;Android Glide获取缓存大小与清除缓存&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div id="vue_comment"></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @赵勇Yaphet 的文章《Android Glide获取缓存大小与清除缓存》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 赵勇Yaphet 的文章《Android Glide获取缓存大小与清除缓存》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 赵勇Yaphet 的文章《Android Glide获取缓存大小与清除缓存》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/9725372c979d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;Android Glide获取缓存大小与清除缓存&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/2ddd46458740?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/android.graphics.Bitmap_7a1c3d0.jpeg"><div class="name">安卓开发</div></a><a href="https://www.jianshu.com/c/c2955a70fdd6?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/1462031767.jpg"><div class="name">安卓资源收集</div></a><a href="https://www.jianshu.com/c/be506cee4240?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/1481422516.jpg"><div class="name">安卓开发</div></a><a href="https://www.jianshu.com/c/459413b9eddd?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/1441914525.jpg"><div class="name">安卓开发学习</div></a><a href="https://www.jianshu.com/c/20884c3a9474?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/android.graphics.Bitmap_1e029cd.jpeg"><div class="name">开源项目</div></a><a href="https://www.jianshu.com/c/c0b4205dc3b6?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/android.graphics.Bitmap_db916ff.jpeg"><div class="name">图片</div></a> <!----></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="9416184"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/5ad013eb5364?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android - 收藏集 - 掘金</a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金相信有很多朋友...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/5fc9b6410f4f?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/6220dd63-bf1a-40a8-8ccc-e364a5c90f13.png" alt="48">
+            </div>
+            <span class="name">掘金官方</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/dad51f6c9c4d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android - 收藏集  </a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金 Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金 相信有很多...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/e946d18f163c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/4-3397163ecdb3855a0a4139c34a695885.jpg" alt="48">
+            </div>
+            <span class="name">passiontim</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/e1df480726be?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/7298444-cf27e5a0060dac98.PNG" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/e1df480726be?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">【转】Android 开源项目分类汇总</a>
+          <p class="description">来源：https://github.com/Trinea/android-open-project 更多：Android 开源库获取途径整理 目前包括： Android 开源项目第一篇——个性化控件(View)篇 包括ListView、ActionBar、Menu、View...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/9ceb5a99d2c7?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/ca469c70-20c8-40c1-aa18-602979f3da7f.jpg" alt="48">
+            </div>
+            <span class="name">旭川君</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/f1e83b5eb64b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/7298444-cf27e5a0060dac98.PNG" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/f1e83b5eb64b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">2017-05-30</a>
+          <p class="description">【转】Android 开源项目分类汇总 旭川君已关注 2017.08.15 16:49*字数 29527阅读 1795评论 1喜欢 35 来源：https://github.com/Trinea/android-open-project 更多：Android 开源库获取途径...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/de9e507f17aa?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/1-04bbeead395d74921af6a4e8214b4f61.jpg" alt="48">
+            </div>
+            <span class="name">ulpqtdax</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/325d0794fcd0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">awesome-android</a>
+          <p class="description">作者：snowdream微信：sn0wdr1am原文地址：https://github.com/snowdream/awesome-android awesome-android Introduction android libs from github System re...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/748f0f7e6432?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/db65013f7c43" alt="48">
+            </div>
+            <span class="name">snowdream</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/f220cd4d3615?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Java8 新特性, 使用Lambdas简化多维数组的遍历</a>
+          <p class="description">如果你经常需要操作多维数组或者对其进行遍历，那你是不是已经经常陷入了无限多个For循环的痛苦中？ 如果是这样，那不如抽几分钟的时间来看看这边文章。 我相信，看完这篇文章，你会发现使用Lambdas 来简化多维数组的操作是多么的优雅与方便。 首先，我们来看看通常如果我们需要遍...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/851baff6154e?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/e09f7cf8-95ca-4c85-aa4f-3662e537725c.jpg" alt="48">
+            </div>
+            <span class="name">橘汁绊饭</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/6d671aaebf89?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/5472910-17f0175e21ead9b3.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/6d671aaebf89?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">世界上最好的运动竞然是走路</a>
+          <p class="description">世界上最好的运动是什么？ 走路！ 世卫组织认定，走路是“世界上最好的运动”。 如果实在管不住嘴，那就迈开腿，走起来！ 一起来看看走路的19条益处 ↓↓ 1. 增加记忆力。 随着年龄的增长，人的记忆力也在退化，步行能够增加记忆力。记住：只要每天早上走路，记忆力就会越来越强。 ...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/8418a8d870a0?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/15-a7ac401939dd4df837e3bbf82abaa2a8.jpg" alt="48">
+            </div>
+            <span class="name">馬荣軍</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/d1b3f2d7c3ce?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/1432108-c3b2dd93050dd5e0.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/d1b3f2d7c3ce?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">recyclerview万能适配器用法以及源码分析</a>
+          <p class="description">源代码引用地址：https://github.com/yiyibb/Zhihu 此篇博客主要是使用鸿洋大神的万能适配器来构造recyclerview，简化了很多代码，但是感觉鸿洋大大的博客文章写的使用方法不够详细，加上后期他又优化了很多代码，这里我详细写明一篇，希望能帮助到...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/31f02ce30bcb?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/40d8d497-4da2-4f37-a1c1-30451d051ff8.jpeg" alt="48">
+            </div>
+            <span class="name">上官若枫</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/09c57203a553?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/3867785-285c39671eea7b7a.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/09c57203a553?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">5分钟搞定全家营养早餐：牛油果三明治</a>
+          <p class="description">做法在大碗中混合白芸豆、橄榄油、粗盐和和黑胡椒，然后压成泥。 取三片面包片，中间抹上芸豆泥，夹上洋葱、黄瓜片、生菜、牛油果。 将三明治斜着切成两半。 如需转载请联系微信号作者,请勿私自转载，谢谢！</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/62bf3020c5d8?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android Glide获取缓存大小与清除缓存 - 简书_files/f75be37e8bd5.png" alt="48">
+            </div>
+            <span class="name">张新康复医生</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"3548c439-626a-4043-82cf-43763bae7dc2"},"note":{"id":9416184,"slug":"9725372c979d","user_id":2500569,"notebook_id":10354298,"commentable":true,"likes_count":9,"views_count":1636,"public_wordage":226,"comments_count":1,"total_rewards_count":0,"is_author":false,"author":{"nickname":"赵勇Yaphet","total_wordage":28340,"followers_count":42,"total_likes_count":153}}}</script>
+    
+    <script src="./Android Glide获取缓存大小与清除缓存 - 简书_files/babel-polyfill-6c366ba2893c6a87f1f8.js.下载" crossorigin="anonymous"></script>
+    <script src="./Android Glide获取缓存大小与清除缓存 - 简书_files/web-base-00b9754187055a2548be.js.下载" crossorigin="anonymous"></script>
+<script src="./Android Glide获取缓存大小与清除缓存 - 简书_files/web-88217e3760237428cbad.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./Android Glide获取缓存大小与清除缓存 - 简书_files/entry-f666df8eabdd170bd9f6.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

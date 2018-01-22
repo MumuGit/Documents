@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://www.liuling123.com/2017/02/transparent-status-bar.html -->
+<html lang="zh" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+    <title>沉浸式状态栏实现及遇到的坑 | 残剑博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Android4.4以前的版本，状态栏都是一块黑色的，个人认为还是比较丑的。自4.4开始，Android已经支持透明状态栏了（俗称沉浸式状态栏）。个人认为支持沉浸式状态栏的app逼格还是比较高的，为了紧跟潮流，我们项目中也准备加入沉浸式状态栏。在实现沉浸式状态栏的过程中踩了不少的坑，特此记录下来。
+如何实现状态栏Android 4.4以上实现方式Android 4.4版本提供了FLAG_TRANS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="沉浸式状态栏实现及遇到的坑">
+<meta property="og:url" content="http://www.liuling123.com/2017/02/transparent-status-bar.html">
+<meta property="og:site_name" content="残剑博客">
+<meta property="og:description" content="Android4.4以前的版本，状态栏都是一块黑色的，个人认为还是比较丑的。自4.4开始，Android已经支持透明状态栏了（俗称沉浸式状态栏）。个人认为支持沉浸式状态栏的app逼格还是比较高的，为了紧跟潮流，我们项目中也准备加入沉浸式状态栏。在实现沉浸式状态栏的过程中踩了不少的坑，特此记录下来。
+如何实现状态栏Android 4.4以上实现方式Android 4.4版本提供了FLAG_TRANS">
+<meta property="og:image" content="http://7xnqm4.com1.z0.glb.clouddn.com/transparent-status-bar/tool-bar-enter-status-bar.png">
+<meta property="og:updated_time" content="2017-02-21T12:51:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="沉浸式状态栏实现及遇到的坑">
+<meta name="twitter:description" content="Android4.4以前的版本，状态栏都是一块黑色的，个人认为还是比较丑的。自4.4开始，Android已经支持透明状态栏了（俗称沉浸式状态栏）。个人认为支持沉浸式状态栏的app逼格还是比较高的，为了紧跟潮流，我们项目中也准备加入沉浸式状态栏。在实现沉浸式状态栏的过程中踩了不少的坑，特此记录下来。
+如何实现状态栏Android 4.4以上实现方式Android 4.4版本提供了FLAG_TRANS">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/styles.css" type="text/css">
+    <link rel="stylesheet" href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/styles(1).css" type="text/css">
+
+    <link rel="stylesheet" href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/style.css" type="text/css">
+
+    <script src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/jquery.min.js.下载" type="text/javascript"></script>
+    
+    
+        <link rel="stylesheet" href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/jquery.fancybox.css" type="text/css">
+    
+    
+    
+    
+
+<script src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/share.js.下载"></script><script type="text/javascript" async="" src="http://static.duoshuo.com/embed.js" charset="UTF-8"></script><style type="text/css">.fancybox-margin{margin-right:17px;}</style><link rel="stylesheet" href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/share_style0_16.css"></head>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="http://www.liuling123.com/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">残剑博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="http://www.liuling123.com/">Home</a>
+                
+                    <a class="main-nav-link" href="http://www.liuling123.com/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="http://www.liuling123.com/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="http://www.liuling123.com/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="http://www.liuling123.com/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/protrait.jpg">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/insight.js.下载" type="text/javascript"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tbody><tr>
+                
+                    <td><a class="main-nav-link" href="http://www.liuling123.com/">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="http://www.liuling123.com/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="http://www.liuling123.com/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="http://www.liuling123.com/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="http://www.liuling123.com/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </tbody></table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/protrait.jpg">
+            <h2 id="name">Lauren</h2>
+            <h3 id="title">Android Developer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Shenzhen, China</span>
+            <a id="follow" target="_blank" href="https://github.com/liuling07">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                153
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                41
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tbody><tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/liuling07" target="_blank" title="github">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/LaurenLiuling/" target="_blank" title="weibo">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://plus.google.com/u/0/107098505138563589748/" target="_blank" title="google-plus">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://stackoverflow.com/users/5629327/lauren-liuling" target="_blank" title="stack-overflow">
+                            <i class="fa fa-stack-overflow"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/lauren_liuLing/" target="_blank" title="twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/lauren.liuling/" target="_blank" title="facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://www.liuling123.com/atom.xml" target="_blank" title="rss">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </tbody></table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-transparent-status-bar" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            沉浸式状态栏实现及遇到的坑
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="http://www.liuling123.com/2017/02/transparent-status-bar.html">
+            <time datetime="2017-02-18T05:22:00.000Z" itemprop="datePublished">2017-02-18</time>
+        </a>
+    </div>
+
+
+                    
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="http://www.liuling123.com/categories/Android/">Android</a>
+    </div>
+
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="http://www.liuling123.com/tags/%E6%B2%89%E6%B5%B8%E5%BC%8F%E7%8A%B6%E6%80%81%E6%A0%8F/">沉浸式状态栏</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>Android4.4以前的版本，状态栏都是一块黑色的，个人认为还是比较丑的。自4.4开始，Android已经支持透明状态栏了（俗称沉浸式状态栏）。个人认为支持沉浸式状态栏的app逼格还是比较高的，为了紧跟潮流，我们项目中也准备加入沉浸式状态栏。在实现沉浸式状态栏的过程中踩了不少的坑，特此记录下来。</p>
+<h3 id="u5982_u4F55_u5B9E_u73B0_u72B6_u6001_u680F"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#u5982_u4F55_u5B9E_u73B0_u72B6_u6001_u680F" class="headerlink" title="如何实现状态栏"></a>如何实现状态栏</h3><h5 id="Android_4-4_u4EE5_u4E0A_u5B9E_u73B0_u65B9_u5F0F"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#Android_4-4_u4EE5_u4E0A_u5B9E_u73B0_u65B9_u5F0F" class="headerlink" title="Android 4.4以上实现方式"></a>Android 4.4以上实现方式</h5><p>Android 4.4版本提供了FLAG_TRANSLUCENT_STATUS，在Activity中加入此flag，可以设置状态栏透明。代码如下：<br></p><figure class="highlight stata"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (Build.<span class="keyword">VERSION</span>.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) {</span><br><span class="line">    <span class="keyword">Window</span> <span class="keyword">window</span> = getWindow();</span><br><span class="line">    <span class="comment">// Translucent status bar</span></span><br><span class="line">    <span class="keyword">window</span>.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>仅仅设置FLAG_TRANSLUCENT_STATUS，你会发现界面上的ToolBar会跑到状态栏上面去，如下图: </p>
+<a id="more"></a>
+<p><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/tool-bar-enter-status-bar.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/tool-bar-enter-status-bar.png" alt=""></a></p>
+<p>通常我们会使用fitsSystemWindows属性来解决此问题。</p>
+<ul>
+<li>fitSystemWindows官方描述:<br>Boolean internal attribute to adjust view layout based on system windows such as the status bar. If true, adjusts the padding of this view to leave space for the system windows. Will only take effect if this view is in a non-embedded activity. </li>
+<li>简单描述：<br>这个属性的作用是让view可以根据系统窗口(如status bar)来调整自己的布局，如果值为true，就会调整view的paingding属性来给system windows留出空间（即给view添加一个值为状态栏高度的top padding）。</li>
+</ul>
+<p>我们试着给ToolBar设置一下fitsSystemWindows属性为true。布局代码如下：<br></p><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">LinearLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">xmlns:tools</span>=<span class="value">"http://schemas.android.com/tools"</span></span><br><span class="line">    <span class="attribute">android:id</span>=<span class="value">"@+id/activity_main"</span></span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span></span><br><span class="line">    <span class="attribute">android:orientation</span>=<span class="value">"vertical"</span></span><br><span class="line">    <span class="attribute">tools:context</span>=<span class="value">"example.com.chenjinshidemo.MainActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">android.support.v7.widget.Toolbar</span></span><br><span class="line">        <span class="attribute">android:id</span>=<span class="value">"@+id/my_toolbar"</span></span><br><span class="line">        <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span></span><br><span class="line">        <span class="attribute">android:background</span>=<span class="value">"@color/colorPrimary"</span></span><br><span class="line">        <span class="attribute">android:minHeight</span>=<span class="value">"?attr/actionBarSize"</span></span><br><span class="line">        <span class="attribute">android:fitsSystemWindows</span>=<span class="value">"true"</span></span><br><span class="line">        <span class="attribute">android:theme</span>=<span class="value">"@style/ThemeOverlay.AppCompat.Dark.ActionBar"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">FrameLayout</span></span><br><span class="line">        <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">        <span class="attribute">android:layout_height</span>=<span class="value">"0dp"</span></span><br><span class="line">        <span class="attribute">android:layout_weight</span>=<span class="value">"1"</span></span><br><span class="line">        <span class="attribute">android:padding</span>=<span class="value">"16dp"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="title">RelativeLayout</span></span><br><span class="line">            <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">            <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span></span><br><span class="line">            <span class="attribute">android:background</span>=<span class="value">"#e0e0e0"</span></span><br><span class="line">            <span class="attribute">android:layout_gravity</span>=<span class="value">"bottom"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">EditText</span></span><br><span class="line">                <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">                <span class="attribute">android:layout_height</span>=<span class="value">"40dp"</span></span><br><span class="line">                <span class="attribute">android:fitsSystemWindows</span>=<span class="value">"true"</span></span><br><span class="line">                <span class="attribute">android:background</span>=<span class="value">"@drawable/edit_text_rect_bg"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">RelativeLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">FrameLayout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">LinearLayout</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>4.4的效果图如下：<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/4-4-preview.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/4-4-preview.png" alt=""></a></p>
+<p>注：有些4.4的系统上面状态栏并不是全透明的，而是渐变的。</p>
+<h5 id="Android_5-0_u4EE5_u4E0A_u5B9E_u73B0_u65B9_u5F0F"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#Android_5-0_u4EE5_u4E0A_u5B9E_u73B0_u65B9_u5F0F" class="headerlink" title="Android 5.0以上实现方式"></a>Android 5.0以上实现方式</h5><p>你会发现，已经实现了沉浸式状态栏效果了。如果运行在5.0以上的机器上面，会发现大部分手机会出现状态栏是半透明的，效果图如下：<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/after-4-4-preview.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/after-4-4-preview.png" alt=""></a></p>
+<p>我们能不能让将5.0以上的手机也设置为和4.4一样的全透明的状态栏呢？答案是肯定的！Android自5.0起，又为我们提供了设置状态栏颜色的API，我们可以自己设置状态栏的颜色。<br>在代码中再加入如下代码：<br></p><figure class="highlight stata"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (Build.<span class="keyword">VERSION</span>.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {</span><br><span class="line">    <span class="keyword">window</span>.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);</span><br><span class="line">    <span class="keyword">window</span>.getDecorView().setSystemUiVisibility(<span class="keyword">View</span>.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span><br><span class="line">            | <span class="keyword">View</span>.SYSTEM_UI_FLAG_LAYOUT_STABLE);</span><br><span class="line">    <span class="keyword">window</span>.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);</span><br><span class="line">    <span class="keyword">window</span>.setStatusBarColor(Color.TRANSPARENT);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>再在运行看看效果，状态栏已经变成全透明了。6.0运行效果图和上面4.4一样，就不再附图了。</p>
+<h5 id="Android_6-0_u4EE5_u4E0A_u8BBE_u7F6E_u72B6_u6001_u680F_u5B57_u4F53_u989C_u8272"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#Android_6-0_u4EE5_u4E0A_u8BBE_u7F6E_u72B6_u6001_u680F_u5B57_u4F53_u989C_u8272" class="headerlink" title="Android 6.0以上设置状态栏字体颜色"></a>Android 6.0以上设置状态栏字体颜色</h5><p>默认状态栏字体颜色是白色的，如果ToolBar的颜色较浅，那么状态栏上白色的字看不怎么清楚。</p>
+<p>Android6.0以后，我们可以使用代码将状态栏字体的颜色设置为黑色了，代码如下：<br></p><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">win</span><span class="class">.getDecorView</span>()<span class="class">.setSystemUiVisibility</span>(<span class="tag">View</span><span class="class">.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR</span>);</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>设置了深色状态栏字体的效果图如下：<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/black-status-text-color.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/black-status-text-color.png" alt=""></a></p>
+<h3 id="u8E29_u8FC7_u7684_u5751"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#u8E29_u8FC7_u7684_u5751" class="headerlink" title="踩过的坑"></a>踩过的坑</h3><p>如果你认为已经已经完美实现了，那真是too young to simple。下面是一些我踩过的坑。</p>
+<h5 id="u4E0E_u8F6F_u952E_u76D8_u51B2_u7A81_u7684_u5751"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#u4E0E_u8F6F_u952E_u76D8_u51B2_u7A81_u7684_u5751" class="headerlink" title="与软键盘冲突的坑"></a>与软键盘冲突的坑</h5><p>如果在界面中有EditText的话，你会发现当软件盘弹出的时候（Activity已经设置了adjustResize），ToolBar的内容都被顶上去了，但是EditText输入框却被有顶上来（正常情况应该是ToolBar没事，输入框被软键盘顶上去），如下图：<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/keyboard-over-edittext.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/keyboard-over-edittext.png" alt=""></a></p>
+<p>这是为什么呢？经研究发现原来是fitsSystemWindows属性搞的鬼。哪个View设置了fitsSystemWindows=true，这个View就会被软件盘顶上去。所以说，fitsSystemWindows不能乱用，会有意想不到的坑。</p>
+<p>那能不能不用fitsSystemWindows呢？既然上面说了，fitsSystemWindows=true的作用是给View添加值为状态栏高度的padding，那我们何不自己手动给ToolBar添加padding呢？<br>我们去掉ToolBar上的fitsSystemWindows属性，并设置一下ToolBar的padding，代码如下：<br></p><figure class="highlight sml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">protected void setStatusBarPaddingAndHeight(<span class="type">View</span> toolBar) {</span><br><span class="line">    <span class="keyword">if</span> (<span class="type">Build</span>.<span class="type">VERSION</span>.<span class="type">SDK_INT</span> &gt;= <span class="type">Build</span>.<span class="type">VERSION_CODES</span>.<span class="type">KITKAT</span>) {</span><br><span class="line">        <span class="keyword">if</span> (toolBar != null) {</span><br><span class="line">            <span class="built_in">int</span> statusBarHeight = getSystemBarHeight(this);</span><br><span class="line">            toolBar.setPadding(toolBar.getPaddingLeft<span class="literal">()</span>, statusBarHeight, toolBar.getPaddingRight<span class="literal">()</span>,</span><br><span class="line">                    toolBar.getPaddingBottom<span class="literal">()</span>);</span><br><span class="line">            toolBar.getLayoutParams<span class="literal">()</span>.height = statusBarHeight +</span><br><span class="line">                    (<span class="built_in">int</span>)<span class="type">TypedValue</span>.applyDimension(<span class="type">TypedValue</span>.<span class="type">COMPLEX_UNIT_DIP</span>, <span class="number">45</span>, getResources<span class="literal">()</span>.getDisplayMetrics<span class="literal">()</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>去掉ToolBar的fitsSystemWindows属性，并加上加上上面的代码，软键盘弹出时ToolBar正常了，但是输入框还是没有弹出来。</p>
+<ul>
+<li>解决方式1  </li>
+</ul>
+<p>刚才上面给ToolBar设置了fitsSystemWindows=true，结果ToolBar的内容被顶上去了，那我们能不能给输入框设置一个fitsSystemWindows=true属性呢？试一下就知道了！<br>试了之后你会发现，果然可以，但是输入框的高度变了，其实是输入框的padding增加了状态栏的高度。如果设计和产品能接受这种效果，那这也不失为一种解决方法。很显然，一般都不会接受这种效果的，就算设计和产品能接受，我们开发也不能接受！<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/edittext-padding.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/edittext-padding.png" alt=""></a></p>
+<p>那有没有更好的方法呢？到网上搜索发现下面一种解决方案。</p>
+<ul>
+<li>解决方式2  </li>
+</ul>
+<figure class="highlight cs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AndroidBug5497Workaround</span> {</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">assistActivity</span>(<span class="params">View content</span>) </span>{</span><br><span class="line">        <span class="keyword">new</span> AndroidBug5497Workaround(content);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> View mChildOfContent;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> usableHeightPrevious;</span><br><span class="line">    <span class="keyword">private</span> ViewGroup.LayoutParams frameLayoutParams;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">AndroidBug5497Workaround</span>(<span class="params">View content</span>) </span>{</span><br><span class="line">        <span class="keyword">if</span> (content != <span class="keyword">null</span>) {</span><br><span class="line">            mChildOfContent = content;</span><br><span class="line">            mChildOfContent.getViewTreeObserver().addOnGlobalLayoutListener(<span class="keyword">new</span> ViewTreeObserver.OnGlobalLayoutListener() {</span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onGlobalLayout</span>(<span class="params"></span>) </span>{</span><br><span class="line">                    possiblyResizeChildOfContent();</span><br><span class="line">                }</span><br><span class="line">            });</span><br><span class="line">            frameLayoutParams = mChildOfContent.getLayoutParams();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">possiblyResizeChildOfContent</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="keyword">int</span> usableHeightNow = computeUsableHeight();</span><br><span class="line">        <span class="keyword">if</span> (usableHeightNow != usableHeightPrevious) {</span><br><span class="line">            <span class="comment">//如果两次高度不一致</span></span><br><span class="line">            <span class="comment">//将计算的可视高度设置成视图的高度</span></span><br><span class="line">            frameLayoutParams.height = usableHeightNow;</span><br><span class="line">            mChildOfContent.requestLayout();<span class="comment">//请求重新布局</span></span><br><span class="line">            usableHeightPrevious = usableHeightNow;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">computeUsableHeight</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="comment">//计算视图可视高度</span></span><br><span class="line">        Rect r = <span class="keyword">new</span> Rect();</span><br><span class="line">        mChildOfContent.getWindowVisibleDisplayFrame(r);</span><br><span class="line">        <span class="keyword">return</span> (r.bottom);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>添加上面的类，然后在Activity的onCreate方法中的setContentView后面加上如下代码：<br></p><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">AndroidBug5497Workaround</span><span class="class">.assistActivity</span>(<span class="tag">findViewById</span>(<span class="tag">android</span><span class="class">.R</span><span class="class">.id</span><span class="class">.content</span>));</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>然后运行，输入框能够正常被顶上去，而且输入框的布局有没有受到影响。<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/key-board-fix.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/key-board-fix.png" alt=""></a></p>
+<p>该解决方案的原理是，给界面的根布局设置一个监听器，当界面大小有变化的时候，如键盘弹出的时候，重新设置一下根布局的高度，再调用requestLayout对界面进行重绘。</p>
+<blockquote>
+<p>注：不知道这种解决方案会不会引起其他的问题，目前暂时没有发现，如果哪位知道有什么问题，请指点一下，谢谢！</p>
+</blockquote>
+<h5 id="u534E_u4E3AEMUI3-1_u4E0A_u7684_u5751"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#u534E_u4E3AEMUI3-1_u4E0A_u7684_u5751" class="headerlink" title="华为EMUI3.1上的坑"></a>华为EMUI3.1上的坑</h5><p>将上面的沉浸式代码放在EMUI3.1系统的手机（如华为荣耀7）上面跑，你会发现，根本没有沉浸式效果，状态栏是透明的，显示的是桌面上的颜色，如下图：<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/emui-3-1-preview.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/emui-3-1-preview.png" alt=""></a></p>
+<p>经验证，原来是EMUI3.1系统的原因，很多App（如网易云音乐等）也是在EMUI3.0上有沉浸式的效果，到了EMUI3.1却没有效果了。在EMUI3.1没有沉浸式效果如果和4.4以前一样是黑的也就算了，这样透明的显示桌面颜色实在难看。<br>后来发现去掉下面这句代码，可以让其有沉浸式的效果。<br></p><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">window</span><span class="class">.clearFlags</span>(<span class="tag">WindowManager</span><span class="class">.LayoutParams</span><span class="class">.FLAG_TRANSLUCENT_STATUS</span>);</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>效果如下：<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/emui-3-1-fix.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/emui-3-1-fix.png" alt=""></a></p>
+<p>不过它的状态栏不是全透明的，而是像某些4.4的系统一样是渐变的，不过总比原来的效果好。<br>这里我们加一个判断，判断如果不是EMUI3.1的系统，才调用clearFlags清除掉FLAG_TRANSLUCENT_STATUS。<br>具体代码如下：<br></p><figure class="highlight stata"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (Build.<span class="keyword">VERSION</span>.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) {</span><br><span class="line">   <span class="keyword">Window</span> <span class="keyword">window</span> = getWindow();</span><br><span class="line">   <span class="keyword">window</span>.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);</span><br><span class="line">   <span class="keyword">if</span> (Build.<span class="keyword">VERSION</span>.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {</span><br><span class="line">      <span class="comment">// 因为EMUI3.1系统与这种沉浸式方案API有点冲突，会没有沉浸式效果。</span></span><br><span class="line">      <span class="comment">// 所以这里加了判断，EMUI3.1系统不清除FLAG_TRANSLUCENT_STATUS</span></span><br><span class="line">      <span class="keyword">if</span> (!isEMUI3_1()) {</span><br><span class="line">         <span class="keyword">window</span>.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);</span><br><span class="line">      }</span><br><span class="line">      <span class="keyword">window</span>.getDecorView().setSystemUiVisibility(<span class="keyword">View</span>.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span><br><span class="line">            | <span class="keyword">View</span>.SYSTEM_UI_FLAG_LAYOUT_STABLE);</span><br><span class="line">      <span class="keyword">window</span>.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);</span><br><span class="line">      <span class="keyword">window</span>.setStatusBarColor(Color.TRANSPARENT);</span><br><span class="line">   }</span><br><span class="line">}</span><br><span class="line">public static boolean isEMUI3_1() {</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">"EmotionUI_3.1"</span>.equals(getEmuiVersion())) {</span><br><span class="line">        <span class="keyword">return</span> true;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> false;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">private static String getEmuiVersion(){</span><br><span class="line">    <span class="keyword">Class</span>&lt;?&gt; classType = null;</span><br><span class="line">    try {</span><br><span class="line">        classType = <span class="keyword">Class</span>.forName(<span class="string">"android.os.SystemProperties"</span>);</span><br><span class="line">        Method getMethod = classType.getDeclaredMethod(<span class="string">"get"</span>, String.<span class="keyword">class</span>);</span><br><span class="line">        <span class="keyword">return</span> (String)getMethod.invoke(classType, <span class="string">"ro.build.version.emui"</span>);</span><br><span class="line">    } catch (ClassNotFoundException <span class="keyword">e</span>) {</span><br><span class="line">        DebugUtil.exception(TAG,<span class="keyword">e</span>);</span><br><span class="line">    } catch (NoSuchMethodException <span class="keyword">e</span>) {</span><br><span class="line">        DebugUtil.exception(TAG,<span class="keyword">e</span>);</span><br><span class="line">    } catch (IllegalAccessException <span class="keyword">e</span>) {</span><br><span class="line">        DebugUtil.exception(TAG,<span class="keyword">e</span>);</span><br><span class="line">    } catch (InvocationTargetException <span class="keyword">e</span>) {</span><br><span class="line">        DebugUtil.exception(TAG,<span class="keyword">e</span>);</span><br><span class="line">    } catch (Exception <span class="keyword">e</span>){</span><br><span class="line">        DebugUtil.exception(TAG,<span class="keyword">e</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h5 id="ActionMode_u4E0A_u7684_u5751"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#ActionMode_u4E0A_u7684_u5751" class="headerlink" title="ActionMode上的坑"></a>ActionMode上的坑</h5><blockquote>
+<p>ActionMode是一种Context Menu，它悬浮在ToolBar活着ActionBar上面。现在已经基本上很少app在用ActionMode了，所以可能很多人可能没有用过，没用过的可以看看这篇文章<a href="http://blog.csdn.net/xyz_lmn/article/details/12754785%E3%80%82" target="_blank" rel="external">http://blog.csdn.net/xyz_lmn/article/details/12754785。</a>  </p>
+</blockquote>
+<p>公司项目中使用到了ActionMode（历史遗留代码），在实现沉浸式的效果中，发现ActionMode并不支持沉浸式。ActionMode弹出来的时候，状态栏会变成黑色的，效果如下：<br>ActionMode弹出前：<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/before-actionmode.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/before-actionmode.png" alt=""></a></p>
+<p>ActionMode弹出后：<br><a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/show-actionmode.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/show-actionmode.png" alt=""></a></p>
+<p>遇到这个问题的时候，第一想法就是能不能和ToolBar一样给ActionMode设置一个值为状态栏高度的padding，然后将它顶到状态栏里面去。<br>在Stackoverflow上面搜了一种方法可以将ActionMode顶到状态栏上面去，给Activity加一个Flag即可，代码如下：<br></p><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">getWindow</span>()<span class="class">.addFlags</span>(<span class="tag">WindowManager</span><span class="class">.LayoutParams</span><span class="class">.FLAG_LAYOUT_NO_LIMITS</span>);</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>看到能将ActionMode顶到状态栏中去时心里已经在开始偷着乐了，接下来只要给ActionMode设置一个padding即可。然而发现ActionMode根本没有提供在代码中设置高度和padding的API，只能在style中设置高度和padding。这样就有一个问题，因为Android手机碎片化严重，导致不同厂商的不同手机状态栏的高度不一致，所以使用这个方法会出现有的手机ActionMode弹出时比ToolBar高或者低，不过也还能接受。</p>
+<p>如果仅仅这样也就算了，没想到又引起了另外一个问题。在使用上面的flag之后（flag不能乱加啊，血和泪的教训），虽然ActionMode顶到状态栏了，但是在某些（如华为）带虚拟按键的手机（虚拟按键对开发者来说也是一个大坑），虚拟按键会遮挡底部的布局。<br>只能放弃这种方案，尼玛，怎么这么多坑，让我哭会（泪崩）！</p>
+<p>没办法，问题还是得去解决啊！继续寻找其它解决方案。。。</p>
+<p>这时候想到了在Android5.0以上我们可以设置状态栏的颜色，那可不可以在ActionMode弹出来的时候，给状态栏设置一个与ToolBar颜色一致的颜色呢？尝试一下吧，在BaseActivity中重写startSupportActionMode方法，在里面给状态栏设置颜色，具体代码如下：<br></p><figure class="highlight aspectj"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="function">ActionMode <span class="title">startSupportActionMode</span><span class="params">(ActionMode.Callback callback)</span> </span>{</span><br><span class="line">   <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {</span><br><span class="line">      getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.actionbar_background));</span><br><span class="line">   }</span><br><span class="line">   <span class="function"><span class="keyword">return</span> <span class="keyword">super</span>.<span class="title">startSupportActionMode</span><span class="params">(callback)</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>没想到，居然可以。不过只能兼容5.0以上的手机，4.4还是黑色。目前也只能这样了，后期项目中估计会将ActionMode干掉吧，到时候就OK了。如果大家又更好兼容ActionMode的方法请指点一下，谢谢！！！</p>
+<h3 id="u53C2_u8003_u6587_u6863"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#u53C2_u8003_u6587_u6863" class="headerlink" title="参考文档"></a>参考文档</h3><p><a href="http://blog.csdn.net/lmj623565791/article/details/48649563" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/48649563</a><br><a href="http://blog.csdn.net/brian512/article/details/52096445" target="_blank" rel="external">http://blog.csdn.net/brian512/article/details/52096445</a></p>
+
+            
+              <!-- -- 添加捐赠图标 ---->
+              <div class="post-donate" style="border-top:1px solid #f0f0f0;margin－top:38px;margin-bottom:18px;text-align:center">
+                <div id="donate_board" class="donate_bar center" style=" margin:12px;">
+                  <a id="btn_donate" class="btn_donate" href="javascript:;" title="Donate 打赏"></a>
+                  <span class="donate_txt" style="font-size:16px; font-weight:bolder;">
+                     如果文章对您有帮助，请随意打赏支持！  
+                  </span>
+                </div>  
+            
+              <!-- 支付宝打赏图案 -->
+                <div style="text-align:center">
+                    <a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/pay%2Falipay.png" title="支付宝打赏" style="float:left;margin-right:8px;text-align:center">
+                    <a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/pay%2Falipay.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/pay%2Falipay.png" title="支付宝打赏" height="200px" width="200px"></a>
+                    </a> 
+                </div>
+
+              <!-- 微信打赏图案 -->
+                <div style="text-align:center">
+                    <a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/pay%2Fweipay.png" title="微信打赏">
+                    <a href="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/pay%2Fweipay.png" title="" class="fancybox" rel="article0"><img src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/pay%2Fweipay.png" title="微信打赏" height="200px" width="200px"></a>
+                    </a> 
+                </div>
+              </div>  
+              <!-- -- 添加捐赠图标 ---->
+              
+              <!-- -- 广告开始 ---->
+
+              <!-- -- 广告结束 ---->
+
+            
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1516180272588">
+    <a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://www.liuling123.com/2017/02/transparent-status-bar.html#ds-thread" class="article-comment-link"><span class="ds-thread-count" data-thread-key="post-transparent-status-bar" data-count-type="comments"></span></a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="http://www.liuling123.com/2017/02/recyclerview-to-position.html" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    RecyclerView定位到具体position
+                
+            </div>
+        </a>
+    
+    
+        <a href="http://www.liuling123.com/2016/12/2016-summarize.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">2016年小结</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="post-transparent-status-bar" data-title="沉浸式状态栏实现及遇到的坑" data-url="http://www.liuling123.com/2017/02/transparent-status-bar.html"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新博文</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="http://www.liuling123.com/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="http://www.liuling123.com/2017/02/recyclerview-to-position.html" class="title">RecyclerView定位到具体position</a></p>
+                            <p class="item-date"><time datetime="2017-02-21T12:49:03.000Z" itemprop="datePublished">2017-02-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="http://www.liuling123.com/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="http://www.liuling123.com/2017/02/transparent-status-bar.html" class="title">沉浸式状态栏实现及遇到的坑</a></p>
+                            <p class="item-date"><time datetime="2017-02-18T05:22:00.000Z" itemprop="datePublished">2017-02-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="http://www.liuling123.com/categories/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/">人生感悟</a></p>
+                            <p class="item-title"><a href="http://www.liuling123.com/2016/12/2016-summarize.html" class="title">2016年小结</a></p>
+                            <p class="item-date"><time datetime="2016-12-31T13:22:00.000Z" itemprop="datePublished">2016-12-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="http://www.liuling123.com/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="http://www.liuling123.com/2016/10/jenkins-gradle-auto-build.html" class="title">Jenkins+Gradle实现Android自动化构建</a></p>
+                            <p class="item-date"><time datetime="2016-10-11T05:08:00.000Z" itemprop="datePublished">2016-10-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="http://www.liuling123.com/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></p>
+                            <p class="item-title"><a href="http://www.liuling123.com/2016/07/influence-reading-notes2.html" class="title">《影响力》读书笔记（二）</a></p>
+                            <p class="item-date"><time datetime="2016-07-26T13:09:00.000Z" itemprop="datePublished">2016-07-26</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">博文分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/Android/">Android</a><span class="category-list-count">28</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/Framework/">Framework</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/Hadoop/">Hadoop</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/JNI-amp-NDK/">JNI&amp;NDK</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a><span class="category-list-count">35</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/Kotlin/">Kotlin</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/Linux/">Linux</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/NoSQL/">NoSQL</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/">人生感悟</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/%E5%85%B6%E4%BB%96%E6%8A%80%E6%9C%AF/">其他技术</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/%E5%90%8E%E7%AB%AF/">后端</a><span class="category-list-count">29</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/">数据结构和算法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">版本控制</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="http://www.liuling123.com/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="http://www.liuling123.com/tags/AsyncTask/" style="font-size: 11.54px;">AsyncTask</a> <a href="http://www.liuling123.com/tags/EventBus/" style="font-size: 10.77px;">EventBus</a> <a href="http://www.liuling123.com/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="http://www.liuling123.com/tags/Jenkins/" style="font-size: 10px;">Jenkins</a> <a href="http://www.liuling123.com/tags/Kotlin/" style="font-size: 10px;">Kotlin</a> <a href="http://www.liuling123.com/tags/LruCache/" style="font-size: 10px;">LruCache</a> <a href="http://www.liuling123.com/tags/MVP/" style="font-size: 10px;">MVP</a> <a href="http://www.liuling123.com/tags/NDK/" style="font-size: 11.54px;">NDK</a> <a href="http://www.liuling123.com/tags/NoSQL/" style="font-size: 13.08px;">NoSQL</a> <a href="http://www.liuling123.com/tags/android/" style="font-size: 19.23px;">android</a> <a href="http://www.liuling123.com/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="http://www.liuling123.com/tags/c/" style="font-size: 10px;">c++</a> <a href="http://www.liuling123.com/tags/camera/" style="font-size: 10px;">camera</a> <a href="http://www.liuling123.com/tags/framework/" style="font-size: 10.77px;">framework</a> <a href="http://www.liuling123.com/tags/git/" style="font-size: 10px;">git</a> <a href="http://www.liuling123.com/tags/hadoop/" style="font-size: 14.62px;">hadoop</a> <a href="http://www.liuling123.com/tags/java/" style="font-size: 20px;">java</a> <a href="http://www.liuling123.com/tags/jni/" style="font-size: 16.15px;">jni</a> <a href="http://www.liuling123.com/tags/linux/" style="font-size: 16.15px;">linux</a> <a href="http://www.liuling123.com/tags/mysql/" style="font-size: 11.54px;">mysql</a> <a href="http://www.liuling123.com/tags/redis/" style="font-size: 13.08px;">redis</a> <a href="http://www.liuling123.com/tags/spring/" style="font-size: 10.77px;">spring</a> <a href="http://www.liuling123.com/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="http://www.liuling123.com/tags/web%E5%90%8E%E7%AB%AF/" style="font-size: 18.46px;">web后端</a> <a href="http://www.liuling123.com/tags/%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98/" style="font-size: 10px;">内存缓存</a> <a href="http://www.liuling123.com/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.85px;">前端</a> <a href="http://www.liuling123.com/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 10px;">反射</a> <a href="http://www.liuling123.com/tags/%E5%8F%8D%E7%BC%96%E8%AF%91/" style="font-size: 10px;">反编译</a> <a href="http://www.liuling123.com/tags/%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/" style="font-size: 10.77px;">图片选择</a> <a href="http://www.liuling123.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 17.69px;">多线程</a> <a href="http://www.liuling123.com/tags/%E5%B8%83%E5%B1%80/" style="font-size: 12.31px;">布局</a> <a href="http://www.liuling123.com/tags/%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96/" style="font-size: 10.77px;">布局优化</a> <a href="http://www.liuling123.com/tags/%E5%BC%80%E6%BA%90/" style="font-size: 10.77px;">开源</a> <a href="http://www.liuling123.com/tags/%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/" style="font-size: 11.54px;">断点续传</a> <a href="http://www.liuling123.com/tags/%E6%B2%89%E6%B5%B8%E5%BC%8F%E7%8A%B6%E6%80%81%E6%A0%8F/" style="font-size: 10px;">沉浸式状态栏</a> <a href="http://www.liuling123.com/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="font-size: 10px;">科学上网</a> <a href="http://www.liuling123.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/" style="font-size: 10px;">自定义控件</a> <a href="http://www.liuling123.com/tags/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" style="font-size: 16.92px;">解决方案</a> <a href="http://www.liuling123.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15.38px;">设计模式</a> <a href="http://www.liuling123.com/tags/%E8%AF%91%E6%96%87/" style="font-size: 11.54px;">译文</a> <a href="http://www.liuling123.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10.77px;">读书笔记</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">友情链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://blog.daimajia.com/">代码家</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.trinea.cn/">Trinea</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.aswifter.com/">APP开发者</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://blog.seoui.com/">笑松小站</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.apkfuns.com/">舞影凌风</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.ttfde.org/">TTF的家园</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://rocko.xyz/">Rocko's blog</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.lcode.org/">江清清技术专栏</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.deanhan.cn/">逐梦博客</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up" style="display: none; left: 1316.95px;"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            © 2017 Lauren<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+             &nbsp;粤ICP备15082212号-2 &nbsp;
+			<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256697778'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1256697778%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1256697778"><a href="http://www.cnzz.com/stat/website.php?web_id=1256697778" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/pic.gif"></a></span><script src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/z_stat.php" type="text/javascript"></script><script src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/core.php" charset="utf-8" type="text/javascript"></script>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'liuling123'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/jquery.fancybox.pack.js.下载" type="text/javascript"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="./沉浸式状态栏实现及遇到的坑 _ 残剑博客_files/main.js.下载" type="text/javascript"></script>
+
+    </div><div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+
+</body></html>
