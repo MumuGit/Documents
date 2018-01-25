@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/61ec1a64a746 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/61ec1a64a746">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="说点废话 Android开发中,TextView类的控件应该说是很常用了。一般来说我们是通过android:textSize=&quot;20sp&quot;来设置字体大小，但是很多时候也需要动态设置字体大小，调用也很简单: 为了适配各种各样的型号，我们一般会将字体大小定义到dimens.xml之中： 然后在java代码中设置定义好的字体大小： 满心欢喜的运行一下，看一效果，结果发现字体奇大无比！！！远非16s...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/61ec1a64a746">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/20699752">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="浅扒Android动态设置字体大小" property="twitter:title">
+  <meta content="说点废话 Android开发中,TextView类的控件应该说是很常用了。一般来说我们是通过android:textSize=\&quot;20sp\&quot;来设置字体大小，但是很多时候也需要动态设置字体大小，调用也很简单: 为了适配各种各样的型号，我们一般会将字体大小定义到dimens.xml之中： 然后在java代码中设置定义好的字体大小： 满心欢喜的运行一下，看一效果，结果发现字体奇大无比！！！远非16sp！！！难道不应该通过getDimension()取值吗？通过logcat我发现，在Nexus 6p并且&lt;dimen name=\&quot;text_size\&quot;&gt;16sp&lt;/dimen&gt;下，在通过getDime..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/61ec1a64a746" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="浅扒Android动态设置字体大小">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/61ec1a64a746">
+  <meta property="og:description" content="说点废话 Android开发中,TextView类的控件应该说是很常用了。一般来说我们是通过android:textSize=\&quot;20sp\&quot;来设置字体大小，但是很多时候也需要动态设置字体大小，调用...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/20699752">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/20699752">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>浅扒Android动态设置字体大小 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="foizhlScm9VfrREXT2mGe72eblRpgWwqBaNXlSJdl171uRUd6PUAtYtfBlFc6GfajXqQ3YNIuxtBWtP206jhXw==">
+
+  <link rel="stylesheet" media="all" href="./浅扒Android动态设置字体大小 - 简书_files/web-b902b38f60020358f549.css">
+  
+  <link rel="stylesheet" media="all" href="./浅扒Android动态设置字体大小 - 简书_files/entry-cce16e51495a87f95c7a.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./浅扒Android动态设置字体大小 - 简书_files/push.js.下载"></script><script src="./浅扒Android动态设置字体大小 - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.pc-bind-phone-modal .modal-content, .pc-bind-phone-modal .modal-body {
+  overflow: visible;
+}
+.pc-bind-phone-modal .dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+.pc-bind-phone-modal .dropdown-menu .tag {
+    background-color: #efefef;
+    color: #4A4A4A;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 25px;
+    font-size: 12px;
+}
+.reader-night-mode .pc-bind-phone-modal .dropdown-menu .tag {
+  background-color: #2F2F2F;
+  color: #999999;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./浅扒Android动态设置字体大小 - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1236px; display: inline;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">浅扒Android动态设置字体大小</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/cbef229ef5bf">
+            <img src="./浅扒Android动态设置字体大小 - 简书_files/6a96a123-a38b-4234-9f1f-cbdcc0753438.jpg" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/cbef229ef5bf">JarvanMo</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time">2017.12.06 23:13</span>
+              <span class="wordage">字数 1660</span>
+            <span class="views-count">阅读 57</span><span class="comments-count">评论 0</span><span class="likes-count">喜欢 1</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <h3>说点废话</h3>
+<p>Android开发中,TextView类的控件应该说是很常用了。一般来说我们是通过<code>android:textSize="20sp"</code><br>
+来设置字体大小，但是很多时候也需要动态设置字体大小，调用也很简单:</p>
+<pre class="hljs java"><code class="java">textView.setTextSize(textSize);
+</code></pre>
+<p>为了适配各种各样的型号，我们一般会将字体大小定义到<code>dimens.xml</code>之中：</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">dimen</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"text_size"</span>&gt;</span>16sp<span class="hljs-tag">&lt;/<span class="hljs-name">dimen</span>&gt;</span>
+</code></pre>
+<p>然后在<code>java</code>代码中设置定义好的字体大小：</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">float</span> dimen = getResources().getDimension(R.dimen.text_size);
+textView.setTextSize(dimen);
+</code></pre>
+<p>满心欢喜的运行一下，看一效果，结果发现字体奇大无比！！！远非16sp！！！难道不应该通过<code>getDimension()</code>取值吗？通过<code>logcat</code>我发现，在<code>Nexus 6p</code>并且<code>&lt;dimen name="text_size"&gt;16sp&lt;/dimen&gt;</code>下，在通过<code>getDimension(R.dimen.text_size)</code>得到返回值是<code>56.0</code>!<br>
+实际上，在<code>java</code>代码中取在<code>dimens.xml</code>中定义的值一共有三种:</p>
+<ul>
+<li>getDimension()</li>
+<li>getDimensionPixelOffset()</li>
+<li>getDimensionPixelSize()</li>
+</ul>
+<p>看到这三个函数的名称时，还是会有点不知所云。本着“不求甚解，遍历式开发”的原则，我把这三种方式都试了一遍，结果发现字体大小没一个是对的，这就诡异了。难道这里有平行宇宙？至此，我只能翻出我的英汉大词典，让我们去探寻一下<code>docs</code>吧。</p>
+<h3>getDimension()</h3>
+<pre class="hljs java"><code class="java">    <span class="hljs-comment">/**
+     * Retrieve a dimensional for a particular resource ID.  Unit 
+     * conversions are based on the current {<span class="hljs-doctag">@link</span> DisplayMetrics} associated
+     * with the resources.
+     * 
+     * <span class="hljs-doctag">@param</span> id The desired resource identifier, as generated by the aapt
+     *           tool. This integer encodes the package, type, and resource
+     *           entry. The value 0 is an invalid identifier.
+     * 
+     * <span class="hljs-doctag">@return</span> Resource dimension value multiplied by the appropriate 
+     * metric.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> <span class="hljs-title">getDimension</span><span class="hljs-params">(@DimenRes <span class="hljs-keyword">int</span> id)</span> <span class="hljs-keyword">throws</span> NotFoundException </span>{
+      
+    }
+</code></pre>
+<p>通过注释我们不难发现，<code>getDimension()</code>是根据指定id获取一个基于当前<code>DisplayMetrics</code>的值。这个值究竟是什么也没有说，只知道是<code>float</code>，并且单位转换是基于当前资源的，但肯定不是像素，如果是像素应该是int。</p>
+<h3>getDimensionPixelSize</h3>
+<pre class="hljs java"><code class="java">   <span class="hljs-comment">/**
+     * Retrieve a dimensional for a particular resource ID for use
+     * as a size in raw pixels.  This is the same as
+     * {<span class="hljs-doctag">@link</span> #getDimension}, except the returned value is converted to
+     * integer pixels for use as a size.  A size conversion involves
+     * rounding the base value, and ensuring that a non-zero base value
+     * is at least one pixel in size.
+     * 
+     * <span class="hljs-doctag">@param</span> id The desired resource identifier, as generated by the aapt
+     *           tool. This integer encodes the package, type, and resource
+     *           entry. The value 0 is an invalid identifier.
+     * 
+     * <span class="hljs-doctag">@return</span> Resource dimension value multiplied by the appropriate 
+     * metric and truncated to integer pixels.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getDimensionPixelSize</span><span class="hljs-params">(@DimenRes <span class="hljs-keyword">int</span> id)</span> <span class="hljs-keyword">throws</span> NotFoundException </span>{
+ 
+    }
+</code></pre>
+<p><code>getDimensionPixelSize()</code>的功能与<code>getDimension()</code>类似，不同的是将结果转换为int，并且小数部分四舍五入，这个结果将作为尺寸。<code>getDimensionPixelSize()</code>进行了尺寸转换，这个转换实际是上四舍五入的结果，并且保证返回值是一个至少是1像素的非零数值。</p>
+<h3>getDimensionPixelOffset()</h3>
+<pre class="hljs java"><code class="java">    <span class="hljs-comment">/**
+     * Retrieve a dimensional for a particular resource ID for use
+     * as an offset in raw pixels.  This is the same as
+     * {<span class="hljs-doctag">@link</span> #getDimension}, except the returned value is converted to
+     * integer pixels for you.  An offset conversion involves simply
+     * truncating the base value to an integer.
+     * 
+     * <span class="hljs-doctag">@param</span> id The desired resource identifier, as generated by the aapt
+     *           tool. This integer encodes the package, type, and resource
+     *           entry. The value 0 is an invalid identifier.
+     * 
+     * <span class="hljs-doctag">@return</span> Resource dimension value multiplied by the appropriate 
+     * metric and truncated to integer pixels.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getDimensionPixelOffset</span><span class="hljs-params">(@DimenRes <span class="hljs-keyword">int</span> id)</span> <span class="hljs-keyword">throws</span> NotFoundException </span>{
+    }
+</code></pre>
+<p><code>getDimensionPixelOffset()</code>与<code>getDimension()</code>功能类似，不同的是将结果转换为int，这个结果将用作原始像素的偏移量。偏移转换（offset conversion，函数命名中的offset是这个意思）的作用之一是将基础值简单地截短为整数，注意直接截断小数位，即取整（其实就是把float强制转化为int，注意不是四舍五入）。</p>
+<h3>阶段性总结</h3>
+<p>由此可见，这三个函数返回的都是绝对尺寸，而不是相对尺寸（dp\sp等）。如果getDimension()返回结果是30.5f，那么getDimensionPixelSize()返回结果就是31，getDimensionPixelOffset()返回结果就是30。<br>
+至此，应该说<code>getDimensionPixelSize()</code> <code>getDimension()</code> <code>getDimensionPixelOffset()</code>我们已经大致有所了解了，但是如果想更深入了解一下，就需要深入源码以验证上述解释。</p>
+<h3>扒源码</h3>
+<p>深入源码，我们可以发现其实这三个函数的实现大同小异，以<code>getDimension()</code>为例:</p>
+<pre class="hljs java"><code class="java">  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> <span class="hljs-title">getDimension</span><span class="hljs-params">(@DimenRes <span class="hljs-keyword">int</span> id)</span> <span class="hljs-keyword">throws</span> NotFoundException </span>{
+        <span class="hljs-keyword">final</span> TypedValue value = obtainTempTypedValue();
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">final</span> ResourcesImpl impl = mResourcesImpl;
+            impl.getValue(id, value, <span class="hljs-keyword">true</span>);
+            <span class="hljs-keyword">if</span> (value.type == TypedValue.TYPE_DIMENSION) {
+                <span class="hljs-keyword">return</span> TypedValue.complexToDimension(value.data, impl.getDisplayMetrics());
+            }
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NotFoundException(<span class="hljs-string">"Resource ID #0x"</span> + Integer.toHexString(id)
+                    + <span class="hljs-string">" type #0x"</span> + Integer.toHexString(value.type) + <span class="hljs-string">" is not valid"</span>);
+        } <span class="hljs-keyword">finally</span> {
+            releaseTempTypedValue(value);
+        }
+    }
+</code></pre>
+<p>类<code>TypedValue</code>是动态类型数据的容器，其主要用于盛放<code>Resources</code>的值。上述代码第7行就是根据id获取<code>TypedValue</code>的值，<code>getDimension()</code>、<code>getDimensionPixelOffset()</code>和<code>getDimensionPixelSize()</code>函数体唯一的不同就是第7行：</p>
+<ul>
+<li>
+<code>getDimension()</code>调用的是<code>TypedValue</code>的<code>complexToDimension()</code>方法</li>
+<li>
+<code>getDimensionPixelSize</code>调用的是<code>TypedValue</code>的<code>complexToDimensionPixelSize()</code>方法</li>
+<li>
+<code>getDimensionPixelOffset</code>调用的是<code>TypedValue</code>的<code>complexToDimensionPixelOffset()</code>方法</li>
+</ul>
+<p>顺藤摸瓜，我们继续深入<code>ypedValue</code>，查看<code>complexToDimension()</code>、<code>complexToDimensionPixelSize()</code>和<code>complexToDimensionPixelOffset(）</code>函数的区别，会发现这三个函数体内容依旧大同小异，以<code>complexToDimension()</code>为例：</p>
+<pre class="hljs java"><code class="java">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span> <span class="hljs-title">complexToDimension</span><span class="hljs-params">(<span class="hljs-keyword">int</span> data, DisplayMetrics metrics)</span> </span>{
+        <span class="hljs-keyword">return</span> applyDimension(
+            (data&gt;&gt;COMPLEX_UNIT_SHIFT)&amp;COMPLEX_UNIT_MASK,
+            complexToFloat(data),
+            metrics);
+    }
+</code></pre>
+<p><code>complexToDimensionPixelOffset()</code>与<code>complexToDimension()</code>不同的是将结果进行了强转，实际上相当直接截断小数部分；<br>
+<code>complexToDimensionPixelSize()</code>是将结果进行四舍五入，并取整。这里的四舍五入实际上就是把结果加上0.5f然后进行强转（有兴趣了解原理的可以留言）。</p>
+<h3>applyDimension()</h3>
+<p>各位看官，源码已经看到了这里，是否已感觉很无趣?但<code>applyDimension()</code>的实现已经脱光了在等着你呢：</p>
+<pre class="hljs java"><code class="java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span> <span class="hljs-title">applyDimension</span><span class="hljs-params">(<span class="hljs-keyword">int</span> unit, <span class="hljs-keyword">float</span> value,DisplayMetrics metrics)</span>  </span>{
+        <span class="hljs-keyword">switch</span> (unit) {
+        <span class="hljs-keyword">case</span> COMPLEX_UNIT_PX:
+            <span class="hljs-keyword">return</span> value;
+        <span class="hljs-keyword">case</span> COMPLEX_UNIT_DIP:
+            <span class="hljs-keyword">return</span> value * metrics.density;
+        <span class="hljs-keyword">case</span> COMPLEX_UNIT_SP:
+            <span class="hljs-keyword">return</span> value * metrics.scaledDensity;
+        <span class="hljs-keyword">case</span> COMPLEX_UNIT_PT:
+            <span class="hljs-keyword">return</span> value * metrics.xdpi * (<span class="hljs-number">1.0f</span>/<span class="hljs-number">72</span>);
+        <span class="hljs-keyword">case</span> COMPLEX_UNIT_IN:
+            <span class="hljs-keyword">return</span> value * metrics.xdpi;
+        <span class="hljs-keyword">case</span> COMPLEX_UNIT_MM:
+            <span class="hljs-keyword">return</span> value * metrics.xdpi * (<span class="hljs-number">1.0f</span>/<span class="hljs-number">25.4f</span>);
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    }
+</code></pre>
+<p>在上述代码中，我们发现在<code>applyDimension()</code>中根据单位的不同，将<code>float</code>乘上不同的系数。如dip/dp需乘上屏幕系数，sp则需乘上字号的缩放系数，pt、in、mm等也是根据相应的算法进行换算（从COMPLEX_UNIT_PX直接返回float可以看出，该方法是将数值转成像素数）。</p>
+<h3>再次总结</h3>
+<p>通过上述探索，我们不难发现，在Adroid并没有在<code>java</code>代码中直接获取<code>dimens.xml</code>中定义的dp(dip)/sp的值的API，只有<code>getDimension()</code>、<code>getDimensionPixelOffset()</code>和<code>getDimensionPixelSize()</code>这个三个方法来获取绝对尺寸。但有时候我们确实需要动态获取<code>dimen.xml</code>中的值，并为TextView设置字体大小。而这种方法直接应用在<code>textView.setTextSize(dimen);</code>都是有问题的。那我们将从<code>TextView</code>入手,寻找一个正确的姿势来设置字体大小。</p>
+<h3>setTextSize()</h3>
+<p>首先把代码端上来：</p>
+<pre class="hljs java"><code class="java">  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTextSize</span><span class="hljs-params">(<span class="hljs-keyword">float</span> size)</span> </span>{
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
+    }
+</code></pre>
+<p>原来<code>setTextSize(float)</code>调用了他的重载方法<code>setTextSize(int,float)</code>，并且第一个参数传的默认值是<code>TypedValue.COMPLEX_UNIT_SP</code>，眼熟吗，没错就是之前提到的。那么，我们继续看看一下<code>setTextSize(int,float)</code>做了什么：</p>
+<pre class="hljs java"><code class="java">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTextSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span> unit, <span class="hljs-keyword">float</span> size)</span> </span>{
+        <span class="hljs-keyword">if</span> (!isAutoSizeEnabled()) {
+            setTextSizeInternal(unit, size, <span class="hljs-keyword">true</span> <span class="hljs-comment">/* shouldRequestLayout */</span>);
+        }
+    }
+</code></pre>
+<p>很显然是调用了<code>setTextSizeInternal(unit, size, true /* shouldRequestLayout */);</code>。看到这累不，不过看都看了就再看看呗，说不定比苍老师好看：</p>
+<pre class="hljs java"><code class="java">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTextSizeInternal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> unit, <span class="hljs-keyword">float</span> size, <span class="hljs-keyword">boolean</span> shouldRequestLayout)</span> </span>{
+        Context c = getContext();
+        Resources r;
+
+        <span class="hljs-keyword">if</span> (c == <span class="hljs-keyword">null</span>) {
+            r = Resources.getSystem();
+        } <span class="hljs-keyword">else</span> {
+            r = c.getResources();
+        }
+
+        setRawTextSize(TypedValue.applyDimension(unit, size, r.getDisplayMetrics()),shouldRequestLayout);
+    }
+
+</code></pre>
+<p>高能！！！<strong>TypedValue.applyDimension(unit, size, r.getDisplayMetrics())</strong>是不是很眼熟？？？还记得<code>applyDimension(）</code>是怎么处理数据的吗？</p>
+<ul>
+<li>我们发现在<code>applyDimension()</code>中根据单位的不同，将<code>float</code>乘上不同的系数。如dip/dp需乘上屏幕系数，sp则需乘上字号的缩放系数，pt、in、mm等也是根据相应的算法进行换算（从COMPLEX_UNIT_PX直接返回float可以看出，该方法是将数值转成像素数）</li>
+</ul>
+<p>综上，<code>setTextSize(float)</code>给传的值的单位其实是SP，但通过<code>getDimension()</code>取的值却不是这样的。为了证实默认单位是SP，各位看官可以直接传个16，看看和16sp是不是一样的。所以问题是不得到了解决？</p>
+<h3>结论</h3>
+<p>Android中并不提供直接从<code>dimens.xml</code>获取dp/sp数值的方法，通过<code>getDimensionPixelSize()</code> <code>getDimension()</code> <code>getDimensionPixelOffset()</code>获取的值是经过处理的。所以正确地动态设置<code>TextView</code>字体大小的姿势应该是：</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">int</span> dimen = getResources().getDimensionPixelSize(R.dimen.text_size);
+textView.setTextSize(TypedValue.COMPLEX_UNIT_PX，dimen);
+</code></pre>
+
+        </div>
+    </div>
+
+      <div class="support-author"><p>各位爷，赏小的一口饭呗。</p> <div class="btn btn-pay">赞赏支持</div> <!----> <!----> <!----></div>
+
+      <div class="show-foot">
+        <a class="notebook" href="https://www.jianshu.com/nb/9014423">
+          <i class="iconfont ic-search-notebook"></i>
+          <span>Android</span>
+</a>        <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+          © 著作权归作者所有
+        </div>
+        <div class="modal-wrap" data-report-note="">
+          <a id="report-modal">举报文章</a>
+        </div>
+      </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/cbef229ef5bf">
+            <img src="./浅扒Android动态设置字体大小 - 简书_files/6a96a123-a38b-4234-9f1f-cbdcc0753438.jpg" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/cbef229ef5bf">JarvanMo</a>
+          
+        <p>写了 9406 字，被 16 人关注，获得了 63 个喜欢</p></div>
+      </div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>1</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/20699752/weibo/image_529fd71ab0b8.jpg&#39;, &#39;推荐 JarvanMo 的文章《浅扒Android动态设置字体大小》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/20699752/weibo/image_529fd71ab0b8.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 JarvanMo 的文章《浅扒Android动态设置字体大小》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 JarvanMo 的文章《浅扒Android动态设置字体大小》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;浅扒Android动态设置字体大小&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./浅扒Android动态设置字体大小 - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div><div id="comment-list" class="comment-list"><div><form class="new-comment"><a class="avatar"><img src="./浅扒Android动态设置字体大小 - 简书_files/avatar_default-78d4d1f68984cd6d4379508dd94b4210.png"></a> <div class="sign-container"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form" class="btn btn-sign">登录</a> <span>后发表评论</span></div></form> <!----></div> <div id="normal-comment-list" class="normal-comment-list"><div><!----> <div><div class="top-title"><span>评论</span> <a class="close-btn" style="display: none;">关闭评论</a></div> <div class="no-comment"></div> <div class="text">
+            智慧如你，不想<a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-nocomments-text">发表一点想法</a>咩~
+          </div></div> <!----> <div class="comments-placeholder" style="display: none;"><div class="author"><div class="avatar"></div> <div class="info"><div class="name"></div> <div class="meta"></div></div></div> <div class="text"></div> <div class="text animation-delay"></div> <div class="tool-group"><i class="iconfont ic-zan-active"></i><div class="zan"></div> <i class="iconfont ic-list-comments"></i><div class="zan"></div></div></div> </div></div> <!----> <div><!----></div></div></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/20699752/weibo/image_529fd71ab0b8.jpg&#39;, &#39;推荐 JarvanMo 的文章《浅扒Android动态设置字体大小》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://cwb.assets.jianshu.io/notes/images/20699752/weibo/image_529fd71ab0b8.jpg&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-picture&quot;&gt;&lt;/i&gt;&lt;span&gt;下载长微博图片&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 JarvanMo 的文章《浅扒Android动态设置字体大小》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 JarvanMo 的文章《浅扒Android动态设置字体大小》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/61ec1a64a746?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;浅扒Android动态设置字体大小&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/NEt52a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./浅扒Android动态设置字体大小 - 简书_files/computer_guy.jpg"><div class="name">程序员</div></a><a href="https://www.jianshu.com/c/5139d555c94d?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./浅扒Android动态设置字体大小 - 简书_files/1416528891_3612.png"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./浅扒Android动态设置字体大小 - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a> <!----></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="20699752"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/6d4b5312ad71?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android 自定义控件之设置Text文本大小</a>
+          <p class="description">前几天在网上抄了一份自定义组合控件控件,发现控件中没有设置文本大小的属性遂自己添加 现在 attr文件中 找到自定义的控件名称 添加一行 name :不用多少 引用的名称 format : 1.使用dimension 这里可以是 大小单位 dp px sp等 (tip:dp...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/a475ddbfd86a?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/597f763b-9a34-4426-b5e2-8eb4d60cc594" alt="48">
+            </div>
+            <span class="name">X130</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/0ea7b58fa6f3?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./浅扒Android动态设置字体大小 - 简书_files/3794454-ca14cdff024caacc.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/0ea7b58fa6f3?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android中设置TextView字体大小时的单位问题</a>
+          <p class="description">项目开发中使用如下代码动态设置TextView字体大小，发现设置的字体和预期差别很大。 errText.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.lost_text_size)); 查看...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/08f927d10240?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/2-9636b13945b9ccf345bc98d0d81074eb.jpg" alt="48">
+            </div>
+            <span class="name">逸云天</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/952474c6d2bd?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">getDimension()\getDimensionPixelSize()\getDimensionPixelOffset()不同</a>
+          <p class="description">在写自定义View的时候想获取dimen值的时候，有下面三个函数： (float) getDimension(int index, float defValue) (int) getDimensionPixelSize(int index, int defValue) (i...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/57cf09dac7cc?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/1fb12c10-a37a-4e89-8275-2a7c0c2f47ae.jpg" alt="48">
+            </div>
+            <span class="name">与猎犬赛跑的野兔</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./浅扒Android动态设置字体大小 - 简书_files/944365-207a738cb165a2da.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android 屏幕适配：最全面的解决方案</a>
+          <p class="description">前言 Android的屏幕适配一直以来都在折磨着我们Android开发者，本文将结合： Google的官方权威适配文档 郭霖： Android官方提供的支持不同屏幕大小的全部方法 Stormzhang：Android 屏幕适配 鸿洋：Android 屏幕适配方案 凯子： A...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/383970bef0a0?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/e32cb66f99ea" alt="48">
+            </div>
+            <span class="name">Carson_Ho</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/6fe2d3a1285a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation"> getDimension，getDimensionPixelOffset和getDimensionPixelSize</a>
+          <p class="description">getDimension和getDimensionPixelOffset的功能都是获取某个dimen的值， 但是如果单位是dp或sp，则需要将其乘以density。如果是px，则不乘。 并且getDimension返回float，getDimensionPixelOffse...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/ff9765aa71a9?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/7a61cf031119" alt="48">
+            </div>
+            <span class="name">Longmaxie</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/94a26de2a8ae?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">2017-11-26</a>
+          <p class="description">每夜 今天写点什么好呢！写安静吧。 我在外人的面前一般都是安静的，不说不闹，不过分亲近，也不主动接触。这是我一个人的安静。每天每天，我按照计划，或者是日子的规律来生活，进行无聊的日复一日，我很容易变得焦虑，暴躁，失去热情。我转而向自己的内心寻求安静，它或许对我来说，是一片净...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/1c942a97a2f3?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/7d0bb21b-a8fe-4064-a4b2-2a8e9dc8d8d2.jpg" alt="48">
+            </div>
+            <span class="name">合吹</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/4c2b3f1c5e38?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Web前端面试题目及答案汇总</a>
+          <p class="description">1、怎样添加、移除、移动、复制、创建和查找节点？ 1）创建新节点 createDocumentFragment()//创建一个DOM片段 createElement（）//创建一个具体的元素 createTexeNode()//创建一个文本节点 2）添加、移除、替换、插入 ...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/ca49e7f5bc1a?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/2ba404414a51" alt="48">
+            </div>
+            <span class="name">与时光流浪</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/bba0f7c9e82c?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">不能死是比死更痛苦的枷锁</a>
+          <p class="description">有个词叫做“一死了之” ，一般情况下听到别人说这种话的时候都会是觉得这个人好懦弱，好没用。但当我自己面临想“一死了之”的时候才知道能“一死了之”是多么幸福。</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/3b4186563b4b?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/fb640d5e-2ffc-47ef-976a-e88b7fd75300.jpg" alt="48">
+            </div>
+            <span class="name">言雾</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/a712dff0f388?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./浅扒Android动态设置字体大小 - 简书_files/4155986-fbd70a66f0608a7e.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/a712dff0f388?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">集成学习系列(四)-AdaBoost与前向分步算法</a>
+          <p class="description">AdaBoost算法还有一个解释，即可以认为AdaBoost模型为加法模型，损失函数为指数函数，学习算法为前向分步算法时的二类分类学习方法。 首先，我们来看一下什么是前向分步算法。 1、前向分步算法 考虑加法模型(additive model)： 在给定训练数据及损失函数的...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/c5df9e229a67?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/0b79def0-fd6c-44d8-9410-1c13d3a2cf7e.jpg" alt="48">
+            </div>
+            <span class="name">wwlovett</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/d55636fe17e0?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">不是读者太Low，而是编辑自己太Low</a>
+          <p class="description">文 | 苏清涛 导语 曾经有个以女性为主要读者的公众号向我约稿："能不能给我们写些骂婆婆，骂小三的文章？"我一听这个要求，就觉得很没品。这个公众号的使命，就是把所有的女性读者都改造成傻逼。 每隔几天，都会在朋友圈看见一篇在标题中冠以“深度好文”字眼的文章。有次，菜菜同学的一...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/646ad557a8af?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./浅扒Android动态设置字体大小 - 简书_files/d3022b563cbd.jpg" alt="48">
+            </div>
+            <span class="name">涛心涛肺</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"19155a3d-277d-4dc6-b6ef-e5a289736732"},"note":{"id":20699752,"slug":"61ec1a64a746","user_id":4313776,"notebook_id":9014423,"commentable":true,"likes_count":1,"views_count":57,"public_wordage":1660,"comments_count":0,"total_rewards_count":0,"is_author":false,"author":{"nickname":"JarvanMo","total_wordage":9406,"followers_count":16,"total_likes_count":63}}}</script>
+    
+    <script src="./浅扒Android动态设置字体大小 - 简书_files/babel-polyfill-cae74bd66cdb76fcd4b4.js.下载" crossorigin="anonymous"></script>
+    <script src="./浅扒Android动态设置字体大小 - 简书_files/web-base-6c510e1d1b5eed0f72d6.js.下载" crossorigin="anonymous"></script>
+<script src="./浅扒Android动态设置字体大小 - 简书_files/web-544b9655f924d46c42c9.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./浅扒Android动态设置字体大小 - 简书_files/entry-f666df8eabdd170bd9f6.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

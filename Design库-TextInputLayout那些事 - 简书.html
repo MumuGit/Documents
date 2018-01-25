@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/084c32b60d49 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/084c32b60d49">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="1.什么是TextInputLayout Layout which wraps an {@link android.widget.EditText} (or descendant) to show a floating labelwhen the hint is hidden due to the user inputting text. 译：一个布局包裹了EditText（或者EditTe...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/084c32b60d49">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/4324702">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="Design库-TextInputLayout那些事" property="twitter:title">
+  <meta content="1.什么是TextInputLayout Layout which wraps an {@link android.widget.EditText} (or descendant) to show a floating labelwhen the hint is hidden due to the user inputting text. 译：一个布局包裹了EditText（或者EditText的子类），在用户输入文本的时候显示一个浮动的提示标签。 以上是源码对TextInputLayout的解释，从上面我们不仅知道了TextInputLayout的 作用：在用户输入文本的时候显示一个浮..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/084c32b60d49" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="Design库-TextInputLayout那些事">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/084c32b60d49">
+  <meta property="og:description" content="1.什么是TextInputLayout Layout which wraps an {@link android.widget.EditText} (or descendant) to sho...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/4324702">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/4324702">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>Design库-TextInputLayout那些事 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="vbywRS8x1VcHnKfmMdMO0Pd1ZXN9f8ojK7D3jVfXTq42jRbek1hON9NusKAiUu9xx5Gb+pe2HRJvSXPupiI4rw==">
+
+  <link rel="stylesheet" media="all" href="./Design库-TextInputLayout那些事 - 简书_files/web-b902b38f60020358f549.css">
+  
+  <link rel="stylesheet" media="all" href="./Design库-TextInputLayout那些事 - 简书_files/entry-cce16e51495a87f95c7a.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./Design库-TextInputLayout那些事 - 简书_files/push.js.下载"></script><script src="./Design库-TextInputLayout那些事 - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./Design库-TextInputLayout那些事 - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1236px; display: inline;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">Design库-TextInputLayout那些事</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/cfcd1814672c">
+            <img src="./Design库-TextInputLayout那些事 - 简书_files/e31bd9efe813.jpg" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/cfcd1814672c">自导自演的机器人</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.03 06:32">2016.06.11 23:30*</span>
+              <span class="wordage">字数 1098</span>
+            <span class="views-count">阅读 4995</span><span class="comments-count">评论 5</span><span class="likes-count">喜欢 37</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <h4>1.什么是TextInputLayout</h4><p><br></p><blockquote><p>Layout which wraps an {@link android.widget.EditText} (or descendant) to show a floating label&nbsp;when the hint is hidden due to the user inputting text.</p></blockquote><p>译：一个布局包裹了EditText（或者EditText的子类），在用户输入文本的时候显示一个浮动的提示标签。</p><p>以上是源码对TextInputLayout的解释，从上面我们不仅知道了TextInputLayout的</p><p><b>作用：</b><b>在用户输入文本的时候显示一个浮动的提示标签，</b></p><p>而且知道了：</p><p><b>TextInputLayout内部必须包含一个EditText(或者EditText的子类)</b></p><p><b><br></b></p><hr><h4><br></h4><h4>2.为什么要用TextInputLayout</h4><p><br></p><p>一言不合就上图：</p><div class="image-package">
+<div class="image-container" style="max-width: 180px; max-height: 317px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 176.11%;"></div>
+<div class="image-view" data-width="180" data-height="317"><img data-original-src="//upload-images.jianshu.io/upload_images/1348484-0ac306db4cdd07fe.gif" data-original-width="180" data-original-height="317" data-original-format="image/gif" data-original-filesize="1806106" class="" style="cursor: zoom-in;" src="./Design库-TextInputLayout那些事 - 简书_files/1348484-0ac306db4cdd07fe.gif"></div>
+</div>
+<div class="image-caption">是否使用了TextInputLayout</div>
+</div><p>传统的EditText，在用户输入信息的时，hint（提示）会自动消失，就如上图的中的第一行所示，这时候用户可能会忘记自己需要输入的内容是什么了，得删除所有的输入内容才可以看到hint的提示内容，这样的用户体验不太好。</p><p>而图二在用户输入的时候，hint会默认弹到上方，并且携带一个动画效果。它仅仅只是在EditText外包裹了一层TextInputLayout，然而就是这样一个小小的改动不仅提高了与用户交互的体验，而且解决了hint输入后消失的问题，唯一的不好就是“占地面积”大了一点，当然这一点点小瑕疵还是可以忽略的。</p><br><hr><h4>3.TextInputLayout的基本使用<br>
+</h4><p><br></p><p>XML布局：</p><blockquote>
+<p>&lt;android.support.design.widget.TextInputLayout</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; android:layout_width="match_parent"</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; android:layout_height="wrap_content"</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; android:hint="请输入您的手机号"&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt; EditText</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;android:layout_width="match_parent"</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;android:layout_height="wrap_content"/&gt;</p>
+<p>&lt;/android.support.design.widget.TextInputLayout&gt;<br></p>
+</blockquote><p>是不是感觉很简单，就是包裹了一层而已。接下来看看它给我们提供了哪些Api&nbsp;<b>↓↓↓</b></p><h4>
+<br><hr>
+</h4><h4><b><b><b><i>4.TextInputLayout的基本属性</i></b></b></b></h4><p><b><b><b><i><br></i></b></b></b></p><p><b><b><b><i>· 4.1.设置提示信息，这个不仅可以设置在EditText还可以直接设置在TextInputLayout</i></b></b></b><br></p><blockquote><p><i>android:hint="请输入您的手机号"</i></p></blockquote><p>总感觉设置在TextInputLayout上逼格比较高，其实并没有什么差别。</p><p><b><br></b></p><p><b>· 4.2.设置hint的相关属性（由于TextInputLayout也是一个自定义控件，所以以app开头,并且需要给予命名空间：xmlns:app="http://schemas.android.com/apk/res-auto"）</b><br></p><blockquote><p>app:hintAnimationEnabled="true"//<b>设置是否可以使用动画，默认是true</b><br></p></blockquote><blockquote><p>app:hintEnabled="true"//<b>设置是否可以使用hint属性，默认是true</b></p></blockquote><blockquote><p>app:hintTextAppearance="@style/MyStyle"//<b>设置hint的文本属性，改变hint文字的大小颜色等属性</b><br></p></blockquote><p>附上MyStyle的代码：</p><blockquote>
+<p>&lt;style name="MyStyle"&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &lt;item name="android:textColor"&gt;#00FFFF&lt;/item&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;item name="android:textSize"&gt;12sp&lt;/item&gt;<br></p>
+<p>&lt;/style&gt;</p>
+</blockquote><p>效果图：</p><div class="image-package">
+<div class="image-container" style="max-width: 180px; max-height: 317px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 176.11%;"></div>
+<div class="image-view" data-width="180" data-height="317"><img data-original-src="//upload-images.jianshu.io/upload_images/1348484-c7ada7ba72a0114e.gif" data-original-width="180" data-original-height="317" data-original-format="image/gif" data-original-filesize="1211150" class="" style="cursor: zoom-in;" src="./Design库-TextInputLayout那些事 - 简书_files/1348484-c7ada7ba72a0114e.gif"></div>
+</div>
+<div class="image-caption">改变hint的颜色</div>
+</div><p>一开始感觉没啥作用啊，是不是这个属性没有效果，结果点击了以后发现，hintTextAppearance设置的是：</p><p><b>上弹以后的文字的显示---（实践检验真理）</b></p><p>我们知道hint的文字大小和text的一样，如果你非要设置hint的字体大小，请点开这个链接<a href="https://link.jianshu.com/?t=http://stackoverflow.com/questions/3139676/android-edittext-hint-size#comment53677130_29963972" target="_blank" rel="nofollow">简单粗暴解决EditText的hint和text文字大小</a></p><p><b><br></b></p><p><b>· 4.3 设置Counter（计数器）的相关属性</b></p><blockquote><p><b>app:counterEnabled="true"//设置是否可以开启计数器，默认是false<br></b></p></blockquote><blockquote><p>app:counterOverflowTextAppearance="@style/MyStyle2"//<b>设置计算器越位后的文字颜色和大小</b><br></p></blockquote><blockquote><p>app:counterTextAppearance="@style/MyStyle"//<b>设置正常情况下的计数器文字颜色和大小</b></p></blockquote><blockquote><p>app:counterMaxLength="11"//<b>设置计算器的最大字数限制</b></p></blockquote><p>这里MyStyle是设置文字颜色为蓝色，大小为16sp，MyStyle2是设置文字颜色为红色，大小为20sp，下面看看效果：</p><p><br></p><div class="image-package">
+<div class="image-container" style="max-width: 180px; max-height: 317px;">
+<div class="image-container-fill" style="padding-bottom: 176.11%;"></div>
+<div class="image-view" data-width="180" data-height="317"><img data-original-src="//upload-images.jianshu.io/upload_images/1348484-f8d3c77ee4ac85a3.gif" data-original-width="180" data-original-height="317" data-original-format="image/gif" data-original-filesize="1354151" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">计数器</div>
+</div><p>这个功能可以很好的告诉用户目前输入的文字位数，已经告诉用户已经超标请不要在输入了。</p><p><b><br></b></p><p><b>· 4.4 设置错误提示的相关属性</b><br></p><blockquote><p><b>app:errorEnabled="true"//是否允许错误提示<br></b></p></blockquote><blockquote><p>app:errorTextAppearance="@style/MyStyle2"//<b>错误提示的文字大小和颜色</b></p></blockquote><p>在代码中设置：</p><blockquote>
+<p>textInputLayout.setError("只是展示下错误的显示样式");</p>
+<p>et.setError("只是展示下错误的显示样式");</p>
+</blockquote><p>效果如图：</p><p><br></p><div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 668px;">
+<div class="image-container-fill" style="padding-bottom: 61.85000000000001%;"></div>
+<div class="image-view" data-width="1080" data-height="668"><img data-original-src="//upload-images.jianshu.io/upload_images/1348484-fe903b3a2c68b1f6.png" data-original-width="1080" data-original-height="668" data-original-format="image/png" data-original-filesize="55840" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">显示错误的样式</div>
+</div><p>原本的EditText是显示在右侧，样式是一个感叹号和一个文本框，而被TextInputLayout包裹后，显示在了输入框的下方。（原谅我的图大得有点吓人，用Android Studio直接截得）。</p><hr><h4>5.相关链接</h4><p>欢迎大家推荐有关TextInputLayout的相关知识 -。-</p>
+        </div>
+    </div>
+
+      <div class="support-author"></div>
+
+      <div class="show-foot">
+        <a class="notebook" href="https://www.jianshu.com/nb/4519580">
+          <i class="iconfont ic-search-notebook"></i>
+          <span>Android Design库的使用</span>
+</a>        <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+          © 著作权归作者所有
+        </div>
+        <div class="modal-wrap" data-report-note="">
+          <a id="report-modal">举报文章</a>
+        </div>
+      </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/cfcd1814672c">
+            <img src="./Design库-TextInputLayout那些事 - 简书_files/e31bd9efe813.jpg" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/cfcd1814672c">自导自演的机器人</a>
+          
+            <i class="iconfont ic-man"></i>
+        <p>写了 23927 字，被 392 人关注，获得了 945 个喜欢</p></div>
+          <div class="signature">偷懒型IT狗</div>
+      </div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>37</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @自导自演的机器人 的文章《Design库-TextInputLayout那些事》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/4324702/weibo/image_3fff0eabc116.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 自导自演的机器人 的文章《Design库-TextInputLayout那些事》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 自导自演的机器人 的文章《Design库-TextInputLayout那些事》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;Design库-TextInputLayout那些事&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./Design库-TextInputLayout那些事 - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div id="vue_comment"></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @自导自演的机器人 的文章《Design库-TextInputLayout那些事》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 自导自演的机器人 的文章《Design库-TextInputLayout那些事》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 自导自演的机器人 的文章《Design库-TextInputLayout那些事》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/084c32b60d49?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;Design库-TextInputLayout那些事&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/5139d555c94d?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Design库-TextInputLayout那些事 - 简书_files/1416528891_3612.png"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/58b4c20abf2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Design库-TextInputLayout那些事 - 简书_files/android.graphics.Bitmap_1329dce8.jpeg"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/d1591c322c89?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Design库-TextInputLayout那些事 - 简书_files/android.graphics.Bitmap_15f127c2.jpeg"><div class="name">Android开发</div></a><a href="https://www.jianshu.com/c/59c164532857?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Design库-TextInputLayout那些事 - 简书_files/ali.png"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/3fde3b545a35?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Design库-TextInputLayout那些事 - 简书_files/android.graphics.Bitmap_3d178cba.jpeg"><div class="name">Android知识</div></a><a href="https://www.jianshu.com/c/0dc880a2c73c?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Design库-TextInputLayout那些事 - 简书_files/ff55916a6a0c2db84ebb1ffdcef539dd.png"><div class="name">Android开发</div></a><a href="https://www.jianshu.com/c/8d4d5b6b425b?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Design库-TextInputLayout那些事 - 简书_files/1466435870.jpg"><div class="name">Android...</div></a> <a class="show-more">
+        展开更多
+        <i class="iconfont ic-show"></i></a></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="4324702"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/5ad013eb5364?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android - 收藏集 - 掘金</a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金相信有很多朋友...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/5fc9b6410f4f?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/6220dd63-bf1a-40a8-8ccc-e364a5c90f13.png" alt="48">
+            </div>
+            <span class="name">掘金官方</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/dad51f6c9c4d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android - 收藏集  </a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金 Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金 相信有很多...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/e946d18f163c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/4-3397163ecdb3855a0a4139c34a695885.jpg" alt="48">
+            </div>
+            <span class="name">passiontim</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/f808acafd9ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Design库-TextInputLayout那些事 - 简书_files/5089080-cc61bb910c125a14.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/f808acafd9ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Material design library系列——TextInputLayout</a>
+          <p class="description">前言 今天给大家带来Material design系列的第二篇文章，TextInputLayout的使用。大家都知道，在EditText中有一个属性hint，能提示我们输入什么信息，当用户在EditText输入文字时，hint属性提示的文字就消失了，这样其实体验非常不好，所...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/4ef3a9711f4e?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/18134a8c-106f-43e9-884b-614dbf1810b3.jpg" alt="48">
+            </div>
+            <span class="name">一只快乐的小程序猿丶</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/5fe19793dd82?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Design库-TextInputLayout那些事 - 简书_files/1758616-88e9a71d85183b7e.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/5fe19793dd82?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">EditText使用详解</a>
+          <p class="description">前言 EditTex是Android中比较常用的一个控件,可以说它是用户和Android应用进行数据传递的通道.通过它,用户可以把数据传给App,然后我们可以获取到用户输入的数据. EditText是TextView的子类,它继承了TextView的所有属性.在实际开发中我...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/1ae0bac7b609?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/ca2c90d9fbfc.jpg" alt="48">
+            </div>
+            <span class="name">ListenerGao</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/2ea0338978e6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Design库-TextInputLayout那些事 - 简书_files/3513995-b281c10c77b90200.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/2ea0338978e6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Material Design 之 TextInputLayout和TextInputEditText</a>
+          <p class="description">写在前面 更多Material Design 文章请看：Material Design 之 Toolbar 开发实践总结Material Design之 AppbarLayout 开发实践总结Material Design 之 Behavior的使用和自定义Behavior...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/35167a70aa39?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/642315eb-6cfb-46ca-b6ab-c626b9d24792.png" alt="48">
+            </div>
+            <span class="name">依然范特稀西</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/932108a75de2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Design库-TextInputLayout那些事 - 简书_files/7018712-2eea6ac2e2bafbd5.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/932108a75de2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">华夏如意来：疯狂的复利，还有万全的保障</a>
+          <p class="description"></p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/3a245634cd33?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/ffd385d5-dfee-4247-bb08-457eeed3f616.jpg" alt="48">
+            </div>
+            <span class="name">华夏人寿13340719878</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/5a77955ce0cb?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">路遇乞丐</a>
+          <p class="description">天色阴沉，好似马上就要下雨，气温下降加上有点小风，冷。 公交站台人不算多，听到旁边有人议论，年纪轻轻干点啥不能挣钱，年纪大了看着可怜会给点，听话音是有人乞讨，那边话音没落，就有个人走过来了，手里捏着几张一元的钞票，三十几岁，穿着也不像落魄之人，见人举起一只手指，象征性地给人...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/a242022b9660?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/a0cce407dcdb.jpeg" alt="48">
+            </div>
+            <span class="name">清风网络</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/4e60cf10699e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Design库-TextInputLayout那些事 - 简书_files/4193879-8f1b82e61f6ecde8.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/4e60cf10699e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Matplotlib入门（十三）</a>
+          <p class="description">学习最后一课基础教学，plot动画效果~</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/7e54016a5a06?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/2f683137-73f0-4291-aad8-9ef09e1cf679.jpg" alt="48">
+            </div>
+            <span class="name">我叫丶钱小钱</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/fcabaec20905?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">趺坐在自己的孤独国</a>
+          <p class="description">龙应台说，如果没有诗，周梦蝶只是被时代拨弄的退伍军人，骑楼下的小贩，或是残酷时代的风中蓬草，他的孤单身影将是岁月的凄凉与人生辛酸。可是，因为有诗，他成为一种态度，他的一生清冷也成为美学。尝想过，孤独是一双没有太多情绪渲染的眼，那眼波里淌着的是一片苍茫的空白甚至有几丝阴翳的天...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/3b88d2ac52e7?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/8f384627-a977-461f-b780-e8d14b36b433.jpg" alt="48">
+            </div>
+            <span class="name">自然绿</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/326f89533093?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">分享有机生活与地球同健康</a>
+          <p class="description">有机生活是倡导人与大自然相和谐的生活方式，是可持续、健康的、也是承担社会义务的一种生活方式。有机生活不仅仅是吃有机食品，用有机用品，还包括人们生活的各个方面。如享受明媚的阳光，呼吸新鲜的空气，不吸烟，不饮酒（少饮酒），无其他不良嗜好，适度运动，保持良好的休息和睡眠，保持平衡...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/b59daaeca087?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Design库-TextInputLayout那些事 - 简书_files/ea7936ae-7ef3-4da0-bdc1-659398953bd1.jpg" alt="48">
+            </div>
+            <span class="name">奇迹女神</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"b44dc2d1-2040-4727-9ea5-948750405113"},"note":{"id":4324702,"slug":"084c32b60d49","user_id":1348484,"notebook_id":4519580,"commentable":true,"likes_count":37,"views_count":4995,"public_wordage":1098,"comments_count":5,"total_rewards_count":0,"is_author":false,"author":{"nickname":"自导自演的机器人","total_wordage":23927,"followers_count":392,"total_likes_count":945}}}</script>
+    
+    <script src="./Design库-TextInputLayout那些事 - 简书_files/babel-polyfill-cae74bd66cdb76fcd4b4.js.下载" crossorigin="anonymous"></script>
+    <script src="./Design库-TextInputLayout那些事 - 简书_files/web-base-e313ece4d34903f3e77e.js.下载" crossorigin="anonymous"></script>
+<script src="./Design库-TextInputLayout那些事 - 简书_files/web-c61c2c9336b1c1037f92.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./Design库-TextInputLayout那些事 - 简书_files/entry-f666df8eabdd170bd9f6.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>
