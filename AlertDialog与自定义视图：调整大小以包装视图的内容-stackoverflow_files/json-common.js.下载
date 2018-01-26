@@ -1,0 +1,34 @@
+﻿function renderSpanWithJson(json){
+	if(json){
+		for(var attr in json){
+			$("#" + attr).text(json[attr]);
+		}
+	}
+}
+function alertJsonSessionPrompt(json){
+	if(json && json["prompt_session"]){
+		location = "../user/game.php?ac=listGame";
+		return true;
+	}
+	return false;
+}
+function alertJsonInfoPrompt(json){
+	if(json && json["prompt_info"]){
+		jalert(json["prompt_info"]);
+		return true;
+	}
+	return false;
+}
+function alertJsonSessionPromptBack(json){
+	if(json && json["prompt_session"]){
+		location = "../slogin.jsp";
+		return true;
+	}
+	return false;
+}
+function getJsonPromptNum(json){
+	if(json && json["prompt_num"]){
+		return json["prompt_num"];
+	}
+	return "";
+}

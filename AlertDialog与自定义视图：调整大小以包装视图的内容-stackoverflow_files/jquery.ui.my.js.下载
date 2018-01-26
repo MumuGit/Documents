@@ -1,0 +1,10 @@
+﻿function jalert(prompt){
+	 var  subject = "提示信息";
+	 if($( "#dialog-modal" ).size() == 0){
+	 	 $("body").append(" <div id=\"dialog-modal\" title=\""+subject+"\"><p>"+prompt+"</p></div>");
+	 }
+	 $( "#dialog-modal" ).dialog({
+      height: 140,
+      modal: true
+    });
+}

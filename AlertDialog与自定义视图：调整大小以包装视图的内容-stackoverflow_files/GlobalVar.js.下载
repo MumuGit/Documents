@@ -1,0 +1,5 @@
+﻿var globalEnum = new GlobalEnum();
+var form_name = "form_";
+var form_id = "1";
+var funArr = [];
+var errorObj = null;

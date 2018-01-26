@@ -1,0 +1,5 @@
+﻿function GlobalEnum(){
+	this.noSessionCode = "-10000";
+	this.ok = "1";
+	this.fail = "-1";
+}

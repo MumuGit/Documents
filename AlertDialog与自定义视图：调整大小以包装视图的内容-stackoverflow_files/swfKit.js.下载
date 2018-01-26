@@ -1,0 +1,30 @@
+﻿function getFlashHTML(fw,fh,_src,_id,vars){
+	var html = ''
+		+ '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="'+_id+'" width="'+fw+'" height="'+fh+'" align="middle">\n'
+		+ '<param name="allowScriptAccess" value="always" />'
+		+ '<param name="movie" value="'+_src+'" />\n'
+		+ '<param name="quality" value="high" />\n'
+		+ '<param name="scale" value="exactfit" />\n'
+		+ '<param name="wmode" value="transparent" />\n'
+		+ '<param name="flashvars" value="'+vars+'" />\n'
+		+ '<embed src="'+_src+'" wmode="transparent" flashvars="'+vars+'" scale="exactfit" quality="high" width="'+fw+'" height="'+fh+'" id="'+_id+'" name="'+_id+'" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />\n'
+		+ '</object>\n';
+	return html;
+}
+function swf(fw,fh,_src,_id,vars){
+	var html =getFlashHTML(fw,fh,_src,_id,vars);
+	document.write(html);
+}
+
+function swfObjectFlash(file,width,height,jQuery_obj_container,replace_flash_id){
+	jQuery_obj_container.css("display","");
+	jQuery_obj_container.html("<div id=\""+replace_flash_id+"\"></div>");
+	var flashvars = {},
+	params = {wmode:"transparent"},
+	attributes = {};
+	swfobject.embedSWF(file, replace_flash_id, width, height, "9.0.0", "expressInstall.swf",flashvars, params, attributes,function(){});
+}
+function swfObjectRemoveFlash(jQuery_obj_container,replace_flash_id){
+	jQuery_obj_container.css("display","none");
+	swfobject.removeSWF(replace_flash_id);
+}

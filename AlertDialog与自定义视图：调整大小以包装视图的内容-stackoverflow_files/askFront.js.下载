@@ -1,0 +1,130 @@
+$(function(){
+//getValidNum();
+});
+function getValidNum(){
+	$("#validateImg").prop("src","front/ask/getValidNum?r="+Math.random());
+}
+function add(){
+	errorObj = null;
+	funArr = [];
+	funArr.push(checkOtherProp);
+	//funArr.push(checkValidNum);
+	funArr.push(submitForm);
+	checkNext();
+}
+function update(){
+	errorObj = null;
+	funArr = [];
+	updateAskFlag = true;
+	funArr.push(checkOtherProp);
+	funArr.push(submitForm);
+	checkNext();
+}
+
+var checkValidNum = function(){
+	var obj = $("input[name=validNum]");
+	if(obj.val().length == 0){
+		setPrompt(obj,getStyleMsg("验证码不能为空"));
+		return;
+	}else{
+		setPrompt(obj,getStyleMsg(""));
+	}
+	$.getJSON("front/ask/checkValidNumAjax",{validNum:obj.val()},function(json){
+		if(json["value"] == globalEnum.fail){
+			setPrompt(obj,getStyleMsg("请正确填写验证码"));
+			obj.val("");
+		}else{
+			setPrompt(obj,getStyleMsg(""));
+			checkNext();
+		}
+	});
+}
+var checkOtherProp = function(){
+	var obj;
+	var textareaMaxLen = 3000;
+	obj = $("input[name=answer]");
+	if(isTRDisplay(obj)){
+		if(obj.val().length == 0){
+			setPrompt(obj,getStyleMsg("答案不可以为空"));
+		}else{
+			setPrompt(obj,getStyleMsg(""));
+		}
+	}
+	obj = $("input[name=so_link]");
+	if(isTRDisplay(obj)){
+		if(obj.val().length == 0){
+			setPrompt(obj,getStyleMsg("原链接不可以为空"));
+		}else{
+			setPrompt(obj,getStyleMsg(""));
+		}
+	}
+	obj = $("input[name=ask]");
+	if(isTRDisplay(obj)){
+		if(obj.val().length == 0){
+			setPrompt(obj,getStyleMsg("问题不可以为空"));
+		}else{
+			setPrompt(obj,getStyleMsg(""));
+		}
+	}
+	obj = $("input[name=subject]");
+	if(isTRDisplay(obj)){
+		if(obj.val().length == 0){
+			setPrompt(obj,getStyleMsg("标题不可以为空"));
+		}else{
+			setPrompt(obj,getStyleMsg(""));
+		}
+	}
+	obj = $("input[name=so_id]");
+	if(isTRDisplay(obj)){
+		if(obj.val().length == 0){
+			setPrompt(obj,getStyleMsg("so编号不可以为空"));
+		}else{
+			setPrompt(obj,getStyleMsg(""));
+		}
+	}
+checkNext();
+}
+var submitForm = function(){  
+	if(null != errorObj){
+		errorObj.focus();
+		return;
+	}                                          
+	var form = $("form[name=askForm]");                           
+	form.submit();                                                            
+}                                                                     
+function checkNext(){
+	var fun = funArr.shift();
+	fun();
+}
+function selectAll() {
+	$("input[name=ask_id_arr]").prop("checked",$("input[name=select_all]").prop("checked"));
+}
+function toUpdate(ask_id){
+	var form = $("form[name=hiddenForm1]");
+	form.attr("action","front/ask/toUpdate");  
+	form.find("input[name=ask_id]").val(ask_id);
+	form.submit();
+}
+function toAdd(ask_id){
+	var form = $("form[name=hiddenForm1]");
+	form.attr("action","front/ask/toAdd");  
+	form.find("input[name=ask_id]").val(ask_id);
+	form.submit();
+}
+
+function view(ask_id){
+	var form = $("form[name=hiddenForm1]");
+	form.attr("action","front/ask/view");  
+	form.find("input[name=ask_id]").val(ask_id);
+	form.submit();
+}
+function deleteAll(){ 
+	if ($("input[name=ask_id_arr]:checked").size() == 0) {            
+		alert("请选择后删除");                                           
+		return;                                                            
+	}                                                                    
+	if( ! confirm("确定要删除吗?"))return;                           
+	var form = $("form[name=listAskForm]");                                    
+	form.attr("action","front/ask/deleteAll");  
+	form.submit();
+} 

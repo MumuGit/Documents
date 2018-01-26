@@ -1,0 +1,251 @@
+﻿function toList(){                                            
+	var toForm = getToForm($("form[name=hiddenForm1]"));    
+	toForm.submit();                                                           
+}  
+function getSrcElement(e){
+	return $(e.srcElement || e.target);
+}
+function getFormName(){
+	return form_name+form_id;
+}
+function getForm(){
+	return $("form[name="+getFormName()+"]");
+}
+function getFormElement(s){
+	return getForm().find(s);
+}
+
+function getVal(obj){
+	return $.trim(obj.val());
+}
+function setVal(obj){
+	return obj.val($.trim(obj.val()));
+}
+function removeQuote(str){
+	if(str == "" || str == null || typeof str == "undefined")return "";
+	var length = str.length; 
+	for(var i = 0; i < length; i++) { 
+		str = str.replace(",", ""); 
+	} 
+	return str; 
+}
+
+function a(url){
+	var basePath = $("base").prop("href");
+	location = basePath + url;
+}
+function getJsonObject(s){
+	return eval("("+s+")");
+}
+function getInputVal(name){
+	return $("input[name="+name+"]").val();
+}
+function countDown(time, obj) {
+//	time = time.replace(/\-/g,"/");//替换-为/
+	var now_time = new Date().getTime();
+	if($("input[name=server_time]").size() > 0){
+		now_time = parseInt($("input[name=server_time]").val()) ;
+	}
+//	var end_time = parseInt(new Date(time).getTime()), //月份是实际月份-1 
+	var end_time = parseInt(time), //月份是实际月份-1 
+	sys_second = (end_time - now_time );// now date
+//	alert(end_time+"~"+now_time);
+	var timer = setInterval(function() {
+		if (sys_second > 1) {
+			sys_second -= 1;
+			var day = Math.floor((sys_second / 3600) / 24);
+			var hour = Math.floor((sys_second / 3600) % 24);
+			var minute = Math.floor((sys_second / 60) % 60);
+			var second = Math.floor(sys_second % 60);
+			hour = hour < 10 ? "0" + hour : hour;
+			minute = minute < 10 ? "0" + minute : minute;
+			second = second < 10 ? "0" + second : second;
+			var s = "";
+//			s += day + " 일 ";
+			s += hour + " 시간 ";
+			s += minute + " 분 ";
+			s += second + " 초 ";
+			obj.text(s);
+//			day_elem && $(day_elem).text(day);//计算天 
+//			$(hour_elem).text(hour < 10 ? "0" + hour : hour);//计算小时 
+//			$(minute_elem).text(minute < 10 ? "0" + minute : minute);//计算分钟 
+//			$(second_elem).text(second < 10 ? "0" + second : second);//计算秒杀 
+		} else {
+			clearInterval(timer);
+			obj.text("마감");
+		}
+	}, 1000);
+}
+function getAfterTr(e){
+	var td = getSrcElement(e);//td上加onclick
+	var tr = td.parent();
+	var tr_id = tr.attr("id");
+	if(typeof tr_id == "undefined" || tr_id == null || tr_id == "")return null;
+	var tr_ida = tr_id + "a";//will append tr
+	var tra = $("#"+tr_ida);
+	return tra;
+}
+function afterTr(e){
+	var td = getSrcElement(e);//td上加onclick
+	var tr = td.parent();
+	var td_count = tr.children().size();
+	var tr_id = tr.attr("id");
+	if(typeof tr_id == "undefined" || tr_id == null || tr_id == "")return;
+	var tr_ida = tr_id + "a";//will append tr
+	var tra = $("#"+tr_ida);
+	var s = "<tr style='display:none'  id='"+tr_ida+"'><td  style='text-align:left' colspan="+td_count+" ></td></tr>";
+	tr.after(s);
+	return $("#"+tr_ida);
+}
+function getStringToken(s,sepa){
+	if(s == "" || s == null || typeof s == "undefined")return [];
+	var arr = s.split(sepa);
+	var result = [];
+	for(var i in arr){
+		if(arr[i] != "")
+			result.push(arr[i]);
+	}
+	return result;
+}
+function removeTr(ele){
+	var tr = ele.parent().parent();
+	tr.remove();
+}
+function changeSrcOnMouseOverOut(){
+	var obj = $(".img_ov");
+	var _over = "_ov";
+	obj.each(function(){
+		var this_src = $(this).attr("src");
+		var over_this_src = this_src.substring(0,this_src.lastIndexOf("."))+ _over + this_src.substring(this_src.lastIndexOf("."));
+		$(this).css({"cursor":"pointer"});
+		$(this).bind("mouseover",function(){
+			$(this).attr("src",over_this_src);
+		}).bind("mouseout",function(){
+			$(this).attr("src",this_src);
+		});
+	});
+}
+function appendCommaStr(s,str){
+	if(s == "")s = ",";//",3"
+	s += str + ",";
+	return s;
+}
+function removeCommaStr(s,str){
+	if(str == "")return s;
+	var sub = ","+str+",";
+	if(s.indexOf(sub) == -1)return s;
+	s = s.replace(new RegExp(str+",","g"),""); //",3"
+	if(s == ",")s = "";
+	return s;
+}
+function plusVal(a,b){
+	if(b == "" )return a;
+	if(a == "" )return 0;
+	a = a + "";
+	b = b + "";
+	a = a.replace(new RegExp(",","g"),""); //去掉逗号
+	b = b.replace(new RegExp(",","g"),""); //去掉逗号
+	a = parseInt(a);
+	b = parseInt(b);
+	var r =  a + b;
+	return comma(r+"");
+}
+function openWin(url,iWidth,iHeight){  
+	// url 转向网页的地址   
+	// name 网页名称，可为空   
+	// iWidth 弹出窗口的宽度   
+	// iHeight 弹出窗口的高度   
+	//window.screen.height获得屏幕的高，window.screen.width获得屏幕的宽   
+	var iTop = (window.screen.height-30-iHeight)/2; //获得窗口的垂直位置;   
+	var iLeft = (window.screen.width-10-iWidth)/2; //获得窗口的水平位置;  
+	window.open(url,"",'height='+iHeight+',,innerHeight='+iHeight+',width='+iWidth+',innerWidth='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=auto,resizeable=no,location=no,status=no');  
+}  
+function refreshImg(img){
+	var src = img.attr("src");
+	var index = src.indexOf("?");
+	var s = src;
+	if(index > -1){
+		s = src.substring(0,index);
+	}
+	s += "?rnd="+Math.random();
+	img.attr("src",s);
+}
+
+function copyInputVal(timeName,e){
+	var obj = getSrcElement(e);
+	var _time = $("input[name="+timeName+"]");
+	if("" == obj.val()){
+		obj.val(_time.val());
+	}
+}
+function turnpage(page_no){
+	var hiddenForm = $("form[name=hiddenForm1]");                      
+	var toForm = getToForm(hiddenForm);
+	var pageNo = toForm.find("input[name=pageNo]");
+	if(pageNo.size() == 0){
+		toForm.append("<input type=hidden name=pageNo value="+page_no+" />");
+	}else{
+		pageNo.val(page_no);
+	}
+	toForm.submit();
+}
+/*
+×返回在arr1中而不在arr2中的数所组成的arr,如：[3,4,5] [4,5,6]则返回 3
+*/
+function array_minus(arr1,arr2){
+	var result = [];
+	$.each(arr1,function(n,v){
+		if($.inArray(v,arr2) == -1){
+			result.push(v);
+		}
+	});
+	return result;
+	//alert(result.toString());
+}
+/*
+* url:ajax请求的url
+* param:ajax请求的参数
+* child：紧邻的第一个select
+* offspring:后面所有的select，包含child
+* label val：ajax返回值为json数组，数组元素json的取值key
+*/
+function setCascadeSelect(url,param,child,offspring,label,val){
+	$.getJSON(url, param, function (json) {
+		offspring.each(function(i){
+				$(this).html("<option value=''>默认</option>");
+			});
+			$.each(json, function (i, item) {
+				var opt = getOption(item[label],item[val]);
+				opt.appendTo(child);
+			});
+	});
+}
+function getOption(label,val){
+	var opt = $("<option></option>");
+	opt.attr("value", val);
+	opt.html(label);
+	return opt;
+}
+/*<textarea name="toForm" style="display:none">${toForm}</textarea>
+toForm 只能有一个
+ ${toForm}为
+*/
+function getToForm(hiddenForm){
+	$("body").append(hiddenForm.find("textarea[name=toForm]").text());
+	var toForm = $("form[name=toForm]");
+	if(toForm.attr("action") == ""){//此段代码为chrome而写。
+		var action = toForm.find("input[name=form_action]").val();
+		toForm.attr("action",action);
+	}
+	return toForm;
+}
+function ch(obj){
+	var str = obj.src;               
+	if(str.indexOf('_on.gif') < 0){         
+	ss = str.substr(0, str.indexOf('.gif'))      
+	obj.src = ss + "_on.gif";                         
+	}else{                                      
+	ss = str.substr(0, str.indexOf('_on.gif'))
+	obj.src = ss + ".gif";
+	}
+}

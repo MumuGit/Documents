@@ -1,0 +1,125 @@
+﻿var jquery_table_add_tr_arr = [];
+var jquery_table_add_thead = null;
+function initTrArr(){
+	if(2 == jquery_table_add_tr_arr.length){
+		jquery_table_add_tr_arr = [];
+	}
+}
+function addTr(tr){
+	var len = jquery_table_add_tr_arr.length;
+	var exist = false;
+	var td =tr.children().eq(0);
+	$(jquery_table_add_tr_arr).each(function(){
+		var _tr = $(this);
+		var _td =_tr.children().eq(0);
+		if(_td.text() == td.text()){
+			exist = true;
+			return false;
+		}
+	});
+	if( ! exist){
+		jquery_table_add_tr_arr[len] = tr;
+	}
+}
+function getTotalData(e){
+	initTrArr();
+	var td = $(e.srcElement);
+	var tr = td.parent();
+	addTr(tr);
+	if(jquery_table_add_tr_arr.length != 2)return;
+	$("#clone_table").remove();
+	var self_table = tr.parent().parent();
+	var container = self_table.parent();
+	var self_thead = self_table.find("thead");
+	setTHead(self_thead);
+	var table = getTable();
+	container.append(table);
+}
+function setTHead(param_tHead){
+	if(jquery_table_add_thead == null){
+		jquery_table_add_thead = param_tHead.clone();
+	}
+}
+function getTbody(){
+	if(jquery_table_add_tr_arr.length != 2)return;
+	var result = getNeedTr();
+	var tbody = $("<tbody></tbody>");
+	$(result).each(function(){
+		var tr = $(this);
+		tbody.append(tr);
+	});
+	return tbody;
+}
+function getTfoot(){
+	if(jquery_table_add_tr_arr.length != 2)return;
+	tr1 = jquery_table_add_tr_arr[1];
+	var tfoot = $("<tfoot></tfoot>");
+	var clone_total = $(tr1).clone();
+	clone_total.attr("id","clone_total");
+	tfoot.append(clone_total);
+	return tfoot;
+}
+function getNeedTr(){
+	if(jquery_table_add_tr_arr.length != 2)return;
+	tr0 = jquery_table_add_tr_arr[0];
+	tr1 = jquery_table_add_tr_arr[1];
+	var tr_list = tr0.parent().children();
+	var index0 = tr_list.index(tr0);
+	var index1 = tr_list.index(tr1);
+	if(index0 > index1){
+		var tmp = index0;
+		index0 = index1;
+		index1 = tmp;
+	}
+	var result = [];
+	for(var i=index0;i<=index1;i++){
+		result[result.length] = tr_list.eq(i).clone();
+	}
+	return result;
+}
+function getTable(){
+	var head = $(jquery_table_add_thead);
+	var table= $("<table class='table_1_1' id=clone_table style='margin-top:20px'  width='100%'  cellpadding=0 cellspacing=1 ></table>");
+	var tbody = getTbody();
+	var tfoot = getTfoot();
+	table.append(head).append(tbody).append(tfoot);
+	calculateData(table);
+	return table;
+}
+function calculateData(table){
+	var tr_list = table.find("tbody tr");
+	var result_tr = table.find("tfoot tr");
+	initTrVal(result_tr);
+	tr_list.each(function(){
+		var tr = $(this);
+		var td_list = tr.find("td");
+		td_list.each(function(i){
+			if(i == 0)return true;
+			var result_td = result_tr.children().eq(i);
+			var result_val = parseInt(result_td.text());
+			td = $(this);
+			var val = extractData(td.text());
+			result_val = result_val+val;
+			result_td.text(result_val);
+		});
+	});
+	formatTrVal(result_tr);
+}
+function extractData(s){
+	s = s.replace(/,/g,"");
+	s = s.replace(/\s/g,"");
+	s = s.replace(/원/g,"");
+	return parseInt(s);
+}
+function initTrVal(tr){
+	var td_list = tr.children();
+	td_list.each(function(){
+		$(this).text("0");
+	});
+}
+function formatTrVal(tr){
+	var td_list = tr.children();
+	td_list.each(function(){
+		$(this).text(comma($(this).text()));
+	});
+}

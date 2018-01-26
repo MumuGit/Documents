@@ -1,0 +1,152 @@
+﻿function isEmpty(str){
+	return  str == "";
+}
+function isUndefined(str){
+	if(typeof str == "undefined")return true;
+	return false;
+}
+function isJson(obj){
+	var isjson = typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;    
+	return isjson;
+}
+
+function isTRDisplay(obj){//parent --parent
+	if(obj.size() == 0) return false;
+	var tr = obj.parent().parent();
+	return tr.css("display") != "none";
+}
+
+function getStyleMsg(msg,style){
+	style = style!=undefined ? style:"color:red;";
+	var html_msg = "";
+	if(msg != ""){
+		html_msg = "<span style=\""+style+"\">"+msg+"</span>";
+	}
+	return html_msg;
+}
+function setPrompt(obj,msg){
+	var name = obj.attr("name");
+	if(name == null || name == ""){
+		name = obj.attr("id");
+	}
+	var prompt_obj_name = name+"_desc";
+	var prompt_obj = $("#"+prompt_obj_name);
+	if(prompt_obj.size() == 0){
+		prompt_obj = $("<span id=\"" + prompt_obj_name + "\"></span>;");
+		obj.after(prompt_obj);
+	}
+	prompt_obj.html(" "+msg);
+	if(msg != ""){
+		if(errorObj == null){
+			errorObj = obj;
+		}
+	}
+}
+function clearMsg(obj){
+	setPrompt(obj,"");
+}
+function getValidNum(){
+	$("#validateImg").attr("src","teacher.php?ac=getValidNum&rnd="+Math.random());
+}
+function comma(val) {
+	var num = val;
+	if (val.length >= 4) {
+		re = /^$|,/g;
+		num = num.replace(re, "");
+		fl = ""
+		if (isNaN(num)) {
+			alert("문자는 사용할 수 없습니다.");
+			return 0
+		}
+		if (num == 0)
+			return num
+		if (num < 0) {
+			num = num * (-1)
+			fl = "-"
+		}
+		else {
+			num = num * 1 
+		}
+		num = new String(num)
+		temp = ""
+		co = 3
+		num_len = num.length
+		while (num_len > 0) {
+			num_len = num_len - co
+			if (num_len < 0) {
+				co = num_len + co;
+				num_len = 0
+			}
+			temp = "," + num.substr(num_len, co) + temp
+		}
+		var result = fl + temp.substr(1);
+	} else {
+		return val;
+	}
+	return result;
+} 
+function num_check() { 
+    var keyCode = event.keyCode 
+        if (keyCode < 48 || keyCode > 57){ 
+            alert("문자는 사용할 수 없습니다."+"["+keyCode+"]") 
+            event.returnValue=false 
+        } 
+} 
+function removeQuote(str){
+	if(str == "" || str == null || typeof str == "undefined")return "";
+	var length = str.length; 
+	for(var i = 0; i < length; i++) { 
+		str = str.replace(",", ""); 
+	} 
+	return str; 
+}
+function testMobile(s){
+	var reg  = new RegExp("^(01){1}[0-9]{8,9}$");//01必须出现一次，0-9中某个出现8次或者9次
+	if(reg.test(s)){
+		return true;
+	}
+	return false;
+}
+function testBankNum(s){
+	var reg  = new RegExp("^[0-9-]{1,}$");
+	if(reg.test(s)){
+		return true;
+	}
+	return false;
+}
+function testNumAndABC(s){
+	var reg  = new RegExp("^[0-9a-zA-Z]{1,}$");//{1,}:一次或多次
+	if(reg.test(s)){
+		return true;
+	}
+	return false;
+}
+function testNum(s){
+	if("" == s)return false;
+	if(isNaN(s))return false;
+	return true;
+}
+function testkr(s){
+	var reg  = new RegExp("^[\uac00-\ud7FFh]+$");
+	if(reg.test(s)){
+		return true;
+	}
+	return false;
+}
+
+function isIE(){
+	return navigator.appName.indexOf("Microsoft Internet")!=-1;
+}
+/*正则验证yyyy-MM-dd或者yyyy-M-d格式的日期 
+/^(?:(?!0000)[0-9]{4}-(?:(?:0?[1-9]|1[0-2])-(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])-(?:29|30)|(?:0?[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-0?2-29)$/ 
+正则验证yyyy-MM-dd或者yyyy-M-d格式的日期 
+/^(?:(?!0000)[0-9]{4}-(?:(?:0?[1-9]|1[0-2])-(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])-(?:29|30)|(?:0?[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-0?2-29)$/    
+正则验证yyyy-MM-dd格式的日期 
+/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;   
+正则验证yyyyMMdd或者是yyyyMd,连接符可以是"-","/","."或者没有 
+/^(?:(?!0000)[0-9]{4}([-/.]?)(?:(?:0?[1-9]|1[0-2])([-/.]?)(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])([-/.]?)(?:29|30)|(?:0?[13578]|1[02])([-/.]?)31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-/.]?)0?2([-/.]?)29)$/ 
+ */
+function isValidDate(s){
+	var result = s.match(/^(?:(?!0000)[0-9]{4}-(?:(?:0?[1-9]|1[0-2])-(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])-(?:29|30)|(?:0?[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-0?2-29)$/);
+	return null != result;
+}

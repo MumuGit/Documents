@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://stackoverflow.org.cn/front/ask/view?ask_id=68106 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--<base href="/">--><base href=".">
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/jquery-1.5.1.js.下载"></script>
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/lyz.calendar.min.js.下载"></script>
+<link href="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/lyz.calendar.css" rel="stylesheet" type="text/css">
+<script>var jq1_5_1 = $;</script>	
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/jquery1.8.3.min.js.下载"></script>
+<script>var jq1_8_3 = $;</script>
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/json2.js.下载"></script>
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/jquery.form.js.下载"></script>
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/check.js.下载"></script>            
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/commonKit.js.下载"></script>        
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/cookie.js.下载"></script>           
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/dateKit.js.下载"></script>          
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/GlobalEnum.js.下载"></script>       
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/GlobalVar.js.下载"></script>        
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/init.js.下载"></script>             
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/jquery.table.add.js.下载"></script> 
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/jquery.ui.jalert.js.下载"></script> 
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/jquery.ui.my.js.下载"></script>     
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/jquery.ui.table.js.下载"></script>  
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/json-common.js.下载"></script>      
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/swfKit.js.下载"></script>           
+<script src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/ui.js.下载"></script>               
+
+<link rel="stylesheet" href="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/front.css">
+ 
+<link rel="stylesheet" type="text/css" href="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/all.css">
+
+<script language="javaScript" src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/check.js(1).下载"></script>
+
+<script type="text/javascript" charset="utf-8" src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/ueditor.config.js.下载"></script>
+<script type="text/javascript" charset="utf-8" src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/ueditorPlugin.js.下载"> </script>
+<script type="text/javascript" charset="utf-8" src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/ueditor.all.js.下载"> </script>
+<script type="text/javascript" charset="utf-8" src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/zh-cn.js.下载"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+</head>
+
+
+<body class="questions-page new-topbar"><header class="so-header js-so-header _fixed">
+	<div class="-container">
+		<div class="-main">
+			<a href="http://stackoverflow.org.cn/front/ask/list" class="-logo js-gps-track " data-gps-track="top_nav.click({is_current:false, location:2, destination:8})">
+
+				<span class="-img">Stack Overflow</span>
+			</a>
+
+			<nav style="display:non" class="navigation" role="navigation" aria-label="site navigation">
+				<ol class="-list">
+					<li class="-item _current"><a id="nav-questions" href="http://stackoverflow.org.cn/front/ask/list" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:true, location:2, destination:1})">精华</a>
+					</li>
+					<li style="display:non" class="-item"><a id="nav-jobs" href="http://stackoverflow.org.cn/jobs?med=site-ui&amp;ref=jobs-tab" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:false, location:2, destination:6})">最新
+						<small class="beta-badge">wait</small>
+						</a></li>
+					<li style="display:non" class="-item"><a id="nav-docs" href="http://stackoverflow.org.cn/documentation" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:false, location:2, destination:7})">资源
+							<small class="beta-badge">beta</small>
+					</a></li>
+					<li style="display:none" class="-item"><a id="nav-tags" href="http://stackoverflow.org.cn/tags" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:false, location:2, destination:2})">Tags</a>
+					</li>
+
+					<li style="display:none" class="-item"><a id="nav-users" href="http://stackoverflow.org.cn/users" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:false, location:2, destination:3})">Users</a>
+					</li>
+				</ol>
+			</nav>
+		
+
+			
+			<form style="display:none" id="search" action="http://stackoverflow.org.cn/search" method="get" class="searchbar" autocomplete="off" role="search">
+				<svg role="icon" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18">
+					<path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"></path></svg>
+				<input name="q" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240" class="f-input js-search-field" type="text">
+				<button type="submit" class="btn js-search-submit">
+					<svg role="icon" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18">
+						<path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"></path></svg>
+				</button>
+			</form>
+
+		</div>
+		<div class="-actions">
+			<nav class="secondary-nav">
+				<ol class="-list">
+					<li class="-item"><a href="http://stackoverflow.org.cn/#" class="-link js-help-button" title="Help Center and other resources"> <svg role="icon" class="svg-icon iconHelp" width="18" height="18" viewBox="0 0 18 18">
+								<path d="M9 1a8 8 0 1 0 0 16A8 8 0 0 0 9 1zm.81 12.13c-.02.71-.55 1.15-1.24 1.13-.66-.02-1.17-.49-1.15-1.2.02-.72.56-1.18 1.22-1.16.7.03 1.2.51 1.17 1.23zM11.77 8a5.8 5.8 0 0 1-1.02.91l-.53.37c-.26.2-.42.43-.5.69a4 4 0 0 0-.09.75c0 .05-.03.16-.18.16H7.88c-.16 0-.18-.1-.18-.15.03-.66.12-1.21.4-1.66a5.29 5.29 0 0 1 1.43-1.22c.16-.12.28-.25.38-.39a1.34 1.34 0 0 0 .02-1.71c-.24-.31-.51-.46-1.03-.46-.51 0-.8.26-1.02.6-.21.33-.18.73-.18 1.1H5.75c0-1.38.35-2.25 1.1-2.76.52-.35 1.17-.5 1.93-.5 1 0 1.79.18 2.49.71.64.5.98 1.18.98 2.12 0 .57-.2 1.05-.48 1.44z"></path></svg>
+					</a></li>
+					<li class="-item"><a href="http://stackoverflow.org.cn/#" class="-link js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 171 Stack Exchange sites"> <svg role="icon" class="svg-icon iconStackExchange" width="18" height="18" viewBox="0 0 18 18">
+								<path d="M1 13c0 1.1.9 2 2 2h8v3l3-3h1a2 2 0 0 0 2-2v-2H1v2zM15 1H3a2 2 0 0 0-2 2v2h16V3a2 2 0 0 0-2-2zM1 6h16v4H1V6z"></path></svg>
+					</a></li>
+				</ol>
+			</nav>
+			<div class="-ctas">
+				<a class="login-link btn-clear" rel="nofollow">登录</a> 
+				<a class="login-link btn" rel="nofollow">注册</a>
+
+			</div>
+		</div>
+	</div>
+	<noscript id="noscript-css">&amp;lt;style
+		type="text/css"&amp;gt;body,.so-header{margin-top:1.9em}&amp;lt;/style&amp;gt;</noscript>
+</header>
+<title>AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow</title>
+<script type="text/javascript" src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/askFront.js.下载"></script>
+
+
+	<div class="container">
+		<div id="content" class="snippet-hidden" style="border:0px solid red">
+			<div id="mainbar" role="main" aria-labelledby="h-all-questions" style="border:0px solid red">
+				<div class="subheader" style="border:0px solid red;">
+					<h1 id="h-all-questions" style="font-weight:700">AlertDialog与自定义视图：调整大小以包装视图的内容</h1> 
+				</div>
+				<div id="questions">
+				<div>
+					
+  
+  
+  <div class="post-text" itemprop="text"> 
+   <p> 我正在建立的应用程序中遇到这个问题。 请忽略所有的设计缺陷和缺乏最佳做法的方法，这纯粹是为了展示我无法解决的一个例子。 </p> 
+   <p> 我有<code>DialogFragment</code> ，它返回一个使用<code>AlertDialog.Builder.setView()</code>的自定义<code>View</code>集的基本<code>AlertDialog</code> 。 如果此<code>View</code>具有特定的大小要求，如何让<code>Dialog</code>正确调整自己的大小以显示自定义<code>View</code>中的所有内容？ </p> 
+   <p> 这是我一直在使用的示例代码： </p> 
+   <pre><code>package com.test.test;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Use a button for launching
+        Button b = new Button(this);
+        b.setText("Launch");
+        b.setOnClickListener(new OnClickListener() {    
+            @Override
+            public void onClick(View v) {
+                // Launch the dialog
+                myDialog d = new myDialog();
+                d.show(getFragmentManager(), null);
+            }
+        });
+
+        setContentView(b);
+    }
+
+    public static class myDialog extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {           
+            // Create the dialog
+            AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
+            db.setTitle("Test Alert Dialog:");
+            db.setView(new myView(getActivity()));
+
+            return db.create();
+        }
+
+        protected class myView extends View {
+            Paint p = null;
+
+            public myView(Context ct) {
+                super(ct);
+
+                // Setup paint for the drawing
+                p = new Paint();
+                p.setColor(Color.MAGENTA);
+                p.setStyle(Style.STROKE);
+                p.setStrokeWidth(10);
+            }
+
+            @Override
+            protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+                setMeasuredDimension(800, 300);
+            }
+
+            @Override
+            protected void onDraw(Canvas canvas) {
+                // Draw a rectangle showing the bounds of the view
+                canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), p);
+            }
+        }
+    }
+}
+</code></pre> 
+   <p> 将创建一个<code>Button</code> ，该<code>Button</code>将在点击时打开<code>DialogFragment</code> 。 自定义<code>View</code> （ <code>myView</code> ）需要宽度为800，高度为300，这是在<code>onMeasure()</code>的覆盖中正确设置的。 此<code>View</code> ，绘制其测量的洋红色范围用于调试目的。 </p> 
+   <p> 800宽度比我的设备上的默认<code>Dialog</code>大小更宽，但是被裁剪而不是正确拉伸。 </p> 
+   <p> 我看过以下解决方案： </p> 
+   <ul> 
+    <li> DialogFragment.getDialog返回null </li> 
+    <li> 如何控制Android中默认的“警报”对话框的宽度和高度？ </li> 
+    <li> 警报对话框或自定义警报对话框的大小 </li> 
+   </ul> 
+   <p> 我推断了以下两种编码方法： </p> 
+   <ol> 
+    <li> 获取<code>Dialog</code>的<code>WindowManager.LayoutParams</code>并使用<code>myDialog.getDialog().getWindow().get/setAttributes()</code>来覆盖它们<code>myDialog.getDialog().getWindow().get/setAttributes()</code> </li> 
+    <li> 使用<code>setLayout(w, h)</code>方法通过<code>myDialog.getDialog().getWindow().setLayout()</code> </li> 
+   </ol> 
+   <p> 我已经尝试过它可以想到的东西（覆盖<code>onStart()</code> ，在<code>onShowListener</code> ，在创建和显示<code>Dialog</code>之后），并且如果<code>LayoutParams</code>提供了一个<strong>特定的值，</strong>通常可以使这两种方法正常工作。 但是每当提供<code>WRAP_CONTENT</code> ，都不会发生任何事情。 </p> 
+   <p> 有什么建议么？ </p> 
+   <p> <strong>编辑：</strong> </p> 
+   <p> 情况截图： <img src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/7161w.png" alt="在此输入图像说明"></p> 
+   <p> 具体值的屏幕截图（注意到这里输入900，没有覆盖视图的整个宽度，这在整个窗口都被调整的情况下是有道理的，因此，如果需要另外一个窗口，这就是为什么<code>WRAP_CONTENT</code>必不可少的原因/固定值不合适）： <img src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/F4Qnc.png" alt="在此输入图像说明"></p> 
+  </div>  
+ 
+
+				</div>
+				<h1 style="font-weight:700;">解答：</h1>
+				<div>
+					
+  
+  
+  <div class="post-text" itemprop="text"> 
+   <p> 我有一个工作的解决方案，老实说，我认为挖掘方式太深，无法获得如此简单的结果。 但这里是： </p> 
+   <p> <strong>究竟发生了什么：</strong> </p> 
+   <p> 通过使用层次查看器打开<code>Dialog</code>布局，我能够检查<code>AlertDialog</code>的整个布局以及发生了什么： <img src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/AqyqJ.png" alt="在此输入图像说明"></p> 
+   <p> <strong>蓝色</strong>高亮是所有的高级部分（ <code>Window</code> ， <code>Dialog</code> <code>AlertDialog</code>样式的框架等），从<strong>蓝色</strong> <code>AlertDialog</code>是<code>AlertDialog</code>的组件是（ <strong>红色</strong> =标题， <strong>黄色</strong> =一个scrollview存根，也许对于列表<code>AlertDialog</code> ， <strong>绿色</strong> = <code>Dialog</code>内容，即自定义视图， <strong>橙色</strong> =按钮）。 </p> 
+   <p> 从这里可以清楚地看到，7视图路径（从<strong>蓝色</strong>到<strong>绿色</strong>的结尾）是无法正确<code>WRAP_CONTENT</code> 。 看看每个<code>View</code>的<code>LayoutParams.width</code>显示所有都给了<code>LayoutParams.width = MATCH_PARENT</code>和某处（我猜顶部）设置了一个大小。 所以如果你遵循那棵树，很明显你树下底部的自定义<code>View</code>将<strong>永远不会</strong>影响<code>Dialog</code>的大小。 </p> 
+   <p> 那么现有的解决方案是什么呢？ </p> 
+   <ul> 
+    <li> 我的问题中提到的两种<em>编码方法</em>只是获得顶部的<code>View</code>和修改其<code>LayoutParams</code> 。 显然，与树中的所有<code>View</code>对象匹配父，如果顶级设置为静态大小，则整个<code>Dialog</code>将改变大小。 但是，如果顶层设置为<code>WRAP_CONTENT</code> ，则树中的所有其余<code>View</code>对象仍然<em>查找树</em>以“匹配<code>WRAP_CONTENT</code>对象”，而不是<em>将树向下看</em> “WRAP CONTENT”。 </li> 
+   </ul> 
+   <p> <strong>如何解决问题：</strong> </p> 
+   <p> <code>WRAP_CONTENT</code> ，将影响路径中的所有<code>View</code>对象的<code>LayoutParams.width</code>更改为<code>WRAP_CONTENT</code> 。 </p> 
+   <p> 我发现这只能在<code>DialogFragment</code> <code>onStart</code>生命周期步骤被调用后才能完成。 所以<code>onStart</code>的实现如下： </p> 
+   <pre><code>@Override
+public void onStart() { 
+    // This MUST be called first! Otherwise the view tweaking will not be present in the displayed Dialog (most likely overriden)
+    super.onStart();
+
+    forceWrapContent(myCustomView);
+}
+</code></pre> 
+   <p> 然后该函数适当修改<code>View</code>层次结构<code>LayoutParams</code> ： </p> 
+   <pre><code>protected void forceWrapContent(View v) {
+    // Start with the provided view
+    View current = v;
+
+    // Travel up the tree until fail, modifying the LayoutParams
+    do {
+        // Get the parent
+        ViewParent parent = current.getParent();    
+
+        // Check if the parent exists
+        if (parent != null) {
+            // Get the view
+            try {
+                current = (View) parent;
+            } catch (ClassCastException e) {
+                // This will happen when at the top view, it cannot be cast to a View
+                break;
+            }
+
+            // Modify the layout
+            current.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
+        }
+    } while (current.getParent() != null);
+
+    // Request a layout to be re-done
+    current.requestLayout();
+}
+</code></pre> 
+   <p> 这里是工作结果： <img src="./AlertDialog与自定义视图：调整大小以包装视图的内容-stackoverflow_files/pSCmZ.png" alt="在此输入图像说明"></p> 
+   <p> 它混淆了我为什么整个<code>Dialog</code>不想要使用一个明确的<code>minWidth</code>设置来处理所有适合默认大小的情况的<code>WRAP_CONTENT</code> ，但我确定有一个很好的理由，它的方式（将感兴趣的听到）。 </p> 
+  </div>  
+ 
+
+				</div>
+				<p>文章由英文站经google翻译而来，尽管google翻译已经非常智能，但是词不达意在所难免，附原英文链接供参考。版权归<a href="https://stackoverflow.com/">stackoverflow</a>所有，复制请保留此链接 <a target="_blank" href="http://stackoverflow.org.cn/front/ask/view?ask_id=68106">中文链接</a>
+				<a target="_blank" href="https://stackoverflow.com/questions/14907104">英文链接</a></p>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+
+<footer id="footer" class="s-footer js-footer" role="contentinfo" style="border: 0px solid red;">
+	<div class="-container">
+		<h3 style="color:#ffffff;">stackoverflow-中文问答站点</h3>
+	</div>
+</footer>
+</body></html>

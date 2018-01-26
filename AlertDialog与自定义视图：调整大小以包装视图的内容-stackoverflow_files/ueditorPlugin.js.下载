@@ -1,0 +1,11 @@
+﻿var ueditorPlugin = {
+	"link":"",
+	"appendSimpleUploadLink" :function(link){
+		if("" != this.link){
+			this.link += ",";
+		}
+		this.link += link;
+		//alert(this.link);
+	}
+}
+//ueditorPlugin.setSimpleUploadLink(123);
