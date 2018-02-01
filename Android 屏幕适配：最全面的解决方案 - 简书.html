@@ -1,0 +1,2932 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.jianshu.com/p/ec5a1a30694b -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/ec5a1a30694b">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="前言 Android的屏幕适配一直以来都在折磨着我们Android开发者，本文将结合： Google的官方权威适配文档 郭霖： Android官方提供的支持不同屏幕大小的全部方法 Stormzhang：Android 屏幕适配 鸿洋：Android 屏幕适配方案 凯子： Android屏幕适配全攻略(最权威的官方适配指导) 自身的思考&amp;实践 给你带来一种全新、全面而逻辑清晰的Android屏...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/ec5a1a30694b">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/3451616">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="Android 屏幕适配：最全面的解决方案" property="twitter:title">
+  <meta content="前言 Android的屏幕适配一直以来都在折磨着我们Android开发者，本文将结合： Google的官方权威适配文档 郭霖： Android官方提供的支持不同屏幕大小的全部方法 Stormzhang：Android 屏幕适配 鸿洋：Android 屏幕适配方案 凯子： Android屏幕适配全攻略(最权威的官方适配指导) 自身的思考&amp;实践 给你带来一种全新、全面而逻辑清晰的Android屏幕适配思路，只要你认真阅读，保证你能解决Android的屏幕适配问题！ 目录 定义 使得某一元素在Android不同尺寸、不同分辨率的手机上具备相同的显示效果 相关重要概念 屏幕尺寸 含义：手机对角线..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/ec5a1a30694b" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="Android 屏幕适配：最全面的解决方案">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/ec5a1a30694b">
+  <meta property="og:description" content="前言 Android的屏幕适配一直以来都在折磨着我们Android开发者，本文将结合： Google的官方权威适配文档 郭霖： Android官方提供的支持不同屏幕大小的全部方法 Stormzh...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/3451616">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/3451616">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>Android 屏幕适配：最全面的解决方案 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="+pvC4NJ/ePG3J+Psd/ovJQ5kfqNnCyGe03PNiEhXuJGS3Uff6KvAuVvfUALOzvaj2LRLT+HvAy6T53DYbAvmfQ==">
+
+  <link rel="stylesheet" media="all" href="./Android 屏幕适配：最全面的解决方案 - 简书_files/web-b902b38f60020358f549.css">
+  
+  <link rel="stylesheet" media="all" href="./Android 屏幕适配：最全面的解决方案 - 简书_files/entry-cce16e51495a87f95c7a.css">
+
+  <link href="https://cdn2.jianshu.io/assets/favicons/favicon-03411b154a430b85d807b4366489c21122fb983a38f3d7ca926f882e6367b13e.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152">
+
+  <!-- Start of 访问统计 -->
+    <script src="./Android 屏幕适配：最全面的解决方案 - 简书_files/push.js.下载"></script><script src="./Android 屏幕适配：最全面的解决方案 - 简书_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+<style type="text/css">@font-face {
+  font-family: 'KaTeX_AMS';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_AMS-Regular-4acb3b38a06a70543a29a844a4d4dff1.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_AMS-Regular-da362d84f47dcfcb6d9a3706076dafae.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_AMS-Regular-7103a29bc2bdc4cba214f6b1a59fe41e.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Caligraphic';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold-10f140696f755a78364f85bc9243c943.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold-1ed54d7af6f6cb90c8dc2b12c18a765a.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold-0c8a4cb57acf625e6763456427af29f8.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Caligraphic';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular-0487f49c31ab6ce94973cd08da54ecb9.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular-97d074049ea1939a22df8f5f0bc96d40.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular-ddb8b9ce7d1be76f5ef590e90e8a48f2.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Fraktur';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold-46b7232706c82df4675d1445fd95486c.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold-ec3ce597b1a3bb642d4f0795031f1ff1.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold-902a4056219ee5b4377e10c60b92b18f.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Fraktur';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular-9aa39205ce79cd9dcb3148dc69d0ebbf.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular-2f8d29df8d219b8c7f64883a9f38442d.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular-3478d9ae93e5e953783950cb8c491905.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Main';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Bold-866518488f40f74fad3380c6b3202c16.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Bold-673ba4708d531d41a9c19e6c7945d6ed.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Bold-aae9da4586cbab8d1ed6612e10dd4c5c.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Main';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Italic-d82d7960f2c1ece5d8d7e835b3266e29.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Italic-b304af2087784fdd20ddb1155f38f4ee.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Italic-f75a01fb738c2dcc215d68d255a4c8cd.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'KaTeX_Main';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Regular-c5d9274619ec394a0c0af23079e3d520.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Regular-4dac51f628c0ed68b5b944aa251267f6.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Main-Regular-09002597159fe17c608007b89e1be1fd.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Math';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Math-Italic-699100c980e999a321661a37b42717f4.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Math-Italic-4b364d6df348c175f45018aa19f439b3.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Math-Italic-c30c10f3c5432c8ff73998c356339838.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'KaTeX_SansSerif';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular-a84a3476470753ea38ee36d34816412d.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular-6ca3adb583e6a015124a194d69be5917.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular-335533d7da5fa9b592e1519fa0ad8cdf.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Script';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Script-Regular-8d5711bd4f6dcc614bec4054af554f8a.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Script-Regular-b05e15cef33c6e87d33e0162a42af20e.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Script-Regular-c220c13313b29d0d91aaf36dbc88c212.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Size1';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size1-Regular-64952af08432d5505f9fab41c37c7ff0.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size1-Regular-274a13adbb824f6f679f573d8f9223df.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size1-Regular-957d18eb8f81846e0bd48c6fc07153e9.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Size2';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size2-Regular-5e7965170f48761e9f13066d1b163939.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size2-Regular-f6e5205de37088c3ab60a6b9aaf7e56c.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size2-Regular-c21eee71f95ae1d56f0fdeae0ddc3802.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Size3';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size3-Regular-9a92659a06643110c0c73e1f639a6c54.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size3-Regular-331f088fadae7462e5124faeca95edfb.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size3-Regular-5a811e34c742ec283b9a7c7d9040b6d9.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Size4';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size4-Regular-0e4a7e2872a7a23b1088db0dcf72925e.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size4-Regular-f83c868a68708a5c0cd0ba7a514cc403.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Size4-Regular-b6b218468d4072c9a2b7fa4499380f83.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KaTeX_Typewriter';
+  src: url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular-dba06b5bd5accc91661556f2cae36a0b.woff2) format('woff2'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular-ce6ab764129282f813058c871d7c42ce.woff) format('woff'), url(//cdn2.jianshu.io/assets/_/_/_/_/shared/node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular-f2b024e5d40c06757a84c8af474f4042.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.katex-display {
+  display: block;
+  margin: 1em 0;
+  text-align: center;
+}
+
+.katex-display > .katex {
+  display: inline-block;
+  text-align: initial;
+}
+
+.katex {
+  font: normal 1.21em KaTeX_Main, Times New Roman, serif;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-indent: 0;
+  text-rendering: auto;
+}
+
+.katex * {
+  -ms-high-contrast-adjust: none !important;
+}
+
+.katex .katex-html {
+  display: inline-block;
+}
+
+.katex .katex-mathml {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+.katex .base {
+  position: relative;
+  display: inline-block;
+}
+
+.katex .strut {
+  display: inline-block;
+}
+
+.katex .textbf {
+  font-weight: bold;
+}
+
+.katex .textit {
+  font-style: italic;
+}
+
+.katex .textrm {
+  font-family: KaTeX_Main;
+}
+
+.katex .textsf {
+  font-family: KaTeX_SansSerif;
+}
+
+.katex .texttt {
+  font-family: KaTeX_Typewriter;
+}
+
+.katex .mathit {
+  font-family: KaTeX_Math;
+  font-style: italic;
+}
+
+.katex .mathrm {
+  font-style: normal;
+}
+
+.katex .mathbf {
+  font-family: KaTeX_Main;
+  font-weight: bold;
+}
+
+.katex .boldsymbol {
+  font-family: KaTeX_Math;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.katex .amsrm {
+  font-family: KaTeX_AMS;
+}
+
+.katex .mathbb {
+  font-family: KaTeX_AMS;
+}
+
+.katex .mathcal {
+  font-family: KaTeX_Caligraphic;
+}
+
+.katex .mathfrak {
+  font-family: KaTeX_Fraktur;
+}
+
+.katex .mathtt {
+  font-family: KaTeX_Typewriter;
+}
+
+.katex .mathscr {
+  font-family: KaTeX_Script;
+}
+
+.katex .mathsf {
+  font-family: KaTeX_SansSerif;
+}
+
+.katex .mainit {
+  font-family: KaTeX_Main;
+  font-style: italic;
+}
+
+.katex .mainrm {
+  font-family: KaTeX_Main;
+  font-style: normal;
+}
+
+.katex .mord + .mop {
+  margin-left: 0.16667em;
+}
+
+.katex .mord + .mbin {
+  margin-left: 0.22222em;
+}
+
+.katex .mord + .mrel {
+  margin-left: 0.27778em;
+}
+
+.katex .mord + .minner {
+  margin-left: 0.16667em;
+}
+
+.katex .mop + .mord {
+  margin-left: 0.16667em;
+}
+
+.katex .mop + .mop {
+  margin-left: 0.16667em;
+}
+
+.katex .mop + .mrel {
+  margin-left: 0.27778em;
+}
+
+.katex .mop + .minner {
+  margin-left: 0.16667em;
+}
+
+.katex .mbin + .mord {
+  margin-left: 0.22222em;
+}
+
+.katex .mbin + .mop {
+  margin-left: 0.22222em;
+}
+
+.katex .mbin + .mopen {
+  margin-left: 0.22222em;
+}
+
+.katex .mbin + .minner {
+  margin-left: 0.22222em;
+}
+
+.katex .mrel + .mord {
+  margin-left: 0.27778em;
+}
+
+.katex .mrel + .mop {
+  margin-left: 0.27778em;
+}
+
+.katex .mrel + .mopen {
+  margin-left: 0.27778em;
+}
+
+.katex .mrel + .minner {
+  margin-left: 0.27778em;
+}
+
+.katex .mclose + .mop {
+  margin-left: 0.16667em;
+}
+
+.katex .mclose + .mbin {
+  margin-left: 0.22222em;
+}
+
+.katex .mclose + .mrel {
+  margin-left: 0.27778em;
+}
+
+.katex .mclose + .minner {
+  margin-left: 0.16667em;
+}
+
+.katex .mpunct + .mord {
+  margin-left: 0.16667em;
+}
+
+.katex .mpunct + .mop {
+  margin-left: 0.16667em;
+}
+
+.katex .mpunct + .mrel {
+  margin-left: 0.16667em;
+}
+
+.katex .mpunct + .mopen {
+  margin-left: 0.16667em;
+}
+
+.katex .mpunct + .mclose {
+  margin-left: 0.16667em;
+}
+
+.katex .mpunct + .mpunct {
+  margin-left: 0.16667em;
+}
+
+.katex .mpunct + .minner {
+  margin-left: 0.16667em;
+}
+
+.katex .minner + .mord {
+  margin-left: 0.16667em;
+}
+
+.katex .minner + .mop {
+  margin-left: 0.16667em;
+}
+
+.katex .minner + .mbin {
+  margin-left: 0.22222em;
+}
+
+.katex .minner + .mrel {
+  margin-left: 0.27778em;
+}
+
+.katex .minner + .mopen {
+  margin-left: 0.16667em;
+}
+
+.katex .minner + .mpunct {
+  margin-left: 0.16667em;
+}
+
+.katex .minner + .minner {
+  margin-left: 0.16667em;
+}
+
+.katex .mord.mtight {
+  margin-left: 0;
+}
+
+.katex .mop.mtight {
+  margin-left: 0;
+}
+
+.katex .mbin.mtight {
+  margin-left: 0;
+}
+
+.katex .mrel.mtight {
+  margin-left: 0;
+}
+
+.katex .mopen.mtight {
+  margin-left: 0;
+}
+
+.katex .mclose.mtight {
+  margin-left: 0;
+}
+
+.katex .mpunct.mtight {
+  margin-left: 0;
+}
+
+.katex .minner.mtight {
+  margin-left: 0;
+}
+
+.katex .mord + .mop.mtight {
+  margin-left: 0.16667em;
+}
+
+.katex .mop + .mord.mtight {
+  margin-left: 0.16667em;
+}
+
+.katex .mop + .mop.mtight {
+  margin-left: 0.16667em;
+}
+
+.katex .mclose + .mop.mtight {
+  margin-left: 0.16667em;
+}
+
+.katex .minner + .mop.mtight {
+  margin-left: 0.16667em;
+}
+
+.katex .vlist-t {
+  display: inline-table;
+  table-layout: fixed;
+}
+
+.katex .vlist-r {
+  display: table-row;
+}
+
+.katex .vlist {
+  display: table-cell;
+  vertical-align: bottom;
+  position: relative;
+}
+
+.katex .vlist > span {
+  display: block;
+  height: 0;
+  position: relative;
+}
+
+.katex .vlist > span > span {
+  display: inline-block;
+}
+
+.katex .vlist > span > .pstrut {
+  overflow: hidden;
+  width: 0;
+}
+
+.katex .vlist-t2 {
+  margin-right: -2px;
+}
+
+.katex .vlist-s {
+  display: table-cell;
+  vertical-align: bottom;
+  font-size: 1px;
+  width: 2px;
+}
+
+.katex .msupsub {
+  text-align: left;
+}
+
+.katex .mfrac > span > span {
+  text-align: center;
+}
+
+.katex .mfrac .frac-line {
+  display: inline-block;
+  width: 100%;
+}
+
+.katex .mspace {
+  display: inline-block;
+}
+
+.katex .mspace.negativethinspace {
+  margin-left: -0.16667em;
+}
+
+.katex .mspace.muspace {
+  width: 0.055556em;
+}
+
+.katex .mspace.thinspace {
+  width: 0.16667em;
+}
+
+.katex .mspace.negativemediumspace {
+  margin-left: -0.22222em;
+}
+
+.katex .mspace.mediumspace {
+  width: 0.22222em;
+}
+
+.katex .mspace.thickspace {
+  width: 0.27778em;
+}
+
+.katex .mspace.sixmuspace {
+  width: 0.333333em;
+}
+
+.katex .mspace.eightmuspace {
+  width: 0.444444em;
+}
+
+.katex .mspace.enspace {
+  width: 0.5em;
+}
+
+.katex .mspace.twelvemuspace {
+  width: 0.666667em;
+}
+
+.katex .mspace.quad {
+  width: 1em;
+}
+
+.katex .mspace.qquad {
+  width: 2em;
+}
+
+.katex .llap,
+.katex .rlap,
+.katex .clap {
+  width: 0;
+  position: relative;
+}
+
+.katex .llap > .inner,
+.katex .rlap > .inner,
+.katex .clap > .inner {
+  position: absolute;
+}
+
+.katex .llap > .fix,
+.katex .rlap > .fix,
+.katex .clap > .fix {
+  display: inline-block;
+}
+
+.katex .llap > .inner {
+  right: 0;
+}
+
+.katex .rlap > .inner,
+.katex .clap > .inner {
+  left: 0;
+}
+
+.katex .clap > .inner > span {
+  margin-left: -50%;
+  margin-right: 50%;
+}
+
+.katex .rule {
+  display: inline-block;
+  border: solid 0;
+  position: relative;
+}
+
+.katex .overline .overline-line,
+.katex .underline .underline-line {
+  display: inline-block;
+  width: 100%;
+}
+
+.katex .sqrt > .root {
+  margin-left: 0.27777778em;
+  margin-right: -0.55555556em;
+}
+
+.katex .sizing,
+.katex .fontsize-ensurer {
+  display: inline-block;
+}
+
+.katex .sizing.reset-size1.size1,
+.katex .fontsize-ensurer.reset-size1.size1 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size1.size2,
+.katex .fontsize-ensurer.reset-size1.size2 {
+  font-size: 1.2em;
+}
+
+.katex .sizing.reset-size1.size3,
+.katex .fontsize-ensurer.reset-size1.size3 {
+  font-size: 1.4em;
+}
+
+.katex .sizing.reset-size1.size4,
+.katex .fontsize-ensurer.reset-size1.size4 {
+  font-size: 1.6em;
+}
+
+.katex .sizing.reset-size1.size5,
+.katex .fontsize-ensurer.reset-size1.size5 {
+  font-size: 1.8em;
+}
+
+.katex .sizing.reset-size1.size6,
+.katex .fontsize-ensurer.reset-size1.size6 {
+  font-size: 2em;
+}
+
+.katex .sizing.reset-size1.size7,
+.katex .fontsize-ensurer.reset-size1.size7 {
+  font-size: 2.4em;
+}
+
+.katex .sizing.reset-size1.size8,
+.katex .fontsize-ensurer.reset-size1.size8 {
+  font-size: 2.88em;
+}
+
+.katex .sizing.reset-size1.size9,
+.katex .fontsize-ensurer.reset-size1.size9 {
+  font-size: 3.456em;
+}
+
+.katex .sizing.reset-size1.size10,
+.katex .fontsize-ensurer.reset-size1.size10 {
+  font-size: 4.148em;
+}
+
+.katex .sizing.reset-size1.size11,
+.katex .fontsize-ensurer.reset-size1.size11 {
+  font-size: 4.976em;
+}
+
+.katex .sizing.reset-size2.size1,
+.katex .fontsize-ensurer.reset-size2.size1 {
+  font-size: 0.83333333em;
+}
+
+.katex .sizing.reset-size2.size2,
+.katex .fontsize-ensurer.reset-size2.size2 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size2.size3,
+.katex .fontsize-ensurer.reset-size2.size3 {
+  font-size: 1.16666667em;
+}
+
+.katex .sizing.reset-size2.size4,
+.katex .fontsize-ensurer.reset-size2.size4 {
+  font-size: 1.33333333em;
+}
+
+.katex .sizing.reset-size2.size5,
+.katex .fontsize-ensurer.reset-size2.size5 {
+  font-size: 1.5em;
+}
+
+.katex .sizing.reset-size2.size6,
+.katex .fontsize-ensurer.reset-size2.size6 {
+  font-size: 1.66666667em;
+}
+
+.katex .sizing.reset-size2.size7,
+.katex .fontsize-ensurer.reset-size2.size7 {
+  font-size: 2em;
+}
+
+.katex .sizing.reset-size2.size8,
+.katex .fontsize-ensurer.reset-size2.size8 {
+  font-size: 2.4em;
+}
+
+.katex .sizing.reset-size2.size9,
+.katex .fontsize-ensurer.reset-size2.size9 {
+  font-size: 2.88em;
+}
+
+.katex .sizing.reset-size2.size10,
+.katex .fontsize-ensurer.reset-size2.size10 {
+  font-size: 3.45666667em;
+}
+
+.katex .sizing.reset-size2.size11,
+.katex .fontsize-ensurer.reset-size2.size11 {
+  font-size: 4.14666667em;
+}
+
+.katex .sizing.reset-size3.size1,
+.katex .fontsize-ensurer.reset-size3.size1 {
+  font-size: 0.71428571em;
+}
+
+.katex .sizing.reset-size3.size2,
+.katex .fontsize-ensurer.reset-size3.size2 {
+  font-size: 0.85714286em;
+}
+
+.katex .sizing.reset-size3.size3,
+.katex .fontsize-ensurer.reset-size3.size3 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size3.size4,
+.katex .fontsize-ensurer.reset-size3.size4 {
+  font-size: 1.14285714em;
+}
+
+.katex .sizing.reset-size3.size5,
+.katex .fontsize-ensurer.reset-size3.size5 {
+  font-size: 1.28571429em;
+}
+
+.katex .sizing.reset-size3.size6,
+.katex .fontsize-ensurer.reset-size3.size6 {
+  font-size: 1.42857143em;
+}
+
+.katex .sizing.reset-size3.size7,
+.katex .fontsize-ensurer.reset-size3.size7 {
+  font-size: 1.71428571em;
+}
+
+.katex .sizing.reset-size3.size8,
+.katex .fontsize-ensurer.reset-size3.size8 {
+  font-size: 2.05714286em;
+}
+
+.katex .sizing.reset-size3.size9,
+.katex .fontsize-ensurer.reset-size3.size9 {
+  font-size: 2.46857143em;
+}
+
+.katex .sizing.reset-size3.size10,
+.katex .fontsize-ensurer.reset-size3.size10 {
+  font-size: 2.96285714em;
+}
+
+.katex .sizing.reset-size3.size11,
+.katex .fontsize-ensurer.reset-size3.size11 {
+  font-size: 3.55428571em;
+}
+
+.katex .sizing.reset-size4.size1,
+.katex .fontsize-ensurer.reset-size4.size1 {
+  font-size: 0.625em;
+}
+
+.katex .sizing.reset-size4.size2,
+.katex .fontsize-ensurer.reset-size4.size2 {
+  font-size: 0.75em;
+}
+
+.katex .sizing.reset-size4.size3,
+.katex .fontsize-ensurer.reset-size4.size3 {
+  font-size: 0.875em;
+}
+
+.katex .sizing.reset-size4.size4,
+.katex .fontsize-ensurer.reset-size4.size4 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size4.size5,
+.katex .fontsize-ensurer.reset-size4.size5 {
+  font-size: 1.125em;
+}
+
+.katex .sizing.reset-size4.size6,
+.katex .fontsize-ensurer.reset-size4.size6 {
+  font-size: 1.25em;
+}
+
+.katex .sizing.reset-size4.size7,
+.katex .fontsize-ensurer.reset-size4.size7 {
+  font-size: 1.5em;
+}
+
+.katex .sizing.reset-size4.size8,
+.katex .fontsize-ensurer.reset-size4.size8 {
+  font-size: 1.8em;
+}
+
+.katex .sizing.reset-size4.size9,
+.katex .fontsize-ensurer.reset-size4.size9 {
+  font-size: 2.16em;
+}
+
+.katex .sizing.reset-size4.size10,
+.katex .fontsize-ensurer.reset-size4.size10 {
+  font-size: 2.5925em;
+}
+
+.katex .sizing.reset-size4.size11,
+.katex .fontsize-ensurer.reset-size4.size11 {
+  font-size: 3.11em;
+}
+
+.katex .sizing.reset-size5.size1,
+.katex .fontsize-ensurer.reset-size5.size1 {
+  font-size: 0.55555556em;
+}
+
+.katex .sizing.reset-size5.size2,
+.katex .fontsize-ensurer.reset-size5.size2 {
+  font-size: 0.66666667em;
+}
+
+.katex .sizing.reset-size5.size3,
+.katex .fontsize-ensurer.reset-size5.size3 {
+  font-size: 0.77777778em;
+}
+
+.katex .sizing.reset-size5.size4,
+.katex .fontsize-ensurer.reset-size5.size4 {
+  font-size: 0.88888889em;
+}
+
+.katex .sizing.reset-size5.size5,
+.katex .fontsize-ensurer.reset-size5.size5 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size5.size6,
+.katex .fontsize-ensurer.reset-size5.size6 {
+  font-size: 1.11111111em;
+}
+
+.katex .sizing.reset-size5.size7,
+.katex .fontsize-ensurer.reset-size5.size7 {
+  font-size: 1.33333333em;
+}
+
+.katex .sizing.reset-size5.size8,
+.katex .fontsize-ensurer.reset-size5.size8 {
+  font-size: 1.6em;
+}
+
+.katex .sizing.reset-size5.size9,
+.katex .fontsize-ensurer.reset-size5.size9 {
+  font-size: 1.92em;
+}
+
+.katex .sizing.reset-size5.size10,
+.katex .fontsize-ensurer.reset-size5.size10 {
+  font-size: 2.30444444em;
+}
+
+.katex .sizing.reset-size5.size11,
+.katex .fontsize-ensurer.reset-size5.size11 {
+  font-size: 2.76444444em;
+}
+
+.katex .sizing.reset-size6.size1,
+.katex .fontsize-ensurer.reset-size6.size1 {
+  font-size: 0.5em;
+}
+
+.katex .sizing.reset-size6.size2,
+.katex .fontsize-ensurer.reset-size6.size2 {
+  font-size: 0.6em;
+}
+
+.katex .sizing.reset-size6.size3,
+.katex .fontsize-ensurer.reset-size6.size3 {
+  font-size: 0.7em;
+}
+
+.katex .sizing.reset-size6.size4,
+.katex .fontsize-ensurer.reset-size6.size4 {
+  font-size: 0.8em;
+}
+
+.katex .sizing.reset-size6.size5,
+.katex .fontsize-ensurer.reset-size6.size5 {
+  font-size: 0.9em;
+}
+
+.katex .sizing.reset-size6.size6,
+.katex .fontsize-ensurer.reset-size6.size6 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size6.size7,
+.katex .fontsize-ensurer.reset-size6.size7 {
+  font-size: 1.2em;
+}
+
+.katex .sizing.reset-size6.size8,
+.katex .fontsize-ensurer.reset-size6.size8 {
+  font-size: 1.44em;
+}
+
+.katex .sizing.reset-size6.size9,
+.katex .fontsize-ensurer.reset-size6.size9 {
+  font-size: 1.728em;
+}
+
+.katex .sizing.reset-size6.size10,
+.katex .fontsize-ensurer.reset-size6.size10 {
+  font-size: 2.074em;
+}
+
+.katex .sizing.reset-size6.size11,
+.katex .fontsize-ensurer.reset-size6.size11 {
+  font-size: 2.488em;
+}
+
+.katex .sizing.reset-size7.size1,
+.katex .fontsize-ensurer.reset-size7.size1 {
+  font-size: 0.41666667em;
+}
+
+.katex .sizing.reset-size7.size2,
+.katex .fontsize-ensurer.reset-size7.size2 {
+  font-size: 0.5em;
+}
+
+.katex .sizing.reset-size7.size3,
+.katex .fontsize-ensurer.reset-size7.size3 {
+  font-size: 0.58333333em;
+}
+
+.katex .sizing.reset-size7.size4,
+.katex .fontsize-ensurer.reset-size7.size4 {
+  font-size: 0.66666667em;
+}
+
+.katex .sizing.reset-size7.size5,
+.katex .fontsize-ensurer.reset-size7.size5 {
+  font-size: 0.75em;
+}
+
+.katex .sizing.reset-size7.size6,
+.katex .fontsize-ensurer.reset-size7.size6 {
+  font-size: 0.83333333em;
+}
+
+.katex .sizing.reset-size7.size7,
+.katex .fontsize-ensurer.reset-size7.size7 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size7.size8,
+.katex .fontsize-ensurer.reset-size7.size8 {
+  font-size: 1.2em;
+}
+
+.katex .sizing.reset-size7.size9,
+.katex .fontsize-ensurer.reset-size7.size9 {
+  font-size: 1.44em;
+}
+
+.katex .sizing.reset-size7.size10,
+.katex .fontsize-ensurer.reset-size7.size10 {
+  font-size: 1.72833333em;
+}
+
+.katex .sizing.reset-size7.size11,
+.katex .fontsize-ensurer.reset-size7.size11 {
+  font-size: 2.07333333em;
+}
+
+.katex .sizing.reset-size8.size1,
+.katex .fontsize-ensurer.reset-size8.size1 {
+  font-size: 0.34722222em;
+}
+
+.katex .sizing.reset-size8.size2,
+.katex .fontsize-ensurer.reset-size8.size2 {
+  font-size: 0.41666667em;
+}
+
+.katex .sizing.reset-size8.size3,
+.katex .fontsize-ensurer.reset-size8.size3 {
+  font-size: 0.48611111em;
+}
+
+.katex .sizing.reset-size8.size4,
+.katex .fontsize-ensurer.reset-size8.size4 {
+  font-size: 0.55555556em;
+}
+
+.katex .sizing.reset-size8.size5,
+.katex .fontsize-ensurer.reset-size8.size5 {
+  font-size: 0.625em;
+}
+
+.katex .sizing.reset-size8.size6,
+.katex .fontsize-ensurer.reset-size8.size6 {
+  font-size: 0.69444444em;
+}
+
+.katex .sizing.reset-size8.size7,
+.katex .fontsize-ensurer.reset-size8.size7 {
+  font-size: 0.83333333em;
+}
+
+.katex .sizing.reset-size8.size8,
+.katex .fontsize-ensurer.reset-size8.size8 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size8.size9,
+.katex .fontsize-ensurer.reset-size8.size9 {
+  font-size: 1.2em;
+}
+
+.katex .sizing.reset-size8.size10,
+.katex .fontsize-ensurer.reset-size8.size10 {
+  font-size: 1.44027778em;
+}
+
+.katex .sizing.reset-size8.size11,
+.katex .fontsize-ensurer.reset-size8.size11 {
+  font-size: 1.72777778em;
+}
+
+.katex .sizing.reset-size9.size1,
+.katex .fontsize-ensurer.reset-size9.size1 {
+  font-size: 0.28935185em;
+}
+
+.katex .sizing.reset-size9.size2,
+.katex .fontsize-ensurer.reset-size9.size2 {
+  font-size: 0.34722222em;
+}
+
+.katex .sizing.reset-size9.size3,
+.katex .fontsize-ensurer.reset-size9.size3 {
+  font-size: 0.40509259em;
+}
+
+.katex .sizing.reset-size9.size4,
+.katex .fontsize-ensurer.reset-size9.size4 {
+  font-size: 0.46296296em;
+}
+
+.katex .sizing.reset-size9.size5,
+.katex .fontsize-ensurer.reset-size9.size5 {
+  font-size: 0.52083333em;
+}
+
+.katex .sizing.reset-size9.size6,
+.katex .fontsize-ensurer.reset-size9.size6 {
+  font-size: 0.5787037em;
+}
+
+.katex .sizing.reset-size9.size7,
+.katex .fontsize-ensurer.reset-size9.size7 {
+  font-size: 0.69444444em;
+}
+
+.katex .sizing.reset-size9.size8,
+.katex .fontsize-ensurer.reset-size9.size8 {
+  font-size: 0.83333333em;
+}
+
+.katex .sizing.reset-size9.size9,
+.katex .fontsize-ensurer.reset-size9.size9 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size9.size10,
+.katex .fontsize-ensurer.reset-size9.size10 {
+  font-size: 1.20023148em;
+}
+
+.katex .sizing.reset-size9.size11,
+.katex .fontsize-ensurer.reset-size9.size11 {
+  font-size: 1.43981481em;
+}
+
+.katex .sizing.reset-size10.size1,
+.katex .fontsize-ensurer.reset-size10.size1 {
+  font-size: 0.24108004em;
+}
+
+.katex .sizing.reset-size10.size2,
+.katex .fontsize-ensurer.reset-size10.size2 {
+  font-size: 0.28929605em;
+}
+
+.katex .sizing.reset-size10.size3,
+.katex .fontsize-ensurer.reset-size10.size3 {
+  font-size: 0.33751205em;
+}
+
+.katex .sizing.reset-size10.size4,
+.katex .fontsize-ensurer.reset-size10.size4 {
+  font-size: 0.38572806em;
+}
+
+.katex .sizing.reset-size10.size5,
+.katex .fontsize-ensurer.reset-size10.size5 {
+  font-size: 0.43394407em;
+}
+
+.katex .sizing.reset-size10.size6,
+.katex .fontsize-ensurer.reset-size10.size6 {
+  font-size: 0.48216008em;
+}
+
+.katex .sizing.reset-size10.size7,
+.katex .fontsize-ensurer.reset-size10.size7 {
+  font-size: 0.57859209em;
+}
+
+.katex .sizing.reset-size10.size8,
+.katex .fontsize-ensurer.reset-size10.size8 {
+  font-size: 0.69431051em;
+}
+
+.katex .sizing.reset-size10.size9,
+.katex .fontsize-ensurer.reset-size10.size9 {
+  font-size: 0.83317261em;
+}
+
+.katex .sizing.reset-size10.size10,
+.katex .fontsize-ensurer.reset-size10.size10 {
+  font-size: 1em;
+}
+
+.katex .sizing.reset-size10.size11,
+.katex .fontsize-ensurer.reset-size10.size11 {
+  font-size: 1.19961427em;
+}
+
+.katex .sizing.reset-size11.size1,
+.katex .fontsize-ensurer.reset-size11.size1 {
+  font-size: 0.20096463em;
+}
+
+.katex .sizing.reset-size11.size2,
+.katex .fontsize-ensurer.reset-size11.size2 {
+  font-size: 0.24115756em;
+}
+
+.katex .sizing.reset-size11.size3,
+.katex .fontsize-ensurer.reset-size11.size3 {
+  font-size: 0.28135048em;
+}
+
+.katex .sizing.reset-size11.size4,
+.katex .fontsize-ensurer.reset-size11.size4 {
+  font-size: 0.32154341em;
+}
+
+.katex .sizing.reset-size11.size5,
+.katex .fontsize-ensurer.reset-size11.size5 {
+  font-size: 0.36173633em;
+}
+
+.katex .sizing.reset-size11.size6,
+.katex .fontsize-ensurer.reset-size11.size6 {
+  font-size: 0.40192926em;
+}
+
+.katex .sizing.reset-size11.size7,
+.katex .fontsize-ensurer.reset-size11.size7 {
+  font-size: 0.48231511em;
+}
+
+.katex .sizing.reset-size11.size8,
+.katex .fontsize-ensurer.reset-size11.size8 {
+  font-size: 0.57877814em;
+}
+
+.katex .sizing.reset-size11.size9,
+.katex .fontsize-ensurer.reset-size11.size9 {
+  font-size: 0.69453376em;
+}
+
+.katex .sizing.reset-size11.size10,
+.katex .fontsize-ensurer.reset-size11.size10 {
+  font-size: 0.83360129em;
+}
+
+.katex .sizing.reset-size11.size11,
+.katex .fontsize-ensurer.reset-size11.size11 {
+  font-size: 1em;
+}
+
+.katex .delimsizing.size1 {
+  font-family: KaTeX_Size1;
+}
+
+.katex .delimsizing.size2 {
+  font-family: KaTeX_Size2;
+}
+
+.katex .delimsizing.size3 {
+  font-family: KaTeX_Size3;
+}
+
+.katex .delimsizing.size4 {
+  font-family: KaTeX_Size4;
+}
+
+.katex .delimsizing.mult .delim-size1 > span {
+  font-family: KaTeX_Size1;
+}
+
+.katex .delimsizing.mult .delim-size4 > span {
+  font-family: KaTeX_Size4;
+}
+
+.katex .nulldelimiter {
+  display: inline-block;
+  width: 0.12em;
+}
+
+.katex .delimcenter {
+  position: relative;
+}
+
+.katex .op-symbol {
+  position: relative;
+}
+
+.katex .op-symbol.small-op {
+  font-family: KaTeX_Size1;
+}
+
+.katex .op-symbol.large-op {
+  font-family: KaTeX_Size2;
+}
+
+.katex .op-limits > .vlist-t {
+  text-align: center;
+}
+
+.katex .accent > .vlist-t {
+  text-align: center;
+}
+
+.katex .accent .accent-body {
+  width: 0;
+  position: relative;
+}
+
+.katex .overlay {
+  display: block;
+}
+
+.katex .mtable .vertical-separator {
+  display: inline-block;
+  margin: 0 -0.125em;
+  width: 0.25em;
+}
+
+.katex .mtable .arraycolsep {
+  display: inline-block;
+}
+
+.katex .mtable .col-align-c > .vlist-t {
+  text-align: center;
+}
+
+.katex .mtable .col-align-l > .vlist-t {
+  text-align: left;
+}
+
+.katex .mtable .col-align-r > .vlist-t {
+  text-align: right;
+}
+
+.katex .svg-align {
+  text-align: left;
+}
+
+.katex svg {
+  display: block;
+  position: absolute;
+  width: 100%;
+}
+
+.katex svg path {
+  fill: currentColor;
+}
+
+.katex svg line {
+  stroke: currentColor;
+}
+
+.katex .vertical-separator svg {
+  width: 0.25em;
+}
+
+.katex .stretchy {
+  width: 100%;
+  display: block;
+}
+
+.katex .stretchy:before,
+.katex .stretchy:after {
+  content: "";
+}
+
+.katex .hide-tail {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.katex .halfarrow-left {
+  position: absolute;
+  left: 0;
+  width: 50.1%;
+  overflow: hidden;
+}
+
+.katex .halfarrow-right {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.katex .brace-left {
+  position: absolute;
+  left: 0;
+  width: 25.1%;
+  overflow: hidden;
+}
+
+.katex .brace-center {
+  position: absolute;
+  left: 25%;
+  width: 50%;
+  overflow: hidden;
+}
+
+.katex .brace-right {
+  position: absolute;
+  right: 0;
+  width: 25.1%;
+  overflow: hidden;
+}
+
+.katex .x-arrow-pad {
+  padding: 0 0.5em;
+}
+
+.katex .x-arrow,
+.katex .mover,
+.katex .munder {
+  text-align: center;
+}
+
+.katex .boxpad {
+  padding: 0 0.3em 0 0.3em;
+}
+
+.katex .fbox {
+  box-sizing: border-box;
+  border: 0.04em solid black;
+}
+
+.katex .fcolorbox {
+  box-sizing: border-box;
+  border: 0.04em solid;
+}
+
+.katex .cancel-pad {
+  padding: 0 0.2em 0 0.2em;
+}
+
+.katex .mord + .cancel-lap,
+.katex .mbin + .cancel-lap {
+  margin-left: -0.2em;
+}
+
+.katex .cancel-lap + .mord,
+.katex .cancel-lap + .mbin,
+.katex .cancel-lap + .msupsub {
+  margin-left: -0.2em;
+}
+
+.katex .sout {
+  border-bottom-style: solid;
+  border-bottom-width: 0.08em;
+}</style><style type="text/css">
+@charset "UTF-8";
+/*
+ * 变量
+*/
+.main {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  width: 620px;
+}
+.main .title {
+    padding-left: 8px;
+    border-left: 3px solid #EA6F5A;
+    line-height: 1;
+    font-size: 15px;
+}
+.main .collection-settings {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    font-size: 13px;
+    color: #A0A0A0;
+}
+.main .collection-settings span {
+      padding-left: 4px;
+}
+.main .include-collection {
+    width: 100%;
+    padding-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.main .include-collection .item {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      min-height: 32px;
+      background-color: white;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+      vertical-align: top;
+      overflow: hidden;
+}
+.main .include-collection .item img {
+        width: 32px;
+        height: 32px;
+}
+.main .include-collection .item .name {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 14px;
+}
+.main .include-collection .add-collection-wrap {
+      margin: 0 12px 12px 0;
+}
+.main .include-collection .add-collection {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #DCDCDC;
+      border-radius: 4px;
+}
+.main .include-collection .add-collection i {
+        margin-right: 4px;
+        color: #969696;
+}
+.main .recommend-note a {
+    position: relative;
+    margin: 20px 2px 0 0;
+    width: 200px;
+    height: 160px;
+    display: inline-block;
+}
+.main .recommend-note a:after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 160px;
+      border-radius: 0 0 4px 4px;
+      -webkit-box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+              box-shadow: inset 0px -80px 50px -22px rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+}
+.main .recommend-note .name {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+.main .recommend-note .author {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.main .recommend-note .avatar {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.main .recommend-note .avatar img {
+      border-radius: 50%;
+}
+.main .recommend-note .author-name {
+    font-size: 12px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: -1px;
+}
+.main .show-more {
+    margin: 0 12px 12px 0;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+</style></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="https://www.jianshu.com/"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="https://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="https://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="https://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="https://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="https://www.jianshu.com/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="https://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="https://www.jianshu.com/apps/download?utm_source=sbc" id="web-note-ad-fixed" style="left: 1236px; display: inline;"><span class="close">×</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">Android 屏幕适配：最全面的解决方案</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="https://www.jianshu.com/u/383970bef0a0">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/e32cb66f99ea" alt="96">
+</a>          <div class="info">
+            <span class="name"><a href="https://www.jianshu.com/u/383970bef0a0">Carson_Ho</a></span>
+              <img class="badge-icon" data-toggle="tooltip" title="" src="./Android 屏幕适配：最全面的解决方案 - 简书_files/595a1b60-08f6-4beb-998f-2bf55e230555" alt="595a1b60 08f6 4beb 998f 2bf55e230555" data-original-title="简书程序员优秀作者">
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.12.03 03:45">2016.04.14 07:03*</span>
+              <span class="wordage">字数 5399</span>
+            <span class="views-count">阅读 98242</span><span class="comments-count">评论 113</span><span class="likes-count">喜欢 1045</span><span class="rewards-count ">赞赏 3</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 716px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 102.38000000000001%;"></div>
+<div class="image-view" data-width="840" data-height="860"><img data-original-src="//upload-images.jianshu.io/upload_images/944365-207a738cb165a2da.png" data-original-width="840" data-original-height="860" data-original-format="image/png" data-original-filesize="528657" class="" style="cursor: zoom-in;" src="./Android 屏幕适配：最全面的解决方案 - 简书_files/944365-207a738cb165a2da.png"></div>
+</div>
+<div class="image-caption"></div>
+</div>
+<h1>前言</h1>
+<p>Android的屏幕适配一直以来都在折磨着我们Android开发者，本文将结合：</p>
+<ul>
+<li>Google的官方权威适配文档</li>
+<li>郭霖：<a href="https://link.jianshu.com/?t=http://blog.csdn.net/guolin_blog/article/details/8830286" target="_blank" rel="nofollow"> Android官方提供的支持不同屏幕大小的全部方法</a>
+</li>
+<li>Stormzhang：<a href="https://link.jianshu.com/?t=http://stormzhang.com/android/2014/05/16/android-screen-adaptation/" target="_blank" rel="nofollow">Android 屏幕适配</a>
+</li>
+<li>鸿洋：<a href="https://link.jianshu.com/?t=http://blog.csdn.net/lmj623565791/article/details/45460089" target="_blank" rel="nofollow">Android 屏幕适配方案</a>
+</li>
+<li>凯子：<a href="https://link.jianshu.com/?t=http://blog.csdn.net/zhaokaiqiang1992/article/details/45419023" target="_blank" rel="nofollow"> Android屏幕适配全攻略(最权威的官方适配指导)</a>
+</li>
+<li>自身的思考&amp;实践</li>
+</ul>
+<p>给你带来一种全新、全面而逻辑清晰的Android屏幕适配思路，只要你认真阅读，保证你能解决Android的屏幕适配问题！</p>
+<hr>
+<h1>目录</h1>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 620px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 59.56%;"></div>
+<div class="image-view" data-width="1041" data-height="620"><img data-original-src="//upload-images.jianshu.io/upload_images/944365-a1b32092b08e27cd.png" data-original-width="1041" data-original-height="620" data-original-format="image/png" data-original-filesize="55686" class="" style="cursor: zoom-in;" src="./Android 屏幕适配：最全面的解决方案 - 简书_files/944365-a1b32092b08e27cd.png"></div>
+</div>
+<div class="image-caption">Android屏幕适配解决方案.png</div>
+</div>
+<hr>
+<h1>定义</h1>
+<p>使得某一元素在Android不同尺寸、不同分辨率的手机上具备相同的显示效果</p>
+<hr>
+<h1>相关重要概念</h1>
+<h4>屏幕尺寸</h4>
+<ul>
+<li>含义：手机对角线的物理尺寸</li>
+<li>单位：英寸（inch），1英寸=2.54cm</li>
+</ul>
+<blockquote>
+<p>Android手机常见的尺寸有5寸、5.5寸、6寸等等</p>
+</blockquote>
+<h4>屏幕分辨率</h4>
+<ul>
+<li>含义：手机在横向、纵向上的像素点数总和</li>
+</ul>
+<blockquote>
+<ol>
+<li>一般描述成屏幕的"宽x高”=AxB</li>
+<li>含义：屏幕在横向方向（宽度）上有A个像素点，在纵向方向<br>
+（高）有B个像素点</li>
+<li>例子：1080x1920，即宽度方向上有1080个像素点，在高度方向上有1920个像素点</li>
+</ol>
+</blockquote>
+<ul>
+<li>单位：px（pixel），1px=1像素点</li>
+</ul>
+<blockquote>
+<p>UI设计师的设计图会以px作为统一的计量单位</p>
+</blockquote>
+<ul>
+<li>Android手机常见的分辨率：320x480、480x800、720x1280、1080x1920</li>
+</ul>
+<h4>屏幕像素密度</h4>
+<ul>
+<li>含义：每英寸的像素点数</li>
+<li>单位：dpi（dots per ich）</li>
+</ul>
+<blockquote>
+<p>假设设备内每英寸有160个像素，那么该设备的屏幕像素密度=160dpi</p>
+</blockquote>
+<ul>
+<li>安卓手机对于每类手机屏幕大小都有一个相应的屏幕像素密度：</li>
+</ul>
+<p>|  密度类型  |  代表的分辨率（px） | 屏幕像素密度（dpi）|<br>
+| ------------- |:-------------:|<br>
+| 低密度（ldpi）    | 240x320   | 120 |<br>
+| 中密度（mdpi）    | 320x480  | 160 |<br>
+| 高密度（hdpi）    | 480x800  | 240|<br>
+| 超高密度（xhdpi）    | 720x1280  | 320|<br>
+| 超超高密度（xxhdpi）    | 1080x1920  | 480 |</p>
+<h4>屏幕尺寸、分辨率、像素密度三者关系</h4>
+<p>一部手机的分辨率是宽x高，屏幕大小是以寸为单位，那么三者的关系是：</p>
+<div class="image-package">
+<div class="image-container" style="max-width: 360px; max-height: 406px; background-color: transparent;">
+<div class="image-container-fill" style="padding-bottom: 112.77999999999999%;"></div>
+<div class="image-view" data-width="360" data-height="406"><img data-original-src="//upload-images.jianshu.io/upload_images/944365-2b5dc928ab334440.png" data-original-width="360" data-original-height="406" data-original-format="image/png" data-original-filesize="25450" class="" style="cursor: zoom-in;" src="./Android 屏幕适配：最全面的解决方案 - 简书_files/944365-2b5dc928ab334440.png"></div>
+</div>
+<div class="image-caption">三者关系示意图</div>
+</div><br>
+<p>数学不太差的人应该能懂.....吧？</p>
+
+<p><strong>不懂没关系，在这里举个例子</strong><br>
+假设一部手机的分辨率是1080x1920（px），屏幕大小是5寸，问密度是多少？<br>
+解：请直接套公式<br>
+</p><div class="image-package">
+<div class="image-container" style="max-width: 539px; max-height: 1166px;">
+<div class="image-container-fill" style="padding-bottom: 166.6%;"></div>
+<div class="image-view" data-width="539" data-height="898"><img data-original-src="//upload-images.jianshu.io/upload_images/944365-5f2509be9276460c.png" data-original-width="539" data-original-height="898" data-original-format="image/png" data-original-filesize="93024" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">解答过程</div>
+</div><p></p>
+<h4>密度无关像素</h4>
+<ul>
+<li>含义：density-independent pixel，叫dp或dip，与终端上的实际物理像素点无关。</li>
+<li>单位：dp，可以保证在不同屏幕像素密度的设备上显示相同的效果</li>
+</ul>
+<blockquote>
+<ol>
+<li>Android开发时用dp而不是px单位设置图片大小，是Android特有的单位</li>
+<li>场景：假如同样都是画一条长度是屏幕一半的线，如果使用px作为计量单位，那么在480x800分辨率手机上设置应为240px；在320x480的手机上应设置为160px，二者设置就不同了；如果使用dp为单位，在这两种分辨率下，160dp都显示为屏幕一半的长度。</li>
+</ol>
+</blockquote>
+<ul>
+<li>dp与px的转换<br>
+因为ui设计师给你的设计图是以px为单位的，Android开发则是使用dp作为单位的，那么我们需要进行转换：</li>
+</ul>
+<p>|  密度类型  |  代表的分辨率（px） | 屏幕密度（dpi）|换算（px/dp） |比例|<br>
+| ------------- |:-------------:| -------------:| -------------:|<br>
+| 低密度（ldpi）    | 240x320   | 120 |1dp=0.75px|3|<br>
+| 中密度（mdpi）    | 320x480  | 160 |1dp=1px|4|<br>
+| 高密度（hdpi）    | 480x800  | 240|1dp=1.5px|6|<br>
+| 超高密度（xhdpi）    | 720x1280  | 320|1dp=2px|8|<br>
+| 超超高密度（xxhdpi）    | 1080x1920  | 480 |1dp=3px|12|</p>
+<p>在Android中，规定以160dpi（即屏幕分辨率为320x480）为基准：1dp=1px</p>
+<h4>独立比例像素</h4>
+<ul>
+<li>含义：scale-independent pixel，叫sp或sip</li>
+<li>单位：sp</li>
+</ul>
+<blockquote>
+<ol>
+<li>Android开发时用此单位设置文字大小，可根据字体大小首选项进行缩放</li>
+<li>推荐使用12sp、14sp、18sp、22sp作为字体设置的大小，不推荐使用奇数和小数，容易造成精度的丢失问题；小于12sp的字体会太小导致用户看不清</li>
+</ol>
+</blockquote>
+<p><strong>请把上面的概念记住，因为下面讲解都会用到！</strong></p>
+<hr>
+<h1>为什么要进行Android屏幕适配</h1>
+<p>由于Android系统的开放性，任何用户、开发者、OEM厂商、运营商都可以对Android进行定制，于是导致：</p>
+<ul>
+<li>Android系统碎片化：小米定制的MIUI、魅族定制的flyme、华为定制的EMUI等等</li>
+</ul>
+<blockquote>
+<p>当然都是基于Google原生系统定制的</p>
+</blockquote>
+<ul>
+<li>Android机型屏幕尺寸碎片化：5寸、5.5寸、6寸等等</li>
+<li>Android屏幕分辨率碎片化：320x480、480x800、720x1280、1080x1920</li>
+</ul>
+<blockquote>
+<p>据友盟指数显示，统计至2015年12月，支持Android的设备共有27796种</p>
+</blockquote>
+<p>当Android系统、屏幕尺寸、屏幕密度出现碎片化的时候，就很容易出现同一元素在不同手机上显示不同的问题。</p>
+<blockquote>
+<p>试想一下这么一个场景：<br>
+为4.3寸屏幕准备的UI设计图，运行在5.0寸的屏幕上，很可能在右侧和下侧存在大量的空白；而5.0寸的UI设计图运行到4.3寸的设备上，很可能显示不下。</p>
+</blockquote>
+<p><strong>为了保证用户获得一致的用户体验效果：</strong></p>
+<blockquote>
+<p>使得某一元素在Android不同尺寸、不同分辨率的手机上具备相同的显示效果</p>
+</blockquote>
+<p>于是，我们便需要对Android屏幕进行适配。</p>
+<hr>
+<h1>屏幕适配问题的本质</h1>
+<ul>
+<li>使得“布局”、“布局组件”、“图片资源”、“用户界面流程”匹配<strong>不同的屏幕尺寸</strong>
+</li>
+</ul>
+<blockquote>
+<p>使得布局、布局组件自适应屏幕尺寸；<br>
+根据屏幕的配置来加载相应的UI布局、用户界面流程</p>
+</blockquote>
+<ul>
+<li>使得“图片资源”匹配<strong>不同的屏幕密度</strong>
+</li>
+</ul>
+<hr>
+<h1>解决方案</h1>
+<ul>
+<li>问题：如何进行屏幕尺寸匹配？</li>
+<li>答：</li>
+</ul>
+<div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 452px;">
+<div class="image-container-fill" style="padding-bottom: 49.669999999999995%;"></div>
+<div class="image-view" data-width="910" data-height="452"><img data-original-src="//upload-images.jianshu.io/upload_images/944365-ced9745859537daf.png" data-original-width="910" data-original-height="452" data-original-format="image/png" data-original-filesize="53492" class="image-loading" style="cursor: zoom-in;"></div>
+</div>
+<div class="image-caption">屏幕尺寸适配解决方案.png</div>
+</div>
+<hr>
+<h3>“布局”匹配</h3>
+<p><strong>本质1：使得布局元素自适应屏幕尺寸</strong></p>
+<ul>
+<li>做法<br>
+使用相对布局（RelativeLayout），禁用绝对布局（AbsoluteLayout）</li>
+</ul>
+<p>开发中，我们使用的布局一般有：</p>
+<ul>
+<li>线性布局（Linearlayout）</li>
+<li>相对布局（RelativeLayout）</li>
+<li>帧布局（FrameLayout）</li>
+<li>绝对布局（AbsoluteLayout）</li>
+</ul>
+<blockquote>
+<p>由于绝对布局（AbsoluteLayout）适配性极差，所以极少使用。</p>
+</blockquote>
+<p>对于线性布局（Linearlayout）、相对布局（RelativeLayout）和帧布局（FrameLayout）需要根据需求进行选择，但要记住：</p>
+<ul>
+<li>RelativeLayout<br>
+布局的子控件之间使用<strong>相对位置</strong>的方式排列，因为RelativeLayout讲究的是<strong>相对位置</strong>，即使屏幕的大小改变，视图之前的相对位置都不会变化，与屏幕大小无关，灵活性很强</li>
+<li>LinearLayout<br>
+通过多层嵌套LinearLayout和组合使<br>
+用"wrap_content"和"match_parent"已经可以构建出足够复杂的布局。但是LinearLayout<strong>无法准确地控制子视图之间的位置关系</strong>，只能简单的一个挨着一个地排列</li>
+</ul>
+<p><strong>所以，对于屏幕适配来说，使用相对布局（RelativeLayout）将会是更好的解决方案</strong></p>
+<p><strong>本质2：根据屏幕的配置来加载相应的UI布局</strong></p>
+<blockquote>
+<p>应用场景：需要为不同屏幕尺寸的设备设计不同的布局</p>
+</blockquote>
+<ul>
+<li>做法：<strong>使用限定符</strong>
+</li>
+<li>作用：通过配置<strong>限定符</strong>使得程序在运行时根据当前设备的配置（屏幕尺寸）自动加载合适的布局资源</li>
+</ul>
+<ul>
+<li>限定符类型：</li>
+<li>尺寸（size）限定符</li>
+<li>最小宽度（Smallest-width）限定符</li>
+<li>布局别名</li>
+<li>屏幕方向（Orientation）限定符</li>
+</ul>
+<h3>尺寸（size）限定符</h3>
+<ul>
+<li>使用场景：当一款应用显示的内容较多，希望进行以下设置：</li>
+</ul>
+<blockquote>
+<ul>
+<li>在平板电脑和电视的屏幕（&gt;7英寸）上：实施<strong>“双面板”</strong>模式以同时显示更多内容</li>
+<li>在手机较小的屏幕上：使用<strong>单面板</strong>分别显示内容</li>
+</ul>
+</blockquote>
+<p>因此，我们可以使用尺寸限定符（layout-large）通过创建一个文件</p>
+<pre class="hljs undefined"><code>res/layout-large/main.xml
+</code></pre>
+<p>来完成上述设定：</p>
+<blockquote>
+<ul>
+<li>让系统在屏幕尺寸&gt;7英寸时采用适配平板的双面板布局</li>
+<li>反之（默认情况下）采用适配手机的单面板布局</li>
+</ul>
+</blockquote>
+<p>文件配置如下：</p>
+<ul>
+<li>适配手机的单面板（默认）布局：res/layout/main.xml</li>
+</ul>
+<pre class="hljs javascript"><code class="javascript">&lt;LinearLayout xmlns:android=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
+    android:orientation=<span class="hljs-string">"vertical"</span>
+    android:layout_width=<span class="hljs-string">"match_parent"</span>
+    android:layout_height=<span class="hljs-string">"match_parent"</span>&gt;
+
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/headlines"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.HeadlinesFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"match_parent"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span></span>
+</code></pre>
+<ul>
+<li>适配尺寸&gt;7寸平板的双面板布局：：res/layout-large/main.xml</li>
+</ul>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
+    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"fill_parent"</span>
+    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">"horizontal"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/headlines"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.HeadlinesFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"400dp"</span>
+              <span class="hljs-attr">android:layout_marginRight</span>=<span class="hljs-string">"10dp"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/article"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.ArticleFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"fill_parent"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>请注意：</p>
+</blockquote>
+<ul>
+<li>两个布局名称均为main.xml，只有布局的目录名不同：第一个布局的目录名为：layout，第二个布局的目录名为：layout-large，包含了尺寸限定符（large）</li>
+<li>被定义为大屏的设备(7寸以上的平板)会自动加载包含了large限定符目录的布局，而小屏设备会加载另一个默认的布局</li>
+</ul>
+<p><strong>但要注意的是，这种方式只适合Android 3.2版本之前。</strong></p>
+<h3>最小宽度（Smallest-width）限定符</h3>
+<blockquote>
+<ul>
+<li>背景：上述提到的限定符“large”具体是指多大呢？似乎没有一个定量的指标，这便意味着可能没办法准确地根据当前设备的配置（屏幕尺寸）自动加载合适的布局资源</li>
+<li>例子：比如说large同时包含着5寸和7寸，这意味着使用“large”限定符的话我没办法实现为5寸和7寸的平板电脑分别加载不同的布局</li>
+</ul>
+</blockquote>
+<p>于是，在Android 3.2及之后版本，引入了最小宽度（Smallest-width）限定符</p>
+<blockquote>
+<p>定义：通过指定某个最小宽度（以 dp 为单位）来精确定位屏幕从而加载不同的UI资源</p>
+</blockquote>
+<ul>
+<li>使用场景</li>
+</ul>
+<blockquote>
+<p>你需要为标准 7 英寸平板电脑匹配双面板布局（其最小宽度为 600 dp），在手机（较小的屏幕上）匹配单面板布局</p>
+</blockquote>
+<p>解决方案：您可以使用上文中所述的单面板和双面板这两种布局，但您应使用 <strong>sw600dp</strong> 指明双面板布局仅适用于最小宽度为 600 dp 的屏幕，而不是使用 large 尺寸限定符。</p>
+<blockquote>
+<ul>
+<li>sw xxxdp，即small width的缩写，其不区分方向，即无论是宽度还是高度，只要大于 xxxdp，就采用次此布局</li>
+</ul>
+</blockquote>
+<ul>
+<li>例子：使用了layout-sw 600dp的最小宽度限定符，即无论是宽度还是高度，只要大于600dp，就采用layout-sw 600dp目录下的布局</li>
+</ul>
+<p>代码展示：</p>
+<ul>
+<li>适配手机的单面板（默认）布局：res/layout/main.xml</li>
+</ul>
+<pre class="hljs javascript"><code class="javascript">&lt;LinearLayout xmlns:android=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
+    android:orientation=<span class="hljs-string">"vertical"</span>
+    android:layout_width=<span class="hljs-string">"match_parent"</span>
+    android:layout_height=<span class="hljs-string">"match_parent"</span>&gt;
+
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/headlines"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.HeadlinesFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"match_parent"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span></span>
+</code></pre>
+<ul>
+<li>适配尺寸&gt;7寸平板的双面板布局：res/layout-sw600dp/main.xml</li>
+</ul>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
+    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"fill_parent"</span>
+    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">"horizontal"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/headlines"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.HeadlinesFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"400dp"</span>
+              <span class="hljs-attr">android:layout_marginRight</span>=<span class="hljs-string">"10dp"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/article"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.ArticleFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"fill_parent"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span>
+</code></pre>
+<blockquote>
+<ul>
+<li>对于最小宽度≥ 600 dp 的设备<br>
+系统会自动加载 layout-sw600dp/main.xml（双面板）布局，否则系统就会选择 layout/main.xml（单面板）布局<br>
+（这个选择过程是Android系统自动选择的）</li>
+</ul>
+</blockquote>
+<h2>使用布局别名</h2>
+<h6>设想这么一个场景</h6>
+<blockquote>
+<p>当你需要同时为Android 3.2版本前和Android 3.2版本后的手机进行屏幕尺寸适配的时候，由于尺寸限定符仅用于Android 3.2版本前，最小宽度限定符仅用于Android 3.2版本后，所以这会带来一个问题，为了很好地进行屏幕尺寸的适配，你需要同时维护layout-sw600dp和layout-large的两套main.xml平板布局，如下：</p>
+</blockquote>
+<ul>
+<li>适配手机的单面板（默认）布局：res/layout/main.xml</li>
+<li>适配尺寸&gt;7寸平板的双面板布局（Android 3.2前）：res/layout-large/main.xml</li>
+<li>适配尺寸&gt;7寸平板的双面板布局（Android 3.2后）res/layout-sw600dp/main.xml</li>
+</ul>
+<p>最后的两个文件的xml内容是完全相同的，这会带来：<strong>文件名的重复从而带来一些列后期维护的问题</strong></p>
+<h4>于是为了要解决这种重复问题，我们引入了“布局别名”</h4>
+<p>还是上面的例子，你可以定义以下布局：</p>
+<ul>
+<li>适配手机的单面板（默认）布局：res/layout/main.xml</li>
+<li>适配尺寸&gt;7寸平板的双面板布局：res/layout/main_twopanes.xml</li>
+</ul>
+<p>然后加入以下两个文件，以便进行Android 3.2前和Android 3.2后的版本双面板布局适配：</p>
+<ol>
+<li>res/values-large/layout.xml（Android 3.2之前的双面板布局）</li>
+</ol>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"main"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"layout"</span>&gt;</span>@layout/main_twopanes<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span>
+</code></pre>
+<ol start="2">
+<li>res/values-sw600dp/layout.xml（Android 3.2及之后的双面板布局）</li>
+</ol>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"main"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"layout"</span>&gt;</span>@layout/main_twopanes<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>注：</p>
+</blockquote>
+<ul>
+<li>最后两个文件有着相同的内容，但是它们并没有真正去定义布局，它们仅仅只是<strong>将main设置成了@layout/main_twopanes的别名</strong>
+</li>
+<li>由于这些文件包含 large 和 sw600dp 选择器，因此，系统会将此文件匹配到不同版本的&gt;7寸平板上：<br>
+a. 版本低于 3.2 的平板会匹配 large的文件<br>
+b. 版本高于 3.2 的平板会匹配 sw600dp的文件</li>
+</ul>
+<p>这样两个layout.xml都只是引用了@layout/main_twopanes，就避免了重复定义布局文件的情况</p>
+<h3>屏幕方向（Orientation）限定符</h3>
+<ul>
+<li>使用场景：根据屏幕方向进行布局的调整</li>
+</ul>
+<blockquote>
+<p>取以下为例子：</p>
+<ul>
+<li>小屏幕, 竖屏: 单面板</li>
+<li>小屏幕, 横屏: 单面板</li>
+<li>7 英寸平板电脑，纵向：单面板，带操作栏</li>
+<li>7 英寸平板电脑，横向：双面板，宽，带操作栏</li>
+<li>10 英寸平板电脑，纵向：双面板，窄，带操作栏</li>
+<li>10 英寸平板电脑，横向：双面板，宽，带操作栏</li>
+<li>电视，横向：双面板，宽，带操作栏</li>
+</ul>
+</blockquote>
+<p><strong>方法是：</strong></p>
+<ul>
+<li>先定义类别：单/双面板、是否带操作栏、宽/窄</li>
+</ul>
+<blockquote>
+<p>定义在 res/layout/ 目录下的某个 XML 文件中</p>
+</blockquote>
+<ul>
+<li>再进行相应的匹配：屏幕尺寸（小屏、7寸、10寸）、方向（横、纵）</li>
+</ul>
+<blockquote>
+<p>使用布局别名进行匹配</p>
+</blockquote>
+<ol>
+<li>在 res/layout/ 目录下的某个 XML 文件中定义所需要的布局类别<br>
+（单/双面板、是否带操作栏、宽/窄）<br>
+res/layout/onepane.xml:(单面板)</li>
+</ol>
+<pre class="hljs javascript"><code class="javascript">&lt;LinearLayout xmlns:android=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>  
+    android:orientation=<span class="hljs-string">"vertical"</span>  
+    android:layout_width=<span class="hljs-string">"match_parent"</span>  
+    android:layout_height=<span class="hljs-string">"match_parent"</span>&gt;  
+  
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/headlines"</span>  
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>  
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.HeadlinesFragment"</span>  
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"match_parent"</span> /&gt;</span>  
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span></span>  
+</code></pre>
+<p>res/layout/onepane_with_bar.xml:(单面板带操作栏)</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>  
+    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">"vertical"</span>  
+    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"match_parent"</span>  
+    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"match_parent"</span>&gt;</span>  
+    <span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"match_parent"</span>   
+                  <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/linearLayout1"</span>    
+                  <span class="hljs-attr">android:gravity</span>=<span class="hljs-string">"center"</span>  
+                  <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"50dp"</span>&gt;</span>  
+        <span class="hljs-tag">&lt;<span class="hljs-name">ImageView</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/imageView1"</span>   
+                   <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"wrap_content"</span>  
+                   <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"wrap_content"</span>  
+                   <span class="hljs-attr">android:src</span>=<span class="hljs-string">"@drawable/logo"</span>  
+                   <span class="hljs-attr">android:paddingRight</span>=<span class="hljs-string">"30dp"</span>  
+                   <span class="hljs-attr">android:layout_gravity</span>=<span class="hljs-string">"left"</span>  
+                   <span class="hljs-attr">android:layout_weight</span>=<span class="hljs-string">"0"</span> /&gt;</span>  
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"wrap_content"</span>   
+              <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/view1"</span>  
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"wrap_content"</span>  
+              <span class="hljs-attr">android:layout_weight</span>=<span class="hljs-string">"1"</span> /&gt;</span>  
+        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/categorybutton"</span>  
+                <span class="hljs-attr">android:background</span>=<span class="hljs-string">"@drawable/button_bg"</span>  
+                <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"match_parent"</span>  
+                <span class="hljs-attr">android:layout_weight</span>=<span class="hljs-string">"0"</span>  
+                <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"120dp"</span>  
+                <span class="hljs-attr">style</span>=<span class="hljs-string">"@style/CategoryButtonStyle"</span>/&gt;</span>  
+    <span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span>  
+  
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/headlines"</span>   
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>  
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.HeadlinesFragment"</span>  
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"match_parent"</span> /&gt;</span>  
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span> 
+</code></pre>
+<p>res/layout/twopanes.xml:(双面板，宽布局)</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
+    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"fill_parent"</span>
+    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">"horizontal"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/headlines"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.HeadlinesFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"400dp"</span>
+              <span class="hljs-attr">android:layout_marginRight</span>=<span class="hljs-string">"10dp"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/article"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.ArticleFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"fill_parent"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span>
+</code></pre>
+<p>res/layout/twopanes_narrow.xml:(双面板，窄布局)</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
+    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"fill_parent"</span>
+    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">"horizontal"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/headlines"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.HeadlinesFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"200dp"</span>
+              <span class="hljs-attr">android:layout_marginRight</span>=<span class="hljs-string">"10dp"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">fragment</span> <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/article"</span>
+              <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"fill_parent"</span>
+              <span class="hljs-attr">android:name</span>=<span class="hljs-string">"com.example.android.newsreader.ArticleFragment"</span>
+              <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"fill_parent"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span>
+</code></pre>
+<p>2.使用布局别名进行相应的匹配<br>
+(屏幕尺寸（小屏、7寸、10寸）、方向（横、纵）)<br>
+res/values/layouts.xml:（默认布局）</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>  
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"main_layout"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"layout"</span>&gt;</span>@layout/onepane_with_bar<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>  
+    <span class="hljs-tag">&lt;<span class="hljs-name">bool</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"has_two_panes"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">bool</span>&gt;</span>  
+<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span> 
+</code></pre>
+<blockquote>
+<p>可为resources设置bool，通过获取其值来动态判断目前已处在哪个适配布局</p>
+</blockquote>
+<p>res/values-sw600dp-land/layouts.xml<br>
+（大屏、横向、双面板、宽-Andorid 3.2版本后）</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"main_layout"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"layout"</span>&gt;</span>@layout/twopanes<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">bool</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"has_two_panes"</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">bool</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span>
+</code></pre>
+<p>res/values-sw600dp-port/layouts.xml<br>
+（大屏、纵向、单面板带操作栏-Andorid 3.2版本后）</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"main_layout"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"layout"</span>&gt;</span>@layout/onepane<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">bool</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"has_two_panes"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">bool</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span>
+</code></pre>
+<p>res/values-large-land/layouts.xml<br>
+（大屏、横向、双面板、宽-Andorid 3.2版本前）</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"main_layout"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"layout"</span>&gt;</span>@layout/twopanes<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">bool</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"has_two_panes"</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">bool</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span>
+</code></pre>
+<p>res/values-large-port/layouts.xml<br>
+（大屏、纵向、单面板带操作栏-Andorid 3.2版本前）</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"main_layout"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"layout"</span>&gt;</span>@layout/onepane<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">bool</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"has_two_panes"</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">bool</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>这里没有完全把全部尺寸匹配类型的代码贴出来，大家可以自己去尝试把其补充完整</p>
+</blockquote>
+<hr>
+<h3>“布局组件”匹配</h3>
+<p><strong>本质：使得布局组件自适应屏幕尺寸</strong></p>
+<ul>
+<li>做法<br>
+使用"wrap_content"、"match_parent"和"weight“来控制视图组件的宽度和高度</li>
+</ul>
+<blockquote>
+<ul>
+<li>"wrap_content"<br>
+相应视图的宽和高就会被设定成所需的最小尺寸以适应视图中的内容</li>
+<li>"match_parent"(在Android API 8之前叫作"fill_parent")<br>
+视图的宽和高延伸至充满整个父布局</li>
+<li>"weight"<br>
+1.定义：是线性布局（Linelayout）的一个独特比例分配属性<br>
+2.作用：使用此属性设置权重，然后按照比例对界面进行空间的分配，公式计算是：控件宽度=控件设置宽度+剩余空间所占百分比宽幅<br>
+具体可以参考这篇<a href="https://link.jianshu.com/?t=http://mobile.51cto.com/abased-375428.htm" target="_blank" rel="nofollow">文章</a>，讲解得非常详细</li>
+</ul>
+</blockquote>
+<p>通过使用"wrap_content"、"match_parent"和"weight"来替代硬编码的方式定义视图大小&amp;位置，你的视图要么仅仅使用了需要的那边一点空间，要么就会充满所有可用的空间，即按需占据空间大小，能让你的布局元素充分适应你的屏幕尺寸</p>
+<hr>
+<h3>“图片资源”匹配</h3>
+<p><strong>本质：使得图片资源在不同屏幕密度上显示相同的像素效果</strong></p>
+<ul>
+<li>做法：<strong>使用自动拉伸位图：Nine-Patch的图片类型</strong><br>
+假设需要匹配不同屏幕大小，你的图片资源也必须自动适应各种屏幕尺寸</li>
+</ul>
+<blockquote>
+<p>使用场景：一个按钮的背景图片必须能够随着按钮大小的改变而改变。<br>
+使用普通的图片将无法实现上述功能,因为运行时会均匀地拉伸或压缩你的图片</p>
+</blockquote>
+<ul>
+<li>解决方案：使用自动拉伸位图（nine-patch图片），后缀名是.9.png，它是一种被特殊处理过的PNG图片，设计时可以指定图片的拉伸区域和非拉伸区域；使用时，系统就会根据控件的大小自动地拉伸你想要拉伸的部分</li>
+</ul>
+<blockquote>
+<p>1.必须要使用.9.png后缀名，因为系统就是根据这个来区别nine-patch图片和普通的PNG图片的；</p>
+</blockquote>
+<p>2.当你需要在一个控件中使用nine-patch图片时,如</p>
+<pre class="hljs bash"><code class="bash">```系统就会根据控件的大小自动地拉伸你想要拉伸的部分
+***
+<span class="hljs-comment">###”用户界面流程“匹配</span>
+&gt;- 使用场景：我们会根据设备特点显示恰当的布局，但是这样做，会使得用户界面流程可能会有所不同。
+&gt;- 例如，如果应用处于双面板模式下，点击左侧面板上的项即可直接在右侧面板上显示相关内容；而如果该应用处于单面板模式下，点击相关的内容应该跳转到另外一个Activity进行后续的处理。
+
+**本质：根据屏幕的配置来加载相应的用户界面流程**
+- 做法
+进行用户界面流程的自适应配置：
+
+
+1. 确定当前布局
+2. 根据当前布局做出响应
+3. 重复使用其他活动中的片段
+4. 处理屏幕配置变化
+
+
+
+
+
+
+- 步骤1：确定当前布局
+由于每种布局的实施都会稍有不同，因此我们需要先确定当前向用户显示的布局。例如，我们可以先了解用户所处的是“单面板”模式还是“双面板”模式。要做到这一点，可以通过查询指定视图是否存在以及是否已显示出来。
+</code></pre>
+<p>public class NewsReaderActivity extends FragmentActivity {<br>
+boolean mIsDualPane;</p>
+<pre class="hljs java"><code class="java"><span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>{
+    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+    setContentView(R.layout.main_layout);
+
+    View articleView = findViewById(R.id.article);
+    mIsDualPane = articleView != <span class="hljs-keyword">null</span> &amp;&amp;
+                    articleView.getVisibility() == View.VISIBLE;
+}
+</code></pre>
+<p>}</p>
+<pre class="hljs undefined"><code>&gt;这段代码用于查询“报道”面板是否可用，与针对具体布局的硬编码查询相比，这段代码的灵活性要大得多。
+
+
+
+
+
+- 步骤2：根据当前布局做出响应
+有些操作可能会因当前的具体布局而产生不同的结果。
+&gt;例如，在新闻阅读器示例中，如果用户界面处于双面板模式下，那么点击标题列表中的标题就会在右侧面板中打开相应报道；但如果用户界面处于单面板模式下，那么上述操作就会启动一个独立活动：
+</code></pre>
+<p>@Override<br>
+public void onHeadlineSelected(int index) {<br>
+mArtIndex = index;<br>
+if (mIsDualPane) {<br>
+/* display article on the right pane <em>/<br>
+mArticleFragment.displayArticle(mCurrentCat.getArticle(index));<br>
+} else {<br>
+/</em> start a separate activity */<br>
+Intent intent = new Intent(this, ArticleActivity.class);<br>
+intent.putExtra("catIndex", mCatIndex);<br>
+intent.putExtra("artIndex", index);<br>
+startActivity(intent);<br>
+}<br>
+}</p>
+<pre class="hljs undefined"><code>
+- 步骤3：重复使用其他活动中的片段
+多屏幕设计中的重复模式是指，对于某些屏幕配置，已实施界面的一部分会用作面板；但对于其他配置，这部分就会以独立活动的形式存在。
+&gt;例如，在新闻阅读器示例中，对于较大的屏幕，新闻报道文本会显示在右侧面板中；但对于较小的屏幕，这些文本就会以独立活动的形式存在。
+
+在类似情况下，通常可以在多个活动中重复使用相同的 Fragment 子类以避免代码重复。例如，在双面板布局中使用了 ArticleFragment：
+</code></pre>
+<p>&lt;LinearLayout xmlns:android="<a href="https://link.jianshu.com/?t=http://schemas.android.com/apk/res/android" target="_blank" rel="nofollow">http://schemas.android.com/apk/res/android</a>"<br>
+android:layout_width="fill_parent"<br>
+android:layout_height="fill_parent"<br>
+android:orientation="horizontal"&gt;<br>
+&lt;fragment android:id="@+id/headlines"<br>
+android:layout_height="fill_parent"<br>
+android:name="com.example.android.newsreader.HeadlinesFragment"<br>
+android:layout_width="400dp"<br>
+android:layout_marginRight="10dp"/&gt;<br>
+&lt;fragment android:id="@+id/article"<br>
+android:layout_height="fill_parent"<br>
+android:name="com.example.android.newsreader.ArticleFragment"<br>
+android:layout_width="fill_parent" /&gt;<br>
+&lt;/LinearLayout&gt;</p>
+<pre class="hljs undefined"><code>然后又在小屏幕的Activity布局中重复使用了它 ：
+</code></pre>
+<p>ArticleFragment frag = new ArticleFragment();<br>
+getSupportFragmentManager().beginTransaction().add(android.R.id.content, frag).commit();</p>
+<pre class="hljs css"><code class="css">
+<span class="hljs-selector-tag">-</span> 步骤3：处理屏幕配置变化
+如果我们使用独立<span class="hljs-selector-tag">Activity</span>实施界面的独立部分，那么请注意，我们可能需要对特定配置变化（例如屏幕方向的变化）做出响应，以便保持界面的一致性。
+&gt;例如，在运行 <span class="hljs-selector-tag">Android</span> 3<span class="hljs-selector-class">.0</span> 或更高版本的标准 7 英寸平板电脑上，如果新闻阅读器示例应用运行在纵向模式下，就会在使用独立活动显示新闻报道；但如果该应用运行在横向模式下，就会使用双面板布局。
+
+也就是说，如果用户处于纵向模式下且屏幕上显示的是用于阅读报道的活动，那么就需要在检测到屏幕方向变化（变成横向模式）后执行相应操作，即停止上述活动并返回主活动，以便在双面板布局中显示相关内容：
+</code></pre>
+<p>public class ArticleActivity extends FragmentActivity {<br>
+int mCatIndex, mArtIndex;</p>
+<pre class="hljs java"><code class="java"><span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>{
+    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+    mCatIndex = getIntent().getExtras().getInt(<span class="hljs-string">"catIndex"</span>, <span class="hljs-number">0</span>);
+    mArtIndex = getIntent().getExtras().getInt(<span class="hljs-string">"artIndex"</span>, <span class="hljs-number">0</span>);
+
+    <span class="hljs-comment">// If should be in two-pane mode, finish to return to main activity</span>
+    <span class="hljs-keyword">if</span> (getResources().getBoolean(R.bool.has_two_panes)) {
+        finish();
+        <span class="hljs-keyword">return</span>;
+    }
+    ...
+</code></pre>
+<p>}</p>
+<pre class="hljs ruby"><code class="ruby">
+通过上面一系列步骤，我们就完全可以建立一个可以根据用户界面配置进行自适应的应用程序App了。
+
+***
+<span class="hljs-comment">#总结</span>
+经过上面的介绍，对于屏幕尺寸大小适配问题应该是不成问题了。
+***
+<span class="hljs-comment">#解决方案</span>
+- 问题：如何进行屏幕密度匹配？
+- 答：
+
+
+
+![屏幕密度匹配解决方案.png](<span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/upload-images.jianshu.io/upload</span>_images/<span class="hljs-number">944365</span>-<span class="hljs-number">04</span>e4124d0daf0a69.png?imageMogr2/auto-orient/strip%<span class="hljs-number">7</span>CimageView2/<span class="hljs-number">2</span>/w/<span class="hljs-number">1240</span>)
+
+<span class="hljs-comment">###“布局控件”匹配</span>
+**本质：使得布局组件在不同屏幕密度上显示相同的像素效果**
+- 做法<span class="hljs-number">1</span>：使用密度无关像素
+由于各种屏幕的像素密度都有所不同，因此相同数量的像素在不同设备上的实际大小也有所差异，这样使用像素（px）定义布局尺寸就会产生问题。
+因此，请务必使用**密度无关像素 dp** 或**独立比例像素 sp **单位指定尺寸。
+- 相关概念介绍
+**密度无关像素**
+- 含义：density-independent pixel，叫dp或dip，与终端上的实际物理像素点无关。
+- 单位：dp，可以保证在不同屏幕像素密度的设备上显示相同的效果
+&gt;<span class="hljs-number">1</span>. Android开发时用dp而不是px单位设置图片大小，是Android特有的单位
+&gt;<span class="hljs-number">2</span>. 场景：假如同样都是画一条长度是屏幕一半的线，如果使用px作为计量单位，那么在<span class="hljs-number">480</span>x80<span class="hljs-number">0</span>分辨率手机上设置应为<span class="hljs-number">240</span>px；在<span class="hljs-number">320</span>x48<span class="hljs-number">0</span>的手机上应设置为<span class="hljs-number">160</span>px，二者设置就不同了；如果使用dp为单位，在这两种分辨率下，<span class="hljs-number">160</span>dp都显示为屏幕一半的长度。
+
+- dp与px的转换
+因为ui给你的设计图是以px为单位的，Android开发则是使用dp作为单位的，那么该如何转换呢？
+
+<span class="hljs-params">|  密度类型  |</span>  代表的分辨率（px） <span class="hljs-params">| 屏幕密度（dpi）|</span>换算（px/dp） <span class="hljs-params">|比例|</span>
+<span class="hljs-params">| ------------- |</span><span class="hljs-symbol">:-------------</span><span class="hljs-symbol">:|</span> -------------<span class="hljs-symbol">:|</span> -------------<span class="hljs-symbol">:|</span> 
+<span class="hljs-params">| 低密度（ldpi）    |</span> <span class="hljs-number">240</span>x32<span class="hljs-number">0</span>   <span class="hljs-params">| 120 |</span><span class="hljs-number">1</span>dp=<span class="hljs-number">0</span>.<span class="hljs-number">75</span>px<span class="hljs-params">|3|</span>
+<span class="hljs-params">| 中密度（mdpi）    |</span> <span class="hljs-number">320</span>x48<span class="hljs-number">0</span>  <span class="hljs-params">| 160 |</span><span class="hljs-number">1</span>dp=<span class="hljs-number">1</span>px<span class="hljs-params">|4|</span>
+<span class="hljs-params">| 高密度（hdpi）    |</span> <span class="hljs-number">480</span>x80<span class="hljs-number">0</span>  <span class="hljs-params">| 240|</span><span class="hljs-number">1</span>dp=<span class="hljs-number">1.5</span>px<span class="hljs-params">|6|</span>
+<span class="hljs-params">| 超高密度（xhdpi）    |</span> <span class="hljs-number">720</span>x128<span class="hljs-number">0</span>  <span class="hljs-params">| 320|</span><span class="hljs-number">1</span>dp=<span class="hljs-number">2</span>px<span class="hljs-params">|8|</span>
+<span class="hljs-params">| 超超高密度（xxhdpi）    |</span> <span class="hljs-number">1080</span>x192<span class="hljs-number">0</span>  <span class="hljs-params">| 480 |</span><span class="hljs-number">1</span>dp=<span class="hljs-number">3</span>px<span class="hljs-params">|12|</span>
+
+在Android中，规定以<span class="hljs-number">160</span>dpi（即屏幕分辨率为<span class="hljs-number">320</span>x48<span class="hljs-number">0</span>）为基准：<span class="hljs-number">1</span>dp=<span class="hljs-number">1</span>px
+
+
+
+**独立比例像素**
+- 含义：scale-independent pixel，叫sp或sip
+- 单位：sp
+&gt;<span class="hljs-number">1</span>. Android开发时用此单位设置文字大小，可根据用户的偏好文字大小/字体大小首选项进行缩放
+&gt;<span class="hljs-number">2</span>. 推荐使用<span class="hljs-number">12</span>sp、<span class="hljs-number">14</span>sp、<span class="hljs-number">18</span>sp、<span class="hljs-number">22</span>sp作为字体设置的大小，不推荐使用奇数和小数，容易造成精度的丢失问题；小于<span class="hljs-number">12</span>sp的字体会太小导致用户看不清
+
+所以，为了能够进行不同屏幕像素密度的匹配，我们推荐：
+- 使用dp来代替px作为控件长度的统一度量单位
+- 使用sp作为文字的统一度量单位
+
+可是，请看以下一种场景：
+&gt;Nexus5的总宽度为<span class="hljs-number">360</span>dp，我们现在在水平方向上放置两个按钮，一个是<span class="hljs-number">150</span>dp左对齐，另外一个是<span class="hljs-number">200</span>dp右对齐，那么中间留有<span class="hljs-number">10</span>dp间隔；但假如同样地设置在Nexus S（屏幕宽度是<span class="hljs-number">320</span>dp），会发现，两个按钮会重叠，因为<span class="hljs-number">320</span>dp&lt;<span class="hljs-number">200</span>+<span class="hljs-number">150</span>dp
+
+从上面可以看出，由于Android屏幕设备的多样性，如果使用dp来作为度量单位，并不是所有的屏幕的宽度都具备相同的dp长度
+&gt;再次明确，**屏幕宽度和像素密度没有任何关联关系**
+
+所以说，dp解决了同一数值在不同分辨率中展示相同尺寸大小的问题（即屏幕像素密度匹配问题），但却没有解决设备尺寸大小匹配的问题。（即屏幕尺寸匹配问题）
+
+&gt;当然，我们一开始讨论的就是屏幕尺寸匹配问题，使用match_parent、wrap_content和weight，尽可能少用dp来指定控件的具体长宽，大部分的情况我们都是可以做到适配的。
+
+<span class="hljs-comment">#那么该如何解决控件的屏幕尺寸和屏幕密度的适配问题呢？</span>
+从上面可以看出：
+- 因为屏幕密度（分辨率）不一样，所以不能用固定的px
+- 因为屏幕宽度不一样，所以要小心的用dp
+
+因为本质上是希望使得布局组件在不同屏幕密度上显示相同的像素效果，那么，之前是绕了个弯使用dp解决这个问题，那么到底能不能直接用px解决呢？
+&gt;即根据不同屏幕密度，控件选择对应的像素值大小
+
+接下来介绍一种方法：**百分比适配方法**，步骤如下：
+<span class="hljs-number">1</span>. 以某一分辨率为基准，生成所有分辨率对应像素数列表
+<span class="hljs-number">2</span>. 将生成像素数列表存放在res目录下对应的values文件下
+<span class="hljs-number">3</span>. 根据UI设计师给出设计图上的尺寸，找到对应像素数的单位，然后设置给控件即可
+
+
+<span class="hljs-comment">#步骤1：以某一分辨率为基准，生成所有分辨率对应像素数列表</span>
+
+现在我们以<span class="hljs-number">320</span>x48<span class="hljs-number">0</span>的分辨率为基准：
+- 将屏幕的宽度分为<span class="hljs-number">320</span>份，取值为x1~x32<span class="hljs-number">0</span>
+- 将屏幕的高度分为<span class="hljs-number">480</span>份，取值为y1~y48<span class="hljs-number">0</span>
+
+然后生成该分辨率对应像素数的列表，如下图：
+- lay_x.xml（宽）
+</code></pre>
+<p>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>
+&lt;resources&gt;&lt;dimen name="x1"&gt;1.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x2"&gt;2.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x3"&gt;3.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x4"&gt;4.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x5"&gt;5.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x6"&gt;6.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x7"&gt;7.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x8"&gt;8.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x9"&gt;9.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x10"&gt;10.0px&lt;/dimen&gt;<br>
+...<br>
+&lt;dimen name="x300"&gt;300.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x301"&gt;301.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x302"&gt;302.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x303"&gt;303.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x304"&gt;304.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x305"&gt;305.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x306"&gt;306.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x307"&gt;307.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x308"&gt;308.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x309"&gt;309.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x310"&gt;310.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x311"&gt;311.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x312"&gt;312.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x313"&gt;313.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x314"&gt;314.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x315"&gt;315.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x316"&gt;316.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x317"&gt;317.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x318"&gt;318.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x319"&gt;319.0px&lt;/dimen&gt;<br>
+&lt;dimen name="x320"&gt;320px&lt;/dimen&gt;<br>
+&lt;/resources&gt;</p>
+<pre class="hljs css"><code class="css">
+<span class="hljs-selector-tag">-</span> <span class="hljs-selector-tag">lay_y</span><span class="hljs-selector-class">.xml</span>（高）
+</code></pre>
+<p>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>
+&lt;resources&gt;&lt;dimen name="y1"&gt;1.0px&lt;/dimen&gt;<br>
+&lt;dimen name="y2"&gt;2.0px&lt;/dimen&gt;<br>
+&lt;dimen name="y3"&gt;3.0px&lt;/dimen&gt;<br>
+&lt;dimen name="y4"&gt;4.0px&lt;/dimen&gt;<br>
+...<br>
+&lt;dimen name="y480"&gt;480px&lt;/dimen&gt;<br>
+&lt;/resources&gt;</p>
+<pre class="hljs undefined"><code>
+
+找到基准后，是时候把其他分辨率补全了，现今以写1080x1920的分辨率为例：
+&gt;因为基准是320x480，所以1080/320=3.375px，1920/480=4px，所以相应文件应该是
+
+- lay_x.xml
+</code></pre>
+<p>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>
+&lt;resources&gt;&lt;dimen name="x1"&gt;3.375px&lt;/dimen&gt;<br>
+&lt;dimen name="x2"&gt;6.65px&lt;/dimen&gt;<br>
+&lt;dimen name="x3"&gt;10.125px&lt;/dimen&gt;<br>
+...<br>
+&lt;dimen name="x320"&gt;1080px&lt;/dimen&gt;<br>
+&lt;/resources&gt;</p>
+<pre class="hljs css"><code class="css"><span class="hljs-selector-tag">-</span> <span class="hljs-selector-tag">lay_y</span><span class="hljs-selector-class">.xml</span>
+</code></pre>
+<p>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>
+&lt;resources&gt;&lt;dimen name="y1"&gt;4px&lt;/dimen&gt;<br>
+&lt;dimen name="y2"&gt;8px&lt;/dimen&gt;<br>
+&lt;dimen name="y3"&gt;12px&lt;/dimen&gt;<br>
+&lt;dimen name="y4"&gt;16px&lt;/dimen&gt;<br>
+...<br>
+&lt;dimen name="y480"&gt;1920px&lt;/dimen&gt;<br>
+&lt;/resources&gt;</p>
+<pre class="hljs cpp"><code class="cpp">
+用上面的方法把你需要适配的分辨率的像素列表补全吧~
+
+作为程序猿的我们当然不会做手写的这些蠢事！！！多谢 @鸿洋大神 提供了自动生成工具（内置了常用的分辨率），大家可以直接[点击这里](https:<span class="hljs-comment">//github.com/hongyangAndroid/Android_Blog_Demos/tree/master/blogcodes/src/main/java/com/zhy/blogcodes/genvalues)下载</span>
+注：工具默认基准为<span class="hljs-number">400</span>*<span class="hljs-number">320</span>，当然对于特殊需求，通过命令行指定即可：
+</code></pre>
+<p>java -jar 文件名.jar 基准宽 基准高 额外支持尺寸1的宽，额外支持尺寸1的高_额外支持尺寸2的宽,额外支持尺寸2的高：</p>
+<pre class="hljs undefined"><code>
+&gt;例如：需要设置的基准是800x1280，额外支持尺寸：735x1152 ；3200x4500；
+</code></pre>
+<p>java -jar 文件名.jar 800 1280 735，1152_3200,4500</p>
+<pre class="hljs objectivec"><code class="objectivec">
+
+<span class="hljs-meta">#步骤2：把生成的各像素数列表放到对应的资源文件</span>
+将生成像素数列表（lay_x.xml和lay_y.xml）存放在res目录下对应的values文件（注意宽、高要对应），如下图：
+
+![res目录下对应的values文件](http:<span class="hljs-comment">//upload-images.jianshu.io/upload_images/944365-c583e1356f18e329.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span>
+
+&gt;注：
+- 分辨率为<span class="hljs-number">480</span>x320的资源文件应放在res/values<span class="hljs-number">-480</span>x320文件夹中；同理分辨率为<span class="hljs-number">1920</span>x1080的资源文件应放在res/values<span class="hljs-number">-1920</span>x1080文件夹中。（其中values<span class="hljs-number">-480</span>x320是分辨率限定符）
+- 必须在默认values里面也创建对应默认lay_x.xml和lay_y.xml文件，如下图
+lay_x.xml
+</code></pre>
+<p>&lt;?xml version="1.0" encoding="utf-8"&gt;<br>
+&lt;resources&gt;<br>
+&lt;dimen name="x1"&gt;1.0dp&lt;/dimen&gt;<br>
+&lt;dimen name="x2"&gt;2.0dp&lt;/dimen&gt;<br>
+...<br>
+&lt;/resources&gt;</p>
+<pre class="hljs bash"><code class="bash">- 因为对于没有生成对应分辨率文件的手机，会使用默认values文件夹，如果默认values文件夹没有（即没有对应的分辨率、没有对应dimen）就会报错，从而无法进行屏幕适配。
+（**注意对应单位改为dp，而不同于上面的px。**因为不知道机型的分辨率，所以默认分辨率文件只好默认为x1=1dp以保证尽量兼容（又回到dp老方法了），**这也是这个解决方案的一个弊端**）
+
+
+<span class="hljs-comment">#步骤3：根据UI设计师给出某一分辨率设计图上的尺寸，找到对应像素数的单位，然后设置给控件即可</span>
+如下图：
+</code></pre>
+<p>&lt;FrameLayout &gt;</p>
+<pre class="hljs xml"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+    <span class="hljs-attr">android:layout_gravity</span>=<span class="hljs-string">"center"</span>
+    <span class="hljs-attr">android:gravity</span>=<span class="hljs-string">"center"</span>
+    <span class="hljs-attr">android:text</span>=<span class="hljs-string">"@string/hello_world"</span>
+    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"@dimen/x160"</span>
+    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"@dimen/y160"</span>/&gt;</span>
+</code></pre>
+<p>&lt;/FrameLayout&gt;</p>
+<pre class="hljs objectivec"><code class="objectivec">
+<span class="hljs-meta">#总结</span>
+使用上述的适配方式，应该能进行<span class="hljs-number">90</span>%的适配了，但其缺点还是很明显：
+- 由于实际上还是使用px作为长度的度量单位，所以和google的要求使用dp作为度量单位会有所背离
+- 必须尽可能多的包含所有分辨率，因为这个是使用这个方案的基础，如果有某个分辨率缺少，将无法完成该屏幕的适配
+- 过多的分辨率像素描述xml文件会增加软件包的大小和维护的难度
+
+***
+<span class="hljs-meta">###“图片资源”匹配</span>
+**本质：使得图片资源在不同屏幕密度上显示相同的像素效果**
+- 做法：提供备用位图（符合屏幕尺寸的图片资源）
+由于 Android 可在各种屏幕密度的设备上运行，因此我们提供的位图资源应该始终可以满足各类密度的要求：
+
+|  密度类型  |  代表的分辨率（px） | 系统密度（dpi）|
+| ------------- |:-------------:| 
+| 低密度（ldpi）    | <span class="hljs-number">240</span>x320   | <span class="hljs-number">120</span> |
+| 中密度（mdpi）    | <span class="hljs-number">320</span>x480  | <span class="hljs-number">160</span> |
+| 高密度（hdpi）    | <span class="hljs-number">480</span>x800  | <span class="hljs-number">240</span>|
+| 超高密度（xhdpi）    | <span class="hljs-number">720</span>x1280  | <span class="hljs-number">320</span>|
+| 超超高密度（xxhdpi）    | <span class="hljs-number">1080</span>x1920  | <span class="hljs-number">480</span> |
+
+- 步骤<span class="hljs-number">1</span>：根据以下尺寸范围针对各密度生成相应的图片。
+&gt;比如说，如果我们为 xhdpi 设备生成了 <span class="hljs-number">200</span>x200 px尺寸的图片，就应该按照相应比例地为 hdpi、mdpi 和 ldpi 设备分别生成 <span class="hljs-number">150</span>x150、<span class="hljs-number">100</span>x100 和 <span class="hljs-number">75</span>x75 尺寸的图片
+
+**即一套分辨率=一套位图资源**（这个当然是Ui设计师做了）
+
+- 步骤<span class="hljs-number">2</span>：将生成的图片文件放在 res/ 下的相应子目录中(mdpi、hdpi、xhdpi、xxhdpi)，系统就会根据运行您应用的设备的屏幕密度自动选择合适的图片
+- 步骤<span class="hljs-number">3</span>：通过引用 @drawable/<span class="hljs-keyword">id</span>，系统都能根据相应屏幕的 屏幕密度（dpi）自动选取合适的位图。
+
+&gt;注：
+- 如果是<span class="hljs-number">.9</span>图或者是不需要多个分辨率的图片，放在drawable文件夹即可
+- 对应分辨率的图片要正确的放在合适的文件夹，否则会造成图片拉伸等问题。
+
+<span class="hljs-meta">#更好地方案解决“图片资源”适配问题</span>
+上述方案是常见的一种方案，这固然是一种解决办法，但缺点在于：
+- 每套分辨率出一套图，为美工或者设计增加了许多工作量
+- 对Android工程文件的apk包变的很大
+
+
+那么，有没有一种方法：
+- 保证屏幕密度适配
+- 可以最小占用设计资源
+- 使得apk包不变大（只使用一套分辨率的图片资源）
+
+下面我们就来介绍**这个方法**：
+- 只需选择唯一一套分辨率规格的图片资源
+
+<span class="hljs-meta">#方法介绍</span>
+
+**<span class="hljs-number">1.</span> 先来理解下Android 加载资源过程**
+Android SDK会根据屏幕密度自动选择对应的资源文件进行渲染加载（自动渲染）
+&gt;比如说，SDK检测到你手机的分辨率是<span class="hljs-number">320</span>x480（dpi=<span class="hljs-number">160</span>），会优先到drawable-mdpi文件夹下找对应的图片资源；但假设你只在xhpdi文件夹下有对应的图片资源文件（mdpi文件夹是空的），那么SDK会去xhpdi文件夹找到相应的图片资源文件，然后将原有大像素的图片自动缩放成小像素的图片，于是大像素的图片照样可以在小像素分辨率的手机上正常显示。
+&gt;具体请看http:<span class="hljs-comment">//blog.csdn.net/xiebudong/article/details/37040263</span>
+**所以理论上来说只需要提供一种分辨率规格的图片资源就可以了**。
+那么应该提供哪种分辨率规格呢？
+&gt;如果只提供ldpi规格的图片，对于大分辨率（xdpi、xxdpi）的手机如果把图片放大就会不清晰
+
+所以需要提供一套你需要支持的最大dpi分辨率规格的图片资源，这样即使用户的手机分辨率很小，这样图片缩小依然很清晰。那么这一套最大dpi分辨率规格应该是哪种呢？是现在市面手机分辨率最大可达到<span class="hljs-number">1080</span>X1920的分辨率（dpi=xxdpi=<span class="hljs-number">480</span>）吗？
+
+**<span class="hljs-number">2.</span> xhdpi应该是首选**
+
+原因如下：
+- xhdpi分辨率以内的手机需求量最旺盛
+目前市面上最普遍的高端机的分辨率还多集中在<span class="hljs-number">720</span>X1080范围内（xhdpi），所以目前来看xhpdi规格的图片资源成为了首选
+- 节省设计资源&amp;工作量
+在现在的App开发中（iOS和Android版本），有些设计师为了保持App不同版本的体验交互一致，可能会以iPhone手机为基础进行设计，包括后期的切图之类的。
+设计师们一般都会用最新的iPhone6和iPhone5s（<span class="hljs-number">5</span>s和<span class="hljs-number">5</span>的尺寸以及分辨率都一样）来做原型设计，所有参数请看下图
+
+|机型|   分辨率（px）  |  屏幕尺寸（inch） | 系统密度（dpi）|
+| ------------- |:-------------:| -------------:| 
+|iPhone <span class="hljs-number">5</span>s| <span class="hljs-number">640</span>X1164     |  <span class="hljs-number">4</span> | <span class="hljs-number">332</span> |
+|iPhone <span class="hljs-number">6</span>| <span class="hljs-number">1334</span>x750     |  <span class="hljs-number">4.7</span> | <span class="hljs-number">326</span> |
+| iPhone <span class="hljs-number">6</span> Plus    | <span class="hljs-number">1080</span>x1920  |<span class="hljs-number">5</span>| <span class="hljs-number">400</span> |
+
+iPhone主流的屏幕dpi约等于<span class="hljs-number">320</span>, 刚好属于xhdpi，所以选择xhdpi作为唯一一套dpi图片资源，可以让设计师不用专门为Android端切图，直接把iPhone的那一套切好的图片资源放入drawable-xhdpi文件夹里就好，这样大大减少的设计师的工作量！
+
+<span class="hljs-meta">#额外小tips</span>
+- ImageView的ScaleType属性
+设置不同的ScaleType会得到不同的显示效果，一般情况下，设置为centerCrop能获得较好的适配效果。
+
+- 动态设置
+&gt;使用场景：有些情况下，我们需要动态的设置控件大小或者是位置，比如说popwindow的显示位置和偏移量等
+
+这时我们可以动态获取当前的屏幕属性，然后设置合适的数值
+</code></pre>
+<p>public class ScreenSizeUtil {<br>
+public static int getScreenWidth(Activity activity) {<br>
+return activity.getWindowManager().getDefaultDisplay().getWidth();<br>
+}<br>
+public static int getScreenHeight(Activity activity) {<br>
+return activity.getWindowManager().getDefaultDisplay().getHeight();<br>
+}<br>
+}</p>
+<pre class="hljs objectivec"><code class="objectivec">
+
+<span class="hljs-meta">###总结</span>
+本文根据现今主流Android的适配方法，以逻辑清晰的方式进行了主流Android适配方法的全面整理，接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注[Carson_Ho的安卓开发笔记](http:<span class="hljs-comment">//www.jianshu.com/users/383970bef0a0/latest_articles)</span>
+<span class="hljs-meta">#请点赞！因为你们的鼓励是我写作的最大动力！</span>
+&gt;**相关文章阅读**
+[Android开发：ListView、AdapterView、RecyclerView全面解析](http:<span class="hljs-comment">//www.jianshu.com/p/4e8e4fd13cf7)</span>
+[Android开发：史上最全的Android消息推送解决方案](http:<span class="hljs-comment">//www.jianshu.com/p/b61a49e0279f)</span>
+[Android开发：最全面、最易懂的Webview详解](http:<span class="hljs-comment">//www.jianshu.com/p/3c94ae673e2a)</span>
+[Android四大组件：Service服务史上最全面解析](http:<span class="hljs-comment">//www.jianshu.com/p/d963c55c3ab9)</span>
+[Android四大组件：BroadcastReceiver史上最全面解析](http:<span class="hljs-comment">//www.jianshu.com/p/ca3d87a4cdf3)</span>
+[Android开发：JSON简介及最全面解析方法!](http:<span class="hljs-comment">//www.jianshu.com/p/b87fee2f7a23)</span>
+[Android开发：XML简介及DOM、SAX、PULL解析对比](http:<span class="hljs-comment">//www.jianshu.com/p/e636f4f8487b)</span>
+
+***
+<span class="hljs-meta">###欢迎关注[Carson_Ho](http://www.jianshu.com/users/383970bef0a0/latest_articles)的简书！</span>
+不定期分享关于**安卓开发**的干货，追求**短、平、快**，但**却不缺深度**。
+
+
+![](http:<span class="hljs-comment">//upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span></code></pre>
+
+        </div>
+    </div>
+
+      <div class="support-author"></div>
+
+      <div class="show-foot">
+        <a class="notebook" href="https://www.jianshu.com/nb/3540089">
+          <i class="iconfont ic-search-notebook"></i>
+          <span>Android 开发</span>
+</a>        <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+          © 著作权归作者所有
+        </div>
+        <div class="modal-wrap" data-report-note="">
+          <a id="report-modal">举报文章</a>
+        </div>
+      </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="https://www.jianshu.com/u/383970bef0a0">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/e32cb66f99ea" alt="96">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="https://www.jianshu.com/u/383970bef0a0">Carson_Ho</a>
+          <img class="badge-icon" data-toggle="tooltip" title="" src="./Android 屏幕适配：最全面的解决方案 - 简书_files/595a1b60-08f6-4beb-998f-2bf55e230555" alt="595a1b60 08f6 4beb 998f 2bf55e230555" data-original-title="简书程序员优秀作者">
+        <p>写了 257041 字，被 15843 人关注，获得了 11135 个喜欢</p></div>
+          <div class="signature">简书认证作者、CSDN签约作者、稀土掘金专栏作者
+
+定位：分享 Android开发 干货 
+Github：https://github.com/Carson-Ho
+ </div>
+      </div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="https://www.jianshu.com/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-like-button"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>1045</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @何家成___ 的文章《Android 屏幕适配：最全面的解决方案》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/3451616/weibo/image_4c247f8592d4.png" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Carson_Ho 的文章《Android 屏幕适配：最全面的解决方案》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Carson_Ho 的文章《Android 屏幕适配：最全面的解决方案》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;Android 屏幕适配：最全面的解决方案&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="https://www.jianshu.com/apps/download?utm_source=nbc"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1"></a>
+    <div id="vue_comment"></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 @何家成___ 的文章《Android 屏幕适配：最全面的解决方案》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Carson_Ho 的文章《Android 屏幕适配：最全面的解决方案》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Carson_Ho 的文章《Android 屏幕适配：最全面的解决方案》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/ec5a1a30694b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;Android 屏幕适配：最全面的解决方案&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li> <!----></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="https://www.jianshu.com/c/NEt52a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/computer_guy.jpg"><div class="name">程序员</div></a><a href="https://www.jianshu.com/c/0dc880a2c73c?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/ff55916a6a0c2db84ebb1ffdcef539dd.png"><div class="name">Android开发</div></a><a href="https://www.jianshu.com/c/d1591c322c89?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/android.graphics.Bitmap_15f127c2.jpeg"><div class="name">Android开发</div></a><a href="https://www.jianshu.com/c/908d710faefe?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/1458412659.jpg"><div class="name">移动开发</div></a><a href="https://www.jianshu.com/c/38d96caffb2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/android.graphics.Bitmap_5be8d38.jpeg"><div class="name">技术干货</div></a><a href="https://www.jianshu.com/c/5867d495dbb6?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/Android.png"><div class="name">Android...</div></a><a href="https://www.jianshu.com/c/1f8cd7d30587?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/android.graphics.Bitmap_2d6fe27.jpeg"><div class="name">View</div></a> <a class="show-more">
+        展开更多
+        <i class="iconfont ic-show"></i></a></div></div> <!----> <!----></div>
+  <div data-vcomp="recommended-notes" data-note-id="3451616"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/98c0cf6bd373?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/3707424-23692fab10efab12" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/98c0cf6bd373?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">最易懂的Android屏幕适配解决方案--总结版</a>
+          <p class="description">本文参考自: Google的官方权威适配文档 郭霖：Android官方提供的支持不同屏幕大小的全部方法 Stormzhang：Android 屏幕适配 鸿洋：Android 屏幕适配方案 凯子：Android屏幕适配全攻略(最权威的官方适配指导);简书作者:Carson_H...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/d93404406d13?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/4-3397163ecdb3855a0a4139c34a695885.jpg" alt="48">
+            </div>
+            <span class="name">M悇芐冋忆</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/f46f2874f52e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/311426-6b21d4ac1d3a6b82.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/f46f2874f52e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android屏幕适配全攻略(最权威的官方适配指导)</a>
+          <p class="description">版权声明：本文为博主原创文章，未经博主允许不得转载。 目录(?)[+] 转载请注明出处：http://blog.csdn.net/zhaokaiqiang1992 Android的屏幕适配一直以来都在折磨着我们这些开发者，本篇文章以Google的官方文档为基础，全面而深入的...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/566907213c6a?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/14-0651acff782e7a18653d7530d6b27661.jpg" alt="48">
+            </div>
+            <span class="name">IF_I_WERE_A_BOY</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/5ad013eb5364?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android - 收藏集 - 掘金</a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金相信有很多朋友...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/5fc9b6410f4f?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/6220dd63-bf1a-40a8-8ccc-e364a5c90f13.png" alt="48">
+            </div>
+            <span class="name">掘金官方</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="https://www.jianshu.com/p/dad51f6c9c4d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android - 收藏集  </a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金 Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金 相信有很多...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/e946d18f163c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/4-3397163ecdb3855a0a4139c34a695885.jpg" alt="48">
+            </div>
+            <span class="name">passiontim</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/0ab5a0d7733f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/1779681-5e13c16b804cf921.png" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/0ab5a0d7733f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android屏幕适配详解</a>
+          <p class="description">为什么要屏幕适配？ 碎片化 品牌机型碎片化 屏幕尺寸碎片化 操作系统碎片化 为了保证用户获得一致的用户体验效果，使得某一元素在Android不同尺寸、不同分辨率的手机上具备相同的显示效果，则需要我们进行屏幕适配。 基础概念 屏幕尺寸 屏幕尺寸是指屏幕对角线的长度，单位是英寸...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/821b661df6e2?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/9ae4d469b37e.jpg" alt="48">
+            </div>
+            <span class="name">东经315度</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/7030ce3186ce?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/6016875-f94f4469d0dc7ddc.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/7030ce3186ce?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">篮球场</a>
+          <p class="description"></p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/a0109d4f092e?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/0af420c6-c87d-4b65-ac77-5ebe811ef2d1.jpg" alt="48">
+            </div>
+            <span class="name">夜晚有三年</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/45c4ac32c76f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/2342144-f41f5c56e924686e.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/45c4ac32c76f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">爱自己，从吃早餐开始</a>
+          <p class="description">早餐，一天中最重要的一顿饭，可我们常常因为懒，买一杯豆浆啃两个馒头就应付过去，还有一些人连早餐都不吃，不吃早餐对身体的危害其实很大，直接会导致患上胃胆的慢性疾病。就我个人的经历，如果早餐没吃饱，就会影响我上午工作的状态，而且因为饿，吃午饭的时候就会狼吞虎咽，导致吃到一半或吃...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/b7d62eb70d39?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/65a9ca4f8bbc" alt="48">
+            </div>
+            <span class="name">南山北海ls</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/35ec33d07958?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/4012107-047ac9cc43352300.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/35ec33d07958?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">感谢遇见你</a>
+          <p class="description">一旦亲密起来，我们几乎是迫不及待地去暴露自己最坏最丑的一面，像是在恐吓，“你看啊，我就是这样的人，并不是你期待的那么好，你看清楚了还要继续靠近我吗？”你要无所畏惧的留在我身边，我就会让你看到我的全部，并不全是糟糕的，还有只给你的，最温柔的，最忠诚的。</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/46498ced4ac4?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/0bbb5563-8cf2-4e4c-a320-5a9f95c17c08.jpg" alt="48">
+            </div>
+            <span class="name">chenghuizhen</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/8444a5e1af44?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/7187768-26b28a454eeaec0b.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/8444a5e1af44?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">《曾是白马少年时 &nbsp; &nbsp; &nbsp; 终负青春好时光》</a>
+          <p class="description">     往事几多可追忆，只是提笔已忘言。      记忆中的蝉鸣依然响彻在童年酣睡的午梦里，倏忽间已至青葱岁月，大好时光里让人念念不忘乃至耿耿于怀的，依然是孩提时的无忧，至少保留着对这个世界最原始而美好的向往和憧憬。       原谅少年的不谙世事与涉世未深。      ...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/c8b80ff6c402?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/44b1845f-a9b9-43ae-bfb1-ea03e7173273.jpg" alt="48">
+            </div>
+            <span class="name">余生共清欢</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="https://www.jianshu.com/p/3e9ab8e45dd6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/8757528-489d360de84f62af.jpg" alt="240">
+</a>          <a class="title" target="_blank" href="https://www.jianshu.com/p/3e9ab8e45dd6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">青春</a>
+          <p class="description">青春一个充满无限可能的名词，时而疯狂时而沉寂。有时热情似火有时冷若冰霜却总不知道天高地厚的年纪，那些春夏秋冬总会让人无法忘却，青春留下的总是这样那样的遗憾，总想着自己如果还能从来结局会不会因此改变，梦想着有时光机。能回看过往的喜怒哀乐竟是如此的真实，真实到一眼就能走到了现在...</p>
+          <a class="author" target="_blank" href="https://www.jianshu.com/u/ba123e0d5ee2?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="./Android 屏幕适配：最全面的解决方案 - 简书_files/147775c2-57aa-469b-9149-6d15beb950d4" alt="48">
+            </div>
+            <span class="name">小屁孩601</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_martin_user":false,"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"815b1ec6-268b-4ee3-87c9-73f167cc3564"},"note":{"id":3451616,"slug":"ec5a1a30694b","user_id":944365,"notebook_id":3540089,"commentable":true,"likes_count":1045,"views_count":98242,"public_wordage":5399,"comments_count":113,"total_rewards_count":3,"is_author":false,"author":{"nickname":"Carson_Ho","total_wordage":257041,"followers_count":15843,"total_likes_count":11135}}}</script>
+    
+    <script src="./Android 屏幕适配：最全面的解决方案 - 简书_files/babel-polyfill-cae74bd66cdb76fcd4b4.js.下载" crossorigin="anonymous"></script>
+    <script src="./Android 屏幕适配：最全面的解决方案 - 简书_files/web-base-8eecd8b2d172be38d650.js.下载" crossorigin="anonymous"></script>
+<script src="./Android 屏幕适配：最全面的解决方案 - 简书_files/web-8f9e25ce7a1814cf6e35.js.下载" crossorigin="anonymous"></script>
+    
+    <script src="./Android 屏幕适配：最全面的解决方案 - 简书_files/entry-9fdcb3293b1fdc4386c9.js.下载" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>
