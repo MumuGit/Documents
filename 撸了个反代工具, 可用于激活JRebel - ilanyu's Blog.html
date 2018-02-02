@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://blog.lanyus.com/archives/317.html -->
+<html class="no-js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>撸了个反代工具, 可用于激活JRebel - ilanyu's Blog</title>
+
+    <!-- 使用url函数转换相关路径 -->
+    <link rel="stylesheet" href="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/normalize.min.css">
+    <link rel="stylesheet" href="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/grid.css">
+    <link rel="stylesheet" href="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/style.css">
+
+    <!--[if lt IE 9]>
+    <script src="http://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="http://cdn.staticfile.org/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- 通过自有函数输出HTML头部信息 -->
+    <meta name="description" content="下载地址:https://github.com/ilanyu/ReverseProxy/releases/latest使用方法:./ReverseProxy_[OS]_[ARCH] -hUsag...">
+<meta name="generator" content="Typecho 1.1/17.10.30">
+<meta name="template" content="default">
+<link rel="pingback" href="http://blog.lanyus.com/action/xmlrpc">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.lanyus.com/action/xmlrpc?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.lanyus.com/action/xmlrpc?wlw">
+<link rel="alternate" type="application/rss+xml" title="撸了个反代工具, 可用于激活JRebel » ilanyu&#39;s Blog » RSS 2.0" href="http://blog.lanyus.com/feed/archives/317.html">
+<link rel="alternate" type="application/rdf+xml" title="撸了个反代工具, 可用于激活JRebel » ilanyu&#39;s Blog » RSS 1.0" href="http://blog.lanyus.com/feed/rss/archives/317.html">
+<link rel="alternate" type="application/atom+xml" title="撸了个反代工具, 可用于激活JRebel » ilanyu&#39;s Blog » ATOM 1.0" href="http://blog.lanyus.com/feed/atom/archives/317.html">
+<script type="text/javascript">
+(function () {
+    window.TypechoComment = {
+        dom : function (id) {
+            return document.getElementById(id);
+        },
+    
+        create : function (tag, attr) {
+            var el = document.createElement(tag);
+        
+            for (var key in attr) {
+                el.setAttribute(key, attr[key]);
+            }
+        
+            return el;
+        },
+
+        reply : function (cid, coid) {
+            var comment = this.dom(cid), parent = comment.parentNode,
+                response = this.dom('respond-post-317'), input = this.dom('comment-parent'),
+                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                textarea = response.getElementsByTagName('textarea')[0];
+
+            if (null == input) {
+                input = this.create('input', {
+                    'type' : 'hidden',
+                    'name' : 'parent',
+                    'id'   : 'comment-parent'
+                });
+
+                form.appendChild(input);
+            }
+
+            input.setAttribute('value', coid);
+
+            if (null == this.dom('comment-form-place-holder')) {
+                var holder = this.create('div', {
+                    'id' : 'comment-form-place-holder'
+                });
+
+                response.parentNode.insertBefore(holder, response);
+            }
+
+            comment.appendChild(response);
+            this.dom('cancel-comment-reply-link').style.display = '';
+
+            if (null != textarea && 'text' == textarea.name) {
+                textarea.focus();
+            }
+
+            return false;
+        },
+
+        cancelReply : function () {
+            var response = this.dom('respond-post-317'),
+            holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+            if (null != input) {
+                input.parentNode.removeChild(input);
+            }
+
+            if (null == holder) {
+                return true;
+            }
+
+            this.dom('cancel-comment-reply-link').style.display = 'none';
+            holder.parentNode.insertBefore(response, holder);
+            return false;
+        }
+    };
+})();
+</script>
+<script type="text/javascript">
+(function () {
+    var event = document.addEventListener ? {
+        add: 'addEventListener',
+        triggers: ['scroll', 'mousemove', 'keyup', 'touchstart'],
+        load: 'DOMContentLoaded'
+    } : {
+        add: 'attachEvent',
+        triggers: ['onfocus', 'onmousemove', 'onkeyup', 'ontouchstart'],
+        load: 'onload'
+    }, added = false;
+
+    document[event.add](event.load, function () {
+        var r = document.getElementById('respond-post-317'),
+            input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = '_';
+        input.value = (function () {
+    var _1v5vj = 'HUl'//'HUl'
++//'uU'
+'uU'+//'pe'
+'bd'+'2'//'u'
++'c'//'kuc'
++//'CYR'
+'01'+'6e'//'A27'
++/* 'H6q'//'H6q' */''+//'MBf'
+'c'+'ed3'//'e'
++''///*'0'*/'0'
++'ca'//'KmJ'
++//'fr'
+'fr'+/* 'GA'//'GA' */''+/* 'x'//'x' */''+//'r'
+'e'+''///*'E'*/'E'
++/* '8'//'8' */''+//'z'
+'z'+''///*'bI'*/'bI'
++'2d1'//'k'
++//'O'
+'28e'+//'g'
+'a9'+'44'//'CXj'
++//'EY'
+'56'+'b87'//'5'
++'f'//'xo'
++/* 'Ix'//'Ix' */''+//'w'
+'w'+//'z'
+'f', _lDTKZo8 = [[0,3],[0,2],[14,16],[15,16],[31,32]];
+    
+    for (var i = 0; i < _lDTKZo8.length; i ++) {
+        _1v5vj = _1v5vj.substring(0, _lDTKZo8[i][0]) + _1v5vj.substring(_lDTKZo8[i][1]);
+    }
+
+    return _1v5vj;
+})();
+
+        if (null != r) {
+            var forms = r.getElementsByTagName('form');
+            if (forms.length > 0) {
+                function append() {
+                    if (!added) {
+                        forms[0].appendChild(input);
+                        added = true;
+                    }
+                }
+            
+                for (var i = 0; i < event.triggers.length; i ++) {
+                    var trigger = event.triggers[i];
+                    document[event.add](trigger, append);
+                    window[event.add](trigger, append);
+                }
+            }
+        }
+    });
+})();
+</script></head>
+<body>
+<!--[if lt IE 8]>
+    <div class="browsehappy" role="dialog">当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.</div>
+<![endif]-->
+
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="site-name col-mb-12 col-9">
+                <a id="logo" href="http://blog.lanyus.com/">
+                                        ilanyu's Blog                </a>
+        	    <p class="description"></p>
+            </div>
+            <div class="site-search col-3 kit-hidden-tb">
+                <form id="search" method="post" action="http://blog.lanyus.com/archives/" role="search">
+                    <label for="s" class="sr-only">搜索关键字</label>
+                    <input type="text" name="s" class="text" placeholder="输入关键字搜索">
+                    <button type="submit" class="submit">搜索</button>
+                </form>
+            </div>
+            <div class="col-mb-12">
+                <nav id="nav-menu" class="clearfix" role="navigation">
+                    <a href="http://blog.lanyus.com/">首页</a>
+                                                            <a href="http://blog.lanyus.com/6.html" title="IDEA注册码">IDEA注册码</a>
+                                        <a href="http://blog.lanyus.com/13.html" title="文件中转">文件中转</a>
+                                        <a href="http://blog.lanyus.com/11.html" title="在线记事本">在线记事本</a>
+                                        <a href="http://blog.lanyus.com/17.html" title="老博客">老博客</a>
+                                        <a href="http://blog.lanyus.com/start-page.html" title="关于">关于</a>
+                                    </nav>
+            </div>
+        </div><!-- end .row -->
+    </div>
+</header><!-- end #header -->
+<div id="body">
+    <div class="container">
+        <div class="row">
+
+    
+    
+
+<div class="col-mb-12 col-8" id="main" role="main">
+    <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <h1 class="post-title" itemprop="name headline"><a itemtype="url" href="http://blog.lanyus.com/archives/317.html">撸了个反代工具, 可用于激活JRebel</a></h1>
+        <ul class="post-meta">
+            <li itemprop="author" itemscope="" itemtype="http://schema.org/Person">作者: <a itemprop="name" href="http://blog.lanyus.com/author/1/" rel="author">ilanyu</a></li>
+            <li>时间: <time datetime="2017-10-15T14:09:00+00:00" itemprop="datePublished">October 15, 2017</time></li>
+            <li>分类: <a href="http://blog.lanyus.com/category/program/">作品</a></li>
+        </ul>
+        <div class="post-content" itemprop="articleBody">
+            <p>下载地址:<br><a href="https://github.com/ilanyu/ReverseProxy/releases/latest"></a><a href="https://github.com/ilanyu/ReverseProxy/releases/latest">https://github.com/ilanyu/ReverseProxy/releases/latest</a></p><p>使用方法:</p><pre><code>./ReverseProxy_[OS]_[ARCH] -h
+
+Usage of ReverseProxy_[OS]_[ARCH]:
+  -l string
+        listen on ip:port (default "0.0.0.0:8888")
+  -r string
+        reverse proxy addr (default "http://idea.lanyus.com:80")
+</code></pre><pre><code>./ReverseProxy_windows_amd64.exe -l "0.0.0.0:8081" -r "https://www.baidu.com"
+
+Listening on 0.0.0.0:8081, forwarding to https://www.baidu.com
+</code></pre><p>默认反代idea.lanyus.com, 运行起来后, <a href="http://127.0.0.1/">http://127.0.0.1</a>:8888/JRebel用户名 就是激活地址了, 邮箱随意填写, 当然, 也可用于idea</p><p>也可以在Docker中使用</p><pre><code>docker pull ilanyu/golang-reverseproxy
+
+docker run -d -p 8888:8888 ilanyu/golang-reverseproxy
+</code></pre>        </div>
+        <p itemprop="keywords" class="tags">标签: none</p>
+    </article>
+
+    <div id="comments">
+        	<h3>已有 95 条评论</h3>
+    
+    <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2213" class="comment-body comment-parent comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/256112b6dfddaea62f396a8a8b8b722b" alt="young" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">young</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2213"><time itemprop="commentTime" datetime="2017-12-28T20:01:17+00:00">December 28th, 2017 at 08:01 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>请问怎么用于idea呢？</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2213#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2213&#39;, 2213);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2214" class="comment-body comment-parent comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/e958eb3c86876bcec6566d027eb717b2" alt="yeath" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">yeath</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2214"><time itemprop="commentTime" datetime="2017-12-28T20:11:38+00:00">December 28th, 2017 at 08:11 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>没用啊</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2214#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2214&#39;, 2214);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2215" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/622c5f9ef7a2c37db4fa31f95ca20011" alt="localc" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">localc</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2215"><time itemprop="commentTime" datetime="2017-12-29T11:47:07+00:00">December 29th, 2017 at 11:47 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@yeathheap-&gt;register-&gt;license server 填http://127.0.0.1:8888</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2215#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2215&#39;, 2215);">回复</a>    </div>
+    </li>
+</ol>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2230" class="comment-body comment-parent comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/b89007c3ed59ecdf39ba17633bb123b6" alt="a_nuo" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">a_nuo</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2230"><time itemprop="commentTime" datetime="2018-01-03T20:07:00+00:00">January 3rd, 2018 at 08:07 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>多谢提供！<br>
+“http://127.0.0.1:8888/JRebel用户名 ” 修改为“http://127.0.0.1:8888/username” 更容易读懂些</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2230#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2230&#39;, 2230);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2239" class="comment-body comment-parent comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/06b0c01c4520b11a8eb25050fd4df211" alt="zengxc" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">zengxc</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2239"><time itemprop="commentTime" datetime="2018-01-08T09:29:32+00:00">January 8th, 2018 at 09:29 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>感谢提供docker。输入“http://127.0.0.1:8888/?userName=”可以得到激活code</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2239#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2239&#39;, 2239);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2253" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/06b0c01c4520b11a8eb25050fd4df211" alt="zengxc" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">zengxc</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2253"><time itemprop="commentTime" datetime="2018-01-14T10:53:34+00:00">January 14th, 2018 at 10:53 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@zengxc http://127.0.0.1:8888/getkey?userName=</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2253#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2253&#39;, 2253);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2426" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/76eda7fcefc08dd21753e3957798a77f" alt="cii566" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">cii566</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2426"><time itemprop="commentTime" datetime="2018-02-01T17:48:59+00:00">February 1st, 2018 at 05:48 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@zengxc<br>
+这个注册码貌似不能用来注册idea呢？使用这个注册码提示失效的注册码。</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2426#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2426&#39;, 2426);">回复</a>    </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2259" class="comment-body comment-parent comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/90dca06b566db4f1fa3544e7d32be586" alt="ice水火" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">ice水火</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2259"><time itemprop="commentTime" datetime="2018-01-15T15:40:41+00:00">January 15th, 2018 at 03:40 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>mac版：<br>
+1、下载ReverseProxy_darwin_amd64<br>
+2、双击运行ReverseProxy_darwin_amd64<br>
+3、打开idea，在License server http://127.0.0.1:8888<br>
+4、正常来说就验证通过，8888是默认的端口号，如果有被占用冲突，可能就需要修改成其他端口</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2259#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2259&#39;, 2259);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2315" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/0ca381e0c46d4e0673102cfcb4caa633" alt="Robot" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">Robot</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2315"><time itemprop="commentTime" datetime="2018-01-23T17:07:04+00:00">January 23rd, 2018 at 05:07 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@ice水火文件没有后缀名，怎么打开的？</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2315#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2315&#39;, 2315);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2319" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/90dca06b566db4f1fa3544e7d32be586" alt="ice水火" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">ice水火</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2319"><time itemprop="commentTime" datetime="2018-01-24T10:29:50+00:00">January 24th, 2018 at 10:29 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@Robot双击ReverseProxy_darwin_amd64就行</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2319#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2319&#39;, 2319);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2322" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/0ca381e0c46d4e0673102cfcb4caa633" alt="Robot" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">Robot</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2322"><time itemprop="commentTime" datetime="2018-01-24T15:39:13+00:00">January 24th, 2018 at 03:39 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@ice水火<br>
+我是win系统，没有文件格式打不开，开始没注意到你是mac，后来我下载了ReverseProxy_windows_amd64.exe可以了~</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2322#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2322&#39;, 2322);">回复</a>    </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2318" class="comment-body comment-child comment-level-odd comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/ad346363be778fcd233e49df7c551e86" alt="Chris" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">Chris</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2318"><time itemprop="commentTime" datetime="2018-01-24T10:09:00+00:00">January 24th, 2018 at 10:09 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@ice水火下载下来是.dms格式啊，怎么打开啊？</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2318#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2318&#39;, 2318);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2320" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/90dca06b566db4f1fa3544e7d32be586" alt="ice水火" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">ice水火</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2320"><time itemprop="commentTime" datetime="2018-01-24T10:31:27+00:00">January 24th, 2018 at 10:31 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@Chris你的是mac电脑吗？我这边下载的文件没有后缀名，双击ReverseProxy_darwin_amd64就行，之后bash自己会启动运行命令</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2320#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2320&#39;, 2320);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2321" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/ad346363be778fcd233e49df7c551e86" alt="Chris" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">Chris</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2321"><time itemprop="commentTime" datetime="2018-01-24T11:30:07+00:00">January 24th, 2018 at 11:30 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@ice水火 你好，我的是mac，用Safari下载下来就是.dms，我用Chrome下载下来的确没有后缀了，但是被系统识别成了文稿啊，怎么办？</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2321#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2321&#39;, 2321);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2335" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/d6941dd014f22cb151c94350d19d3622" alt="老川" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">老川</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2335"><time itemprop="commentTime" datetime="2018-01-26T15:32:19+00:00">January 26th, 2018 at 03:32 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>在终端执行以下命令：<br>
+1.chmod 777 ReverseProxy_darwin_amd64文件位置，例如：chmod 777 /Users/abcde/Downloads/ReverseProxy_darwin_amd64</p><p>2.$bash ReverseProxy_darwin_amd64文件位置，例如：$bash /Users/abcde/Downloads/ReverseProxy_darwin_amd64</p><p>3.打开idea，在License server http://127.0.0.1:8888</p>    </div>
+    <div class="comment-reply">
+            </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2262" class="comment-body comment-parent comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/377bf9bfe7d36af2381170bb6ffb076b" alt="leeves" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">leeves</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2262"><time itemprop="commentTime" datetime="2018-01-18T10:10:10+00:00">January 18th, 2018 at 10:10 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@ice水火<br>
+感谢，20180118测试，系统win10，版本 idea 2017.3.3 有效</p><p>方法再贴上：<br>
+1、下载ReverseProxy_windows_amd64<br>
+2、双击运行ReverseProxy_windows_amd64<br>
+3、打开idea，在License server http://127.0.0.1:8888<br>
+4、正常来说就验证通过，8888是默认的端口号，如果有被占用冲突，可能就需要修改成其他端口</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2262#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2262&#39;, 2262);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2264" class="comment-body comment-parent comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/897096e1df1192567c22221fbc5e3419" alt="zzzcomd" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">zzzcomd</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2264"><time itemprop="commentTime" datetime="2018-01-18T11:11:23+00:00">January 18th, 2018 at 11:11 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>直接nginx反代</p><p>server {</p><p>listen   8888;<br>
+location / {<br>
+proxy_pass http://idea.lanyus.com:80;<br>
+}</p><p>proxy_set_header Host "idea.lanyus.com";<br>
+}</p><p>然后使用http://127.0.0.1:8888 即可</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2264#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2264&#39;, 2264);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2371" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/1d165f32cd14075ef73505fa217029c8" alt="john" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">john</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2371"><time itemprop="commentTime" datetime="2018-01-29T16:38:40+00:00">January 29th, 2018 at 04:38 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@zzzcomd<br>
+这段代码贴在什么文件夹？？？</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2371#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2371&#39;, 2371);">回复</a>    </div>
+    </li>
+</ol>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2270" class="comment-body comment-parent comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/75551e3b4c338db478b07f583940d72c" alt="268" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">268</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2270"><time itemprop="commentTime" datetime="2018-01-19T09:58:52+00:00">January 19th, 2018 at 09:58 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>强无敌，真心感谢作者！</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2270#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2270&#39;, 2270);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2294" class="comment-body comment-parent comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/2fa3a5344499d79e8fffc912a735c442" alt="HViktorTsoi" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">HViktorTsoi</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2294"><time itemprop="commentTime" datetime="2018-01-20T21:24:22+00:00">January 20th, 2018 at 09:24 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>PyCharm2018.01.18亲测可用 Ubuntu14.04系统 用的docker</p><p>docker pull ilanyu/golang-reverseproxy<br>
+docker run -d -p 8888:8888 ilanyu/golang-reverseproxy</p><p>然后在License Server里输入htp://localhost:8888之后就激活了<br>
+感谢作者 学习了… 等自己赚工资了激活正版全套的……很快了</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2294#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2294&#39;, 2294);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2358" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/1d165f32cd14075ef73505fa217029c8" alt="john" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">john</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2358"><time itemprop="commentTime" datetime="2018-01-29T15:33:02+00:00">January 29th, 2018 at 03:33 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@HViktorTsoi<br>
+你是ubuntu系统吗？输入第一句docker 报错：no moudle named gbdm</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2358#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2358&#39;, 2358);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2359" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/2fa3a5344499d79e8fffc912a735c442" alt="HViktorTsoi" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">HViktorTsoi</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2359"><time itemprop="commentTime" datetime="2018-01-29T15:38:45+00:00">January 29th, 2018 at 03:38 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@john<br>
+是的 ubuntu14.04我是<br>
+出这个问题的原因是你的系统缺少python-gdbm依赖<br>
+先看一下你的系统当前的python版本(就是在终端里输入python --version) 如果版本是X.Y 就输入命令<br>
+sudo apt-get install pythonX.Y-gdbm<br>
+其中X和Y换成你查到的版本号</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2359#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2359&#39;, 2359);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2360" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/2fa3a5344499d79e8fffc912a735c442" alt="HViktorTsoi" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">HViktorTsoi</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2360"><time itemprop="commentTime" datetime="2018-01-29T15:39:59+00:00">January 29th, 2018 at 03:39 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@HViktorTsoi<br>
+另外还得确定你装了docker……</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2360#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2360&#39;, 2360);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2362" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/1d165f32cd14075ef73505fa217029c8" alt="john" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">john</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2362"><time itemprop="commentTime" datetime="2018-01-29T15:57:35+00:00">January 29th, 2018 at 03:57 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@HViktorTsoi<br>
+安装了docker，然后我按你的代码安装报错：<br>
+E: 无法定位软件包 python3.6.2-gbdm<br>
+E: 无法按照 glob ‘python3.6.2-gbdm’ 找到任何软件包<br>
+E: 无法按照正则表达式 python3.6.2-gbdm 找到任何软件包</p>    </div>
+    <div class="comment-reply">
+            </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2363" class="comment-body comment-child comment-level-even comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/2fa3a5344499d79e8fffc912a735c442" alt="HViktorTsoi" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">HViktorTsoi</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2363"><time itemprop="commentTime" datetime="2018-01-29T15:58:59+00:00">January 29th, 2018 at 03:58 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@john<br>
+试下这个<br>
+sudo apt-get install python3.6-gdbm</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2363#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2363&#39;, 2363);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2364" class="comment-body comment-child comment-level-odd comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/1d165f32cd14075ef73505fa217029c8" alt="john" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">john</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2364"><time itemprop="commentTime" datetime="2018-01-29T16:00:43+00:00">January 29th, 2018 at 04:00 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@HViktorTsoi<br>
+一样的报错。。。对了 我是ubuntu16.04，但是这个应该没影响吧，现在的license server都不能用了，注册码好像也不行了，大哥还知道其他激活idea的方法吗？</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2364#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2364&#39;, 2364);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2365" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/2fa3a5344499d79e8fffc912a735c442" alt="HViktorTsoi" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">HViktorTsoi</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2365"><time itemprop="commentTime" datetime="2018-01-29T16:05:56+00:00">January 29th, 2018 at 04:05 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@john<br>
+ilanyu的这个方法是最靠谱的 不会出问题……<br>
+额……不好意思 刚才在我的apt源里找到这个包了 不用加版本号<br>
+直接 sudo apt-get install python-gdbm</p>    </div>
+    <div class="comment-reply">
+            </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2366" class="comment-body comment-child comment-level-even comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/1d165f32cd14075ef73505fa217029c8" alt="john" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">john</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2366"><time itemprop="commentTime" datetime="2018-01-29T16:15:25+00:00">January 29th, 2018 at 04:15 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@john<br>
+我python默认是2.7 ，我安装的也是2.7的gdbm，但是我这里的输第一行docker....代码为啥总是默认以python3.6，然后就提示no moudle named gbdm</p>    </div>
+    <div class="comment-reply">
+            </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2367" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/1d165f32cd14075ef73505fa217029c8" alt="john" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">john</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2367"><time itemprop="commentTime" datetime="2018-01-29T16:23:05+00:00">January 29th, 2018 at 04:23 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@HViktorTsoi<br>
+我python默认是2.7 ，我安装的也是2.7的gdbm，但是我这里的输第一行docker....代码为啥总是默认以python3.6，然后就提示no moudle named gbdm</p>    </div>
+    <div class="comment-reply">
+            </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2369" class="comment-body comment-child comment-level-even comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/1d165f32cd14075ef73505fa217029c8" alt="john" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">john</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2369"><time itemprop="commentTime" datetime="2018-01-29T16:36:07+00:00">January 29th, 2018 at 04:36 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@HViktorTsoi<br>
+还是报那个错...<br>
+Traceback (most recent call last):<br>
+File "/usr/lib/python3.6/dbm/gnu.py", line 4, in <br>
+from _gdbm import *<br>
+ModuleNotFoundError: No module named '_gdbm'</p><p>但是我明明安装了gdbm<br>
+$ sudo apt-get install python-gdbm<br>
+正在读取软件包列表... 完成<br>
+正在分析软件包的依赖关系树<br>
+正在读取状态信息... 完成<br>
+python-gdbm 已经是最新版 (2.7.11-2)。<br>
+升级了 0 个软件包，新安装了 0 个软件包，要卸载 0 个软件包，有 208 个软件包未被升级。</p>    </div>
+    <div class="comment-reply">
+            </div>
+    </li>
+</ol>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2368" class="comment-body comment-child comment-level-odd comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/1d165f32cd14075ef73505fa217029c8" alt="john" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">john</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2368"><time itemprop="commentTime" datetime="2018-01-29T16:29:43+00:00">January 29th, 2018 at 04:29 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@HViktorTsoi<br>
+第一种方法有点没看懂。。能说一下吗？？感谢</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2368#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2368&#39;, 2368);">回复</a>    </div>
+        <div class="comment-children" itemprop="discusses">
+        <ol class="comment-list"><li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2370" class="comment-body comment-child comment-level-even comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/2fa3a5344499d79e8fffc912a735c442" alt="HViktorTsoi" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">HViktorTsoi</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2370"><time itemprop="commentTime" datetime="2018-01-29T16:38:16+00:00">January 29th, 2018 at 04:38 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@john<br>
+如果系统默认调用是python3 就是安装python3-gdbm……<br>
+sudo apt-get install python3-gdbm</p>    </div>
+    <div class="comment-reply">
+            </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+</ol>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2316" class="comment-body comment-parent comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/0ca381e0c46d4e0673102cfcb4caa633" alt="Robot" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">Robot</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2316"><time itemprop="commentTime" datetime="2018-01-23T17:24:23+00:00">January 23rd, 2018 at 05:24 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>win7 64位 激活IDEA：<br>
+下载ReverseProxy_windows_amd64.exe, 直接打开程序，然后在idea的注册窗口中选择license server，填入 http://127.0.0.1:8888 即可<br>
+亲测可用</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2316#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2316&#39;, 2316);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2329" class="comment-body comment-parent comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/c14ae911f8623ab4b73a1bce910eae84" alt="无奈天诚" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">无奈天诚</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2329"><time itemprop="commentTime" datetime="2018-01-26T10:00:48+00:00">January 26th, 2018 at 10:00 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>2018-1-26 测试服务器连接不上</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2329#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2329&#39;, 2329);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2330" class="comment-body comment-parent comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/c14ae911f8623ab4b73a1bce910eae84" alt="无奈天诚" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">无奈天诚</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2330"><time itemprop="commentTime" datetime="2018-01-26T10:02:01+00:00">January 26th, 2018 at 10:02 am</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>不好意思可能是网络波动问题</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2330#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2330&#39;, 2330);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2332" class="comment-body comment-parent comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/123fbb89500550bc9408b45d36916ee1" alt="学徒三金" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">学徒三金</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2332"><time itemprop="commentTime" datetime="2018-01-26T12:05:25+00:00">January 26th, 2018 at 12:05 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>下载地址访问不了,可否让能下载的兄弟给我下载一份发送到邮箱呢?<br>
+aisidd@126.com  非常感谢</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2332#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2332&#39;, 2332);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2333" class="comment-body comment-parent comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/123fbb89500550bc9408b45d36916ee1" alt="学徒三金" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">学徒三金</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2333"><time itemprop="commentTime" datetime="2018-01-26T12:33:32+00:00">January 26th, 2018 at 12:33 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>@lanyus  能不能给我发送到邮箱 , 我这里是新疆,神马都不好访问...连百度云的分享也不好访问..谢谢啦</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2333#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2333&#39;, 2333);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2386" class="comment-body comment-parent comment-odd">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/7b0291daab709753bb242cb34621a33d" alt="小小小尘埃" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">小小小尘埃</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2386"><time itemprop="commentTime" datetime="2018-01-31T13:21:10+00:00">January 31st, 2018 at 01:21 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>行不通啊</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2386#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2386&#39;, 2386);">回复</a>    </div>
+    </li>
+<li itemscope="" itemtype="http://schema.org/UserComments" id="comment-2443" class="comment-body comment-parent comment-even">
+    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image"><img class="avatar" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/776bfd71505ccc2fdb85c48ad888460c" alt="世神灭世" width="32" height="32"></span>
+        <cite class="fn" itemprop="name">世神灭世</cite>
+    </div>
+    <div class="comment-meta">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2443"><time itemprop="commentTime" datetime="2018-02-02T16:14:19+00:00">February 2nd, 2018 at 04:14 pm</time></a>
+            </div>
+    <div class="comment-content" itemprop="commentText">
+    <p>最新版的2017.3.4 IU-173.4548.28 亲测无效，建议大家不要升级最新版</p>    </div>
+    <div class="comment-reply">
+        <a href="http://blog.lanyus.com/archives/317.html/comment-page-3?replyTo=2443#respond-post-317" rel="nofollow" onclick="return TypechoComment.reply(&#39;comment-2443&#39;, 2443);">回复</a>    </div>
+    </li>
+</ol>
+    <ol class="page-navigator"><li class="prev"><a href="http://blog.lanyus.com/archives/317.html/comment-page-2#comments">« 前一页</a></li><li><a href="http://blog.lanyus.com/archives/317.html/comment-page-1#comments">1</a></li><li><a href="http://blog.lanyus.com/archives/317.html/comment-page-2#comments">2</a></li><li class="current"><a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comments">3</a></li></ol>    
+    
+        <div id="respond-post-317" class="respond">
+        <div class="cancel-comment-reply">
+        <a id="cancel-comment-reply-link" href="http://blog.lanyus.com/archives/317.html#respond-post-317" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消回复</a>        </div>
+    
+    	<h3 id="response">添加新评论</h3>
+    	<form method="post" action="http://blog.lanyus.com/archives/317.html/comment" id="comment-form" role="form">
+                		<p>
+                <label for="author" class="required">称呼</label>
+    			<input type="text" name="author" id="author" class="text" value="" required="">
+    		</p>
+    		<p>
+                <label for="mail" class="required">Email</label>
+    			<input type="email" name="mail" id="mail" class="text" value="" required="">
+    		</p>
+    		<p>
+                <label for="url">网站</label>
+    			<input type="url" name="url" id="url" class="text" placeholder="http://" value="">
+    		</p>
+                		<p>
+                <label for="textarea" class="required">内容</label>
+                <textarea rows="8" cols="50" name="text" id="textarea" class="textarea" required=""></textarea>
+            </p>
+    		<p>
+                <button type="submit" class="submit">提交评论</button>
+            </p>
+    	<input type="hidden" name="_" value="bd2c016eced3cae2d128ea94456b87ff"></form>
+    </div>
+    </div>
+
+    <ul class="post-near">
+        <li>上一篇: <a href="http://blog.lanyus.com/archives/316.html" title="撸了个解析M1卡的010Editor的模版">撸了个解析M1卡的010Editor的模版</a></li>
+        <li>下一篇: <a href="http://blog.lanyus.com/archives/323.html" title="Typecho修复评论IP错误问题">Typecho修复评论IP错误问题</a></li>
+    </ul>
+</div><!-- end #main-->
+
+<div class="col-mb-12 col-offset-1 col-3 kit-hidden-tb" id="secondary" role="complementary">
+
+    <section class="widget">
+		<h3 class="widget-title">来杯咖啡</h3>
+        <ul class="widget-list">
+            <div align="center"><img src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/alipay.png">支付宝账户：lanyu19950316@gmail.com</div>
+        </ul>
+    </section>
+
+        <section class="widget">
+		<h3 class="widget-title">最新文章</h3>
+        <ul class="widget-list">
+            <li><a href="http://blog.lanyus.com/archives/326.html">IntelliJ IDEA License Server v1.6</a></li><li><a href="http://blog.lanyus.com/archives/323.html">Typecho修复评论IP错误问题</a></li><li><a href="http://blog.lanyus.com/archives/317.html">撸了个反代工具, 可用于激活JRebel</a></li><li><a href="http://blog.lanyus.com/archives/316.html">撸了个解析M1卡的010Editor的模版</a></li><li><a href="http://blog.lanyus.com/archives/314.html">IntelliJ IDEA License Server v1.5</a></li><li><a href="http://blog.lanyus.com/archives/311.html">python中数字与C语言中double结构转换</a></li><li><a href="http://blog.lanyus.com/archives/309.html">腾达AC9官方固件增加KoolProxy版</a></li><li><a href="http://blog.lanyus.com/archives/305.html">IntelliJ IDEA License Server v1.4</a></li><li><a href="http://blog.lanyus.com/archives/302.html">memdump</a></li><li><a href="http://blog.lanyus.com/archives/299.html">更新JRebel for Android通用破解工具</a></li>        </ul>
+    </section>
+    
+        <section class="widget">
+		<h3 class="widget-title">最近回复</h3>
+        <ul class="widget-list">
+                            <li><a href="http://blog.lanyus.com/archives/317.html/comment-page-3#comment-2443">世神灭世</a>: 最新版的2017.3.4 IU-173.4548.28 亲测无效...</li>
+                    <li><a href="http://blog.lanyus.com/archives/326.html/comment-page-3#comment-2442">june</a>: @Kiyoma you mean the config is
+s...</li>
+                    <li><a href="http://blog.lanyus.com/archives/326.html/comment-page-3#comment-2440">zhangxx</a>: 用nginx反向代理的http://idea.lanyus.co...</li>
+                    <li><a href="http://blog.lanyus.com/archives/326.html/comment-page-3#comment-2439">koseiu</a>: 2017.3.4已无法使用</li>
+                    <li><a href="http://blog.lanyus.com/archives/326.html/comment-page-3#comment-2438">Kiyoma</a>: @june emmmm……mybe you just forgo...</li>
+                    <li><a href="http://blog.lanyus.com/archives/174.html/comment-page-16#comment-2437">Kinner</a>: CLion-2017.3.3 每隔一段时间弹出激活窗口。 una...</li>
+                    <li><a href="http://blog.lanyus.com/archives/326.html/comment-page-3#comment-2436">Kiyoma</a>: @juneYou haven't done it correct...</li>
+                    <li><a href="http://blog.lanyus.com/archives/326.html/comment-page-3#comment-2435">june</a>: @Kiyoma but …… it doesn't work.
+...</li>
+                    <li><a href="http://blog.lanyus.com/archives/326.html/comment-page-3#comment-2434">Kiyoma</a>: @deeped
+edit your host;
+use ngin...</li>
+                    <li><a href="http://blog.lanyus.com/start-page.html/comment-page-2#comment-2433">Jose</a>: Not working with Idea 2017.3.4</li>
+                </ul>
+    </section>
+    
+        <section class="widget">
+		<h3 class="widget-title">分类</h3>
+        <ul class="widget-list"><li class="category-level-0 category-parent"><a href="http://blog.lanyus.com/category/program/">作品</a></li><li class="category-level-0 category-parent"><a href="http://blog.lanyus.com/category/technology/">技术</a></li><li class="category-level-0 category-parent"><a href="http://blog.lanyus.com/category/data/">资料</a></li><li class="category-level-0 category-parent"><a href="http://blog.lanyus.com/category/style/">随性</a></li><li class="category-level-0 category-parent"><a href="http://blog.lanyus.com/category/notice/">站务</a></li><li class="category-level-0 category-parent"><a href="http://blog.lanyus.com/category/vuln/">漏洞</a></li><li class="category-level-0 category-parent"><a href="http://blog.lanyus.com/category/mianliu/">免流</a></li><li class="category-level-0 category-parent"><a href="http://blog.lanyus.com/category/crack/">破解</a></li></ul>	</section>
+    
+        <section class="widget">
+		<h3 class="widget-title">归档</h3>
+        <ul class="widget-list">
+            <li><a href="http://blog.lanyus.com/2018/01/">January 2018</a></li><li><a href="http://blog.lanyus.com/2017/12/">December 2017</a></li><li><a href="http://blog.lanyus.com/2017/10/">October 2017</a></li><li><a href="http://blog.lanyus.com/2017/06/">June 2017</a></li><li><a href="http://blog.lanyus.com/2017/05/">May 2017</a></li><li><a href="http://blog.lanyus.com/2017/04/">April 2017</a></li><li><a href="http://blog.lanyus.com/2016/12/">December 2016</a></li><li><a href="http://blog.lanyus.com/2016/11/">November 2016</a></li><li><a href="http://blog.lanyus.com/2016/10/">October 2016</a></li><li><a href="http://blog.lanyus.com/2016/09/">September 2016</a></li><li><a href="http://blog.lanyus.com/2016/08/">August 2016</a></li><li><a href="http://blog.lanyus.com/2016/07/">July 2016</a></li><li><a href="http://blog.lanyus.com/2016/06/">June 2016</a></li><li><a href="http://blog.lanyus.com/2016/04/">April 2016</a></li><li><a href="http://blog.lanyus.com/2016/03/">March 2016</a></li><li><a href="http://blog.lanyus.com/2016/02/">February 2016</a></li><li><a href="http://blog.lanyus.com/2016/01/">January 2016</a></li><li><a href="http://blog.lanyus.com/2015/12/">December 2015</a></li><li><a href="http://blog.lanyus.com/2015/11/">November 2015</a></li><li><a href="http://blog.lanyus.com/2015/10/">October 2015</a></li><li><a href="http://blog.lanyus.com/2015/09/">September 2015</a></li>        </ul>
+	</section>
+    
+        <div class="widget">
+			<h3>链接</h3>
+            <ul class="widget-list">
+                <li><a href="https://shevonwang.github.io/" title="" target="_blank">shevonWang's Blog</a></li>
+<li><a href="https://www.izzx.cc/" title="" target="_blank">iZzx blog</a></li>
+<li><a href="http://shyling.com/" title="一妹子的博客" target="_blank">Shy泠的博客</a></li>
+<li><a href="http://kailing.pub/" title="" target="_blank">KL博客</a></li>
+<li><a href="http://www.sciencesoft.cn/" title="" target="_blank">科研软件小站</a></li>
+<li><a href="http://www.rover12421.com/" title="" target="_blank">Rover12421's Blog</a></li>
+<li><a href="http://blog.hejies.com/" title="" target="_blank">心生碎月</a></li>
+<li><a href="http://chuangzaoshi.com/Friends" title="" target="_blank">创造狮 创意工作者导航</a></li>
+<li><a href="http://time-track.cn/" title="" target="_blank">时间轨迹</a></li>
+<li><a href="http://laravelacademy.org/" title="" target="_blank">Laravel学院</a></li>
+<li><a href="http://feiyang.li/" title="" target="_blank">李飞阳</a></li>
+<li><a href="http://www.leftso.com/" title="" target="_blank">Leftso(左搜)</a></li>
+<li><a href="https://blog.kunx.org/" title="" target="_blank">御风而行</a></li>
+<li><a href="http://ydc1992.coding.me/" title="" target="_blank">ydc's blog</a></li>
+            </ul>
+		</div>
+
+    	<section class="widget">
+		<h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+                            <li class="last"><a href="http://blog.lanyus.com/admin/login.php">登录</a></li>
+                        <li><a href="http://blog.lanyus.com/feed/">文章 RSS</a></li>
+            <li><a href="http://blog.lanyus.com/feed/comments/">评论 RSS</a></li>
+            <li><a href="http://www.typecho.org/">Typecho</a></li>
+        </ul>
+	</section>
+    
+</div><!-- end #sidebar -->
+
+        </div><!-- end .row -->
+    </div>
+</div><!-- end #body -->
+
+<footer id="footer" role="contentinfo">
+    © 2018 <a href="http://blog.lanyus.com/">ilanyu's Blog</a>.
+    由 <a href="http://www.typecho.org/">Typecho</a> 强力驱动|<a href="http://www.miitbeian.gov.cn/" rel="nofollow" target="_blank">蜀ICP备15034916号</a>|
+<script language="javascript" type="text/javascript" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/18621766.js.下载"></script><a href="https://www.51.la/?18621766" target="_blank" title="51.La 网站流量统计系统"><img alt="51.La 网站流量统计系统" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/icon_2.gif" style="border:none"></a>
+
+<noscript>&lt;a href="http://www.51.la/?18621766" target="_blank"&gt;&lt;img alt="&amp;#x6211;&amp;#x8981;&amp;#x5566;&amp;#x514D;&amp;#x8D39;&amp;#x7EDF;&amp;#x8BA1;" src="http://img.users.51.la/18621766.asp" style="border:none" /&gt;&lt;/a&gt;</noscript>
+<!-- UJian Button BEGIN -->
+<script type="text/javascript" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/ujian.js.下载"></script>
+<a href="http://www.ujian.cc/" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;"></a>
+<!-- UJian Button END -->
+
+<script type="text/javascript" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/jquery-1.9.1.min.js.下载"></script>        <link rel="stylesheet" type="text/css" href="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/jquery.atwho.css">
+        <script type="text/javascript" src="./撸了个反代工具, 可用于激活JRebel - ilanyu&#39;s Blog_files/jquery.atwho.min.js.下载"></script>
+        <script>
+		//<![CDATA[
+		TypechoComment.reply = function (cid, coid) {
+		        var comment = TypechoComment.dom(cid), parent = comment.parentNode,
+		            response = TypechoComment.dom('respond-post-317'), input = TypechoComment.dom('comment-parent'),
+		            form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+		            textarea = response.getElementsByTagName('textarea')[0];
+
+		        if (null == input) {
+		            input = TypechoComment.create('input', {
+		                'type' : 'hidden',
+		                'name' : 'parent',
+		                'id'   : 'comment-parent'
+		            });
+
+		            form.appendChild(input);
+		        }
+		        
+		        input.setAttribute('value', coid);
+
+		        if (null == TypechoComment.dom('comment-form-place-holder')) {
+		            var holder = TypechoComment.create('div', {
+		                'id' : 'comment-form-place-holder'
+		            });
+		            
+		            response.parentNode.insertBefore(holder, response);
+		        }
+
+		        comment.appendChild(response);
+		        TypechoComment.dom('cancel-comment-reply-link').style.display = '';
+		        
+		        if (null != textarea && 'text' == textarea.name) {
+		            textarea.focus();
+					var res = {
+						'id': response.parentNode.id,
+						'name':response.parentNode.getElementsByClassName('fn')[0].innerText
+						}
+					textarea.innerHTML = '@<a href="#'+res.id+'">'+res.name+'</a>'+textarea.innerHTML;
+		        }
+		        
+		        return false;
+		   	}
+		//]]>
+        $(function() {
+	        var data = [{"id":"1961","name":"cll","text":"cll\u4f60\u597d\uff0c\u80fd\u8be6\u7ec6\u4ecb\u7ecd\u4e00\u4e0b..."},{"id":"1962","name":"cll","text":"cllhttp:\/\/127.0.0.1:888..."},{"id":"1967","name":"cll","text":"cllhttp:\/\/127.0.0.1:888..."},{"id":"1970","name":"Avan","text":"Avan\u8c22\u8c22\u697c\u4e3b\uff0c\u641e\u6382\u4e86\uff0c\u6b63..."},{"id":"1973","name":"cofe","text":"cofe\u6b63\u597d\u6536\u85cf\u5907\u4efd,\u8d5e\u4e00\u4e2a"},{"id":"1980","name":"\u7a0b\u5e8f\u733f","text":"\u7a0b\u5e8f\u733f\u725b\u903c\u725b\u903c  \u771f\u5fc3\u611f\u8c22\u697c\u4e3b"},{"id":"1981","name":"XianF","text":"XianF\u4f60\u4eec\u80fd\u4e0b\u5417\uff0c\u600e\u4e48\u6211\u4e0b..."},{"id":"1982","name":"Ivan","text":"Ivan\u975e\u5e38\u611f\u8c22\uff0c\u6700\u8fd1\u57df\u540d\u7684..."},{"id":"1999","name":"liuji","text":"liujiError response from ..."},{"id":"2001","name":"liuji","text":"liuji@liujidocekr-hub\u4e0a\u641c..."},{"id":"2005","name":"CK","text":"CK\u53ef\u4ee5\u76f4\u63a5 nginx \u53cd\u4ee3..."},{"id":"2007","name":"xxx","text":"xxx\u610f\u5916\u5728dockerhub\u770b\u5230"},{"id":"2009","name":"\u5c0f\u83dc","text":"\u5c0f\u83dc\u6fc0\u6d3b\u4e86,\u7279\u6765\u611f\u8c22,\u4e0b\u8f7d..."},{"id":"2011","name":"\u521d\u96ea","text":"\u521d\u96ea\u4e0b\u8f7d\u4e0d\u4e0b\u6765\u554a\u6211\u7684\u5929"},{"id":"2012","name":"\u5c11\u5e74","text":"\u5c11\u5e74\u7528\u4e86docker\uff0c\u62a5404\u554a..."},{"id":"2013","name":"ilanyu","text":"ilanyu@\u5c11\u5e74 \u6ca1\u54ea\u91cc\u8ba9\u4f60\u76f4..."},{"id":"2014","name":"\u5c11\u5e74","text":"\u5c11\u5e74\u6211\u6653\u5f97\uff0c\u7528\u5de5\u5177\u76f4\u63a5\u53cd..."},{"id":"2015","name":"ilanyu","text":"ilanyu@\u5c11\u5e74 jrebel\u4e0d\u4f1a\u53bb..."},{"id":"2017","name":"\u5c11\u5e74","text":"\u5c11\u5e74@ilanyu sorry,\u6211\u88ab..."},{"id":"2024","name":"TSong","text":"TSong\u8bbe\u7f6e\u540e\u6fc0\u6d3b\u63d0\u793aUnexpe..."},{"id":"2025","name":"TSong","text":"TSong@TSong PS D:\\DEV\\To..."},{"id":"2026","name":"TSong","text":"TSong@TSong \u597d\u5427\uff0c\u7528\u9ed8\u8ba4..."},{"id":"2029","name":"ilanyu","text":"ilanyu@TSong goxz.gq\u8fd9\u4e2a..."},{"id":"2034","name":"\u533f\u540d\u8005","text":"\u533f\u540d\u8005\u4e0d\u9519\uff0c\u53ef\u4ee5\u7528"},{"id":"2043","name":"smart","text":"smart\u8d5e\uff0c\u597d\u7528\u5f97\u5f88\uff0c\u611f\u8c22\u5927..."},{"id":"2057","name":"aya99","text":"aya99\u597d\u65b9\u4fbf\uff0cdocker\u8d77\u6765\u540e..."},{"id":"2064","name":"dingdayu","text":"dingdayu\u697c\u4e3b\u90fd\u7528docker\u955c\u50cf\u4e86..."},{"id":"2067","name":"yhao","text":"yhao\u6211\u662fwindows\u7684\uff0c\u4e0b\u8f7d..."},{"id":"2068","name":"yhao","text":"yhao@yhao\u5df2\u7ecf\u89e3\u51b3\u4e86\u3002 \u5f04..."},{"id":"2069","name":"\u88ab\u8fc7\u53bb\u63a8\u5f00","text":"\u88ab\u8fc7\u53bb\u63a8\u5f00\u76f4\u63a5\u5c31\u53ef\u4ee5\u4f7f\u7528\uff0c\u592a\u65b9..."},{"id":"2070","name":"Rocky","text":"Rocky\u53ef\u4ee5\u7528\u5728jrebel 7.1.2..."},{"id":"2072","name":"dargonjack","text":"dargonjack\u8bf7\u95ee\u8fd9\u4e2a\u5728a\u7535\u8111\u4e0a\u6fc0..."},{"id":"2073","name":"dargonjack","text":"dargonjack\u662fb\u4e0d\u80fd\u8bbf\u95ee\u5916\u7f51"},{"id":"2078","name":"gsls200808","text":"gsls200808@dargonjack\u5185\u7f51\u53ef\u4ee5..."},{"id":"2079","name":"peixy","text":"peixy\u6211\u60f3\u95ee\u4e0bmac \u5e94\u8be5\u9009\u54ea..."},{"id":"2091","name":"\u5c11\u5e74","text":"\u5c11\u5e74\u4eca\u5929\u65e9\u4e0axrebel \u62a5502"},{"id":"2092","name":"\u5c11\u5e74","text":"\u5c11\u5e74@gsls200808 \u8001\u54e5\uff0c\u7a33..."},{"id":"2093","name":"ciwang","text":"ciwang\u4e5f\u95ee\u4e0b mac \u7528\u54ea\u4e2a\u7cfb\u7edf"},{"id":"2113","name":"\u97ed\u83dc","text":"\u97ed\u83dc@Rocky\u53ef\u4ee5\u7684"},{"id":"2115","name":"HAHA","text":"HAHA@\u5c11\u5e74@gsls200808 \u8001..."},{"id":"2126","name":"\u54c8\u54c8","text":"\u54c8\u54c8\u770b\u4e0d\u61c2\uff0c\u554a\u554a\u554a\uff0c\u54ed\u6655"},{"id":"2131","name":"huanyu","text":"huanyu\u592a\u65b9\u4fbf\u4e86\uff0c\u8bf7\u95ee\u697c\u4e3b\u5173..."},{"id":"2140","name":"\u6d77\u5c71\u5927\u5305","text":"\u6d77\u5c71\u5927\u5305\u6fc0\u6d3b\u4e86 \u975e\u5e38\u611f\u8c22 "},{"id":"2150","name":"Fent","text":"Fent\u6211\u662f\u8fd9\u6837\u4f7f\u7528: WINDO..."},{"id":"2153","name":"jc","text":"jc\u4e0d\u597d\u7528\u4e86"},{"id":"2154","name":"jc","text":"jc@ \u62a5\u9519 gsls200808une..."},{"id":"2155","name":"myron934","text":"myron934golang 2017.3\u6fc0\u6d3b\u5b8c..."},{"id":"2158","name":"whynasa","text":"whynasa\u5173\u6389\u7535\u8111\u91cd\u65b0\u6253\u5f00idea..."},{"id":"2185","name":"Cari","text":"Cari\u5c31\u5728\u672c\u5730\u7528\u4e2a\u5c0f\u811a\u672c\u542f..."},{"id":"2188","name":"aliveli","text":"aliveliHello, I'm trying t..."},{"id":"2191","name":"sunny","text":"sunny@peixy IntelliJIDEAL..."},{"id":"2192","name":"Rocky","text":"Rockycannot reactivate JR..."},{"id":"2204","name":"\u6d69\u701a\u7684\u6d77\u6d0b\u6ef4","text":"\u6d69\u701a\u7684\u6d77\u6d0b\u6ef4\u5723\u8bde\u4eb2\u6d4b\u53ef\u7528\uff0c\u4e07\u4efd\u611f..."},{"id":"2205","name":"Memory","text":"Memory\u8bf7\u95ee\uff0cMAC \u7248\u7684  2017..."},{"id":"2207","name":"zv","text":"zv\u5e0c\u671b\u4f5c\u8005\u80fd\u5427\u8fd9\u4e2a\u5de5\u5177..."},{"id":"2213","name":"young","text":"young\u8bf7\u95ee\u600e\u4e48\u7528\u4e8eidea\u5462\uff1f"},{"id":"2214","name":"yeath","text":"yeath\u6ca1\u7528\u554a"},{"id":"2215","name":"localc","text":"localc@yeathheap->register..."},{"id":"2230","name":"a_nuo","text":"a_nuo\u591a\u8c22\u63d0\u4f9b\uff01 \u201chttp:\/\/..."},{"id":"2239","name":"zengxc","text":"zengxc\u611f\u8c22\u63d0\u4f9bdocker\u3002\u8f93\u5165..."},{"id":"2253","name":"zengxc","text":"zengxc@zengxc http:\/\/127.0..."},{"id":"2259","name":"ice\u6c34\u706b","text":"ice\u6c34\u706bmac\u7248\uff1a 1\u3001\u4e0b\u8f7dReve..."},{"id":"2262","name":"leeves","text":"leeves@ice\u6c34\u706b \u611f\u8c22\uff0c2018..."},{"id":"2264","name":"zzzcomd","text":"zzzcomd\u76f4\u63a5nginx\u53cd\u4ee3  ser..."},{"id":"2270","name":"268","text":"268\u5f3a\u65e0\u654c\uff0c\u771f\u5fc3\u611f\u8c22\u4f5c\u8005\uff01"},{"id":"2294","name":"HViktorTsoi","text":"HViktorTsoiPyCharm2018.01.18\u4eb2..."},{"id":"2315","name":"Robot","text":"Robot@ice\u6c34\u706b\u6587\u4ef6\u6ca1\u6709\u540e\u7f00..."},{"id":"2316","name":"Robot","text":"Robotwin7 64\u4f4d \u6fc0\u6d3bIDEA\uff1a..."},{"id":"2318","name":"Chris","text":"Chris@ice\u6c34\u706b\u4e0b\u8f7d\u4e0b\u6765\u662f.d..."},{"id":"2319","name":"ice\u6c34\u706b","text":"ice\u6c34\u706b@Robot\u53cc\u51fbReversePro..."},{"id":"2320","name":"ice\u6c34\u706b","text":"ice\u6c34\u706b@Chris\u4f60\u7684\u662fmac\u7535\u8111..."},{"id":"2321","name":"Chris","text":"Chris@ice\u6c34\u706b \u4f60\u597d\uff0c\u6211\u7684..."},{"id":"2322","name":"Robot","text":"Robot@ice\u6c34\u706b \u6211\u662fwin\u7cfb..."},{"id":"2329","name":"\u65e0\u5948\u5929\u8bda","text":"\u65e0\u5948\u5929\u8bda2018-1-26 \u6d4b\u8bd5\u670d\u52a1\u5668..."},{"id":"2330","name":"\u65e0\u5948\u5929\u8bda","text":"\u65e0\u5948\u5929\u8bda\u4e0d\u597d\u610f\u601d\u53ef\u80fd\u662f\u7f51\u7edc\u6ce2..."},{"id":"2332","name":"\u5b66\u5f92\u4e09\u91d1","text":"\u5b66\u5f92\u4e09\u91d1\u4e0b\u8f7d\u5730\u5740\u8bbf\u95ee\u4e0d\u4e86,\u53ef..."},{"id":"2333","name":"\u5b66\u5f92\u4e09\u91d1","text":"\u5b66\u5f92\u4e09\u91d1@lanyus  \u80fd\u4e0d\u80fd\u7ed9\u6211..."},{"id":"2335","name":"\u8001\u5ddd","text":"\u8001\u5ddd\u5728\u7ec8\u7aef\u6267\u884c\u4ee5\u4e0b\u547d\u4ee4\uff1a..."},{"id":"2342","name":"ddd","text":"ddd@gsls200808\u597d\u5389\u5bb3 \u975e..."},{"id":"2358","name":"john","text":"john@HViktorTsoi \u4f60\u662fub..."},{"id":"2359","name":"HViktorTsoi","text":"HViktorTsoi@john \u662f\u7684 ubuntu14..."},{"id":"2360","name":"HViktorTsoi","text":"HViktorTsoi@HViktorTsoi \u53e6\u5916\u8fd8..."},{"id":"2362","name":"john","text":"john@HViktorTsoi \u5b89\u88c5\u4e86..."},{"id":"2363","name":"HViktorTsoi","text":"HViktorTsoi@john \u8bd5\u4e0b\u8fd9\u4e2a  su..."},{"id":"2364","name":"john","text":"john@HViktorTsoi \u4e00\u6837\u7684..."},{"id":"2365","name":"HViktorTsoi","text":"HViktorTsoi@john ilanyu\u7684\u8fd9\u4e2a..."},{"id":"2366","name":"john","text":"john@john \u6211python\u9ed8\u8ba4..."},{"id":"2367","name":"john","text":"john@HViktorTsoi \u6211pyth..."},{"id":"2368","name":"john","text":"john@HViktorTsoi \u7b2c\u4e00\u79cd..."},{"id":"2369","name":"john","text":"john@HViktorTsoi \u8fd8\u662f\u62a5..."},{"id":"2370","name":"HViktorTsoi","text":"HViktorTsoi@john \u5982\u679c\u7cfb\u7edf\u9ed8\u8ba4..."},{"id":"2371","name":"john","text":"john@zzzcomd \u8fd9\u6bb5\u4ee3\u7801\u8d34..."},{"id":"2386","name":"\u5c0f\u5c0f\u5c0f\u5c18\u57c3","text":"\u5c0f\u5c0f\u5c0f\u5c18\u57c3\u884c\u4e0d\u901a\u554a"},{"id":"2426","name":"cii566","text":"cii566@zengxc \u8fd9\u4e2a\u6ce8\u518c\u7801..."},{"id":"2443","name":"\u4e16\u795e\u706d\u4e16","text":"\u4e16\u795e\u706d\u4e16\u6700\u65b0\u7248\u76842017.3.4 IU-..."}];
+	        $('textarea').atwho('run').atwho({
+	            at: "@",
+	            data: data,
+	            max_len: 8,
+	            search_key: 'text',
+	            tpl: '<li data-value=\'@<a href=\"#comment-${id}\">${name}</a>\'>${text}</li>'
+	        });
+        });
+        </script>
+        
+
+
+</footer><div id="atwho-container"><div id="atwho-ground-textarea"><div class="atwho-view" id="at-view-64"><ul class="atwho-view-ul"></ul></div></div></div></body></html>
