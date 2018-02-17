@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://www.cnblogs.com/hellotracy/articles/5109156.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>virtualbox下的centos7网络配置—— 1.动态ip   2.静态ip - lawrence.li - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/bundle-SimpleBlue.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/bundle-SimpleBlue-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/hellotracy/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/hellotracy/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/hellotracy/wlwmanifest.xml">
+<script async="" src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/encoder.js.下载"></script><script src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+<script type="text/javascript">var currentBlogApp = 'hellotracy', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/hellotracy/">lawrence.li 在路上</a></div>
+<div class="subtitle">求职 MySQL DBA (广州)</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/hellotracy/">首页</a></li>
+<li id="nav_newpost"></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/lawrence.li">联系</a></li>
+<li id="nav_rss">
+<!----></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/hellotracy/articles/5109156.html">virtualbox下的centos7网络配置—— 1.动态ip   2.静态ip</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>先难后易</p>
+<p>第一部分：配置静态IP地址</p>
+<p>第二部分：配置动态IP地址&nbsp;</p>
+<p>&nbsp;</p>
+<p>正文如下</p>
+<p>&nbsp;</p>
+<p><strong>虚拟系统与宿主系统之间的网络连接方式—— 桥接</strong></p>
+<p><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/822428-20160107144406590-550669007.png" alt=""></p>
+<p>&nbsp;</p>
+<p><strong>静态IP地址设置</strong></p>
+<p>首先要保证整个Centos7可以使用网络</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">vi /etc/sysconfig/network
+
+# Created by anaconda
+
+<span style="color: #ff0000;">NETWORKING=yes</span>
+HOSTNAME=centos7</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>设置固定的静态IP地址</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">ls /etc/sysconfig/network-scripts
+
+<span style="color: #ff0000;">ifcfg-enp0s3</span>  ifdown-ipv6    ifdown-Team      ifup-eth    ifup-post      ifup-tunnel
+ifcfg-lo      ifdown-isdn    ifdown-TeamPort  ifup-ippp   ifup-ppp       ifup-wireless
+ifdown        ifdown-post    ifdown-tunnel    ifup-ipv6   ifup-routes    init.ipv6-global
+ifdown-bnep   ifdown-ppp     ifup             ifup-isdn   ifup-sit       network-functions
+ifdown-eth    ifdown-routes  ifup-aliases     ifup-plip   ifup-Team      network-functions-ipv6
+ifdown-ippp   ifdown-sit     ifup-bnep        ifup-plusb  ifup-TeamPort</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>加入下面这些配置</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">HWADDR="08:00:27:5A:E0:85"
+TYPE="Ethernet"
+
+#BOOTPROTO="dhcp"
+<span style="color: #ff0000;">BOOTPROTO="static"      </span></span><span style="color: #3366ff;">---- 只有“静态static”和“动态dhcp”两种方式</span><span style="color: #000000;">
+<span style="color: #ff0000;">IPADDR=192.168.1.108</span>    <span style="color: #3366ff;">---- 静态IP，只要跟宿主系统IP在同一个网段即可，可以109，120随你</span>
+<span style="color: #ff0000;">MM_CONTROLLED=no         </span>
+<span style="color: #ff0000;">NETMASK=255.255.255.0</span>
+
+
+DEFROUTE="yes"
+PEERDNS="yes"
+PEERROUTES="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_PEERDNS="yes"
+IPV6_PEERROUTES="yes"
+IPV6_FAILURE_FATAL="no"
+NAME="enp0s3"
+UUID="e3795478-ea2e-49f8-9ada-c3f70e842b13"
+
+<span style="color: #ff0000;">ONBOOT="yes"     <span style="color: #3366ff;"> ---- 最开始默认为NO，yes意思是，“BOOT开机”时候就能使用这张网卡</span></span></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>gateway网关设置</strong></p>
+<p>“GATEWAY 网关” ，好比海关，来自各个省的人要出国，都要经过某一个海关，对于计算机网络来说，centos系统中无论有多少张网卡 eth0,eth1,eth2,enp0s3,都要经过“gateway 网关” 这个出口，才能与外面的世界沟通交流。</p>
+<p>&nbsp;</p>
+<p>在这里，“虚拟系统”的“gateway网关”,设置成跟“宿主系统”的网关是一致的就可以了，大家都使用同一个出口</p>
+<p><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/822428-20160107143813387-603128326.png" alt=""></p>
+<p><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/822428-20160107143902309-778934924.png" alt=""></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">vi /etc/sysconfig/network
+
+# Created by anaconda
+
+NETWORKING=yes
+HOSTNAME=centos7
+<span style="color: #ff0000;">GATEWAY=192.168.1.1</span></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>设置完后重启网络</p>
+<div class="cnblogs_code">
+<pre>/etc/init.d/network restart</pre>
+</div>
+<p>检查gateway是否设置成功</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">[root@localhost ~]# route -n
+Kernel IP routing table
+Destination     <span style="color: #ff0000;">Gateway</span>         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         <span style="color: #ff0000;">192.168.1.1</span>     0.0.0.0         UG    100    0        0 enp0s3
+192.168.1.0     0.0.0.0         255.255.255.0   U     100    0        0 enp0s3</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>配置DNS服务器</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">[root@localhost /]# ping 14.215.177.37
+PING 14.215.177.37 (14.215.177.37) 56(84) bytes of data.
+64 bytes from 14.215.177.37: icmp_seq=1 <span style="color: #ff0000;">ttl=55 time=10.6 ms</span>
+64 bytes from 14.215.177.37: icmp_seq=2 ttl=55 time=10.4 ms
+
+[root@localhost /]# ping www.baidu.com</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>这时候我们发现，可以ping通ip地址，但是无法ping通 www.baidu.com，那是因为缺少一个“DNS服务器” 帮我们把“host地址”翻译为“ip地址”，先查看目前的DSN服务器是谁</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">[root@localhost /]# cat /etc/resolv.conf
+# Generated by NetworkManager
+
+
+# No nameservers found; <span style="color: #ff0000;">try putting DNS servers into your</span>
+# <span style="color: #ff0000;">ifcfg files in</span> /etc/sysconfig/network-scripts like so:
+#
+# DNS1=xxx.xxx.xxx.xxx
+# DNS2=xxx.xxx.xxx.xxx
+# DOMAIN=lab.foo.com bar.foo.com</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>得到的建议是让我们把“DNS服务器”的信息，添加到“ifcfg网卡”文件里面，那我们还是添加到刚才配置静态ip的“网卡文件ifcfg-enp0s3&nbsp;”</p>
+<p><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/822428-20160107154158950-1198222253.png" alt=""></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">[root@localhost /]# vi /etc/sysconfig/network-scripts/ifcfg-enp0s3 
+HWADDR="08:00:27:5A:E0:85"
+TYPE="Ethernet"
+
+#BOOTPROTO="dhcp"
+BOOTPROTO="static"
+IPADDR=192.168.1.108
+MM_CONTROLLED=no
+NETMASK=255.255.255.0
+
+
+DEFROUTE="yes"
+PEERDNS="yes"
+PEERROUTES="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_PEERDNS="yes"
+IPV6_PEERROUTES="yes"
+IPV6_FAILURE_FATAL="no"
+NAME="enp0s3"
+UUID="e3795478-ea2e-49f8-9ada-c3f70e842b13"
+
+ONBOOT="yes"
+
+<span style="color: #ff0000;">DNS1=192.168.1.1   ----- 跟“宿主系统”的DNS服务器一样
+DNS2=8.8.8.8       ----- 使用谷歌的DNS服务器
+DNS3=8.8.8.4</span></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>每次修改完配置文件都要重启”网卡“</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">[root@localhost /]# /etc/init.d/network restart
+Restarting network (via systemctl):                        [  OK  ]</span></pre>
+</div>
+<p>接着再一次查看DNS服务器信息，发现可以识别刚才配置的3个了</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">[root@localhost /]# cat /etc/resolv.conf 
+# Generated by NetworkManager
+nameserver 192.168.1.1
+nameserver 8.8.8.8
+nameserver 8.8.8.4</span></pre>
+</div>
+<p>检查一下</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">[root@localhost /]# ping www.baidu.com
+PING www.a.shifen.com (14.215.177.38) 56(84) bytes of data.
+64 bytes from 14.215.177.38: icmp_seq=2 ttl=55 time=5.71 ms
+64 bytes from 14.215.177.38: icmp_seq=3 ttl=55 time=5.31 ms
+64 bytes from 14.215.177.38: icmp_seq=4 ttl=55 time=6.01 ms</span></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>配置动态IP地址</strong></p>
+<p>&nbsp;</p>
+<p>同样在使用”桥接“的网络连接方式下，有两个步骤</p>
+<p>1.确认DHCP功能已经打开了(一般linux都会默认安装DHCP的)</p>
+<p>2.把网卡设置为”使用DHCP功能“</p>
+<p>&nbsp;</p>
+<p>所有改变的地方，只是把静态的IP地址注释掉，添加一句”使用DHCP“而已</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">[root@localhost init.d]# cat /etc/sysconfig/network-scripts/ifcfg-enp0s3 
+HWADDR="08:00:27:5A:E0:85"
+TYPE="Ethernet"
+
+<span style="color: #ff0000;">BOOTPROTO="dhcp"</span>
+<span style="color: #339966;">#BOOTPROTO="static"
+#IPADDR=192.168.1.108
+#MM_CONTROLLED=no
+#NETMASK=255.255.255.0
+</span>
+
+DEFROUTE="yes"
+PEERDNS="yes"
+PEERROUTES="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_PEERDNS="yes"
+IPV6_PEERROUTES="yes"
+IPV6_FAILURE_FATAL="no"
+NAME="enp0s3"
+UUID="e3795478-ea2e-49f8-9ada-c3f70e842b13"
+
+ONBOOT="yes"
+
+DNS1=192.168.1.1
+DNS2=8.8.8.8
+DNS3=8.8.8.4</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>重启网络后，会看到IP地址从原来的192.168.1.108改变成另外的ip地址了</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">[root@localhost init.d]# ifconfig
+enp0s3: flags</span>=416<span style="color: #000000;">3&lt;UP</span><span style="color: #ff0000;"><span style="color: #000000;">,BROADCAST,RUNNING,MULTICAST</span></span><span style="color: #0000ff;">&gt;</span>  mtu 1500<span style="color: #000000;">
+        inet </span><span style="color: #ff0000;">192.168.1.107</span><span style="color: #000000;">  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::a00:27ff:fe5a:e085  prefixlen 64  scopeid 0x20</span><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">link</span><span style="color: #0000ff;">&gt;</span><span style="color: #000000;">
+        ether 08:00:27:5a:e0:85  txqueuelen 1000  (Ethernet)
+        RX packets 38916  bytes 3842159 (3.6 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 39033  bytes 7562537 (7.2 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536<span style="color: #000000;">
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10</span><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">host</span><span style="color: #0000ff;">&gt;</span><span style="color: #000000;">
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 3110  bytes 279475 (272.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3110  bytes 279475 (272.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/hellotracy/category/775929.html" target="_blank">Network</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/hellotracy/tag/virtualbox/">virtualbox</a>, <a href="http://www.cnblogs.com/hellotracy/tag/centos7/">centos7</a>, <a href="http://www.cnblogs.com/hellotracy/tag/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">网络配置</a>, <a href="http://www.cnblogs.com/hellotracy/tag/%E9%9D%99%E6%80%81ip/">静态ip</a>, <a href="http://www.cnblogs.com/hellotracy/tag/%E5%8A%A8%E6%80%81ip/">动态ip</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5109156,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;d2747992-1972-e511-9fc1-ac853d9f53cc&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/hellotracy/" target="_blank"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/20160210020949.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/hellotracy/">lawrence.li</a><br>
+            <a href="http://home.cnblogs.com/u/hellotracy/followees">关注 - 1</a><br>
+            <a href="http://home.cnblogs.com/u/hellotracy/followers">粉丝 - 1</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;d2747992-1972-e511-9fc1-ac853d9f53cc&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5109156,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(5109156,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/hellotracy/articles/5095785.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/hellotracy/articles/5095785.html" title="发布于2016-01-03 09:56">[配置网络] win10 如何用secureCRT连接virtualbox中的centos6</a><br><a href="http://www.cnblogs.com/hellotracy/articles/5106158.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/hellotracy/articles/5106158.html" title="发布于2016-01-07 16:16">[trouble shooting] centos 软件源不能使用</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-01-07 16:09</span> <a href="http://www.cnblogs.com/hellotracy/">lawrence.li</a> 阅读(<span id="post_view_count">236</span>) 评论(<span id="post_comment_count">0</span>) &nbsp;<a href="https://i.cnblogs.com/EditArticles.aspx?postid=5109156" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/hellotracy/articles/5109156.html#" onclick="AddToWz(5109156);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=248980,cb_entryId=5109156,cb_blogApp=currentBlogApp,cb_blogUserGuid='d2747992-1972-e511-9fc1-ac853d9f53cc',cb_entryCreatedDate='2016/1/7 16:09:00';loadViewCount(cb_entryId);var cb_postType=2;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/hellotracy/articles/5109156.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/hellotracy/articles/5109156.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://cloud.tencent.com/act/first_purchase?fromSource=gwzcw.763755.763755.763755" target="_blank">【推荐】怎样购买腾讯云服务器更划算？</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.h3bpm.net/" target="_blank"><img width="300" height="250" src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/24442-20180126164912131-1246397933.jpg" alt="h3bpm0126"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/588762/" target="_blank">83岁清华奶奶应聘阿里，一出手震住全场，然而更厉害的是…</a><br> ·  <a href="https://news.cnblogs.com/n/588755/" target="_blank">FSF获得了91比特币的慈善捐款</a><br> ·  <a href="https://news.cnblogs.com/n/588759/" target="_blank">招商6亿元！阿里妈妈整合优酷商业化之后开启「内容全域营销模式」</a><br> ·  <a href="https://news.cnblogs.com/n/588758/" target="_blank">很快，Google 就能让你喊“Hey，Jarvis”唤醒手机假装钢铁侠了</a><br> ·  <a href="https://news.cnblogs.com/n/588735/" target="_blank">西安公交试行刷支付宝乘车 首批10余条线路已开通</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/586236/" target="_blank">领域驱动设计在互联网业务开发中的实践</a><br> ·  <a href="http://kb.cnblogs.com/page/585502/" target="_blank">步入云计算</a><br> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br> ·  <a href="http://kb.cnblogs.com/page/177402/" target="_blank">门内门外看招聘</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><img src="./virtualbox下的centos7网络配置—— 1.动态ip 2.静态ip - lawrence.li - 博客园_files/20160210020949(1).png" width="230px"><br>
+
+<div style="margin-left: 0.5px">邮箱：364137920@qq.com</div><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/hellotracy/">lawrence.li</a><br>园龄：<a href="https://home.cnblogs.com/u/hellotracy/" title="入园时间：2015-10-14">2年3个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/hellotracy/followers/">1</a><br>关注：<a href="https://home.cnblogs.com/u/hellotracy/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;d2747992-1972-e511-9fc1-ac853d9f53cc&#39;)">+加关注</a></div><script>getFollowStatus('d2747992-1972-e511-9fc1-ac853d9f53cc')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_categories">
+<div class="catListArticleCategory">
+<h3 class="catListTitle">文章分类<span style="font-size:11px;font-weight:normal">(57)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/hellotracy/category/745873.html">Centos / Redhat (12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/hellotracy/category/744373.html">MySQL   installation(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/hellotracy/category/771424.html">MySQL backup /restore(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/hellotracy/category/786200.html">MySQL replication(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/hellotracy/category/786977.html">MySQL security(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/hellotracy/category/744370.html">MySQL 数据模式设计(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/hellotracy/category/775929.html">Network(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/hellotracy/category/745283.html">Shell Scrpit(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/hellotracy/category/744371.html">SQL(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/hellotracy/category/769394.html">virtualbox(5)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList">
+<h3 class="catListTitle">大神 blogs</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.eygle.com/archives/2010/12/eygle_life_road.html" rel="nofollow">eygle</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://macshuo.com/" rel="nofollow">mactalk 池建强</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://blog.csdn.net/wyzxg" rel="nofollow">冰刀</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="https://dbarobin.com/2015/09/15/migration-of-mysql-on-different-scenes/" rel="nofollow">广州酷狗 温国兵</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/lanston/" rel="nofollow">坚持+信念</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://wubx.net/" rel="nofollow">吴炳锡</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/kerrycode/" rel="nofollow">潇湘隐者</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://imysql.com/" rel="nofollow">叶锦荣</a> </li>
+
+</ul>
+
+</div>
+
+</div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 lawrence.li
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

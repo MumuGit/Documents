@@ -1,0 +1,245 @@
+@font-face {
+  font-family: 'lolicon';
+  src:  url('fonts/lolicon.eot?hj9rqn');
+  src:  url('fonts/lolicon.eot?hj9rqn#iefix') format('embedded-opentype'),
+    url('fonts/lolicon.woff2?hj9rqn') format('woff2'),
+    url('fonts/lolicon.ttf?hj9rqn') format('truetype'),
+    url('fonts/lolicon.woff?hj9rqn') format('woff'),
+    url('fonts/lolicon.svg?hj9rqn#lolicon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="i-"], [class*=" i-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'lolicon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.i-hot-reply:before {
+  content: "\e948";
+}
+.i-hot:before {
+  content: "\e947";
+}
+.i-comment-alert:before {
+  content: "\e945";
+}
+.i-file-multiple:before {
+  content: "\e946";
+}
+.i-format-italic:before {
+  content: "\e944";
+}
+.i-image-multiple:before {
+  content: "\e900";
+}
+.i-star-outline:before {
+  content: "\e901";
+}
+.i-shape-square-plus:before {
+  content: "\e902";
+}
+.i-plus:before {
+  content: "\e903";
+}
+.i-filter:before {
+  content: "\e904";
+}
+.i-delete:before {
+  content: "\e905";
+}
+.i-circle-outline:before {
+  content: "\e906";
+}
+.i-check-circle:before {
+  content: "\e907";
+}
+.i-comment-text:before {
+  content: "\e908";
+}
+.i-format-list-checks:before {
+  content: "\e909";
+}
+.i-delete-forever:before {
+  content: "\e90a";
+}
+.i-watermark:before {
+  content: "\e90b";
+}
+.i-crop-landscape:before {
+  content: "\e90c";
+}
+.i-twitter:before {
+  content: "\e90d";
+}
+.i-whatsapp:before {
+  content: "\e90e";
+}
+.i-telegram:before {
+  content: "\e90f";
+}
+.i-content-copy:before {
+  content: "\e910";
+}
+.i-lock:before {
+  content: "\e911";
+}
+.i-link:before {
+  content: "\e912";
+}
+.i-image:before {
+  content: "\e913";
+}
+.i-format-align-center:before {
+  content: "\e914";
+}
+.i-format-align-left:before {
+  content: "\e915";
+}
+.i-format-align-right:before {
+  content: "\e916";
+}
+.i-format-bold:before {
+  content: "\e917";
+}
+.i-format-color-fill:before {
+  content: "\e918";
+}
+.i-format-size:before {
+  content: "\e919";
+}
+.i-format-strikethrough:before {
+  content: "\e91a";
+}
+.i-format-underline:before {
+  content: "\e91b";
+}
+.i-emoticon:before {
+  content: "\e91c";
+}
+.i-chevron-down:before {
+  content: "\e91d";
+}
+.i-format-quote-close:before {
+  content: "\e91e";
+}
+.i-check-all:before {
+  content: "\e91f";
+}
+.i-refresh:before {
+  content: "\e920";
+}
+.i-arrow-left:before {
+  content: "\e921";
+}
+.i-arrow-right:before {
+  content: "\e922";
+}
+.i-close:before {
+  content: "\e923";
+}
+.i-instagram:before {
+  content: "\e924";
+}
+.i-facebook:before {
+  content: "\e925";
+}
+.i-android:before {
+  content: "\e926";
+}
+.i-apple:before {
+  content: "\e927";
+}
+.i-menu-down:before {
+  content: "\e928";
+}
+.i-menu-up:before {
+  content: "\e929";
+}
+.i-arrow-down:before {
+  content: "\e92a";
+}
+.i-arrow-up:before {
+  content: "\e92b";
+}
+.i-history:before {
+  content: "\e92c";
+}
+.i-magnify:before {
+  content: "\e92d";
+}
+.i-bell:before {
+  content: "\e92e";
+}
+.i-clipboard-account:before {
+  content: "\e92f";
+}
+.i-star:before {
+  content: "\e930";
+}
+.i-inbox:before {
+  content: "\e931";
+}
+.i-account-multiple:before {
+  content: "\e932";
+}
+.i-sort:before {
+  content: "\e933";
+}
+.i-pencil:before {
+  content: "\e934";
+}
+.i-arrow-down-bold:before {
+  content: "\e935";
+}
+.i-arrow-up-bold:before {
+  content: "\e936";
+}
+.i-thumb-down:before {
+  content: "\e937";
+}
+.i-thumb-up:before {
+  content: "\e938";
+}
+.i-dots-horizontal:before {
+  content: "\e939";
+}
+.i-share-variant:before {
+  content: "\e93a";
+}
+.i-reply:before {
+  content: "\e93b";
+}
+.i-eye-off:before {
+  content: "\e93c";
+}
+.i-eye:before {
+  content: "\e93d";
+}
+.i-menu:before {
+  content: "\e93e";
+}
+.i-book-open-page-variant:before {
+  content: "\e93f";
+}
+.i-settings:before {
+  content: "\e940";
+}
+.i-check:before {
+  content: "\e941";
+}
+.i-chevron-right:before {
+  content: "\e942";
+}
+.i-plus-box:before {
+  content: "\e943";
+}

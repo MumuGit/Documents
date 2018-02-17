@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)http://www.25ma.com/article/1 -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+<meta name="renderer" content="webkit">
+<title>小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据</title>
+<meta name="keywords" content="白如,何在,virtualbox,安装,centos6,配置,桥接,网络,静态,ip">
+<meta name="description" content="小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 1. 安装vbox
+
+   新建虚拟机-&gt;输入名字:&quot;centos66_1&quot;-&gt;下一步-&gt;下一步.
+ 
+2. 点击设置-&gt;存储-&gt;控制器下选ISO盘
+
+
+	
+
+
+ 
+3.进入安装界面
+
+ 
+4.选择【Ski...">
+<!--<base href="http://www.25ma.com/">--><base href="."><!--[if IE]></base><![endif]-->
+<link href="http://www.25ma.com/static/css/default/img/favicon.ico?v=20150226" rel="shortcut icon" type="image/x-icon">
+
+<link rel="stylesheet" type="text/css" href="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/icon.css">
+
+<link href="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/common.css" rel="stylesheet" type="text/css">
+<link href="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/link.css" rel="stylesheet" type="text/css">
+<link href="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/style.css" rel="stylesheet" type="text/css">
+
+
+<script src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/hm.js.下载"></script><script type="text/javascript">
+	var _F229D6E508E52EBC1C8BE4CED3359FBE="";
+	var G_POST_HASH=_F229D6E508E52EBC1C8BE4CED3359FBE;
+	var G_INDEX_SCRIPT = "";
+	var G_SITE_NAME = "25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据";
+	var G_BASE_URL = "http://www.25ma.com";
+	var G_STATIC_URL = "http://www.25ma.com/static";
+	var G_UPLOAD_URL = "http://www.25ma.cn/uploads";
+	var G_USER_ID = "";
+	var G_USER_NAME = "";
+	var G_UPLOAD_ENABLE = "N";
+	var G_UNREAD_NOTIFICATION = 0;
+	var G_NOTIFICATION_INTERVAL = 100000;
+	var G_CAN_CREATE_TOPIC = "";
+	var G_ADVANCED_EDITOR_ENABLE = "Y";
+
+	</script>
+<script src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/jquery.2.js.下载" type="text/javascript"></script>
+<script src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/jquery.form.js.下载" type="text/javascript"></script>
+<script src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/plug-in_module.js.下载" type="text/javascript"></script>
+<script src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/aws.js.下载" type="text/javascript"></script>
+<script src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/aw_template.js.下载" type="text/javascript"></script>
+<script src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/app.js.下载" type="text/javascript"></script>
+<script type="text/javascript" src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/compatibility.js.下载"></script>
+<!--[if lte IE 8]>
+	<script type="text/javascript" src="http://www.25ma.com/static/js/respond.js"></script>
+<![endif]-->
+<style type="text/css">.fancybox-margin{margin-right:10px;}</style></head>
+<body><noscript unselectable="on" id="noscript">
+    &lt;div class="aw-404 aw-404-wrap container"&gt;
+        &lt;img src="http://www.25ma.com/static/common/no-js.jpg"&gt;
+        &lt;p&gt;你的浏览器禁用了JavaScript, 请开启后刷新浏览器获得更好的体验!&lt;/p&gt;
+    &lt;/div&gt;
+</noscript>
+
+	<div class="aw-top-menu-wrap">
+		<div class="container">
+			<!-- logo -->
+			<div class="aw-logo hidden-xs">
+				<a href="http://www.25ma.com/"></a>
+			</div>
+			<!-- end logo -->
+			<!-- 搜索框 -->
+			<div class="aw-search-box  hidden-xs hidden-sm">
+				<form class="navbar-search" action="http://www.25ma.com/search/" id="global_search_form" method="post">
+					<input class="form-control search-query" type="text" placeholder="搜索问题、话题或人" autocomplete="off" name="q" id="aw-search-query">
+					<span title="搜索" id="global_search_btns" onclick="$(&#39;#global_search_form&#39;).submit();"><i class="icon icon-search"></i></span>
+					<div class="aw-dropdown">
+						<div class="mod-body">
+							<p class="title">输入关键字进行搜索</p>
+							<ul class="aw-dropdown-list collapse"></ul>
+							<p class="search"><span>搜索:</span><a onclick="$(&#39;#global_search_form&#39;).submit();"></a></p>
+						</div>
+						<div class="mod-footer">
+							<a href="http://www.25ma.com/publish" onclick="$(&#39;#header_publish&#39;).click();" class="pull-right btn btn-mini btn-success publish">发起问题</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- end 搜索框 -->
+			<!-- 导航 -->
+			<div class="aw-top-nav navbar">
+				<div class="navbar-header">
+				  <button class="navbar-toggle pull-left">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				</div>
+				<nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+				  <ul class="nav navbar-nav">
+										<li><a href="http://www.25ma.com/" class=""><i class="icon icon-list"></i> 发现</a></li>
+
+					<li><a href="http://www.25ma.com/question/" class="">问题</a></li>
+
+					<li><a href="http://www.25ma.com/article/" class="active">文章</a></li>
+
+					<!--<li><a href="http://www.25ma.com/topic/" ><i class="icon icon-topic"></i> 话题</a></li>-->
+															<li>
+						<a style="font-weight:bold;">· · ·</a>
+						<div class="dropdown-list pull-right">
+							<ul id="extensions-nav-list">
+																							</ul>
+						</div>
+					</li>
+				  </ul>
+				</nav>
+			</div>
+			<!-- end 导航 -->
+			<!-- 用户栏 -->
+			<div class="aw-user-nav">
+				<!-- 登陆&注册栏 -->
+									<a class="login btn btn-normal btn-primary" href="http://www.25ma.com/account/login/">登录</a>
+					<a class="register btn btn-normal btn-success" href="http://www.25ma.com/account/register/">注册</a>								<!-- end 登陆&注册栏 -->
+			</div>
+			<!-- end 用户栏 -->
+			<!-- 发起 -->
+						<!-- end 发起 -->
+		</div>
+	</div>
+	
+
+<div class="aw-container-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content aw-article-content">
+                    <div class="aw-mod aw-topic-bar" id="question_topic_editor" data-type="article" data-id="1">
+                        <div class="tag-bar clearfix">
+                                                                                    <span class="topic-tag" data-id="5">
+                                <a class="text" href="http://www.25ma.com/topic/linux%E5%AE%89%E8%A3%85">linux安装</a>
+                            </span>
+                                                        <span class="topic-tag" data-id="4">
+                                <a class="text" href="http://www.25ma.com/topic/%E9%85%8D%E7%BD%AE%E6%A1%A5%E6%8E%A5">配置桥接</a>
+                            </span>
+                                                        <span class="topic-tag" data-id="3">
+                                <a class="text" href="http://www.25ma.com/topic/%E9%9D%99%E6%80%81ip">静态ip</a>
+                            </span>
+                                                        
+                                                    </div>
+                    </div>
+                    <div class="aw-mod aw-question-detail">
+                        <div class="mod-head">
+                            <h1>
+                                小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip                            </h1>
+
+                                                    </div>
+                        <div class="mod-body">
+                            <div class="content markitup-box">
+                                <strong>1. 安装vbox<br>
+<br>
+&nbsp; &nbsp;新建虚拟机-&gt;输入名字:"centos66_1"-&gt;下一步-&gt;下一步.</strong><br>
+&nbsp;<br>
+<strong>2. 点击设置-&gt;存储-&gt;控制器下选ISO盘</strong><br>
+<br>
+<div class="aw-upload-img-list active">
+	<a href="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/db3242fc8c2b5334793693e55064d448.png" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/db3242fc8c2b5334793693e55064d448.png" class="img-polaroid" title="cc.png" alt="cc.png"></a>
+</div>
+<br>
+&nbsp;<br>
+<strong>3.进入安装界面</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152258_1isB_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>4.选择【Skip】跳过介质检查。<br>
+注：使用ISO映像安装可跳过介质检查，若使用光盘安装，建议选择OK进行一次光盘介质完整性检查。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152331_0bei_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>5.进入Centos6界面，点击【next】。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152401_PhWY_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>6.选择“中文（简体）”→点击【Next】。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152426_Rvi9_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>7.使用默认“美国英语式”键盘布局，点击【下一步】。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152442_h2GG_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>8.使用默认“基本储存设备”，点击【下一步】。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152513_0uyu_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>9.如果弹出“储存设备警告”，选择“是，忽略所有数据（Y）”；未弹出则略。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152536_dpe1_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>10.使用默认主机名，点击【下一步】。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152615_0eLi_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>11.使用默认“亚洲/上海”时区，点击【下一步】。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152713_G65d_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>12.设置完根密码再点击【下一步】。<br>
+注：根密码即是root账户的密码。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152743_Shbr_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>13.选择“使用所有空间” →点击【下一步】。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152844_adbb_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>14.选择“将修改写入磁盘（W）”。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152901_xeqe_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>15.选择“Minimal”→点击【下一步】→进入系统安装过程。<br>
+注：“Minimal”是最小化安装模式；根据自身实际需要选择安装模式。</strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/152949_OFLS_270883.jpg"></strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/153006_mOFr_270883.jpg"></strong><br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/153021_ZN0f_270883.jpg"></strong><br>
+<strong>当出现"祝贺您，您的Centos安装已经完成"时，即系统安装成功。<br>
+◆点击“重新引导”→ 完成系统安装并重启计算机。</strong><br>
+<br>
+<strong>16.输入帐号密码(就是那个根帐号密码)，进入linux系统</strong><br>
+&nbsp;<br>
+<strong><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/153045_6cpZ_270883.jpg"></strong><br>
+&nbsp;<br>
+<strong>17.在vbox点击设置-&gt;网络-&gt;连接方式"桥接网卡"-&gt;确定</strong><br>
+&nbsp;<br>
+&nbsp;<br>
+<img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/153345_DlqX_270883.jpg"><br>
+&nbsp;<br>
+18.在linux输入<br>
+&nbsp; ifconfig -a<br>
+&nbsp; 查看IP地址<br>
+&nbsp;<br>
+19.配置固定ip地址<br>
+&nbsp; 修改/etc/sysconfig/network-scripts/ifcfg-eth0&nbsp;<pre>vi /etc/sysconfig/network-scripts/ifcfg-eth0 <br>
+    按"i"进入编辑模式:<br>
+#默认就有的<br>
+DEVICE=eth0<br>
+#默认就有的 代表mac地址<br>
+HWADDR=08:00:27:7B:98:E1<br>
+#默认就有的<br>
+TYPE=Ethernet<br>
+#默认就有的<br>
+UUID=3c6c045c-743b-4018-a3e7-9561290cc5d1<br>
+#默认是no改成yes<br>
+ONBOOT=yes<br>
+#默认就有的<br>
+NM_CONTROLLED=yes<br>
+#默认是dhcp改成none<br>
+BOOTPROTO=none<br>
+#手动添加的 就是你局域网的一个ip<br>
+IPADDR=192.168.0.235<br>
+#手动添加的 局域网的子网掩码<br>
+NETMASK=255.255.255.0<br>
+#手动添加的 局域网的网关<br>
+GATEWAY=192.168.0.1<br>
+  修改按"esc",输入":wq",保存修改。<br>
+<br>
+</pre><br>
+&nbsp;<br>
+20.重启网络服务<br>
+&nbsp;<pre><span>[</span>root@centos1 ~]# service network restart<br>
+   Shutting down interface eth0:                              <span>[</span>  OK  ]<br>
+   Shutting down loopback interface:                          <span>[</span>  OK  ]<br>
+   Bringing up loopback interface:                            <span>[</span>  OK  ]</pre><br>
+21.检查能否ping通网关<br>
+&nbsp;<pre>   <span>[</span>root@centos1 ~]# ping 192.168.0.1<br>
+PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.<br>
+64 bytes from 192.168.0.1: icmp_seq=1 ttl=128 time=1.87 ms<br>
+64 bytes from 192.168.0.1: icmp_seq=2 ttl=128 time=0.923 ms<br>
+64 bytes from 192.168.0.1: icmp_seq=3 ttl=128 time=1.05 ms</pre><br>
+22.检查能否ping通本机的网络<br>
+&nbsp;<pre><span>[</span>root@centos1 ~]# ping 192.168.0.217<br>
+PING 192.168.0.217 (192.168.0.217) 56(84) bytes of data.<br>
+64 bytes from 192.168.0.217: icmp_seq=1 ttl=64 time=0.166 ms<br>
+64 bytes from 192.168.0.217: icmp_seq=2 ttl=64 time=0.201 ms<br>
+<br>
+</pre><br>
+23.检查能否ping通过外网<br>
+&nbsp;<pre><span>[</span>root@centos1 ~]# ping www.163.com<br>
+PING 163.xdwscache.ourglb0.com (183.57.144.187) 56(84) bytes of data.<br>
+64 bytes from 183.57.144.187: icmp_seq=1 ttl=55 time=4.98 ms<br>
+64 bytes from 183.57.144.187: icmp_seq=2 ttl=55 time=4.56 ms<br>
+64 bytes from 183.57.144.187: icmp_seq=3 ttl=55 time=6.21 ms</pre><br>
+&nbsp;<br>
+24.检查能否curl(抓取)到网页<pre>curl -l www.163.com<br>
+<br>
+</pre>会出现很多html，那就OK了。<br>
+如果出现错误<br>
+&nbsp;<pre>unknow host www.163.com</pre><br>
+解决方法:<br>
+<br>
+检查系统DNS设置 并修改DNS配置<br>
+&nbsp;<pre>cat /etc/resolv.conf<br>
+<span>[</span>root@rabbitmq-1 ~]# vi /etc/resolv.conf <br>
+nameserver 114.114.114.114<br>
+nameserver 8.8.8.8<br>
+<br>
+</pre><br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;
+                                                                <div class="aw-upload-img-list">
+                                                                                                                                </div>
+                                
+                                                                <ul class="aw-upload-file-list">
+                                                                                                                                            </ul>
+                                                            </div>
+                            <div class="meta clearfix">
+                                <div class="aw-article-vote pull-left disabled">
+                                    <a href="javascript:;" class="agree" onclick=""><i class="icon icon-agree"></i> <b>1</b></a>
+                                                                    </div>
+
+                                <span class="pull-right  more-operate">
+                                    
+                                    
+                                    <a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon icon-share"></i> 分享                                    </a>
+                                    <div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
+                                        <ul class="aw-dropdown-list">
+                                            <li><a onclick="AWS.User.share_out({webid: &#39;tsina&#39;, content: $(this).parents(&#39;.aw-question-detail&#39;).find(&#39;.markitup-box&#39;)});"><i class="icon icon-weibo"></i> 微博</a></li>
+											<li><a onclick="AWS.User.share_out({webid: &#39;qzone&#39;, content: $(this).parents(&#39;.aw-question-detail&#39;)});"><i class="icon icon-qzone"></i> QZONE</a></li>
+											<li><a onclick="AWS.User.share_out({webid: &#39;weixin&#39;, content: $(this).parents(&#39;.aw-question-detail&#39;)});"><i class="icon icon-wechat"></i> 微信</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <em class="text-color-999">2017-05-23</em>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mod-footer">
+                                                        <div class="aw-article-voter">
+                                                                <a href="http://www.25ma.com/people/25ma.cn" class="voter" data-toggle="tooltip" data-placement="right" data-original-title="25ma.cn"><img alt="25ma.cn" src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/01_avatar_mid.jpg"></a>
+                                                                <!--<a class="more-voters">...</a>-->
+                            </div>
+                                                    </div>
+                    </div>
+
+                    <!-- 文章评论 -->
+                    <div class="aw-mod">
+                        <div class="mod-head common-head">
+                            <h2>0 个评论</h2>
+                        </div>
+
+                        <div class="mod-body aw-feed-list">
+                                                    </div>
+
+                        
+                                            </div>
+                    <!-- end 文章评论 -->
+
+                    <!-- 回复编辑器 -->
+                    <div class="aw-mod aw-article-replay-box">
+                        <a name="answer_form"></a>
+                                                <p align="center">要回复文章请先<a href="http://www.25ma.com/account/login/">登录</a>或<a href="http://www.25ma.com/account/register/">注册</a></p>
+                                            </div>
+                    <!-- end 回复编辑器 -->
+                </div>
+                <!-- 侧边栏 -->
+                <div class="col-sm-12 col-md-3 aw-side-bar hidden-sm hidden-xs">
+                    <!-- 发起人 -->
+                                        <div class="aw-mod user-detail">
+                        <div class="mod-head">
+                            <h3>发起人</h3>
+                        </div>
+                        <div class="mod-body">
+                            <dl>
+                                <dt class="pull-left aw-border-radius-5">
+                                    <a href="http://www.25ma.com/people/everything"><img alt="everything" src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/05_avatar_mid.jpg"></a>
+                                </dt>
+                                <dd class="pull-left">
+                                    <a class="aw-user-name" href="http://www.25ma.com/people/everything" data-id="5">everything</a>
+                                    
+                                                                        <p>开心就好</p>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="mod-footer clearfix">
+                                                        <div class="aw-topic-bar">
+                                <div class="topic-bar clearfix">
+                                    <span class="pull-left text-color-999">
+                                        擅长话题 : &nbsp;
+                                    </span>
+                                                                        <span class="topic-tag">
+                                        <a href="http://www.25ma.com/topic/hadoop" class="text" data-id="24">hadoop</a>
+                                    </span>
+                                                                        <span class="topic-tag">
+                                        <a href="http://www.25ma.com/topic/mapreduce" class="text" data-id="16">mapreduce</a>
+                                    </span>
+                                                                        <span class="topic-tag">
+                                        <a href="http://www.25ma.com/topic/hadoop+streaming" class="text" data-id="23">hadoop streaming</a>
+                                    </span>
+                                                                        <span class="topic-tag">
+                                        <a href="http://www.25ma.com/topic/%E6%90%AD%E5%BB%BAhadoop" class="text" data-id="10">搭建hadoop</a>
+                                    </span>
+                                                                        <span class="topic-tag">
+                                        <a href="http://www.25ma.com/topic/%E9%85%8D%E7%BD%AEhadoop%E6%A0%B8%E5%BF%83%E6%96%87%E4%BB%B6" class="text" data-id="9">配置hadoop核心文件</a>
+                                    </span>
+                                                                    </div>
+                            </div>
+                                                    </div>
+                    </div>
+                                        <!-- end 发起人 -->
+
+                    
+                                    </div>
+                <!-- end 侧边栏 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var ANSWER_EDIT_TIME = 30;
+
+    $(document).ready(function () {
+        if ($('.aw-article-vote.disabled').length)
+        {
+            $('.aw-article-vote.disabled a').attr('onclick', '');
+        }
+
+        AWS.at_user_lists('#wmd-input');
+
+        AWS.Init.init_article_comment_box($('.aw-article-comment'));
+    });
+</script>
+
+<div class="aw-footer-wrap">
+	<div class="aw-footer">
+		<span>友情链接:</span> <span><a href="https://www.lulublog.cn/">【lulublog】</a></span> <span><a href="http://www.feehi.com/">【feehicms】</a></span><br>
+		Copyright © 2018<span class="hidden-xs"> - <a href="http://www.miitbeian.gov.cn/">粤ICP备16078568号-1</a>, All Rights Reserved</span>
+
+		<span class="hidden-xs">Powered By <a href="http://www.wecenter.com/?copyright" target="blank">WeCenter 3.1.8</a></span>
+
+			</div>
+</div>
+
+<a class="aw-back-top hidden-xs" href="javascript:;" onclick="$.scrollTo(1, 600, {queue:true});" style="display: inline;"><i class="icon icon-up"></i></a>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f3999655ff45167a9b9786cf27437bf2";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- DO NOT REMOVE -->
+<div id="aw-ajax-box" class="aw-ajax-box"></div>
+
+<div style="display:none;" id="__crond"><img src="./小白如何在virtualbox安装CentOS6并配置桥接网络以及静态ip - 25大数据,大数据,我爱大数据,大数据知识社区,大数据社交社区,大数据问答社区,爱我大数据_files/1517403685" width="1" height="1"></div>
+
+<!-- Escape time: 0.23440504074097 --><!-- / DO NOT REMOVE -->
+
+
+
+</body></html>
