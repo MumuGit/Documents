@@ -1,0 +1,48 @@
+
+  !function(t,i){t.fn.fixSide=function(e,n){function o(){h||(h=setTimeout(function(){var t=f.offset().left+(r.clientWidth-a.clientWidth),i=r.getBoundingClientRect().top,o=document.body.clientHeight,s=l.parent().height(),p=o-(window.scrollY+c)<=e;d=a.clientHeight,u=d+n>=c,(u||p)&&s>d?i<0&&Math.abs(i)+c-e>d?l.css({position:"fixed",left:t+"px",right:"auto",bottom:e+"px",top:"auto"}):Math.abs(i)+c-e<d&&l.css({position:"static"}):s>d&&(i<0?l.css({position:"fixed",left:t+"px",right:"auto",top:n+"px",bottom:"auto"}):l.css({position:"static"})),clearTimeout(h),h=null},100))}var s=/ipod|iphone|ipad|android|blackberry|mobile|webos|windows phone/i.test(navigator.userAgent),c="",l="",a="",d="",r="",f="",u="",h=null;t.browser.ie&&t.browser.version|!0||s||(c=t(i).height(),l=t("#content .aside"),a=l[0],d=a.clientHeight,aside_b=a.getBoundingClientRect().bottom,r=t("#content")[0],f=t("#content .article"),u=d+n>c,i.addEventListener("load",function(){d=a.clientHeight,r=t("#content")[0],u=d+n>=c}),t(i).bind("scroll",o),t(i).bind("resize",function(t){var i=f.offset().left+(r.clientWidth-a.clientWidth);l.css({left:i+"px"})}))}}(jQuery,window);;
+  $().fixSide(200, 52);
+;
+    $(document).ready(function(){
+      var annotationComments = $('.comments .con');
+
+      annotationComments.each(function() {
+        var el = $(this)
+          , note = el.find('.reading-note')
+          , shortNote = note.find('.short')
+          , fullNote = note.find('.all')
+          , unfolder = el.find('.note-unfolder')
+          , folder = el.find('.note-folder');
+
+        unfolder.click(function(e) {
+          e.preventDefault();
+          unfolder.hide();
+          folder.css('display', 'block');
+          fullNote.show();
+          shortNote.hide();
+        });
+        folder.click(function(e) {
+          e.preventDefault();
+          unfolder.css('display', 'block');
+          folder.hide();
+          fullNote.hide();
+          shortNote.show();
+        });
+      });
+    });
+  ;
+    $(function(){
+      $('.add2cartWidget').each(function() {
+        var add2CartBtn = $(this).find('.add2cart');
+        var inCartHint = $(this).find('.book-in-cart');
+        var deleteBtn = inCartHint.find('.delete-cart-item');
+
+        deleteBtn.click(function(e) {
+          e.preventDefault();
+          $.post_withck('/cart', {remove: this.rel}, function() {
+            add2CartBtn.show();
+            inCartHint.hide();
+          });
+        });
+      });
+    });
+  

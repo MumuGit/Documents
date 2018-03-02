@@ -1,0 +1,1 @@
+$(".js-hide").bind("click",function(a){var i=$(this),o=i.data("id"),t=i.data("cat");pop_win.load("//"+location.hostname+"/hide_reasons?cat="+t+"&id="+o),a.stopPropagation()}),$(".js-show").bind("click",function(a){var i=$(this),o=i.data("id"),t=i.data("cat");confirm("确定恢复此内容？")&&$.post_withck("/"+t+"/"+o+"/show",function(){i.remove()}),a.stopPropagation()});

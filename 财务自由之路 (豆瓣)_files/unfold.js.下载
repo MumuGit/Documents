@@ -1,0 +1,1 @@
+$(function(){$("body").delegate(".btn-unfold","click",function(e){e.preventDefault();var n=$(e.target),t=n.parent(".fold-hd");t.slideUp().next().slideDown()})});
